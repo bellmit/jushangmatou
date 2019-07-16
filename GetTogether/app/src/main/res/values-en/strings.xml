@@ -1,0 +1,202 @@
+<resources>
+    <string name="app_name">jsgogogo</string>
+    <string name="item_bottom_home">Home</string>
+    <string name="item_bottom_product">Classification</string>
+    <string name="item_bottom_message">Post purchase</string>
+    <string name="item_bottom_shop">TMruck</string>
+    <string name="item_bottom_me">Mine</string>
+    <string name="refresh_pull_down_text">load more</string>
+    <string name="refresh_release_text">push to load</string>
+    <string name="refresh_ing_text">loading...</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="guanyuwomen">【 note 】 please read carefully the platform for privacy policy (especially in bold strokesContent) and to
+        determine understand our processing rules for your personal information.In the process of reading, if you have any questions,
+        Can contact our customer service consulting, if you don't agree to discuss any of the terms, you should immediately stop access platform.
+        In the process of reading agreement if you do not agree to the terms of agreement or any of them agreed, you should immediately stop using the platform.
+    </string>
+    <string name="scan_text">Qr code to be included in the frame can automatically scan</string>
+    <string name="permission_get_accounts_hint">Without this permission, can’t open this function, please open the permissions.PERMISSION_GET_ACCOUNTS</string>
+    <string name="permission_read_phone_hint">Without this permission, can’t open this function, please open the permissions.PERMISSION_READ_PHONE_STATE</string>
+    <string name="permission_call_phone_hint">Without this permission, can’t open this function, please open the permissions.PERMISSION_CALL_PHONE</string>
+    <string name="permission_camera_hint">Without this permission, can’t open this function, please open the permissions.PERMISSION_CAMERA</string>
+    <string name="permission_access_fine_location_hint">Without this permission, can’t open this function, please open the permissions.PERMISSION_ACCESS_FINE_LOCATION</string>
+    <string name="permission_access_coarse_location_hint">Without this permission, can’t open this function, please open the permissions.PERMISSION_ACCESS_COARSE_LOCATION</string>
+    <string name="permission_read_external_hint">Without this permission, can’t open this function, please open the permissions.PERMISSION_READ_EXTERNAL_STORAGE</string>
+    <string name="permission_white_external_hint">Without this permission, can’t open this function, please open the permissions.PERMISSION_WRITE_EXTERNAL_STORAGE</string>
+    <string name="permission_recode_audio_hint">Without this permission, can’t open this function, please open the permissions.PERMISSION_RECORD_AUDIO</string>
+    <!--扫码界面-->
+    <string name="SweepCodeFailure">Sweep code failure</string>
+    <string name="SweepCodeResult">Scan results</string>
+    <string name="gonggao">Watch, is the symbol of identity and taste of a man, if you careful attention to,
+        You will find that many successful men will wear a watch.But watch if they choose wrong, can appear you are stingy,
+        Let’s take a look at what girls hate boys wear a watch, the effects of quickly replacing ~ but otherwise will lower your male image of god!
+        Wear a watch men, girls would feel more a sense of security, more men’s charm.However, girls hate men wear that kind of electronic watches,
+        Looks don’t have any temperament, but also seems to be especially stingy!Wear a watch men, girls would feel more a sense of security, more men’s charm.
+        However, girls hate men wear that kind of electronic watches, looks no temperament, but also seems to be especially mean electronic watches the sense that gives a person is naive,
+        Not enough mature, the girl is more favorable for a mature and responsible man!So, electronic watches don't wear again, please!
+        If you want to become a bit more stylish men, this a few watch is enough to increase your personal charm.Careful people can always find successful men watch will wear a watch,
+        And the sense that gives a person is very comfortable and very gentleman.This watch is enough to show your stylish men masculinity, watch contracted and masculine, table circle fine elegant, clever around the dial.
+        Round table mirror slightly higher than the table, even if direct dial light, can be clearly read time oh ~ inside dial has a crown logo, the significance of the authority and dignity,
+        More to highlight your charm, also can highlight your high grade of life pursuit.
+    </string>
+    <string name="help">help</string>
+    <string name="quit">exit</string>
+    <string name="settings">setting</string>
+    <string name="shoppingku">Library of goods</string>
+    <string name="chinese">中文</string>
+    <string name="english">En</string>
+    <string name="alaboyu">العرب</string>
+    <string name="string_help_text">The current application of lack of necessary permissions.\n\n Please click on\"setting\"-\"permissions\"-Open the required permissions。\n\n Click the back button twice，You can return。</string>
+    <string name="action_settings">Settings</string>
+    <string name="language">English</string>
+    <string name="shoucangjia">favorites</string>
+    <string name="shangpin">goods</string>
+    <string name="dianpu">store</string>
+    <string name="qingkong">clear</string>
+    <string name="zuji">footprint</string>
+    <string name="qianbao">wallet</string>
+    <string name="quanbu">all</string>
+    <string name="daifukuan">For the payment</string>
+    <string name="daifahuo">To send the goods</string>
+    <string name="daishouhuo">For the goods</string>
+    <string name="ksbh">Purchasing information</string>
+    <string name="xzcp">new product</string>
+    <string name="message">message center</string>
+    <string name="xittong_message">System message</string>
+    <string name="address">Address management</string>
+    <string name="xinjian_address">new address</string>
+    <string name="shopRZ">Shop’s certification</string>
+    <string name="dianpuguanli">store management</string>
+    <string name="hot_tuijian">Hot recommended</string>
+    <string name="shangpin_tj">Shops to recommend</string>
+    <string name="tjzq">Special zone</string>
+    <string name="qsrssnr">Please input search content</string>
+    <string name="zxkf">Online customer service</string>
+    <string name="yjfg">feedback</string>
+    <string name="yjfg_title">Each of your proposal, we optimize the direction of the platform and power</string>
+    <string name="tijiaoyjian">Submit opinions</string>
+    <string name="tdyj">feedback</string>
+    <string name="gywm">About us</string>
+    <string name="qrtcdl">Confirm the log out</string>
+
+    <!--发布求购-->
+    <string name="fabuqiugou">Release for</string>
+    <string name="xhdhwldn">Like a good thing to come to you</string>
+    <string name="chanpin_mc">The product name</string>
+    <string name="miaoshu_tx">Simply fill in the product you are looking for</string>
+    <string name="cpms">*Product description: such as export countries, price, material, specifications, etc</string>
+    <string name="chanpin_fl">Product categories</string>
+    <string name="xzfl">Choose classification</string>
+    <string name="qiugouleixing">We are looking for the type</string>
+    <string name="waimaodah">production of foreign trade</string>
+    <string name="jiaohuo_time">time of delivery</string>
+    <string name="qiugouNum">We are looking for the number</string>
+    <string name="qsrqgnum">Please enter the purchasing quantity</string>
+    <string name="anshangphuqpl">According to the merchants minimum quantity</string>
+    <string name="zdtj9z">Add 9 pictures at most</string>
+    <string name="fabuqiug">Immediately release</string>
+    <string name="qxzqglx">Please select buy type</string>
+    <string name="qxzcpfl">Please select a product category</string>
+    <string name="qxzjhsj">Please select the time of delivery</string>
+    <string name="qxzqgsl">Please select a purchasing quantity</string>
+    <string name="guanli">management</string>
+    <string name="wancheng">complete</string>
+    <string name="quanxuan">Future generations</string>
+    <string name="goujiesuan">To settle accounts</string>
+    <string name="shanchu">delete</string>
+
+    <!--登录-->
+    <string name="denglu">login</string>
+    <string name="phone_denglu">Mobile phone number login</string>
+    <string name="zhanghao_pass_dl">Account password</string>
+    <string name="qsrsjh">Please enter your phone number</string>
+    <string name="qsrnd_padd">Please enter your password</string>
+    <string name="lijizc">Register now</string>
+    <string name="forget_pass">Forgot password?</string>
+    <string name="yyouzhangh">Existing account to log in</string>
+    <string name="yanzhengm">Please enter the verification code</string>
+    <string name="huoquyanzm">Get verification code</string>
+    <string name="qing_newPass">Please enter a new password</string>
+    <string name="qing_qrnewPass">Please make sure the new password</string>
+
+    <string name="gerenzhongxin">Personal information</string>
+    <string name="xiugaitouxiang">Modify the picture</string>
+    <string name="nicheng">nickname</string>
+    <string name="xiugai_nicheng">Modify the nickname</string>
+    <string name="zhanghao">account</string>
+    <string name="huiyuandengji">Membership grade</string>
+    <string name="zhanghu_anquan">Account security</string>
+    <string name="bangding_phone">Binding mobile phone number</string>
+    <string name="bdsjh_q">The binding of mobile phone number is for your account</string>
+    <string name="bdsjh_h">Please input you wish to bind mobile phone number</string>
+    <string name="kefudian">Customer service telephone</string>
+    <string name="quxiao">cancel</string>
+
+    <string name="xiugai_loginpay_padd">Modify the login password</string>
+    <string name="yuanmima">The original password</string>
+    <string name="new_pass">The new password</string>
+    <string name="queren_padd">Confirm password</string>
+    <string name="mima_qufen">Must be 6 to 20 English letters, Numbers, or symbols (except the blank space key), and letters, Numbers and punctuation contains at least two, if contain letters, please pay attention to case sensitive</string>
+    <string name="xiugai_pay_mima">Modify payment password</string>
+    <string name="shezhi_pay_mima">Pay the password set 6 digits</string>
+    <string name="pay_passNocf">Pay the password can not be repeated, continuous Numbers</string>
+    <string name="yinhangka_bd">Bank card binding</string>
+    <string name="qtianxie_xinxi">Please fill in my bank card information</string>
+    <string name="xingming">The name</string>
+    <string name="qingshuru_xingm">Please enter your name</string>
+    <string name="yinhang_khao">Bank card number</string>
+    <string name="qsrbr_yhkh">Please enter my bank card number</string>
+    <string name="tuichu">Log out</string>
+    <string name="queding">determine</string>
+    <string name="xiayibu">next</string>
+    <string name="zhuche">registered</string>
+
+
+    <string name="umeng_socialize_text_qq_key">QQ</string>
+    <string name="umeng_socialize_text_qq_zone_key">Qzone</string>
+    <string name="umeng_socialize_text_weixin_key">WeChat</string>
+    <string name="umeng_socialize_text_weixin_circle_key">WeChat circle of friends</string>
+    <string name="umeng_socialize_text_weixin_fav_key">WeChat collection</string>
+    <string name="umeng_socialize_text_add_custom_platform">Please configure the user platform</string>
+    <string name="umeng_example_home_btn_plus">Social sharing</string>
+    <string name="umeng_socialize_text_waitting_share">In the sharing&#8230;</string>
+    <string name="umeng_socialize_content_hint">say something&#8230;</string>
+    <string name="umeng_socialize_cancel_btn_str">cancel</string>
+    <string name="umeng_socialize_send_btn_str">send</string>
+
+    <string name="umeng_socialize_female">female</string>
+    <string name="umeng_socialize_male">male</string>
+    <string name="umeng_socialize_share">share</string>
+    <string name="no_read_message">"···"</string>
+
+    <string name="chanpinfenlei">Please select a product category</string>
+    <string name="qiugouleixing2">Please select buy type</string>
+    <string name="jiaohuoshijian">Please select the time of delivery</string>
+    <string name="yijian">Come and write their opinion</string>
+    <string name="call">call：</string>
+    <string name="user_name">user name：</string>
+    <string name="talk_online">talk online</string>
+    <string name="baokuan">Hot style to recommend</string>
+    <string name="search">search</string>
+    <string name="zonghe">comprehensive</string>
+    <string name="pifaliang">wholesaleNum</string>
+    <string name="xiaoliang">sales</string>
+    <string name="system_message">system message</string>
+    <string name="selling">Selling recommended</string>
+    <string name="special">Special zone</string>
+    <string name="service">service</string>
+    <string name="store">store</string>
+    <string name="collect">collect</string>
+    <string name="collected">collected</string>
+    <string name="add">add to</string>
+    <string name="ask">ask now</string>
+    <string name="buy">buy now</string>
+
+
+    <string name="all">all</string>
+    <string name="wait_h">Pending receipt</string>
+    <string name="wait_f">to be delivered</string>
+    <string name="wait_s">Pending receipt</string>
+    <string name="complete">completed</string>
+</resources>

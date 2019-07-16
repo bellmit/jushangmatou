@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/line"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:visibility="gone"
+            android:textColor="@color/text9"
+            android:text="请为账号176****8029"/>
+        <TextView
+            android:id="@+id/tv_paytitle"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/black"
+            android:text="@string/shezhi_pay_mima"/>
+
+        <com.tem.gettogether.view.PasswordView2
+            android:id="@+id/passView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp">
+
+        </com.tem.gettogether.view.PasswordView2>
+        <com.tem.gettogether.view.PasswordView3
+            android:id="@+id/passView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:visibility="gone">
+
+        </com.tem.gettogether.view.PasswordView3>
+
+    </LinearLayout>
+
+</LinearLayout>

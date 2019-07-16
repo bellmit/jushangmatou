@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:layout_height="40dp">
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="用户名：15657191782"
+                android:textColor="@color/text3"
+                android:textSize="12dp" />
+            <TextView
+                android:id="@+id/tv_zxgt"
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:layout_alignParentEnd="true"
+                android:text="@string/talk_online"
+                android:background="@drawable/home_zxgt_3"
+                android:textColor="@color/zxgt"
+                android:textSize="12dp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_shopName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:layout_weight="0.6"
+                    android:text="商品名称：香水"
+                    android:textColor="@color/text6"
+                    android:textSize="12dp" />
+                <TextView
+                    android:id="@+id/tv_shop_ms"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text=" 产品描述：出口俄罗斯"
+                    android:textColor="@color/text6"
+                    android:textSize="12dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_shop_fl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+
+                    android:layout_weight="0.6"
+                    android:text="商品名称：香水"
+                    android:textColor="@color/text6"
+                    android:textSize="12dp" />
+                <TextView
+                    android:id="@+id/tv_qglx"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+
+                    android:text=" 产品描述：出口俄罗斯"
+                    android:textColor="@color/text6"
+                    android:textSize="12dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_jhTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+
+                    android:layout_weight="0.6"
+                    android:text="商品名称：香水"
+                    android:textColor="@color/text6"
+                    android:textSize="12dp" />
+                <TextView
+                    android:id="@+id/tv_qgNum"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+
+                    android:text=" 产品描述：出口俄罗斯"
+                    android:textColor="@color/text6"
+                    android:textSize="12dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_fbTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+
+                    android:text="发布时间：2019-05-13  09:00"
+                    android:textColor="@color/text6"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recy_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingBottom="10dp">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

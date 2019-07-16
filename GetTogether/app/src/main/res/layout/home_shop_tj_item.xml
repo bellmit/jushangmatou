@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="150dp"
+    android:layout_marginEnd="10dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/ll_shop_tj"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp">
+
+        <ImageView
+            android:id="@+id/iv_shop_image"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:src="@mipmap/myy322x"
+            android:scaleType="centerCrop"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="60dp"
+                android:layout_height="60dp">
+                <com.tem.gettogether.view.CircularImage
+                    android:id="@+id/iv_shop_head"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img12x"/>
+                <ImageView
+                    android:id="@+id/iv_add_gz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/add_gunazhu"/>
+            </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_shop_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:maxLines="1"
+            android:enabled="true"
+            android:layout_marginTop="9dp"
+            android:gravity="center"
+            android:textColor="@color/text3"
+            android:text="广州贝儿乐儿童" />
+        <TextView
+            android:id="@+id/tv_shop_dec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:layout_marginTop="7dp"
+            android:maxLines="1"
+            android:enabled="true"
+            android:gravity="center"
+            android:textColor="@color/text9"
+            android:text="儿童玩具、服装" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

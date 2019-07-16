@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.tem.gettogether">
+
+    <!-- <uses-sdk tools:overrideLibrary="io.rong.imkit,com.umeng.socialize.evernote,com.umeng.socialize.pinterest"/> -->
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <!--<uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>-->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <!-- 访问相册，访问文件系统等 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 发送位置消息，实时位置共享 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 拍照 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 拍照等 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 音视频 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <!-- 网络 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 录音 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 使用ActivityManager需要 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <!-- 适配 Android 8.0 -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <!-- 保存图片，拍照等 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 网络 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 消息通道保活 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 定位，如果您不需要定位相关的功能，可以删掉 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 华为 配置开始 < -->
+    <!-- HMS-SDK引导升级HMS功能，访问OTA服务器需要网络权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- HMS-SDK引导升级HMS功能，保存下载的升级包需要SD卡写权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 检测网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 检测wifi状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 为了获取用户手机的IMEI，用来唯一的标识用户。 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- 如果是安卓8.0，应用编译配置的targetSdkVersion>=26，请务必添加以下权限 -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <!-- 华为 配置结束 < -->
+    <application
+        android:name=".base.BaseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name"
+
+        android:roundIcon="@mipmap/logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="android.support.VERSION"
+            android:value="26.1.0"
+            tools:replace="android:value" />
+
+        <activity
+            android:name=".activity.SplashActivity"
+            android:theme="@style/AppThemeSplash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:launchMode="singleTask"
+            android:configChanges="locale"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".activity.my.ZuJiActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.SettingActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.ZHAQActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.AddressGLActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.GRMeassageActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.GYWeActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.XGPhoneActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.XGPhone2Activity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.KSPHActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.ShopRZActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.GLAccountActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.XGPayPassWordActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.XGPayPass2Activity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.BankCardBDActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.BankCardQRActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.AddAddressActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.ShopRZSHActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.AutonymRZActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.AutonymSHActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.TAdviseActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.AmendLoginPassActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.MyOrderActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.MyPocketActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.ChongZhiActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.TiXianActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.YEChongzhiActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.YETixianActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.home.BKRecommecdActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.home.ClothingBazaarActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.home.ShopConnectActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".activity.home.ShoppingParticularsActivity" />
+        <activity
+            android:name=".activity.home.ShoppingEvaluateActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.home.ShopActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.home.HotFenLeiActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.home.ShopXQActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".scanqrcode.activity.MipcaActivityCapture"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.home.HomeGongGaoActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".activity.cart.CloseAccountActivity" />
+        <activity
+            android:name=".activity.shopping.ShopFLConnectActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.home.HomeSouSuoActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.SCconnectActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.seven.modifyavatarmaster.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity
+            android:name=".utils.permissions.PermissionsActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.OrderXQActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.ForgetPassActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.LookWuLiuActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <!-- 微信支付回调activity -->
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".rongyun.ConversationListFragment"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.tem.gettogether"
+                    android:pathPrefix="/conversationlist"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+        <!-- 会话界面 Activity -->
+        <activity
+            android:name=".rongyun.ConversationActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.tem.gettogether"
+                    android:pathPrefix="/conversation/"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+        <!-- 高德地图 -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="e09af6a2b26c02086e9216bd07c960ae" />
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5ca2cf740cafb2c7f2001737" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Umeng" />
+
+        <activity
+            android:name="com.umeng.qq.tencent.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent101557245" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.umeng.qq.tencent.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <uses-library android:name="android.test.runner" />
+
+        <activity
+            android:name=".activity.ShoppingKUActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.home.MainhotLookMoreActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.MyMessageActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ShowImageDetail"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.LanguageActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".activity.my.NewAddShoppingActivity"
+            android:configChanges="locale"/>
+        <activity
+            android:name=".activity.my.PostEvaluationActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.NewShopRenZhengActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".fragment.PersonageRZActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.EnterpriseRZActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.EnterpriseShopRZActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.UploadQYActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.my.StoreManagementActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".fragment.ShopXinXActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".activity.my.XTMessageActivity"
+            android:configChanges="locale"/>
+        <activity android:name=".activity.my.MessageH5Activity"
+            android:configChanges="locale"/>
+        <activity android:name=".activity.my.ShopDTFBActivity"
+            android:configChanges="locale"/>
+        <activity android:name=".activity.FuWuXieYiActivity" />
+        <activity
+            android:name=".activity.my.XeiYiH5Activity"
+            android:configChanges="locale"
+            android:launchMode="singleTask" />
+        <activity android:name=".activity.my.ShopGGH5Activity"
+            android:configChanges="locale"/>
+        <activity android:name=".activity.my.TuWenXQActivity"
+            android:configChanges="locale"/>
+        <activity android:name=".activity.my.ChanPinGLActivity"
+            android:configChanges="locale"/>
+        <activity android:name=".activity.my.BuyMessageActivity"
+            android:configChanges="locale"/>
+        <activity android:name=".activity.home.MainHotTJActivity" />
+        <activity android:name=".activity.my.MemberActivity" />
+        <activity android:name=".activity.my.BuyMemberActivity" />
+        <activity android:name=".activity.ServiceProviderActivity"/>
+    </application>
+
+</manifest>
