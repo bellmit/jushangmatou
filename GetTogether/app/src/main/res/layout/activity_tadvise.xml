@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/line"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:layout_marginTop="21dp"
+            android:layout_marginBottom="21dp"
+            android:textColorHint="@color/text3"
+            android:text="@string/yjfg_title"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@drawable/my_grxx_bg"
+            android:layout_height="200dp">
+            <EditText
+                android:id="@+id/et_yijian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="13dp"
+                android:background="@null"
+                android:textSize="15dp"
+                android:lineSpacingMultiplier="1.2"
+                android:textColor="@color/text3"
+                android:textColorHint="#c5c5c5"
+                android:hint="@string/yijian"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_yjtj"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:textColor="@color/white"
+            android:text="@string/tijiaoyjian"
+            android:background="@drawable/my_red20_bg"/>
+
+    </LinearLayout>
+
+</LinearLayout>

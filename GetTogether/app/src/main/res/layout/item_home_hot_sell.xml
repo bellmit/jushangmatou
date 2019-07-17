@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/pic_iv"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/img12x"
+        />
+
+    <TextView
+        android:id="@+id/product_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="2"
+        android:paddingLeft="85dp"
+        android:text="标题标题标题标题"
+        app:layout_constraintTop_toTopOf="@+id/pic_iv" />
+
+    <TextView
+        android:id="@+id/tv_buy_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="￥"
+        android:textSize="16sp"
+        android:textColor="@color/home_red"
+        app:layout_constraintBottom_toBottomOf="@id/pic_iv"
+        app:layout_constraintLeft_toRightOf="@id/pic_iv" />
+
+    <TextView
+        android:id="@+id/buy_price_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="0.00"
+        android:textSize="16sp"
+        android:textColor="@color/home_red"
+        app:layout_constraintBottom_toBottomOf="@id/pic_iv"
+        app:layout_constraintLeft_toRightOf="@id/tv_buy_time" />
+
+    <TextView
+        android:id="@+id/tv_jian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="件"
+        app:layout_constraintBottom_toBottomOf="@id/pic_iv"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="14sp"
+        />
+    <TextView
+        android:id="@+id/tv_sell_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="@id/pic_iv"
+        app:layout_constraintRight_toLeftOf="@id/tv_jian"
+        android:textSize="14sp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="已成交"
+        app:layout_constraintBottom_toBottomOf="@id/pic_iv"
+        app:layout_constraintRight_toLeftOf="@id/tv_sell_count"
+        android:textSize="14sp"
+        />
+</android.support.constraint.ConstraintLayout>

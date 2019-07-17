@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/pic_iv"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/img12x"
+        />
+
+    <TextView
+        android:id="@+id/product_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="2"
+        android:paddingLeft="85dp"
+        android:text="标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题"
+        app:layout_constraintTop_toTopOf="@+id/pic_iv" />
+
+    <TextView
+        android:id="@+id/tv_buy_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="@string/buy_time"
+        app:layout_constraintBottom_toBottomOf="@id/pic_iv"
+        app:layout_constraintLeft_toRightOf="@id/pic_iv" />
+
+    <TextView
+        android:id="@+id/buy_time_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="现货"
+        app:layout_constraintBottom_toBottomOf="@id/pic_iv"
+        app:layout_constraintLeft_toRightOf="@id/tv_buy_time" />
+
+    <TextView
+        android:id="@+id/tv_buy_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/buy_style"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintLeft_toRightOf="@id/pic_iv"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_buy_time"
+        />
+
+    <TextView
+        android:id="@+id/buy_style_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="意大利外贸大货"
+        app:layout_constraintBottom_toBottomOf="@id/tv_buy_style"
+        app:layout_constraintLeft_toRightOf="@id/tv_buy_style" />
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
+    android:orientation="vertical"
+    android:background="@drawable/my_zj_bg"
+    android:layout_marginTop="10dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <com.jsmt.developer.view.RoundImageView
+            android:id="@+id/iv_shop_head"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/myy322x"/>
+        <LinearLayout
+            android:id="@+id/ll_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:layout_weight="1"
+            android:paddingEnd="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="睡衣批发"
+                android:textSize="14dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@color/text3" />
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="河南开封兰考县客运站建设路"
+                android:textSize="12dp"
+                android:layout_marginTop="5dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@color/text9" />
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_in_Shop"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:text="进店"
+            android:textSize="14dp"
+            android:gravity="center"
+            android:background="@drawable/home_shop_1bg"
+            android:textColor="@color/text3" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_remove2"
+        android:layout_width="match_parent"
+        android:layout_height="107dp"
+        android:layout_marginBottom="13dp"
+        android:orientation="horizontal">
+        <com.jsmt.developer.view.RoundImageView
+            android:id="@+id/iv_image1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@mipmap/myy322x"
+            android:scaleType="centerCrop"
+            android:layout_height="match_parent" />
+        <com.jsmt.developer.view.RoundImageView
+            android:id="@+id/iv_image2"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="3dp"
+            android:layout_marginStart="3dp"
+            android:src="@mipmap/myy322x"
+            android:scaleType="centerCrop"
+            android:layout_height="match_parent" />
+        <com.jsmt.developer.view.RoundImageView
+            android:id="@+id/iv_image3"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@mipmap/myy322x"
+            android:scaleType="centerCrop"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:visibility="gone"
+        android:layout_marginBottom="13dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="丝滑的睡衣"
+            android:padding="3dp"
+            android:layout_marginEnd="11dp"
+            android:textSize="13dp"
+            android:background="@drawable/home_shop_11dp"
+            android:textColor="@color/text9" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="电工玩具"
+            android:padding="3dp"
+            android:layout_marginEnd="11dp"
+            android:textSize="13dp"
+            android:background="@drawable/home_shop_11dp"
+            android:textColor="@color/text9" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="热销睡衣"
+            android:padding="3dp"
+            android:layout_marginEnd="11dp"
+            android:textSize="13dp"
+            android:background="@drawable/home_shop_11dp"
+            android:textColor="@color/text9" />
+
+    </LinearLayout>
+</LinearLayout>

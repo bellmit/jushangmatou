@@ -1,0 +1,192 @@
+﻿<resources>
+    <string name="app_name">JSGOGOGO</string>
+    <string name="item_bottom_home">الصفحة الرئيسية</string>
+    <string name="item_bottom_product">الأصناف</string>
+    <string name="item_bottom_message">إرسال طلب شراء</string>
+    <string name="item_bottom_shop">عربة المشتريات</string>
+    <string name="item_bottom_me">أنا</string>
+    <string name="refresh_pull_down_text">إسحب للأسفل للتحميل</string>
+    <string name="refresh_release_text">إترك للتحميل</string>
+    <string name="refresh_ing_text">قيد التحميل</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="guanyuwomen">
+    .[تنبيه خاص] يرجى قراءة سياسة خصوصية المنصة بعناية (خاصة المحتوى الغامق) وفهم القواعد التي نتخذها في معالجة معلوماتك الشخصية. إذا كانت لديك أي أسئلة أثناء عملية القراءة ، فيرجى الاتصال بخدمة العملاء ، وإذا كنت لا توافق على أي من الشروط ، فيجب عليك التوقف عن إستخدام المنصة على الفور. إذا كنت لا توافق على الاتفاقية أو أي من الشروط والأحكام في عملية قراءة الاتفاقية ، يجب عليك التوقف عن استخدام المنصة على الفور
+    </string>
+    <string name="scan_text">ضع رمز الإستجابة السريع داخل الإطار ليتم المسح تلقائياً</string>
+    <string name="permission_get_accounts_hint">.لا يوجد صلاحية، لا يمكن تشغيل هذه الميزة، الرجاء إعطاء الصلاحية PERMISSION_GET_ACCOUNTS</string>
+    <string name="permission_read_phone_hint">.لا يوجد صلاحية، لا يمكن تشغيل هذه الميزة، الرجاء إعطاء الصلاحية PERMISSION_READ_PHONE_STATE</string>
+    <string name="permission_call_phone_hint">.لا يوجد صلاحية، لا يمكن تشغيل هذه الميزة، الرجاء إعطاء الصلاحية PERMISSION_CALL_PHONE</string>
+    <string name="permission_camera_hint">.لا يوجد صلاحية، لا يمكن تشغيل هذه الميزة، الرجاء إعطاء الصلاحية PERMISSION_CAMERA</string>
+    <string name="permission_access_fine_location_hint">.لا يوجد صلاحية، لا يمكن تشغيل هذه الميزة، الرجاء إعطاء الصلاحية PERMISSION_ACCESS_FINE_LOCATION</string>
+    <string name="permission_access_coarse_location_hint">.لا يوجد صلاحية، لا يمكن تشغيل هذه الميزة، الرجاء إعطاء الصلاحية PERMISSION_ACCESS_COARSE_LOCATION</string>
+    <string name="permission_read_external_hint">.لا يوجد صلاحية، لا يمكن تشغيل هذه الميزة، الرجاء إعطاء الصلاحية PERMISSION_READ_EXTERNAL_STORAGE</string>
+    <string name="permission_white_external_hint">.لا يوجد صلاحية، لا يمكن تشغيل هذه الميزة، الرجاء إعطاء الصلاحية PERMISSION_WRITE_EXTERNAL_STORAGE</string>
+    <string name="permission_recode_audio_hint">.لا يوجد صلاحية، لا يمكن تشغيل هذه الميزة، الرجاء إعطاء الصلاحية PERMISSION_RECORD_AUDIO</string>
+    <!--扫码界面-->
+    <string name="SweepCodeFailure">فشل المسح</string>
+    <string name="SweepCodeResult">نتيجة المسح</string>
+    <string name="gonggao">
+    !تمثل الساعة رمزًا لهوية الرجل وذوقه ، فإذا أمعنت النظر ، ستجد أن العديد من الرجال الناجحين يرتدون الساعات. لكن إذا لم تكن الساعة صحيحة ، ستبدو كما لو كنت بخيلًا ، فلنلقِ نظرة على ما تكره الفتيات حقًا في إرتداء الرجال للساعات ، وفي هذا السياق ، سارع بتغييرها وإلا فسوف تخفض شخصيتك الذكورية! الرجال الذين يرتدون الساعات سيجعلون الفتيات يشعرن بمزيد من الأمان والجاذبية. ومع ذلك ، تكره الفتيات ارتداء الرجال للساعات الإلكترونية ، لأن ذلك يجعله قليل المزاج، وكما يظهر ذلك البخل للغاية
+    .الساعات الإلكترونية تعطي المرء شعور ساذج نسبيًا ، وكأنه ليس ناضجًا بدرجة كافية ، والفتيات أكثر ولعاً بالرجال الناضجين والمستقرين! لذلك ، لا ترتدي ساعة إلكترونية بعد الآن! إذا كنت تريد أن تكون أكثر أناقة ، فإن الساعات التالية تكفي لزيادة سحرك الشخصي
+    .يمكن للناس المهتمين دائمًا أن يجدوا أن الرجال الناجحين دائماً يرتدون الساعات ، لأنها تشعر بالراحة والود. هذه الساعة تكفي لإظهار أسلوبك الرجولي ، الساعة بسيطة ومذكّرة ، الإطار نحيف وأنيق ، ويحيط بذكاء الطلب. المرآة الدائرية أعلى قليلاً من الحافة الأمامية ، حتى لو كان الضوء مسلط مباشرة ، يمكن قراءة الوقت بوضوح ، وجه الساعة له رمز ملكي ، وهو ما يعني السلطة والجلالة ، ويمكنه تسليط الضوء على سحر الشخصية. تسليط الضوء على السعي للحصول على جودة عالية من الحياة  
+    </string>
+    <string name="help">المساعدة</string>
+    <string name="quit">تسجيل الخروج</string>
+    <string name="settings">الإعدادات</string>
+    <string name="shoppingku">مستودع المنتجات</string>
+    <string name="chinese">中文</string>
+    <string name="english">En</string>
+    <string name="alaboyu">عربي</string>
+    <string name="string_help_text">.التطبيق الحالي ينقصه إذن الوصول الضروري \n\n.الرجاء الضغط على\"الإعدادات\"-\"إذن الوصول\"-السماح للجميع بالوصول\n\n.أخيراً إضغط مرتين زر الرجوع، للعودة</string>
+    <string name="action_settings">الإعدادات</string>
+    <string name="language">عربي ،</string>
+    <string name="shoucangjia">المفضلات</string>
+    <string name="shangpin">المنتجات</string>
+    <string name="dianpu">المتاجر</string>
+    <string name="qingkong">تفريغ</string>
+    <string name="zuji">آثار القدم</string>
+    <string name="qianbao">المحفظة</string>
+    <string name="quanbu">الكل</string>
+    <string name="daifukuan">قيد الدفع</string>
+    <string name="daifahuo">قيد الشحن</string>
+    <string name="daishouhuo">قيد الإستلام</string>
+    <string name="ksbh">معلومات طلب الشراء</string>
+    <string name="xzcp">إضافة منتج</string>
+    <string name="message">مركز الرسائل</string>
+    <string name="xittong_message">إشعارات النظام</string>
+    <string name="address">مدير العناوين</string>
+    <string name="xinjian_address">إضافة عنوان جديد</string>
+    <string name="shopRZ">شهادة المتجر</string>
+    <string name="dianpuguanli">مدير المتجر</string>
+    <string name="hot_tuijian">مقترحات رائجة</string>
+    <string name="shangpin_tj">متاجر مقترحة</string>
+    <string name="tjzq">قسم الأسعار الخاصة</string>
+    <string name="qsrssnr">الرجاء إدخال محتوى البحث</string>
+    <string name="zxkf">إٍستفسر أونلاين</string>
+    <string name="yjfg">الآراء وردود الفعل</string>
+    <string name="yjfg_title">كل إقتراح تقدمه، هو دافع وإتجاه لتحسين وتطوير منصتنا</string>
+    <string name="tijiaoyjian">إرسال الرأي</string>
+    <string name="tdyj">أعط رأي</string>
+    <string name="gywm">عنا</string>
+    <string name="qrtcdl">تأكيد تسجل الخروج</string>
+
+    <!--发布求购-->
+    <string name="fabuqiugou">إرسال طلب شراء</string>
+    <string name="xhdhwldn">المنتج الذي تحبه يبحث عنك</string>
+    <string name="chanpin_mc">إسم المنتج</string>
+    <string name="miaoshu_tx">اكتب إسم المنتج الذي تود شرائه</string>
+    <string name="cpms">.وصف المنتج: مثل بلد التصدير ، السعر ، المواد ، المواصفات ، إلخ*</string>
+    <string name="chanpin_fl">صنف المنتج</string>
+    <string name="xzfl">إختر صنف</string>
+    <string name="qiugouleixing">نوع طلب الشراء</string>
+    <string name="waimaodah">تجارة خارجية</string>
+    <string name="jiaohuo_time">وقت تسليم البضاعة</string>
+    <string name="qiugouNum">كمية طلب الشراء</string>
+    <string name="qsrqgnum">الرجاء إدخال كمية طلب الشراء</string>
+    <string name="anshangphuqpl">الطلب حسب التاجر</string>
+    <string name="zdtj9z">يمكنك إضافة ما يصل إلى 9 صور</string>
+    <string name="fabuqiug">الإرسال الآن</string>
+    <string name="qxzqglx">الرجاء إختيار نوع طلب الشراء</string>
+    <string name="qxzcpfl">الرجاء إختيار نوع المنتج</string>
+    <string name="qxzjhsj">الرجاء إختيار وقت تسليم البضاعة</string>
+    <string name="qxzqgsl">الرجاء إختيار كمية طلب الشراء</string>
+    <string name="guanli">الإدارة</string>
+    <string name="wancheng">تم</string>
+    <string name="quanxuan">إختيار الكل</string>
+    <string name="goujiesuan">الذهاب للحساب</string>
+    <string name="shanchu">حذف</string>
+
+    <!--登录-->
+    <string name="denglu">تسجيل الدخول</string>
+    <string name="phone_denglu">تسجيل الدخول باستخدام رقم الموبايل</string>
+    <string name="zhanghao_pass_dl">تسجيل الدخول باستخدام الحساب وكلمة المرور</string>
+    <string name="qsrsjh">الرجاء إدخال رقم الموبايل</string>
+    <string name="qsrnd_padd">الرجاء إدخال كلمة المرور</string>
+    <string name="lijizc">تسجيل حساب الآن</string>
+    <string name="forget_pass">نسيت كلمة المرور؟</string>
+    <string name="yyouzhangh">لديك حساب، إذهب لتسجيل الدخول</string>
+    <string name="yanzhengm">الرجاء إدخال رمز التحقق</string>
+    <string name="huoquyanzm">الحصول على رمز التحقق</string>
+    <string name="qing_newPass">الرجاء إدخال كلمة مرور جديدة</string>
+    <string name="qing_qrnewPass">الرجاء تأكيد كلمة المرور الجديدة</string>
+
+    <string name="gerenzhongxin">المعلومات الشخصية</string>
+    <string name="xiugaitouxiang">تعديل الصورة الشخصية</string>
+    <string name="nicheng">الإسم</string>
+    <string name="xiugai_nicheng">تعديل الإسم</string>
+    <string name="zhanghao">الحساب</string>
+    <string name="huiyuandengji">مستوى العضوية</string>
+    <string name="zhanghu_anquan">أمان الحساب</string>
+    <string name="bangding_phone">ربط رقم الموبايل</string>
+    <string name="bdsjh_q">رقم الموبايل المربوط مع حسابك حالياً هو</string>
+    <string name="bdsjh_h">الرجاء إدخال رقم الموبايل الذي تود ربطه</string>
+    <string name="kefudian">هاتف خدمة العملاء</string>
+    <string name="quxiao">إلغاء</string>
+
+    <string name="xiugai_loginpay_padd">تعديل كلمة مرور تسجيل الدخول</string>
+    <string name="yuanmima">كلمة المرور السابقة</string>
+    <string name="new_pass">كلمة المرور الجديدة</string>
+    <string name="queren_padd">تأكيد كلمة المرور</string>
+    <string name="mima_qufen">يجب أن تكون من 6-20 حرف إنجليزي، رقم أو رمز (باستثناء الفراغ)، والأحرف، والأرقام والرموز لا تقل عن إثنان، إذا تضمنت حروف الرجاء الإنتباه للفرق بين الحروف الصغيرة والكبيرة</string>
+    <string name="xiugai_pay_mima">تعديل كلمة مرور الدفع</string>
+    <string name="shezhi_pay_mima">عين كلمة مرور للدفع مكونة من 6 أرقام</string>
+    <string name="pay_passNocf">لا يمكن أن تكون كلمة مرور الدفع عبارة عن أرقام متكررة، أو متواصلة</string>
+    <string name="yinhangka_bd">ربط البطاقة المصرفية </string>
+    <string name="qtianxie_xinxi">الرجاء إدخال معلومات البطاقة المصرفية الشخصية </string>
+    <string name="xingming">الإسم</string>
+    <string name="qingshuru_xingm">الرجاء إدخال الإسم</string>
+    <string name="yinhang_khao">رقم البطاقة المصرفية</string>
+    <string name="qsrbr_yhkh">الرجاء إدخال رقم البطاقة المصرفية الشخصية</string>
+    <string name="tuichu">تسجيل الخروج</string>
+    <string name="queding">تأكيد</string>
+    <string name="xiayibu">الخطوة التالية</string>
+    <string name="zhuche">التسجيل</string>
+
+
+    <string name="umeng_socialize_text_qq_key">QQ</string>
+    <string name="umeng_socialize_text_qq_zone_key">QQZone</string>
+    <string name="umeng_socialize_text_weixin_key">ويتشات</string>
+    <string name="umeng_socialize_text_weixin_circle_key">لحظات الويتشات</string>
+    <string name="umeng_socialize_text_weixin_fav_key">مفضلة الويتشات</string>
+    <string name="umeng_socialize_text_add_custom_platform">الرجاء تعيين منصة المستخدم</string>
+    <string name="umeng_example_home_btn_plus">المشاركة مع المجتمع</string>
+    <string name="umeng_socialize_text_waitting_share">قيد المشاركة &#8230;</string>
+    <string name="umeng_socialize_content_hint">قل شيئاً&#8230;</string>
+    <string name="umeng_socialize_cancel_btn_str">إلغاء</string>
+    <string name="umeng_socialize_send_btn_str">إرسال</string>
+
+    <string name="umeng_socialize_female">أنثى</string>
+    <string name="umeng_socialize_male">ذكر</string>
+    <string name="umeng_socialize_share">مشاركة</string>
+    <string name="no_read_message">"···"</string>
+
+    <string name="chanpinfenlei">الرجاء إختيار صنف المنتج</string>
+    <string name="qiugouleixing2">الرجاء إختيار نوع طلب الشراء</string>
+    <string name="jiaohuoshijian">الرجاء إختيار وقت تسليم البضائع</string>
+    <string name="yijian">أسرع في كتابة إقتراح</string>
+    <string name="call">اللقب:</string>
+    <string name="user_name">إسم المستخدم:</string>
+    <string name="talk_online">الإتصال أونلاين</string>
+    <string name="baokuan">موديلات مقترحة</string>
+    <string name="search">بحث</string>
+    <string name="zonghe">تجميع</string>
+    <string name="pifaliang">كمية الجملة</string>
+    <string name="xiaoliang">كمية البيع</string>
+    <string name="system_message">إشعارات النظام</string>
+    <string name="selling">مبيعات مقترحة</string>
+    <string name="special">قسم الأسعار الخاصة</string>
+    <string name="service">خدمة العملاء</string>
+    <string name="store">متاجر</string>
+    <string name="collect">المفضلة</string>
+    <string name="collected">تم الإضافة إلى المفضلة</string>
+    <string name="add">إضافة إلى عربة المشتريات</string>
+    <string name="ask">إستفسر عن السعر</string>
+    <string name="buy">إشتري الان</string>
+
+    <string name="all">الكل</string>
+    <string name="wait_h">قيد الدفع</string>
+    <string name="wait_f">قيد الشخن</string>
+    <string name="wait_s">قيد الإستلام</string>
+    <string name="complete">إكتمل</string>
+</resources>
