@@ -3,15 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
-
+    android:padding="10dp"
+    android:background="@color/white"
+    >
     <ImageView
         android:id="@+id/pic_iv"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/img12x"
+        android:scaleType="fitCenter"
         />
 
     <TextView
@@ -20,7 +21,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:lines="2"
-        android:paddingLeft="85dp"
+        android:paddingLeft="115dp"
         android:text="标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题"
         app:layout_constraintTop_toTopOf="@+id/pic_iv" />
 
@@ -61,4 +62,24 @@
         android:text="意大利外贸大货"
         app:layout_constraintBottom_toBottomOf="@id/tv_buy_style"
         app:layout_constraintLeft_toRightOf="@id/tv_buy_style" />
+
+    <TextView
+        android:id="@+id/tv_chukou"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/chugouguojia"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintLeft_toRightOf="@id/pic_iv"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_buy_style"
+        />
+
+    <TextView
+        android:id="@+id/chukou_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@id/tv_chukou"
+        app:layout_constraintLeft_toRightOf="@id/tv_chukou" />
 </android.support.constraint.ConstraintLayout>

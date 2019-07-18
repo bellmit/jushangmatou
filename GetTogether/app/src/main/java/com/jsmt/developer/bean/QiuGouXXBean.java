@@ -46,6 +46,15 @@ public class QiuGouXXBean {
         private List<GoodsCateBean> goods_cate;
         private List<GoodsTypeBean> goods_type;
         private List<GoodsTimeBean> goods_time;
+        private List<GoodsCountryBean> countryList;
+
+        public List<GoodsCountryBean> getGoods_country() {
+            return countryList;
+        }
+
+        public void setGoods_country(List<GoodsCountryBean> goods_country) {
+            this.countryList = goods_country;
+        }
 
         public List<GoodsCateBean> getGoods_cate() {
             return goods_cate;
@@ -147,6 +156,28 @@ public class QiuGouXXBean {
             public void setCat_name(String cat_name) {
                 this.cat_name = cat_name;
             }
+        }
+
+        public static class GoodsCountryBean{
+            private String country_id;
+            private String country_name;
+
+            public String getCountry_id() {
+                return country_id;
+            }
+
+            public void setCountry_id(String country_id) {
+                this.country_id = country_id;
+            }
+
+            public String getCountry_name() {
+                return country_name;
+            }
+
+            public void setCountry_name(String country_name) {
+                this.country_name = country_name;
+            }
+
         }
     }
 }

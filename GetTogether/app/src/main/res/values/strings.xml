@@ -199,8 +199,11 @@
     <string name="fabu">发布</string>
     <string name="buy_time">交货时间：</string>
     <string name="buy_style">求购类型：</string>
+    <string name="chugouguojia">出口国家：</string>
     <string name="waimaoqiugou">外贸求购</string>
     <string name="waimaorexiao">外贸热销</string>
     <string name="waimaolianmeng">外贸联盟</string>
     <string name="waimaoxinpin">外贸新品</string>
+    <string name="ckgj">出口国家</string>
+    <string name="qxzckgj">请选择出口国家</string>
 </resources>

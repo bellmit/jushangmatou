@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jsmt.developer.R;
 import com.jsmt.developer.bean.HomeDataNewBean;
+import com.jsmt.developer.utils.SizeUtil;
 import com.jsmt.developer.utils.TransformationUtils;
 
 import java.util.List;
@@ -33,10 +34,13 @@ public class HomeBuyAdapter extends RecyclerView.Adapter<HomeBuyAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Glide.with(context).load(mDatas.get(position).getGoods_logo()).asBitmap().placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).into(new TransformationUtils(holder.pic_iv));
+        int imageSize= SizeUtil.dp2px(context,110);
+        Glide.with(context).load(mDatas.get(position).getGoods_logo()).asBitmap().placeholder(R.mipmap.myy322x)
+                .error(R.mipmap.myy322x).override(imageSize, imageSize).into(holder.pic_iv);
         holder.product_title.setText(mDatas.get(position).getGoods_name());
-        holder.tv_buy_style.setText(mDatas.get(position).getRelease_type());
-        holder.tv_buy_time.setText(mDatas.get(position).getAttach_time());
+        holder.buy_style_tv.setText(mDatas.get(position).getRelease_type());
+        holder.buy_time_tv.setText(mDatas.get(position).getAttach_time());
+        holder.chukou_tv.setText(mDatas.get(position).getCountry_name());
     }
 
     @Override
@@ -47,15 +51,16 @@ public class HomeBuyAdapter extends RecyclerView.Adapter<HomeBuyAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView pic_iv;
         public TextView product_title;
-        public TextView tv_buy_time;
-        public TextView tv_buy_style;
-
+        public TextView buy_time_tv;
+        public TextView buy_style_tv;
+        public TextView chukou_tv;
         public ViewHolder(View itemView) {
             super(itemView);
             pic_iv = itemView.findViewById(R.id.pic_iv);
             product_title = itemView.findViewById(R.id.product_title);
-            tv_buy_time = itemView.findViewById(R.id.tv_buy_time);
-            tv_buy_style = itemView.findViewById(R.id.tv_buy_style);
+            buy_time_tv = itemView.findViewById(R.id.buy_time_tv);
+            buy_style_tv = itemView.findViewById(R.id.buy_style_tv);
+            chukou_tv = itemView.findViewById(R.id.chukou_tv);
         }
     }
 }

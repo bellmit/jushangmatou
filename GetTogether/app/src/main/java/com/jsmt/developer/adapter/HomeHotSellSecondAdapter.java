@@ -2,6 +2,7 @@ package com.jsmt.developer.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,30 +12,31 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jsmt.developer.R;
 import com.jsmt.developer.bean.HomeDataNewBean;
+import com.jsmt.developer.bean.HomeHotSellBean;
 import com.jsmt.developer.utils.SizeUtil;
 import com.jsmt.developer.utils.TransformationUtils;
 
 import java.util.List;
 
-public class HomeHotSellAdapter extends RecyclerView.Adapter<HomeHotSellAdapter.ViewHolder> {
+public class HomeHotSellSecondAdapter extends RecyclerView.Adapter<HomeHotSellSecondAdapter.ViewHolder> {
 
     private Context context;
-    private List<HomeDataNewBean.ResultEntity.Order_pastedEntity> mDatas;
+    private List<HomeHotSellBean.ResultEntity> mDatas;
 
-    public HomeHotSellAdapter(Context context, List<HomeDataNewBean.ResultEntity.Order_pastedEntity> mDatas) {
+    public HomeHotSellSecondAdapter(Context context, List<HomeHotSellBean.ResultEntity> mDatas) {
         this.context = context;
         this.mDatas = mDatas;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_home_hot_sell,null,false);
-        return new HomeHotSellAdapter.ViewHolder(view);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_home_hot_sell, null, false);
+        return new HomeHotSellSecondAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        int imageSize= SizeUtil.dp2px(context,110);
+        int imageSize = SizeUtil.dp2px(context, 110);
         Glide.with(context).load(mDatas.get(position).getOriginal_img()).asBitmap().placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x)
                 .override(imageSize, imageSize).into(holder.pic_iv);
         holder.product_title.setText(mDatas.get(position).getGoods_name());

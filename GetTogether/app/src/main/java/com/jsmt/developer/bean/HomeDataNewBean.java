@@ -37,7 +37,7 @@ public class HomeDataNewBean {
         return status;
     }
 
-    public class ResultEntity {
+    public static class ResultEntity {
         /**
          * ara_notice : {"article_id":"128","title":"دمج السلع في العالم ، ودمج الفرص التجارية ، وإنشاء أكبر منصة للتجارة الخارجية عبر الإنترنت وخارجها ، واستهداف مدينة تشجيانغ ييوو للسلع الصغيرة ، ومدينة تشجيانغ Keqiao للأقمشة ، ومدينة قوانغتشو بالجملة ، ومدينة شنتشن الإلكترونية ، وحتى سوق الجملة للتجارة الخارجية الوطنية لإنشاء قاعدة مصدر عالمي. ، ونجمع بين المنتجات الوطنية ودفع منتجات التجار إلى كل محطة في العالم. Jushang Terminal Network Technology Service Co.، Ltd. ترحب بكم!"}
          * ad : [{"ad_code":"http://www.jsmtgou.com/jushangmatou/jushangmatou/Public/upload/ad/2019/05-15/5cdbc8f82f47c.jpg","ad_link":"","ad_name":"自定义广告名称","type":0},{"ad_code":"http://www.jsmtgou.com/jushangmatou/jushangmatou/Public/upload/ad/2019/05-14/5cda4ea7e2cd3.jpg","ad_link":"","ad_name":"自定义广告名称","type":0},{"ad_code":"http://www.jsmtgou.com/jushangmatou/jushangmatou/Public/upload/ad/2019/06-27/5d14348eb1206.jpg","ad_link":"","ad_name":"自定义广告名称","type":0},{"ad_code":"http://www.jsmtgou.com/jushangmatou/jushangmatou/Public/upload/ad/2019/06-01/5cf22c3ead1b7.jpg","ad_link":"","ad_name":"自定义广告名称","type":0},{"ad_code":"http://www.jsmtgou.com/jushangmatou/jushangmatou/Public/upload/ad/2019/06-26/5d13315527b2d.jpg","ad_link":"","ad_name":"自定义广告名称","type":0}]
@@ -1143,6 +1143,16 @@ public class HomeDataNewBean {
             private String add_time;
             private String country_id;
 
+            public String getCountry_name() {
+                return country_name;
+            }
+
+            public void setCountry_name(String country_name) {
+                this.country_name = country_name;
+            }
+
+            private String country_name;
+
             public void setGoods_name(String goods_name) {
                 this.goods_name = goods_name;
             }
@@ -1801,7 +1811,7 @@ public class HomeDataNewBean {
             }
         }
 
-        public class NoticeEntity {
+        public static class NoticeEntity {
             /**
              * article_id : 78
              * title : 汇天下商品，融八方商机，打造全球最大的线上线下外贸平台，面向浙江义乌小商品城，浙江柯桥轻纺城、广州批发城、深圳电子城，乃至全国外贸批发市场招商，创建全球货源基地，汇集全国商品，把商家的产品推向全球的每个码头，聚商码头网络科技服务有限公司欢迎您！

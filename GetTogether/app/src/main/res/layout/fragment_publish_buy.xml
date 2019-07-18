@@ -137,7 +137,47 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/line" />
+            <LinearLayout
+                android:id="@+id/ll_ckgj"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingEnd="16dp">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/cpfl_icon"
+                    android:drawablePadding="10dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:text="@string/ckgj"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:id="@+id/tv_ckgj"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/qxzckgj"
+                    android:paddingStart="30dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:paddingEnd="10dp"
+                    android:textSize="13dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/right_more" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
             <LinearLayout
                 android:id="@+id/ll_qglx"
                 android:layout_width="match_parent"

@@ -286,7 +286,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data
-                    android:host="com.tem.gettogether"
+                    android:host="com.jsmt.developer"
                     android:pathPrefix="/conversationlist"
                     android:scheme="rong" />
             </intent-filter>
@@ -302,7 +302,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data
-                    android:host="com.tem.gettogether"
+                    android:host="com.jsmt.developer"
                     android:pathPrefix="/conversation/"
                     android:scheme="rong" />
             </intent-filter>
@@ -411,7 +411,8 @@
         <activity android:name="com.jsmt.developer.activity.my.MemberActivity" />
         <activity android:name="com.jsmt.developer.activity.my.BuyMemberActivity" />
         <activity android:name=".activity.ServiceProviderActivity"/>
-
+        <activity android:name=".activity.home.HomeHotSellActivity"/>
+        <activity android:name=".activity.home.HomeLianMengActivity" />
     </application>
 
 </manifest>

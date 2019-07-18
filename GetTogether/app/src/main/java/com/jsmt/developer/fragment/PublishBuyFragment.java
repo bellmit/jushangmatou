@@ -95,6 +95,8 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
     private LinearLayout ll_qglx;
     @ViewInject(R.id.ll_jhTime)
     private LinearLayout ll_jhTime;
+    @ViewInject(R.id.ll_ckgj)
+    private LinearLayout ll_ckgj;
     @ViewInject(R.id.et_qgNum)
     private EditText et_qgNum;
     @ViewInject(R.id.publish_task_recyclerView)
@@ -116,6 +118,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
     private List<QiuGouXXBean.ResultBean.GoodsCateBean>goodsCateBeans=new ArrayList<>();
     private List<QiuGouXXBean.ResultBean.GoodsTimeBean> goodsTimeBeans=new ArrayList<>();
     private List<QiuGouXXBean.ResultBean.GoodsTypeBean> goodsTypeBeans=new ArrayList<>();
+    private List<QiuGouXXBean.ResultBean.GoodsCountryBean> goodsCountryBeans = new ArrayList<>();
     private int type=0;
     @ViewInject(R.id.tv_cpfl)
     private TextView tv_cpfl;
@@ -123,10 +126,13 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
     private TextView tv_qglx;
     @ViewInject(R.id.tv_jhTime)
     private TextView tv_jhTime;
+    @ViewInject(R.id.tv_ckgj)
+    private TextView tv_ckgj;
     private int qgNum=0;
     private String goods_cate="";
     private String release_type="";
     private String attach_time="";
+    private String country_name="";
     @ViewInject(R.id.rl_close)
     private RelativeLayout rl_close;
     @ViewInject(R.id.tv_title)
@@ -165,7 +171,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         recyclerView.setAdapter(mTaskImgAdapter);
 
     }
-    @Event(value = {R.id.rl_close,R.id.iv_qglx1, R.id.iv_qglx2,R.id.ll_cpfl, R.id.ll_qglx, R.id.ll_jhTime,R.id.tv_fbqg}, type = View.OnClickListener.class)
+    @Event(value = {R.id.rl_close,R.id.iv_qglx1, R.id.iv_qglx2,R.id.ll_cpfl, R.id.ll_qglx, R.id.ll_jhTime,R.id.ll_ckgj,R.id.tv_fbqg}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.iv_qglx1:
@@ -197,6 +203,11 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                 mPop=null;
                 showPop(ll_jhTime);
                 break;
+            case R.id.ll_ckgj:
+                type=4;
+                mPop=null;
+                showPop(ll_ckgj);
+                break;
             case R.id.tv_fbqg:
                 if(BaseApplication.getInstance().userBean==null){
                     startActivity(new Intent(getActivity(),LoginActivity.class));
@@ -222,6 +233,10 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                     }
                     if(attach_time.equals("")){
                         CusToast.showToast("请选择交货时间");
+                        return;
+                    }
+                    if(country_name.equals("")){
+                        CusToast.showToast("请选择出口国家");
                         return;
                     }
                     if(qgNum==0){
@@ -410,6 +425,9 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
            }else if(type==3){
                tv_xz_title.setText(getResources().getText(R.string.jiaohuoshijian));
                initSetdialog3();
+           }else if(type==4){
+               tv_xz_title.setText(getResources().getText(R.string.qxzckgj));
+               initSetdialog4();
            }
             iv_dialog_close.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -493,6 +511,32 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         baseRVAdapter3.notifyDataSetChanged();
         recyclerView_qg.setAdapter(baseRVAdapter3);
     }
+
+    private void initSetdialog4(){
+        BaseRVAdapter baseRVAdapter4= new BaseRVAdapter(getActivity(),goodsCountryBeans) {
+            @Override
+            public int getLayoutId(int viewType) {
+                return R.layout.fabuqiug_layout;
+            }
+
+            @Override
+            public void onBind(BaseViewHolder holder, final int position) {
+                holder.getTextView(R.id.tv_item).setText(goodsCountryBeans.get(position).getCountry_name());
+                holder.getTextView(R.id.tv_item).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        country_name=goodsCountryBeans.get(position).getCountry_name();
+                        tv_ckgj.setText(goodsCountryBeans.get(position).getCountry_name());
+                        mPop.dismiss();
+                    }
+                });
+            }
+
+        };
+        baseRVAdapter4.notifyDataSetChanged();
+        recyclerView_qg.setAdapter(baseRVAdapter4);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -686,6 +730,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                         goodsCateBeans=qiuGouXXBean.getResult().getGoods_cate();
                         goodsTimeBeans=qiuGouXXBean.getResult().getGoods_time();
                         goodsTypeBeans=qiuGouXXBean.getResult().getGoods_type();
+                        goodsCountryBeans=qiuGouXXBean.getResult().getGoods_country();
                     }
 
                 } catch (JSONException e) {

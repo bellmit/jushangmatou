@@ -63,13 +63,13 @@ public class BuyMessageActivity extends BaseActivity {
         clearList(resultBeans);
         Map<String,Object> map3=new HashMap<>();
         map3.put("page","1");
-        map3.put("token", BaseApplication.getInstance().userBean.getToken());
         upShopData(map3);
+        map3.put("token", BaseApplication.getInstance().userBean==null||BaseApplication.getInstance().userBean.getToken().equals("")?"":BaseApplication.getInstance().userBean.getToken());
     }
 
     @Override
     protected void initData() {
-        tv_title.setText(R.string.ksbh);
+        tv_title.setText(R.string.waimaoqiugou);
 
     }
 
@@ -88,7 +88,7 @@ public class BuyMessageActivity extends BaseActivity {
                 clearList(resultBeans);
                 Map<String,Object> map3=new HashMap<>();
                 map3.put("page",PAGE_NUM);
-                map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                map3.put("token", BaseApplication.getInstance().userBean==null||BaseApplication.getInstance().userBean.getToken().equals("")?"":BaseApplication.getInstance().userBean.getToken());
 
                 upShopData(map3);
 
@@ -202,7 +202,6 @@ public class BuyMessageActivity extends BaseActivity {
             TextView tv_name=baseViewHolder.getView(R.id.tv_name);
             TextView tv_shopName=baseViewHolder.getView(R.id.tv_shopName);
             TextView tv_shop_ms=baseViewHolder.getView(R.id.tv_shop_ms);
-            TextView tv_shop_fl=baseViewHolder.getView(R.id.tv_shop_fl);
             TextView tv_qglx=baseViewHolder.getView(R.id.tv_qglx);
             TextView tv_jhTime=baseViewHolder.getView(R.id.tv_jhTime);
             TextView tv_qgNum=baseViewHolder.getView(R.id.tv_qgNum);
@@ -210,8 +209,7 @@ public class BuyMessageActivity extends BaseActivity {
             RecyclerView recy_image=baseViewHolder.getView(R.id.recy_image);
             tv_name.setText(getResources().getText(R.string.user_name)+""+resultBeans.get(baseViewHolder.getAdapterPosition()).getMobile());
             tv_shopName.setText("商品名称："+resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
-            tv_shop_ms.setText("产品描述："+resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_desc());
-            tv_shop_fl.setText("产品分类："+resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_cate());
+            tv_shop_ms.setText("出口国家："+resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_desc());
             tv_qglx.setText("求购类型："+resultBeans.get(baseViewHolder.getAdapterPosition()).getRelease_type());
             tv_jhTime.setText("交货时间："+resultBeans.get(baseViewHolder.getAdapterPosition()).getAttach_time());
             tv_qgNum.setText("求购数量："+resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_num());
