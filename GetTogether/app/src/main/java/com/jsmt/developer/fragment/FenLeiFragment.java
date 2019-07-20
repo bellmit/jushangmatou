@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -67,8 +68,6 @@ public class FenLeiFragment extends BaseFragment {
     private BaseActivity baseActivity;
     private List<FenLieRightBean.ResultBean> resultBeans = new ArrayList<>();
     private List<FenLieLeftBean.ResultBean> resultBeanList = new ArrayList<>();
-    @ViewInject(R.id.tv_yuyQH)
-    private TextView tv_yuyQH;
     private  BaseRVAdapter leftAdapter;
 
     @Override
@@ -309,18 +308,15 @@ public class FenLeiFragment extends BaseFragment {
         });
     }
 
-    @Event(value = {R.id.rl_saoyisao, R.id.tv_yuyQH,R.id.tv_sousuo_fl}, type = View.OnClickListener.class)
+    @Event(value = {R.id.rl_saoyisao, R.id.tv_sousuo_fl}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
-            case R.id.tv_yuyQH:
-                break;
             case R.id.rl_saoyisao:
 //                //点击二维码扫码
 //                Intent mipcaIntent = new Intent();
 //                mipcaIntent.setClass(getActivity(), MipcaActivityCapture.class);
 //                startActivityForResult(mipcaIntent, 900);
-                startActivity(new Intent(getActivity(), HomeSouSuoActivity.class)
-                        .putExtra("store_id", "0"));
+                Toast.makeText(getContext(),"相机功能暂未开放",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tv_sousuo_fl:
                 startActivity(new Intent(getActivity(), HomeSouSuoActivity.class)

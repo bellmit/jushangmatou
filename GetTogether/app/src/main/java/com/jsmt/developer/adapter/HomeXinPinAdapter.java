@@ -1,6 +1,7 @@
 package com.jsmt.developer.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jsmt.developer.R;
+import com.jsmt.developer.activity.LoginActivity;
+import com.jsmt.developer.activity.home.ShoppingParticularsActivity;
+import com.jsmt.developer.base.BaseApplication;
 import com.jsmt.developer.bean.HomeDataNewBean;
 import com.jsmt.developer.utils.TransformationUtils;
 
@@ -32,11 +36,22 @@ public class HomeXinPinAdapter extends RecyclerView.Adapter<HomeXinPinAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         Glide.with(context).load(mDatas.get(position).getOriginal_img()).asBitmap().placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).into(new TransformationUtils(holder.iv_image));
         holder.title_tv.setText(mDatas.get(position).getGoods_name());
         holder.price_tv.setText(mDatas.get(position).getShop_price());
         holder.count_tv.setText(mDatas.get(position).getBatch_number());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(BaseApplication.getInstance().userBean==null){
+                    context.startActivity(new Intent(context,LoginActivity.class));
+                }else {
+                    context.startActivity(new Intent(context, ShoppingParticularsActivity.class)
+                            .putExtra("goods_id", mDatas.get(position).getGoods_id()));
+                }
+            }
+        });
     }
 
     @Override

@@ -55,7 +55,7 @@ public class LanguageActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        RecyclerView rlv_language = findViewById(R.id.rlv_language);
+        RecyclerView rlv_language = (RecyclerView) findViewById(R.id.rlv_language);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rlv_language.setLayoutManager(layoutManager);

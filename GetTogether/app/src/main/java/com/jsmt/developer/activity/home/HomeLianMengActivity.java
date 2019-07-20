@@ -2,6 +2,8 @@ package com.jsmt.developer.activity.home;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -22,6 +24,7 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
@@ -36,6 +39,8 @@ public class HomeLianMengActivity extends BaseActivity {
     private RecyclerView sell_RecyclerView;
     @ViewInject(R.id.tv_title)
     private TextView tv_title;
+    @ViewInject(R.id.rl_close)
+    private RelativeLayout rl_close;
     @ViewInject(R.id.refreshLayout)
     private TwinklingRefreshLayout refreshLayout;
 
@@ -53,6 +58,15 @@ public class HomeLianMengActivity extends BaseActivity {
     @Override
     protected void initView() {
 
+    }
+
+    @Event(value = {R.id.rl_close}, type = View.OnClickListener.class)
+    private void getEvent(View view) {
+        switch (view.getId()) {
+            case R.id.rl_close:
+                finish();
+                break;
+        }
     }
 
     private void initDatas(final int currentPage, final boolean isLoadMore){

@@ -99,15 +99,15 @@ public class BuyMemberActivity extends BaseActivity {
 
     protected void initView() {
         tv_title.setText("开通会员");
-        choose_1=findViewById(R.id.choose_1);
-        choose_2=findViewById(R.id.choose_2);
-        choose_3=findViewById(R.id.choose_3);
-        rad_1=findViewById(R.id.rad_1);
-        rad_2=findViewById(R.id.rad_2);
-        rad_3=findViewById(R.id.rad_3);
+        choose_1=(LinearLayout)findViewById(R.id.choose_1);
+        choose_2=(LinearLayout)findViewById(R.id.choose_2);
+        choose_3=(LinearLayout)findViewById(R.id.choose_3);
+        rad_1=(ImageView) findViewById(R.id.rad_1);
+        rad_2=(ImageView)findViewById(R.id.rad_2);
+        rad_3=(ImageView)findViewById(R.id.rad_3);
 
-        moneyText=findViewById(R.id.moneyText);
-        moneyDataText=findViewById(R.id.moneyDataText);
+        moneyText=(TextView)findViewById(R.id.moneyText);
+        moneyDataText=(TextView)findViewById(R.id.moneyDataText);
 
         choose_1.setOnClickListener(new View.OnClickListener() {
             @Override

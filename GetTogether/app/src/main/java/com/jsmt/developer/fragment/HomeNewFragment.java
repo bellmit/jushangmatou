@@ -82,6 +82,8 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
     private TextView tv_YuYQH;
     @ViewInject(R.id.tv_sousuo)
     private TextView tv_sousuo;
+    @ViewInject(R.id.tv_gonggao)
+    private TextView tv_gonggao;
     @ViewInject(R.id.rl_saoyisao)
     private RelativeLayout rl_saoyisao;
     @ViewInject(R.id.banner)
@@ -251,6 +253,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void setAllData(){
+        tv_gonggao.setText(noticeBeans.getTitle());
         setBanner();
         mHomeBottomCateAdapter = new HomeBottomCateAdapter(getContext(),bottomCateBeans);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3, LinearLayoutManager.VERTICAL,false));

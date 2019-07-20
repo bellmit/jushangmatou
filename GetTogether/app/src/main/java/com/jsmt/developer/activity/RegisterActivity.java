@@ -1,5 +1,6 @@
 package com.jsmt.developer.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -54,17 +55,14 @@ public class RegisterActivity extends BaseActivity {
     private RadioButton quyers_rb;
     @ViewInject(R.id.supplier_rb)
     private RadioButton supplier_rb;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        x.view().inject(this);
-        initData();
-        initView();
-    }
-
+    @ViewInject(R.id.zhanlvlianmeng_tv)
+    private TextView zhanlvlianmeng_tv;
+    private String companyName;
+    private String companyId;
+    private int role_type=0;
     @Override
     protected void initData() {
+        x.view().inject(this);
         tv_title.setText(R.string.zhuche);
         checkbox.setChecked(true);
         quyers_rb.setChecked(true);
@@ -74,7 +72,8 @@ public class RegisterActivity extends BaseActivity {
     protected void initView() {
 
     }
-    @Event(value = {R.id.rl_close,R.id.tv_register,R.id.tv_goLogin,R.id.tv_xieyi,R.id.tv_code,R.id.tv_goLogin2,R.id.denglu_zt_5,R.id.quyers_rb,R.id.supplier_rb}, type = View.OnClickListener.class)
+
+    @Event(value = {R.id.rl_close, R.id.tv_register, R.id.tv_goLogin, R.id.tv_xieyi, R.id.tv_code, R.id.tv_goLogin2, R.id.denglu_zt_5, R.id.quyers_rb, R.id.supplier_rb}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
@@ -84,31 +83,30 @@ public class RegisterActivity extends BaseActivity {
                 upCodeZHUCE();
                 break;
             case R.id.tv_code:
-                if(et_phone.getText().toString().length()<11){
+                if (et_phone.getText().toString().length() < 11) {
                     CusToast.showToast("请输入完整的手机号");
                     return;
                 }
                 upCode(et_phone.getText().toString());
                 break;
             case R.id.tv_register:
-                Log.d("chenshichun","-------"+quyers_rb.isChecked());
-                String phone=et_phone.getText().toString().trim();
-                String password=et_passworld.getText().toString().trim();
-                String code=et_code.getText().toString().trim();
-                if(phone.length()<11){
+                String phone = et_phone.getText().toString().trim();
+                String password = et_passworld.getText().toString().trim();
+                String code = et_code.getText().toString().trim();
+                if (phone.length() < 11) {
                     CusToast.showToast("请输入完整的手机号");
                     return;
-                }else if(password.length()<6){
+                } else if (password.length() < 6) {
                     CusToast.showToast("请输入密码");
                     return;
-                }else if(code.length()<4){
+                } else if (code.length() < 4) {
                     CusToast.showToast("请输入正确的验证码");
                     return;
-                }else if(checkbox.isChecked()==false){
+                } else if (checkbox.isChecked() == false) {
                     CusToast.showToast("请先阅读服务协议并同意");
                     return;
                 }
-                upRegister(phone,password,code);
+                upRegister(phone, password, code);
                 break;
             case R.id.tv_goLogin:
                 finish();
@@ -118,29 +116,34 @@ public class RegisterActivity extends BaseActivity {
                 break;
             case R.id.denglu_zt_5:
                 Intent intent = new Intent();
-                intent.setClass(this,ServiceProviderActivity.class);
-                startActivity(intent);
+                Bundle bundle = new Bundle();
+                intent.putExtras(bundle);
+                intent.setClass(this, ServiceProviderActivity.class);
+                startActivityForResult(intent,0);
                 break;
             case R.id.quyers_rb:
-                if(quyers_rb.isChecked()){
+                if (quyers_rb.isChecked()) {
                     denglu_zt_5.setVisibility(View.VISIBLE);
                 }
                 break;
             case R.id.supplier_rb:
-                if(supplier_rb.isChecked()){
+                if (supplier_rb.isChecked()) {
                     denglu_zt_5.setVisibility(View.GONE);
                 }
                 break;
         }
     }
-    private void upRegister(String phone,String pass,String code){
-        Map<String,Object> map=new HashMap<>();
-        map.put("username",phone);
-        map.put("password",pass);
-        map.put("password2",pass);
-        map.put("code",code);
+
+    private void upRegister(String phone, String pass, String code) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("username", phone);
+        map.put("password", pass);
+        map.put("password2", pass);
+        map.put("code", code);
+        map.put("role_type",quyers_rb.isChecked()?0:1);
+        map.put("companyId",companyId);
         showDialog();
-        XUtil.Post(URLConstant.REGISTER,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.REGISTER, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -150,10 +153,10 @@ public class RegisterActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
-                    if(res.equals("1")){
+                    if (res.equals("1")) {
                         ll_success_zt.setVisibility(View.VISIBLE);
                         ll_All.setVisibility(View.GONE);
-                    }else{
+                    } else {
                         ll_All.setVisibility(View.VISIBLE);
                         ll_success_zt.setVisibility(View.GONE);
                     }
@@ -178,12 +181,13 @@ public class RegisterActivity extends BaseActivity {
             }
         });
     }
-    private void upCode(String phone){
-        Map<String,Object> map=new HashMap<>();
-        map.put("mobile",phone);
-        map.put("unique_id","0");
+
+    private void upCode(String phone) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("mobile", phone);
+        map.put("unique_id", "0");
         showDialog();
-        XUtil.Post(URLConstant.HUOQU_CODE,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.HUOQU_CODE, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -194,7 +198,7 @@ public class RegisterActivity extends BaseActivity {
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
                     CusToast.showToast(msg);
-                    if(res.equals("1")){
+                    if (res.equals("1")) {
                         CountDownTimerUtils3 mCountDownTimerUtils = new CountDownTimerUtils3(tv_code, 60000, 1000);
                         mCountDownTimerUtils.start();
                     }
@@ -218,10 +222,11 @@ public class RegisterActivity extends BaseActivity {
             }
         });
     }
-    private void upCodeZHUCE(){
+
+    private void upCodeZHUCE() {
 
         showDialog();
-        XUtil.Post(URLConstant.ZHUCEXIYEYI,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.ZHUCEXIYEYI, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -231,16 +236,16 @@ public class RegisterActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
-                    if(res.equals("1")){
+                    if (res.equals("1")) {
                         String result2 = jsonObject.optString("result");
                         JSONObject jsonObject2 = new JSONObject(result2);
                         String url = jsonObject2.optString("url");
 
-                        startActivity(new Intent(RegisterActivity.this,XeiYiH5Activity.class)
-                                .putExtra("typeMain","2")
-                                .putExtra("h5url",url));
+                        startActivity(new Intent(RegisterActivity.this, XeiYiH5Activity.class)
+                                .putExtra("typeMain", "2")
+                                .putExtra("h5url", url));
 
-                    }else {
+                    } else {
                         CusToast.showToast(msg);
                     }
 
@@ -262,5 +267,16 @@ public class RegisterActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
+            Bundle bundle = data.getExtras();
+            companyName = bundle.getString("companyName");
+            companyId = bundle.getString("companyId");
+            zhanlvlianmeng_tv.setText(companyName);
+        }
     }
 }

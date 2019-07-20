@@ -10,7 +10,9 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -34,6 +36,8 @@ import org.xutils.x;
 
 import java.util.Locale;
 
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+
 
 /**
  * Created by litao
@@ -41,25 +45,26 @@ import java.util.Locale;
  * Created by 2019/1/11.
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+public abstract class BaseActivity extends SwipeBackActivity implements View.OnClickListener {
     public Context mContext;
     public boolean isFullScreen = false;
 
 //    public abstract int setLayoutId();
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
         x.view().inject(this);
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.white));
         if (isFullScreen) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
         mContext = this;
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            setTranslucentStatus(true);
-//        }
         initData();
         initView();
     }

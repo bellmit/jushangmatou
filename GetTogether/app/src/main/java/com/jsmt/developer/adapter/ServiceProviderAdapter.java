@@ -17,7 +17,7 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<ServiceProvider
 
     private Context context;
     private List<ServiceProviderBean.ResultEntity> mDatas;
-
+    private OnItemClickListener mOnItemClickListener;
     public ServiceProviderAdapter(Context context, List<ServiceProviderBean.ResultEntity> mDatas) {
         this.context = context;
         this.mDatas = mDatas;
@@ -30,10 +30,16 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<ServiceProvider
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.title_tv.setText(mDatas.get(position).getCompany_name());
         holder.address_tv.setText(mDatas.get(position).getAddress());
         holder.detail_tv.setText(mDatas.get(position).getDescription());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnItemClickListener.onItemClick(position);
+            }
+        });
     }
 
     @Override
@@ -54,5 +60,12 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<ServiceProvider
             address_tv = itemView.findViewById(R.id.address_tv);
             detail_tv = itemView.findViewById(R.id.detail_tv);
         }
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+    public void setOnClickItem(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
     }
 }

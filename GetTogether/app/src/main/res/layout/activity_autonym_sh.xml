@@ -28,7 +28,6 @@
             android:textColor="@color/black"
             android:text="您的身份信息已成功提交待审核"
             />
-        ！
         <TextView
             android:id="@+id/tv_xiayibu"
             android:layout_width="match_parent"

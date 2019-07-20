@@ -4,7 +4,6 @@
     <string name="item_bottom_product">分类</string>
     <string name="item_bottom_message">发布求购</string>
     <string name="item_bottom_shop">购物车</string>
-    <string name="item_bottom_me">我的</string>
     <string name="refresh_pull_down_text">下拉加载</string>
     <string name="refresh_release_text">松开加载</string>
     <string name="refresh_ing_text">加载中</string>
@@ -206,4 +205,21 @@
     <string name="waimaoxinpin">外贸新品</string>
     <string name="ckgj">出口国家</string>
     <string name="qxzckgj">请选择出口国家</string>
+    <string name="liaotian">聊天</string>
+    <string name="item_bottom_me">个人中心</string>
+    <string name="fans">粉丝</string>
+    <string name="visitor">访客</string>
+    <string name="my_signing">我的签单</string>
+    <string name="qiyexinxi">企业信息</string>
+    <string name="huiyuanxinxi">会员信息</string>
+    <string name="tuisongxunpan">推送询盘</string>
+    <string name="yixiadan">已下单</string>
+    <string name="yishouhuo">已收货</string>
+    <string name="yijiekuan">已结款</string>
+
+
+    <string name="gongsijieshao">阿里巴巴网络技术有限公司（简称：阿里巴巴集团或阿里巴巴）是以曾担任英语教师的马云为首的18人于1999年在浙江杭州创立的公司。 [1-2]
+阿里巴巴集团经营多项业务，另外也从关联公司的业务和服务中取得经营商业生态系统上的支援。业务和关联公司的业务包括：淘宝网、天猫、聚划算、全球速卖通、阿里巴巴国际交易市场、1688、阿里妈妈、阿里云、蚂蚁金服、菜鸟网络等。 [3]
+2014年9月19日，阿里巴巴集团在纽约证券交易所正式挂牌上市，股票代码“BABA”，创始人和董事局主席为马云。
+2018年7月19日，全球同步《财富》世界500强排行榜发布，阿里巴巴集团排名300位。 [4]  2018年12月，阿里巴巴入围2018世界品牌500强。</string>
 </resources>

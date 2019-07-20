@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layoutDirection="rtl"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="30dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/yuyanjiantou"/>
+    <LinearLayout
+        android:id="@+id/rl_item"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:background="@color/line">
+
+        <ImageView
+            android:id="@+id/iv_yuyan"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/zhongwen" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_weight="1">
+        <TextView
+            android:id="@+id/tv_item_language_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/chinese"
+            android:textColor="#666666" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_item_language_check"
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginEnd="10dp"
+            android:src="@mipmap/check_duihao" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:id="@+id/rl_item2"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@color/line">
+
+        <ImageView
+            android:id="@+id/iv_yuyan2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/yingwen" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_weight="1">
+        <TextView
+            android:id="@+id/tv_item_language_name2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/english"
+            android:textColor="#666666" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_item_language_check2"
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginEnd="10dp"
+            android:src="@mipmap/check_duihao" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/white" />
+    <LinearLayout
+        android:id="@+id/rl_item3"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@color/line">
+
+        <ImageView
+            android:id="@+id/iv_yuyan3"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/alaboyu" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/tv_item_language_name3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/alaboyu"
+                android:textColor="#666666" />
+
+
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/iv_item_language_check3"
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginEnd="10dp"
+            android:src="@mipmap/check_duihao" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

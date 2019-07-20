@@ -1,7 +1,11 @@
 package com.jsmt.developer.activity;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -82,6 +86,23 @@ public class ServiceProviderActivity extends BaseActivity {
                         mServiceProviderAdapter = new ServiceProviderAdapter(getContext(),serviceProviderBeans);
                         recyclerView.setLayoutManager(linearLayoutManager);
                         recyclerView.setAdapter(mServiceProviderAdapter);
+                        mServiceProviderAdapter.setOnClickItem(new ServiceProviderAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(int position) {
+                                Intent intent = getIntent();
+                                Log.d("chenshichun","---------intent--- "+intent);
+
+                                Bundle bundle = intent.getExtras();
+                                Log.d("chenshichun","---------bundle--- "+bundle);
+
+                                bundle.putString("companyName", serviceProviderBeans.get(position).getCompany_name());
+                                bundle.putString("companyId", serviceProviderBeans.get(position).getCompanyid());
+                                intent.putExtras(bundle);
+                                setResult(Activity.RESULT_OK, intent);
+                                finish();
+                            }
+                        });
+
                     }else {
                         CusToast.showToast(msg);
                     }

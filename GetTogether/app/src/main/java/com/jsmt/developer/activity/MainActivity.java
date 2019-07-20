@@ -54,7 +54,7 @@ import io.rong.imkit.manager.IUnReadMessageObserver;
 import io.rong.imlib.model.Conversation;
 
 @ContentView(R.layout.activity_main)
-public class MainActivity extends BaseActivity implements IUnReadMessageObserver, DragPointView.OnDragListencer{
+public class MainActivity extends BaseActivity implements IUnReadMessageObserver, DragPointView.OnDragListencer {
 
     private static MainActivity mainActivity;
 
@@ -66,12 +66,16 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     private LinearLayout ll_fbqg;
     @ViewInject(R.id.ll_card)
     private LinearLayout ll_card;
+    @ViewInject(R.id.ll_message)
+    private LinearLayout ll_message;
     @ViewInject(R.id.ll_My)
     private LinearLayout ll_My;
     @ViewInject(R.id.iv_my)
     private ImageView iv_my;
     @ViewInject(R.id.iv_cart)
     private ImageView iv_cart;
+    @ViewInject(R.id.iv_message)
+    private ImageView iv_message;
     @ViewInject(R.id.iv_fbqg)
     private ImageView iv_fbqg;
     @ViewInject(R.id.iv_fl)
@@ -82,6 +86,8 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     private TextView tv_my;
     @ViewInject(R.id.tv_card)
     private TextView tv_card;
+    @ViewInject(R.id.tv_message)
+    private TextView tv_message;
     @ViewInject(R.id.tv_fbqg)
     private TextView tv_fbqg;
     @ViewInject(R.id.tv_fenl)
@@ -112,17 +118,6 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         }
     };
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        Intent dataIntent = getIntent();
-        super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
-        BaseApplication.addDestoryActivity(this, "login");
-
-        openTab(true, dataIntent);
-    }
-
     @Override
     protected void initView() {
         final Conversation.ConversationType[] conversationTypes = {
@@ -139,74 +134,86 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
             }
         }, 500);
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(LanguageBean bean) {
         if (bean != null) {
             recreate();
         }
     }
+
     @Override
     protected void initData() {
+        Intent dataIntent = getIntent();
+        EventBus.getDefault().register(this);
+        BaseApplication.addDestoryActivity(this, "login");
+
+        openTab(true, dataIntent);
+        getSwipeBackLayout().setEnableGesture(false);//禁止右滑退出
+
         mUnreadNumView.setDragListencer(this);
 
         fragmentList = new ArrayList<>();
 
         homeFragment = new HomeNewFragment();
         fenLeiFragment = new FenLeiFragment();
-//        messageFragment = new MessageFragment();
-        publishBuyFragment=new PublishBuyFragment();
+        messageFragment = new MessageFragment();
+        publishBuyFragment = new PublishBuyFragment();
         cartFragment = new CartFragment();
         meFragment = new MeFragment();
         fragmentList.add(homeFragment);
         fragmentList.add(fenLeiFragment);
-//            fragmentList.add(messageFragment);
         fragmentList.add(publishBuyFragment);
         fragmentList.add(cartFragment);
+        fragmentList.add(messageFragment);
         fragmentList.add(meFragment);
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.fl_container, homeFragment);
         transaction.add(R.id.fl_container, fenLeiFragment);
-//            transaction.add(R.id.fl_container, messageFragment);
         transaction.add(R.id.fl_container, publishBuyFragment);
-
         transaction.add(R.id.fl_container, cartFragment);
+        transaction.add(R.id.fl_container,messageFragment);
         transaction.add(R.id.fl_container, meFragment);
         transaction.hide(fenLeiFragment);
-//            transaction.hide(messageFragment);
         transaction.hide(publishBuyFragment);
         transaction.hide(cartFragment);
+        transaction.hide(messageFragment);
         transaction.hide(meFragment);
         transaction.commit();
         tv_home.setTextColor(getResources().getColor(R.color.bottom_text));
         tv_fenl.setTextColor(getResources().getColor(R.color.text));
         tv_fbqg.setTextColor(getResources().getColor(R.color.text));
         tv_card.setTextColor(getResources().getColor(R.color.text));
+        tv_message.setTextColor(getResources().getColor(R.color.text));
         tv_my.setTextColor(getResources().getColor(R.color.text));
         iv_home.setImageResource(R.drawable.shouye2);
         iv_fl.setImageResource(R.drawable.fenlei);
         iv_fbqg.setImageResource(R.drawable.fbqg_main);
         iv_cart.setImageResource(R.drawable.jinhuoche1);
+        iv_message.setImageResource(R.drawable.liaotian);
         iv_my.setImageResource(R.drawable.wode);
         openTab(0);
     }
 
 
-    @Event(value = {R.id.ll_home,R.id.ll_Fl,R.id.ll_fbqg,R.id.ll_card,R.id.ll_My}, type = View.OnClickListener.class)
+    @Event(value = {R.id.ll_home, R.id.ll_Fl, R.id.ll_fbqg, R.id.ll_card, R.id.ll_My,R.id.ll_message}, type = View.OnClickListener.class)
     private void getEvent(View view) {
-        String token = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.TOKEN ,"");
+        String token = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.TOKEN, "");
 
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.ll_home:
                 tv_home.setTextColor(getResources().getColor(R.color.bottom_text));
                 tv_fenl.setTextColor(getResources().getColor(R.color.text));
                 tv_fbqg.setTextColor(getResources().getColor(R.color.text));
                 tv_card.setTextColor(getResources().getColor(R.color.text));
+                tv_message.setTextColor(getResources().getColor(R.color.text));
                 tv_my.setTextColor(getResources().getColor(R.color.text));
                 iv_home.setImageResource(R.drawable.shouye2);
                 iv_fl.setImageResource(R.drawable.fenlei);
                 iv_fbqg.setImageResource(R.drawable.fbqg_main);
                 iv_cart.setImageResource(R.drawable.jinhuoche1);
+                iv_message.setImageResource(R.drawable.liaotian);
                 iv_my.setImageResource(R.drawable.wode);
                 hideFragment(0);
 
@@ -216,11 +223,13 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 tv_fenl.setTextColor(getResources().getColor(R.color.bottom_text));
                 tv_fbqg.setTextColor(getResources().getColor(R.color.text));
                 tv_card.setTextColor(getResources().getColor(R.color.text));
+                tv_message.setTextColor(getResources().getColor(R.color.text));
                 tv_my.setTextColor(getResources().getColor(R.color.text));
                 iv_home.setImageResource(R.drawable.shouye);
                 iv_fl.setImageResource(R.drawable.fenlei2);
                 iv_fbqg.setImageResource(R.drawable.fbqg_main);
                 iv_cart.setImageResource(R.drawable.jinhuoche1);
+                iv_message.setImageResource(R.drawable.liaotian);
                 iv_my.setImageResource(R.drawable.wode);
                 hideFragment(1);
 
@@ -230,21 +239,18 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 tv_fenl.setTextColor(getResources().getColor(R.color.text));
                 tv_fbqg.setTextColor(getResources().getColor(R.color.bottom_text));
                 tv_card.setTextColor(getResources().getColor(R.color.text));
+                tv_message.setTextColor(getResources().getColor(R.color.text));
                 tv_my.setTextColor(getResources().getColor(R.color.text));
                 iv_home.setImageResource(R.drawable.shouye);
                 iv_fl.setImageResource(R.drawable.fenlei);
                 iv_fbqg.setImageResource(R.drawable.fbqh_2main);
                 iv_cart.setImageResource(R.drawable.jinhuoche1);
+                iv_message.setImageResource(R.drawable.liaotian);
                 iv_my.setImageResource(R.drawable.wode);
-//                if(BaseApplication.getInstance().userBean==null){
-//                    startActivity(new Intent(this,LoginActivity.class));
-//                }else {
-//                    hideFragment(2);
-//                }
-                if(token!=null&&!token.equals("")){
+                if (token != null && !token.equals("")) {
                     hideFragment(2);
-                }else {
-                    startActivity(new Intent(this,LoginActivity.class));
+                } else {
+                    startActivity(new Intent(this, LoginActivity.class));
                 }
                 break;
             case R.id.ll_card:
@@ -252,45 +258,64 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 tv_fenl.setTextColor(getResources().getColor(R.color.text));
                 tv_fbqg.setTextColor(getResources().getColor(R.color.text));
                 tv_card.setTextColor(getResources().getColor(R.color.bottom_text));
+                tv_message.setTextColor(getResources().getColor(R.color.text));
                 tv_my.setTextColor(getResources().getColor(R.color.text));
                 iv_home.setImageResource(R.drawable.shouye);
                 iv_fl.setImageResource(R.drawable.fenlei);
                 iv_fbqg.setImageResource(R.drawable.fbqg_main);
                 iv_cart.setImageResource(R.drawable.jinhuoche2);
+                iv_message.setImageResource(R.drawable.liaotian);
                 iv_my.setImageResource(R.drawable.wode);
-//                if(BaseApplication.getInstance().userBean==null){
-//                    startActivity(new Intent(this,LoginActivity.class));
-//                }else {
-//                    hideFragment(3);
-//                }
-                if(token!=null&&!token.equals("")){
+                if (token != null && !token.equals("")) {
                     hideFragment(3);
-                }else {
-                    startActivity(new Intent(this,LoginActivity.class));
+                } else {
+                    startActivity(new Intent(this, LoginActivity.class));
                 }
 
+                break;
+            case R.id.ll_message:
+                tv_home.setTextColor(getResources().getColor(R.color.text));
+                tv_fenl.setTextColor(getResources().getColor(R.color.text));
+                tv_fbqg.setTextColor(getResources().getColor(R.color.text));
+                tv_card.setTextColor(getResources().getColor(R.color.text));
+                tv_message.setTextColor(getResources().getColor(R.color.bottom_text));
+                tv_my.setTextColor(getResources().getColor(R.color.text));
+                iv_home.setImageResource(R.drawable.shouye);
+                iv_fl.setImageResource(R.drawable.fenlei);
+                iv_fbqg.setImageResource(R.drawable.fbqg_main);
+                iv_cart.setImageResource(R.drawable.jinhuoche1);
+                iv_message.setImageResource(R.drawable.liaotian2);
+                iv_my.setImageResource(R.drawable.wode);
+                if (token != null && !token.equals("")) {
+                    hideFragment(4);
+                } else {
+                    startActivity(new Intent(this, LoginActivity.class));
+                }
                 break;
             case R.id.ll_My:
                 tv_home.setTextColor(getResources().getColor(R.color.text));
                 tv_fenl.setTextColor(getResources().getColor(R.color.text));
                 tv_fbqg.setTextColor(getResources().getColor(R.color.text));
                 tv_card.setTextColor(getResources().getColor(R.color.text));
+                tv_message.setTextColor(getResources().getColor(R.color.text));
                 tv_my.setTextColor(getResources().getColor(R.color.bottom_text));
                 iv_home.setImageResource(R.drawable.shouye);
                 iv_fl.setImageResource(R.drawable.fenlei);
                 iv_fbqg.setImageResource(R.drawable.fbqg_main);
                 iv_cart.setImageResource(R.drawable.jinhuoche1);
+                iv_message.setImageResource(R.drawable.liaotian);
                 iv_my.setImageResource(R.drawable.wode2);
-                if(token!=null&&!token.equals("")){
-                    hideFragment(4);
-                }else {
-                    startActivity(new Intent(this,LoginActivity.class));
+                if (token != null && !token.equals("")) {
+                    hideFragment(5);
+                } else {
+                    startActivity(new Intent(this, LoginActivity.class));
                 }
 
 
                 break;
         }
     }
+
     public static MainActivity getMainActivity() {
         return mainActivity;
     }
@@ -369,7 +394,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
             CusToast.showToast("再按一次退出程序");
             // 利用handler延迟发送更改状态信息
             mHandler.sendEmptyMessageDelayed(0, 2000);
-        }else {
+        } else {
             System.exit(0);
             Process.killProcess(Process.myPid());
         }
@@ -391,22 +416,23 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     @Override
     public void onCountChanged(int count) {
         if (count == 0) {
-            if(messageNum>0){
+            if (messageNum > 0) {
                 mUnreadNumView.setVisibility(View.VISIBLE);
-                mUnreadNumView.setText(String.valueOf(count+messageNum));
-            }else{
+                mUnreadNumView.setText(String.valueOf(count + messageNum));
+            } else {
                 mUnreadNumView.setVisibility(View.GONE);
             }
         } else if (count > 0 && count < 100) {
             mUnreadNumView.setVisibility(View.VISIBLE);
             upGetMessageData();
-            mUnreadNumView.setText(String.valueOf(count+messageNum));
+            mUnreadNumView.setText(String.valueOf(count + messageNum));
         } else {
             mUnreadNumView.setVisibility(View.VISIBLE);
             mUnreadNumView.setText(R.string.no_read_message);
         }
     }
-    private int messageNum=0;
+
+    private int messageNum = 0;
     /**
      * 接收未读消息的监听器。
      */
@@ -415,25 +441,26 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         public void onMessageIncreased(int count) {
             System.out.println("main---onMessageIncreased---未读消息条数：" + count);
             if (count == 0) {
-                if(messageNum>0){
+                if (messageNum > 0) {
                     mUnreadNumView.setVisibility(View.VISIBLE);
-                    mUnreadNumView.setText(String.valueOf(count+messageNum));
-                }else{
+                    mUnreadNumView.setText(String.valueOf(count + messageNum));
+                } else {
                     mUnreadNumView.setVisibility(View.GONE);
                 }
             } else if (count > 0 && count < 100) {
                 mUnreadNumView.setVisibility(View.VISIBLE);
                 upGetMessageData();
-                mUnreadNumView.setText(String.valueOf(count+messageNum));
+                mUnreadNumView.setText(String.valueOf(count + messageNum));
             } else {
                 mUnreadNumView.setVisibility(View.VISIBLE);
                 mUnreadNumView.setText(R.string.no_read_message);
             }
         }
     };
+
     private void upGetMessageData() {
-        Map<String,Object> map=new HashMap<>();
-        if(BaseApplication.getInstance().userBean==null)return;
+        Map<String, Object> map = new HashMap<>();
+        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", BaseApplication.getInstance().userBean.getToken());
         XUtil.Post(URLConstant.XITONGXIAO_WEIDU, map, new MyCallBack<String>() {
             @Override
@@ -450,8 +477,8 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                         String result2 = jsonObject.optString("result");
                         JSONObject jsonObject2 = new JSONObject(result2);
                         String count = jsonObject2.optString("count");
-                        messageNum=Integer.parseInt(count);
-                        if(messageNum>0){
+                        messageNum = Integer.parseInt(count);
+                        if (messageNum > 0) {
                             mUnreadNumView.setVisibility(View.VISIBLE);
                             mUnreadNumView.setText(String.valueOf(messageNum));
                         }

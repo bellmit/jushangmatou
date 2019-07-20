@@ -136,6 +136,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableRight="@drawable/right_more"
+                        android:textDirection="locale"
                         android:padding="@dimen/dp_10"
                         android:text="@string/waimaoqiugou"
                         android:textColor="@color/black"

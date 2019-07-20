@@ -1,6 +1,7 @@
 package com.jsmt.developer.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jsmt.developer.R;
+import com.jsmt.developer.activity.home.LianMengDetailActivity;
 import com.jsmt.developer.bean.HomeDataNewBean;
 import com.jsmt.developer.utils.TransformationUtils;
 
@@ -35,6 +37,12 @@ public class HomeLianMengAdapter extends RecyclerView.Adapter<HomeLianMengAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         Glide.with(context).load(mDatas.get(position).getCompany_images()).asBitmap().placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).into(new TransformationUtils(holder.pic_iv));
         holder.company_name.setText(mDatas.get(position).getCompany_name());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, LianMengDetailActivity.class));
+            }
+        });
     }
 
     @Override

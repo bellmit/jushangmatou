@@ -1,12 +1,14 @@
 package com.jsmt.developer.activity.home;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +36,8 @@ import com.jsmt.developer.ShowImageDetail;
 import com.jsmt.developer.activity.MainActivity;
 import com.jsmt.developer.activity.cart.CloseAccountActivity;
 import com.jsmt.developer.activity.my.AddressGLActivity;
+import com.jsmt.developer.adapter.OrderDetailAdapter;
+import com.jsmt.developer.adapter.RollingTextAdapter;
 import com.jsmt.developer.base.BaseActivity;
 import com.jsmt.developer.base.BaseApplication;
 import com.jsmt.developer.base.BaseRVAdapter;
@@ -41,13 +45,16 @@ import com.jsmt.developer.base.BaseViewHolder;
 import com.jsmt.developer.base.URLConstant;
 import com.jsmt.developer.bean.CardCloaseBean;
 import com.jsmt.developer.bean.JieSuanBean;
+import com.jsmt.developer.bean.OrderDetailBean;
 import com.jsmt.developer.bean.ShoppingXQBean;
 import com.jsmt.developer.rongyun.RongTalk;
 import com.jsmt.developer.utils.GlideImageLoader;
 import com.jsmt.developer.utils.xutils3.MyCallBack;
 import com.jsmt.developer.utils.xutils3.XUtil;
 import com.jsmt.developer.view.CircularImage;
+import com.jsmt.developer.view.RollTextItem;
 import com.jsmt.developer.view.RoundImageView;
+import com.jsmt.developer.view.TextViewSwitcher;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
@@ -142,43 +149,53 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private LinearLayout ll_openWeb;
     @ViewInject(R.id.rl_shard)
     private RelativeLayout rl_shard;
+    @ViewInject(R.id.rolltext)
+    private TextViewSwitcher rollingText;
+    @ViewInject(R.id.order_detail_RecyclerView)
+    private RecyclerView order_detail_RecyclerView;
+
+    private List<RollTextItem> data = new ArrayList<>();
+
     private String goods_id;
     private ShoppingXQBean.ResultBean.GoodsBean goodsBean = new ShoppingXQBean.ResultBean.GoodsBean();
     private ShoppingXQBean.ResultBean.StoreBean storeBean = new ShoppingXQBean.ResultBean.StoreBean();
     private List<ShoppingXQBean.ResultBean.CommentBean> commentBeans = new ArrayList<>();
     private List<ShoppingXQBean.ResultBean.GalleryBean> galleryBeans = new ArrayList<>();
-
+    private List<OrderDetailBean.ResultBean> orderDetails = new ArrayList<>();
     private String sctype;
     private ShareAction mShareAction;
     private UMShareListener mShareListener;
     private IWXAPI wxAPI;
     private String APP_ID = "wx93eea65ba215f901";
     private int allNum;
+    private OrderDetailAdapter mOrderDetailAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
-        wxAPI = WXAPIFactory.createWXAPI(ShoppingParticularsActivity.this, APP_ID,true);
+        wxAPI = WXAPIFactory.createWXAPI(ShoppingParticularsActivity.this, APP_ID, true);
         wxAPI.registerApp(APP_ID);
 
         initData();
         upShopXQData();
+        initOrderData();
     }
 
     @Override
     protected void initData() {
         goods_id = getIntent().getStringExtra("goods_id");
-        Log.i("=====店铺内商品id2--",goods_id+"");
-
+        Log.i("=====店铺内商品id2--", goods_id + "");
+        initLiuLangData();
     }
 
     @Override
     protected void initView() {
         tv_qp_num.setText(goodsBean.getBatch_number() + "");
-        if(goodsBean.getBatch_number()!=null&&!goodsBean.getBatch_number().equals("")){
-            if(Integer.parseInt(goodsBean.getBatch_number())>0){
+        if (goodsBean.getBatch_number() != null && !goodsBean.getBatch_number().equals("")) {
+            if (Integer.parseInt(goodsBean.getBatch_number()) > 0) {
                 tv_num.setText(goodsBean.getBatch_number() + "");
-            }else{
+            } else {
                 tv_num.setText("1");
             }
 
@@ -292,14 +309,35 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(!tv_num.getText().toString().equals("")){
-                    allNum=Integer.parseInt(tv_num.getText().toString());
+                if (!tv_num.getText().toString().equals("")) {
+                    allNum = Integer.parseInt(tv_num.getText().toString());
                 }
             }
         });
+
+        rollingText.setAdapter(new RollingTextAdapter() {
+            @Override
+            public int getCount() {
+                return data.size() / 2;
+            }
+
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public View getView(Context context, View contentView, int position) {
+                View view = View.inflate(context, R.layout.item_zhengzailiulan, null);
+                ((TextView) view.findViewById(R.id.tv_1)).setText(data.get(position).getName());
+                ((ImageView) view.findViewById(R.id.img_1)).setBackgroundResource(data.get(position).getImgId());
+                ((TextView) view.findViewById(R.id.tv_detail)).setText(data.get(position).getMsg());
+                ((TextView) view.findViewById(R.id.tv_2)).setText(data.get((position + 1) % data.size()).getName());
+                ((ImageView) view.findViewById(R.id.img_2)).setBackgroundResource(data.get((position + 1) % data.size()).getImgId());
+                ((TextView) view.findViewById(R.id.tv_detail2)).setText(data.get((position + 1) % data.size()).getMsg());
+                return view;
+            }
+        });
+        rollingText.startFlipping();
     }
 
-    @Event(value = {R.id.iv_close, R.id.tv_jian,R.id.ll_openWeb, R.id.rl_shard,R.id.rl_kf, R.id.ll_gzsj, R.id.tv_ljxj, R.id.iv_dianpu, R.id.ll_issc, R.id.iv_go_cart, R.id.tv_add, R.id.tv_look_all_pj, R.id.ll_pingjia, R.id.tv_jrgwc, R.id.ll_shuxing_xz, R.id.rl_input_dp, R.id.rl_input_dp2}, type = View.OnClickListener.class)
+    @Event(value = {R.id.iv_close, R.id.tv_jian, R.id.ll_openWeb, R.id.rl_shard, R.id.rl_kf, R.id.ll_gzsj, R.id.tv_ljxj, R.id.iv_dianpu, R.id.ll_issc, R.id.iv_go_cart, R.id.tv_add, R.id.tv_look_all_pj, R.id.ll_pingjia, R.id.tv_jrgwc, R.id.ll_shuxing_xz, R.id.rl_input_dp, R.id.rl_input_dp2}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.iv_close:
@@ -313,7 +351,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 webView.setVisibility(View.VISIBLE);
                 break;
             case R.id.iv_go_cart:
-                CardCloaseBean cardCloaseBean=new CardCloaseBean();
+                CardCloaseBean cardCloaseBean = new CardCloaseBean();
                 cardCloaseBean.setGoods_id(goods_id);
                 cardCloaseBean.setCartClose(true);
                 EventBus.getDefault().post(cardCloaseBean);
@@ -322,7 +360,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 break;
             case R.id.tv_jian:
 //                num=Integer.parseInt(tv_num.getText().toString());
-                allNum=Integer.parseInt(tv_num.getText().toString());
+                allNum = Integer.parseInt(tv_num.getText().toString());
                 if (allNum > 1) {
                     allNum--;
                 } else {
@@ -333,12 +371,12 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 tv_num.setText(allNum + "");
                 break;
             case R.id.tv_add:
-                if(!tv_num.getText().toString().equals("")){
-                    allNum=Integer.parseInt(tv_num.getText().toString());
+                if (!tv_num.getText().toString().equals("")) {
+                    allNum = Integer.parseInt(tv_num.getText().toString());
                     allNum++;
                     tv_num.setText(allNum + "");
-                }else{
-                    allNum=0;
+                } else {
+                    allNum = 0;
                 }
 
                 break;
@@ -424,14 +462,14 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         sku = str.substring(0, str.length() - 1);
                     }
                     try {
-                        allNum=Integer.parseInt(tv_num.getText().toString());
+                        allNum = Integer.parseInt(tv_num.getText().toString());
                         Map<String, Object> map = new HashMap<>();
                         map.put("token", BaseApplication.getInstance().userBean.getToken());
                         map.put("goods_id", goods_id);
                         map.put("goods_num", String.valueOf(allNum));
                         map.put("unique_id", "1");
                         map.put("key", sku);
-                        upJieSCartData(map,sku,allNum);
+                        upJieSCartData(map, sku, allNum);
 
 
                     } catch (Exception e) {
@@ -467,6 +505,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 break;
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -482,13 +521,15 @@ public class ShoppingParticularsActivity extends BaseActivity {
         super.onConfigurationChanged(newConfig);
         mShareAction.close();
     }
+
     private PopupWindow mPop;
     private int numpositionCorclo = 0;
     private int numpositionCC = 0;
     private int numpositionML = 0;
     private int numpositionQT = 0;
 
-    private int bannerNum=0;
+    private int bannerNum = 0;
+
     //显示弹窗
     private void showPop(View v) {
         initPop();
@@ -526,7 +567,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
             });
             RoundImageView iv_shopping_image = view.findViewById(R.id.iv_shopping_image);
             TextView tv_shopping_name = view.findViewById(R.id.tv_shopping_name);
-            TextView tv_shopping_price=view.findViewById(R.id.tv_shopping_price);
+            TextView tv_shopping_price = view.findViewById(R.id.tv_shopping_price);
             TextView tv_shopping_content = view.findViewById(R.id.tv_shopping_content);
             Glide.with(ShoppingParticularsActivity.this).load(goodsBean.getOriginal_img()).error(R.mipmap.myy322x).into(iv_shopping_image);
             tv_shopping_content.setText(goodsBean.getGoods_name());
@@ -559,13 +600,13 @@ public class ShoppingParticularsActivity extends BaseActivity {
             tv_add_num.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(!tv_num_all.getText().toString().equals("")){
+                    if (!tv_num_all.getText().toString().equals("")) {
                         allNum = Integer.parseInt(tv_num_all.getText().toString());
                         allNum++;
                         tv_num_all.setText(allNum + "");
                         tv_queding.setText("确定(" + allNum + ")");
-                    }else{
-                        allNum=0;
+                    } else {
+                        allNum = 0;
                     }
 
 
@@ -584,15 +625,15 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
                 @Override
                 public void afterTextChanged(Editable editable) {
-                    if(!tv_num_all.getText().toString().equals("")){
+                    if (!tv_num_all.getText().toString().equals("")) {
                         allNum = Integer.parseInt(tv_num_all.getText().toString());
                         tv_num.setText(tv_num_all.getText().toString());
                         tv_queding.setText("确定(" + allNum + ")");
                     }
                 }
             });
-            final TextView tv_shuxing3=view.findViewById(R.id.tv_shuxing3);
-            final TextView tv_shuxing4=view.findViewById(R.id.tv_shuxing4);
+            final TextView tv_shuxing3 = view.findViewById(R.id.tv_shuxing3);
+            final TextView tv_shuxing4 = view.findViewById(R.id.tv_shuxing4);
 
             if (goodsBean.getGoods_spec_list() != null) {
                 if (goodsBean.getGoods_spec_list().size() >= 1) {
@@ -609,27 +650,27 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     view.findViewById(R.id.ll_shuxing4).setVisibility(View.GONE);
                 }
                 if (goodsBean.getGoods_spec_list().size() >= 3) {
-                        tv_shuxing1.setText(goodsBean.getGoods_spec_list().get(0).get(0).getSpec_name());
-                        tv_shuxing2.setText(goodsBean.getGoods_spec_list().get(1).get(0).getSpec_name());
-                        tv_shuxing3.setText(goodsBean.getGoods_spec_list().get(2).get(0).getSpec_name());
+                    tv_shuxing1.setText(goodsBean.getGoods_spec_list().get(0).get(0).getSpec_name());
+                    tv_shuxing2.setText(goodsBean.getGoods_spec_list().get(1).get(0).getSpec_name());
+                    tv_shuxing3.setText(goodsBean.getGoods_spec_list().get(2).get(0).getSpec_name());
 
-                        view.findViewById(R.id.ll_shuxing3).setVisibility(View.VISIBLE);
-                        view.findViewById(R.id.ll_shuxing2).setVisibility(View.VISIBLE);
-                        view.findViewById(R.id.ll_shuxing3).setVisibility(View.VISIBLE);
-                        view.findViewById(R.id.ll_shuxing4).setVisibility(View.GONE);
+                    view.findViewById(R.id.ll_shuxing3).setVisibility(View.VISIBLE);
+                    view.findViewById(R.id.ll_shuxing2).setVisibility(View.VISIBLE);
+                    view.findViewById(R.id.ll_shuxing3).setVisibility(View.VISIBLE);
+                    view.findViewById(R.id.ll_shuxing4).setVisibility(View.GONE);
                 }
                 if (goodsBean.getGoods_spec_list().size() >= 4) {
-                        tv_shuxing1.setText(goodsBean.getGoods_spec_list().get(0).get(0).getSpec_name());
-                        tv_shuxing2.setText(goodsBean.getGoods_spec_list().get(1).get(0).getSpec_name());
-                        tv_shuxing3.setText(goodsBean.getGoods_spec_list().get(2).get(0).getSpec_name());
-                        tv_shuxing4.setText(goodsBean.getGoods_spec_list().get(3).get(0).getSpec_name());
-                        Log.i("====商品属性---",goodsBean.getGoods_spec_list().get(0).get(0).getSpec_name()
-                                +"--"+goodsBean.getGoods_spec_list().get(1).get(0).getSpec_name()+goodsBean.getGoods_spec_list().get(2).get(0).getSpec_name()
-                        +goodsBean.getGoods_spec_list().get(3).get(0).getSpec_name());
-                        view.findViewById(R.id.ll_shuxing4).setVisibility(View.VISIBLE);
-                        view.findViewById(R.id.ll_shuxing3).setVisibility(View.VISIBLE);
-                        view.findViewById(R.id.ll_shuxing2).setVisibility(View.VISIBLE);
-                        view.findViewById(R.id.ll_shuxing3).setVisibility(View.VISIBLE);
+                    tv_shuxing1.setText(goodsBean.getGoods_spec_list().get(0).get(0).getSpec_name());
+                    tv_shuxing2.setText(goodsBean.getGoods_spec_list().get(1).get(0).getSpec_name());
+                    tv_shuxing3.setText(goodsBean.getGoods_spec_list().get(2).get(0).getSpec_name());
+                    tv_shuxing4.setText(goodsBean.getGoods_spec_list().get(3).get(0).getSpec_name());
+                    Log.i("====商品属性---", goodsBean.getGoods_spec_list().get(0).get(0).getSpec_name()
+                            + "--" + goodsBean.getGoods_spec_list().get(1).get(0).getSpec_name() + goodsBean.getGoods_spec_list().get(2).get(0).getSpec_name()
+                            + goodsBean.getGoods_spec_list().get(3).get(0).getSpec_name());
+                    view.findViewById(R.id.ll_shuxing4).setVisibility(View.VISIBLE);
+                    view.findViewById(R.id.ll_shuxing3).setVisibility(View.VISIBLE);
+                    view.findViewById(R.id.ll_shuxing2).setVisibility(View.VISIBLE);
+                    view.findViewById(R.id.ll_shuxing3).setVisibility(View.VISIBLE);
 
                 }
             }
@@ -651,7 +692,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 @Override
                 public void onClick(View view) {
                     mPop.dismiss();
-                    allNum=Integer.parseInt(tv_num_all.getText().toString());
+                    allNum = Integer.parseInt(tv_num_all.getText().toString());
                     String sku = "";
                     if (goodsBean.getGoods_spec_list() != null) {
                         if (goodsBean.getGoods_spec_list().size() >= 1) {
@@ -690,13 +731,13 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         map.put("goods_num", String.valueOf(allNum));
                         map.put("unique_id", "1");
                         map.put("key", sku);
-                        upJieSCartData(map,sku,allNum);
+                        upJieSCartData(map, sku, allNum);
 
 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    mPop=null;
+                    mPop = null;
 
                 }
             });
@@ -704,7 +745,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {//加入购物车
                     skuid.clear();
-                    allNum=Integer.parseInt(tv_num_all.getText().toString());
+                    allNum = Integer.parseInt(tv_num_all.getText().toString());
 
                     String sku = null;
                     if (goodsBean.getGoods_spec_list() != null) {
@@ -740,14 +781,14 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
 
                     mPop.dismiss();
-                    mPop=null;
+                    mPop = null;
                 }
             });
             view.findViewById(R.id.iv_dialog_close).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     mPop.dismiss();
-                    mPop=null;
+                    mPop = null;
                 }
             });
             RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
@@ -759,7 +800,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
             RecyclerView recyView_color4 = view.findViewById(R.id.recyView_color4);
             recyView_color4.setLayoutManager(new GridLayoutManager(this, 3, LinearLayoutManager.VERTICAL, false));
 
-            if ( goodsBean.getGoods_spec_list()!=null &&goodsBean.getGoods_spec_list().size() >= 1) {
+            if (goodsBean.getGoods_spec_list() != null && goodsBean.getGoods_spec_list().size() >= 1) {
                 recyclerView.setAdapter(new BaseRVAdapter(this, goodsBean.getGoods_spec_list().get(0)) {
                     @Override
                     public int getLayoutId(int viewType) {
@@ -772,8 +813,8 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         final TextView tv_color_xz = holder.getTextView(R.id.tv_color_xz);
                         tv_color_xz.setText(goodsBean.getGoods_spec_list().get(0).get(position).getItem());
                         tv_shuxing1.setText(goodsBean.getGoods_spec_list().get(0).get(0).getSpec_name());
-                        for (int ii=0;ii<goodsBean.getGoods_spec_list().get(0).size();ii++){
-                            Log.i("===商品属性1",goodsBean.getGoods_spec_list().get(0).get(ii).getItem());
+                        for (int ii = 0; ii < goodsBean.getGoods_spec_list().get(0).size(); ii++) {
+                            Log.i("===商品属性1", goodsBean.getGoods_spec_list().get(0).get(ii).getItem());
                         }
                         if (numpositionCorclo == position) {
                             tv_color_xz.setTextColor(getResources().getColor(R.color.home_red));
@@ -795,7 +836,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
                 });
             }
-            if ( goodsBean.getGoods_spec_list()!=null &&goodsBean.getGoods_spec_list().size() >= 2) {
+            if (goodsBean.getGoods_spec_list() != null && goodsBean.getGoods_spec_list().size() >= 2) {
                 recyView_color.setAdapter(new BaseRVAdapter(this, goodsBean.getGoods_spec_list().get(1)) {
                     @Override
                     public int getLayoutId(int viewType) {
@@ -807,8 +848,8 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
                         final TextView tv_color_xz = holder.getTextView(R.id.tv_color_xz);
                         tv_color_xz.setText(goodsBean.getGoods_spec_list().get(1).get(position2).getItem());
-                        for (int ii=0;ii<goodsBean.getGoods_spec_list().get(1).size();ii++){
-                            Log.i("===商品属性2",goodsBean.getGoods_spec_list().get(1).get(ii).getItem());
+                        for (int ii = 0; ii < goodsBean.getGoods_spec_list().get(1).size(); ii++) {
+                            Log.i("===商品属性2", goodsBean.getGoods_spec_list().get(1).get(ii).getItem());
                         }
                         if (numpositionCC == position2) {
                             tv_color_xz.setTextColor(getResources().getColor(R.color.home_red));
@@ -830,7 +871,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
                 });
             }
-            if ( goodsBean.getGoods_spec_list()!=null &&goodsBean.getGoods_spec_list().size() >= 3) {
+            if (goodsBean.getGoods_spec_list() != null && goodsBean.getGoods_spec_list().size() >= 3) {
                 recyView_color3.setAdapter(new BaseRVAdapter(this, goodsBean.getGoods_spec_list().get(2)) {
                     @Override
                     public int getLayoutId(int viewType) {
@@ -843,8 +884,8 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         final TextView tv_color_xz = holder.getTextView(R.id.tv_color_xz);
                         tv_color_xz.setText(goodsBean.getGoods_spec_list().get(2).get(position2).getItem());
                         tv_shuxing3.setText(goodsBean.getGoods_spec_list().get(2).get(0).getSpec_name());
-                        for (int ii=0;ii<goodsBean.getGoods_spec_list().get(2).size();ii++){
-                            Log.i("===商品属性3",goodsBean.getGoods_spec_list().get(2).get(ii).getItem());
+                        for (int ii = 0; ii < goodsBean.getGoods_spec_list().get(2).size(); ii++) {
+                            Log.i("===商品属性3", goodsBean.getGoods_spec_list().get(2).get(ii).getItem());
                         }
                         if (numpositionML == position2) {
                             tv_color_xz.setTextColor(getResources().getColor(R.color.home_red));
@@ -866,7 +907,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
                 });
             }
-            if ( goodsBean.getGoods_spec_list()!=null &&goodsBean.getGoods_spec_list().size() >= 4) {
+            if (goodsBean.getGoods_spec_list() != null && goodsBean.getGoods_spec_list().size() >= 4) {
                 recyView_color4.setAdapter(new BaseRVAdapter(this, goodsBean.getGoods_spec_list().get(3)) {
                     @Override
                     public int getLayoutId(int viewType) {
@@ -878,8 +919,8 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
                         final TextView tv_color_xz = holder.getTextView(R.id.tv_color_xz);
                         tv_color_xz.setText(goodsBean.getGoods_spec_list().get(3).get(position2).getItem());
-                        for (int ii=0;ii<goodsBean.getGoods_spec_list().get(3).size();ii++){
-                            Log.i("===商品属性4",goodsBean.getGoods_spec_list().get(3).get(ii).getItem());
+                        for (int ii = 0; ii < goodsBean.getGoods_spec_list().get(3).size(); ii++) {
+                            Log.i("===商品属性4", goodsBean.getGoods_spec_list().get(3).get(ii).getItem());
                         }
                         tv_shuxing1.setText(goodsBean.getGoods_spec_list().get(0).get(0).getSpec_name());
                         tv_shuxing2.setText(goodsBean.getGoods_spec_list().get(1).get(0).getSpec_name());
@@ -913,6 +954,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private JSONObject object;
 
     private void upShopXQData() {
+        Log.d("chenshichun", "-----goods_id  " + goods_id);
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", BaseApplication.getInstance().userBean.getToken());
@@ -970,7 +1012,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
                     @Override
                     public void onPageSelected(int position) {
-                        bannerNum=position;
+                        bannerNum = position;
                         tv_image_num.setText(position + "/" + galleryBeans.size());
 
                     }
@@ -985,10 +1027,10 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     @Override
                     public void onClick(View view) {
 
-                            Intent  intent2 = new Intent(ShoppingParticularsActivity.this, ShowImageDetail.class);
-                            intent2.putStringArrayListExtra("paths", (ArrayList<String>) img);
-                            intent2.putExtra("index", bannerNum);
-                            startActivity(intent2);
+                        Intent intent2 = new Intent(ShoppingParticularsActivity.this, ShowImageDetail.class);
+                        intent2.putStringArrayListExtra("paths", (ArrayList<String>) img);
+                        intent2.putExtra("index", bannerNum);
+                        startActivity(intent2);
 //                        }
 
                     }
@@ -1009,7 +1051,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     });
                     webView.getSettings().setJavaScriptEnabled(true);
                     webView.loadUrl(goodsBean.getDetail());
-                    Log.i("===h5显示--",goodsBean.getDetail());
+                    Log.i("===h5显示--", goodsBean.getDetail());
 
                 }
                 initView();
@@ -1078,7 +1120,8 @@ public class ShoppingParticularsActivity extends BaseActivity {
             }
         });
     }
-    private JieSuanBean.ResultBean.AddressListBean addressListBeans=new JieSuanBean.ResultBean.AddressListBean();
+
+    private JieSuanBean.ResultBean.AddressListBean addressListBeans = new JieSuanBean.ResultBean.AddressListBean();
 
     private void upJieSCartData(Map<String, Object> map, final String sku, final int num_ljgm) {
 
@@ -1104,10 +1147,10 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         JieSuanBean jieSuanBean = gson.fromJson(result, JieSuanBean.class);
-                        addressListBeans=jieSuanBean.getResult().getAddressList();
-                        String cart_ids=jieSuanBean.getResult().getCart_ids();
+                        addressListBeans = jieSuanBean.getResult().getAddressList();
+                        String cart_ids = jieSuanBean.getResult().getCart_ids();
 
-                        upHQpriceData(cart_ids,sku,num_ljgm);
+                        upHQpriceData(cart_ids, sku, num_ljgm);
                     } else if (res.equals("-1")) {
                         CusToast.showToast(msg);
                         return;
@@ -1132,11 +1175,12 @@ public class ShoppingParticularsActivity extends BaseActivity {
             }
         });
     }
+
     private void upHQpriceData(String cartIds, final String sku, final int num_ljgm) {
         Map<String, Object> map = new HashMap<>();
         map.put("token", BaseApplication.getInstance().userBean.getToken());
-        if(addressListBeans.getAddress_id()!=null){
-            map.put("address_id", addressListBeans.getAddress_id()+"");
+        if (addressListBeans.getAddress_id() != null) {
+            map.put("address_id", addressListBeans.getAddress_id() + "");
         }
 //        map.put("act", "");
         map.put("ids", cartIds);
@@ -1158,8 +1202,8 @@ public class ShoppingParticularsActivity extends BaseActivity {
                                 .putExtra("goods_id", goods_id)
                                 .putExtra("key", sku)
                                 .putExtra("goods_num", String.valueOf(num_ljgm)));
-                    }else  if (res.equals("-1")){
-                        startActivity(new Intent(ShoppingParticularsActivity.this,AddressGLActivity.class));
+                    } else if (res.equals("-1")) {
+                        startActivity(new Intent(ShoppingParticularsActivity.this, AddressGLActivity.class));
                         CusToast.showToast(msg);
                     }
 
@@ -1171,13 +1215,13 @@ public class ShoppingParticularsActivity extends BaseActivity {
             @Override
             public void onFinished() {
                 super.onFinished();
-               closeDialog();
+                closeDialog();
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
-               closeDialog();
+                closeDialog();
                 ex.printStackTrace();
             }
         });
@@ -1282,9 +1326,11 @@ public class ShoppingParticularsActivity extends BaseActivity {
             }
         });
     }
+
     private PopupWindow mPopShard;
     private View viewShard;
     private TextView tv_xz_title;
+
     //显示弹窗
     private void showPopShard(View v) {
         initPopShard();
@@ -1296,6 +1342,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
         lp.alpha = 0.6f;
         getWindow().setAttributes(lp);
     }
+
     private void initPopShard() {
         if (mPopShard == null) {
             viewShard = LayoutInflater.from(this).inflate(R.layout.main_shard_layout, null);
@@ -1313,11 +1360,11 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 public void onDismiss() {
                     WindowManager.LayoutParams lp = getWindow().getAttributes();
                     lp.alpha = 1f;
-                   getWindow().setAttributes(lp);
+                    getWindow().setAttributes(lp);
                 }
             });
             TextView tv_dialog_close = viewShard.findViewById(R.id.tv_dialog_close);
-            tv_xz_title=viewShard.findViewById(R.id.tv_xz_title);
+            tv_xz_title = viewShard.findViewById(R.id.tv_xz_title);
 //            mShareAction.open();
             viewShard.findViewById(R.id.ll_wechat).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -1328,7 +1375,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     msg.title = "来自聚商码头";
                     msg.description = goodsBean.getGoods_name();
                     Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-                    msg.thumbData =bmpToByteArray(thumb);
+                    msg.thumbData = bmpToByteArray(thumb);
                     SendMessageToWX.Req req = new SendMessageToWX.Req();
                     req.transaction = String.valueOf(System.currentTimeMillis());
                     req.message = msg;
@@ -1346,7 +1393,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     msg.title = "来自聚商码头";
                     msg.description = goodsBean.getGoods_name();
                     Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-                    msg.thumbData =bmpToByteArray(thumb);//封面图片byte数组
+                    msg.thumbData = bmpToByteArray(thumb);//封面图片byte数组
                     SendMessageToWX.Req req = new SendMessageToWX.Req();
                     req.transaction = String.valueOf(System.currentTimeMillis());
                     req.message = msg;
@@ -1358,7 +1405,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
             viewShard.findViewById(R.id.ll_QQ).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    UMWeb web = new UMWeb(goodsBean.getDetail()+"");
+                    UMWeb web = new UMWeb(goodsBean.getDetail() + "");
                     web.setTitle("来自聚商码头");
                     web.setDescription(goodsBean.getGoods_name());
                     web.setThumb(new UMImage(ShoppingParticularsActivity.this, R.mipmap.ic_launcher));
@@ -1373,7 +1420,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 @Override
                 public void onClick(View view) {
 
-                    UMWeb web = new UMWeb(goodsBean.getDetail()+"");
+                    UMWeb web = new UMWeb(goodsBean.getDetail() + "");
                     web.setTitle("来自聚商码头");
                     web.setDescription(goodsBean.getGoods_name());
                     web.setThumb(new UMImage(ShoppingParticularsActivity.this, R.mipmap.ic_launcher));
@@ -1393,6 +1440,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
         }
     }
+
     /**
      * 得到Bitmap的byte
      *
@@ -1412,5 +1460,25 @@ public class ShoppingParticularsActivity extends BaseActivity {
         return result;
     }
 
+    private void initLiuLangData() {
+        data.add(new RollTextItem("来自伊朗的小地雷正在查看该商品", R.drawable.head_icon0, "小地雷"));
+        data.add(new RollTextItem("来自埃及的高双正在查看该商品", R.drawable.head_icon1, "高双"));
+        data.add(new RollTextItem("来自肯尼亚的cuckoo正在查看该商品", R.drawable.head_icon2, "cuckoo"));
+        data.add(new RollTextItem("来自埃及的zhufeng正在查看该商品", R.drawable.head_icon3, "zhufeng"));
+    }
 
+    private void initOrderData() {
+        OrderDetailBean.ResultBean mOrderDetailBean = new OrderDetailBean.ResultBean("Waithaka", "肯尼亚", "黑色", "32", "面议", "1600件", "2019-05-28");
+        orderDetails.add(mOrderDetailBean);
+        OrderDetailBean.ResultBean mOrderDetailBean1 = new OrderDetailBean.ResultBean("Talla Diakhate", "塞内加尔", "黑色", "32", "面议", "1700件", "2019-06-07");
+        orderDetails.add(mOrderDetailBean1);
+        OrderDetailBean.ResultBean mOrderDetailBean2 = new OrderDetailBean.ResultBean("Mohammed", "伊拉克", "黑色", "32", "面议", "1400件", "2019-06-17");
+        orderDetails.add(mOrderDetailBean2);
+        OrderDetailBean.ResultBean mOrderDetailBean3 = new OrderDetailBean.ResultBean("Mavas", "埃及", "黑色", "32", "面议", "4000件", "2019-06-29");
+        orderDetails.add(mOrderDetailBean3);
+
+        mOrderDetailAdapter = new OrderDetailAdapter(getContext(), orderDetails);
+        order_detail_RecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        order_detail_RecyclerView.setAdapter(mOrderDetailAdapter);
+    }
 }

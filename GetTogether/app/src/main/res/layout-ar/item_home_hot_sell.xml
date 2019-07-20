@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10">
+
+        <ImageView
+            android:id="@+id/pic_iv"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/img12x"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="                                                                                                                             "
+            app:layout_constraintTop_toTopOf="@+id/pic_iv" />
+
+        <TextView
+            android:id="@+id/product_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="2"
+            android:paddingStart="105dp"
+            android:text="标题标题标题标题"
+            app:layout_constraintTop_toTopOf="@+id/pic_iv" />
+
+        <TextView
+            android:id="@+id/tv_buy_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="￥"
+            android:textColor="@color/home_red"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/pic_iv"
+            app:layout_constraintStart_toEndOf="@id/pic_iv" />
+
+        <TextView
+            android:id="@+id/buy_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="0.00"
+            android:textColor="@color/home_red"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/pic_iv"
+            app:layout_constraintStart_toEndOf="@id/tv_buy_time" />
+
+        <TextView
+            android:id="@+id/tv_jian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="件"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/pic_iv"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_sell_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/pic_iv"
+            app:layout_constraintEnd_toStartOf="@id/tv_jian" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已成交"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/pic_iv"
+            app:layout_constraintEnd_toStartOf="@id/tv_sell_count" />
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

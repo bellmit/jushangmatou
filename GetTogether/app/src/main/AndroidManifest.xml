@@ -413,6 +413,8 @@
         <activity android:name=".activity.ServiceProviderActivity"/>
         <activity android:name=".activity.home.HomeHotSellActivity"/>
         <activity android:name=".activity.home.HomeLianMengActivity" />
+        <activity android:name=".activity.home.LianMengDetailActivity" />
+
     </application>
 
 </manifest>

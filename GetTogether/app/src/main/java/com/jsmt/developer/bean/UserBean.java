@@ -17,6 +17,15 @@ public class UserBean {
     private String store_id;
     private String targetId;
     private String goods_id;
+    private String role_type;
+
+    public String getRole_type() {
+        return role_type;
+    }
+
+    public void setRole_type(String role_type) {
+        this.role_type = role_type;
+    }
 
     public String getGoods_id() {
         return goods_id;

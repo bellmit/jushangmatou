@@ -58,6 +58,15 @@ public class LoginBean {
         private String token;
         private String last_login;
         private String chat_id;
+        private String role_type;
+
+        public String getRole_type() {
+            return role_type;
+        }
+
+        public void setRole_type(String role_type) {
+            this.role_type = role_type;
+        }
 
         public String getUser_id() {
             return user_id;

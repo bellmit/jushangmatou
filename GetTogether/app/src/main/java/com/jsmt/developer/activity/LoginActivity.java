@@ -250,12 +250,12 @@ public class LoginActivity extends BaseActivity {
                         }
                         SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.TOKEN, loginBean.getResult().getToken());
                         SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.TYPE, type);
-
                         UserBean userBean = new UserBean();
                         userBean.setToken(loginBean.getResult().getToken());
                         userBean.setUserName(loginBean.getResult().getNickname());
                         userBean.setPhone(loginBean.getResult().getMobile());
                         userBean.setChat_id(loginBean.getResult().getChat_id());
+                        userBean.setRole_type(loginBean.getResult().getRole_type());
                         BaseApplication.getInstance().userBean = userBean;
                         startActivity(new Intent(LoginActivity.this,MainActivity.class));
                         finish();
