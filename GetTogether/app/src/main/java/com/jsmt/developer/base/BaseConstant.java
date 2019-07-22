@@ -24,6 +24,7 @@ public class BaseConstant {
         public static final String head_pic = "head_pic";
         public static final String openid = "head_pic";
         public static final String language = "language";
+        public static final String ROLE_TYPE = "role_type";
 
         public static final String Shop_goods_id = "goods_id";
         public static final String Shop_store_id = "store_id";

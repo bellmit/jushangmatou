@@ -29,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.jsmt.developer.R;
@@ -133,10 +134,12 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
     private String release_type="";
     private String attach_time="";
     private String country_name="";
+    private String country_id="";
     @ViewInject(R.id.rl_close)
     private RelativeLayout rl_close;
     @ViewInject(R.id.tv_title)
     private  TextView tv_title;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -309,6 +312,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         map.put("goods_cate",goods_cate);
         map.put("release_type",release_type);
         map.put("attach_time",attach_time);
+        map.put("country_id",country_id);
         if(qgNum==1){
             map.put("goods_num",et_qgNum.getText().toString());
         }else  if(qgNum==2){
@@ -354,7 +358,6 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                         CusToast.showToast(msg);
                     }else if(res.equals("-1")) {
                         CusToast.showToast(msg);
-
                     }
 
                 } catch (JSONException e) {
@@ -525,6 +528,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                 holder.getTextView(R.id.tv_item).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        country_id = ""+position;
                         country_name=goodsCountryBeans.get(position).getCountry_name();
                         tv_ckgj.setText(goodsCountryBeans.get(position).getCountry_name());
                         mPop.dismiss();
@@ -664,7 +668,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // as you specify a parent activity_distributor_rz in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement

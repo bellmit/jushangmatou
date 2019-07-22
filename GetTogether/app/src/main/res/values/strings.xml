@@ -222,4 +222,32 @@
 阿里巴巴集团经营多项业务，另外也从关联公司的业务和服务中取得经营商业生态系统上的支援。业务和关联公司的业务包括：淘宝网、天猫、聚划算、全球速卖通、阿里巴巴国际交易市场、1688、阿里妈妈、阿里云、蚂蚁金服、菜鸟网络等。 [3]
 2014年9月19日，阿里巴巴集团在纽约证券交易所正式挂牌上市，股票代码“BABA”，创始人和董事局主席为马云。
 2018年7月19日，全球同步《财富》世界500强排行榜发布，阿里巴巴集团排名300位。 [4]  2018年12月，阿里巴巴入围2018世界品牌500强。</string>
+
+    <string name="gerenxinxi">个人信息</string>
+    <string name="caigoudingdan">采购订单</string>
+    <string name="shouhuodizhi">收货地址</string>
+    <string name="caigoushangrenzhen">采购商认证</string>
+    <string name="caigoushang">采购商</string>
+    <string name="gongyingshang">供应商</string>
+    <string name="contacts_name">联系人姓名</string>
+    <string name="input_contacts_name">请输入您身份证上的姓名</string>
+    <string name="contacts_phone_nun">联系人手机号</string>
+    <string name="input_contacts_phone_nun">请输入您的手机号</string>
+    <string name="contacts_email">联系人电子邮箱</string>
+    <string name="input_contacts_email">请输入您的电子邮箱</string>
+    <string name="apply_type">申请类型</string>
+    <string name="distributor">经销商</string>
+    <string name="factory">工厂</string>
+    <string name="personal">个人</string>
+    <string name="recommender_ID">推荐人ID</string>
+    <string name="input_recommender_ID">请输入您的推荐人ID(提示:手机号)</string>
+    <string name="next_step">下一步，填写公司信息</string>
+    <string name="upload_ID_card">身份证上传</string>
+    <string name="id_card_nun">身份证号</string>
+    <string name="please_input">请输入</string>
+    <string name="upload_positive_id_card">上传身份证正面</string>
+    <string name="upload_back_id_card">上传身份证反面</string>
+    <string name="upload_business_license">上传营业执照</string>
+    <string name="business_license_upload">营业执照上传</string>
+    <string name="upload_scene">上传实景图</string>
 </resources>

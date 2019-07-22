@@ -41,7 +41,7 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 /**
  * Created by litao
- * 注释:base activity controller
+ * 注释:base activity_distributor_rz controller
  * Created by 2019/1/11.
  */
 

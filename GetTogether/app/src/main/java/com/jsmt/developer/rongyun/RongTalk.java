@@ -67,7 +67,7 @@ public class RongTalk {
 
             @Override
             public void onError(RongIMClient.ErrorCode arg0) {
-//                Toast.makeText(activity, "错误：" + arg0.toString(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(activity_distributor_rz, "错误：" + arg0.toString(), Toast.LENGTH_SHORT).show();
                 Log.e("==info---", arg0.toString());
             }
 
@@ -104,11 +104,11 @@ public class RongTalk {
 
 //    /**
 //     * -----保存对象
-//     * @param activity
+//     * @param activity_distributor_rz
 //     * @param strObject
 //     */
-//    private static void saveObject(Activity activity, String strObject) {
-//        SharedPreferences sp = activity.getSharedPreferences("friend", Context.MODE_APPEND);
+//    private static void saveObject(Activity activity_distributor_rz, String strObject) {
+//        SharedPreferences sp = activity_distributor_rz.getSharedPreferences("friend", Context.MODE_APPEND);
 //        SharedPreferences.Editor edit = sp.edit();
 //        edit.putString("person", strObject + "=A=");
 //        edit.commit();

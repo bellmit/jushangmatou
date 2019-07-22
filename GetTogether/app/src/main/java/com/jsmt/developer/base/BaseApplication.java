@@ -97,7 +97,7 @@ public class BaseApplication extends Application {
     /**
      * 添加到销毁队列
      *
-     * @param activity 要销毁的activity
+     * @param activity_distributor_rz 要销毁的activity
      */
     private static Map<String, Activity> destoryMap = new HashMap<>();
 

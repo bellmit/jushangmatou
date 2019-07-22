@@ -126,7 +126,7 @@ public class PermissionUtils {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(activity, requestPermission)) {
                 Log.i(TAG, "requestPermission shouldShowRequestPermissionRationale");
-//                shouldShowRationale(activity, requestCode, requestPermission);
+//                shouldShowRationale(activity_distributor_rz, requestCode, requestPermission);
                 ActivityCompat.requestPermissions(activity, new String[]{requestPermission},requestCode);
 
             } else {
@@ -136,7 +136,7 @@ public class PermissionUtils {
 
         } else {
             Log.d(TAG, "ActivityCompat.checkSelfPermission ==== PackageManager.PERMISSION_GRANTED");
-//            AndroidUtils.showToastMsg(activity, "opened:" + requestPermissions[requestCode]);
+//            AndroidUtils.showToastMsg(activity_distributor_rz, "opened:" + requestPermissions[requestCode]);
             permissionGrant.onPermissionGranted(requestCode);
         }
     }
@@ -196,11 +196,11 @@ public class PermissionUtils {
 
             ActivityCompat.requestPermissions(activity, shouldRationalePermissionsList.toArray(new String[shouldRationalePermissionsList.size()]),
                     CODE_MULTI_PERMISSION);
-            /*showMessageOKCancel(activity, "should open those permission",
+            /*showMessageOKCancel(activity_distributor_rz, "should open those permission",
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions(activity, shouldRationalePermissionsList.toArray(new String[shouldRationalePermissionsList.size()]),
+                            ActivityCompat.requestPermissions(activity_distributor_rz, shouldRationalePermissionsList.toArray(new String[shouldRationalePermissionsList.size()]),
                                     CODE_MULTI_PERMISSION);
                             Log.d(TAG, "showMessageOKCancel requestPermissions");
                         }

@@ -248,8 +248,10 @@ public class LoginActivity extends BaseActivity {
                             SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.MOBILEPHONE, phone);
                             SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.PAYPASSWORD, pass);
                         }
-                        SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.TOKEN, loginBean.getResult().getToken());
                         SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.TYPE, type);
+                        SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.TOKEN, loginBean.getResult().getToken());
+                        SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.ROLE_TYPE, loginBean.getResult().getRole_type());
+
                         UserBean userBean = new UserBean();
                         userBean.setToken(loginBean.getResult().getToken());
                         userBean.setUserName(loginBean.getResult().getNickname());
@@ -430,11 +432,13 @@ public class LoginActivity extends BaseActivity {
                         SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.openid, QQopenid);
                         SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.NAME,QQname);
                         SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.TYPE, "2");//QQ
+                        Log.d("chenshichun","---getRole_type  "+loginBean.getResult().getRole_type());
                         UserBean userBean = new UserBean();
                         userBean.setToken(loginBean.getResult().getToken());
                         userBean.setUserName(loginBean.getResult().getNickname());
                         userBean.setPhone(loginBean.getResult().getMobile());
                         userBean.setChat_id(loginBean.getResult().getChat_id());
+//                        userBean.setRole_type(loginBean.getResult().getRole_type());
                         BaseApplication.getInstance().userBean = userBean;
                         startActivity(new Intent(LoginActivity.this,MainActivity.class));
                         finish();

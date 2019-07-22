@@ -84,8 +84,8 @@
         </activity>
         <activity
             android:name="com.jsmt.developer.activity.MainActivity"
-            android:launchMode="singleTask"
             android:configChanges="locale"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="com.jsmt.developer.activity.my.ZuJiActivity"
@@ -355,8 +355,9 @@
         <activity
             android:name="com.jsmt.developer.activity.LanguageActivity"
             android:launchMode="singleTask" />
-        <activity android:name="com.jsmt.developer.activity.my.NewAddShoppingActivity"
-            android:configChanges="locale"/>
+        <activity
+            android:name="com.jsmt.developer.activity.my.NewAddShoppingActivity"
+            android:configChanges="locale" />
         <activity
             android:name="com.jsmt.developer.activity.my.PostEvaluationActivity"
             android:configChanges="locale"
@@ -388,32 +389,43 @@
         <activity
             android:name="com.jsmt.developer.fragment.ShopXinXActivity"
             android:launchMode="singleTask" />
-        <activity android:name="com.jsmt.developer.activity.my.XTMessageActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.jsmt.developer.activity.my.MessageH5Activity"
-            android:configChanges="locale"/>
-        <activity android:name="com.jsmt.developer.activity.my.ShopDTFBActivity"
-            android:configChanges="locale"/>
+        <activity
+            android:name="com.jsmt.developer.activity.my.XTMessageActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.jsmt.developer.activity.my.MessageH5Activity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.jsmt.developer.activity.my.ShopDTFBActivity"
+            android:configChanges="locale" />
         <activity android:name="com.jsmt.developer.activity.FuWuXieYiActivity" />
         <activity
             android:name="com.jsmt.developer.activity.my.XeiYiH5Activity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
-        <activity android:name="com.jsmt.developer.activity.my.ShopGGH5Activity"
-            android:configChanges="locale"/>
-        <activity android:name="com.jsmt.developer.activity.my.TuWenXQActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.jsmt.developer.activity.my.ChanPinGLActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.jsmt.developer.activity.my.BuyMessageActivity"
-            android:configChanges="locale"/>
+        <activity
+            android:name="com.jsmt.developer.activity.my.ShopGGH5Activity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.jsmt.developer.activity.my.TuWenXQActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.jsmt.developer.activity.my.ChanPinGLActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.jsmt.developer.activity.my.BuyMessageActivity"
+            android:configChanges="locale" />
         <activity android:name="com.jsmt.developer.activity.home.MainHotTJActivity" />
         <activity android:name="com.jsmt.developer.activity.my.MemberActivity" />
         <activity android:name="com.jsmt.developer.activity.my.BuyMemberActivity" />
-        <activity android:name=".activity.ServiceProviderActivity"/>
-        <activity android:name=".activity.home.HomeHotSellActivity"/>
+        <activity android:name=".activity.ServiceProviderActivity" />
+        <activity android:name=".activity.home.HomeHotSellActivity" />
         <activity android:name=".activity.home.HomeLianMengActivity" />
         <activity android:name=".activity.home.LianMengDetailActivity" />
+        <activity android:name=".activity.my.shopauthentication.ShopAuthenticationActivity" />
+        <activity android:name=".activity.my.shopauthentication.PersionAuthenticationActivity" />
+        <activity android:name=".activity.my.shopauthentication.PersionAuthenticationSecondActivity" />
+        <activity android:name=".activity.my.shopauthentication.DistributorAuthenticationActivity" />
 
     </application>
 

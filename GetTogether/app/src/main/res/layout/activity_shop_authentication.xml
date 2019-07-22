@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_layout" />
+
+    <com.jsmt.developer.view.BaseScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="*"
+                        android:textColor="@color/my_red" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/contacts_name"
+                        android:textColor="@color/my_sprz_text"
+                        android:textSize="14dp" />
+
+                    <EditText
+                        android:id="@+id/et_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="@string/input_contacts_name"
+                        android:inputType="text"
+                        android:maxLength="12"
+                        android:maxLines="1"
+                        android:paddingStart="10dp"
+                        android:textColor="@color/text3"
+                        android:textColorHint="@color/my_sprz_hind"
+                        android:textSize="14dp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="*"
+                        android:textColor="@color/my_red" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/contacts_phone_nun"
+                        android:textColor="@color/my_sprz_text"
+                        android:textSize="14dp" />
+
+                    <EditText
+                        android:id="@+id/et_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="@string/input_contacts_phone_nun"
+                        android:inputType="number"
+                        android:maxLength="11"
+                        android:paddingStart="10dp"
+                        android:textColor="@color/text3"
+                        android:textColorHint="@color/my_sprz_hind"
+                        android:textSize="14dp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="*"
+                        android:textColor="@color/my_red" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/contacts_email"
+                        android:textColor="@color/my_sprz_text"
+                        android:textSize="14dp" />
+
+                    <EditText
+                        android:id="@+id/et_youxiang"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="@string/input_contacts_email"
+                        android:maxLength="18"
+                        android:maxLines="1"
+                        android:paddingStart="10dp"
+                        android:textColorHint="@color/my_sprz_hind"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="*"
+                        android:textColor="@color/my_red" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/apply_type"
+                        android:textColor="@color/my_sprz_text"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:id="@+id/iv_qglx3"
+                        android:layout_width="30dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="25dp"
+                        android:src="@drawable/weixuanz" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/distributor"
+                        android:textColor="@color/text3"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:id="@+id/iv_qglx2"
+                        android:layout_width="30dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="5dp"
+                        android:src="@drawable/weixuanz" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/factory"
+                        android:textColor="@color/text3"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:id="@+id/iv_qglx1"
+                        android:layout_width="30dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/weixuanz" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/personal"
+                        android:textColor="@color/text3"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="*"
+                    android:textColor="@color/my_red" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/recommender_ID"
+                    android:textColor="@color/my_sprz_text"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="@string/input_recommender_ID"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:paddingStart="10dp"
+                    android:textColor="@color/text3"
+                    android:textColorHint="@color/my_sprz_hind"
+                    android:textSize="14dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+        </LinearLayout>
+    </com.jsmt.developer.view.BaseScrollView>
+
+    <TextView
+        android:id="@+id/tv_tjsh"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:background="@color/my_red"
+        android:gravity="center"
+        android:text="@string/next_step"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+
+</LinearLayout>

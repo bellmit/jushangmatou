@@ -27,6 +27,8 @@ import com.jsmt.developer.fragment.FenLeiFragment;
 import com.jsmt.developer.fragment.HomeNewFragment;
 import com.jsmt.developer.fragment.MeFragment;
 import com.jsmt.developer.fragment.MessageFragment;
+import com.jsmt.developer.fragment.PersionCenterCaiGouFragment;
+import com.jsmt.developer.fragment.PersionCenterGongYingFragment;
 import com.jsmt.developer.fragment.PublishBuyFragment;
 import com.jsmt.developer.utils.SharedPreferencesUtils;
 import com.jsmt.developer.utils.language.LanguageBean;
@@ -99,6 +101,8 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     private MessageFragment messageFragment;
     private FenLeiFragment fenLeiFragment;
     private HomeNewFragment homeFragment;
+    private PersionCenterGongYingFragment persionCenterGongYingFragment;
+    private PersionCenterCaiGouFragment persionCenterCaiGouFragment;
     protected int position = 0;
     protected FragmentTransaction ft;
     private FragmentManager fragmentManager;
@@ -159,6 +163,8 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         fenLeiFragment = new FenLeiFragment();
         messageFragment = new MessageFragment();
         publishBuyFragment = new PublishBuyFragment();
+        persionCenterGongYingFragment = new PersionCenterGongYingFragment();
+        persionCenterCaiGouFragment = new PersionCenterCaiGouFragment();
         cartFragment = new CartFragment();
         meFragment = new MeFragment();
         fragmentList.add(homeFragment);
@@ -167,6 +173,8 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         fragmentList.add(cartFragment);
         fragmentList.add(messageFragment);
         fragmentList.add(meFragment);
+        fragmentList.add(persionCenterGongYingFragment);
+        fragmentList.add(persionCenterCaiGouFragment);
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.fl_container, homeFragment);
@@ -175,11 +183,16 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         transaction.add(R.id.fl_container, cartFragment);
         transaction.add(R.id.fl_container,messageFragment);
         transaction.add(R.id.fl_container, meFragment);
+        transaction.add(R.id.fl_container, persionCenterGongYingFragment);
+        transaction.add(R.id.fl_container, persionCenterCaiGouFragment);
+
         transaction.hide(fenLeiFragment);
         transaction.hide(publishBuyFragment);
         transaction.hide(cartFragment);
         transaction.hide(messageFragment);
         transaction.hide(meFragment);
+        transaction.hide(persionCenterGongYingFragment);
+        transaction.hide(persionCenterCaiGouFragment);
         transaction.commit();
         tv_home.setTextColor(getResources().getColor(R.color.bottom_text));
         tv_fenl.setTextColor(getResources().getColor(R.color.text));
@@ -200,7 +213,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     @Event(value = {R.id.ll_home, R.id.ll_Fl, R.id.ll_fbqg, R.id.ll_card, R.id.ll_My,R.id.ll_message}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         String token = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.TOKEN, "");
-
+        String role_type = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "");
         switch (view.getId()) {
             case R.id.ll_home:
                 tv_home.setTextColor(getResources().getColor(R.color.bottom_text));
@@ -306,7 +319,11 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 iv_message.setImageResource(R.drawable.liaotian);
                 iv_my.setImageResource(R.drawable.wode2);
                 if (token != null && !token.equals("")) {
-                    hideFragment(5);
+                    if(role_type != null && role_type.equals("1")){
+                        hideFragment(6);
+                    }else{
+                        hideFragment(7);
+                    }
                 } else {
                     startActivity(new Intent(this, LoginActivity.class));
                 }

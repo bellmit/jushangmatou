@@ -118,7 +118,7 @@ public class UiUtils extends com.ybm.app.utils.UiUtils{
 
     //    *
 //    * 显示toast，自己定义显示长短。
-//    * param1:activity  传入context
+//    * param1:activity_distributor_rz  传入context
 //    * param2:word   我们需要显示的toast的内容
 //    * param3:time length  long类型，我们传入的时间长度（如500）
     public static void showToast(final Activity activity, final String word, final long time) {
