@@ -422,10 +422,12 @@
         <activity android:name=".activity.home.HomeHotSellActivity" />
         <activity android:name=".activity.home.HomeLianMengActivity" />
         <activity android:name=".activity.home.LianMengDetailActivity" />
+        <activity android:name=".activity.home.HomeBuyDetailActivity" />
         <activity android:name=".activity.my.shopauthentication.ShopAuthenticationActivity" />
         <activity android:name=".activity.my.shopauthentication.PersionAuthenticationActivity" />
         <activity android:name=".activity.my.shopauthentication.PersionAuthenticationSecondActivity" />
         <activity android:name=".activity.my.shopauthentication.DistributorAuthenticationActivity" />
+
 
     </application>
 

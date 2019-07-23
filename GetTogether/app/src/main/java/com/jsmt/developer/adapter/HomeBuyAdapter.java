@@ -1,7 +1,9 @@
 package com.jsmt.developer.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jsmt.developer.R;
+import com.jsmt.developer.activity.home.HomeBuyDetailActivity;
+import com.jsmt.developer.activity.home.ShoppingParticularsActivity;
 import com.jsmt.developer.bean.HomeDataNewBean;
 import com.jsmt.developer.utils.SizeUtil;
 import com.jsmt.developer.utils.TransformationUtils;
@@ -33,7 +37,7 @@ public class HomeBuyAdapter extends RecyclerView.Adapter<HomeBuyAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         int imageSize= SizeUtil.dp2px(context,110);
         Glide.with(context).load(mDatas.get(position).getGoods_logo()).asBitmap().placeholder(R.mipmap.myy322x)
                 .error(R.mipmap.myy322x).override(imageSize, imageSize).into(holder.pic_iv);
@@ -41,6 +45,13 @@ public class HomeBuyAdapter extends RecyclerView.Adapter<HomeBuyAdapter.ViewHold
         holder.buy_style_tv.setText(mDatas.get(position).getRelease_type());
         holder.buy_time_tv.setText(mDatas.get(position).getAttach_time());
         holder.chukou_tv.setText(mDatas.get(position).getCountry_name());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, HomeBuyDetailActivity.class)
+                        .putExtra("trade_id", mDatas.get(position).getTrade_id()));
+            }
+        });
     }
 
     @Override

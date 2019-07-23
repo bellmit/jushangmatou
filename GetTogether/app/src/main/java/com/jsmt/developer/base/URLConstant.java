@@ -36,6 +36,9 @@ public class URLConstant {
     // 首页外贸新品
     public final static String HONENEWPRODUCTDATA = SERVER + "/Api/Goods/ftrade_newList";
 
+    //外贸求购详情
+    public final static String HOMEQIUGOUDETAIL = SERVER + "/Api/Goods/ftrade_buyDetail";
+
     //首页地区分类--市场分类数据
     public final static String HONESHICHANGDATA = SERVER + "/Api/Index/goodsSecAndThirdCategoryList";
     public final static String HONE_GUANFENLIELIEBIO = SERVER + "/Api/Index/pavilion_cate";
