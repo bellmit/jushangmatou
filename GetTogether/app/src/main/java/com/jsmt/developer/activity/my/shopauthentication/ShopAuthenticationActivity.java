@@ -1,6 +1,7 @@
 package com.jsmt.developer.activity.my.shopauthentication;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -11,6 +12,7 @@ import com.jsmt.developer.R;
 import com.jsmt.developer.base.BaseActivity;
 import com.jsmt.developer.base.BaseApplication;
 import com.jsmt.developer.base.URLConstant;
+import com.jsmt.developer.utils.Contacts;
 import com.jsmt.developer.utils.xutils3.MyCallBack;
 import com.jsmt.developer.utils.xutils3.XUtil;
 
@@ -43,6 +45,8 @@ public class ShopAuthenticationActivity extends BaseActivity {
     private EditText et_phone;
     @ViewInject(R.id.et_youxiang)
     private EditText et_youxiang;
+    @ViewInject(R.id.et_moble)
+    private EditText et_moble;
 
     @Override
     protected void initData() {
@@ -76,20 +80,14 @@ public class ShopAuthenticationActivity extends BaseActivity {
                 iv_qglx3.setImageResource(R.drawable.weixuanz);
                 break;
             case R.id.iv_qglx3:
-                RZType = 3;
+                RZType = 0;
                 iv_qglx3.setImageResource(R.drawable.xuanzhongf);
                 iv_qglx2.setImageResource(R.drawable.weixuanz);
                 iv_qglx1.setImageResource(R.drawable.weixuanz);
                 break;
             case R.id.tv_tjsh:
-                if (RZType == 0) {
-                    CusToast.showToast("请选择入驻类型");
-                    return;
-                } else {
-                    upRequest();
-                }
+                upRequest();
                 break;
-
         }
     }
 
@@ -98,6 +96,7 @@ public class ShopAuthenticationActivity extends BaseActivity {
         String name = et_name.getText().toString();
         String phone = et_phone.getText().toString();
         String youxiang = et_youxiang.getText().toString();
+        String mobile = et_moble.getText().toString();
         if (name.equals("")) {
             CusToast.showToast("请输入您身份证上的姓名");
             return;
@@ -108,11 +107,13 @@ public class ShopAuthenticationActivity extends BaseActivity {
             CusToast.showToast("请输入您身的电子邮箱");
             return;
         }
+        Log.d("chenshichun",""+RZType);
         map.put("token", BaseApplication.getInstance().userBean.getToken());
         map.put("contacts_name", name);
         map.put("contacts_mobile", phone);
         map.put("contacts_email", youxiang);
         map.put("apply_type", RZType);
+        map.put("mobile",mobile);
         showDialog();
         XUtil.Post(URLConstant.JINBENXINXI_UPLOADING, map, new MyCallBack<String>() {
             @Override
@@ -122,16 +123,10 @@ public class ShopAuthenticationActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
-
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        if (RZType == 1) {
-                            startActivity(new Intent(ShopAuthenticationActivity.this, PersionAuthenticationActivity.class));
-                        } else if (RZType == 2) {
-                            startActivity(new Intent(ShopAuthenticationActivity.this, FactoryAuthenticationActivity.class));
-                        } else if(RZType == 3){
-                            startActivity(new Intent(ShopAuthenticationActivity.this, DistributorAuthenticationActivity.class));
-                        }
+                        startActivity(new Intent(ShopAuthenticationActivity.this, PersionAuthenticationActivity.class)
+                                .putExtra(Contacts.AUTHENTICATION_TYPE,RZType));
                     } else {
                         CusToast.showToast(msg);
                     }

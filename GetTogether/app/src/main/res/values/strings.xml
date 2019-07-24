@@ -116,7 +116,7 @@
     <string name="zhanghao">账号</string>
     <string name="huiyuandengji">会员等级</string>
     <string name="zhanghu_anquan">账户安全</string>
-    <string name="bangding_phone">绑定手机号</string>
+    <string name="bangding_phone">绑定手机号码</string>
     <string name="bdsjh_q">你的账号目前绑定的手机号是</string>
     <string name="bdsjh_h">请输入你希望绑定的手机号</string>
     <string name="kefudian">客服电话</string>
@@ -127,7 +127,7 @@
     <string name="new_pass">新密码</string>
     <string name="queren_padd">确认密码</string>
     <string name="mima_qufen">必须是6-20个英文字母,数字或符号（除空格键），且字母，数字和标点符号至少包含两种，若包含字母，请注意区分大小写</string>
-    <string name="xiugai_pay_mima">修改支付密码</string>
+    <string name="xiugai_pay_mima">设置支付密码</string>
     <string name="shezhi_pay_mima">设置6位数字支付密码</string>
     <string name="pay_passNocf">支付密码不能是重复，连续的数字</string>
     <string name="yinhangka_bd">银行卡绑定</string>
@@ -250,4 +250,17 @@
     <string name="upload_business_license">上传营业执照</string>
     <string name="business_license_upload">营业执照上传</string>
     <string name="upload_scene">上传实景图</string>
+    <string name="gcmc">工厂名称</string>
+    <string name="gcdz">工厂地址</string>
+    <string name="dpmc">店铺名称</string>
+    <string name="dpzydl">店铺主营大类</string>
+    <string name="please_chose">请选择</string>
+    <string name="gfl">馆分类</string>
+    <string name="star">*</string>
+    <string name="dpdlzzh">店铺登录主账号</string>
+    <string name="dlmm">登录密码</string>
+    <string name="dpxxdz">店铺详细地址</string>
+    <string name="up_step">上一步</string>
+    <string name="down_step">下一步</string>
+    <string name="zhifubao_bd">支付宝绑定</string>
 </resources>

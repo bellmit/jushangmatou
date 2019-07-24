@@ -24,6 +24,7 @@ import com.jsmt.developer.base.BaseRVAdapter;
 import com.jsmt.developer.base.BaseViewHolder;
 import com.jsmt.developer.base.URLConstant;
 import com.jsmt.developer.bean.PersonagerMessageBean;
+import com.jsmt.developer.utils.Contacts;
 import com.jsmt.developer.utils.permissions.PermissionsActivity;
 import com.jsmt.developer.utils.xutils3.MyCallBack;
 import com.jsmt.developer.utils.xutils3.XUtil;
@@ -65,6 +66,14 @@ public class PersionAuthenticationActivity extends BaseActivity {
     private LinearLayout ll_dpzydl;
     @ViewInject(R.id.ll_gfl)
     private LinearLayout ll_gfl;
+    @ViewInject(R.id.name_ll)
+    private LinearLayout name_ll;
+    @ViewInject(R.id.address_ll)
+    private LinearLayout address_ll;
+    @ViewInject(R.id.factory_name)
+    private TextView factory_name;
+    @ViewInject(R.id.factory_address)
+    private TextView factory_address;
 
     private List<PersonagerMessageBean.ResultBean.GoodsCategoryBean> goodsCategoryBeans = new ArrayList<>();// 店铺主营大类数据
     private List<PersonagerMessageBean.ResultBean.PavilionBean> pavilionBeans = new ArrayList<>();
@@ -84,20 +93,38 @@ public class PersionAuthenticationActivity extends BaseActivity {
     static final String[] PERMISSIONS_CAMERA = new String[]{
             Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
+    
+    private int authenticationType = 0;
 
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText("个人入驻");
+        authenticationType = getIntent().getIntExtra(Contacts.AUTHENTICATION_TYPE, 1);
         getData();
     }
 
     @Override
     protected void initView() {
-
+        if (authenticationType == 1) {
+            tv_title.setText("个人入驻");
+            name_ll.setVisibility(View.GONE);
+            address_ll.setVisibility(View.GONE);
+        } else if (authenticationType == 0) {
+            tv_title.setText("经销商入驻");
+            name_ll.setVisibility(View.VISIBLE);
+            address_ll.setVisibility(View.VISIBLE);
+            factory_name.setText("公司名称");
+            factory_address.setText("公司地址");
+        } else if (authenticationType == 2) {
+            tv_title.setText("工厂入驻");
+            name_ll.setVisibility(View.VISIBLE);
+            address_ll.setVisibility(View.VISIBLE);
+            factory_name.setText("工厂名称");
+            factory_address.setText("工厂地址");
+        }
     }
 
-    @Event(value = {R.id.rl_close, R.id.tv_upStep, R.id.tv_downStep,R.id.ll_dpzydl,R.id.ll_gfl}, type = View.OnClickListener.class)
+    @Event(value = {R.id.rl_close, R.id.tv_upStep, R.id.tv_downStep, R.id.ll_dpzydl, R.id.ll_gfl}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
@@ -107,7 +134,13 @@ public class PersionAuthenticationActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_downStep:
-                startActivity(new Intent(PersionAuthenticationActivity.this, PersionAuthenticationSecondActivity.class));
+                if (authenticationType == 1) {
+                    startActivity(new Intent(PersionAuthenticationActivity.this, PersionAuthenticationSecondActivity.class));
+                } else if (authenticationType == 0) {
+                    startActivity(new Intent(PersionAuthenticationActivity.this, DistributorAuthenticationActivity.class));
+                } else if (authenticationType == 2) {
+                    startActivity(new Intent(PersionAuthenticationActivity.this, FactoryAuthenticationActivity.class));
+                }
                 break;
             case R.id.ll_dpzydl://店铺主营大类
                 type = 1;

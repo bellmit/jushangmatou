@@ -11,6 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jsmt.developer.R;
+import com.jsmt.developer.activity.my.CorporateInformationActivity;
+import com.jsmt.developer.activity.my.FansActivity;
 import com.jsmt.developer.activity.my.SettingActivity;
 import com.jsmt.developer.activity.my.shopauthentication.ShopAuthenticationActivity;
 import com.jsmt.developer.base.BaseActivity;
@@ -83,6 +85,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
             case R.id.ll_scj:// 商品
                 break;
             case R.id.ll_zj:// 粉丝
+                startActivity(new Intent(getActivity(), FansActivity.class));
                 break;
             case R.id.ll_qb:// 访客
                 break;
@@ -95,6 +98,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
             case R.id.tv_dsh:// 已结款
                 break;
             case R.id.rl_my_message:// 企业信息
+                startActivity(new Intent(getActivity(), CorporateInformationActivity.class));
                 break;
             case R.id.rl_ksbh:// 会员信息
                 break;

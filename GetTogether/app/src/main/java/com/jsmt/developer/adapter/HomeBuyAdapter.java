@@ -3,7 +3,6 @@ package com.jsmt.developer.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +12,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jsmt.developer.R;
 import com.jsmt.developer.activity.home.HomeBuyDetailActivity;
-import com.jsmt.developer.activity.home.ShoppingParticularsActivity;
 import com.jsmt.developer.bean.HomeDataNewBean;
 import com.jsmt.developer.utils.SizeUtil;
-import com.jsmt.developer.utils.TransformationUtils;
 
 import java.util.List;
 

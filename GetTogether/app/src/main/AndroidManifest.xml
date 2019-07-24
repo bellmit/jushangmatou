@@ -427,8 +427,9 @@
         <activity android:name=".activity.my.shopauthentication.PersionAuthenticationActivity" />
         <activity android:name=".activity.my.shopauthentication.PersionAuthenticationSecondActivity" />
         <activity android:name=".activity.my.shopauthentication.DistributorAuthenticationActivity" />
-
-
+        <activity android:name="com.jsmt.developer.activity.my.CorporateInformationActivity"/>
+        <activity android:name="com.jsmt.developer.activity.my.CgsAuthenticationActivity"/>
+        <activity android:name="com.jsmt.developer.activity.my.FansActivity"/>
     </application>
 
 </manifest>

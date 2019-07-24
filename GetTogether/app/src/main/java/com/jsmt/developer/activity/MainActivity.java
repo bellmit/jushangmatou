@@ -320,15 +320,13 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 iv_my.setImageResource(R.drawable.wode2);
                 if (token != null && !token.equals("")) {
                     if(role_type != null && role_type.equals("1")){
-                        hideFragment(5);
+                        hideFragment(6);
                     }else{
                         hideFragment(7);
                     }
                 } else {
                     startActivity(new Intent(this, LoginActivity.class));
                 }
-
-
                 break;
         }
     }

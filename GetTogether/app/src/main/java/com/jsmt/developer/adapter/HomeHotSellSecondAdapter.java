@@ -34,7 +34,7 @@ public class HomeHotSellSecondAdapter extends RecyclerView.Adapter<HomeHotSellSe
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_home_hot_sell, null, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_home_hot_sell, parent,false);
         return new HomeHotSellSecondAdapter.ViewHolder(view);
     }
 

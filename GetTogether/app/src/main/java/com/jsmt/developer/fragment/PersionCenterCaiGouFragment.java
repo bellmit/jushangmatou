@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jsmt.developer.R;
+import com.jsmt.developer.activity.my.CgsAuthenticationActivity;
 import com.jsmt.developer.activity.my.SettingActivity;
 import com.jsmt.developer.activity.my.shopauthentication.ShopAuthenticationActivity;
 import com.jsmt.developer.base.BaseActivity;
@@ -99,7 +100,7 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
             case R.id.rl_dzgl:// 收货地址
                 break;
             case R.id.rl_sprz: // 采购商认证
-                startActivity(new Intent(getActivity(), ShopAuthenticationActivity.class));
+                startActivity(new Intent(getActivity(), CgsAuthenticationActivity.class));
                 break;
             case R.id.rl_zxkf:// 在线客服
                 break;
