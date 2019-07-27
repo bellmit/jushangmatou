@@ -105,7 +105,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.jsmt.developer.view.BaseScrollView
+        <com.tem.gettogether.view.BaseScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none">
@@ -128,7 +128,7 @@
                         android:visibility="gone"
                         android:background="@color/my_yellow"/>
                 </RelativeLayout>
-                <com.jsmt.developer.view.powerfulrecyclerview.HomeListFreshRecyclerView
+                <com.tem.gettogether.view.powerfulrecyclerview.HomeListFreshRecyclerView
                     android:id="@+id/shopping_order_rl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -167,6 +167,6 @@
             </LinearLayout>
             </LinearLayout>
 
-        </com.jsmt.developer.view.BaseScrollView>
+        </com.tem.gettogether.view.BaseScrollView>
     </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
 </LinearLayout>

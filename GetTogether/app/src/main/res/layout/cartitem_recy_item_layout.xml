@@ -22,7 +22,7 @@
                 android:src="@drawable/cart_wxz_icon"/>
         </RelativeLayout>
 
-        <com.jsmt.developer.view.RoundImageView
+        <com.tem.gettogether.view.RoundImageView
             android:id="@+id/iv_shopping_image"
             android:layout_width="80dp"
             android:layout_height="80dp"

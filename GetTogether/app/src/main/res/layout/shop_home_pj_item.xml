@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
 
         android:orientation="vertical">
-        <com.jsmt.developer.view.RoundImageView
+        <com.tem.gettogether.view.RoundImageView
             android:id="@+id/iv_pic"
             android:layout_width="match_parent"
             android:layout_height="170dp"
@@ -39,7 +39,7 @@
             android:layout_marginEnd="6dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
-            <com.jsmt.developer.view.CircularImage
+            <com.tem.gettogether.view.CircularImage
                 android:id="@+id/iv_image_head"
                 android:layout_width="22dp"
                 android:layout_height="22dp"

@@ -71,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.jsmt.developer.view.BaseScrollView
+            <com.tem.gettogether.view.BaseScrollView
                 android:id="@+id/mScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -252,7 +252,7 @@
                     </RelativeLayout>
 
                 </LinearLayout>
-            </com.jsmt.developer.view.BaseScrollView>
+            </com.tem.gettogether.view.BaseScrollView>
         </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
     </LinearLayout>
 

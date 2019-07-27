@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <include layout="@layout/title_layout" />
-    <com.jsmt.developer.view.BaseScrollView
+    <com.tem.gettogether.view.BaseScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
@@ -144,6 +144,6 @@
 
             </LinearLayout>
         </LinearLayout>
-    </com.jsmt.developer.view.BaseScrollView>
+    </com.tem.gettogether.view.BaseScrollView>
 
 </LinearLayout>

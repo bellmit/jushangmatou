@@ -65,7 +65,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <com.jsmt.developer.view.BaseScrollView
+        <com.tem.gettogether.view.BaseScrollView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:scrollbars="none">
@@ -94,14 +94,14 @@
                 </LinearLayout>
 
             </LinearLayout>
-        </com.jsmt.developer.view.BaseScrollView>
+        </com.tem.gettogether.view.BaseScrollView>
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="@color/line" />
 
-        <com.jsmt.developer.view.BaseScrollView
+        <com.tem.gettogether.view.BaseScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none">
@@ -134,7 +134,7 @@
                 </LinearLayout>
 
             </LinearLayout>
-        </com.jsmt.developer.view.BaseScrollView>
+        </com.tem.gettogether.view.BaseScrollView>
 
     </LinearLayout>
 </LinearLayout>

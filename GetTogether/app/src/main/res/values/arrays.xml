@@ -20,7 +20,10 @@
         <attr name="color_background" format="color" />
     </declare-styleable>
 
-
+    <string-array name="test1">
+        <item>询盘列表</item>
+        <item>推送列表</item>
+    </string-array>
 
 
 

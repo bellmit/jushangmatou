@@ -70,12 +70,12 @@
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        >
-       <com.jsmt.developer.view.pull.PullLoadMoreRecyclerView
+       <com.tem.gettogether.view.pull.PullLoadMoreRecyclerView
            android:id="@+id/recycler_message"
            android:layout_width="match_parent"
            android:layout_height="wrap_content">
 
-       </com.jsmt.developer.view.pull.PullLoadMoreRecyclerView>
+       </com.tem.gettogether.view.pull.PullLoadMoreRecyclerView>
    </RelativeLayout>
 
 </LinearLayout>

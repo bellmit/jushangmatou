@@ -271,7 +271,7 @@
         android:layout_height="100dp"
         android:layout_marginStart="15dp"
         android:background="@drawable/gouwuche_image_bg8dp">
-        <com.jsmt.developer.view.RoundImageView
+        <com.tem.gettogether.view.RoundImageView
             android:id="@+id/iv_shopping_image"
             android:layout_width="96dp"
             android:scaleType="centerCrop"

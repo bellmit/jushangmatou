@@ -12,7 +12,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
         android:orientation="vertical">
-        <com.jsmt.developer.view.RoundImageView
+        <com.tem.gettogether.view.RoundImageView
             android:id="@+id/iv_image"
             android:layout_width="match_parent"
             android:layout_height="171dp"

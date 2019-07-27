@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jsmt.developer.activity.KTHYActivity">
+    tools:context="com.tem.gettogether.activity.KTHYActivity">
     <include layout="@layout/title_layout" />
     <LinearLayout
         android:layout_width="match_parent"

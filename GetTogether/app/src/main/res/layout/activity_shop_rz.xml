@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <include layout="@layout/title_layout" />
-    <com.jsmt.developer.view.BaseScrollView
+    <com.tem.gettogether.view.BaseScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
@@ -296,7 +296,7 @@
 不对外公布。联系人和联系人电话在平台网站公开展示
 用于业务联系，允许与经营者或安全手机一致。"/>
     </LinearLayout>
-    </com.jsmt.developer.view.BaseScrollView>
+    </com.tem.gettogether.view.BaseScrollView>
 
     <TextView
         android:layout_width="match_parent"

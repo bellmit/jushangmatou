@@ -28,7 +28,7 @@
             <RelativeLayout
                 android:layout_width="60dp"
                 android:layout_height="60dp">
-                <com.jsmt.developer.view.CircularImage
+                <com.tem.gettogether.view.CircularImage
                     android:id="@+id/iv_shop_head"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

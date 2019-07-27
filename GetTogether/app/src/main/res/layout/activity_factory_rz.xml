@@ -7,7 +7,7 @@
 
     <include layout="@layout/title_layout" />
 
-    <com.jsmt.developer.view.BaseScrollView
+    <com.tem.gettogether.view.BaseScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
@@ -388,7 +388,7 @@
         </LinearLayout>
 
 
-    </com.jsmt.developer.view.BaseScrollView>
+    </com.tem.gettogether.view.BaseScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"

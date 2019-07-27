@@ -180,7 +180,7 @@
                         android:textSize="10sp" />
                 </LinearLayout>
 
-                <com.jsmt.developer.view.DragPointView
+                <com.tem.gettogether.view.DragPointView
                     android:id="@+id/seal_num"
                     android:layout_width="19dp"
                     android:layout_height="19dp"

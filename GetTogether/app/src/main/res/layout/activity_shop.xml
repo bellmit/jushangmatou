@@ -7,9 +7,9 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context="com.jsmt.developer.activity.home.ShopActivity">
+    tools:context="com.tem.gettogether.activity.home.ShopActivity">
 
-    <com.jsmt.developer.view.BaseScrollView
+    <com.tem.gettogether.view.BaseScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -128,7 +128,7 @@
                         android:paddingStart="16dp"
                         android:paddingEnd="21dp">
 
-                        <com.jsmt.developer.view.RoundImageView
+                        <com.tem.gettogether.view.RoundImageView
                             android:id="@+id/iv_shop_image"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
@@ -345,7 +345,7 @@
 
         </LinearLayout>
 
-    </com.jsmt.developer.view.BaseScrollView>
+    </com.tem.gettogether.view.BaseScrollView>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

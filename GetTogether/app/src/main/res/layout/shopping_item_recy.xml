@@ -9,7 +9,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp">
 
-        <com.jsmt.developer.view.RoundImageView
+        <com.tem.gettogether.view.RoundImageView
             android:id="@+id/iv_image"
             android:layout_width="90dp"
             android:layout_height="90dp"

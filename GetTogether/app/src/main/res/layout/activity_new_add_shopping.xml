@@ -7,7 +7,7 @@
 
     <include layout="@layout/title_layout" />
 
-    <com.jsmt.developer.view.BaseScrollView
+    <com.tem.gettogether.view.BaseScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -374,7 +374,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"/>
-                    <com.jsmt.developer.view.CheckBoxSample
+                    <com.tem.gettogether.view.CheckBoxSample
                         android:id="@+id/checkbox1"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
@@ -386,7 +386,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="13dp"
                         android:text="是"/>
-                    <com.jsmt.developer.view.CheckBoxSample
+                    <com.tem.gettogether.view.CheckBoxSample
                         android:id="@+id/checkbox2"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
@@ -526,7 +526,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"/>
-                    <com.jsmt.developer.view.CheckBoxSample
+                    <com.tem.gettogether.view.CheckBoxSample
                         android:id="@+id/checkbox3"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
@@ -538,7 +538,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="13dp"
                         android:text="是"/>
-                    <com.jsmt.developer.view.CheckBoxSample
+                    <com.tem.gettogether.view.CheckBoxSample
                         android:id="@+id/checkbox4"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
@@ -832,6 +832,6 @@
                     android:text="发布产品"/>
             </LinearLayout>
         </LinearLayout>
-    </com.jsmt.developer.view.BaseScrollView>
+    </com.tem.gettogether.view.BaseScrollView>
 
 </LinearLayout>

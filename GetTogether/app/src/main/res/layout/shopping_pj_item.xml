@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal">
-            <com.jsmt.developer.view.CircularImage
+            <com.tem.gettogether.view.CircularImage
                 android:id="@+id/iv_user_image"
                 android:layout_width="30dp"
                 android:layout_height="30dp"

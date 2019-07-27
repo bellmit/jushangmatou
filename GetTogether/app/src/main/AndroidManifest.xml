@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.jsmt.developer">
+    package="com.tem.gettogether">
 
     <!-- <uses-sdk tools:overrideLibrary="io.rong.imkit,com.umeng.socialize.evernote,com.umeng.socialize.pinterest"/> -->
     <uses-feature android:name="android.hardware.camera" />
@@ -60,7 +60,7 @@
 
     <!-- 华为 配置结束 < -->
     <application
-        android:name="com.jsmt.developer.base.BaseApplication"
+        android:name="com.tem.gettogether.base.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
@@ -74,7 +74,7 @@
             tools:replace="android:value" />
 
         <activity
-            android:name="com.jsmt.developer.activity.SplashActivity"
+            android:name="com.tem.gettogether.activity.SplashActivity"
             android:theme="@style/AppThemeSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -83,161 +83,161 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.jsmt.developer.activity.MainActivity"
+            android:name="com.tem.gettogether.activity.MainActivity"
             android:configChanges="locale"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="com.jsmt.developer.activity.my.ZuJiActivity"
+            android:name="com.tem.gettogether.activity.my.ZuJiActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.SettingActivity"
+            android:name="com.tem.gettogether.activity.my.SettingActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.ZHAQActivity"
+            android:name="com.tem.gettogether.activity.my.ZHAQActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.AddressGLActivity"
+            android:name="com.tem.gettogether.activity.my.AddressGLActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.GRMeassageActivity"
+            android:name="com.tem.gettogether.activity.my.GRMeassageActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.GYWeActivity"
+            android:name="com.tem.gettogether.activity.my.GYWeActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.XGPhoneActivity"
+            android:name="com.tem.gettogether.activity.my.XGPhoneActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.XGPhone2Activity"
+            android:name="com.tem.gettogether.activity.my.XGPhone2Activity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.KSPHActivity"
+            android:name="com.tem.gettogether.activity.my.KSPHActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.ShopRZActivity"
+            android:name="com.tem.gettogether.activity.my.ShopRZActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.GLAccountActivity"
+            android:name="com.tem.gettogether.activity.my.GLAccountActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.XGPayPassWordActivity"
+            android:name="com.tem.gettogether.activity.my.XGPayPassWordActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.XGPayPass2Activity"
+            android:name="com.tem.gettogether.activity.my.XGPayPass2Activity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.BankCardBDActivity"
+            android:name="com.tem.gettogether.activity.my.BankCardBDActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.BankCardQRActivity"
+            android:name="com.tem.gettogether.activity.my.BankCardQRActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.AddAddressActivity"
+            android:name="com.tem.gettogether.activity.my.AddAddressActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.ShopRZSHActivity"
+            android:name="com.tem.gettogether.activity.my.ShopRZSHActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.AutonymRZActivity"
+            android:name="com.tem.gettogether.activity.my.AutonymRZActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.AutonymSHActivity"
+            android:name="com.tem.gettogether.activity.my.AutonymSHActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.TAdviseActivity"
+            android:name="com.tem.gettogether.activity.my.TAdviseActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.AmendLoginPassActivity"
+            android:name="com.tem.gettogether.activity.my.AmendLoginPassActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.MyOrderActivity"
+            android:name="com.tem.gettogether.activity.my.MyOrderActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.MyPocketActivity"
+            android:name="com.tem.gettogether.activity.my.MyPocketActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.ChongZhiActivity"
+            android:name="com.tem.gettogether.activity.my.ChongZhiActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.TiXianActivity"
+            android:name="com.tem.gettogether.activity.my.TiXianActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.YEChongzhiActivity"
+            android:name="com.tem.gettogether.activity.my.YEChongzhiActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.YETixianActivity"
+            android:name="com.tem.gettogether.activity.my.YETixianActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.home.BKRecommecdActivity"
+            android:name="com.tem.gettogether.activity.home.BKRecommecdActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.home.ClothingBazaarActivity"
+            android:name="com.tem.gettogether.activity.home.ClothingBazaarActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.home.ShopConnectActivity"
+            android:name="com.tem.gettogether.activity.home.ShopConnectActivity"
             android:launchMode="singleTask" />
-        <activity android:name="com.jsmt.developer.activity.home.ShoppingParticularsActivity" />
+        <activity android:name="com.tem.gettogether.activity.home.ShoppingParticularsActivity" />
         <activity
-            android:name="com.jsmt.developer.activity.home.ShoppingEvaluateActivity"
-            android:launchMode="singleTask" />
-        <activity
-            android:name="com.jsmt.developer.activity.home.ShopActivity"
+            android:name="com.tem.gettogether.activity.home.ShoppingEvaluateActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.home.HotFenLeiActivity"
+            android:name="com.tem.gettogether.activity.home.ShopActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.home.ShopXQActivity"
+            android:name="com.tem.gettogether.activity.home.HotFenLeiActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.scanqrcode.activity.MipcaActivityCapture"
+            android:name="com.tem.gettogether.activity.home.ShopXQActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.home.HomeGongGaoActivity"
-            android:launchMode="singleTask" />
-        <activity android:name="com.jsmt.developer.activity.cart.CloseAccountActivity" />
-        <activity
-            android:name="com.jsmt.developer.activity.shopping.ShopFLConnectActivity"
+            android:name="com.tem.gettogether.scanqrcode.activity.MipcaActivityCapture"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.LoginActivity"
+            android:name="com.tem.gettogether.activity.home.HomeGongGaoActivity"
+            android:launchMode="singleTask" />
+        <activity android:name="com.tem.gettogether.activity.cart.CloseAccountActivity" />
+        <activity
+            android:name="com.tem.gettogether.activity.shopping.ShopFLConnectActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.RegisterActivity"
+            android:name="com.tem.gettogether.activity.LoginActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.home.HomeSouSuoActivity"
+            android:name="com.tem.gettogether.activity.RegisterActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.SCconnectActivity"
+            android:name="com.tem.gettogether.activity.home.HomeSouSuoActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.tem.gettogether.activity.my.SCconnectActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
 
@@ -252,32 +252,32 @@
         </provider>
 
         <activity
-            android:name="com.jsmt.developer.utils.permissions.PermissionsActivity"
+            android:name="com.tem.gettogether.utils.permissions.PermissionsActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.OrderXQActivity"
+            android:name="com.tem.gettogether.activity.my.OrderXQActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.ForgetPassActivity"
+            android:name="com.tem.gettogether.activity.ForgetPassActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.LookWuLiuActivity"
+            android:name="com.tem.gettogether.activity.my.LookWuLiuActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <!-- 微信支付回调activity -->
         <activity
-            android:name="com.jsmt.developer.wxapi.WXPayEntryActivity"
+            android:name="com.tem.gettogether.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.jsmt.developer.wxapi.WXEntryActivity"
+            android:name="com.tem.gettogether.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:name="com.jsmt.developer.rongyun.ConversationListFragment"
+            android:name="com.tem.gettogether.rongyun.ConversationListFragment"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
@@ -286,14 +286,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data
-                    android:host="com.jsmt.developer"
+                    android:host="com.tem.gettogether"
                     android:pathPrefix="/conversationlist"
                     android:scheme="rong" />
             </intent-filter>
         </activity>
         <!-- 会话界面 Activity -->
         <activity
-            android:name="com.jsmt.developer.rongyun.ConversationActivity"
+            android:name="com.tem.gettogether.rongyun.ConversationActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -302,7 +302,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data
-                    android:host="com.jsmt.developer"
+                    android:host="com.tem.gettogether"
                     android:pathPrefix="/conversation/"
                     android:scheme="rong" />
             </intent-filter>
@@ -340,84 +340,84 @@
         <uses-library android:name="android.test.runner" />
 
         <activity
-            android:name="com.jsmt.developer.activity.ShoppingKUActivity"
+            android:name="com.tem.gettogether.activity.ShoppingKUActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.home.MainhotLookMoreActivity"
+            android:name="com.tem.gettogether.activity.home.MainhotLookMoreActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.MyMessageActivity"
+            android:name="com.tem.gettogether.activity.my.MyMessageActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.ShowImageDetail"
+            android:name="com.tem.gettogether.ShowImageDetail"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.LanguageActivity"
+            android:name="com.tem.gettogether.activity.LanguageActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.NewAddShoppingActivity"
+            android:name="com.tem.gettogether.activity.my.NewAddShoppingActivity"
             android:configChanges="locale" />
         <activity
-            android:name="com.jsmt.developer.activity.my.PostEvaluationActivity"
+            android:name="com.tem.gettogether.activity.my.PostEvaluationActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.NewShopRenZhengActivity"
+            android:name="com.tem.gettogether.activity.my.NewShopRenZhengActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.fragment.PersonageRZActivity"
+            android:name="com.tem.gettogether.fragment.PersonageRZActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.EnterpriseRZActivity"
+            android:name="com.tem.gettogether.activity.my.EnterpriseRZActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.EnterpriseShopRZActivity"
+            android:name="com.tem.gettogether.activity.my.EnterpriseShopRZActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.UploadQYActivity"
+            android:name="com.tem.gettogether.activity.my.UploadQYActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.StoreManagementActivity"
+            android:name="com.tem.gettogether.activity.my.StoreManagementActivity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.fragment.ShopXinXActivity"
+            android:name="com.tem.gettogether.fragment.ShopXinXActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.XTMessageActivity"
+            android:name="com.tem.gettogether.activity.my.XTMessageActivity"
             android:configChanges="locale" />
         <activity
-            android:name="com.jsmt.developer.activity.my.MessageH5Activity"
+            android:name="com.tem.gettogether.activity.my.MessageH5Activity"
             android:configChanges="locale" />
         <activity
-            android:name="com.jsmt.developer.activity.my.ShopDTFBActivity"
+            android:name="com.tem.gettogether.activity.my.ShopDTFBActivity"
             android:configChanges="locale" />
-        <activity android:name="com.jsmt.developer.activity.FuWuXieYiActivity" />
+        <activity android:name="com.tem.gettogether.activity.FuWuXieYiActivity" />
         <activity
-            android:name="com.jsmt.developer.activity.my.XeiYiH5Activity"
+            android:name="com.tem.gettogether.activity.my.XeiYiH5Activity"
             android:configChanges="locale"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.jsmt.developer.activity.my.ShopGGH5Activity"
+            android:name="com.tem.gettogether.activity.my.ShopGGH5Activity"
             android:configChanges="locale" />
         <activity
-            android:name="com.jsmt.developer.activity.my.TuWenXQActivity"
+            android:name="com.tem.gettogether.activity.my.TuWenXQActivity"
             android:configChanges="locale" />
         <activity
-            android:name="com.jsmt.developer.activity.my.ChanPinGLActivity"
+            android:name="com.tem.gettogether.activity.my.ChanPinGLActivity"
             android:configChanges="locale" />
         <activity
-            android:name="com.jsmt.developer.activity.my.BuyMessageActivity"
+            android:name="com.tem.gettogether.activity.my.BuyMessageActivity"
             android:configChanges="locale" />
-        <activity android:name="com.jsmt.developer.activity.home.MainHotTJActivity" />
-        <activity android:name="com.jsmt.developer.activity.my.MemberActivity" />
-        <activity android:name="com.jsmt.developer.activity.my.BuyMemberActivity" />
+        <activity android:name="com.tem.gettogether.activity.home.MainHotTJActivity" />
+        <activity android:name="com.tem.gettogether.activity.my.MemberActivity" />
+        <activity android:name="com.tem.gettogether.activity.my.BuyMemberActivity" />
         <activity android:name=".activity.ServiceProviderActivity" />
         <activity android:name=".activity.home.HomeHotSellActivity" />
         <activity android:name=".activity.home.HomeLianMengActivity" />
@@ -427,9 +427,11 @@
         <activity android:name=".activity.my.shopauthentication.PersionAuthenticationActivity" />
         <activity android:name=".activity.my.shopauthentication.PersionAuthenticationSecondActivity" />
         <activity android:name=".activity.my.shopauthentication.DistributorAuthenticationActivity" />
-        <activity android:name="com.jsmt.developer.activity.my.CorporateInformationActivity"/>
-        <activity android:name="com.jsmt.developer.activity.my.CgsAuthenticationActivity"/>
-        <activity android:name="com.jsmt.developer.activity.my.FansActivity"/>
+        <activity android:name="com.tem.gettogether.activity.my.CorporateInformationActivity"/>
+        <activity android:name="com.tem.gettogether.activity.my.CgsAuthenticationActivity"/>
+        <activity android:name="com.tem.gettogether.activity.my.FansActivity"/>
+        <activity android:name="com.tem.gettogether.activity.my.XunPanTuiSongActivity"/>
+        <activity android:name="com.tem.gettogether.activity.MyShopActivity"/>
     </application>
 
 </manifest>

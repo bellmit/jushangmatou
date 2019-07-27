@@ -13,7 +13,7 @@ android:orientation="vertical">
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.jsmt.developer.view.BaseScrollView
+        <com.tem.gettogether.view.BaseScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none">
@@ -27,7 +27,7 @@ android:orientation="vertical">
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <com.jsmt.developer.view.powerfulrecyclerview.HomeListFreshRecyclerView
+                    <com.tem.gettogether.view.powerfulrecyclerview.HomeListFreshRecyclerView
                         android:id="@+id/order_rl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -70,6 +70,6 @@ android:orientation="vertical">
                 </LinearLayout>
 
             </FrameLayout>
-        </com.jsmt.developer.view.BaseScrollView>
+        </com.tem.gettogether.view.BaseScrollView>
     </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
 </LinearLayout>

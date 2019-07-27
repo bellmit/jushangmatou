@@ -208,7 +208,7 @@
                 android:textSize="14dp"
                 android:textColorHint="@color/black"
                 android:text="设为默认地址"/>
-            <com.jsmt.developer.view.SwitchView
+            <com.tem.gettogether.view.SwitchView
                 android:id="@+id/switchView"
                 android:layout_width="45dp"
                 android:layout_height="wrap_content"

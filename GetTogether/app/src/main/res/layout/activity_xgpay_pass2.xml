@@ -31,21 +31,21 @@
             android:textColor="@color/black"
             android:text="@string/shezhi_pay_mima"/>
 
-        <com.jsmt.developer.view.PasswordView2
+        <com.tem.gettogether.view.PasswordView2
             android:id="@+id/passView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="34dp">
 
-        </com.jsmt.developer.view.PasswordView2>
-        <com.jsmt.developer.view.PasswordView3
+        </com.tem.gettogether.view.PasswordView2>
+        <com.tem.gettogether.view.PasswordView3
             android:id="@+id/passView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="34dp"
             android:visibility="gone">
 
-        </com.jsmt.developer.view.PasswordView3>
+        </com.tem.gettogether.view.PasswordView3>
 
     </LinearLayout>
 

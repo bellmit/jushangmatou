@@ -14,7 +14,7 @@
         android:layout_height="61dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
-        <com.jsmt.developer.view.RoundImageView
+        <com.tem.gettogether.view.RoundImageView
             android:id="@+id/iv_shop_head"
             android:layout_width="32dp"
             android:layout_height="32dp"
@@ -65,14 +65,14 @@
         android:layout_height="107dp"
         android:layout_marginBottom="13dp"
         android:orientation="horizontal">
-        <com.jsmt.developer.view.RoundImageView
+        <com.tem.gettogether.view.RoundImageView
             android:id="@+id/iv_image1"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:src="@mipmap/myy322x"
             android:scaleType="centerCrop"
             android:layout_height="match_parent" />
-        <com.jsmt.developer.view.RoundImageView
+        <com.tem.gettogether.view.RoundImageView
             android:id="@+id/iv_image2"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -81,7 +81,7 @@
             android:src="@mipmap/myy322x"
             android:scaleType="centerCrop"
             android:layout_height="match_parent" />
-        <com.jsmt.developer.view.RoundImageView
+        <com.tem.gettogether.view.RoundImageView
             android:id="@+id/iv_image3"
             android:layout_width="0dp"
             android:layout_weight="1"

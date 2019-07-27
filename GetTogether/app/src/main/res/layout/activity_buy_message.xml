@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@color/line"
     android:layout_height="match_parent"
@@ -13,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.jsmt.developer.view.BaseScrollView
+        <com.tem.gettogether.view.BaseScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none">
@@ -27,7 +25,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <com.jsmt.developer.view.powerfulrecyclerview.HomeListFreshRecyclerView
+                    <com.tem.gettogether.view.powerfulrecyclerview.HomeListFreshRecyclerView
                         android:id="@+id/order_rl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -68,6 +66,6 @@
                 </LinearLayout>
 
             </FrameLayout>
-        </com.jsmt.developer.view.BaseScrollView>
+        </com.tem.gettogether.view.BaseScrollView>
     </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
 </LinearLayout>

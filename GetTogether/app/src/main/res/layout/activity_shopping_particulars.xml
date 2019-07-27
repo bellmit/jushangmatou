@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.jsmt.developer.activity.home.ShoppingParticularsActivity">
+    tools:context="com.tem.gettogether.activity.home.ShoppingParticularsActivity">
 
     <RelativeLayout
         android:id="@+id/rl_all"
@@ -15,7 +15,7 @@
         android:layout_weight="1">
 
 
-        <com.jsmt.developer.view.BaseScrollView
+        <com.tem.gettogether.view.BaseScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none">
@@ -331,7 +331,7 @@
                     android:layout_height="1dp"
                     android:background="@color/Orange" />
 
-                <com.jsmt.developer.view.TextViewSwitcher
+                <com.tem.gettogether.view.TextViewSwitcher
                     android:id="@+id/rolltext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -786,7 +786,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
             </LinearLayout>
-        </com.jsmt.developer.view.BaseScrollView>
+        </com.tem.gettogether.view.BaseScrollView>
 
         <RelativeLayout
             android:layout_width="match_parent"
