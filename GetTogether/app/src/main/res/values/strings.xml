@@ -212,7 +212,7 @@
     <string name="my_signing">我的签单</string>
     <string name="qiyexinxi">企业信息</string>
     <string name="huiyuanxinxi">会员信息</string>
-    <string name="tuisongxunpan">推送询盘</string>
+    <string name="tuisongxunpan">询盘推送</string>
     <string name="yixiadan">已下单</string>
     <string name="yishouhuo">已收货</string>
     <string name="yijiekuan">已结款</string>
@@ -264,4 +264,9 @@
     <string name="down_step">下一步</string>
     <string name="zhifubao_bd">支付宝绑定</string>
     <string name="yyzz">营业执照</string>
+    <string name="membership_classification">会员分类</string>
+    <string name="membership_information">会员信息</string>
+    <string name="application_refund">申请退款</string>
+    <string name="membership_center">会员中心</string>
+    <string name="upgrade_membership">升级会员</string>
 </resources>

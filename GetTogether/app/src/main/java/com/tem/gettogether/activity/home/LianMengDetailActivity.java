@@ -64,7 +64,7 @@ public class LianMengDetailActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText(getResources().getText(R.string.waimaolianmeng));
+//        tv_title.setText(getResources().getText(R.string.waimaolianmeng));
         companyId = getIntent().getStringExtra(Contacts.LINGMENG_COMPANY_ID);
         initDatas();
     }
@@ -127,7 +127,8 @@ public class LianMengDetailActivity extends BaseActivity {
     }
 
     private void setData() {
-        name_tv.setText("联系人：" + detailDataBean.get(0).getCompany_name());
+        tv_title.setText(detailDataBean.get(0).getCompany_name());
+        name_tv.setText("联系人：" + detailDataBean.get(0).getContact_person());
         phone_tv.setText("手机：" + detailDataBean.get(0).getCellphone());
         address_tv.setText("地址：" + detailDataBean.get(0).getAddress());
         email_tv.setText("邮箱：" + detailDataBean.get(0).getEmail());

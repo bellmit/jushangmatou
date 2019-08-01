@@ -107,7 +107,6 @@ public class ShopAuthenticationActivity extends BaseActivity {
             CusToast.showToast("请输入您身的电子邮箱");
             return;
         }
-        Log.d("chenshichun",""+RZType);
         map.put("token", BaseApplication.getInstance().userBean.getToken());
         map.put("contacts_name", name);
         map.put("contacts_mobile", phone);

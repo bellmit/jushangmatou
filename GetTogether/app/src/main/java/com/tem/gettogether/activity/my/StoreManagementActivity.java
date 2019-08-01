@@ -7,6 +7,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.MyShopActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.fragment.ShopXinXActivity;
 
@@ -41,25 +42,26 @@ public class StoreManagementActivity extends BaseActivity {
     protected void initView() {
 
     }
-    @Event(value = {R.id.rl_close,R.id.tv_cpgl,R.id.tv_dpxx,R.id.tv_fbcp,R.id.rl_title_right}, type = View.OnClickListener.class)
+
+    @Event(value = {R.id.rl_close, R.id.tv_cpgl, R.id.tv_dpxx, R.id.tv_fbcp, R.id.rl_title_right}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
                 finish();
                 break;
             case R.id.tv_cpgl:
-//                CusToast.showToast("暂未开放");
-                startActivity(new Intent(this,ChanPinGLActivity.class));
+//                startActivity(new Intent(this, ChanPinGLActivity.class));
+                startActivity(new Intent(this, ProductManagmentActivity.class));
                 break;
             case R.id.tv_fbcp:
-                startActivity(new Intent(this,NewAddShoppingActivity.class));
+                startActivity(new Intent(this, NewAddShoppingActivity.class));
                 break;
             case R.id.tv_dpxx:
-                startActivity(new Intent(this, ShopXinXActivity.class));
+//                startActivity(new Intent(this, ShopXinXActivity.class));
+                startActivity(new Intent(this, MyShopActivity.class));
                 break;
             case R.id.rl_title_right:
-                startActivity(new Intent(this,BuyMemberActivity.class));
-
+                startActivity(new Intent(this, BuyMemberActivity.class));
                 break;
 
         }

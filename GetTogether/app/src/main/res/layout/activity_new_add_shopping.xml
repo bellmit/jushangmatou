@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -27,21 +28,22 @@
                     android:layout_height="40dp"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp">
+                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:layout_marginEnd="5dp"
                         android:textSize="13dp" />
+
                     <TextView
                         android:layout_width="65dp"
                         android:layout_height="wrap_content"
@@ -55,11 +57,12 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@null"
+                        android:ellipsize="end"
                         android:hint="请填写商品名称"
                         android:maxLines="1"
-                        android:ellipsize="end"
                         android:paddingStart="15dp"
                         android:textSize="13dp" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -70,24 +73,167 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/line" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingStart="16dp" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:text="最多添加9张图片"
+                    android:textColor="@color/text6" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
                 <LinearLayout
-                    android:id="@+id/ll_shop_HH"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp">
+                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:text="*"
-                        android:visibility="invisible"
                         android:textColor="@color/my_red"
-                        android:layout_marginEnd="5dp"
                         android:textSize="13dp" />
+
+                    <TextView
+                        android:layout_width="65dp"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:text="是否询价："
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <com.tem.gettogether.view.CheckBoxSample
+                        android:id="@+id/checkbox1"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/circle_check" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="是"
+                        android:textSize="13dp" />
+
+                    <com.tem.gettogether.view.CheckBoxSample
+                        android:id="@+id/checkbox2"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="20dp"
+                        android:background="@drawable/circle_check" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="否"
+                        android:textSize="13dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
+                <LinearLayout
+                    android:id="@+id/ll_shop_SJ"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:drawablePadding="10dp"
+                        android:text="*"
+                        android:textColor="@color/my_red"
+                        android:textSize="13dp"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:layout_width="65dp"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:text="商品售价："
+                        android:textSize="13dp" />
+
+                    <EditText
+                        android:id="@+id/et_ShopingSJ"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:ellipsize="end"
+                        android:hint="请填写商品售价"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:paddingStart="15dp"
+                        android:textSize="13dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/right_more" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
+
+                <LinearLayout
+                    android:id="@+id/ll_shop_HH"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:drawablePadding="10dp"
+                        android:text="*"
+                        android:textColor="@color/my_red"
+                        android:textSize="13dp"
+                        android:visibility="invisible" />
+
                     <TextView
                         android:layout_width="65dp"
                         android:layout_height="wrap_content"
@@ -101,12 +247,13 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@null"
+                        android:ellipsize="end"
                         android:hint="请填写商品货号"
                         android:inputType="number"
                         android:maxLines="1"
-                        android:ellipsize="end"
                         android:paddingStart="15dp"
                         android:textSize="13dp" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -123,18 +270,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
-                    android:paddingStart="16dp"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp">
+                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:layout_marginEnd="5dp"
                         android:textSize="13dp" />
+
                     <TextView
                         android:layout_width="65dp"
                         android:layout_height="wrap_content"
@@ -148,12 +296,13 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@null"
+                        android:ellipsize="end"
                         android:hint="请填写起批个数"
                         android:inputType="number"
                         android:maxLines="1"
-                        android:ellipsize="end"
                         android:paddingStart="15dp"
                         android:textSize="13dp" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -170,18 +319,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
-                    android:paddingStart="16dp"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp">
+                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:layout_marginEnd="5dp"
                         android:textSize="13dp" />
+
                     <TextView
                         android:layout_width="65dp"
                         android:layout_height="wrap_content"
@@ -194,12 +345,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text="请选择馆分类"
-                        android:maxLines="1"
                         android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
                         android:paddingStart="15dp"
+                        android:text="请选择馆分类"
                         android:textSize="13dp" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -210,23 +362,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/line" />
+
                 <LinearLayout
                     android:id="@+id/ll_shop_FL"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp">
+                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:layout_marginEnd="5dp"
                         android:textSize="13dp" />
+
                     <TextView
                         android:layout_width="65dp"
                         android:layout_height="wrap_content"
@@ -239,12 +393,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text="请选择商品分类"
-                        android:maxLines="1"
                         android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
                         android:paddingStart="15dp"
+                        android:text="请选择商品分类"
                         android:textSize="13dp" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -255,24 +410,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/line" />
+
                 <LinearLayout
                     android:id="@+id/ll_bd_FL"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp">
+                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:text="*"
-                        android:visibility="invisible"
                         android:textColor="@color/my_red"
-                        android:layout_marginEnd="5dp"
-                        android:textSize="13dp" />
+                        android:textSize="13dp"
+                        android:visibility="invisible" />
+
                     <TextView
                         android:layout_width="65dp"
                         android:layout_height="wrap_content"
@@ -285,126 +443,25 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:ellipsize="end"
                         android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:paddingStart="15dp"
                         android:text="请选择分店分类"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:paddingStart="15dp"
                         android:textSize="13dp" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/right_more" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/line" />
-                <LinearLayout
-                    android:id="@+id/ll_shop_SJ"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:paddingStart="16dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingEnd="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawablePadding="10dp"
-                        android:text="*"
-                        android:visibility="invisible"
-                        android:textColor="@color/my_red"
-                        android:layout_marginEnd="5dp"
-                        android:textSize="13dp" />
-                    <TextView
-                        android:layout_width="65dp"
-                        android:layout_height="wrap_content"
-                        android:drawablePadding="10dp"
-                        android:text="商品售价："
-                        android:textSize="13dp" />
-
-                    <EditText
-                        android:id="@+id/et_ShopingSJ"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:hint="请填写商品售价"
-                        android:inputType="number"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:paddingStart="15dp"
-                        android:textSize="13dp" />
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/right_more" />
-                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:gravity="center_vertical"
-                    android:paddingStart="16dp"
-                    android:orientation="horizontal"
-                    android:paddingEnd="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawablePadding="10dp"
-                        android:text="*"
-                        android:textColor="@color/my_red"
-                        android:layout_marginEnd="5dp"
-                        android:textSize="13dp" />
-                    <TextView
-                        android:layout_width="65dp"
-                        android:layout_height="wrap_content"
-                        android:drawablePadding="10dp"
-                        android:text="是否询价："
-                        android:textSize="13dp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"/>
-                    <com.tem.gettogether.view.CheckBoxSample
-                        android:id="@+id/checkbox1"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/circle_check"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="13dp"
-                        android:text="是"/>
-                    <com.tem.gettogether.view.CheckBoxSample
-                        android:id="@+id/checkbox2"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/circle_check"
-                        android:layout_marginStart="20dp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="13dp"
-                        android:text="否"/>
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/line" />
+                    android:background="@color/line"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/ll_shop_phone"
@@ -412,19 +469,21 @@
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
+                    android:paddingEnd="16dp"
                     android:paddingStart="16dp"
-                    android:paddingEnd="16dp">
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:layout_marginEnd="5dp"
                         android:textSize="13dp" />
+
                     <TextView
                         android:layout_width="65dp"
                         android:layout_height="wrap_content"
@@ -437,12 +496,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="上传"
+                        android:ellipsize="end"
                         android:gravity="center_vertical|right"
                         android:maxLines="1"
-                        android:ellipsize="end"
                         android:paddingEnd="10dp"
+                        android:text="上传"
                         android:textSize="13dp" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -452,25 +512,29 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line" />
+                    android:background="@color/line"
+                    android:visibility="gone" />
+
                 <LinearLayout
                     android:id="@+id/ll_shop_GG"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
+                    android:paddingEnd="16dp"
                     android:paddingStart="16dp"
-                    android:paddingEnd="16dp">
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:text="*"
-                        android:visibility="invisible"
                         android:textColor="@color/my_red"
-                        android:layout_marginEnd="5dp"
-                        android:textSize="13dp" />
+                        android:textSize="13dp"
+                        android:visibility="invisible" />
+
                     <TextView
                         android:layout_width="65dp"
                         android:layout_height="wrap_content"
@@ -483,12 +547,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text=""
-                        android:maxLines="1"
                         android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
                         android:paddingStart="15dp"
+                        android:text=""
                         android:textSize="13dp" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -498,58 +563,65 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line" />
+                    android:background="@color/line"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
-                    android:paddingStart="16dp"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp">
+                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:layout_marginEnd="5dp"
                         android:textSize="13dp" />
+
                     <TextView
                         android:layout_width="65dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="是否包邮："
                         android:textSize="13dp" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <com.tem.gettogether.view.CheckBoxSample
                         android:id="@+id/checkbox3"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginEnd="10dp"
-                        android:background="@drawable/circle_check"
-                        />
+                        android:background="@drawable/circle_check" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="13dp"
-                        android:text="是"/>
+                        android:text="是"
+                        android:textSize="13dp" />
+
                     <com.tem.gettogether.view.CheckBoxSample
                         android:id="@+id/checkbox4"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginEnd="10dp"
-                        android:background="@drawable/circle_check"
-                        android:layout_marginStart="20dp" />
+                        android:layout_marginStart="20dp"
+                        android:background="@drawable/circle_check" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="13dp"
-                        android:text="否"/>
+                        android:text="否"
+                        android:textSize="13dp" />
 
                 </LinearLayout>
 
@@ -557,24 +629,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/line" />
+
                 <LinearLayout
                     android:id="@+id/ll_KC_Num"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp">
+                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:text="*"
-                        android:visibility="invisible"
                         android:textColor="@color/my_red"
-                        android:layout_marginEnd="5dp"
-                        android:textSize="13dp" />
+                        android:textSize="13dp"
+                        android:visibility="invisible" />
+
                     <TextView
                         android:layout_width="65dp"
                         android:layout_height="wrap_content"
@@ -588,12 +662,13 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@null"
+                        android:ellipsize="end"
                         android:hint="请填写库存数量"
                         android:inputType="number"
                         android:maxLines="1"
-                        android:ellipsize="end"
                         android:paddingStart="15dp"
                         android:textSize="13dp" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -604,24 +679,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/line" />
+
                 <LinearLayout
                     android:id="@+id/ll_GJC"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp">
+                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:text="*"
-                        android:visibility="invisible"
                         android:textColor="@color/my_red"
-                        android:layout_marginEnd="5dp"
-                        android:textSize="13dp" />
+                        android:textSize="13dp"
+                        android:visibility="invisible" />
+
                     <TextView
                         android:layout_width="65dp"
                         android:layout_height="wrap_content"
@@ -635,12 +712,13 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@null"
+                        android:ellipsize="end"
                         android:hint="请填写关键词"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:ellipsize="end"
                         android:paddingStart="15dp"
                         android:textSize="13dp" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -651,24 +729,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/line" />
+
                 <LinearLayout
                     android:id="@+id/ll_shop_JJ"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp">
+                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:text="*"
-                        android:visibility="invisible"
                         android:textColor="@color/my_red"
-                        android:layout_marginEnd="5dp"
-                        android:textSize="13dp" />
+                        android:textSize="13dp"
+                        android:visibility="invisible" />
+
                     <TextView
                         android:layout_width="65dp"
                         android:layout_height="wrap_content"
@@ -682,12 +762,13 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@null"
+                        android:ellipsize="end"
                         android:hint="请填写商品简介"
                         android:inputType="text"
                         android:maxLines="2"
-                        android:ellipsize="end"
                         android:paddingStart="15dp"
                         android:textSize="13dp" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -698,25 +779,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/line" />
+
                 <LinearLayout
                     android:id="@+id/ll_XQ_ms"
 
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp">
+                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:text="*"
-                        android:visibility="invisible"
                         android:textColor="@color/my_red"
-                        android:layout_marginEnd="5dp"
-                        android:textSize="13dp" />
+                        android:textSize="13dp"
+                        android:visibility="invisible" />
+
                     <TextView
                         android:layout_width="65dp"
                         android:layout_height="wrap_content"
@@ -729,13 +812,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="center_vertical"
                         android:background="@null"
-                        android:maxLines="1"
-                        android:text="未填写"
                         android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
                         android:paddingStart="15dp"
+                        android:text="请填写产品介绍（可在下方上传图片）"
                         android:textSize="13dp" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -745,24 +829,28 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:visibility="gone"
                     android:background="@color/line" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp">
+                    android:visibility="gone"
+                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:text="*"
-                        android:visibility="invisible"
                         android:textColor="@color/my_red"
-                        android:layout_marginEnd="5dp"
-                        android:textSize="13dp" />
+                        android:textSize="13dp"
+                        android:visibility="invisible" />
+
                     <TextView
                         android:layout_width="65dp"
                         android:layout_height="wrap_content"
@@ -775,61 +863,67 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@null"
+                        android:ellipsize="end"
                         android:hint="请填写详情描述"
-                        android:visibility="invisible"
                         android:inputType="number"
                         android:maxLines="1"
-                        android:ellipsize="end"
                         android:paddingStart="15dp"
-                        android:textSize="13dp" />
+                        android:textSize="13dp"
+                        android:visibility="invisible" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="invisible"
-                        android:src="@drawable/right_more" />
+                        android:src="@drawable/right_more"
+                        android:visibility="invisible" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/line" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/publish_task_recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingStart="16dp"/>
+                        android:paddingStart="16dp" />
 
                 </RelativeLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="最多添加9张图片"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="16dp"
                     android:layout_marginBottom="10dp"
-                    android:textColor="@color/text6"/>
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:text="最多添加3张图片"
+                    android:textColor="@color/text6" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:background="@color/line"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/line">
+
                 <TextView
                     android:id="@+id/tv_fbShopping"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:textSize="16dp"
-                    android:gravity="center"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
-                    android:textColor="@color/white"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/main_fbqg15"
-                    android:text="发布产品"/>
+                    android:gravity="center"
+                    android:text="发布产品"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
             </LinearLayout>
         </LinearLayout>
     </com.tem.gettogether.view.BaseScrollView>

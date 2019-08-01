@@ -178,6 +178,49 @@ public class PersionAuthenticationActivity extends BaseActivity {
                 showPopAddress(ll_shop_quyu);
                 break;
             case R.id.tv_downStep:
+                if (authenticationType != 1) {
+                    if (company_name_tv.getText().toString().equals("")) {
+                        if (authenticationType == 0) {
+                            CusToast.showToast("请输入公司名称");
+                            return;
+                        } else {
+                            CusToast.showToast("请输入工厂名称");
+                            return;
+                        }
+                    }
+                    if (tv_gongdizhi.getText().toString().equals("")) {
+                        if (authenticationType == 0) {
+                            CusToast.showToast("请选择公司所在区域");
+                            return;
+                        } else {
+                            CusToast.showToast("请选择工厂所在区域");
+                            return;
+                        }
+                    }
+                }
+                if (et_name.getText().toString().equals("")) {
+                    CusToast.showToast("请输入店铺名称");
+                    return;
+                }
+                if (tv_dpzy.getText().toString().equals("")) {
+                    CusToast.showToast("请选择店铺主营大类");
+                    return;
+                }
+                if (et_dpzzh.getText().toString().equals("")) {
+                    CusToast.showToast("请输入店铺登录主账号");
+                    return;
+                }
+
+                if (et_dl_pass.getText().toString().equals("")) {
+                    CusToast.showToast("请输入登录密码");
+                    return;
+                }
+
+                if (tv_shop_quyu.getText().toString().equals("")) {
+                    CusToast.showToast("请选择店铺所在区域");
+                    return;
+                }
+
                 Map<String, Object> map = new HashMap<>();
                 if (BaseApplication.getInstance().userBean == null) return;
                 map.put("token", BaseApplication.getInstance().userBean.getToken());

@@ -181,7 +181,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         transaction.add(R.id.fl_container, fenLeiFragment);
         transaction.add(R.id.fl_container, publishBuyFragment);
         transaction.add(R.id.fl_container, cartFragment);
-        transaction.add(R.id.fl_container,messageFragment);
+        transaction.add(R.id.fl_container, messageFragment);
         transaction.add(R.id.fl_container, meFragment);
         transaction.add(R.id.fl_container, persionCenterGongYingFragment);
         transaction.add(R.id.fl_container, persionCenterCaiGouFragment);
@@ -210,7 +210,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     }
 
 
-    @Event(value = {R.id.ll_home, R.id.ll_Fl, R.id.ll_fbqg, R.id.ll_card, R.id.ll_My,R.id.ll_message}, type = View.OnClickListener.class)
+    @Event(value = {R.id.ll_home, R.id.ll_Fl, R.id.ll_fbqg, R.id.ll_card, R.id.ll_My, R.id.ll_message}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         String token = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.TOKEN, "");
         String role_type = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "");
@@ -306,22 +306,22 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 }
                 break;
             case R.id.ll_My:
-                tv_home.setTextColor(getResources().getColor(R.color.text));
-                tv_fenl.setTextColor(getResources().getColor(R.color.text));
-                tv_fbqg.setTextColor(getResources().getColor(R.color.text));
-                tv_card.setTextColor(getResources().getColor(R.color.text));
-                tv_message.setTextColor(getResources().getColor(R.color.text));
-                tv_my.setTextColor(getResources().getColor(R.color.bottom_text));
-                iv_home.setImageResource(R.drawable.shouye);
-                iv_fl.setImageResource(R.drawable.fenlei);
-                iv_fbqg.setImageResource(R.drawable.fbqg_main);
-                iv_cart.setImageResource(R.drawable.jinhuoche1);
-                iv_message.setImageResource(R.drawable.liaotian);
-                iv_my.setImageResource(R.drawable.wode2);
                 if (token != null && !token.equals("")) {
-                    if(role_type != null && role_type.equals("1")){
+                    tv_home.setTextColor(getResources().getColor(R.color.text));
+                    tv_fenl.setTextColor(getResources().getColor(R.color.text));
+                    tv_fbqg.setTextColor(getResources().getColor(R.color.text));
+                    tv_card.setTextColor(getResources().getColor(R.color.text));
+                    tv_message.setTextColor(getResources().getColor(R.color.text));
+                    tv_my.setTextColor(getResources().getColor(R.color.bottom_text));
+                    iv_home.setImageResource(R.drawable.shouye);
+                    iv_fl.setImageResource(R.drawable.fenlei);
+                    iv_fbqg.setImageResource(R.drawable.fbqg_main);
+                    iv_cart.setImageResource(R.drawable.jinhuoche1);
+                    iv_message.setImageResource(R.drawable.liaotian);
+                    iv_my.setImageResource(R.drawable.wode2);
+                    if (role_type != null && role_type.equals("1")) {
                         hideFragment(6);
-                    }else{
+                    } else {
                         hideFragment(7);
                     }
                 } else {

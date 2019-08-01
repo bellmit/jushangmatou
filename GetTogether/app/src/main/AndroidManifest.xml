@@ -432,6 +432,10 @@
         <activity android:name="com.tem.gettogether.activity.my.FansActivity"/>
         <activity android:name="com.tem.gettogether.activity.my.XunPanTuiSongActivity"/>
         <activity android:name="com.tem.gettogether.activity.MyShopActivity"/>
+        <activity android:name="com.tem.gettogether.activity.my.VipCenterActivity"/>
+        <activity android:name="com.tem.gettogether.activity.my.ProductManagmentActivity"/>
+        <activity android:name="com.tem.gettogether.activity.my.VisitorActivity"/>
+
     </application>
 
 </manifest>

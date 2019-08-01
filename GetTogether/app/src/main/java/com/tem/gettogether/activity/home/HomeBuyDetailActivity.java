@@ -82,7 +82,7 @@ public class HomeBuyDetailActivity extends BaseActivity {
             map.put("language", yuyan);
         }
         map.put("trade_id", trade_id);
-
+        Log.d("chenshichun","-----trade_id--"+trade_id);
         showDialog();
         XUtil.Post(URLConstant.HOMEQIUGOUDETAIL, map, new MyCallBack<String>() {
             @Override
@@ -123,7 +123,7 @@ public class HomeBuyDetailActivity extends BaseActivity {
     private void initViews() {
         tv_name.setText(getResources().getText(R.string.user_name)+""+waiMaoQiuGouBeans.get(0).getMobile());
         tv_shopName.setText("商品名称：" + waiMaoQiuGouBeans.get(0).getGoods_name());
-        tv_shop_ms.setText("出口国家：" + waiMaoQiuGouBeans.get(0).getGoods_desc());
+        tv_shop_ms.setText("出口国家：" + waiMaoQiuGouBeans.get(0).getCountry_name());
         tv_qglx.setText("求购类型：" + waiMaoQiuGouBeans.get(0).getRelease_type());
         tv_jhTime.setText("交货时间：" + waiMaoQiuGouBeans.get(0).getAttach_time());
         tv_qgNum.setText("求购数量：" + waiMaoQiuGouBeans.get(0).getGoods_num());
@@ -165,7 +165,9 @@ public class HomeBuyDetailActivity extends BaseActivity {
                 @Override
                 public void onBind(BaseViewHolder holder, int position) {
                     ImageView iv_iamge_qg = holder.getImageView(R.id.iv_iamge_qg);
-                    Glide.with(HomeBuyDetailActivity.this).load(waiMaoQiuGouBeans.get(0).getGoods_logo().get(position)).error(R.mipmap.myy322x).into(iv_iamge_qg);
+                    if(!waiMaoQiuGouBeans.get(0).getGoods_logo().get(position).equals("")) {
+                        Glide.with(HomeBuyDetailActivity.this).load(waiMaoQiuGouBeans.get(0).getGoods_logo().get(position)).error(R.mipmap.myy322x).into(iv_iamge_qg);
+                    }
 
                     iv_iamge_qg.setOnClickListener(new View.OnClickListener() {
                         @Override

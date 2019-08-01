@@ -36,13 +36,12 @@
             app:layout_constraintTop_toTopOf="@+id/pic_iv" />
 
         <TextView
-            android:id="@+id/address_tv"
+            android:id="@+id/detail_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="2"
             android:paddingLeft="105dp"
-            android:text="义乌市"
             app:layout_constraintTop_toTopOf="@id/pic_iv"
             app:layout_constraintBottom_toBottomOf="@id/pic_iv"
             />

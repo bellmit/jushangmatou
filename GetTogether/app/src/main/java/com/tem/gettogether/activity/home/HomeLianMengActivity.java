@@ -2,6 +2,7 @@ package com.tem.gettogether.activity.home;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -46,12 +47,13 @@ public class HomeLianMengActivity extends BaseActivity {
 
     private HomeLianMengSecondAdapter mHomeLianMengSecondAdapter;
     private List<HomeLianMengBean.ResultEntity> homeDataBean = new ArrayList<>();
-    private int currentPage =1;
+    private int currentPage = 1;
+
     @Override
     protected void initData() {
         x.view().inject(this);
         tv_title.setText(getResources().getText(R.string.waimaolianmeng));
-        initDatas(1,false);
+        initDatas(1, true, false);
         initRefresh();
     }
 
@@ -69,15 +71,15 @@ public class HomeLianMengActivity extends BaseActivity {
         }
     }
 
-    private void initDatas(final int currentPage, final boolean isLoadMore){
-        Map<String,Object> map=new HashMap<>();
-        String yuyan= SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "");
-        if(yuyan!=null){
-            map.put("language",yuyan);
-            map.put("page",currentPage);
+    private void initDatas(final int currentPage,final boolean isNormal, final boolean isLoadMore) {
+        Map<String, Object> map = new HashMap<>();
+        String yuyan = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "");
+        if (yuyan != null) {
+            map.put("language", yuyan);
+            map.put("page", currentPage);
         }
         showDialog();
-        XUtil.Post(URLConstant.HONEALLIANCEDATA,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.HONEALLIANCEDATA, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -85,14 +87,24 @@ public class HomeLianMengActivity extends BaseActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        if(!isLoadMore) {
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        if (isNormal) {
                             homeDataBean = gson.fromJson(result, HomeLianMengBean.class).getResult();
                             setData();
-                        }else{
-                            homeDataBean.addAll(gson.fromJson(result, HomeLianMengBean.class).getResult());
-                            mHomeLianMengSecondAdapter.notifyDataSetChanged();
+                        } else {
+                            if(isLoadMore){
+                                Log.d("chenshichun","--------size "+gson.fromJson(result, HomeLianMengBean.class).getResult().size());
+
+                                if(gson.fromJson(result, HomeLianMengBean.class).getResult().size()>0) {
+                                    homeDataBean.addAll(gson.fromJson(result, HomeLianMengBean.class).getResult());
+                                    mHomeLianMengSecondAdapter.notifyDataSetChanged();
+                                }
+                            }else{
+                                    homeDataBean.clear();
+                                    homeDataBean.addAll(gson.fromJson(result, HomeLianMengBean.class).getResult());
+                                    mHomeLianMengSecondAdapter.notifyDataSetChanged();
+                            }
                         }
                     }
 
@@ -117,18 +129,18 @@ public class HomeLianMengActivity extends BaseActivity {
     }
 
 
-    private void setData(){
+    private void setData() {
         mHomeLianMengSecondAdapter = new HomeLianMengSecondAdapter(getContext(), homeDataBean);
         sell_RecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         sell_RecyclerView.setAdapter(mHomeLianMengSecondAdapter);
     }
 
-    private void initRefresh(){
+    private void initRefresh() {
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
-                initDatas(1,false);
+                initDatas(1, false,false);
                 refreshLayout.finishRefreshing();
             }
 
@@ -136,7 +148,7 @@ public class HomeLianMengActivity extends BaseActivity {
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
                 currentPage++;
-                initDatas(currentPage,true);
+                initDatas(currentPage, false,true);
                 refreshLayout.finishLoadmore();
             }
 

@@ -262,8 +262,6 @@ public class MeFragment extends TabFragment implements IUnReadMessageObserver, D
                 } else  if(resultBean.getStore_status()==0||resultBean.getStore_status()==3||resultBean.getStore_status()==4){//店铺管理
 //                    startActivity(new Intent(getActivity(),ShopRZSHActivity.class));
                     startActivity(new Intent(getActivity(),NewShopRenZhengActivity.class));
-
-
                 }
 
                 break;

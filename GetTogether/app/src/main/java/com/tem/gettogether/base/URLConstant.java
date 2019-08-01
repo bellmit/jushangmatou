@@ -246,5 +246,6 @@ public class URLConstant {
     public final static String DIANPU_ZFB_FUWUFEI = SERVER + "/Api/Payment/servicePay";
     //   店铺服务费微信
     public final static String DIANPU_WX_FUWUFEI = SERVER + "/Api/Wxpay/servicePay";
-
+    //   判断店铺审核是否通过接口
+    public final static String DIAN_PU_SHEN_HE = SERVER +"/Api/Newjoin/apply_state";
 }

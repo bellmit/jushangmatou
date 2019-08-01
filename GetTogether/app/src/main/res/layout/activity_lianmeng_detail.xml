@@ -54,23 +54,24 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/phone_tv"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="手机：15068156432"
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/zip_code_tv"
-                        android:layout_width="0dp"
+                        android:id="@+id/address_tv"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="邮政编码：321000"
+                        android:layout_marginTop="10dp"
+                        android:text="地址：义乌稠城东方大厦"
                         android:textSize="14sp" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -78,21 +79,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/address_tv"
-                        android:layout_width="0dp"
+                        android:id="@+id/zip_code_tv"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="地址：义乌稠城东方大厦"
+                        android:text="邮政编码：321000"
                         android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/email_tv"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_marginTop="10dp"
                         android:text="邮箱：764062915@qq.com"
                         android:textSize="14sp" />
                 </LinearLayout>

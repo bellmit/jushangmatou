@@ -226,10 +226,10 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                         CusToast.showToast("请填写产品描述");
                         return;
                     }
-                    if(goods_cate.equals("")){
+                   /* if(goods_cate.equals("")){
                         CusToast.showToast("请选择采购商品类型");
                         return;
-                    }
+                    }*/
                     if(release_type.equals("")){
                         CusToast.showToast("请选择求购类型");
                         return;
@@ -309,7 +309,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         map.put("token",BaseApplication.getInstance().userBean.getToken());
         map.put("goods_name",et_cpName.getText().toString());
         map.put("goods_desc",et_cpms.getText().toString());
-        map.put("goods_cate",goods_cate);
+//        map.put("goods_cate",goods_cate);
         map.put("release_type",release_type);
         map.put("attach_time",attach_time);
         map.put("country_id",country_id);
@@ -528,7 +528,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                 holder.getTextView(R.id.tv_item).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        country_id = ""+position;
+                        country_id = goodsCountryBeans.get(position).getCountry_id();
                         country_name=goodsCountryBeans.get(position).getCountry_name();
                         tv_ckgj.setText(goodsCountryBeans.get(position).getCountry_name());
                         mPop.dismiss();
@@ -712,6 +712,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         return true;
     }
 
+
     private void upMainQGXXData(){
         Map<String,Object> map=new HashMap<>();
         String yuyan= SharedPreferencesUtils.getString(getActivity(), BaseConstant.SPConstant.language, "");
@@ -756,5 +757,4 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
             }
         });
     }
-
 }

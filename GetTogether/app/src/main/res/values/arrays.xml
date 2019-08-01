@@ -25,6 +25,11 @@
         <item>推送列表</item>
     </string-array>
 
+    <string-array name="test2">
+        <item>出售中</item>
+        <item>已下架</item>
+        <item>草稿箱</item>
+    </string-array>
 
 
 </resources>
