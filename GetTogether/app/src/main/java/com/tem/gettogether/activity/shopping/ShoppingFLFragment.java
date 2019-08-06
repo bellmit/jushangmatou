@@ -116,7 +116,11 @@ public class ShoppingFLFragment extends BaseFragment {
     public void initshuju( Map<String,Object> map3){
         upShopData(map3);
     }
+    ShoppingFlAdapter adapter;
     public void initView() {
+        adapter=new ShoppingFlAdapter(resultBeans);
+        order_rl.setAdapter(adapter);
+
         order_refresh_fragment.setDelegate(new BGARefreshLayout.BGARefreshLayoutDelegate() {
             @Override
             public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
@@ -135,6 +139,7 @@ public class ShoppingFLFragment extends BaseFragment {
                     map3.put("sort",sort);
                     map3.put("keywords",title);
                     map3.put("sort_asc",paixu);
+                    Log.d("chenshichun","========map3===  "+map3);
                     upShopData(map3);
                 }
             }
@@ -187,14 +192,16 @@ public class ShoppingFLFragment extends BaseFragment {
                 tv_xl.setTextColor(getResources().getColor(R.color.text3));
                 sort="sort";
                 paixu="desc";
+                clearList(resultBeans);
                 if(id!=null&&!id.equals("")){
                     Map<String,Object> map3=new HashMap<>();
                     PAGE_NUM=1;
-                    map3.put("category_id",id);
+                    map3.put("id",id);
                     map3.put("page",PAGE_NUM);
                     map3.put("sort",sort);
                     map3.put("keywords",title);
                     map3.put("sort_asc",paixu);
+                    Log.d("chenshichun","========map3===  "+map3);
                     upShopData(map3);
                 }
                 break;
@@ -204,6 +211,7 @@ public class ShoppingFLFragment extends BaseFragment {
                 tv_xl.setTextColor(getResources().getColor(R.color.text3));
                 sort="batch_number";
                 paixu="asc";
+                clearList(resultBeans);
                 if(id!=null&&!id.equals("")){
                     PAGE_NUM=1;
                     Map<String,Object> map2=new HashMap<>();
@@ -211,11 +219,12 @@ public class ShoppingFLFragment extends BaseFragment {
                     map2.put("sort",sort);//批发
                     map2.put("sort_asc",paixu);
                     map2.put("keywords",title);
-                    map2.put("category_id",id);
+                    map2.put("id",id);
                     upShopData(map2);
                 }
                 break;
             case R.id.tv_xl:
+                clearList(resultBeans);
                 tv_zonghe.setTextColor(getResources().getColor(R.color.text3));
                 tv_pfl.setTextColor(getResources().getColor(R.color.text3));
                 tv_xl.setTextColor(getResources().getColor(R.color.home_red));
@@ -228,7 +237,7 @@ public class ShoppingFLFragment extends BaseFragment {
                     map.put("sort",sort);//销量
                     map.put("sort_asc",paixu);
                     map.put("keywords",title);
-                    map.put("category_id",id);
+                    map.put("id",id);
                     upShopData(map);
                 }
                 break;
@@ -288,7 +297,6 @@ public class ShoppingFLFragment extends BaseFragment {
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
                 ex.printStackTrace();
-
             }
         });
     }

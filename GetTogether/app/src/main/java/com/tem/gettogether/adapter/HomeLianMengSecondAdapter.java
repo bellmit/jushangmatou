@@ -40,7 +40,7 @@ public class HomeLianMengSecondAdapter extends RecyclerView.Adapter<HomeLianMeng
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Glide.with(context).load(mDatas.get(position).getCompany_logo()).asBitmap().placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).into(new TransformationUtils(holder.pic_iv));
         holder.product_title.setText(mDatas.get(position).getCompany_name());
-        holder.detail_tv.setText(mDatas.get(position).getDescription());
+        holder.detail_tv.setText(context.getResources().getString(R.string.business)+mDatas.get(position).getMaindeal());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

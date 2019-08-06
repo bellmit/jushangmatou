@@ -38,18 +38,18 @@
                     android:textColor="@color/my_sprz_text"
                     android:textSize="14dp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/et_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:gravity="right|center_vertical"
-                    android:hint="@string/please_input"
+                    android:hint="null"
                     android:inputType="text"
                     android:maxLength="12"
                     android:maxLines="1"
-                    android:paddingEnd="16dp"
                     android:paddingStart="10dp"
+                    android:paddingEnd="16dp"
                     android:textColor="@color/text9"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -65,8 +65,8 @@
                 android:layout_height="@dimen/grrz_height"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingEnd="16dp"
-                android:paddingStart="16dp">
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -88,16 +88,16 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical|right"
-                    android:paddingEnd="10dp"
                     android:paddingStart="10dp"
-                    android:text="@string/please_chose"
+                    android:text="null"
                     android:textColor="@color/text9"
                     android:textSize="14dp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/right_more" />
+                    android:src="@drawable/right_more"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <View
@@ -110,9 +110,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
+                android:visibility="gone"
                 android:orientation="horizontal"
-                android:paddingEnd="16dp"
-                android:paddingStart="16dp">
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -134,16 +135,16 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical|right"
-                    android:paddingEnd="10dp"
                     android:paddingStart="10dp"
-                    android:text="@string/please_chose"
+                    android:text="null"
                     android:textColor="@color/text9"
                     android:textSize="14dp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/right_more" />
+                    android:src="@drawable/right_more"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <View
@@ -172,17 +173,17 @@
                     android:textColor="@color/my_sprz_text"
                     android:textSize="14dp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/et_dpzzh"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:gravity="right|center_vertical"
-                    android:hint="@string/please_input"
+                    android:hint="null"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:paddingEnd="16dp"
                     android:paddingStart="10dp"
+                    android:paddingEnd="16dp"
                     android:textColor="@color/text9"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -196,6 +197,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:paddingStart="16dp">
 
@@ -213,16 +215,16 @@
                     android:textColor="@color/my_sprz_text"
                     android:textSize="14dp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/et_dl_pass"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:gravity="right|center_vertical"
-                    android:hint="@string/please_input"
+                    android:hint="null"
                     android:maxLines="1"
-                    android:paddingEnd="16dp"
                     android:paddingStart="10dp"
+                    android:paddingEnd="16dp"
                     android:textColor="@color/text9"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -254,17 +256,17 @@
                     android:textColor="@color/my_sprz_text"
                     android:textSize="14dp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/et_dpAddress"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:gravity="right|center_vertical"
-                    android:hint="@string/please_input"
+                    android:hint="null"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:paddingEnd="16dp"
                     android:paddingStart="10dp"
+                    android:paddingEnd="16dp"
                     android:textColor="@color/text9"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -296,17 +298,17 @@
                     android:textColor="@color/my_sprz_text"
                     android:textSize="14dp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/et_card_num"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:digits="0123456789X"
                     android:gravity="right|center_vertical"
-                    android:hint="@string/please_input"
+                    android:hint="null"
                     android:maxLines="1"
-                    android:paddingEnd="16dp"
                     android:paddingStart="10dp"
+                    android:paddingEnd="16dp"
                     android:textColor="@color/text9"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -319,11 +321,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp">
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp">
 
                 <RelativeLayout
                     android:id="@+id/rl_card_image1"
@@ -392,11 +394,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp">
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp">
 
                 <RelativeLayout
                     android:id="@+id/rl_card_image3"
@@ -405,6 +407,7 @@
                     android:layout_weight="1">
 
                     <ImageView
+                        android:id="@+id/iv_image_3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/img12x"
@@ -450,8 +453,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 android:paddingTop="20dp">
 
@@ -461,6 +464,7 @@
                     android:layout_weight="1">
 
                     <ImageView
+                        android:id="@+id/iv_image_4"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/img12x"
@@ -474,6 +478,7 @@
                     android:layout_weight="1">
 
                     <ImageView
+                        android:id="@+id/iv_image_5"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/img12x"
@@ -484,8 +489,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
+                android:visibility="gone"
+                android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 android:paddingTop="20dp">
 
@@ -518,8 +524,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
+        android:paddingTop="10dp"
         android:paddingBottom="40dp"
-        android:paddingTop="10dp">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_save"

@@ -523,7 +523,7 @@
                     android:orientation="horizontal"
                     android:paddingEnd="16dp"
                     android:paddingStart="16dp"
-                    android:visibility="gone">
+                    >
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -551,7 +551,7 @@
                         android:gravity="center_vertical"
                         android:maxLines="1"
                         android:paddingStart="15dp"
-                        android:text=""
+                        android:text="请选择商品规格"
                         android:textSize="13dp" />
 
                     <ImageView

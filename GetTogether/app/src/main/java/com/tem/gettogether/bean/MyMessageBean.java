@@ -82,7 +82,7 @@ public class MyMessageBean {
         private Object qq;
         private String mobile;
         private String mobile_validated;
-        private Object head_pic;
+        private String head_pic;
         private String email_validated;
         private String nickname;
         private String level;
@@ -199,11 +199,11 @@ public class MyMessageBean {
             this.mobile_validated = mobile_validated;
         }
 
-        public Object getHead_pic() {
+        public String getHead_pic() {
             return head_pic;
         }
 
-        public void setHead_pic(Object head_pic) {
+        public void setHead_pic(String head_pic) {
             this.head_pic = head_pic;
         }
 

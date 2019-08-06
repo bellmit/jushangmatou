@@ -164,10 +164,10 @@ public class DistributorAuthenticationActivity extends BaseActivity {
                     map.put("apply_type", apply_type);
                     map.put("user_id",BaseApplication.getInstance().userBean.getUser_id());
                     if (Image_1 != null || Image_2 != null) {
-                        map.put("business_licence_cert", Image_1 + "," + Image_2);
+                        map.put("legal_identity_cert", Image_1 + "," + Image_2);
                     }
                     if (Image_3 != null) {
-                        map.put("legal_identity_cert", Image_3);
+                        map.put("business_licence_cert", Image_3);
                     }
                     if (Image_4 != null || Image_5 != null) {
                         map.put("factory_scene", Image_4 + "," + Image_5);
@@ -203,7 +203,6 @@ public class DistributorAuthenticationActivity extends BaseActivity {
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
                     CusToast.showToast(msg);
-                    Log.d("chenshichun","---------res---"+res);
                     if (res.equals("1")) {
                         startActivity(new Intent(DistributorAuthenticationActivity.this, com.tem.gettogether.activity.MainActivity.class)
                                 .putExtra("tab", "4"));
@@ -321,7 +320,6 @@ public class DistributorAuthenticationActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 PermissionsActivity.startActivityForResult((Activity) mContext, REQUEST_CODE_CAMERA_PERMISSION, PERMISSIONS_CAMERA);//打开系统相机需要相机权限
-
 
                 mPop.dismiss();
             }

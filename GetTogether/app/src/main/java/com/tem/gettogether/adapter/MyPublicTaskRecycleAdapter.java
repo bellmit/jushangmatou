@@ -51,6 +51,7 @@ public class MyPublicTaskRecycleAdapter extends RecyclerView.Adapter<MyPublicTas
 
         // View layout;
         ImageView mImg;
+        ImageView deleteIv;
         // TextView name;
         // TextView price;
     }
@@ -66,7 +67,7 @@ public class MyPublicTaskRecycleAdapter extends RecyclerView.Adapter<MyPublicTas
         ViewHolder viewHolder = new ViewHolder(view);
 
         viewHolder.mImg = (ImageView) view.findViewById(R.id.item_publishTask_image);
-
+        viewHolder.deleteIv = (ImageView)view.findViewById(R.id.delete_iv);
         return viewHolder;
     }
 
@@ -83,8 +84,11 @@ public class MyPublicTaskRecycleAdapter extends RecyclerView.Adapter<MyPublicTas
         String drawableUrl;
         if (position == mPaths.size() - 1) {
             drawableUrl = ImageDownloader.Scheme.DRAWABLE.wrap(mPaths.get(position));
+            viewHolder.deleteIv.setVisibility(View.GONE);
         } else {
             drawableUrl = ImageDownloader.Scheme.FILE.wrap(mPaths.get(position));
+            viewHolder.deleteIv.setVisibility(View.VISIBLE);
+
         }
 
         System.out.println("onBindViewHolder:" + drawableUrl);
@@ -93,8 +97,8 @@ public class MyPublicTaskRecycleAdapter extends RecyclerView.Adapter<MyPublicTas
         viewHolder.mImg.setOnClickListener(onClickListener);
         viewHolder.mImg.setOnLongClickListener(longClickListener);
         viewHolder.mImg.setTag(position);
-
-
+        viewHolder.deleteIv.setOnClickListener(onClickListener);
+        viewHolder.deleteIv.setTag(position);
     }
 
 }

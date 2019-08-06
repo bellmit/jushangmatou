@@ -6,9 +6,12 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.tem.gettogether.activity.LoginActivity;
 import com.tem.gettogether.activity.MainActivity;
+import com.tem.gettogether.activity.RegisterActivity;
 import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
@@ -16,6 +19,7 @@ import com.tem.gettogether.bean.LoginBean;
 import com.tem.gettogether.bean.UserBean;
 import com.tem.gettogether.bean.WeiXinBean1;
 import com.tem.gettogether.bean.WeiXinMessageBean;
+import com.tem.gettogether.utils.Contacts;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -50,6 +54,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     private Map<String, Object> map_user = new HashMap<>();
     private Map<String, Object> map_refresh_token = new HashMap<>();
     private Gson gson;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,17 +79,19 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         setIntent(intent);
         api.handleIntent(intent, this);
     }
+
     // 微信发送请求到第三方应用时，会回调到该方法
     @Override
     public void onReq(BaseReq baseReq) {
 
     }
+
     // 第三方应用发送到微信的请求处理后的响应结果，会回调到该方法
     @Override
     public void onResp(BaseResp resp) {
-        if(resp.getType()== ConstantsAPI.COMMAND_SENDMESSAGE_TO_WX){//分享
-            Log.e("===微信分享==","微信分享操作.....");
-            switch (resp.errCode){
+        if (resp.getType() == ConstantsAPI.COMMAND_SENDMESSAGE_TO_WX) {//分享
+            Log.e("===微信分享==", "微信分享操作.....");
+            switch (resp.errCode) {
                 case BaseResp.ErrCode.ERR_OK:
                     CusToast.showToast("分享成功");
 //                    Log.i("===微信分享", "微信分享成功.....");
@@ -102,7 +109,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                     break;
 
             }
-        }else if(resp.getType()==ConstantsAPI.COMMAND_SENDAUTH){//登陆
+        } else if (resp.getType() == ConstantsAPI.COMMAND_SENDAUTH) {//登陆
 //            Log.e("==微信登陆", "微信登录操作.....");
             switch (resp.errCode) {
                 case BaseResp.ErrCode.ERR_OK:
@@ -137,6 +144,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                                     e.printStackTrace();
                                 }
                             }
+
                             @Override
                             public void onFinished() {
                                 super.onFinished();
@@ -162,9 +170,11 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         }
 
     }
+
     // IWXAPI 是第三方app和微信通信的openapi接口
     private IWXAPI api;
     private WeiXinMessageBean bean;
+
     private void getWeiXinUser() {
         map_user.put("access_token", BaseApplication.getInstance().wxbean.getAccess_token());
         map_user.put("openid", BaseApplication.getInstance().wxbean.getOpenid());
@@ -172,8 +182,8 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
-                Log.e("===微信回调22222","onSuccess=="+result);
-                JSONObject jsonObject= null;
+                Log.e("===微信回调22222", "onSuccess==" + result);
+                JSONObject jsonObject = null;
                 try {
                     jsonObject = new JSONObject(result);
                     bean = new WeiXinMessageBean();
@@ -197,18 +207,22 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
                 ex.printStackTrace();
             }
+
             @Override
             public void onFinished() {
                 super.onFinished();
             }
         });
     }
+
     public Dialog dialog;
+
     public void showDialog() {
 
         if (null == dialog) {
@@ -222,12 +236,13 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             dialog.dismiss();
         }
     }
-    private void upLogin(){
-        Map<String,Object> map=new HashMap<>();
+
+    private void upLogin() {
+        Map<String, Object> map = new HashMap<>();
         map.put("openid", BaseApplication.getInstance().bean.getOpenid());
-        map.put("from","wx");//登陆类型
-        map.put("nickname",BaseApplication.getInstance().bean.getNickname());
-        map.put("head_pic",BaseApplication.getInstance().bean.getHeadimgurl());
+        map.put("from", "wx");//登陆类型
+        map.put("nickname", BaseApplication.getInstance().bean.getNickname());
+        map.put("head_pic", BaseApplication.getInstance().bean.getHeadimgurl());
         Set keys = map.keySet();
         if (keys != null) {
             Iterator iterator = keys.iterator();
@@ -238,21 +253,21 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             }
         }
         showDialog();
-        XUtil.Post(URLConstant.DISANF_LOGIN,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.DISANF_LOGIN, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
-                Log.i("==微信登陆222--",result);
+                Log.i("==微信登陆222--", result);
                 try {
-                    JSONObject jsonObject=new JSONObject(result);
-                    String msg=jsonObject.optString("msg");
-                    String res=jsonObject.optString("status");
+                    JSONObject jsonObject = new JSONObject(result);
+                    String msg = jsonObject.optString("msg");
+                    String res = jsonObject.optString("status");
 
-                    if("1".equals(res)){
-                        Log.i("==微信登陆333--",result);
+                    if ("1".equals(res)) {
+                        Log.i("==微信登陆333--", result);
                         CusToast.showToast(msg);
-                        Gson gson=new Gson();
-                        LoginBean loginBean=gson.fromJson(result,LoginBean.class);
+                        Gson gson = new Gson();
+                        LoginBean loginBean = gson.fromJson(result, LoginBean.class);
                         SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.TOKEN, loginBean.getResult().getToken());
                         SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.head_pic, BaseApplication.getInstance().bean.getHeadimgurl());
                         SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.openid, BaseApplication.getInstance().bean.getOpenid());
@@ -263,8 +278,18 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                         userBean.setUserName(loginBean.getResult().getNickname());
                         userBean.setPhone(loginBean.getResult().getMobile());
                         userBean.setChat_id(loginBean.getResult().getChat_id());
+                        userBean.setUser_id(loginBean.getResult().getUser_id());
+                        userBean.setHead_pic(loginBean.getResult().getHead_pic());
+                        userBean.setLever(loginBean.getResult().getLevel());
                         BaseApplication.getInstance().userBean = userBean;
-                        startActivity(new Intent(WXEntryActivity.this,MainActivity.class));
+//                        startActivity(new Intent(WXEntryActivity.this,MainActivity.class));
+
+                        if (loginBean.getResult().getMobile_validated() == "0") {
+                            startActivity(new Intent(WXEntryActivity.this, RegisterActivity.class).putExtra(Contacts.REGISTER_TYPE, 1).putExtra(Contacts.REGISTER_OPEN_ID, BaseApplication.getInstance().bean.getOpenid()));
+                        } else {
+                            startActivity(new Intent(WXEntryActivity.this, MainActivity.class));
+                        }
+
                         finish();
                     }
                 } catch (JSONException e) {

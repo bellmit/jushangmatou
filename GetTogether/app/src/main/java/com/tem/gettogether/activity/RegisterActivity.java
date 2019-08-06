@@ -14,7 +14,9 @@ import android.widget.TextView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.my.XeiYiH5Activity;
 import com.tem.gettogether.base.BaseActivity;
+import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.URLConstant;
+import com.tem.gettogether.utils.Contacts;
 import com.tem.gettogether.utils.xutils3.CountDownTimerUtils3;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -60,10 +62,18 @@ public class RegisterActivity extends BaseActivity {
     private String companyName;
     private String companyId;
     private int role_type=0;
+    private int registerType = 0;
+    private String openId;
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText(R.string.zhuche);
+        registerType = getIntent().getIntExtra(Contacts.REGISTER_TYPE,0);
+        openId = getIntent().getStringExtra(Contacts.REGISTER_OPEN_ID);
+        if(registerType==0) {
+            tv_title.setText(R.string.zhuche);
+        }else if(registerType ==1) {
+            tv_title.setText(R.string.bind_mobile_number);
+        }
         checkbox.setChecked(true);
         quyers_rb.setChecked(true);
     }
@@ -106,7 +116,11 @@ public class RegisterActivity extends BaseActivity {
                     CusToast.showToast("请先阅读服务协议并同意");
                     return;
                 }
-                upRegister(phone, password, code);
+                if(registerType==0) {
+                    upRegister(phone, password, code);
+                }else{
+                    bindPhone(phone,password,code);
+                }
                 break;
             case R.id.tv_goLogin:
                 finish();
@@ -136,6 +150,7 @@ public class RegisterActivity extends BaseActivity {
 
     private void upRegister(String phone, String pass, String code) {
         Map<String, Object> map = new HashMap<>();
+        map.put("openid", "6B432D2BE8DF33FAC27D902E7FF3F1B7");
         map.put("username", phone);
         map.put("password", pass);
         map.put("password2", pass);
@@ -144,6 +159,57 @@ public class RegisterActivity extends BaseActivity {
         map.put("companyId",companyId);
         showDialog();
         XUtil.Post(URLConstant.REGISTER, map, new MyCallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                closeDialog();
+                Log.i("====注册===", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    String msg = jsonObject.optString("msg");
+                    if (res.equals("1")) {
+                        ll_success_zt.setVisibility(View.VISIBLE);
+                        ll_All.setVisibility(View.GONE);
+                    } else {
+                        ll_All.setVisibility(View.VISIBLE);
+                        ll_success_zt.setVisibility(View.GONE);
+                    }
+                    CusToast.showToast(msg);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                closeDialog();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                closeDialog();
+
+            }
+        });
+    }
+
+    private void bindPhone(String phone, String pass, String code) {
+        Map<String, Object> map = new HashMap<>();
+        Log.d("chenshichun","==========openId=  "  +openId);
+        map.put("openid", openId);
+        map.put("mobile", phone);
+        map.put("password", pass);
+        map.put("password2", pass);
+        map.put("code", code);
+        map.put("role_type",quyers_rb.isChecked()?0:1);
+        map.put("companyId",companyId);
+        map.put("user_id", BaseApplication.getInstance().userBean.getUser_id());
+        showDialog();
+        XUtil.Post(URLConstant.BIND_PHONE, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);

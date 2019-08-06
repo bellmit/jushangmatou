@@ -8,6 +8,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.lcodecore.tkrefreshlayout.Footer.LoadingView;
+import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.adapter.HomeHotSellSecondAdapter;
 import com.tem.gettogether.base.BaseActivity;
@@ -125,6 +127,11 @@ public class HomeHotSellActivity extends BaseActivity {
     }
 
     private void initRefresh() {
+        SinaRefreshView headerView = new SinaRefreshView(getContext());
+        headerView.setTextColor(0xff745D5C);
+        refreshLayout.setHeaderView(headerView);
+        LoadingView loadingView = new LoadingView(getContext());
+        refreshLayout.setBottomView(loadingView);
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {

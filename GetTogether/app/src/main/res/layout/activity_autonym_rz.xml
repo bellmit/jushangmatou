@@ -1,186 +1,208 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
+
     <include layout="@layout/title_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:fadeScrollbars="true"
+            android:filterTouchesWhenObscured="true"
+            android:orientation="vertical"
+            android:paddingStart="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:fadeScrollbars="true"
-                android:filterTouchesWhenObscured="true"
-                android:orientation="vertical">
+                android:layout_height="51dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="51dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="90dp"
-                        android:layout_height="wrap_content"
-                        android:textSize="15dp"
-                        android:textColor="@color/my_sprz_text"
-                        android:text="真实姓名"/>
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:textSize="15dp"
-                        android:maxLines="1"
-                        android:textColorHint="@color/my_sprz_hind"
-                        android:hint="请输入真实姓名"/>
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/line"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="51dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="90dp"
-                        android:layout_height="wrap_content"
-                        android:textSize="15dp"
-                        android:textColor="@color/my_sprz_text"
-                        android:text="身份证号"/>
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:textSize="15dp"
-                        android:maxLines="1"
-                        android:maxLength="18"
-                        android:digits="0123456789X"
-                        android:textColorHint="@color/my_sprz_hind"
-                        android:hint="请输入经营者身份证号"/>
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/line"/>
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/real_name"
+                    android:textColor="@color/my_sprz_text"
+                    android:textSize="15dp" />
 
-                <LinearLayout
+                <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="51dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="90dp"
-                        android:layout_height="wrap_content"
-                        android:textSize="15dp"
-                        android:textColor="@color/my_sprz_text"
-                        android:text="所属省市"/>
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:textSize="15dp"
-                        android:maxLines="1"
-                        android:textColorHint="@color/my_sprz_hind"
-                        android:hint="请输入所属省市"/>
-                </LinearLayout>
-
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="@string/enter_real_name"
+                    android:maxLines="1"
+                    android:textColorHint="@color/my_sprz_hind"
+                    android:textSize="15dp" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@color/line"/>
+                android:layout_height="1dp"
+                android:background="@color/line" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:textSize="15dp"
-                android:textColor="@color/my_sprz_text"
-                android:text="证件上传"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="105dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_height="51dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:background="@drawable/my_zjsc_bj">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/zjshangcuan"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="13dp"
-                            android:layout_marginTop="10dp"
-                            android:textColor="@color/text9"
-                            android:text="上传身份证正面"/>
 
-                    </LinearLayout>
-                    <ImageView
-                        android:id="@+id/iv_image_1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="18dp"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:background="@drawable/my_zjsc_bj">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/zjshangcuan"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="13dp"
-                            android:layout_marginTop="10dp"
-                            android:textColor="@color/text9"
-                            android:text="上传身份证反面"/>
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/identity_number"
+                    android:textColor="@color/my_sprz_text"
+                    android:textSize="15dp" />
 
-                    </LinearLayout>
-                    <ImageView
-                        android:id="@+id/iv_image_2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </RelativeLayout>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:digits="0123456789X"
+                    android:hint="@string/enter_operator_ID_number"
+                    android:maxLength="18"
+                    android:maxLines="1"
+                    android:textColorHint="@color/my_sprz_hind"
+                    android:textSize="15dp" />
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/province_and_city"
+                    android:textColor="@color/my_sprz_text"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="@string/enter_province_and_city"
+                    android:maxLines="1"
+                    android:textColorHint="@color/my_sprz_hind"
+                    android:textSize="15dp" />
+            </LinearLayout>
 
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/line" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/document_upload"
+            android:textColor="@color/my_sprz_text"
+            android:textSize="15dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="105dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/my_zjsc_bj"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/zjshangcuan" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/upload_ID_card_front"
+                        android:textColor="@color/text9"
+                        android:textSize="13dp" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/iv_image_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/my_zjsc_bj"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/zjshangcuan" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/upload_ID_card_reverse_side"
+                        android:textColor="@color/text9"
+                        android:textSize="13dp" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/iv_image_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_tijiao"
         android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:textSize="16dp"
-        android:textColor="@color/white"
-        android:text="提交审核"
+        android:background="@color/my_red"
         android:gravity="center"
-        android:background="@color/my_red"/>
+        android:text="@string/submit_review"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
 
 </LinearLayout>

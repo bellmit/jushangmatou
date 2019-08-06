@@ -216,13 +216,10 @@
     <string name="yixiadan">已下单</string>
     <string name="yishouhuo">已收货</string>
     <string name="yijiekuan">已结款</string>
-
-
     <string name="gongsijieshao">阿里巴巴网络技术有限公司（简称：阿里巴巴集团或阿里巴巴）是以曾担任英语教师的马云为首的18人于1999年在浙江杭州创立的公司。 [1-2]
 阿里巴巴集团经营多项业务，另外也从关联公司的业务和服务中取得经营商业生态系统上的支援。业务和关联公司的业务包括：淘宝网、天猫、聚划算、全球速卖通、阿里巴巴国际交易市场、1688、阿里妈妈、阿里云、蚂蚁金服、菜鸟网络等。 [3]
 2014年9月19日，阿里巴巴集团在纽约证券交易所正式挂牌上市，股票代码“BABA”，创始人和董事局主席为马云。
 2018年7月19日，全球同步《财富》世界500强排行榜发布，阿里巴巴集团排名300位。 [4]  2018年12月，阿里巴巴入围2018世界品牌500强。</string>
-
     <string name="gerenxinxi">个人信息</string>
     <string name="caigoudingdan">采购订单</string>
     <string name="shouhuodizhi">收货地址</string>
@@ -269,4 +266,41 @@
     <string name="application_refund">申请退款</string>
     <string name="membership_center">会员中心</string>
     <string name="upgrade_membership">升级会员</string>
+    <string name="ordinary_member">普通会员</string>
+    <string name="senior_member">高级会员</string>
+    <string name="member_store">会员商铺</string>
+    <string name="yuan_2000">元/押金</string>
+    <string name="yuan_998">元/年</string>
+    <string name="select_payment_method">请选择支付方式</string>
+    <string name="alipay">支付宝</string>
+    <string name="weChat">微信</string>
+    <string name="pay_immediately">立即支付</string>
+    <string name="receiver">收货人：</string>
+    <string name="enter_consignee_name">请输入收货人姓名</string>
+    <string name="contact_number">联系电话：</string>
+    <string name="enter_harvester_contact_number">请输入收获人联系电话</string>
+    <string name="area">所在地区</string>
+    <string name="select_your_region">请选择所在地区</string>
+    <string name="detail_address">详细地址：</string>
+    <string name="enter_detail_address">请输入详细地址</string>
+    <string name="mark">标签</string>
+    <string name="home">家</string>
+    <string name="company">公司</string>
+    <string name="set_default_address">设为默认地址</string>
+    <string name="save">保存</string>
+    <string name="real_name">真实姓名</string>
+    <string name="enter_real_name">请输入真实姓名</string>
+    <string name="identity_number">身份证号</string>
+    <string name="enter_operator_ID_number">请输入经营者身份证号</string>
+    <string name="province_and_city">所属省市</string>
+    <string name="enter_province_and_city">请输入所属省市</string>
+    <string name="document_upload">证件上传</string>
+    <string name="upload_ID_card_front">上传身份证正面</string>
+    <string name="upload_ID_card_reverse_side">上传身份证反面</string>
+    <string name="submit_review">提交审核</string>
+    <string name="bind_mobile_number">绑定手机号码</string>
+    <string name="business">经营业务：</string>
+    <string name="none">暂无</string>
+    <string name="join_membership">开通会员</string>
+    <string name="my_shop">我的店铺</string>
 </resources>

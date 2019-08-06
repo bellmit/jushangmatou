@@ -68,6 +68,15 @@ public class HomeLianMengBean {
         private String cellphone;
         private String email;
         private String status;
+        private String maindeal;
+
+        public String getMaindeal() {
+            return maindeal;
+        }
+
+        public void setMaindeal(String maindeal) {
+            this.maindeal = maindeal;
+        }
 
         public void setQq(String qq) {
             this.qq = qq;

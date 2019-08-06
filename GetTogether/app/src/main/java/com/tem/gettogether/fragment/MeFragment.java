@@ -271,11 +271,9 @@ public class MeFragment extends TabFragment implements IUnReadMessageObserver, D
                 break;
             case R.id.rl_tdyj://提点意见
                 startActivity(new Intent(getActivity(),TAdviseActivity.class));
-
                 break;
             case R.id.rl_gywm://关于我们
                 startActivity(new Intent(getActivity(),GYWeActivity.class));
-
                 break;
             case R.id.rl_my_message:
                 startActivity(new Intent(getActivity(),MyMessageActivity.class));

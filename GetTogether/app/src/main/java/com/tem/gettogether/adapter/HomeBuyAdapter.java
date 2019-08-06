@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.home.HomeBuyDetailActivity;
+import com.tem.gettogether.activity.home.HomeBuyDetailNewActivity;
 import com.tem.gettogether.bean.HomeDataNewBean;
 import com.tem.gettogether.utils.SizeUtil;
 
@@ -45,7 +46,7 @@ public class HomeBuyAdapter extends RecyclerView.Adapter<HomeBuyAdapter.ViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, HomeBuyDetailActivity.class)
+                context.startActivity(new Intent(context, HomeBuyDetailNewActivity.class)
                         .putExtra("trade_id", mDatas.get(position).getTrade_id()));
             }
         });

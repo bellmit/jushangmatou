@@ -322,7 +322,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                     if (role_type != null && role_type.equals("1")) {
                         hideFragment(6);
                     } else {
-                        hideFragment(7);
+                        hideFragment(6);//7
                     }
                 } else {
                     startActivity(new Intent(this, LoginActivity.class));

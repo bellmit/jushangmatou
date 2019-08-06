@@ -19,6 +19,24 @@ public class UserBean {
     private String goods_id;
     private String role_type;
     private String user_id;
+    private String lever;
+    private String head_pic;
+
+    public String getHead_pic() {
+        return head_pic;
+    }
+
+    public void setHead_pic(String head_pic) {
+        this.head_pic = head_pic;
+    }
+
+    public String getLever() {
+        return lever;
+    }
+
+    public void setLever(String lever) {
+        this.lever = lever;
+    }
 
     public String getUser_id() {
         return user_id;

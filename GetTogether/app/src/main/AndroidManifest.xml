@@ -57,7 +57,6 @@
 
     <!-- 如果是安卓8.0，应用编译配置的targetSdkVersion>=26，请务必添加以下权限 -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-
     <!-- 华为 配置结束 < -->
     <application
         android:name="com.tem.gettogether.base.BaseApplication"
@@ -423,9 +422,9 @@
         <activity android:name=".activity.home.HomeLianMengActivity" />
         <activity android:name=".activity.home.LianMengDetailActivity" />
         <activity android:name=".activity.home.HomeBuyDetailActivity" />
+        <activity android:name=".activity.home.HomeBuyDetailNewActivity" />
         <activity android:name=".activity.my.shopauthentication.ShopAuthenticationActivity" />
         <activity android:name=".activity.my.shopauthentication.PersionAuthenticationActivity" />
-        <activity android:name=".activity.my.shopauthentication.PersionAuthenticationSecondActivity" />
         <activity android:name=".activity.my.shopauthentication.DistributorAuthenticationActivity" />
         <activity android:name="com.tem.gettogether.activity.my.CorporateInformationActivity"/>
         <activity android:name="com.tem.gettogether.activity.my.CgsAuthenticationActivity"/>

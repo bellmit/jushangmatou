@@ -3,6 +3,7 @@ package com.tem.gettogether.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,19 +11,39 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.google.gson.Gson;
+import com.lcodecore.tkrefreshlayout.Footer.LoadingView;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.my.CgsAuthenticationActivity;
 import com.tem.gettogether.activity.my.CorporateInformationActivity;
+import com.tem.gettogether.activity.my.GYWeActivity;
 import com.tem.gettogether.activity.my.SettingActivity;
+import com.tem.gettogether.activity.my.TAdviseActivity;
 import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActivity;
 import com.tem.gettogether.base.BaseActivity;
+import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseFragment;
+import com.tem.gettogether.base.URLConstant;
+import com.tem.gettogether.bean.MyMessageBean;
 import com.tem.gettogether.utils.Contacts;
+import com.tem.gettogether.utils.xutils3.MyCallBack;
+import com.tem.gettogether.utils.xutils3.XUtil;
+import com.tem.gettogether.view.CircularImage;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @ContentView(R.layout.fragment_persion_center_caigou)
 public class PersionCenterCaiGouFragment extends BaseFragment {
@@ -58,7 +79,13 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
     private RelativeLayout rl_tdyj;
     @ViewInject(R.id.rl_gywm)
     private RelativeLayout rl_gywm;
+    @ViewInject(R.id.iv_head)
+    private CircularImage iv_head;
     private BaseActivity baseActivity;
+    @ViewInject(R.id.refreshLayout)
+
+    private TwinklingRefreshLayout refreshLayout;
+    private MyMessageBean.ResultBean resultBean = new MyMessageBean.ResultBean();
 
     @Nullable
     @Override
@@ -70,6 +97,55 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         baseActivity = (BaseActivity) getActivity();
+        upGetMessageData();
+        initRefresh();
+    }
+
+    /*
+     * 店铺信息
+     * */
+    private void upGetMessageData() {
+        Map<String, Object> map = new HashMap<>();
+        if (BaseApplication.getInstance().userBean == null) return;
+        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        baseActivity.showDialog();
+        XUtil.Post(URLConstant.GET_MESSAGE, map, new MyCallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                Log.i("====获取个人信息===", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    String msg = jsonObject.optString("msg");
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        MyMessageBean myMessageBean = gson.fromJson(result, MyMessageBean.class);
+                        resultBean = myMessageBean.getResult();
+                        Glide.with(getActivity()).load(myMessageBean.getResult().getHead_pic() + "").asBitmap().error(R.drawable.img12x).centerCrop().into(new BitmapImageViewTarget(iv_head));
+                        tv_name.setText(myMessageBean.getResult().getNickname());
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                baseActivity.closeDialog();
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                ex.printStackTrace();
+                baseActivity.closeDialog();
+            }
+        });
     }
 
     @Event(value = {R.id.tv_setting, R.id.rl_sprz, R.id.tv_name, R.id.ll_scj, R.id.ll_zj, R.id.ll_qb,
@@ -108,9 +184,45 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
             case R.id.rl_zxkf:// 在线客服
                 break;
             case R.id.rl_tdyj:// 提点意见
+                startActivity(new Intent(getActivity(), TAdviseActivity.class));
                 break;
             case R.id.rl_gywm:// 关于我们
+                startActivity(new Intent(getActivity(), GYWeActivity.class));
                 break;
         }
     }
+
+    private void initRefresh() {
+        SinaRefreshView headerView = new SinaRefreshView(getContext());
+        headerView.setTextColor(0xff745D5C);
+        refreshLayout.setHeaderView(headerView);
+        LoadingView loadingView = new LoadingView(getContext());
+        refreshLayout.setBottomView(loadingView);
+        refreshLayout.setEnableLoadmore(false);
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                super.onRefresh(refreshLayout);
+                upGetMessageData();
+                refreshLayout.finishRefreshing();
+            }
+
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                super.onLoadMore(refreshLayout);
+                refreshLayout.finishLoadmore();
+            }
+
+            @Override
+            public void onFinishRefresh() {
+                super.onFinishRefresh();
+            }
+
+            @Override
+            public void onFinishLoadMore() {
+                super.onFinishLoadMore();
+            }
+        });
+    }
+
 }

@@ -17,6 +17,7 @@ import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.LoginBean;
 import com.tem.gettogether.bean.UserBean;
+import com.tem.gettogether.utils.Contacts;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.CountDownTimerUtils3;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
@@ -69,7 +70,7 @@ public class LoginActivity extends BaseActivity {
     private LinearLayout denglu_zt_2;
     @ViewInject(R.id.denglu_zt)
     private LinearLayout denglu_zt;
-    private String type="0";
+    private String type = "0";
     @ViewInject(R.id.et_code)
     private EditText et_code;
     @ViewInject(R.id.ll_wechat_login)
@@ -77,7 +78,7 @@ public class LoginActivity extends BaseActivity {
     private IWXAPI api;
     private String APP_ID = "wx93eea65ba215f901";
     public ArrayList<SnsPlatform> platforms = new ArrayList<SnsPlatform>();
-    private SHARE_MEDIA[] list = {SHARE_MEDIA.QQ,  SHARE_MEDIA.WEIXIN};
+    private SHARE_MEDIA[] list = {SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,17 +126,18 @@ public class LoginActivity extends BaseActivity {
     protected void initView() {
 
     }
-    @Event(value = {R.id.rl_close,R.id.tv_forgetPwd,R.id.ll_wechat_login,R.id.ll_qq_login,R.id.tv_zc,R.id.tv_login,R.id.tv_code,R.id.ll_phone_login,R.id.ll_zh_login}, type = View.OnClickListener.class)
+
+    @Event(value = {R.id.rl_close, R.id.tv_forgetPwd, R.id.ll_wechat_login, R.id.ll_qq_login, R.id.tv_zc, R.id.tv_login, R.id.tv_code, R.id.ll_phone_login, R.id.ll_zh_login}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
                 finish();
                 break;
             case R.id.tv_forgetPwd:
-                startActivity(new Intent(this,ForgetPassActivity.class));
+                startActivity(new Intent(this, ForgetPassActivity.class));
                 break;
             case R.id.tv_code:
-                if(et_phone.getText().toString().length()<11){
+                if (et_phone.getText().toString().length() < 11) {
                     CusToast.showToast("请输入完整的手机号");
                     return;
                 }
@@ -149,7 +151,7 @@ public class LoginActivity extends BaseActivity {
                 tv_zhpass.setTextColor(getResources().getColor(R.color.text3));
                 denglu_zt.setVisibility(View.VISIBLE);
                 denglu_zt_2.setVisibility(View.GONE);
-                type="1";
+                type = "1";
                 break;
 
             case R.id.ll_zh_login:
@@ -159,26 +161,26 @@ public class LoginActivity extends BaseActivity {
                 tv_phone.setTextColor(getResources().getColor(R.color.text3));
                 denglu_zt.setVisibility(View.GONE);
                 denglu_zt_2.setVisibility(View.VISIBLE);
-                type="0";
+                type = "0";
                 break;
             case R.id.tv_zc:
-                startActivity(new Intent(this, RegisterActivity.class));
+                startActivity(new Intent(this, RegisterActivity.class).putExtra(Contacts.REGISTER_TYPE, 0).putExtra(Contacts.REGISTER_OPEN_ID, ""));
                 break;
             case R.id.tv_login:
-                String phone=et_phone.getText().toString().trim();
-                String pass=et_passworld.getText().toString().trim();
-                String code=et_code.getText().toString().trim();
-                if(phone.length()<11){
+                String phone = et_phone.getText().toString().trim();
+                String pass = et_passworld.getText().toString().trim();
+                String code = et_code.getText().toString().trim();
+                if (phone.length() < 11) {
                     CusToast.showToast("请输入完整的手机号");
                     return;
                 }
-                if(type.equals("0")){
-                    if(pass.length()<6){
+                if (type.equals("0")) {
+                    if (pass.length() < 6) {
                         CusToast.showToast("请输入不少于6位的密码");
                         return;
                     }
                 }
-                upLogin(phone,pass,type);
+                upLogin(phone, pass, type);
 
                 break;
             case R.id.ll_wechat_login:
@@ -215,21 +217,21 @@ public class LoginActivity extends BaseActivity {
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
-    private void upLogin(final String phone, final String pass, final String type){
-        Map<String,Object> map=new HashMap<>();
-        map.put("username",phone);
-        map.put("type",type);
-        if(type.equals("1")){
-            if(et_code.getText().toString().trim().length()<4){
+    private void upLogin(final String phone, final String pass, final String type) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("username", phone);
+        map.put("type", type);
+        if (type.equals("1")) {
+            if (et_code.getText().toString().trim().length() < 4) {
                 CusToast.showToast("请输入正确的验证码");
                 return;
             }
-            map.put("code",et_code.getText().toString().trim());
-        }else{
-            map.put("password",pass);
+            map.put("code", et_code.getText().toString().trim());
+        } else {
+            map.put("password", pass);
         }
         showDialog();
-        XUtil.Post(URLConstant.LOGIN,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.LOGIN, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -241,10 +243,10 @@ public class LoginActivity extends BaseActivity {
                     String msg = jsonObject.optString("msg");
                     CusToast.showToast(msg);
 
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        LoginBean loginBean=gson.fromJson(result,LoginBean.class);
-                        if(type.equals("0")){
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        LoginBean loginBean = gson.fromJson(result, LoginBean.class);
+                        if (type.equals("0")) {
                             SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.MOBILEPHONE, phone);
                             SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.PAYPASSWORD, pass);
                         }
@@ -259,8 +261,10 @@ public class LoginActivity extends BaseActivity {
                         userBean.setChat_id(loginBean.getResult().getChat_id());
                         userBean.setRole_type(loginBean.getResult().getRole_type());
                         userBean.setUser_id(loginBean.getResult().getUser_id());
+                        userBean.setHead_pic(loginBean.getResult().getHead_pic());
+                        userBean.setLever(loginBean.getResult().getLevel());
                         BaseApplication.getInstance().userBean = userBean;
-                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
                     }
 
@@ -283,12 +287,13 @@ public class LoginActivity extends BaseActivity {
             }
         });
     }
-    private void upCode(String phone){
-        Map<String,Object> map=new HashMap<>();
-        map.put("mobile",phone);
-        map.put("unique_id","0");
+
+    private void upCode(String phone) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("mobile", phone);
+        map.put("unique_id", "0");
         showDialog();
-        XUtil.Post(URLConstant.HUOQU_CODE,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.HUOQU_CODE, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -299,7 +304,7 @@ public class LoginActivity extends BaseActivity {
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
                     CusToast.showToast(msg);
-                    if(res.equals("1")){
+                    if (res.equals("1")) {
                         CountDownTimerUtils3 mCountDownTimerUtils = new CountDownTimerUtils3(tv_code, 60000, 1000);
                         mCountDownTimerUtils.start();
                     }
@@ -323,6 +328,7 @@ public class LoginActivity extends BaseActivity {
             }
         });
     }
+
     private void initPlatforms() {
         platforms.clear();
         for (SHARE_MEDIA e : list) {
@@ -350,36 +356,36 @@ public class LoginActivity extends BaseActivity {
                 @Override
                 public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
                     Set<String> set = map.keySet();
-                    String QQname="";
-                    String QQhead="";
-                    String QQopenid="";
+                    String QQname = "";
+                    String QQhead = "";
+                    String QQopenid = "";
                     for (String string : set) {
-                        if(string.equals("profile_image_url")){
-                            QQhead= map.get(string);
-                            Log.i("-----------头像",QQhead);
+                        if (string.equals("profile_image_url")) {
+                            QQhead = map.get(string);
+                            Log.i("-----------头像", QQhead);
                         }
-                        if(string.equals("screen_name")){
-                            QQname= map.get(string);
-                            Log.i("-----------昵称",QQname);
+                        if (string.equals("screen_name")) {
+                            QQname = map.get(string);
+                            Log.i("-----------昵称", QQname);
                         }
-                        if(string.equals("openid")){
-                            QQopenid= map.get(string);
-                            Log.i("-----------openid",QQopenid);
+                        if (string.equals("openid")) {
+                            QQopenid = map.get(string);
+                            Log.i("-----------openid", QQopenid);
                         }
                     }
 
-                    upQQLogin(QQopenid,QQname,QQhead);
+                    upQQLogin(QQopenid, QQname, QQhead);
                 }
 
                 @Override
                 public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
-                    Log.d("chenshichun","-------onError----");
+                    Log.d("chenshichun", "-------onError----");
 
                 }
 
                 @Override
                 public void onCancel(SHARE_MEDIA share_media, int i) {
-                    Log.d("chenshichun","-------onCancel----");
+                    Log.d("chenshichun", "-------onCancel----");
 
                 }
             });
@@ -397,12 +403,13 @@ public class LoginActivity extends BaseActivity {
             Toast.makeText(LoginActivity.this, "您取消了QQ登录", Toast.LENGTH_LONG).show();
         }
     };
-    private void upQQLogin(final String QQopenid, final String QQname, final String QQhead ){
+
+    private void upQQLogin(final String QQopenid, final String QQname, final String QQhead) {
         Map<String, Object> map = new HashMap<>();
         map.put("openid", QQopenid);
-        map.put("from","qq");//登陆类型
-        map.put("nickname",QQname);
-        map.put("head_pic",QQhead);
+        map.put("from", "qq");//登陆类型
+        map.put("nickname", QQname);
+        map.put("head_pic", QQhead);
         Set keys = map.keySet();
         if (keys != null) {
             Iterator iterator = keys.iterator();
@@ -413,35 +420,44 @@ public class LoginActivity extends BaseActivity {
             }
         }
         showDialog();
-        XUtil.Post(URLConstant.DISANF_LOGIN,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.DISANF_LOGIN, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
-                Log.i("==QQ登陆--",result);
+                Log.i("==QQ登陆--", result);
                 try {
-                    JSONObject jsonObject=new JSONObject(result);
-                    String msg=jsonObject.optString("msg");
-                    String res=jsonObject.optString("status");
+                    JSONObject jsonObject = new JSONObject(result);
+                    String msg = jsonObject.optString("msg");
+                    String res = jsonObject.optString("status");
 
-                    if("1".equals(res)){
-                        Log.i("==QQ登陆--",result);
+                    if ("1".equals(res)) {
+                        Log.i("==QQ登陆--", result);
                         CusToast.showToast(msg);
-                        Gson gson=new Gson();
-                        LoginBean loginBean=gson.fromJson(result,LoginBean.class);
+                        Gson gson = new Gson();
+                        LoginBean loginBean = gson.fromJson(result, LoginBean.class);
                         SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.TOKEN, loginBean.getResult().getToken());
-                        SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.head_pic,QQhead);
+                        SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.head_pic, QQhead);
                         SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.openid, QQopenid);
-                        SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.NAME,QQname);
+                        SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.NAME, QQname);
                         SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.TYPE, "2");//QQ
-                        Log.d("chenshichun","---getRole_type  "+loginBean.getResult().getRole_type());
+                        Log.d("chenshichun", "---getRole_type  " + loginBean.getResult().getRole_type());
                         UserBean userBean = new UserBean();
                         userBean.setToken(loginBean.getResult().getToken());
                         userBean.setUserName(loginBean.getResult().getNickname());
                         userBean.setPhone(loginBean.getResult().getMobile());
                         userBean.setChat_id(loginBean.getResult().getChat_id());
+                        userBean.setUser_id(loginBean.getResult().getUser_id());
+                        userBean.setHead_pic(loginBean.getResult().getHead_pic());
+                        userBean.setLever(loginBean.getResult().getLevel());
 //                        userBean.setRole_type(loginBean.getResult().getRole_type());
                         BaseApplication.getInstance().userBean = userBean;
-                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+//                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                        if (loginBean.getResult().getMobile_validated() == "0") {
+                            startActivity(new Intent(LoginActivity.this, RegisterActivity.class).putExtra(Contacts.REGISTER_TYPE, 1).putExtra(Contacts.REGISTER_OPEN_ID, QQopenid));
+                        } else {
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        }
+
                         finish();
                     }
                 } catch (JSONException e) {

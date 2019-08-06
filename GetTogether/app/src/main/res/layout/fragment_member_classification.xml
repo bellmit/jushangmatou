@@ -58,14 +58,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
-                android:background="@drawable/tuoy"
                 android:gravity="center"
                 android:paddingBottom="2dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:paddingTop="2dp"
-                android:text="开通高级会员"
-                android:textSize="10sp" />
+                android:text="@string/yuan_998"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -130,14 +129,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
-                android:background="@drawable/tuoy2"
                 android:gravity="center"
                 android:paddingBottom="2dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:paddingTop="2dp"
-                android:text="缴纳保证金"
-                android:textSize="10sp" />
+                android:text="@string/yuan_2000"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"

@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
+import com.lcodecore.tkrefreshlayout.Footer.LoadingView;
+import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.adapter.ServiceProviderAdapter;
 import com.tem.gettogether.base.BaseActivity;
@@ -123,6 +125,11 @@ public class ServiceProviderActivity extends BaseActivity {
     }
 
     private void initRefresh(){
+        SinaRefreshView headerView = new SinaRefreshView(getContext());
+        headerView.setTextColor(0xff745D5C);
+        refreshLayout.setHeaderView(headerView);
+        LoadingView loadingView = new LoadingView(getContext());
+        refreshLayout.setBottomView(loadingView);
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {

@@ -1,219 +1,248 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/line"
     android:layout_height="match_parent"
+    android:background="@color/line"
     android:orientation="vertical">
+
     <include layout="@layout/title_layout" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@color/white"
             android:gravity="center_vertical"
-            android:paddingStart="16dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingStart="16dp">
+
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:textSize="14dp"
+                android:text="@string/receiver"
                 android:textColorHint="@color/black"
-                android:text="收货人："/>
+                android:textSize="14dp" />
+
             <EditText
                 android:id="@+id/et_shouhuoren"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:textSize="15dp"
+                android:hint="@string/enter_consignee_name"
                 android:maxLines="1"
                 android:textColorHint="@color/my_sprz_hind"
-                android:hint="请输入收货人姓名"/>
+                android:textSize="15dp" />
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/line"/>
+            android:background="@color/line" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@color/white"
             android:gravity="center_vertical"
-            android:paddingStart="16dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingStart="16dp">
+
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:textSize="14dp"
+                android:text="@string/contact_number"
                 android:textColorHint="@color/black"
-                android:text="联系电话："/>
+                android:textSize="14dp" />
 
             <EditText
                 android:id="@+id/et_phone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:textSize="15dp"
-                android:maxLength="11"
+                android:hint="@string/enter_harvester_contact_number"
                 android:inputType="number"
+                android:maxLength="11"
                 android:maxLines="1"
                 android:textColorHint="@color/my_sprz_hind"
-                android:hint="请输入收获人联系电话"/>
+                android:textSize="15dp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll_address"
             android:layout_width="match_parent"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp"
+            android:layout_height="45dp"
             android:layout_marginTop="10dp"
-            android:gravity="center_vertical"
             android:background="@color/white"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:layout_height="45dp">
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="所在地区"
+                android:text="@string/area"
                 android:textColor="@color/my_sprz_text"
-                android:textSize="15dp"/>
+                android:textSize="15dp" />
+
             <TextView
                 android:id="@+id/tv_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginEnd="14dp"
                 android:layout_weight="1"
-                android:maxLines="1"
                 android:ellipsize="end"
-                android:text="请选择所在地区"
-                android:layout_centerVertical="true"
+                android:maxLines="1"
+                android:text="@string/select_your_region"
                 android:textColor="#7f7f7f"
-                android:textSize="13dp"/>
+                android:textSize="13dp" />
+
             <ImageView
                 android:id="@+id/iv_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/right_more"/>
+                android:src="@drawable/right_more" />
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/line"/>
+            android:background="@color/line" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@color/white"
             android:gravity="center_vertical"
-            android:paddingStart="16dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingStart="16dp">
+
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:textSize="14dp"
+                android:text="@string/detail_address"
                 android:textColorHint="@color/black"
-                android:text="详细地址："/>
+                android:textSize="14dp" />
+
             <EditText
                 android:id="@+id/et_xxdz"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:textSize="15dp"
+                android:hint="@string/enter_detail_address"
                 android:maxLines="1"
                 android:textColorHint="@color/my_sprz_hind"
-                android:hint="请输入详细地址"/>
+                android:textSize="15dp" />
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/line"/>
+            android:background="@color/line" />
+
         <LinearLayout
             android:id="@+id/ll_home"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@color/white"
             android:gravity="center_vertical"
-            android:paddingStart="16dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingStart="16dp">
 
             <TextView
                 android:layout_width="83dp"
                 android:layout_height="wrap_content"
-                android:text="标签"
+                android:text="@string/mark"
                 android:textColorHint="@color/black"
                 android:textSize="14dp" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/tv_lx_xz"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:background="@drawable/circle_address"/>
+                    android:background="@drawable/circle_address" />
+
                 <ImageView
                     android:id="@+id/iv_lx_xz"
                     android:layout_width="wrap_content"
-                    android:visibility="gone"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/home_xz"/>
+                    android:src="@drawable/home_xz"
+                    android:visibility="gone" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14dp"
                     android:layout_marginStart="8dp"
+                    android:text="@string/home"
                     android:textColorHint="@color/black"
-                    android:text="家"/>
+                    android:textSize="14dp" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_gongsi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:layout_marginStart="40dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/tv_lx_xz2"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:background="@drawable/circle_address"/>
+                    android:background="@drawable/circle_address" />
+
                 <ImageView
                     android:id="@+id/iv_lx_xz2"
                     android:layout_width="wrap_content"
-                    android:visibility="gone"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/home_xz"/>
+                    android:src="@drawable/home_xz"
+                    android:visibility="gone" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14dp"
                     android:layout_marginStart="8dp"
+                    android:text="@string/company"
                     android:textColorHint="@color/black"
-                    android:text="公司"/>
+                    android:textSize="14dp" />
             </LinearLayout>
         </LinearLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
+            android:layout_height="44dp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
             android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:layout_height="44dp">
+            android:paddingEnd="16dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:textSize="14dp"
+                android:text="@string/set_default_address"
                 android:textColorHint="@color/black"
-                android:text="设为默认地址"/>
+                android:textSize="14dp" />
+
             <com.tem.gettogether.view.SwitchView
                 android:id="@+id/switchView"
                 android:layout_width="45dp"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"/>
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true" />
         </RelativeLayout>
 
 
@@ -223,10 +252,10 @@
         android:id="@+id/tv_save"
         android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:textSize="16dp"
-        android:textColor="@color/white"
-        android:text="保存"
+        android:background="@color/my_red"
         android:gravity="center"
-        android:background="@color/my_red"/>
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
 
 </LinearLayout>

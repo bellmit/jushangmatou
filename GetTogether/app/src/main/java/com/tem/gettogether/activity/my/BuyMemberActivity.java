@@ -8,16 +8,22 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alipay.sdk.app.PayTask;
+import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.ShoppingKUActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.URLConstant;
+import com.tem.gettogether.bean.MemberAmountBean;
+import com.tem.gettogether.bean.ShoppingKuBean;
 import com.tem.gettogether.utils.MessageEvent;
 import com.tem.gettogether.utils.PayResult;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
@@ -64,13 +70,23 @@ public class BuyMemberActivity extends BaseActivity {
     @ViewInject(R.id.tv_pay)
     private TextView tv_pay;
 
+    @ViewInject(R.id.rb_ordinary_member)
+    private RadioButton rb_ordinary_member;
+    @ViewInject(R.id.rb_senior_member)
+    private RadioButton rb_senior_member;
+    @ViewInject(R.id.rl_ordinary_member)
+    private RelativeLayout rl_ordinary_member;
+    @ViewInject(R.id.rl_senior_member)
+    private RelativeLayout rl_senior_member;
 
-    /** 区别三种支付方式 0:我的钱包 1:支付宝 2:微信支付 **/
-    public  String payWay = "zfb";
-    public  String result2;
+    /**
+     * 区别三种支付方式 0:我的钱包 1:支付宝 2:微信支付
+     **/
+    public String payWay = "zfb";
+    public String result2;
     String money;
     String expire_time;
-
+    private String ordinaryMember , seniorMember ,lever;// lever:7 游客，lever:1 普通会员 ，lever:2 高级会员
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,35 +95,69 @@ public class BuyMemberActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         initData();
         initView();
+        rb_senior_member.setChecked(true);
+        rb_ordinary_member.setChecked(false);
+        rb_ordinary_member.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    rb_senior_member.setChecked(false);
+                    moneyText.setText(ordinaryMember+getResources().getText(R.string.yuan_2000));
+                }
+            }
+        });
+        rb_senior_member.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    rb_ordinary_member.setChecked(false);
+                    moneyText.setText(seniorMember+getResources().getText(R.string.yuan_998));
+                }
+            }
+        });
     }
-    @Event(value = {R.id.rl_close})
+
+    @Event(value = {R.id.rl_close, R.id.rl_ordinary_member, R.id.rl_senior_member})
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
                 finish();
                 break;
+            case R.id.rl_ordinary_member:
+                if (!rb_ordinary_member.isChecked()) {
+                    rb_ordinary_member.setChecked(true);
+                    rb_senior_member.setChecked(false);
+                }
+                break;
+            case R.id.rl_senior_member:
+                if (!rb_senior_member.isChecked()) {
+                    rb_senior_member.setChecked(true);
+                    rb_ordinary_member.setChecked(false);
+                }
+                break;
         }
     }
+
     @Override
     protected void initData() {
-       getStoreServiceFee();
+        getStoreServiceFee();
+        getMemberFee();
     }
-
 
 
     @Override
 
     protected void initView() {
-        tv_title.setText("开通会员");
-        choose_1=(LinearLayout)findViewById(R.id.choose_1);
-        choose_2=(LinearLayout)findViewById(R.id.choose_2);
-        choose_3=(LinearLayout)findViewById(R.id.choose_3);
-        rad_1=(ImageView) findViewById(R.id.rad_1);
-        rad_2=(ImageView)findViewById(R.id.rad_2);
-        rad_3=(ImageView)findViewById(R.id.rad_3);
+        tv_title.setText(getResources().getText(R.string.join_membership));
+        choose_1 = (LinearLayout) findViewById(R.id.choose_1);
+        choose_2 = (LinearLayout) findViewById(R.id.choose_2);
+        choose_3 = (LinearLayout) findViewById(R.id.choose_3);
+        rad_1 = (ImageView) findViewById(R.id.rad_1);
+        rad_2 = (ImageView) findViewById(R.id.rad_2);
+        rad_3 = (ImageView) findViewById(R.id.rad_3);
 
-        moneyText=(TextView)findViewById(R.id.moneyText);
-        moneyDataText=(TextView)findViewById(R.id.moneyDataText);
+        moneyText = (TextView) findViewById(R.id.moneyText);
+        moneyDataText = (TextView) findViewById(R.id.moneyDataText);
 
         choose_1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +165,7 @@ public class BuyMemberActivity extends BaseActivity {
                 rad_1.setImageResource(R.drawable.start_select);
                 rad_2.setImageResource(R.drawable.start_noselect);
                 rad_3.setImageResource(R.drawable.start_noselect);
-                payWay="zfb";
+                payWay = "zfb";
             }
         });
         choose_2.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +174,7 @@ public class BuyMemberActivity extends BaseActivity {
                 rad_1.setImageResource(R.drawable.start_noselect);
                 rad_2.setImageResource(R.drawable.start_select);
                 rad_3.setImageResource(R.drawable.start_noselect);
-                payWay="wx";
+                payWay = "wx";
             }
         });
         choose_3.setOnClickListener(new View.OnClickListener() {
@@ -133,22 +183,20 @@ public class BuyMemberActivity extends BaseActivity {
                 rad_1.setImageResource(R.drawable.start_noselect);
                 rad_2.setImageResource(R.drawable.start_noselect);
                 rad_3.setImageResource(R.drawable.start_select);
-                payWay="yhk";
+                payWay = "yhk";
             }
         });
         tv_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(payWay=="zfb"){
+                if (payWay == "zfb") {
                     pay_zfb();
 
-                }
-                else if(payWay=="wx"){
-                   wx();
-                }
-                else if(payWay=="yhk"){
+                } else if (payWay == "wx") {
+                    wx();
+                } else if (payWay == "yhk") {
                     startActivity(new Intent(BuyMemberActivity.this, ShoppingKUActivity.class));
-                    Log.d("","yhk");
+                    Log.d("", "yhk");
                 }
             }
         });
@@ -157,7 +205,7 @@ public class BuyMemberActivity extends BaseActivity {
     // 更新界面
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
-        Log.e("message is " , ""+ event.getMessage());
+        Log.e("message is ", "" + event.getMessage());
 
         moneyText.setText(event.getMessage().split(" ")[0]);
         moneyDataText.setText(event.getMessage().split(" ")[1]);
@@ -165,9 +213,10 @@ public class BuyMemberActivity extends BaseActivity {
 
     //微信
     private void wx() {
-        Map<String,Object> map=new HashMap<>();
-        if(BaseApplication.getInstance().userBean==null)return;
+        Map<String, Object> map = new HashMap<>();
+        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("level_id", rb_ordinary_member.isChecked() ? 1 : 2);
         XUtil.Post(URLConstant.DIANPU_WX_FUWUFEI, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
@@ -185,7 +234,7 @@ public class BuyMemberActivity extends BaseActivity {
                     String prepayid = request.optString("prepayid");
                     String timestamp = request.optString("timestamp");
                     String sign = request.optString("sign");
-                    Log.d("123",""+result2);
+                    Log.d("123", "" + result2);
 
                     if (res.equals("1")) {
 //                        Gson gson=new Gson();
@@ -197,7 +246,7 @@ public class BuyMemberActivity extends BaseActivity {
                         req.partnerId = partnerid;
                         req.prepayId = prepayid;
                         req.nonceStr = noncestr;
-                        req.timeStamp =timestamp;
+                        req.timeStamp = timestamp;
                         req.packageValue = "Sign=WXPay";
                         req.sign = sign;
                         BaseApplication.getInstance().api.sendReq(req);
@@ -225,14 +274,15 @@ public class BuyMemberActivity extends BaseActivity {
 
     //支付宝
     private void pay_zfb() {
-        Map<String,Object> map=new HashMap<>();
-        if(BaseApplication.getInstance().userBean==null)return;
+        Map<String, Object> map = new HashMap<>();
+        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("level_id", rb_ordinary_member.isChecked() ? 1 : 2);
         XUtil.Post(URLConstant.DIANPU_ZFB_FUWUFEI, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
-
+                Log.d("chenshichun", "=========result==" + result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
@@ -240,7 +290,7 @@ public class BuyMemberActivity extends BaseActivity {
 
                     if (res.equals("1")) {
                         String result2 = jsonObject.optString("result");
-                        Log.d("123",""+result2);
+                        Log.d("123", "" + result2);
                         payV2(result2);
                     }
 
@@ -264,15 +314,64 @@ public class BuyMemberActivity extends BaseActivity {
         });
     }
 
+    private void getMemberFee() {
+        Map<String, Object> map = new HashMap<>();
+        if (BaseApplication.getInstance().userBean == null) return;
+        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("user_id",BaseApplication.getInstance().userBean.getUser_id());
+        Log.d("chenshichun","=======token===="+BaseApplication.getInstance().userBean.getToken());
+        Log.d("chenshichun","=======user_id===="+BaseApplication.getInstance().userBean.getUser_id());
+
+        XUtil.Post(URLConstant.JOIN_USER_LEVER, map, new MyCallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.e("会员价格：", result);
+                super.onSuccess(result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String status = jsonObject.optString("status");
+                    String msg = jsonObject.optString("msg");
+                    if (status.equals("1")) {
+                        Gson gson=new Gson();
+                        MemberAmountBean memberAmountBean =gson.fromJson(result,MemberAmountBean.class);
+                        ordinaryMember = memberAmountBean.getResult().getRegularmdeposit();
+                        seniorMember = memberAmountBean.getResult().getSeniormfee();
+                        lever = memberAmountBean.getResult().getLevel();
+                        if(lever.equals("7")){
+                            moneyText.setText(seniorMember+getResources().getText(R.string.yuan_998));
+                        }else if(lever.equals("1")){
+                            rl_ordinary_member.setVisibility(View.GONE);
+                            moneyText.setText(seniorMember+getResources().getText(R.string.yuan_998));
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                ex.printStackTrace();
+            }
+        });
+    }
+
+
     //店铺服务费
     private void getStoreServiceFee() {
-        Map<String,Object> map=new HashMap<>();
-        if(BaseApplication.getInstance().userBean==null) return;
+        Map<String, Object> map = new HashMap<>();
+        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", BaseApplication.getInstance().userBean.getToken());
         XUtil.Post(URLConstant.DIANPU_FUWUFEI, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
-                Log.e("店铺服务费：" , result );
+                Log.e("店铺服务费：", result);
                 super.onSuccess(result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -281,11 +380,11 @@ public class BuyMemberActivity extends BaseActivity {
 
                     if (status.equals("1")) {
                         String result2 = jsonObject.optString("result");
-                        JSONObject jsondata= new JSONObject(result2);
+                        JSONObject jsondata = new JSONObject(result2);
                         money = jsondata.getString("money");
                         expire_time = jsondata.getString("expire_time");
 
-                        Log.d("店铺服务费money：",""+ money + "==" + expire_time);
+                        Log.d("店铺服务费money：", "" + money + "==" + expire_time);
                         // 发布事件
                         EventBus.getDefault().post(new MessageEvent(money + " " + expire_time));
                     }
@@ -347,7 +446,7 @@ public class BuyMemberActivity extends BaseActivity {
     /**
      * 支付宝支付业务
      * 支付
-     //     * @param v
+     * //     * @param v
      */
     public void payV2(final String info) {
         /**
@@ -358,7 +457,7 @@ public class BuyMemberActivity extends BaseActivity {
          * orderInfo的获取必须来自服务端；
          */
 //        final String orderinfo = "_input_charset=\"" + info.get_input_charset() + "\"&body=\"" + info.getBody() + "\"&notify_url=\"" + info.getNotify_url() + "\"&out_trade_no=\"" + info.getOut_trade_no() + "\"&partner=\"" + info.getPartner() + "\"&payment_type=\"" + info.getPayment_type() + "\"&seller_id=\"" + info.getSeller_id() + "\"&service=\"" + info.getService() + "\"&subject=\"" + info.getSubject() + "\"&total_fee=\"" + info.getTotal_fee() + "\"&sign=\"" + info.getSign() + "\"&sign_type=\"" + info.getSign_type() + "\"";
-            Runnable payRunnable = new Runnable() {
+        Runnable payRunnable = new Runnable() {
             @Override
             public void run() {
                 PayTask alipay = new PayTask(BuyMemberActivity.this);

@@ -57,7 +57,8 @@ public class LianMengDetailActivity extends BaseActivity {
     private TextView introduction_tv;
     @ViewInject(R.id.banner)
     private Banner banner;
-
+    @ViewInject(R.id.business_tv)
+    private TextView business_tv;
     private String companyId;
     private List<LianMengDetailBean.ResultEntity> detailDataBean = new ArrayList<>();
 
@@ -132,6 +133,7 @@ public class LianMengDetailActivity extends BaseActivity {
         phone_tv.setText("手机：" + detailDataBean.get(0).getCellphone());
         address_tv.setText("地址：" + detailDataBean.get(0).getAddress());
         email_tv.setText("邮箱：" + detailDataBean.get(0).getEmail());
+        business_tv.setText(detailDataBean.get(0).getMaindeal());
         introduction_tv.setText(detailDataBean.get(0).getDescription());
 
         //设置图片加载器

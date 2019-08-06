@@ -132,7 +132,6 @@
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:hint="@string/input_contacts_email"
-                        android:maxLength="18"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:textColorHint="@color/my_sprz_hind"

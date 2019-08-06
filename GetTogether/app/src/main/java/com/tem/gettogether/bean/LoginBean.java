@@ -59,6 +59,33 @@ public class LoginBean {
         private String last_login;
         private String chat_id;
         private String role_type;
+        private String mobile_validated;
+        private String level;
+        private String head_pic;
+
+        public String getLevel() {
+            return level;
+        }
+
+        public void setLevel(String level) {
+            this.level = level;
+        }
+
+        public String getHead_pic() {
+            return head_pic;
+        }
+
+        public void setHead_pic(String head_pic) {
+            this.head_pic = head_pic;
+        }
+
+        public String getMobile_validated() {
+            return mobile_validated;
+        }
+
+        public void setMobile_validated(String mobile_validated) {
+            this.mobile_validated = mobile_validated;
+        }
 
         public String getRole_type() {
             return role_type;

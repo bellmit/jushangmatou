@@ -2,16 +2,20 @@ package com.tem.gettogether.fragment;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,7 +33,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
@@ -49,8 +52,11 @@ import com.tem.gettogether.utils.Base64BitmapUtil;
 import com.tem.gettogether.utils.BitnapUtils;
 import com.tem.gettogether.utils.Confirg;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.permissions.AppUtils;
+import com.tem.gettogether.utils.permissions.FileUtils;
 import com.tem.gettogether.utils.permissions.PermissionsActivity;
 import com.tem.gettogether.utils.permissions.PermissionsChecker;
+import com.tem.gettogether.utils.permissions.PictureUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 
@@ -80,7 +86,7 @@ import static android.app.Activity.RESULT_OK;
 @ContentView(R.layout.fragment_publish_buy)
 public class PublishBuyFragment extends Base2Fragment implements View.OnClickListener, View.OnLongClickListener {
 
-    private   BaseActivity baseActivity;
+    private BaseActivity baseActivity;
     @ViewInject(R.id.iv_qglx1)
     private ImageView iv_qglx1;
     @ViewInject(R.id.iv_qglx2)
@@ -116,11 +122,13 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
     private static final int REQUEST_CODEBBB = 100;
-    private List<QiuGouXXBean.ResultBean.GoodsCateBean>goodsCateBeans=new ArrayList<>();
-    private List<QiuGouXXBean.ResultBean.GoodsTimeBean> goodsTimeBeans=new ArrayList<>();
-    private List<QiuGouXXBean.ResultBean.GoodsTypeBean> goodsTypeBeans=new ArrayList<>();
+    private final int CROP_FROM_CAMERA = 333;
+
+    private List<QiuGouXXBean.ResultBean.GoodsCateBean> goodsCateBeans = new ArrayList<>();
+    private List<QiuGouXXBean.ResultBean.GoodsTimeBean> goodsTimeBeans = new ArrayList<>();
+    private List<QiuGouXXBean.ResultBean.GoodsTypeBean> goodsTypeBeans = new ArrayList<>();
     private List<QiuGouXXBean.ResultBean.GoodsCountryBean> goodsCountryBeans = new ArrayList<>();
-    private int type=0;
+    private int type = 0;
     @ViewInject(R.id.tv_cpfl)
     private TextView tv_cpfl;
     @ViewInject(R.id.tv_qglx)
@@ -129,16 +137,18 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
     private TextView tv_jhTime;
     @ViewInject(R.id.tv_ckgj)
     private TextView tv_ckgj;
-    private int qgNum=0;
-    private String goods_cate="";
-    private String release_type="";
-    private String attach_time="";
-    private String country_name="";
-    private String country_id="";
+    private int qgNum = 0;
+    private String goods_cate = "";
+    private String release_type = "";
+    private String attach_time = "";
+    private String country_name = "";
+    private String country_id = "";
     @ViewInject(R.id.rl_close)
     private RelativeLayout rl_close;
     @ViewInject(R.id.tv_title)
-    private  TextView tv_title;
+    private TextView tv_title;
+    @ViewInject(R.id.item_publishTask_image)
+    private ImageView item_publishTask_image;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -146,17 +156,18 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         // Inflate the layout for this fragment
         return x.view().inject(this, inflater, container);
     }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        baseActivity= (BaseActivity) getActivity();
+        baseActivity = (BaseActivity) getActivity();
         checker = new PermissionsChecker(getActivity());
-
         initData();
         initView();
         upMainQGXXData();
     }
-    private void initData(){
+
+    private void initData() {
         rl_close.setVisibility(View.GONE);
         tv_title.setText(R.string.fabuqiug);
 
@@ -167,6 +178,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
             folder.mkdirs();
         }
     }
+
     public void initView() {
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3, LinearLayoutManager.VERTICAL, false));
@@ -174,55 +186,55 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         recyclerView.setAdapter(mTaskImgAdapter);
 
     }
-    @Event(value = {R.id.rl_close,R.id.iv_qglx1, R.id.iv_qglx2,R.id.ll_cpfl, R.id.ll_qglx, R.id.ll_jhTime,R.id.ll_ckgj,R.id.tv_fbqg}, type = View.OnClickListener.class)
+
+    @Event(value = {R.id.rl_close, R.id.iv_qglx1, R.id.iv_qglx2, R.id.ll_cpfl, R.id.ll_qglx, R.id.ll_jhTime, R.id.ll_ckgj, R.id.tv_fbqg}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.iv_qglx1:
-                qgNum=1;
+                qgNum = 1;
                 iv_qglx1.setImageResource(R.drawable.xuanzhongf);
                 iv_qglx2.setImageResource(R.drawable.weixuanz);
                 et_qgNum.setEnabled(true);
-
                 break;
             case R.id.iv_qglx2:
-                qgNum=2;
+                qgNum = 2;
                 iv_qglx2.setImageResource(R.drawable.xuanzhongf);
                 iv_qglx1.setImageResource(R.drawable.weixuanz);
                 et_qgNum.setEnabled(false);
 
                 break;
             case R.id.ll_cpfl:
-                type=1;
-                mPop=null;
+                type = 1;
+                mPop = null;
                 showPop(ll_cpfl);
                 break;
             case R.id.ll_qglx:
-                type=2;
-                mPop=null;
+                type = 2;
+                mPop = null;
                 showPop(ll_qglx);
                 break;
             case R.id.ll_jhTime:
-                type=3;
-                mPop=null;
+                type = 3;
+                mPop = null;
                 showPop(ll_jhTime);
                 break;
             case R.id.ll_ckgj:
-                type=4;
-                mPop=null;
+                type = 4;
+                mPop = null;
                 showPop(ll_ckgj);
                 break;
             case R.id.tv_fbqg:
-                if(BaseApplication.getInstance().userBean==null){
-                    startActivity(new Intent(getActivity(),LoginActivity.class));
-                }else {
+                if (BaseApplication.getInstance().userBean == null) {
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                } else {
 
-                    String name=et_cpName.getText().toString();
-                    String cpms=et_cpms.getText().toString();
-                    if(name.equals("")){
+                    String name = et_cpName.getText().toString();
+                    String cpms = et_cpms.getText().toString();
+                    if (name.equals("")) {
                         CusToast.showToast("请填写产品名称");
                         return;
                     }
-                    if(cpms.equals("")){
+                    if (cpms.equals("")) {
                         CusToast.showToast("请填写产品描述");
                         return;
                     }
@@ -230,29 +242,29 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                         CusToast.showToast("请选择采购商品类型");
                         return;
                     }*/
-                    if(release_type.equals("")){
+                    if (release_type.equals("")) {
                         CusToast.showToast("请选择求购类型");
                         return;
                     }
-                    if(attach_time.equals("")){
+                    if (attach_time.equals("")) {
                         CusToast.showToast("请选择交货时间");
                         return;
                     }
-                    if(country_name.equals("")){
+                    if (country_name.equals("")) {
                         CusToast.showToast("请选择出口国家");
                         return;
                     }
-                    if(qgNum==0){
+                    if (qgNum == 0) {
                         CusToast.showToast("请选择求购数量");
                         return;
                     }
-                    if(qgNum==1){
-                        if(et_qgNum.getText().toString().equals("")){
+                    if (qgNum == 1) {
+                        if (et_qgNum.getText().toString().equals("")) {
                             CusToast.showToast("请输入求购数量");
                             return;
                         }
                     }
-                    Log.i("===图片22--",strImage+"");
+                    Log.i("===图片22--", strImage + "");
 
                     upSCQGXXData();
                 }
@@ -274,7 +286,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                         return;
                     }
 
-                    intent = new Intent(getActivity(), MultiImageSelectorActivity.class);
+                    /*intent = new Intent(getActivity(), MultiImageSelectorActivity.class);
                     // 是否显示调用相机拍照
                     intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, false);
                     // 最大图片选择数量
@@ -283,7 +295,8 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                     // 设置模式 (支持 单选/MultiImageSelectorActivity.MODE_SINGLE 或者 多选/MultiImageSelectorActivity.MODE_MULTI)
                     intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_MULTI);
 
-                    startActivityForResult(intent, FROM_ALBUM_CODE);
+                    startActivityForResult(intent, FROM_ALBUM_CODE);*/
+                    showCameraPop(v);
                 } else {
                     ArrayList<String> paths = new ArrayList<>();
                     paths.addAll(imagePaths);
@@ -295,41 +308,75 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                     startActivity(intent);
                 }
                 break;
+            case R.id.delete_iv:
+                final Integer index1 = (Integer) v.getTag();
+                System.out.println("index:===" + index1);
+                /**
+                 这里使用了 android.support.v7.app.AlertDialog.Builder
+                 可以直接在头部写 import android.support.v7.app.AlertDialog
+                 那么下面就可以写成 AlertDialog.Builder
+                 */
+                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getActivity());
+                builder.setMessage("是否确认删除？");
+                builder.setNegativeButton("取消", null);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (imagePaths.size() > 0) {
+                            imagePaths.remove(imagePaths.get(index1));
+                        }
+                        if (compressPaths.size() > 0) {
+                            compressPaths.remove(compressPaths.get(index1));
+                        }
+                        if (cartImage.size() > 0) {
+                            cartImage.remove(cartImage.get(index1));
+                        }
+                        mTaskImgAdapter.notifyDataSetChanged();
+                    }
+                });
+                if (imagePaths.size() - 1 != index1)
+                    builder.show();
 
+                break;
 
             default:
                 break;
         }
     }
-    private void upSCQGXXData(){
-        Map<String,Object> map=new HashMap<>();
-        if(BaseApplication.getInstance().userBean==null){
+
+    private void upSCQGXXData() {
+        Map<String, Object> map = new HashMap<>();
+        if (BaseApplication.getInstance().userBean == null) {
             return;
         }
-        map.put("token",BaseApplication.getInstance().userBean.getToken());
-        map.put("goods_name",et_cpName.getText().toString());
-        map.put("goods_desc",et_cpms.getText().toString());
-//        map.put("goods_cate",goods_cate);
-        map.put("release_type",release_type);
-        map.put("attach_time",attach_time);
-        map.put("country_id",country_id);
-        if(qgNum==1){
-            map.put("goods_num",et_qgNum.getText().toString());
-        }else  if(qgNum==2){
-            map.put("release",2);
+        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("goods_name", et_cpName.getText().toString());
+        map.put("goods_desc", et_cpms.getText().toString());
+//      map.put("goods_cate",goods_cate);
+        map.put("release_type", release_type);
+        map.put("attach_time", attach_time);
+        map.put("country_id", country_id);
+        if (qgNum == 1) {
+            map.put("goods_num", et_qgNum.getText().toString());
+        } else if (qgNum == 2) {
+            map.put("release", 2);
         }
-        if(cartImage.size()>0){
+        if (cartImage.size() > 0) {
             for (int i = 0; i < cartImage.size(); i++) {
-                strImage +=cartImage.get(i)+"," ;
+                if (i == 0) {
+                    strImage += cartImage.get(i);
+                } else {
+                    strImage += "," + cartImage.get(i);
+                }
             }
         }
 
-        if(!strImage.equals("")){
-            map.put("goods_logo",strImage);
+        if (!strImage.equals("")) {
+            map.put("goods_logo", strImage);
         }
 
         baseActivity.showDialog();
-        XUtil.Post(URLConstant.MAIN_GQSC,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.MAIN_GQSC, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -340,23 +387,23 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
 
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
                         et_cpName.setText("");
                         et_cpms.setText("");
                         tv_cpfl.setText("");
                         tv_qglx.setText("");
                         tv_jhTime.setText("");
-                        qgNum=0;
+                        qgNum = 0;
                         iv_qglx1.setImageResource(R.drawable.weixuanz);
                         iv_qglx2.setImageResource(R.drawable.weixuanz);
                         imagePaths.clear();
                         cartImage.clear();
-                        strImage="";
+                        strImage = "";
                         imagePaths.add(R.drawable.addtupian + "");
                         mTaskImgAdapter.notifyDataSetChanged();
                         CusToast.showToast(msg);
-                    }else if(res.equals("-1")) {
+                    } else if (res.equals("-1")) {
                         CusToast.showToast(msg);
                     }
 
@@ -384,6 +431,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
     private View view;
     private RecyclerView recyclerView_qg;
     private TextView tv_xz_title;
+
     //显示弹窗
     private void showPop(View v) {
         initPop();
@@ -395,6 +443,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         lp.alpha = 0.6f;
         getActivity().getWindow().setAttributes(lp);
     }
+
     private void initPop() {
         if (mPop == null) {
             view = LayoutInflater.from(getActivity()).inflate(R.layout.main_qgxx_layout, null);
@@ -418,20 +467,20 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
             ImageView iv_dialog_close = view.findViewById(R.id.iv_dialog_close);
             recyclerView_qg = view.findViewById(R.id.recyclerView_qg);
             recyclerView_qg.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-            tv_xz_title=view.findViewById(R.id.tv_xz_title);
-           if(type==1){
-               tv_xz_title.setText(getResources().getText(R.string.chanpinfenlei));
-               initSetdialog();
-           }else if(type==2){
-               tv_xz_title.setText(getResources().getText(R.string.qiugouleixing2));
-               initSetdialog2();
-           }else if(type==3){
-               tv_xz_title.setText(getResources().getText(R.string.jiaohuoshijian));
-               initSetdialog3();
-           }else if(type==4){
-               tv_xz_title.setText(getResources().getText(R.string.qxzckgj));
-               initSetdialog4();
-           }
+            tv_xz_title = view.findViewById(R.id.tv_xz_title);
+            if (type == 1) {
+                tv_xz_title.setText(getResources().getText(R.string.chanpinfenlei));
+                initSetdialog();
+            } else if (type == 2) {
+                tv_xz_title.setText(getResources().getText(R.string.qiugouleixing2));
+                initSetdialog2();
+            } else if (type == 3) {
+                tv_xz_title.setText(getResources().getText(R.string.jiaohuoshijian));
+                initSetdialog3();
+            } else if (type == 4) {
+                tv_xz_title.setText(getResources().getText(R.string.qxzckgj));
+                initSetdialog4();
+            }
             iv_dialog_close.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -441,8 +490,9 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
 
         }
     }
-    private void initSetdialog(){
-        BaseRVAdapter baseRVAdapter= new BaseRVAdapter(getActivity(),goodsCateBeans) {
+
+    private void initSetdialog() {
+        BaseRVAdapter baseRVAdapter = new BaseRVAdapter(getActivity(), goodsCateBeans) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.fabuqiug_layout;
@@ -454,7 +504,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                 holder.getTextView(R.id.tv_item).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        goods_cate=goodsCateBeans.get(position).getCat_name();
+                        goods_cate = goodsCateBeans.get(position).getCat_name();
                         tv_cpfl.setText(goodsCateBeans.get(position).getCat_name());
                         mPop.dismiss();
                     }
@@ -466,8 +516,9 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         recyclerView_qg.setAdapter(baseRVAdapter);
 
     }
-    private void initSetdialog2(){
-        BaseRVAdapter baseRVAdapter2= new BaseRVAdapter(getActivity(),goodsTypeBeans) {
+
+    private void initSetdialog2() {
+        BaseRVAdapter baseRVAdapter2 = new BaseRVAdapter(getActivity(), goodsTypeBeans) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.fabuqiug_layout;
@@ -479,7 +530,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                 holder.getTextView(R.id.tv_item).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        release_type=goodsTypeBeans.get(position).getCat_name();
+                        release_type = goodsTypeBeans.get(position).getCat_name();
                         tv_qglx.setText(goodsTypeBeans.get(position).getCat_name());
                         mPop.dismiss();
                     }
@@ -490,8 +541,9 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         baseRVAdapter2.notifyDataSetChanged();
         recyclerView_qg.setAdapter(baseRVAdapter2);
     }
-    private void initSetdialog3(){
-        BaseRVAdapter baseRVAdapter3= new BaseRVAdapter(getActivity(),goodsTimeBeans) {
+
+    private void initSetdialog3() {
+        BaseRVAdapter baseRVAdapter3 = new BaseRVAdapter(getActivity(), goodsTimeBeans) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.fabuqiug_layout;
@@ -503,7 +555,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                 holder.getTextView(R.id.tv_item).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        attach_time=goodsTimeBeans.get(position).getCat_name();
+                        attach_time = goodsTimeBeans.get(position).getCat_name();
                         tv_jhTime.setText(goodsTimeBeans.get(position).getCat_name());
                         mPop.dismiss();
                     }
@@ -515,8 +567,8 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         recyclerView_qg.setAdapter(baseRVAdapter3);
     }
 
-    private void initSetdialog4(){
-        BaseRVAdapter baseRVAdapter4= new BaseRVAdapter(getActivity(),goodsCountryBeans) {
+    private void initSetdialog4() {
+        BaseRVAdapter baseRVAdapter4 = new BaseRVAdapter(getActivity(), goodsCountryBeans) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.fabuqiug_layout;
@@ -529,7 +581,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                     @Override
                     public void onClick(View view) {
                         country_id = goodsCountryBeans.get(position).getCountry_id();
-                        country_name=goodsCountryBeans.get(position).getCountry_name();
+                        country_name = goodsCountryBeans.get(position).getCountry_name();
                         tv_ckgj.setText(goodsCountryBeans.get(position).getCountry_name());
                         mPop.dismiss();
                     }
@@ -550,12 +602,46 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
             }
         }
     }
+
     private void permissionActivity() {
         PermissionsActivity.startActivityForResult(getActivity(), REQUEST_CODEBBB, strPermissions);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //系统相机权限
+        if (requestCode == REQUEST_CODE_CAMERA_PERMISSION) {
+            if (resultCode == PermissionsActivity.PERMISSIONS_DENIED) {
+            } else {
+                Log.d("chenshichun", "=====系统相机拍照======");
+                imageCapture();//系统相机拍照
+            }
+        }
+
+        //裁剪的图片的回调
+        if (requestCode == CROP_FROM_CAMERA) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (imagePaths.size() < 10) {
+                    Uri cropUri = Uri.fromFile(mCropImageFile);
+                    String cropPath = "" + cropUri;
+//                    imagePaths.add(imagePaths.size() - 1, cropPath.substring(cropPath.indexOf("/storage")));
+
+                    Map<String, Object> map = new HashMap<>();
+                    Bitmap bitmap = BitmapFactory.decodeFile(mCropImageFile.toString());
+                    map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                    upMessageData(map,cropPath.substring(cropPath.indexOf("/storage")));
+                } else {
+                    CusToast.showToast("无法添加更多图片！");
+                }
+
+            }
+        }
+
+        //拍照完成的回调
+        if (requestCode == PHOTO_PICKED_FROM_CAMERA && resultCode == Activity.RESULT_OK) {//Activity.RESULT_OK可以确保拍照后有回调结果，屏蔽了返回键的回调
+            startSystemCamera();
+        }
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 //相册
@@ -578,11 +664,12 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                                 final String compressImage = BitnapUtils.compressImage(pic_path, targetPath, 40);
                                 Log.i("==f3imgcc==", "onActivityResult: ===compressImage==压缩图片路径==" + compressImage);
                                 compressPaths.add(compressImage);
-                                imagePaths.add(imagePaths.size() - 1, list.get(i));
+//                                imagePaths.add(imagePaths.size() - 1, list.get(i));
+                                Log.d("chenshichun", "==========list.get(i)=  " + list.get(i));
                                 Bitmap bitmap = BitmapFactory.decodeFile(compressImage.toString());
-                                Map<String,Object> map=new HashMap<>();
-                                map.put("image_base_64_arr", "data:image/jpeg;base64,"+ Base64BitmapUtil.bitmapToBase64(bitmap));
-                                upMessageData(map);
+                                Map<String, Object> map = new HashMap<>();
+                                map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                                upMessageData(map,list.get(i));
                             }
                         } else {
                             CusToast.showToast("无法添加更多图片！");
@@ -593,10 +680,11 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
             }
         }
     }
-    private String strImage="";
+
+    private String strImage = "";
     final List<String> cartImage = new ArrayList<>();
 
-    private void upMessageData(Map<String, Object> map) {
+    private void upMessageData(Map<String, Object> map, final String path) {
         XUtil.Post(URLConstant.SHANGCHUAN_IMAGE, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
@@ -608,14 +696,15 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                     String msg = jsonObject.optString("msg");
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        ImageDataBean imageDataBean=gson.fromJson(result,ImageDataBean.class);
-                        Map<String,Object> map=new HashMap<>();
+                        ImageDataBean imageDataBean = gson.fromJson(result, ImageDataBean.class);
+                        Map<String, Object> map = new HashMap<>();
                         map.put("token", BaseApplication.getInstance().userBean.getToken());
-                        if(imageDataBean.getResult().getImage_show().size()>=0){
+                        if (imageDataBean.getResult().getImage_show().size() >= 0) {
                             map.put("head_pic", imageDataBean.getResult().getImage_show().get(0));
                             cartImage.add(imageDataBean.getResult().getImage_show().get(0));
                         }
-
+                        imagePaths.add(imagePaths.size() - 1, path);
+                        mTaskImgAdapter.notifyDataSetChanged();
 //                        String str ="";
 //                        if(storeListBeans!=null&&sStringtoreListBeans.size()>0){
 //                            for(int shopAll=0;shopAll<storeListBeans.size();shopAll++){
@@ -633,7 +722,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
 //                        if(!str.equals("")){
 //                            String cartid=str.substring(0,str.length()-1);
 //                        upXGMessageData(map);
-                    }else {
+                    } else {
                         CusToast.showToast(msg);
                     }
 
@@ -664,6 +753,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         getActivity().getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -694,13 +784,13 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(imagePaths.size()>0){
+                if (imagePaths.size() > 0) {
                     imagePaths.remove(imagePaths.get(index));
                 }
-                if(compressPaths.size()>0){
+                if (compressPaths.size() > 0) {
                     compressPaths.remove(compressPaths.get(index));
                 }
-                if(cartImage.size()>0){
+                if (cartImage.size() > 0) {
                     cartImage.remove(cartImage.get(index));
                 }
                 mTaskImgAdapter.notifyDataSetChanged();
@@ -713,14 +803,14 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
     }
 
 
-    private void upMainQGXXData(){
-        Map<String,Object> map=new HashMap<>();
-        String yuyan= SharedPreferencesUtils.getString(getActivity(), BaseConstant.SPConstant.language, "");
-        if(yuyan!=null){
-            map.put("language",yuyan);
+    private void upMainQGXXData() {
+        Map<String, Object> map = new HashMap<>();
+        String yuyan = SharedPreferencesUtils.getString(getActivity(), BaseConstant.SPConstant.language, "");
+        if (yuyan != null) {
+            map.put("language", yuyan);
         }
         baseActivity.showDialog();
-        XUtil.Post(URLConstant.MAIN_QGFBXGXX,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.MAIN_QGFBXGXX, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -729,13 +819,13 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        QiuGouXXBean qiuGouXXBean=gson.fromJson(result,QiuGouXXBean.class);
-                        goodsCateBeans=qiuGouXXBean.getResult().getGoods_cate();
-                        goodsTimeBeans=qiuGouXXBean.getResult().getGoods_time();
-                        goodsTypeBeans=qiuGouXXBean.getResult().getGoods_type();
-                        goodsCountryBeans=qiuGouXXBean.getResult().getGoods_country();
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        QiuGouXXBean qiuGouXXBean = gson.fromJson(result, QiuGouXXBean.class);
+                        goodsCateBeans = qiuGouXXBean.getResult().getGoods_cate();
+                        goodsTimeBeans = qiuGouXXBean.getResult().getGoods_time();
+                        goodsTypeBeans = qiuGouXXBean.getResult().getGoods_type();
+                        goodsCountryBeans = qiuGouXXBean.getResult().getGoods_country();
                     }
 
                 } catch (JSONException e) {
@@ -757,4 +847,187 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
             }
         });
     }
+
+
+    private PopupWindow mmPop;
+
+    //显示弹窗
+    private void showCameraPop(View v) {
+        initmPop();
+        if (mmPop.isShowing())
+            return;
+        //设置弹窗底部位置
+        mmPop.showAtLocation(v, Gravity.BOTTOM, 0, 0);
+        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+        lp.alpha = 0.6f;
+        getActivity().getWindow().setAttributes(lp);
+    }
+
+    //初始化弹窗
+    private void initmPop() {
+        if (mmPop == null) {
+            View view = LayoutInflater.from(getActivity()).inflate(R.layout.pop_layout, null);
+            mmPop = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            //点击弹窗外消失mPop
+            mmPop.setFocusable(true);
+            mmPop.setOutsideTouchable(true);
+            //设置背景，才能使用动画效果
+            mmPop.setBackgroundDrawable(new BitmapDrawable());
+            //设置动画
+            mmPop.setAnimationStyle(R.style.PopWindowAnim);
+            //设置弹窗消失监听
+            mmPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+                    lp.alpha = 1f;
+                    getActivity().getWindow().setAttributes(lp);
+                }
+            });
+            //设置弹窗内的点击事件
+            setPopClickListener(view);
+        }
+    }
+
+    //系统相机
+    public static final int REQUEST_CODE_CAMERA_PERMISSION = 101;
+    //系统相册
+    public static final int REQUEST_CODE_PHOTO_PERMISSION = 102;
+    //所需要的权限
+    static final String[] PERMISSIONS = new String[]{
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+    //拍照所需要的权限
+    static final String[] PERMISSIONS_CAMERA = new String[]{
+            Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+    private static String IMAGE_FILE_NAME = "user_head_icon.jpg";
+    private final int PHOTO_PICKED_FROM_CAMERA = 111; // 用来标识头像来自系统拍照
+    private final int PHOTO_PICKED_FROM_FILE = 222; // 用来标识从相册获取头像
+
+    private void setPopClickListener(View view) {
+        TextView tv_iteam1, photo, cancle;
+        photo = view.findViewById(R.id.photo);
+        cancle = view.findViewById(R.id.cancle);
+        tv_iteam1 = view.findViewById(R.id.tv_iteam1);
+        tv_iteam1.setTextSize(16);
+        tv_iteam1.setText("拍照");
+        photo.setText("相册");
+        tv_iteam1.setTextColor(getResources().getColor(R.color.black));
+        photo.setTextColor(getResources().getColor(R.color.black));
+        tv_iteam1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imageCapture();
+//                PermissionsActivity.startActivityForResult(getActivity(), REQUEST_CODE_CAMERA_PERMISSION, PERMISSIONS_CAMERA);//打开系统相机需要相机权限
+                mmPop.dismiss();
+            }
+        });
+        photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转到系统相册
+                mmPop.dismiss();
+                Intent intent = new Intent(getActivity(), MultiImageSelectorActivity.class);
+                // 是否显示调用相机拍照
+                intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, false);
+                // 最大图片选择数量
+                intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 10 - imagePaths.size());
+
+                // 设置模式 (支持 单选/MultiImageSelectorActivity.MODE_SINGLE 或者 多选/MultiImageSelectorActivity.MODE_MULTI)
+                intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_MULTI);
+
+                startActivityForResult(intent, FROM_ALBUM_CODE);
+            }
+        });
+        cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mmPop.dismiss();
+            }
+        });
+    }
+
+
+    //调用系统相册
+    private void chooseImageSys() {
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, PHOTO_PICKED_FROM_FILE);
+    }
+
+    private void imageCapture() {
+        Intent intent;
+        Uri pictureUri;
+        //getMyPetRootDirectory()得到的是Environment.getExternalStorageDirectory() + File.separator+"."
+        //也就是我之前创建的存放头像的文件夹（目录）
+        File pictureFile = new File(PictureUtil.getMyPetRootDirectory(), IMAGE_FILE_NAME);
+        // 判断当前系统
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            //这一句非常重要
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            //""中的内容是随意的，但最好用package名.provider名的形式，清晰明了
+            pictureUri = FileProvider.getUriForFile(getContext(),
+                    "com.seven.modifyavatarmaster.fileprovider", pictureFile);
+        } else {
+            intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            pictureUri = Uri.fromFile(pictureFile);
+        }
+        // 去拍照,拍照的结果存到pictureUri对应的路径中
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, pictureUri);
+        startActivityForResult(intent, PHOTO_PICKED_FROM_CAMERA);
+    }
+
+    /**
+     * 系统拍照后裁剪
+     */
+    public void startSystemCamera() {
+        File pictureFile = new File(PictureUtil.getMyPetRootDirectory(), IMAGE_FILE_NAME);
+        Uri pictureUri;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            pictureUri = FileProvider.getUriForFile(getContext(),
+                    "com.seven.modifyavatarmaster.fileprovider", pictureFile);
+        } else {
+            pictureUri = Uri.fromFile(pictureFile);
+        }
+        startPhotoZoom(pictureUri);
+    }
+
+    private File mCropImageFile;
+
+    public void startPhotoZoom(Uri uri) {
+        try {
+            if (AppUtils.existSDCard()) {
+                mCropImageFile = FileUtils.createTmpFile(getContext());
+                Intent intent = new Intent("com.android.camera.action.CROP");
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    //添加这一句表示对目标应用临时授权该Uri所代表的文件
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                }
+                intent.setDataAndType(uri, "image/*");
+                intent.putExtra("crop", "true");
+                if (Build.MANUFACTURER.equals("HUAWEI")) {//解决华为手机调用裁剪出现圆形裁剪框
+                    intent.putExtra("aspectX", 9998);
+                    intent.putExtra("aspectY", 9999);
+                } else {
+                    intent.putExtra("aspectX", 1); // 裁剪框比例
+                    intent.putExtra("aspectY", 1);
+                }
+                intent.putExtra("outputX", 300); // 输出图片大小
+                intent.putExtra("outputY", 300);
+                intent.putExtra("scale", true);
+                intent.putExtra("return-data", false);
+                intent.putExtra("circleCrop", false);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCropImageFile));
+                intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+                intent.putExtra("noFaceDetection", true); // no face detection
+                startActivityForResult(intent, CROP_FROM_CAMERA);
+            }
+        } catch (Exception e) {
+
+        }
+
+    }
+
 }

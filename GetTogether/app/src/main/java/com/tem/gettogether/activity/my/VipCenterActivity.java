@@ -6,15 +6,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.MyShopActivity;
 import com.tem.gettogether.base.BaseActivity;
+import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.entity.TabEntity;
 import com.tem.gettogether.fragment.MemberClassificationFragment;
 import com.tem.gettogether.fragment.MemberInformationFragment;
@@ -40,6 +44,12 @@ public class VipCenterActivity extends BaseActivity {
     private ViewPager mViewPager;
     @ViewInject(R.id.rl_close)
     private RelativeLayout rl_close;
+    @ViewInject(R.id.head_pic)
+    private ImageView head_pic;
+    @ViewInject(R.id.nick_name)
+    private TextView nick_name;
+    @ViewInject(R.id.account)
+    private TextView account;
 
     private String[] mTitles;
     private int[] mIconUnselectIds = {
@@ -61,6 +71,14 @@ public class VipCenterActivity extends BaseActivity {
         tv_title.setText(getResources().getString(R.string.membership_center));
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setText(getResources().getString(R.string.upgrade_membership));
+
+        if(BaseApplication.getInstance().userBean.getLever().equals("2")){
+            tv_title_right.setVisibility(View.GONE);
+        }
+
+        Glide.with(getContext()).load(BaseApplication.getInstance().userBean.getHeadUrl()).asBitmap().error(R.drawable.img12x).centerCrop().into(new BitmapImageViewTarget(head_pic));
+        nick_name.setText(BaseApplication.getInstance().userBean.getUserName());
+        account.setText(BaseApplication.getInstance().userBean.getPhone());
         mFragments.add(new MemberClassificationFragment());
 //        mFragments.add(new OpenVipFragment());
         mFragments.add(new MemberInformationFragment());
@@ -75,6 +93,7 @@ public class VipCenterActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+
     }
 
     private void tl_2() {
@@ -138,11 +157,14 @@ public class VipCenterActivity extends BaseActivity {
         return (int) (dp * scale + 0.5f);
     }
 
-    @Event(value = {R.id.rl_close}, type = View.OnClickListener.class)
+    @Event(value = {R.id.rl_close, R.id.tv_title_right}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
                 finish();
+                break;
+            case R.id.tv_title_right:
+                startActivity(new Intent(this, BuyMemberActivity.class));
                 break;
         }
     }

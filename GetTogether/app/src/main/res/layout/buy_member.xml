@@ -1,103 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/line"
     android:layout_height="match_parent"
+    android:background="@color/line"
     android:orientation="vertical">
+
     <include layout="@layout/title_layout" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <LinearLayout
-            android:id="@+id/ll_grxx"
-            android:layout_width="match_parent"
-            android:background="@color/white"
-            android:paddingRight="18dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="14dp"
-            android:paddingTop="13dp"
-            android:paddingBottom="13dp"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
-         <LinearLayout
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:orientation="vertical">
-             <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="会员商铺"
-                 android:textSize="16dp"
-                 android:textColor="#1a1a1a"/>
-             <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="立享一年会员服务"
-                 android:textSize="14dp"
-                 android:textColor="#808080"/>
-         </LinearLayout>
 
-            <View
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="0dp"/>
-            <TextView
-                android:id="@+id/moneyText"
-                android:layout_width="wrap_content"
-                android:layout_height="23dp"
-                android:textColor="#fe5a4a"
-                android:text="￥988.00/年"
-               android:textSize="16dp"/>
-        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingStart="13dp"
+            android:text="请选择会员类型" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/line"/>
+            android:background="@color/line" />
+
+        <RelativeLayout
+            android:id="@+id/rl_ordinary_member"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="13dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/primary_icon"
+                android:gravity="center"
+                android:text="@string/ordinary_member" />
+
+            <RadioButton
+                android:id="@+id/rb_ordinary_member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line" />
+
+        <RelativeLayout
+            android:id="@+id/rl_senior_member"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="13dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/advanced_icon"
+                android:gravity="center"
+                android:text="@string/senior_member" />
+
+            <RadioButton
+                android:id="@+id/rb_senior_member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingLeft="16dp">
 
-            android:paddingLeft="16dp"
-            android:orientation="vertical">
             <RelativeLayout
                 android:id="@+id/rl_address_gl"
                 android:layout_width="match_parent"
-                android:paddingRight="16dp"
-                android:layout_height="44dp">
+                android:layout_height="44dp"
+                android:paddingRight="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="到期时间"
-                    android:textDirection="locale"
                     android:layout_centerVertical="true"
+                    android:text="@string/member_store"
                     android:textColor="@color/text3"
-                    android:textSize="15dp"/>
+                    android:textDirection="locale"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/moneyText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/yuan_2000" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:paddingRight="16dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="到期时间"
+                    android:textColor="@color/text3"
+                    android:textDirection="locale"
+                    android:textSize="15dp" />
 
                 <TextView
                     android:id="@+id/moneyDataText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
-                   android:text="未缴费"/>
+                    android:layout_centerVertical="true"
+                    android:text="null" />
             </RelativeLayout>
         </LinearLayout>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="2">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="2">
 
-</LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -106,13 +161,25 @@
             android:background="#ffffff"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_marginStart="13dp"
+                android:gravity="center_vertical"
+                android:text="@string/select_payment_method" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
             <LinearLayout
                 android:id="@+id/choose_1"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -125,7 +192,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="支付宝" />
+                    android:text="@string/alipay" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -148,9 +215,9 @@
                 android:id="@+id/choose_2"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:gravity="center"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="10dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -162,7 +229,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="微信" />
+                    android:text="@string/weChat" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -185,10 +252,12 @@
                 android:id="@+id/choose_3"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:orientation="horizontal">
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
@@ -209,26 +278,26 @@
                     android:layout_weight="1" />
 
                 <ImageView
+                    android:id="@+id/rad_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:id="@+id/rad_3"
                     android:src="@drawable/start_noselect" />
             </LinearLayout>
-    </LinearLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_pay"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:textSize="16dp"
             android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:textColor="@color/white"
             android:layout_marginTop="80dp"
-            android:text="立即支付"
+            android:layout_marginRight="50dp"
             android:background="@drawable/bg_fabu"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:text="@string/pay_immediately"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
 
     </LinearLayout>
 

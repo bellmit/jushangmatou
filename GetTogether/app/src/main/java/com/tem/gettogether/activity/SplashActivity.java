@@ -13,9 +13,11 @@ import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.LoginBean;
 import com.tem.gettogether.bean.UserBean;
 import com.tem.gettogether.utils.Confirg;
+import com.tem.gettogether.utils.Contacts;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
+import com.tem.gettogether.wxapi.WXEntryActivity;
 import com.ybm.app.utils.NetUtil;
 
 import org.json.JSONException;
@@ -256,9 +258,15 @@ public class SplashActivity extends BaseActivity {
                         userBean.setUserName(loginBean.getResult().getNickname());
                         userBean.setPhone(loginBean.getResult().getMobile());
                         userBean.setChat_id(loginBean.getResult().getChat_id());
+                        userBean.setHead_pic(loginBean.getResult().getHead_pic());
+                        userBean.setLever(loginBean.getResult().getLevel());
                         BaseApplication.getInstance().userBean = userBean;
                         doConnection();
-                        gotoAtivity(MainActivity.class);
+                        if (loginBean.getResult().getMobile_validated() == "0") {
+                            startActivity(new Intent(SplashActivity.this, RegisterActivity.class).putExtra(Contacts.REGISTER_TYPE, 1).putExtra(Contacts.REGISTER_OPEN_ID, BaseApplication.getInstance().bean.getOpenid()));
+                        } else {
+                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                        }
                         finish();
                     }else if(jsonObject.optString("status").equals("-1")){
                         startActivity(new Intent(SplashActivity.this,LoginActivity.class));

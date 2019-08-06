@@ -8,6 +8,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.lcodecore.tkrefreshlayout.Footer.LoadingView;
+import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.adapter.HomeHotSellSecondAdapter;
 import com.tem.gettogether.adapter.HomeLianMengSecondAdapter;
@@ -94,7 +96,6 @@ public class HomeLianMengActivity extends BaseActivity {
                             setData();
                         } else {
                             if(isLoadMore){
-                                Log.d("chenshichun","--------size "+gson.fromJson(result, HomeLianMengBean.class).getResult().size());
 
                                 if(gson.fromJson(result, HomeLianMengBean.class).getResult().size()>0) {
                                     homeDataBean.addAll(gson.fromJson(result, HomeLianMengBean.class).getResult());
@@ -136,6 +137,11 @@ public class HomeLianMengActivity extends BaseActivity {
     }
 
     private void initRefresh() {
+        SinaRefreshView headerView = new SinaRefreshView(getContext());
+        headerView.setTextColor(0xff745D5C);
+        refreshLayout.setHeaderView(headerView);
+        LoadingView loadingView = new LoadingView(getContext());
+        refreshLayout.setBottomView(loadingView);
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {

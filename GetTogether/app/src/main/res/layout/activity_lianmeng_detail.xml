@@ -36,40 +36,32 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp">
 
                     <TextView
                         android:id="@+id/name_tv"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="联系人：chenshichun"
+                        android:text="联系人：暂无"
                         android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/phone_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="手机：15068156432"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/address_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="地址：义乌稠城东方大厦"
+                        android:text="手机：暂无"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -77,16 +69,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/zip_code_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="邮政编码：321000"
+                        android:text="邮编：暂无"
                         android:textSize="14sp" />
 
                     <TextView
@@ -94,9 +86,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="邮箱：764062915@qq.com"
+                        android:text="邮箱：暂无"
                         android:textSize="14sp" />
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/address_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:text="地址：暂无"
+                    android:textSize="14sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -120,11 +121,30 @@
                     android:background="@color/line" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="@string/business" />
+
+                <TextView
+                    android:id="@+id/business_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="@string/none" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="公司介绍：" />
+
+                <TextView
                     android:id="@+id/introduction_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="@string/gongsijieshao" />
+                    android:text="@string/none" />
 
             </LinearLayout>
         </LinearLayout>

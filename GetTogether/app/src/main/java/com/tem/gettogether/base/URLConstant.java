@@ -13,6 +13,8 @@ public class URLConstant {
     //    public final static String SERVER = "http://test.uonep.com/jushangmatou/index.php";//www.jushangmat.com  www.jsmtgou.com
     //注册
     public final static String REGISTER = SERVER + "/Api/User/reg";
+    // 绑定手机号码
+    public final static String BIND_PHONE = SERVER + "/Api/User/mobile_bind";
     //忘记密码
     public final static String FORGET_PASS = SERVER + "/Api/User/forgetPwd";
     //获取验证码
@@ -243,9 +245,18 @@ public class URLConstant {
     //   店铺服务费
     public final static String DIANPU_FUWUFEI = SERVER + "/Api/Store/getService";
     //   店铺服务费支付宝
-    public final static String DIANPU_ZFB_FUWUFEI = SERVER + "/Api/Payment/servicePay";
+    public final static String DIANPU_ZFB_FUWUFEI = SERVER + "/Api/Payment/mservicePay";
     //   店铺服务费微信
-    public final static String DIANPU_WX_FUWUFEI = SERVER + "/Api/Wxpay/servicePay";
+    public final static String DIANPU_WX_FUWUFEI = SERVER + "/Api/Wxpay/mservicePay";
     //   判断店铺审核是否通过接口
     public final static String DIAN_PU_SHEN_HE = SERVER +"/Api/Newjoin/apply_state";
+
+    // 获取会员付费信息
+    public final static String JOIN_USER_LEVER = SERVER +"/Api/User/join_user_level";
+
+    // 获取会员信息
+    public final static String MEMBER_INFORMATION = SERVER +"/Api/User/user_level";
+
+    // 获取店铺信息
+    public final static String SHOP_INFORMATION = SERVER +"/Api/User/store_info";
 }
