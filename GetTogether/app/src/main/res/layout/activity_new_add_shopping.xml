@@ -45,7 +45,7 @@
                         android:textSize="13dp" />
 
                     <TextView
-                        android:layout_width="65dp"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="商品名称："
@@ -119,7 +119,7 @@
                         android:textSize="13dp" />
 
                     <TextView
-                        android:layout_width="65dp"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="是否询价："
@@ -184,7 +184,7 @@
                         android:visibility="invisible" />
 
                     <TextView
-                        android:layout_width="65dp"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="商品售价："
@@ -235,7 +235,7 @@
                         android:visibility="invisible" />
 
                     <TextView
-                        android:layout_width="65dp"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="商品货号："
@@ -284,7 +284,7 @@
                         android:textSize="13dp" />
 
                     <TextView
-                        android:layout_width="65dp"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="起批个数："
@@ -334,7 +334,7 @@
                         android:textSize="13dp" />
 
                     <TextView
-                        android:layout_width="65dp"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="选择馆  ："
@@ -382,7 +382,7 @@
                         android:textSize="13dp" />
 
                     <TextView
-                        android:layout_width="65dp"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="商品分类："
@@ -432,7 +432,7 @@
                         android:visibility="invisible" />
 
                     <TextView
-                        android:layout_width="65dp"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="本店分类："
@@ -485,7 +485,7 @@
                         android:textSize="13dp" />
 
                     <TextView
-                        android:layout_width="65dp"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="商品图片："
@@ -536,22 +536,23 @@
                         android:visibility="invisible" />
 
                     <TextView
-                        android:layout_width="65dp"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="商品规格："
                         android:textSize="13dp" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/tv_ShoppingGG"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:ellipsize="end"
                         android:gravity="center_vertical"
+                        android:background="@null"
                         android:maxLines="1"
                         android:paddingStart="15dp"
-                        android:text="请选择商品规格"
+                        android:hint="请选择商品规格"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -585,7 +586,7 @@
                         android:textSize="13dp" />
 
                     <TextView
-                        android:layout_width="65dp"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="是否包邮："
@@ -650,7 +651,7 @@
                         android:visibility="invisible" />
 
                     <TextView
-                        android:layout_width="65dp"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="库存数量："
@@ -700,7 +701,7 @@
                         android:visibility="invisible" />
 
                     <TextView
-                        android:layout_width="65dp"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="关键词  ："
@@ -750,7 +751,7 @@
                         android:visibility="invisible" />
 
                     <TextView
-                        android:layout_width="65dp"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="商品简介："
@@ -801,13 +802,13 @@
                         android:visibility="invisible" />
 
                     <TextView
-                        android:layout_width="65dp"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="图文详情："
                         android:textSize="13dp" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/rt_tuwen"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -817,7 +818,7 @@
                         android:gravity="center_vertical"
                         android:maxLines="1"
                         android:paddingStart="15dp"
-                        android:text="请填写产品介绍（可在下方上传图片）"
+                        android:hint="请填写产品介绍（可在下方上传图片）"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -852,7 +853,7 @@
                         android:visibility="invisible" />
 
                     <TextView
-                        android:layout_width="65dp"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="商品相册"

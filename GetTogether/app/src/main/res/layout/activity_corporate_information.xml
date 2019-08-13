@@ -16,8 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp">
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -29,8 +29,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:orientation="vertical"
-                    android:paddingEnd="16dp"
-                    android:paddingStart="16dp">
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -43,12 +43,14 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
+                                android:id="@+id/head_iv"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:background="@drawable/head_icon0" />
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/change_head_tv"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -77,6 +79,7 @@
                             android:hint="@string/xingming" />
 
                         <TextView
+                            android:id="@+id/name_tv"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -142,10 +145,11 @@
                             android:text="手机号码" />
 
                         <TextView
+                            android:id="@+id/phone_num_tv"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:hint="15068156431" />
+                            android:hint="null" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -170,6 +174,7 @@
                             android:text="国籍" />
 
                         <TextView
+                            android:id="@+id/country_tv"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -198,6 +203,7 @@
                             android:text="身份证/护照" />
 
                         <TextView
+                            android:id="@+id/card_status_tv"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -222,8 +228,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingEnd="16dp"
-                    android:paddingStart="16dp">
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -237,6 +243,7 @@
                             android:text="公司地址" />
 
                         <TextView
+                            android:id="@+id/company_address"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -261,6 +268,7 @@
                             android:text="主营类目" />
 
                         <TextView
+                            android:id="@+id/category_tv"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -289,6 +297,7 @@
                             android:text="公司简介" />
 
                         <TextView
+                            android:id="@+id/company_profile_tv"
                             android:layout_width="0dp"
                             android:layout_height="70dp"
                             android:layout_weight="1"
@@ -299,4 +308,18 @@
 
         </LinearLayout>
     </com.tem.gettogether.view.BaseScrollView>
+
+    <TextView
+        android:id="@+id/save_tv"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/main_fbqg15"
+        android:gravity="center"
+        android:text="保存"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
 </LinearLayout>

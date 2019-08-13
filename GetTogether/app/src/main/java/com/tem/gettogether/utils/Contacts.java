@@ -13,4 +13,5 @@ public class Contacts {
     public static final String USER_INFO_HEADURI = "USER_INFO_HEADURI";
     public static final String USER_INFO_NICKNAME = "USER_INFO_NICKNAME";
     public static final String USER_INFO_ACCOUNT = "USER_INFO_NICKNAME";
+    public static final String SHOP_RZ_FAILED = "SHOP_RZ_FAILED";
 }

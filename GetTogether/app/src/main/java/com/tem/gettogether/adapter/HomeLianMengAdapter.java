@@ -3,6 +3,7 @@ package com.tem.gettogether.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.tem.gettogether.R;
 import com.tem.gettogether.activity.home.LianMengDetailActivity;
 import com.tem.gettogether.bean.HomeDataNewBean;
 import com.tem.gettogether.utils.Contacts;
+import com.tem.gettogether.utils.SizeUtil;
 import com.tem.gettogether.utils.TransformationUtils;
 
 import java.util.List;
@@ -36,7 +38,10 @@ public class HomeLianMengAdapter extends RecyclerView.Adapter<HomeLianMengAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Glide.with(context).load(mDatas.get(position).getCompany_logo()).asBitmap().placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).into(new TransformationUtils(holder.pic_iv));
+        int imageSize= SizeUtil.dp2px(context,100);
+
+        Log.d("chenshichun","======getCompany_logo====="+mDatas.get(position).getCompany_logo());
+        Glide.with(context).load(mDatas.get(position).getCompany_logo()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(imageSize, imageSize).into(holder.pic_iv);
         holder.company_name.setText(mDatas.get(position).getCompany_name());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

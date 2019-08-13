@@ -77,16 +77,18 @@ public class PersionAuthenticationActivity extends BaseActivity {
     private LinearLayout name_ll;
     @ViewInject(R.id.address_ll)
     private LinearLayout address_ll;
+    @ViewInject(R.id.address_detail_ll)
+    private LinearLayout address_detail_ll;
     @ViewInject(R.id.ll_shop_quyu)
     private LinearLayout ll_shop_quyu;
     @ViewInject(R.id.factory_name)
     private TextView factory_name;
     @ViewInject(R.id.factory_address)
     private TextView factory_address;
-    @ViewInject(R.id.tv_shop_quyu)
-    private TextView tv_shop_quyu;
     @ViewInject(R.id.tv_gongdizhi)
     private TextView tv_gongdizhi;
+    @ViewInject(R.id.tv_shop_quyu)
+    private TextView tv_shop_quyu;
     @ViewInject(R.id.tv_nextStep)
     private TextView tv_nextStep;
     @ViewInject(R.id.factory_detail_address)
@@ -133,10 +135,12 @@ public class PersionAuthenticationActivity extends BaseActivity {
             tv_title.setText("个人入驻");
             name_ll.setVisibility(View.GONE);
             address_ll.setVisibility(View.GONE);
+            address_detail_ll.setVisibility(View.GONE);
         } else if (authenticationType == 0) {
             tv_title.setText("经销商入驻");
             name_ll.setVisibility(View.VISIBLE);
             address_ll.setVisibility(View.VISIBLE);
+            address_detail_ll.setVisibility(View.VISIBLE);
             factory_name.setText("公司名称");
             factory_address.setText("公司所在区域");
             factory_detail_address.setText("公司详细地址");
@@ -144,6 +148,7 @@ public class PersionAuthenticationActivity extends BaseActivity {
             tv_title.setText("工厂入驻");
             name_ll.setVisibility(View.VISIBLE);
             address_ll.setVisibility(View.VISIBLE);
+            address_detail_ll.setVisibility(View.VISIBLE);
             factory_name.setText("工厂名称");
             factory_address.setText("工厂所在区域");
             factory_detail_address.setText("工厂详细地址");
@@ -202,7 +207,7 @@ public class PersionAuthenticationActivity extends BaseActivity {
                     CusToast.showToast("请输入店铺名称");
                     return;
                 }
-                if (tv_dpzy.getText().toString().equals("")) {
+                if (tv_dpzy.getText().toString().equals("请选择")) {
                     CusToast.showToast("请选择店铺主营大类");
                     return;
                 }
@@ -216,7 +221,7 @@ public class PersionAuthenticationActivity extends BaseActivity {
                     return;
                 }
 
-                if (tv_shop_quyu.getText().toString().equals("")) {
+                if (tv_shop_quyu.getText().toString().equals("请选择")) {
                     CusToast.showToast("请选择店铺所在区域");
                     return;
                 }
@@ -224,6 +229,21 @@ public class PersionAuthenticationActivity extends BaseActivity {
                 Map<String, Object> map = new HashMap<>();
                 if (BaseApplication.getInstance().userBean == null) return;
                 map.put("token", BaseApplication.getInstance().userBean.getToken());
+                /*------工厂区域和店铺区域处理----*/
+                if (company_province == null)
+                    company_province = store_province;
+                if (company_city == null)
+                    company_city = store_city;
+                if (company_district == null)
+                    company_district = store_district;
+
+                if (store_province == null)
+                    store_province = company_province;
+                if (store_city == null)
+                    store_city = company_city;
+                if (store_district == null)
+                    store_district = company_district;
+
                 if (authenticationType != 1) {
                     map.put("company_name", company_name_tv.getText().toString());
                     map.put("company_province", company_province);
@@ -238,6 +258,10 @@ public class PersionAuthenticationActivity extends BaseActivity {
                 map.put("store_province", store_province);
                 map.put("store_city", store_city);
                 map.put("store_district", store_district);
+                Log.d("chenshichun", "=======store_province====" + store_province);
+                Log.d("chenshichun", "=====store_city======" + store_city);
+                Log.d("chenshichun", "=======store_district====" + store_district);
+
                 map.put("store_address", et_dpAddress.getText().toString());
                 map.put("apply_type", authenticationType);
                 if (authenticationType == 1) {

@@ -23,13 +23,13 @@ import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.fragment.CartFragment;
-import com.tem.gettogether.fragment.FenLeiFragment;
 import com.tem.gettogether.fragment.HomeNewFragment;
 import com.tem.gettogether.fragment.MeFragment;
 import com.tem.gettogether.fragment.MessageFragment;
 import com.tem.gettogether.fragment.PersionCenterCaiGouFragment;
 import com.tem.gettogether.fragment.PersionCenterGongYingFragment;
 import com.tem.gettogether.fragment.PublishBuyFragment;
+import com.tem.gettogether.fragment.SearchFragment;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.language.LanguageBean;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     private CartFragment cartFragment;
     private MeFragment meFragment;
     private MessageFragment messageFragment;
-    private FenLeiFragment fenLeiFragment;
+    private SearchFragment fenLeiFragment;
     private HomeNewFragment homeFragment;
     private PersionCenterGongYingFragment persionCenterGongYingFragment;
     private PersionCenterCaiGouFragment persionCenterCaiGouFragment;
@@ -160,7 +160,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         fragmentList = new ArrayList<>();
 
         homeFragment = new HomeNewFragment();
-        fenLeiFragment = new FenLeiFragment();
+        fenLeiFragment = new SearchFragment();
         messageFragment = new MessageFragment();
         publishBuyFragment = new PublishBuyFragment();
         persionCenterGongYingFragment = new PersionCenterGongYingFragment();
@@ -322,7 +322,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                     if (role_type != null && role_type.equals("1")) {
                         hideFragment(6);
                     } else {
-                        hideFragment(6);//7
+                        hideFragment(7);//7
                     }
                 } else {
                     startActivity(new Intent(this, LoginActivity.class));

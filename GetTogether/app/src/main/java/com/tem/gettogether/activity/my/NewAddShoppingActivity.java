@@ -33,16 +33,19 @@ import com.tem.gettogether.ShowImageDetail;
 import com.tem.gettogether.adapter.MyPublicTaskRecycleAdapter;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.AddBDFLBean;
 import com.tem.gettogether.bean.AddShopFLBean;
 import com.tem.gettogether.bean.AddShopGFLBean;
+import com.tem.gettogether.bean.CategoriesBean;
 import com.tem.gettogether.bean.ImageDataBean;
 import com.tem.gettogether.utils.Base64BitmapUtil;
 import com.tem.gettogether.utils.BitnapUtils;
 import com.tem.gettogether.utils.Confirg;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.permissions.AppUtils;
 import com.tem.gettogether.utils.permissions.FileUtils;
 import com.tem.gettogether.utils.permissions.PermissionsActivity;
@@ -71,7 +74,7 @@ import me.nereo.multi_image_selector.MultiImageSelector;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
 @ContentView(R.layout.activity_new_add_shopping)
-public class NewAddShoppingActivity extends BaseActivity implements View.OnClickListener, View.OnLongClickListener  {
+public class NewAddShoppingActivity extends BaseActivity implements View.OnClickListener, View.OnLongClickListener {
     @ViewInject(R.id.tv_title)
     private TextView tv_title;
     @ViewInject(R.id.et_cpName)
@@ -81,7 +84,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
     @ViewInject(R.id.et_QPNum)
     private EditText et_QPNum;
     @ViewInject(R.id.rt_tuwen)
-    private TextView rt_tuwen;
+    private EditText rt_tuwen;
     @ViewInject(R.id.tv_XZguan)
     private TextView tv_XZguan;
     @ViewInject(R.id.tv_XZshopFL)
@@ -101,7 +104,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
     @ViewInject(R.id.tv_is_pic)
     private TextView tv_is_pic;
     @ViewInject(R.id.tv_ShoppingGG)
-    private TextView tv_ShoppingGG;
+    private EditText tv_ShoppingGG;
     @ViewInject(R.id.et_KuCNum)
     private EditText et_KuCNum;
     @ViewInject(R.id.et_GuanJC)
@@ -111,6 +114,8 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
 
     @ViewInject(R.id.publish_task_recyclerView)
     private RecyclerView publish_recy;
+    @ViewInject(R.id.recyclerView)
+    private RecyclerView recyclerView;
     @ViewInject(R.id.tv_fbShopping)
     private TextView tv_fbShopping;
     @ViewInject(R.id.ll_shopName)
@@ -140,8 +145,10 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
     private LinearLayout ll_shop_JJ;
     @ViewInject(R.id.ll_XQ_ms)
     private LinearLayout ll_XQ_ms;
-    private MyPublicTaskRecycleAdapter mTaskImgAdapter;
+    private MyPublicTaskRecycleAdapter mTaskImgAdapter, mTaskImgAdapter1;
     private ArrayList<String> imagePaths = new ArrayList<>();
+    private ArrayList<String> imageTwoPaths = new ArrayList<>();
+
     private List<Integer> imageRes = new ArrayList<>();
     private ArrayList<String> compressPaths = new ArrayList<>();
     private final int FROM_ALBUM_CODE = 102;// 调用相册更改背景图片的请求code
@@ -153,10 +160,12 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
     private static final int REQUEST_CODEBBB = 100;
-    private int type=0;
-    private List<AddShopGFLBean.ResultBean> resultBeansGFL=new ArrayList<>();
-    private List<AddShopFLBean.ResultBean> resultBeansFL=new ArrayList<>();
-    private List<AddBDFLBean.ResultBean> BDresultBeans=new ArrayList<>();
+    private int type = 0;
+    private List<AddShopGFLBean.ResultBean> resultBeansGFL = new ArrayList<>();
+    private List<AddShopFLBean.ResultBean> resultBeansFL = new ArrayList<>();
+    private List<AddBDFLBean.ResultBean> BDresultBeans = new ArrayList<>();
+    private List<CategoriesBean.ResultBean> mCategoriesBeans = new ArrayList<>();
+
     //系统相机
     public static final int REQUEST_CODE_CAMERA_PERMISSION = 101;
     //系统相册
@@ -174,8 +183,10 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
     private final int PHOTO_PICKED_FROM_FILE = 222; // 用来标识从相册获取头像
     private final int CROP_FROM_CAMERA = 333;
     private File mCropImageFile;
-    private int isshanpinImage=0;
+    private int isshanpinImage = 0;
     private String goods_content;
+    private int recycleType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -189,18 +200,21 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
     @Override
     protected void initData() {
         tv_title.setText("新增产品");
-        upGFLData();
         upBDFLData();
+        upCategories();
         imagePaths.clear();
         imagePaths.add(R.drawable.addtupian + "");
+        imageTwoPaths.clear();
+        imageTwoPaths.add(R.drawable.addtupian + "");
         compressImageFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/WorksComing/Compress2/";
         File folder = new File(compressImageFilePath);
         if (!folder.exists()) {
             folder.mkdirs();
         }
     }
-    private int isxunjia=0;
-    private int isbaoyou=0;
+
+    private int isxunjia = 0;
+    private int isbaoyou = 0;
 
     @Override
     protected void initView() {
@@ -209,23 +223,27 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
         checkbox1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isxunjia=1;
+                isxunjia = 1;
                 checkbox1.toggle();
                 checkbox2.setChecked(false);
+                et_ShopingSJ.setText("面议");
+                et_ShopingSJ.setClickable(false);
             }
         });
         checkbox2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isxunjia=0;
+                isxunjia = 0;
                 checkbox1.setChecked(false);
                 checkbox2.toggle();
+                et_ShopingSJ.setText("");
+                et_ShopingSJ.setClickable(true);
             }
         });
         checkbox3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isbaoyou=1;
+                isbaoyou = 1;
                 checkbox4.setChecked(false);
                 checkbox3.toggle();
             }
@@ -233,16 +251,21 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
         checkbox4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isbaoyou=0;
+                isbaoyou = 0;
                 checkbox3.setChecked(false);
                 checkbox4.toggle();
             }
         });
         publish_recy.setLayoutManager(new GridLayoutManager(this, 3, LinearLayoutManager.VERTICAL, false));
-        mTaskImgAdapter = new MyPublicTaskRecycleAdapter(this, imageRes, imagePaths, this, this);
+        mTaskImgAdapter = new MyPublicTaskRecycleAdapter(this, imageRes, imagePaths, this, this, 0);
         publish_recy.setAdapter(mTaskImgAdapter);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3, LinearLayoutManager.VERTICAL, false));
+        mTaskImgAdapter1 = new MyPublicTaskRecycleAdapter(this, imageRes, imageTwoPaths, this, this, 1);
+        recyclerView.setAdapter(mTaskImgAdapter1);
     }
-    @Event(value = {R.id.rl_close,R.id.tv_fbShopping,R.id.ll_XQ_ms,R.id.ll_xuanZG,R.id.ll_shop_phone,R.id.ll_shop_FL,R.id.ll_bd_FL,R.id.ll_shop_GG}, type = View.OnClickListener.class)
+
+    @Event(value = {R.id.rl_close, R.id.tv_fbShopping, R.id.ll_XQ_ms, R.id.ll_xuanZG, R.id.ll_shop_phone, R.id.ll_shop_FL, R.id.ll_bd_FL, R.id.ll_shop_GG}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
@@ -250,122 +273,121 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.ll_shop_phone:
                 showPopImage(ll_shop_phone);
-
-                break;
-            case R.id.ll_xuanZG://选择馆
-                type=1;
-                mPop=null;
-                showPop(ll_xuanZG);
                 break;
             case R.id.ll_shop_FL://商品分类
-                if(addGFLID!=null){
-                    type=2;
-                    mPop=null;
-                    showPop(ll_shop_FL);
-                }else {
-                    CusToast.showToast("请先选择馆分类");
-                }
+                Log.d("chenshichun", "======商品分类=====");
+                type = 1;
+                mPop = null;
+                showPop(ll_shop_FL);
                 break;
-            case R.id.ll_XQ_ms:
-//                if(list.size()>0){
-                    startActivityForResult(new Intent(NewAddShoppingActivity.this,TuWenXQActivity.class)
-                            .putStringArrayListExtra("listImage",listImage), 6666);
-//                }else {
-//                    startActivityForResult(new Intent(NewAddShoppingActivity.this,TuWenXQActivity.class), 6666);
-//                }
+            /*case R.id.ll_XQ_ms:
+                startActivityForResult(new Intent(NewAddShoppingActivity.this, TuWenXQActivity.class)
+                        .putStringArrayListExtra("listImage", listImage), 6666);
 
-                break;
+                break;*/
             case R.id.ll_bd_FL://本店分类
-                type=3;
-                mPop=null;
+                type = 3;
+                mPop = null;
                 showPop(ll_bd_FL);
                 break;
             case R.id.ll_shop_GG://商品规格
-//                CusToast.showToast("暂无数据");
-                upShoppingGGData();
+//                upShoppingGGData();
                 break;
             case R.id.tv_fbShopping:
 
-                Map<String,Object> map=new HashMap<>();
-                if(BaseApplication.getInstance().userBean==null)return;
-                map.put("token",BaseApplication.getInstance().userBean.getToken());
-                if(et_cpName.getText().toString().equals("")){
+                Map<String, Object> map = new HashMap<>();
+                if (BaseApplication.getInstance().userBean == null) return;
+                map.put("token", BaseApplication.getInstance().userBean.getToken());
+                map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
+
+                if (et_cpName.getText().toString().equals("")) {
                     CusToast.showToast("请填写商品名称");
                     return;
                 }
-                if(et_QPNum.getText().toString().equals("")){
+                if (et_QPNum.getText().toString().equals("")) {
                     CusToast.showToast("请填写起批个数");
                     return;
                 }
-                if(addGID.equals("")){
-                    CusToast.showToast("请选择馆");
-                    return;
-                }
-                if(addGFLID.equals("")){
-                    CusToast.showToast("请选择馆分类");
-                    return;
-                }
 
-                if(addFL1ID.equals("")){
-                    CusToast.showToast("请选择商品一级分类");
-                    return;
-                }
-                if(addFL2ID.equals("")){
-                    CusToast.showToast("请选择商品二级分类");
-                    return;
-                }
-                if(et_ShopingSJ.getText().toString().equals("")){
+                if (et_ShopingSJ.getText().toString().equals("")) {
                     CusToast.showToast("请填写商品价格");
                     return;
                 }
-                if(Image_1.equals("")){
-                    CusToast.showToast("请上传商品图片");
-                    return;
-                }
 
-                map.put("goods_name",et_cpName.getText().toString());
-                map.put("goods_sn",et_ShoppingHH.getText().toString());
-                map.put("batch_number",et_QPNum.getText().toString());
-                map.put("pavilion_id",addGID);
-                map.put("pavilion_cate_id",addGFLID);
-                map.put("cat_id1",addFL1ID);
-                map.put("cat_id2",addFL2ID);
-                map.put("cat_id3",addFL3ID);
-                map.put("store_cat_id1",BDFL1ID);
-                map.put("store_cat_id2",BDFL2ID);
-                map.put("store_cat_id3",BDL3ID);
-                map.put("shop_price",et_ShopingSJ.getText().toString());
-                map.put("is_enquiry",isxunjia);
-                map.put("original_img",Image_1);
-                map.put("is_free_shipping",isbaoyou);
-                map.put("store_count",et_KuCNum.getText().toString());
-                map.put("keywords",et_GuanJC.getText().toString());
-                map.put("goods_remark",et_ShoppingJJ.getText().toString());
+                map.put("goods_name", et_cpName.getText().toString());
+                Log.d("chenshichun", "======et_cpName=====  " + et_cpName.getText().toString());
 
-                if(goods_content!=null&&!goods_content.equals("")){
-                    map.put("goods_content",goods_content);
-                }
-                if(resultBeansGFL.size()>0){
-                    map.put("sku_str",resultBeansGFL.get(0).getSku_str());
-                }
+                map.put("goods_sn", et_ShoppingHH.getText().toString());
+                Log.d("chenshichun", "======et_ShoppingHH=====  " + et_ShoppingHH.getText().toString());
 
-                if(cartImage.size()>0){
+                map.put("batch_number", et_QPNum.getText().toString());
+                Log.d("chenshichun", "======et_QPNum=====  " + et_QPNum.getText().toString());
+
+//                map.put("pavilion_id", addGID);
+//                map.put("pavilion_cate_id", addGFLID);
+//                map.put("cat_id1", addFL1ID);
+                map.put("cat_id2", addGID);
+                Log.d("chenshichun", "======addGID=====  " + addGID);
+
+                map.put("cat_id3", addGFLID);
+                Log.d("chenshichun", "======addGFLID=====  " + addGFLID);
+
+//                map.put("store_cat_id1", BDFL1ID);
+//                map.put("store_cat_id2", BDFL2ID);
+//                map.put("store_cat_id3", BDL3ID);
+                map.put("shop_price", et_ShopingSJ.getText().toString());
+                Log.d("chenshichun", "======et_ShopingSJ=====  " + et_ShopingSJ);
+
+
+                map.put("is_enquiry", isxunjia);
+                Log.d("chenshichun", "======isxunjia=====  " + isxunjia);
+
+//                map.put("is_free_shipping", isbaoyou);
+                map.put("store_count", et_KuCNum.getText().toString());
+                Log.d("chenshichun", "======et_KuCNum=====  " + et_KuCNum.getText().toString());
+
+                map.put("keywords", et_GuanJC.getText().toString());
+                Log.d("chenshichun", "======et_GuanJC=====  " + et_GuanJC.getText().toString());
+
+                map.put("goods_remark", et_ShoppingJJ.getText().toString());
+                Log.d("chenshichun", "======et_ShoppingJJ=====  " + et_ShoppingJJ.getText().toString());
+
+                if (goods_content != null && !goods_content.equals("")) {
+                    Log.d("chenshichun", "======goods_content=====  " + goods_content);
+                    map.put("goods_content", rt_tuwen.getText().toString());
+                }
+                /*if (resultBeansGFL.size() > 0) {
+                    map.put("sku_str", resultBeansGFL.get(0).getSku_str());
+                }*/
+                map.put("sku_str",tv_ShoppingGG.getText().toString());// 规格
+                if (cartImage.size() > 0) {
                     for (int i = 0; i < cartImage.size(); i++) {
-                        strImage +=cartImage.get(i)+"," ;
+                        strImage += cartImage.get(i) + ",";
                     }
                 }
 
-                if(!strImage.equals("")){
-                    map.put("goods_images",strImage);
+                if (!strImage.equals("")) {
+                    Log.d("chenshichun", "======strImage=====  " + strImage);
+                    map.put("goods_images", strImage);
                 }
 
+                if (cartTwoImage.size() > 0) {
+                    for (int i = 0; i < cartTwoImage.size(); i++) {
+                        strTwoImage += cartTwoImage.get(i) + ",";
+                    }
+                }
+                if (!strTwoImage.equals("")) {
+                    Log.d("chenshichun", "======strTwoImage=====  " + strTwoImage);
+                    map.put("original_img", strTwoImage);
+                }
+                map.put("is_on_sale", "1");
                 upTJSHData(map);
                 break;
         }
     }
 
-    private void upTJSHData(Map<String, Object> map){
-        showDialog();
+    private void upTJSHData(Map<String, Object> map) {
+        Log.d("chenshichun","=====请求======");
         XUtil.Post(URLConstant.ADDXINCHANPIN, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
@@ -380,8 +402,6 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                         Gson gson = new Gson();
                         finish();
                     }
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -390,7 +410,6 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
             @Override
             public void onFinished() {
                 super.onFinished();
-                closeDialog();
 
             }
 
@@ -398,38 +417,27 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
                 ex.printStackTrace();
-                closeDialog();
             }
         });
     }
+
     private PopupWindow mPop;
     private View view;
-    private RecyclerView recyclerView_qg,recyclerView_qg2,recyclerView_qg3;
+    private RecyclerView recyclerView_qg, recyclerView_qg2, recyclerView_qg3;
     private TextView tv_xz_title;
     private String ADDGName;
     private String ADDGFLName;
-    private String addGID="";
-    private String addGFLID="";
-    private int  itmeXZ=0;
-    private int itemSPXZ=-1;
-    private int itemSPXZ2=-1;
-    private int itemBD=-1;
-    private int itemBD1=-1;
-    private int itemBD2=-1;
+    private String addGID = "";
+    private String addGFLID = "";
+    private int itmeXZ = 0;
 
-    private String ADDFL1Name;
-    private String ADDFL2Name;
-    private String ADDFL3Name;
-    private String addFL1ID="";
-    private String addFL2ID="";
-    private String addFL3ID="";
+    private String addFL1ID = "";
+    private String addFL2ID = "";
+    private String addFL3ID = "";
 
-    private String BDFL1Name;
-    private String BDFL2Name;
-    private String BDFL3Name;
-    private String BDFL1ID="";
-    private String BDFL2ID="";
-    private String BDL3ID="";
+    private String BDFL1ID = "";
+    private String BDFL2ID = "";
+    private String BDL3ID = "";
 
     //显示弹窗
     private void showPop(View v) {
@@ -440,8 +448,9 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
         mPop.showAtLocation(v, Gravity.BOTTOM, 0, 0);
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.alpha = 0.6f;
-       getWindow().setAttributes(lp);
+        getWindow().setAttributes(lp);
     }
+
     private void initPop() {
         if (mPop == null) {
             view = LayoutInflater.from(this).inflate(R.layout.main_addshpping_layout, null);
@@ -457,32 +466,24 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
             mPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
-                    WindowManager.LayoutParams lp =getWindow().getAttributes();
+                    WindowManager.LayoutParams lp = getWindow().getAttributes();
                     lp.alpha = 1f;
-                   getWindow().setAttributes(lp);
+                    getWindow().setAttributes(lp);
                 }
             });
             ImageView iv_dialog_close = view.findViewById(R.id.iv_dialog_close);
             recyclerView_qg = view.findViewById(R.id.recyclerView_qg);
-            recyclerView_qg2=view.findViewById(R.id.recyclerView_qg2);
-            recyclerView_qg2.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+            recyclerView_qg2 = view.findViewById(R.id.recyclerView_qg2);
+            recyclerView_qg2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             recyclerView_qg.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-            tv_xz_title=view.findViewById(R.id.tv_xz_title);
-            if(type==1){
-                tv_xz_title.setText("请选择馆分类");
-                initSetdialog();
-            }else if(type==2){
+            tv_xz_title = view.findViewById(R.id.tv_xz_title);
+            if (type == 1) {
+                Log.d("chenshichun", "======请选择商品分类=====");
                 tv_xz_title.setText("请选择商品分类");
-                recyclerView_qg3=view.findViewById(R.id.recyclerView_qg3);
-                recyclerView_qg3.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-                recyclerView_qg3.setVisibility(View.VISIBLE);
-                initSetdialog2();
-            }else if(type==3){
-                tv_xz_title.setText("请选择本店分类");
-                recyclerView_qg3=view.findViewById(R.id.recyclerView_qg3);
-                recyclerView_qg3.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-                recyclerView_qg3.setVisibility(View.VISIBLE);
-                initSetdialog3();
+                recyclerView_qg3 = view.findViewById(R.id.recyclerView_qg3);
+                recyclerView_qg3.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+                recyclerView_qg3.setVisibility(View.GONE);
+                initSetdialog();
             }
             iv_dialog_close.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -493,29 +494,30 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
 
         }
     }
-    private void initSetdialog(){
-        BaseRVAdapter baseRVAdapter= new BaseRVAdapter(this,resultBeansGFL) {
+
+    private void initSetdialog() {
+        BaseRVAdapter baseRVAdapter = new BaseRVAdapter(this, mCategoriesBeans) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.add_shpping_layout;
             }
 
             @Override
-            public void onBind(BaseViewHolder holder, final int position) {
-                holder.getTextView(R.id.tv_item).setText(resultBeansGFL.get(position).getPavilion_name());
-                if(itmeXZ==position){
+            public void onBind(final BaseViewHolder holder, final int position) {
+                holder.getTextView(R.id.tv_item).setText(mCategoriesBeans.get(position).getName());
+                if (itmeXZ == position) {
                     holder.getTextView(R.id.tv_item).setTextColor(getResources().getColor(R.color.my_red));
-                }else{
+                } else {
                     holder.getTextView(R.id.tv_item).setTextColor(getResources().getColor(R.color.text3));
-
                 }
                 holder.getTextView(R.id.tv_item).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        itmeXZ=position;
-                        ADDGName=resultBeansGFL.get(position).getPavilion_name();
-                        addGID=resultBeansGFL.get(position).getId();
-                        BaseRVAdapter baseRVAdapter2= new BaseRVAdapter(NewAddShoppingActivity.this,resultBeansGFL.get(position).getSon()) {
+                        itmeXZ = position;
+                        ADDGName = mCategoriesBeans.get(position).getName();
+                        addGID = mCategoriesBeans.get(position).getId();
+                        notifyDataSetChanged();
+                        BaseRVAdapter baseRVAdapter2 = new BaseRVAdapter(NewAddShoppingActivity.this, mCategoriesBeans.get(position).getSon()) {
                             @Override
                             public int getLayoutId(int viewType) {
                                 return R.layout.add_shpping_layout;
@@ -523,17 +525,16 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
 
                             @Override
                             public void onBind(BaseViewHolder holder2, final int position2) {
-                                holder2.getTextView(R.id.tv_item).setText(resultBeansGFL.get(position).getSon().get(position2).getName());
+                                holder2.getTextView(R.id.tv_item).setText(mCategoriesBeans.get(position).getSon().get(position2).getName());
                                 holder2.getTextView(R.id.tv_item).setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        if(ADDGName==null){
-                                            ADDGName=resultBeansGFL.get(position).getPavilion_name();
-                                            addGID=resultBeansGFL.get(position).getId();
+                                        if (ADDGName == null) {
+                                            ADDGName = mCategoriesBeans.get(position).getName();
+                                            addGID = mCategoriesBeans.get(position).getId();
                                         }
-                                        addGFLID=resultBeansGFL.get(position).getSon().get(position2).getId();
-                                        upShopFLData();
-                                        tv_XZguan.setText(ADDGName+" "+resultBeansGFL.get(position).getSon().get(position2).getName());
+                                        addGFLID = mCategoriesBeans.get(position).getSon().get(position2).getId();
+                                        tv_XZshopFL.setText(ADDGName + " " + mCategoriesBeans.get(position).getSon().get(position2).getName());
                                         mPop.dismiss();
                                     }
                                 });
@@ -547,8 +548,9 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
             }
 
         };
-        if(resultBeansGFL.size()>0){
-            BaseRVAdapter baseRVAdapter2= new BaseRVAdapter(NewAddShoppingActivity.this,resultBeansGFL.get(0).getSon()) {
+
+        if (mCategoriesBeans.size() > 0) {
+            BaseRVAdapter baseRVAdapter2 = new BaseRVAdapter(NewAddShoppingActivity.this, mCategoriesBeans.get(0).getSon()) {
                 @Override
                 public int getLayoutId(int viewType) {
                     return R.layout.add_shpping_layout;
@@ -556,251 +558,83 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
 
                 @Override
                 public void onBind(BaseViewHolder holder2, final int position2) {
-                    holder2.getTextView(R.id.tv_item).setText(resultBeansGFL.get(0).getSon().get(position2).getName());
-                    holder2.getTextView(R.id.tv_item).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if(ADDGName==null){
-                                ADDGName=resultBeansGFL.get(0).getPavilion_name();
-                                addGID=resultBeansGFL.get(0).getId();
-                            }
-                            addGFLID=resultBeansGFL.get(0).getSon().get(position2).getId();
-                            upShopFLData();
-                            tv_XZguan.setText(ADDGName+" "+resultBeansGFL.get(0).getSon().get(position2).getName());
-                            mPop.dismiss();
-                        }
-                    });
+                    holder2.getTextView(R.id.tv_item).setText(mCategoriesBeans.get(0).getSon().get(position2).getName());
                 }
 
             };
             baseRVAdapter2.notifyDataSetChanged();
             recyclerView_qg2.setAdapter(baseRVAdapter2);
         }
-        baseRVAdapter.notifyDataSetChanged();
-        recyclerView_qg.setAdapter(baseRVAdapter);
-    }
-    private void initSetdialog2(){
-        BaseRVAdapter baseRVAdapter= new BaseRVAdapter(this,resultBeansFL) {
-            @Override
-            public int getLayoutId(int viewType) {
-                return R.layout.add_shpping_layout;
-            }
-            @Override
-            public void onBind(BaseViewHolder holder, final int position) {
-                holder.getTextView(R.id.tv_item).setText(resultBeansFL.get(position).getName());
-                if(itemSPXZ==-1){
-                    holder.getTextView(R.id.tv_item).setTextColor(getResources().getColor(R.color.text3));
-                }else if(itemSPXZ==position){
-                    holder.getTextView(R.id.tv_item).setTextColor(getResources().getColor(R.color.my_red));
-                }else{
-                    holder.getTextView(R.id.tv_item).setTextColor(getResources().getColor(R.color.text3));
-                }
-                holder.getTextView(R.id.tv_item).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        itemSPXZ=position;
-                        ADDFL1Name=resultBeansFL.get(position).getName();
-                        addFL1ID=resultBeansFL.get(position).getId();
-                        notifyDataSetChanged();
-                        BaseRVAdapter baseRVAdapter2= new BaseRVAdapter(NewAddShoppingActivity.this,resultBeansFL.get(position).getSon()) {
-                            @Override
-                            public int getLayoutId(int viewType) {
-                                return R.layout.add_shpping_layout;
-                            }
-
-                            @Override
-                            public void onBind(BaseViewHolder holder2, final int position2) {
-                                holder2.getTextView(R.id.tv_item).setText(resultBeansFL.get(position).getSon().get(position2).getName());
-                                if(itemSPXZ2==-1){
-                                    holder2.getTextView(R.id.tv_item).setTextColor(getResources().getColor(R.color.text3));
-                                } else  if(itemSPXZ2==position2){
-                                    holder2.getTextView(R.id.tv_item).setTextColor(getResources().getColor(R.color.my_red));
-                                }else{
-                                    holder2.getTextView(R.id.tv_item).setTextColor(getResources().getColor(R.color.text3));
-                                }
-                                holder2.getTextView(R.id.tv_item).setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        itemSPXZ2=position2;
-                                        if(ADDFL1Name==null){
-                                            ADDFL1Name=resultBeansFL.get(position).getName();
-                                            addFL1ID=resultBeansFL.get(position).getId();
-                                        }
-                                        ADDFL2Name=resultBeansFL.get(position).getSon().get(position2).getName();
-                                        addFL2ID=resultBeansFL.get(position).getSon().get(position2).getId();
-                                        notifyDataSetChanged();
-                                        if(resultBeansFL.get(position).getSon().get(position2).getSon().size()>0){
-                                            BaseRVAdapter baseRVAdapter3= new BaseRVAdapter(NewAddShoppingActivity.this,resultBeansFL.get(position).getSon().get(position2).getSon()) {
-                                                @Override
-                                                public int getLayoutId(int viewType) {
-                                                    return R.layout.add_shpping_layout;
-                                                }
-
-                                                @Override
-                                                public void onBind(BaseViewHolder holder3, final int position3) {
-                                                    holder3.getTextView(R.id.tv_item).setText(resultBeansFL.get(position).getSon().get(position2).getSon().get(position3).getName());
-                                                    holder3.getTextView(R.id.tv_item).setOnClickListener(new View.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(View view) {
-                                                            ADDFL3Name=resultBeansFL.get(position).getSon().get(position2).getSon().get(position3).getName();
-                                                            addFL3ID=resultBeansFL.get(position).getSon().get(position2).getSon().get(position3).getId();
-                                                            tv_XZshopFL.setText(ADDFL1Name+" "+ADDFL2Name+" "+resultBeansFL.get(position).getSon().get(position2).getSon().get(position3).getName());
-                                                            mPop.dismiss();
-                                                        }
-                                                    });
-                                                }
-
-                                            };
-
-                                            recyclerView_qg3.setAdapter(baseRVAdapter3);
-                                        }else{
-                                            tv_XZshopFL.setText(ADDFL1Name+" "+ADDFL2Name);
-                                            mPop.dismiss();
-                                        }
-
-                                    }
-                                });
-                            }
-
-                        };
-
-                        recyclerView_qg2.setAdapter(baseRVAdapter2);
-                    }
-                });
-            }
-
-        };
 
         baseRVAdapter.notifyDataSetChanged();
         recyclerView_qg.setAdapter(baseRVAdapter);
     }
-    private void initSetdialog3(){
-        BaseRVAdapter baseRVAdapter= new BaseRVAdapter(this,BDresultBeans) {
+
+    private void upCategories() {
+        Map<String, Object> map = new HashMap<>();
+        if (BaseApplication.getInstance().userBean == null) {
+            CusToast.showToast("登录失效，请重新登录");
+            return;
+        }
+        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
+
+        showDialog();
+        XUtil.Post(URLConstant.CATEGORIES, map, new MyCallBack<String>() {
             @Override
-            public int getLayoutId(int viewType) {
-                return R.layout.add_shpping_layout;
-            }
-            @Override
-            public void onBind(BaseViewHolder holder, final int position) {
-                holder.getTextView(R.id.tv_item).setText(BDresultBeans.get(position).getCat_name());
-                if(itemBD==-1){
-                    holder.getTextView(R.id.tv_item).setTextColor(getResources().getColor(R.color.text3));
-                }else if(itemBD==position){
-                    holder.getTextView(R.id.tv_item).setTextColor(getResources().getColor(R.color.my_red));
-                }else{
-                    holder.getTextView(R.id.tv_item).setTextColor(getResources().getColor(R.color.text3));
-                }
-                holder.getTextView(R.id.tv_item).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        itemBD=position;
-                        BDFL1Name=BDresultBeans.get(position).getCat_name();
-                        BDFL1ID=BDresultBeans.get(position).getCat_id();
-                        notifyDataSetChanged();
-                        if(BDresultBeans.get(position).getSon().size()>0){
-                            BaseRVAdapter baseRVAdapter2= new BaseRVAdapter(NewAddShoppingActivity.this,BDresultBeans.get(position).getSon()) {
-                                @Override
-                                public int getLayoutId(int viewType) {
-                                    return R.layout.add_shpping_layout;
-                                }
-
-                                @Override
-                                public void onBind(BaseViewHolder holder2, final int position2) {
-                                    holder2.getTextView(R.id.tv_item).setText(BDresultBeans.get(position).getSon().get(position2).getCat_name());
-                                    if(itemBD1==-1){
-                                        holder2.getTextView(R.id.tv_item).setTextColor(getResources().getColor(R.color.text3));
-                                    } else  if(itemBD1==position2){
-                                        holder2.getTextView(R.id.tv_item).setTextColor(getResources().getColor(R.color.my_red));
-                                    }else{
-                                        holder2.getTextView(R.id.tv_item).setTextColor(getResources().getColor(R.color.text3));
-                                    }
-                                    holder2.getTextView(R.id.tv_item).setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            itemBD1=position2;
-                                            if(BDFL1Name==null){
-                                                BDFL1Name=BDresultBeans.get(position).getCat_name();
-                                                BDFL1ID=BDresultBeans.get(position).getCat_id();
-                                            }
-                                            BDFL2Name=BDresultBeans.get(position).getSon().get(position2).getCat_name();
-                                            BDFL2ID=BDresultBeans.get(position).getSon().get(position2).getCat_id();
-                                            notifyDataSetChanged();
-                                            if(BDresultBeans.get(position).getSon().get(position2).getSon().size()>0){
-                                                BaseRVAdapter baseRVAdapter3= new BaseRVAdapter(NewAddShoppingActivity.this,BDresultBeans.get(position).getSon().get(position2).getSon()) {
-                                                    @Override
-                                                    public int getLayoutId(int viewType) {
-                                                        return R.layout.add_shpping_layout;
-                                                    }
-
-                                                    @Override
-                                                    public void onBind(BaseViewHolder holder3, final int position3) {
-                                                        holder3.getTextView(R.id.tv_item).setText(BDresultBeans.get(position).getSon().get(position2).getSon().get(position3).getCat_name());
-                                                        holder3.getTextView(R.id.tv_item).setOnClickListener(new View.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(View view) {
-                                                                BDFL3Name=BDresultBeans.get(position).getSon().get(position2).getSon().get(position3).getCat_name();
-                                                                BDL3ID=BDresultBeans.get(position).getSon().get(position2).getSon().get(position3).getCat_id();
-                                                                tv_XZBDFL.setText(BDFL1Name+" "+BDFL2Name+" "+BDFL3Name);
-                                                                ll_shop_GG.setVisibility(View.VISIBLE);
-//                                                                upShoppingGGData();
-                                                                mPop.dismiss();
-                                                            }
-                                                        });
-                                                    }
-
-                                                };
-
-                                                recyclerView_qg3.setAdapter(baseRVAdapter3);
-                                            }else{
-                                                tv_XZBDFL.setText(BDFL1Name+" "+BDFL2Name);
-                                                ll_shop_GG.setVisibility(View.GONE);
-                                                mPop.dismiss();
-                                            }
-
-                                        }
-                                    });
-                                }
-
-                            };
-
-                            recyclerView_qg2.setAdapter(baseRVAdapter2);
-                        }else {
-                            tv_XZBDFL.setText(BDFL1Name);
-                            ll_shop_GG.setVisibility(View.GONE);
-                            mPop.dismiss();
-                        }
-
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                Log.i("===本店分类--", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        CategoriesBean mCategoriesBean = gson.fromJson(result, CategoriesBean.class);
+                        mCategoriesBeans = mCategoriesBean.getResult();
                     }
-                });
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
-        };
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                ex.printStackTrace();
+                closeDialog();
+            }
 
-        baseRVAdapter.notifyDataSetChanged();
-        recyclerView_qg.setAdapter(baseRVAdapter);
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                closeDialog();
+            }
+        });
     }
 
     //本店分类
-    private void upBDFLData(){
-        Map<String,Object> map=new HashMap<>();
-        if(BaseApplication.getInstance().userBean==null){
+    private void upBDFLData() {
+        Map<String, Object> map = new HashMap<>();
+        if (BaseApplication.getInstance().userBean == null) {
             CusToast.showToast("登录失效，请重新登录");
             return;
         }
-        map.put("token",BaseApplication.getInstance().userBean.getToken());
+        map.put("token", BaseApplication.getInstance().userBean.getToken());
         showDialog();
-        XUtil.Post(URLConstant.BENDIANFENLEI,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.BENDIANFENLEI, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
-                Log.i("===本店分类--",result);
+                Log.i("===本店分类--", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        AddBDFLBean addBDFLBean=gson.fromJson(result,AddBDFLBean.class);
-                        BDresultBeans=addBDFLBean.getResult();
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        AddBDFLBean addBDFLBean = gson.fromJson(result, AddBDFLBean.class);
+                        BDresultBeans = addBDFLBean.getResult();
                     }
 
                 } catch (JSONException e) {
@@ -823,120 +657,35 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
         });
     }
 
-    //商品分类
-    private void upShopFLData(){
-        Map<String,Object> map=new HashMap<>();
-        if(BaseApplication.getInstance().userBean==null){
-            CusToast.showToast("登录失效，请重新登录");
-            return;
-        }
-        map.put("token",BaseApplication.getInstance().userBean.getToken());
-        map.put("pavilion_cate_id",addGFLID);
-        showDialog();
-        XUtil.Post(URLConstant.SHANPING_FENLEI,map,new MyCallBack<String>(){
-            @Override
-            public void onSuccess(String result) {
-                super.onSuccess(result);
-                Log.i("===新增商品分类--",result);
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    String res = jsonObject.optString("status");
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        AddShopFLBean shopFLBean=gson.fromJson(result,AddShopFLBean.class);
-                        resultBeansFL=shopFLBean.getResult();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                super.onError(ex, isOnCallback);
-                ex.printStackTrace();
-                closeDialog();
-            }
-
-            @Override
-            public void onFinished() {
-                super.onFinished();
-                closeDialog();
-            }
-        });
-    }
-    //馆分类
-    private void upGFLData(){
-        Map<String,Object> map=new HashMap<>();
-        if(BaseApplication.getInstance().userBean==null){
-            CusToast.showToast("登录失效，请重新登录");
-            return;
-        }
-        map.put("token",BaseApplication.getInstance().userBean.getToken());
-        showDialog();
-        XUtil.Post(URLConstant.GUANFEN_XUANXIANGF,map,new MyCallBack<String>(){
-            @Override
-            public void onSuccess(String result) {
-                super.onSuccess(result);
-                Log.i("===新增产品管分类--",result);
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    String res = jsonObject.optString("status");
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        AddShopGFLBean addShopGFLBean=gson.fromJson(result,AddShopGFLBean.class);
-                        resultBeansGFL=addShopGFLBean.getResult();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                super.onError(ex, isOnCallback);
-                ex.printStackTrace();
-                closeDialog();
-            }
-
-            @Override
-            public void onFinished() {
-                super.onFinished();
-                closeDialog();
-            }
-        });
-    }
     //商品规格选项
-    private void upShoppingGGData(){
-        Map<String,Object> map=new HashMap<>();
-        if(BaseApplication.getInstance().userBean==null)return;
-        map.put("token",BaseApplication.getInstance().userBean.getToken());
-        map.put("cat_id3",addFL3ID);
-        if(resultBeansGFL.size()>0){
-            map.put("sku_str",resultBeansGFL.get(0).getSku_str());
+    private void upShoppingGGData() {
+        Map<String, Object> map = new HashMap<>();
+        if (BaseApplication.getInstance().userBean == null) return;
+        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("cat_id3", addFL3ID);
+        if (resultBeansGFL.size() > 0) {
+            map.put("sku_str", resultBeansGFL.get(0).getSku_str());
         }
 
         showDialog();
-        XUtil.Post(URLConstant.SHANGPING_GUIGE,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.SHANGPING_GUIGE, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
-                Log.i("===商品规格选项--",result);
+                Log.i("===商品规格选项--", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
 
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
                         String result2 = jsonObject.optString("result");
                         JSONObject jsonObject2 = new JSONObject(result2);
                         String url = jsonObject2.optString("url");
-                        startActivity(new Intent(NewAddShoppingActivity.this,ShopGGH5Activity.class)
-                        .putExtra("h5url",url));
-                    }else {
+                        startActivity(new Intent(NewAddShoppingActivity.this, ShopGGH5Activity.class)
+                                .putExtra("h5url", url));
+                    } else {
                         CusToast.showToast(msg);
                     }
 
@@ -965,20 +714,28 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
         Intent intent;
         switch (v.getId()) {
             case R.id.item_publishTask_image:
-                Integer index = (Integer) v.getTag();
-
-                if (index == imagePaths.size() - 1) {
-                    isshanpinImage=0;
+                Integer index = (Integer) v.getTag(R.id.postion);
+                Integer type = (Integer) v.getTag(R.id.type);
+                recycleType = type;
+                if (index == imagePaths.size() - 1 || index == imageTwoPaths.size() - 1) {
+                    isshanpinImage = 0;
                     if (imagePaths.size() >= 10) {
                         CusToast.showToast("最多选择9张图片");
                         return;
                     }
-
+                    if (imageTwoPaths.size() >= 10) {
+                        CusToast.showToast("最多选择9张图片");
+                        return;
+                    }
                     intent = new Intent(this, MultiImageSelectorActivity.class);
                     // 是否显示调用相机拍照
                     intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, false);
                     // 最大图片选择数量
-                    intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 10-imagePaths.size());
+                    if (recycleType == 0) {
+                        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 10 - imagePaths.size());
+                    } else {
+                        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 10 - imageTwoPaths.size());
+                    }
 
                     // 设置模式 (支持 单选/MultiImageSelectorActivity.MODE_SINGLE 或者 多选/MultiImageSelectorActivity.MODE_MULTI)
                     intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_MULTI);
@@ -986,7 +743,11 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                     startActivityForResult(intent, FROM_ALBUM_CODE);
                 } else {
                     ArrayList<String> paths = new ArrayList<>();
-                    paths.addAll(imagePaths);
+                    if (recycleType == 0) {
+                        paths.addAll(imagePaths);
+                    } else {
+                        paths.addAll(imageTwoPaths);
+                    }
                     paths.remove(paths.get(paths.size() - 1));
 
                     intent = new Intent(this, ShowImageDetail.class);
@@ -995,45 +756,58 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                     startActivity(intent);
                 }
                 break;
+            case R.id.delete_iv:
+                final Integer index1 = (Integer) v.getTag(R.id.postion);
+                /**
+                 这里使用了 android.support.v7.app.AlertDialog.Builder
+                 可以直接在头部写 import android.support.v7.app.AlertDialog
+                 那么下面就可以写成 AlertDialog.Builder
+                 */
+                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+                builder.setMessage("是否确认删除？");
+                builder.setNegativeButton("取消", null);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (recycleType == 0) {
+                            if (imagePaths.size() > 0) {
+                                imagePaths.remove(imagePaths.get(index1));
+                            }
+                            if (cartImage.size() > 0) {
+                                cartImage.remove(cartImage.get(index1));
+                            }
+                        } else {
+                            if (imageTwoPaths.size() > 0) {
+                                imageTwoPaths.remove(imageTwoPaths.get(index1));
+                            }
+                            if (cartTwoImage.size() > 0) {
+                                cartTwoImage.remove(cartTwoImage.get(index1));
+                            }
+                        }
+                        /*if (compressPaths.size() > 0) {
+                            compressPaths.remove(compressPaths.get(index1));
+                        }*/
 
+
+                        mTaskImgAdapter.notifyDataSetChanged();
+                        mTaskImgAdapter1.notifyDataSetChanged();
+                    }
+                });
+                if (imagePaths.size() - 1 != index1 || imageTwoPaths.size() - 1 != index1) {
+                    builder.show();
+                }
+                break;
 
             default:
                 break;
         }
     }
+
     @Override
     public boolean onLongClick(View view) {
-        final Integer index = (Integer) view.getTag();
-        System.out.println("index:===" + index);
-        /**
-         这里使用了 android.support.v7.app.AlertDialog.Builder
-         可以直接在头部写 import android.support.v7.app.AlertDialog
-         那么下面就可以写成 AlertDialog.Builder
-         */
-        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
-        builder.setMessage("是否确认删除？");
-        builder.setNegativeButton("取消", null);
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if(imagePaths.size()>0){
-                    imagePaths.remove(imagePaths.get(index));
-                }
-                if(compressPaths.size()>0){
-                    compressPaths.remove(compressPaths.get(index));
-                }
-                if(cartImage.size()>0){
-                    cartImage.remove(cartImage.get(index));
-                }
-
-                mTaskImgAdapter.notifyDataSetChanged();
-            }
-        });
-        if (imagePaths.size() - 1 != index)
-            builder.show();
-
         return true;
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -1043,9 +817,11 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
             }
         }
     }
+
     private void permissionActivity() {
         PermissionsActivity.startActivityForResult(this, REQUEST_CODEBBB, strPermissions);
     }
+
     private PopupWindow mPopImage;
 
     //显示弹窗
@@ -1085,6 +861,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
             setPopClickListener(view);
         }
     }
+
     private void setPopClickListener(View view) {
         TextView tv_iteam1, photo, cancle;
         photo = view.findViewById(R.id.photo);
@@ -1106,7 +883,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isshanpinImage=1;
+                isshanpinImage = 1;
                 Intent intent = new Intent(NewAddShoppingActivity.this, MultiImageSelectorActivity.class);
                 // 是否显示调用相机拍照
                 intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, false);
@@ -1131,12 +908,10 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
         if (mCropImageFile != null) {
             String path = mCropImageFile.getAbsolutePath();
             Bitmap bitmap = BitmapFactory.decodeFile(mCropImageFile.toString());
-            isshanpinImage=1;
-            Map<String,Object> map=new HashMap<>();
-            map.put("image_base_64_arr", "data:image/jpeg;base64,"+Base64BitmapUtil.bitmapToBase64(bitmap));
-            upMessageData(map);
-//            GlideLoadUtils.getInstance().glideAvatarLoad(this, path, iv_head, R.drawable.img12x);
-
+            isshanpinImage = 1;
+            Map<String, Object> map = new HashMap<>();
+            map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+            upMessageData(map, path);
         }
     }
 
@@ -1154,30 +929,56 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                         }
 
                         List<String> list = data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT);
-                        System.out.println("========：" + list.size());
-                        if (imagePaths.size() < 10) {
-                            for (int i = 0; i < list.size(); i++) {
-                                System.out.println("选中的路径：" + list.get(i));
-                                String pic_path = list.get(i);
-                                String targetPath = compressImageFilePath + Confirg.df.
-                                        format(new Date()) + ".jpg";
-                                //调用压缩图片的方法，返回压缩后的图片path
-                                final String compressImage = BitnapUtils.compressImage(pic_path, targetPath, 40);
-                                if(isshanpinImage==0){
-                                    compressPaths.add(compressImage);
-                                    imagePaths.add(imagePaths.size() - 1, list.get(i));
+                        if (recycleType == 0) {
+                            if (imagePaths.size() < 10) {
+                                for (int i = 0; i < list.size(); i++) {
+                                    System.out.println("选中的路径：" + list.get(i));
+                                    String pic_path = list.get(i);
+                                    String targetPath = compressImageFilePath + Confirg.df.
+                                            format(new Date()) + ".jpg";
+                                    //调用压缩图片的方法，返回压缩后的图片path
+                                    final String compressImage = BitnapUtils.compressImage(pic_path, targetPath, 40);
+                                    if (isshanpinImage == 0) {
+                                        compressPaths.add(compressImage);
+                                    }
+                                    Bitmap bitmap = BitmapFactory.decodeFile(compressImage.toString());
+                                    Map<String, Object> map = new HashMap<>();
+                                    map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                                    upMessageData(map, list.get(i));
+
                                 }
-                                Bitmap bitmap = BitmapFactory.decodeFile(compressImage.toString());
-                                Map<String,Object> map=new HashMap<>();
-                                map.put("image_base_64_arr", "data:image/jpeg;base64,"+ Base64BitmapUtil.bitmapToBase64(bitmap));
-                                upMessageData(map);
 
+                            } else {
+                                CusToast.showToast("无法添加更多图片！");
                             }
-
                         } else {
-                            CusToast.showToast("无法添加更多图片！");
+                            if (imageTwoPaths.size() < 10) {
+                                for (int i = 0; i < list.size(); i++) {
+                                    System.out.println("选中的路径：" + list.get(i));
+                                    String pic_path = list.get(i);
+                                    String targetPath = compressImageFilePath + Confirg.df.
+                                            format(new Date()) + ".jpg";
+                                    //调用压缩图片的方法，返回压缩后的图片path
+                                    final String compressImage = BitnapUtils.compressImage(pic_path, targetPath, 40);
+                                    if (isshanpinImage == 0) {
+                                        compressPaths.add(compressImage);
+                                    }
+                                    Bitmap bitmap = BitmapFactory.decodeFile(compressImage.toString());
+                                    Map<String, Object> map = new HashMap<>();
+                                    map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                                    upMessageData(map, list.get(i));
+
+                                }
+
+                            } else {
+                                CusToast.showToast("无法添加更多图片！");
+                            }
                         }
+                        Log.d("chenshichun", "======imagePaths=====  " + imagePaths);
+                        Log.d("chenshichun", "===imageTwoPaths========  " + imageTwoPaths);
+
                         mTaskImgAdapter.notifyDataSetChanged();
+                        mTaskImgAdapter1.notifyDataSetChanged();
                     }
                     break;
             }
@@ -1203,17 +1004,18 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
             }
         }
         if (requestCode == 6666) {
-            if (resultCode == RESULT_OK){
+            if (resultCode == RESULT_OK) {
                 goods_content = data.getExtras().getString("goods_content");
-                listImage=data.getStringArrayListExtra("listImage");
+                listImage = data.getStringArrayListExtra("listImage");
                 rt_tuwen.setText("已填写");
-                Log.i("===返回图片22--",goods_content);
+                Log.i("===返回图片22--", goods_content);
             }
 
 
         }
     }
-   private ArrayList<String> listImage=new ArrayList<>();
+
+    private ArrayList<String> listImage = new ArrayList<>();
 
     private void imageCapture() {
         Intent intent;
@@ -1286,10 +1088,14 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
         }
 
     }
-    private String strImage="";
+
+    private String strImage = "";
+    private String strTwoImage = "";
     final List<String> cartImage = new ArrayList<>();
-    private String Image_1="";
-    private void upMessageData(Map<String, Object> map) {
+    final List<String> cartTwoImage = new ArrayList<>();
+    private String Image_1 = "";
+
+    private void upMessageData(Map<String, Object> map, final String path) {
         XUtil.Post(URLConstant.SHANGCHUAN_IMAGE, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
@@ -1301,17 +1107,31 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                     String msg = jsonObject.optString("msg");
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        ImageDataBean imageDataBean=gson.fromJson(result,ImageDataBean.class);
-                        if(imageDataBean.getResult().getImage_show().size()>0){
-                            if(isshanpinImage==1){
-                                Image_1 =imageDataBean.getResult().getImage_show().get(0);
-                                Log.i("====上传图片222===", Image_1+"--");
+                        if (recycleType == 0) {
+                            imagePaths.add(imagePaths.size() - 1, path);
+                            Log.d("chenshichun", "=======imagePaths==size==" + imagePaths.size());
+                            mTaskImgAdapter.notifyDataSetChanged();
+                        } else {
+                            imageTwoPaths.add(imageTwoPaths.size() - 1, path);
+                            mTaskImgAdapter1.notifyDataSetChanged();
+                            Log.d("chenshichun", "======imageTwoPaths=size====" + imageTwoPaths.size());
+
+                        }
+                        ImageDataBean imageDataBean = gson.fromJson(result, ImageDataBean.class);
+                        if (imageDataBean.getResult().getImage_show().size() > 0) {
+                            if (isshanpinImage == 1) {
+                                Image_1 = imageDataBean.getResult().getImage_show().get(0);
+                                Log.i("====上传图片222===", Image_1 + "--");
                                 tv_is_pic.setText("已上传");
-                            }else{
-                                cartImage.add(imageDataBean.getResult().getImage_show().get(0));
+                            } else {
+                                if (recycleType == 0) {
+                                    cartImage.add(imageDataBean.getResult().getImage_show().get(0));
+                                } else {
+                                    cartTwoImage.add(imageDataBean.getResult().getImage_show().get(0));
+                                }
                             }
                         }
-                    }else {
+                    } else {
                         CusToast.showToast(msg);
                     }
 

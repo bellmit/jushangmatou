@@ -21,11 +21,13 @@ import com.tem.gettogether.R;
 import com.tem.gettogether.activity.ShoppingKUActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.MemberAmountBean;
 import com.tem.gettogether.bean.ShoppingKuBean;
 import com.tem.gettogether.utils.MessageEvent;
 import com.tem.gettogether.utils.PayResult;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tencent.mm.sdk.modelpay.PayReq;
@@ -318,7 +320,8 @@ public class BuyMemberActivity extends BaseActivity {
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", BaseApplication.getInstance().userBean.getToken());
-        map.put("user_id",BaseApplication.getInstance().userBean.getUser_id());
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
+
         Log.d("chenshichun","=======token===="+BaseApplication.getInstance().userBean.getToken());
         Log.d("chenshichun","=======user_id===="+BaseApplication.getInstance().userBean.getUser_id());
 

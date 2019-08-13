@@ -36,6 +36,7 @@ public class MyOrderActivity extends BaseActivity {
     private String mTabId;
     private int position = 0;
     private String[] titles;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,15 +48,14 @@ public class MyOrderActivity extends BaseActivity {
     }
 
 
-
     private void initFragmentTitle() {
-        titles = new String[]{getResources().getString(R.string.all),getResources().getString(R.string.wait_h),getResources().getString(R.string.wait_f),getResources().getString(R.string.wait_s),getResources().getString(R.string.complete)};
+        titles = new String[]{getResources().getString(R.string.all), getResources().getString(R.string.yixiadan), getResources().getString(R.string.yishouhuo), getResources().getString(R.string.yijiekuan), getResources().getString(R.string.complete)};
         mList_title = new ArrayList<>();
         list_fragment = new ArrayList<>();
         mList_title.add(getResources().getString(R.string.all));
-        mList_title.add(getResources().getString(R.string.wait_h));
-        mList_title.add(getResources().getString(R.string.wait_f));
-        mList_title.add(getResources().getString(R.string.wait_s));
+        mList_title.add(getResources().getString(R.string.yixiadan));
+        mList_title.add(getResources().getString(R.string.yishouhuo));
+        mList_title.add(getResources().getString(R.string.yijiekuan));
         mList_title.add(getResources().getString(R.string.complete));
 
         for (int a = 0; a < titles.length; a++) {
@@ -66,6 +66,7 @@ public class MyOrderActivity extends BaseActivity {
         }
 
     }
+
     @Override
     protected void initData() {
         tv_title.setText("我的订单");
@@ -74,7 +75,7 @@ public class MyOrderActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mAdapter = new OrderAdapter(getSupportFragmentManager(),mList_title, list_fragment);
+        mAdapter = new OrderAdapter(getSupportFragmentManager(), mList_title, list_fragment);
         vp_client.setOffscreenPageLimit(6);
         vp_client.setAdapter(mAdapter);
         ps_tab.setupWithViewPager(vp_client);
@@ -101,9 +102,9 @@ public class MyOrderActivity extends BaseActivity {
 
             }
         });
-        String   tabType=getIntent().getStringExtra("tabType");
+        String tabType = getIntent().getStringExtra("tabType");
 
-        if(tabType!=null&&!tabType.equals("")){
+        if (tabType != null && !tabType.equals("")) {
             vp_client.setCurrentItem(Integer.parseInt(tabType));
         }
 //        else{
@@ -112,6 +113,7 @@ public class MyOrderActivity extends BaseActivity {
 //        }
 
     }
+
     @Event(value = {R.id.rl_close}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
@@ -120,12 +122,13 @@ public class MyOrderActivity extends BaseActivity {
                 break;
         }
     }
+
     private class OrderAdapter extends FragmentPagerAdapter {
 
         private List<Fragment> list_fragment;     //fragment列表
         private List<String> list_Title;                              //tab名的列表
 
-        public OrderAdapter(FragmentManager fm,  List<String> list_Title, List<Fragment> mFragments) {
+        public OrderAdapter(FragmentManager fm, List<String> list_Title, List<Fragment> mFragments) {
             super(fm);
             this.list_Title = list_Title;
 

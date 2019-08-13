@@ -12,6 +12,7 @@ import com.google.gson.reflect.TypeToken;
 import com.tem.gettogether.activity.LoginActivity;
 import com.tem.gettogether.activity.MainActivity;
 import com.tem.gettogether.activity.RegisterActivity;
+import com.tem.gettogether.activity.SplashActivity;
 import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
@@ -273,6 +274,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                         SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.openid, BaseApplication.getInstance().bean.getOpenid());
                         SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.NAME, BaseApplication.getInstance().bean.getNickname());
                         SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.TYPE, "3");//微信
+                        SharedPreferencesUtils.saveString(WXEntryActivity.this,BaseConstant.SPConstant.USERID,loginBean.getResult().getUser_id());
                         UserBean userBean = new UserBean();
                         userBean.setToken(loginBean.getResult().getToken());
                         userBean.setUserName(loginBean.getResult().getNickname());

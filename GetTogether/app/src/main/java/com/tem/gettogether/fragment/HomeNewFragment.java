@@ -33,6 +33,7 @@ import com.tem.gettogether.activity.home.HomeHotSellActivity;
 import com.tem.gettogether.activity.home.HomeLianMengActivity;
 import com.tem.gettogether.activity.home.HomeSouSuoActivity;
 import com.tem.gettogether.activity.my.BuyMessageActivity;
+import com.tem.gettogether.activity.my.WaiMaoQiuGouActivity;
 import com.tem.gettogether.adapter.HomeBuyAdapter;
 import com.tem.gettogether.adapter.HomeHotSellAdapter;
 import com.tem.gettogether.adapter.HomeLianMengAdapter;
@@ -406,7 +407,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                         .putExtra("store_id", "0"));
                 break;
             case R.id.waimaoqiugou_tv:
-                startActivity(new Intent(getActivity(), BuyMessageActivity.class));
+                startActivity(new Intent(getActivity(), WaiMaoQiuGouActivity.class));
                 break;
             case R.id.back_top_btn:
                 mScrollView.scrollTo(0, 0);

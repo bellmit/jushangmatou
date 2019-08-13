@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
@@ -24,7 +25,10 @@
         android:paddingLeft="115dp"
         android:text="标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题"
         app:layout_constraintTop_toTopOf="@+id/pic_iv" />
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        tools:ignore="MissingConstraints" />
     <TextView
         android:id="@+id/tv_buy_time"
         android:layout_width="wrap_content"

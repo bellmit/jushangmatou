@@ -67,6 +67,24 @@ public class WaiMaoQiuGouBean {
         private String country_id;
         private String mobile;
         private String country_name;
+        private String head_pic;
+        private String nickname;
+
+        public String getHead_pic() {
+            return head_pic;
+        }
+
+        public void setHead_pic(String head_pic) {
+            this.head_pic = head_pic;
+        }
+
+        public String getNickname() {
+            return nickname;
+        }
+
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
+        }
 
         public String getCountry_name() {
             return country_name;

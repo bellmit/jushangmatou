@@ -1,6 +1,7 @@
 package com.tem.gettogether.activity.home;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -47,12 +48,16 @@ public class LianMengDetailActivity extends BaseActivity {
     private TextView name_tv;
     @ViewInject(R.id.phone_tv)
     private TextView phone_tv;
-    @ViewInject(R.id.zip_code_tv)
-    private TextView zip_code_tv;
+    @ViewInject(R.id.weChat_tv)
+    private TextView weChat_tv;
     @ViewInject(R.id.address_tv)
     private TextView address_tv;
-    @ViewInject(R.id.email_tv)
-    private TextView email_tv;
+    @ViewInject(R.id.whatsApp_tv)
+    private TextView whatsApp_tv;
+    @ViewInject(R.id.facebook_tv)
+    private TextView facebook_tv;
+    @ViewInject(R.id.official_website_tv)
+    private TextView official_website_tv;
     @ViewInject(R.id.introduction_tv)
     private TextView introduction_tv;
     @ViewInject(R.id.banner)
@@ -65,7 +70,6 @@ public class LianMengDetailActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
-//        tv_title.setText(getResources().getText(R.string.waimaolianmeng));
         companyId = getIntent().getStringExtra(Contacts.LINGMENG_COMPANY_ID);
         initDatas();
     }
@@ -129,10 +133,13 @@ public class LianMengDetailActivity extends BaseActivity {
 
     private void setData() {
         tv_title.setText(detailDataBean.get(0).getCompany_name());
-        name_tv.setText("联系人：" + detailDataBean.get(0).getContact_person());
-        phone_tv.setText("手机：" + detailDataBean.get(0).getCellphone());
+        name_tv.setText("负责人：" + detailDataBean.get(0).getContact_person());
+        phone_tv.setText("联系方式：" + detailDataBean.get(0).getCellphone());
         address_tv.setText("地址：" + detailDataBean.get(0).getAddress());
-        email_tv.setText("邮箱：" + detailDataBean.get(0).getEmail());
+        whatsApp_tv.setText("WhatsApp：" + detailDataBean.get(0).getEmail());
+        facebook_tv.setText("Facebook：" + detailDataBean.get(0).getFacebook());
+        weChat_tv.setText("WeChat ID：" + detailDataBean.get(0).getFacebook());
+        official_website_tv.setText("官网：" + detailDataBean.get(0).getWebsite());
         business_tv.setText(detailDataBean.get(0).getMaindeal());
         introduction_tv.setText(detailDataBean.get(0).getDescription());
 

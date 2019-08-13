@@ -47,7 +47,8 @@ public class HomeBuyAdapter extends RecyclerView.Adapter<HomeBuyAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 context.startActivity(new Intent(context, HomeBuyDetailNewActivity.class)
-                        .putExtra("trade_id", mDatas.get(position).getTrade_id()));
+                        .putExtra("trade_id", mDatas.get(position).getTrade_id())
+                        .putExtra("witch_page",0));
             }
         });
     }

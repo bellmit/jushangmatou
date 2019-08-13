@@ -15,8 +15,10 @@ import com.tem.gettogether.R;
 import com.tem.gettogether.activity.my.XeiYiH5Activity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.utils.Contacts;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.CountDownTimerUtils3;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -207,7 +209,7 @@ public class RegisterActivity extends BaseActivity {
         map.put("code", code);
         map.put("role_type",quyers_rb.isChecked()?0:1);
         map.put("companyId",companyId);
-        map.put("user_id", BaseApplication.getInstance().userBean.getUser_id());
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
         showDialog();
         XUtil.Post(URLConstant.BIND_PHONE, map, new MyCallBack<String>() {
             @Override

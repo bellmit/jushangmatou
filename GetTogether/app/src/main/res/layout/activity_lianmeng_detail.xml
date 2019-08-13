@@ -45,7 +45,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="联系人：暂无"
+                        android:text="负责人：暂无"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -61,7 +61,7 @@
                         android:id="@+id/phone_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="手机：暂无"
+                        android:text="联系方式：暂无"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -75,20 +75,36 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/zip_code_tv"
+                        android:id="@+id/weChat_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="邮编：暂无"
+                        android:text="WeChat ID：暂无"
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/email_tv"
+                        android:id="@+id/whatsApp_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="邮箱：暂无"
+                        android:text="WhatsApp：暂无"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/facebook_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Facebook：暂无"
                         android:textSize="14sp" />
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/official_website_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:text="官网：暂无"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/address_tv"

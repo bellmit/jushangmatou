@@ -44,10 +44,10 @@ public class AddressGLActivity extends BaseActivity {
     @ViewInject(R.id.tv_title)
     private TextView tv_title;
     private Effectstype effect;
-    private List<MyAddressBean.ResultBean> resultBeans=new ArrayList<>();
+    private List<MyAddressBean.ResultBean> resultBeans = new ArrayList<>();
     private String cart_ids;
-    private int ADDRESS=101;
-    private String goods_id,unique_id,goods_num,key;
+    private int ADDRESS = 101;
+    private String goods_id, unique_id, goods_num, key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,18 +61,18 @@ public class AddressGLActivity extends BaseActivity {
     @Override
     protected void initData() {
         tv_title.setText(R.string.address);
-        cart_ids=getIntent().getStringExtra("cart_ids");
-        goods_id=getIntent().getStringExtra("goods_id");
-        unique_id=getIntent().getStringExtra("unique_id");
-        goods_num=getIntent().getStringExtra("goods_num");
-        key=getIntent().getStringExtra("key");
+        cart_ids = getIntent().getStringExtra("cart_ids");
+        goods_id = getIntent().getStringExtra("goods_id");
+        unique_id = getIntent().getStringExtra("unique_id");
+        goods_num = getIntent().getStringExtra("goods_num");
+        key = getIntent().getStringExtra("key");
     }
 
     @Override
     protected void initView() {
 
-        recyclerView_address.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        recyclerView_address.setAdapter(new BaseRVAdapter(this,resultBeans) {
+        recyclerView_address.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView_address.setAdapter(new BaseRVAdapter(this, resultBeans) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.recycler_address_iteam;
@@ -80,17 +80,17 @@ public class AddressGLActivity extends BaseActivity {
 
             @Override
             public void onBind(BaseViewHolder holder, final int position) {
-                TextView tv_set_Address=holder.getTextView(R.id.tv_set_Address);
-                ImageView  iv_address_xz= holder.getImageView(R.id.iv_address_xz);
+                TextView tv_set_Address = holder.getTextView(R.id.tv_set_Address);
+                ImageView iv_address_xz = holder.getImageView(R.id.iv_address_xz);
                 holder.getTextView(R.id.tv_name).setText(resultBeans.get(position).getConsignee());
                 holder.getTextView(R.id.tv_phone).setText(resultBeans.get(position).getMobile());
-                holder.getTextView(R.id.tv_address).setText(resultBeans.get(position).getProvince()+resultBeans.get(position).getCity()+resultBeans.get(position).getDistrict()+resultBeans.get(position).getTwon()+resultBeans.get(position).getAddress());
+                holder.getTextView(R.id.tv_address).setText(resultBeans.get(position).getProvince() + resultBeans.get(position).getCity() + resultBeans.get(position).getDistrict() + resultBeans.get(position).getTwon() + resultBeans.get(position).getAddress());
 
-                if(resultBeans.get(position).getIs_default().equals("1")){
-                tv_set_Address.setText("默认地址");
-                tv_set_Address.setTextColor(getResources().getColor(R.color.my_address_xz));
-                iv_address_xz.setVisibility(View.VISIBLE);
-                holder.getTextView(R.id.tv_address_xz).setVisibility(View.GONE);
+                if (resultBeans.get(position).getIs_default().equals("1")) {
+                    tv_set_Address.setText("默认地址");
+                    tv_set_Address.setTextColor(getResources().getColor(R.color.my_address_xz));
+                    iv_address_xz.setVisibility(View.VISIBLE);
+                    holder.getTextView(R.id.tv_address_xz).setVisibility(View.GONE);
                 }
                 holder.getView(R.id.ll_set_mr).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -101,8 +101,8 @@ public class AddressGLActivity extends BaseActivity {
                 holder.getTextView(R.id.tv_bianji).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(AddressGLActivity.this,AddAddressActivity.class)
-                        .putExtra("address_id",resultBeans.get(position).getAddress_id()));
+                        startActivity(new Intent(AddressGLActivity.this, AddAddressActivity.class)
+                                .putExtra("address_id", resultBeans.get(position).getAddress_id()));
                     }
                 });
                 holder.getTextView(R.id.tv_clier).setOnClickListener(new View.OnClickListener() {
@@ -140,6 +140,27 @@ public class AddressGLActivity extends BaseActivity {
 
                     }
                 });
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (unique_id != null && !unique_id.equals("")) {
+                            if (unique_id.equals("2")) {
+                                setResult(ADDRESS, new Intent().putExtra("unique_id", unique_id)
+                                        .putExtra("cart_ids", cart_ids));
+                            } else {
+                                setResult(ADDRESS, new Intent().putExtra("unique_id", unique_id)
+                                        .putExtra("goods_id", goods_id)
+                                        .putExtra("goods_num", goods_num)
+                                        .putExtra("key", key));
+
+                            }
+                            finish();
+                        } else {
+                            finish();
+                        }
+                    }
+                });
             }
 
 
@@ -153,53 +174,55 @@ public class AddressGLActivity extends BaseActivity {
         upGetAddressData();
     }
 
-    @Event(value = {R.id.rl_close,R.id.tv_add_address}, type = View.OnClickListener.class)
+    @Event(value = {R.id.rl_close, R.id.tv_add_address}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
-                if(unique_id!=null&&!unique_id.equals("")){
-                    if(unique_id.equals("2")){
-                        setResult(ADDRESS,new Intent().putExtra("unique_id",unique_id)
-                                .putExtra("cart_ids",cart_ids));
-                    }else{
-                        setResult(ADDRESS,new Intent().putExtra("unique_id",unique_id)
-                                .putExtra("goods_id",goods_id)
-                                .putExtra("goods_num",goods_num)
-                                .putExtra("key",key));
+                if (unique_id != null && !unique_id.equals("")) {
+                    if (unique_id.equals("2")) {
+                        setResult(ADDRESS, new Intent().putExtra("unique_id", unique_id)
+                                .putExtra("cart_ids", cart_ids));
+                    } else {
+                        setResult(ADDRESS, new Intent().putExtra("unique_id", unique_id)
+                                .putExtra("goods_id", goods_id)
+                                .putExtra("goods_num", goods_num)
+                                .putExtra("key", key));
 
                     }
                     finish();
-                }else{
+                } else {
                     finish();
                 }
                 break;
             case R.id.tv_add_address:
-                startActivity(new Intent(this,AddAddressActivity.class));
+                startActivity(new Intent(this, AddAddressActivity.class));
                 break;
 
         }
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            if(cart_ids!=null&&!cart_ids.equals("")){
-                if(unique_id.equals("2")){
-                    setResult(ADDRESS,new Intent().putExtra("unique_id",unique_id)
-                            .putExtra("cart_ids",cart_ids));
-                }else{
-                    setResult(ADDRESS,new Intent().putExtra("unique_id",unique_id)
-                            .putExtra("goods_id",goods_id)
-                            .putExtra("goods_num",goods_num)
-                            .putExtra("key",key));
+            if (cart_ids != null && !cart_ids.equals("")) {
+                if (unique_id.equals("2")) {
+                    setResult(ADDRESS, new Intent().putExtra("unique_id", unique_id)
+                            .putExtra("cart_ids", cart_ids));
+                } else {
+                    setResult(ADDRESS, new Intent().putExtra("unique_id", unique_id)
+                            .putExtra("goods_id", goods_id)
+                            .putExtra("goods_num", goods_num)
+                            .putExtra("key", key));
 
                 }
                 finish();
-            }else{
+            } else {
                 finish();
             }
         }
         return true;
     }
+
     private void upGetAddressData() {
         Map<String, Object> map = new HashMap<>();
         map.put("token", BaseApplication.getInstance().userBean.getToken());
@@ -215,8 +238,8 @@ public class AddressGLActivity extends BaseActivity {
                     String res = jsonObject.optString("status");
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        MyAddressBean myAddressBean=gson.fromJson(result,MyAddressBean.class);
-                        resultBeans=myAddressBean.getResult();
+                        MyAddressBean myAddressBean = gson.fromJson(result, MyAddressBean.class);
+                        resultBeans = myAddressBean.getResult();
                     }
 
                 } catch (JSONException e) {
@@ -239,11 +262,12 @@ public class AddressGLActivity extends BaseActivity {
             }
         });
     }
+
     private void upSetMoAddressData(String id) {
         Map<String, Object> map = new HashMap<>();
         map.put("token", BaseApplication.getInstance().userBean.getToken());
         map.put("address_id", id);
-        Log.i("===参数--", BaseApplication.getInstance().userBean.getToken()+"--"+id);
+        Log.i("===参数--", BaseApplication.getInstance().userBean.getToken() + "--" + id);
         showDialog();
         XUtil.Post(URLConstant.ADDRESS_SETTINGMOREN, map, new MyCallBack<String>() {
             @Override
@@ -281,6 +305,7 @@ public class AddressGLActivity extends BaseActivity {
             }
         });
     }
+
     private void upRemoveAddressData(String id) {
         Map<String, Object> map = new HashMap<>();
         map.put("token", BaseApplication.getInstance().userBean.getToken());

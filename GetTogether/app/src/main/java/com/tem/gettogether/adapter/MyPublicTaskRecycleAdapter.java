@@ -30,16 +30,16 @@ public class MyPublicTaskRecycleAdapter extends RecyclerView.Adapter<MyPublicTas
     private Context context;
     private OnClickListener onClickListener;
     private OnLongClickListener longClickListener;
-
+    private int witchRecycleType;// 区分一个界面两个recycleview共用一个adapter的情况
     public MyPublicTaskRecycleAdapter(Context context, List<Integer> datas, List<String> mPaths,
-                                      OnClickListener onClickListener, OnLongClickListener longClickListener) {
+                                      OnClickListener onClickListener, OnLongClickListener longClickListener , int witchRecycleType) {
         mInflater = LayoutInflater.from(context);
         this.mDatas = datas;
         this.context = context;
         this.mPaths = mPaths;
         this.onClickListener = onClickListener;
         this.longClickListener = longClickListener;
-
+        this.witchRecycleType = witchRecycleType;
     }
 
 
@@ -49,11 +49,8 @@ public class MyPublicTaskRecycleAdapter extends RecyclerView.Adapter<MyPublicTas
             super(arg0);
         }
 
-        // View layout;
         ImageView mImg;
         ImageView deleteIv;
-        // TextView name;
-        // TextView price;
     }
 
     @Override
@@ -96,9 +93,11 @@ public class MyPublicTaskRecycleAdapter extends RecyclerView.Adapter<MyPublicTas
 
         viewHolder.mImg.setOnClickListener(onClickListener);
         viewHolder.mImg.setOnLongClickListener(longClickListener);
-        viewHolder.mImg.setTag(position);
+        viewHolder.mImg.setTag(R.id.postion,position);
+        viewHolder.mImg.setTag(R.id.type,witchRecycleType);
         viewHolder.deleteIv.setOnClickListener(onClickListener);
-        viewHolder.deleteIv.setTag(position);
+        viewHolder.deleteIv.setTag(R.id.postion,position);
+        viewHolder.deleteIv.setTag(R.id.type,witchRecycleType);
     }
 
 }

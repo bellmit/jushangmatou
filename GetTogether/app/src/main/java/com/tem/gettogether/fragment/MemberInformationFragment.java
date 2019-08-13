@@ -14,10 +14,12 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseFragment;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.MemberInformationBean;
 import com.tem.gettogether.bean.MyMessageBean;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 
@@ -75,7 +77,7 @@ public class MemberInformationFragment extends BaseFragment {
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", BaseApplication.getInstance().userBean.getToken());
-        map.put("user_id", BaseApplication.getInstance().userBean.getUser_id());
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
         XUtil.Post(URLConstant.MEMBER_INFORMATION, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {

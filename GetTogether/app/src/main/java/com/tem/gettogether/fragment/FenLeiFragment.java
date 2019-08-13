@@ -231,6 +231,7 @@ public class FenLeiFragment extends BaseFragment {
                                 holder.getView(R.id.ll_shopping_item).setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
+                                        Log.d("chenshichun","====idid======="+resultBeans.get(cengj).getSub_category().get(position2).getId());
                                         startActivityForResult(new Intent(getActivity(), ShopFLConnectActivity.class)
                                                 .putExtra("title", resultBeans.get(cengj).getSub_category().get(position2).getMobile_name() + "")
                                                 .putExtra("id",resultBeans.get(cengj).getSub_category().get(position2).getId())
@@ -388,6 +389,7 @@ public class FenLeiFragment extends BaseFragment {
             map.put("language",yuyan);
         }
         map.put("parent_id", category_id);
+        Log.d("chenshichun","=========parent_id=="+category_id);
         baseActivity.showDialog();
         XUtil.Post(URLConstant.SHOPFENLEI_RIGHT, map, new MyCallBack<String>() {
             @Override

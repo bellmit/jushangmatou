@@ -337,6 +337,7 @@ public class MyOrderFragment extends BaseFragment {
         Map<String, Object> map = new HashMap<>();
         if(BaseApplication.getInstance().userBean==null)return;
         map.put("token", BaseApplication.getInstance().userBean.getToken());
+        Log.d("chenshichun","===========mTab  "+mTab);
         if(mTab==0){
             map.put("type", "");
         }else  if(mTab==1){
@@ -349,7 +350,7 @@ public class MyOrderFragment extends BaseFragment {
             map.put("type", "WAITRECEIVE");
 
         }else  if(mTab==4){
-            map.put("type", "WAITCCOMMENT_FINISH");
+            map.put("type", "FINISH");
         }
 
         map.put("page",page);

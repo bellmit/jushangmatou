@@ -35,6 +35,7 @@ import com.tem.gettogether.R;
 import com.tem.gettogether.ShowImageDetail;
 import com.tem.gettogether.activity.MainActivity;
 import com.tem.gettogether.activity.cart.CloseAccountActivity;
+import com.tem.gettogether.activity.cart.ShoppingCartActivity;
 import com.tem.gettogether.activity.my.AddressGLActivity;
 import com.tem.gettogether.adapter.OrderDetailAdapter;
 import com.tem.gettogether.adapter.RollingTextAdapter;
@@ -355,8 +356,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 cardCloaseBean.setGoods_id(goods_id);
                 cardCloaseBean.setCartClose(true);
                 EventBus.getDefault().post(cardCloaseBean);
-                startActivity(new Intent(this, MainActivity.class)
-                        .putExtra("tab", "3"));
+//                startActivity(new Intent(this, MainActivity.class)
+//                        .putExtra("tab", "3"));
+                startActivity(new Intent(this, ShoppingCartActivity.class));
                 break;
             case R.id.tv_jian:
 //                num=Integer.parseInt(tv_num.getText().toString());

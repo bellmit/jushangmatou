@@ -182,7 +182,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
     public void initView() {
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3, LinearLayoutManager.VERTICAL, false));
-        mTaskImgAdapter = new MyPublicTaskRecycleAdapter(getActivity(), imageRes, imagePaths, this, this);
+        mTaskImgAdapter = new MyPublicTaskRecycleAdapter(getActivity(), imageRes, imagePaths, this, this,0);
         recyclerView.setAdapter(mTaskImgAdapter);
 
     }
@@ -277,7 +277,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         Intent intent;
         switch (v.getId()) {
             case R.id.item_publishTask_image:
-                Integer index = (Integer) v.getTag();
+                Integer index = (Integer) v.getTag(R.id.postion);
 
                 if (index == imagePaths.size() - 1) {
 
@@ -309,7 +309,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                 }
                 break;
             case R.id.delete_iv:
-                final Integer index1 = (Integer) v.getTag();
+                final Integer index1 = (Integer) v.getTag(R.id.postion);
                 System.out.println("index:===" + index1);
                 /**
                  这里使用了 android.support.v7.app.AlertDialog.Builder
@@ -334,6 +334,8 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                         mTaskImgAdapter.notifyDataSetChanged();
                     }
                 });
+                Log.d("chenshichun","=======imagePaths===="+imagePaths);
+                Log.d("chenshichun","======imagePaths.size()====="+imagePaths.size());
                 if (imagePaths.size() - 1 != index1)
                     builder.show();
 

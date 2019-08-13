@@ -227,7 +227,7 @@ public class URLConstant {
     //   我的店铺详情
     public final static String MYDEDIANPOU_XINXI = SERVER + "/Api/Store/getmystoreDetail";
     //   商品上传
-    public final static String ADDXINCHANPIN = SERVER + "/Api/Store/addGoods";
+    public final static String ADDXINCHANPIN = SERVER + "/Api/User/new_add_goods";
     //   店铺发布动态
     public final static String FABUDONGTAI = SERVER + "/Api/Store/addDynamic";
     //   店铺发布动态
@@ -249,14 +249,44 @@ public class URLConstant {
     //   店铺服务费微信
     public final static String DIANPU_WX_FUWUFEI = SERVER + "/Api/Wxpay/mservicePay";
     //   判断店铺审核是否通过接口
-    public final static String DIAN_PU_SHEN_HE = SERVER +"/Api/Newjoin/apply_state";
+    public final static String DIAN_PU_SHEN_HE = SERVER + "/Api/Newjoin/apply_state";
 
     // 获取会员付费信息
-    public final static String JOIN_USER_LEVER = SERVER +"/Api/User/join_user_level";
+    public final static String JOIN_USER_LEVER = SERVER + "/Api/User/join_user_level";
 
     // 获取会员信息
-    public final static String MEMBER_INFORMATION = SERVER +"/Api/User/user_level";
+    public final static String MEMBER_INFORMATION = SERVER + "/Api/User/user_level";
 
     // 获取店铺信息
-    public final static String SHOP_INFORMATION = SERVER +"/Api/User/store_info";
+    public final static String SHOP_INFORMATION = SERVER + "/Api/User/store_info";
+
+    // 获取商品分类信息
+    public final static String CATEGORIES = SERVER + "/Api/User/get_goods_category";
+
+    // 获取店铺认证失败接口
+    public final static String RZ_FAILED = SERVER + "/Api/User/fail_reason";
+
+    // 产品管理接口
+    public final static String PRODUCT_MANAGEMENT = SERVER + "/Api/User/out_sale_goods";
+
+    // 上架
+    public final static String SHELF_URL = SERVER + "/Api/User/on_sale_button";
+
+    // 下架
+    public final static String OBTAINED_URL = SERVER + "/Api/User/out_sale_button";
+
+    // 编辑
+    public final static String EDIT_URL = SERVER + "/Api/User/will_add_goods";
+
+    // 删除
+    public final static String DELETE_URL = SERVER + "/Api/User/del_button";
+
+    // 新分类接口
+    public final static String SEARCH_URL = SERVER + "/Api/User/get_goods_category";
+
+    // 新分类接口列表
+    public final static String SEARCH_LIST_URL = SERVER + "/Api/Goods/category3_goodsList";
+
+    // 企业认证
+    public final static String ENTERPISE_INFO = SERVER + "/Api/User/enterprise_info";
 }

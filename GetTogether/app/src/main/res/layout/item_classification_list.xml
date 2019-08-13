@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_item_all"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <com.tem.gettogether.view.RoundImageView
+            android:id="@+id/iv_image"
+            android:layout_width="match_parent"
+            android:layout_height="171dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/myy322x" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingStart="10dp"
+            android:text="儿童宝宝三轮车 厂家直销"
+            android:textColor="@color/text3"
+            android:textSize="14dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp">
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="￥27.00"
+                android:textColor="@color/home_red"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/tv_member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:drawableStart="@drawable/home_xz"
+                android:drawablePadding="3dp"
+                android:gravity="center_horizontal"
+                android:text="高级会员"
+                android:textColor="@color/text3"
+                android:textSize="12dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_numbear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:text="500个起购"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</LinearLayout>

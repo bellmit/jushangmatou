@@ -423,6 +423,8 @@
         <activity android:name=".activity.home.LianMengDetailActivity" />
         <activity android:name=".activity.home.HomeBuyDetailActivity" />
         <activity android:name=".activity.home.HomeBuyDetailNewActivity" />
+        <activity android:name=".activity.my.WaiMaoQiuGouActivity" />
+        <activity android:name=".activity.classification.ClassificationActivity" />
         <activity android:name=".activity.my.shopauthentication.ShopAuthenticationActivity" />
         <activity android:name=".activity.my.shopauthentication.PersionAuthenticationActivity" />
         <activity android:name=".activity.my.shopauthentication.DistributorAuthenticationActivity" />
@@ -434,7 +436,8 @@
         <activity android:name="com.tem.gettogether.activity.my.VipCenterActivity"/>
         <activity android:name="com.tem.gettogether.activity.my.ProductManagmentActivity"/>
         <activity android:name="com.tem.gettogether.activity.my.VisitorActivity"/>
-
+        <activity android:name="com.tem.gettogether.activity.my.ShopRzFailedActivity"/>
+        <activity android:name="com.tem.gettogether.activity.cart.ShoppingCartActivity"/>
     </application>
 
 </manifest>

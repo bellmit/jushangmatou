@@ -1,7 +1,10 @@
 package com.tem.gettogether.activity;
 
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -10,15 +13,18 @@ import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.MyMessageBean;
 import com.tem.gettogether.bean.ShopInformationBean;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
@@ -49,6 +55,14 @@ public class MyShopActivity extends BaseActivity {
     private ImageView iv_image_4;
     @ViewInject(R.id.iv_image_5)
     private ImageView iv_image_5;
+    @ViewInject(R.id.except_company_ll)
+    private LinearLayout except_company_ll;
+    @ViewInject(R.id.except_persion_ll)
+    private LinearLayout except_persion_ll;
+    @ViewInject(R.id.rl_close)
+    private RelativeLayout rl_close;
+
+    private String apply_type;//0企业2工厂
 
     @Override
     protected void initData() {
@@ -62,12 +76,20 @@ public class MyShopActivity extends BaseActivity {
 
     }
 
+    @Event(value = {R.id.rl_close}, type = View.OnClickListener.class)
+    private void getEvent(View view) {
+        switch (view.getId()) {
+            case R.id.rl_close:
+                finish();
+                break;
+        }
+    }
 
     private void upGetMessageData() {
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", BaseApplication.getInstance().userBean.getToken());
-        map.put("user_id", BaseApplication.getInstance().userBean.getUser_id());
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         map.put("store_status", 1);
         XUtil.Post(URLConstant.SHOP_INFORMATION, map, new MyCallBack<String>() {
             @Override
@@ -89,6 +111,13 @@ public class MyShopActivity extends BaseActivity {
                                 + mShopInformationBean.getResult().get(0).getStore_district()
                                 + mShopInformationBean.getResult().get(0).getStore_address());
                         et_card_num.setText(mShopInformationBean.getResult().get(0).getLegal_identity());
+                        apply_type = mShopInformationBean.getResult().get(0).getApply_type();
+                        if (apply_type.equals("1")) {// 个人
+                            except_persion_ll.setVisibility(View.GONE);
+                        } else if (apply_type.equals("0")) {//公司
+                            except_company_ll.setVisibility(View.GONE);
+                        } else if (apply_type.equals("2")) {// 工厂
+                        }
                         if (mShopInformationBean.getResult().get(0).getLegal_identity_cert().get(0) != null) {
                             Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getLegal_identity_cert().get(0) + "").asBitmap().error(R.drawable.img12x).centerCrop().into(new BitmapImageViewTarget(iv_image_1));
                         }
@@ -104,7 +133,6 @@ public class MyShopActivity extends BaseActivity {
                         if (mShopInformationBean.getResult().get(0).getFactory_scene().get(1) != null) {
                             Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getFactory_scene().get(1) + "").asBitmap().error(R.drawable.img12x).centerCrop().into(new BitmapImageViewTarget(iv_image_5));
                         }
-                        Log.d("chenshichun", "===========end");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

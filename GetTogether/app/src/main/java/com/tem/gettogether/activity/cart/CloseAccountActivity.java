@@ -229,6 +229,7 @@ public class CloseAccountActivity extends BaseActivity {
     private void upTJDDData() {
         Map<String, Object> map = new HashMap<>();
         map.put("token", BaseApplication.getInstance().userBean.getToken());
+        Log.d("chenshichun","======addressListBeans.getAddress_id()=====  "+addressListBeans.getAddress_id());
         map.put("address_id", addressListBeans.getAddress_id());
         map.put("act", "submit_order");
 //        map.put("shipping_code["+ storeListBeans.get(0).getStore_id()+"]","shentong");

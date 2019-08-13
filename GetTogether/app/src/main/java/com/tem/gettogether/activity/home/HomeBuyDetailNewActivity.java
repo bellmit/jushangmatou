@@ -1,6 +1,8 @@
 package com.tem.gettogether.activity.home;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,7 +10,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.lcodecore.tkrefreshlayout.Footer.LoadingView;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.my.WaiMaoQiuGouActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
@@ -16,6 +23,7 @@ import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.WaiMaoQiuGouBean;
 import com.tem.gettogether.rongyun.RongTalk;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.SizeUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.youth.banner.Banner;
@@ -24,6 +32,7 @@ import com.youth.banner.loader.ImageLoader;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
@@ -60,15 +69,18 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
     private TextView view_other_tv;
     @ViewInject(R.id.online_communication_tv)
     private TextView online_communication_tv;
-
+    @ViewInject(R.id.refreshLayout)
+    private TwinklingRefreshLayout refreshLayout;
 
     private List<WaiMaoQiuGouBean.ResultEntity> waiMaoQiuGouBeans = new ArrayList<>();
-
+    private int isHomeList=0;
     @Override
     protected void initData() {
         x.view().inject(this);
         trade_id = getIntent().getStringExtra("trade_id");
+        isHomeList = getIntent().getIntExtra("witch_page",0);
         initDatas();
+        initRefresh();
     }
 
     @Override
@@ -122,7 +134,10 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
 
     private void initViews() {
         type_tv.setText(waiMaoQiuGouBeans.get(0).getRelease_type());
-        user_name_tv.setText(getResources().getText(R.string.user_name) + "" + waiMaoQiuGouBeans.get(0).getMobile());
+        int imageSize = SizeUtil.dp2px(getContext(), 80);
+        Glide.with(getContext()).load(waiMaoQiuGouBeans.get(0).getHead_pic()).asBitmap().placeholder(R.mipmap.myy322x)
+                .error(R.mipmap.myy322x).override(imageSize, imageSize).into(head_iv);
+        user_name_tv.setText(getResources().getText(R.string.user_name) + "" + waiMaoQiuGouBeans.get(0).getNickname());
         country_tv.setText("出口国家：" + waiMaoQiuGouBeans.get(0).getCountry_name());
         product_title.setText("" + waiMaoQiuGouBeans.get(0).getGoods_name());
         delivery_time_tv.setText("交货时间：" + waiMaoQiuGouBeans.get(0).getAttach_time());
@@ -166,5 +181,49 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
         }
     }
 
+    private void initRefresh() {
+        SinaRefreshView headerView = new SinaRefreshView(getContext());
+        headerView.setTextColor(0xff745D5C);
+        refreshLayout.setHeaderView(headerView);
+        refreshLayout.setEnableLoadmore(false);
+        LoadingView loadingView = new LoadingView(getContext());
+        refreshLayout.setBottomView(loadingView);
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                super.onRefresh(refreshLayout);
+                initDatas();
+                refreshLayout.finishRefreshing();
+            }
 
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                super.onLoadMore(refreshLayout);
+            }
+
+            @Override
+            public void onFinishRefresh() {
+                super.onFinishRefresh();
+            }
+
+            @Override
+            public void onFinishLoadMore() {
+                super.onFinishLoadMore();
+            }
+        });
+    }
+
+    @Event(value = {R.id.view_other_tv}, type = View.OnClickListener.class)
+    private void getEvent(View view) {
+        Bundle bundle = new Bundle();
+        switch (view.getId()) {
+            case R.id.view_other_tv:
+                if(isHomeList==0){// 首页跳进来的
+                    startActivity(new Intent(this, WaiMaoQiuGouActivity.class));
+                }else if(isHomeList==1){// 列表跳进来的
+                    finish();
+                }
+                break;
+        }
+    }
 }

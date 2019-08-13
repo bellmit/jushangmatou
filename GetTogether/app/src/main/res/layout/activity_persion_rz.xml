@@ -109,6 +109,7 @@
                 android:background="@color/line" />
 
             <LinearLayout
+                android:id="@+id/address_detail_ll"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/grrz_height"
                 android:gravity="center_vertical"

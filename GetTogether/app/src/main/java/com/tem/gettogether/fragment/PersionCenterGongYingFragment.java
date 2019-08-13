@@ -24,10 +24,13 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.SplashActivity;
 import com.tem.gettogether.activity.my.CorporateInformationActivity;
 import com.tem.gettogether.activity.my.FansActivity;
 import com.tem.gettogether.activity.my.GYWeActivity;
+import com.tem.gettogether.activity.my.MyOrderActivity;
 import com.tem.gettogether.activity.my.SettingActivity;
+import com.tem.gettogether.activity.my.ShopRzFailedActivity;
 import com.tem.gettogether.activity.my.StoreManagementActivity;
 import com.tem.gettogether.activity.my.TAdviseActivity;
 import com.tem.gettogether.activity.my.VipCenterActivity;
@@ -36,10 +39,13 @@ import com.tem.gettogether.activity.my.XunPanTuiSongActivity;
 import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseFragment;
 import com.tem.gettogether.base.URLConstant;
+import com.tem.gettogether.bean.CategoriesBean;
 import com.tem.gettogether.bean.MyMessageBean;
 import com.tem.gettogether.utils.Contacts;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.CircularImage;
@@ -100,6 +106,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
     private BaseActivity baseActivity;
     private MyMessageBean.ResultBean resultBean = new MyMessageBean.ResultBean();
     private String userLever;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -164,8 +171,64 @@ public class PersionCenterGongYingFragment extends BaseFragment {
     }
 
 
-    @Event(value = {R.id.tv_setting, R.id.rl_sprz, R.id.tv_name,R.id.tv_all, R.id.ll_scj, R.id.ll_zj, R.id.ll_qb,
-            R.id.tv_dfh, R.id.tv_dsh, R.id.rl_my_message, R.id.rl_dzgl, R.id.rl_ksbh, R.id.rl_zxkf, R.id.rl_tdyj, R.id.rl_gywm}, type = View.OnClickListener.class)
+    /*
+     * 店铺信息
+     * */
+    private void upGetRzFailedData() {
+        Map<String, Object> map = new HashMap<>();
+        if (BaseApplication.getInstance().userBean == null) return;
+        map.put("token", BaseApplication.getInstance().userBean.getToken());
+//                map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
+        Log.d("chenshichun","==========="+SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
+
+        baseActivity.showDialog();
+        XUtil.Post(URLConstant.RZ_FAILED, map, new MyCallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                Log.i("====获取个人信息===", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    String msg = jsonObject.optString("msg");
+                    String resultMessage = jsonObject.optString("result");
+                    if (res.equals("1")) {
+                        startActivity(new Intent(getActivity(), ShopRzFailedActivity.class).putExtra(Contacts.SHOP_RZ_FAILED, resultMessage));
+                    } else{
+                        if (resultBean.getStore_status() == 1) {//店铺管理
+                            startActivity(new Intent(getActivity(), StoreManagementActivity.class));
+                        } else if (resultBean.getStore_status() == 2) {
+                            CusToast.showToast("店铺审核中");
+                            return;
+                        } else if (resultBean.getStore_status() == 0 || resultBean.getStore_status() == 3 || resultBean.getStore_status() == 4) {//店铺管理
+                            startActivity(new Intent(getActivity(), ShopAuthenticationActivity.class));
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                baseActivity.closeDialog();
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                ex.printStackTrace();
+                baseActivity.closeDialog();
+            }
+        });
+    }
+
+
+    @Event(value = {R.id.tv_setting, R.id.rl_sprz, R.id.tv_name, R.id.tv_all, R.id.ll_scj, R.id.ll_zj, R.id.ll_qb,
+            R.id.tv_dfh, R.id.tv_dsh, R.id.tv_dfk, R.id.rl_my_message, R.id.rl_dzgl, R.id.rl_ksbh, R.id.rl_zxkf, R.id.rl_tdyj, R.id.rl_gywm}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.tv_setting:// 设置
@@ -182,12 +245,20 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), VisitorActivity.class));
                 break;
             case R.id.tv_all:// 全部
+                startActivity(new Intent(getActivity(), MyOrderActivity.class)
+                        .putExtra("tabType","0"));
                 break;
-            case R.id.tv_dfk:// 已下单
+            case R.id.tv_dfk:// 待下单
+                startActivity(new Intent(getActivity(), MyOrderActivity.class)
+                        .putExtra("tabType","1"));
                 break;
-            case R.id.tv_dfh:// 已收货
+            case R.id.tv_dfh:// 待发货
+                startActivity(new Intent(getActivity(), MyOrderActivity.class)
+                        .putExtra("tabType","2"));
                 break;
-            case R.id.tv_dsh:// 已结款
+            case R.id.tv_dsh:// 待结款
+                startActivity(new Intent(getActivity(), MyOrderActivity.class)
+                        .putExtra("tabType","3"));
                 break;
             case R.id.rl_my_message:// 企业信息
                 startActivity(new Intent(getActivity(), CorporateInformationActivity.class).putExtra(Contacts.PERSION_ENTERPRISE_INFORMATION, 0));
@@ -199,14 +270,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), XunPanTuiSongActivity.class));
                 break;
             case R.id.rl_sprz: // 商铺认证
-                if (resultBean.getStore_status() == 1) {//店铺管理
-                    startActivity(new Intent(getActivity(), StoreManagementActivity.class));
-                } else if (resultBean.getStore_status() == 2) {
-                    CusToast.showToast("店铺审核中");
-                    return;
-                } else if (resultBean.getStore_status() == 0 || resultBean.getStore_status() == 3 || resultBean.getStore_status() == 4) {//店铺管理
-                    startActivity(new Intent(getActivity(), ShopAuthenticationActivity.class));
-                }
+                upGetRzFailedData();
                 break;
             case R.id.rl_zxkf:// 在线客服
                 showPop(rl_zxkf);

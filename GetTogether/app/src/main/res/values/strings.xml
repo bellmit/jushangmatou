@@ -213,9 +213,9 @@
     <string name="qiyexinxi">企业信息</string>
     <string name="huiyuanxinxi">会员信息</string>
     <string name="tuisongxunpan">询盘推送</string>
-    <string name="yixiadan">已下单</string>
-    <string name="yishouhuo">已收货</string>
-    <string name="yijiekuan">已结款</string>
+    <string name="yixiadan">待下单</string>
+    <string name="yishouhuo">待发货</string>
+    <string name="yijiekuan">待结款</string>
     <string name="gongsijieshao">阿里巴巴网络技术有限公司（简称：阿里巴巴集团或阿里巴巴）是以曾担任英语教师的马云为首的18人于1999年在浙江杭州创立的公司。 [1-2]
 阿里巴巴集团经营多项业务，另外也从关联公司的业务和服务中取得经营商业生态系统上的支援。业务和关联公司的业务包括：淘宝网、天猫、聚划算、全球速卖通、阿里巴巴国际交易市场、1688、阿里妈妈、阿里云、蚂蚁金服、菜鸟网络等。 [3]
 2014年9月19日，阿里巴巴集团在纽约证券交易所正式挂牌上市，股票代码“BABA”，创始人和董事局主席为马云。
@@ -303,4 +303,5 @@
     <string name="none">暂无</string>
     <string name="join_membership">开通会员</string>
     <string name="my_shop">我的店铺</string>
+    <string name="restart_rz">重新认证</string>
 </resources>

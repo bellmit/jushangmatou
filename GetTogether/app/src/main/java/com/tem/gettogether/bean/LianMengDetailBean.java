@@ -72,6 +72,42 @@ public class LianMengDetailBean {
         private String cellphone;
         private String email;
         private String status;
+        private String wechat;
+        private String whatsapp;
+        private String facebook;
+        private String website;
+
+        public String getWechat() {
+            return wechat;
+        }
+
+        public void setWechat(String wechat) {
+            this.wechat = wechat;
+        }
+
+        public String getWhatsapp() {
+            return whatsapp;
+        }
+
+        public void setWhatsapp(String whatsapp) {
+            this.whatsapp = whatsapp;
+        }
+
+        public String getFacebook() {
+            return facebook;
+        }
+
+        public void setFacebook(String facebook) {
+            this.facebook = facebook;
+        }
+
+        public String getWebsite() {
+            return website;
+        }
+
+        public void setWebsite(String website) {
+            this.website = website;
+        }
 
         public void setQq(String qq) {
             this.qq = qq;

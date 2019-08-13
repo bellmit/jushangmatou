@@ -1,5 +1,7 @@
 package com.tem.gettogether.activity.my;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -9,7 +11,6 @@ import android.widget.TextView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.fragment.ProductManagmentFragment;
-import com.tem.gettogether.fragment.XunPanFragment;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ContentView(R.layout.activity_product_management)
-public class ProductManagmentActivity extends BaseActivity{
+public class ProductManagmentActivity extends BaseActivity {
     @ViewInject(R.id.tv_title)
     private TextView tv_title;
     @ViewInject(R.id.myTab)
@@ -27,7 +28,8 @@ public class ProductManagmentActivity extends BaseActivity{
     @ViewInject(R.id.myView)
     private ViewPager myView;
     private List<String> myTitle;
-    private List<Fragment>myFragment;
+    private List<Fragment> myFragment;
+    private  FragmentPagerAdapter fragmentPagerAdapter;
     @Override
     protected void initData() {
         x.view().inject(this);
@@ -38,7 +40,23 @@ public class ProductManagmentActivity extends BaseActivity{
 
     @Override
     protected void initView() {
+        myTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                Intent intent = new Intent("REFRESH_DATA");
+                intent.putExtra("page", tab.getPosition());
+                sendBroadcast(intent);
+            }
 
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void initDatas() {
@@ -47,17 +65,22 @@ public class ProductManagmentActivity extends BaseActivity{
         for (int i = 0; i < string.length; i++) {
             myTitle.add(string[i]);
         }
+
         myFragment = new ArrayList<>();
-        myFragment.add(new ProductManagmentFragment());
-        myFragment.add(new ProductManagmentFragment());
-        myFragment.add(new ProductManagmentFragment());
+        for (int i = 0; i < 3; i++) {
+            ProductManagmentFragment fragment = new ProductManagmentFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("page", i);
+            fragment.setArguments(bundle);
+            myFragment.add(fragment);
+        }
     }
 
-    private void initViews(){
+    private void initViews() {
         //预加载
         myView.setOffscreenPageLimit(myFragment.size());
         //适配器（容器都需要适配器）
-        myView.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+        fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             //选中的item
             @Override
             public Fragment getItem(int position) {
@@ -73,7 +96,8 @@ public class ProductManagmentActivity extends BaseActivity{
             public CharSequence getPageTitle(int position) {
                 return myTitle.get(position);
             }
-        });
+        };
+        myView.setAdapter(fragmentPagerAdapter);
         myTab.setupWithViewPager(myView);
     }
 }

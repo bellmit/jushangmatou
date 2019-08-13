@@ -3,6 +3,7 @@ package com.tem.gettogether.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
 import com.tem.gettogether.bean.HomeDataNewBean;
 import com.tem.gettogether.bean.HomeLianMengBean;
 import com.tem.gettogether.utils.Contacts;
+import com.tem.gettogether.utils.SizeUtil;
 import com.tem.gettogether.utils.TransformationUtils;
 
 import java.util.List;
@@ -38,7 +40,8 @@ public class HomeLianMengSecondAdapter extends RecyclerView.Adapter<HomeLianMeng
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Glide.with(context).load(mDatas.get(position).getCompany_logo()).asBitmap().placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).into(new TransformationUtils(holder.pic_iv));
+        int imageSize= SizeUtil.dp2px(context,100);
+        Glide.with(context).load(mDatas.get(position).getCompany_logo()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(imageSize, imageSize).into(holder.pic_iv);
         holder.product_title.setText(mDatas.get(position).getCompany_name());
         holder.detail_tv.setText(context.getResources().getString(R.string.business)+mDatas.get(position).getMaindeal());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
