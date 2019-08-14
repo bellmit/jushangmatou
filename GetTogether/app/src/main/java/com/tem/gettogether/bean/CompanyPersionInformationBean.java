@@ -59,11 +59,11 @@ public class CompanyPersionInformationBean {
         private String nickname;
         private String sex;
         private String mobile;
-        private Object head_pic;
+        private String head_pic;
         private String country_name;
         private String store_state;
         private String sc_name;
-        private Object company_content;
+        private String company_content;
         private String company_name;
         private String company_province;
         private String company_city;
@@ -95,11 +95,11 @@ public class CompanyPersionInformationBean {
             this.mobile = mobile;
         }
 
-        public Object getHead_pic() {
+        public String getHead_pic() {
             return head_pic;
         }
 
-        public void setHead_pic(Object head_pic) {
+        public void setHead_pic(String head_pic) {
             this.head_pic = head_pic;
         }
 
@@ -127,11 +127,11 @@ public class CompanyPersionInformationBean {
             this.sc_name = sc_name;
         }
 
-        public Object getCompany_content() {
+        public String getCompany_content() {
             return company_content;
         }
 
-        public void setCompany_content(Object company_content) {
+        public void setCompany_content(String company_content) {
             this.company_content = company_content;
         }
 

@@ -178,6 +178,7 @@ public class SplashActivity extends BaseActivity {
                         SharedPreferencesUtils.saveString(SplashActivity.this, BaseConstant.SPConstant.TOKEN, loginBean.getResult().getToken());
                         SharedPreferencesUtils.saveString(SplashActivity.this, BaseConstant.SPConstant.TYPE, type);
                         SharedPreferencesUtils.saveString(SplashActivity.this,BaseConstant.SPConstant.USERID,loginBean.getResult().getUser_id());
+                        SharedPreferencesUtils.saveString(SplashActivity.this,BaseConstant.SPConstant.LEVER,loginBean.getResult().getLevel());
 
                         UserBean userBean = new UserBean();
                         userBean.setToken(loginBean.getResult().getToken());
@@ -250,6 +251,8 @@ public class SplashActivity extends BaseActivity {
                         SharedPreferencesUtils.saveString(SplashActivity.this, BaseConstant.SPConstant.openid,openid);
                         SharedPreferencesUtils.saveString(SplashActivity.this, BaseConstant.SPConstant.NAME, nickname);
                         SharedPreferencesUtils.saveString(SplashActivity.this,BaseConstant.SPConstant.USERID,loginBean.getResult().getUser_id());
+                        SharedPreferencesUtils.saveString(SplashActivity.this,BaseConstant.SPConstant.LEVER,loginBean.getResult().getLevel());
+
                         if(type.equals("2")){
                             SharedPreferencesUtils.saveString(SplashActivity.this, BaseConstant.SPConstant.TYPE, "2");//QQ
                         }else if(type.equals("3")){

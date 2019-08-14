@@ -254,6 +254,7 @@ public class LoginActivity extends BaseActivity {
                         SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.TOKEN, loginBean.getResult().getToken());
                         SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.ROLE_TYPE, loginBean.getResult().getRole_type());
                         SharedPreferencesUtils.saveString(LoginActivity.this,BaseConstant.SPConstant.USERID,loginBean.getResult().getUser_id());
+                        SharedPreferencesUtils.saveString(LoginActivity.this,BaseConstant.SPConstant.LEVER,loginBean.getResult().getLevel());
 
                         UserBean userBean = new UserBean();
                         userBean.setToken(loginBean.getResult().getToken());
@@ -442,6 +443,7 @@ public class LoginActivity extends BaseActivity {
                         SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.NAME, QQname);
                         SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.TYPE, "2");//QQ
                         SharedPreferencesUtils.saveString(LoginActivity.this,BaseConstant.SPConstant.USERID,loginBean.getResult().getUser_id());
+                        SharedPreferencesUtils.saveString(LoginActivity.this,BaseConstant.SPConstant.LEVER,loginBean.getResult().getLevel());
                         Log.d("chenshichun", "---getRole_type  " + loginBean.getResult().getRole_type());
                         UserBean userBean = new UserBean();
                         userBean.setToken(loginBean.getResult().getToken());

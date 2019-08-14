@@ -14,4 +14,6 @@ public class Contacts {
     public static final String USER_INFO_NICKNAME = "USER_INFO_NICKNAME";
     public static final String USER_INFO_ACCOUNT = "USER_INFO_NICKNAME";
     public static final String SHOP_RZ_FAILED = "SHOP_RZ_FAILED";
+    public static final String RZ_TYPE = "RZ_TYPE";
+
 }

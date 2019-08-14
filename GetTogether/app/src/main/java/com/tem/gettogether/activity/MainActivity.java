@@ -30,6 +30,8 @@ import com.tem.gettogether.fragment.PersionCenterCaiGouFragment;
 import com.tem.gettogether.fragment.PersionCenterGongYingFragment;
 import com.tem.gettogether.fragment.PublishBuyFragment;
 import com.tem.gettogether.fragment.SearchFragment;
+import com.tem.gettogether.fragment.XunPanFragment;
+import com.tem.gettogether.fragment.XunPanTuiSongFragment;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.language.LanguageBean;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
@@ -101,6 +103,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     private MessageFragment messageFragment;
     private SearchFragment fenLeiFragment;
     private HomeNewFragment homeFragment;
+    private XunPanTuiSongFragment xunPanFragment;
     private PersionCenterGongYingFragment persionCenterGongYingFragment;
     private PersionCenterCaiGouFragment persionCenterCaiGouFragment;
     protected int position = 0;
@@ -113,6 +116,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     private int tab = 0;
     @ViewInject(R.id.seal_num)
     private DragPointView mUnreadNumView;
+    String role_type;
     private Handler mHandler = new Handler(Looper.getMainLooper()) {
 
         @Override
@@ -156,15 +160,14 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         getSwipeBackLayout().setEnableGesture(false);//禁止右滑退出
 
         mUnreadNumView.setDragListencer(this);
-
         fragmentList = new ArrayList<>();
-
         homeFragment = new HomeNewFragment();
         fenLeiFragment = new SearchFragment();
         messageFragment = new MessageFragment();
         publishBuyFragment = new PublishBuyFragment();
         persionCenterGongYingFragment = new PersionCenterGongYingFragment();
         persionCenterCaiGouFragment = new PersionCenterCaiGouFragment();
+        xunPanFragment = new XunPanTuiSongFragment();
         cartFragment = new CartFragment();
         meFragment = new MeFragment();
         fragmentList.add(homeFragment);
@@ -175,6 +178,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         fragmentList.add(meFragment);
         fragmentList.add(persionCenterGongYingFragment);
         fragmentList.add(persionCenterCaiGouFragment);
+        fragmentList.add(xunPanFragment);
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.fl_container, homeFragment);
@@ -185,6 +189,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         transaction.add(R.id.fl_container, meFragment);
         transaction.add(R.id.fl_container, persionCenterGongYingFragment);
         transaction.add(R.id.fl_container, persionCenterCaiGouFragment);
+        transaction.add(R.id.fl_container, xunPanFragment);
 
         transaction.hide(fenLeiFragment);
         transaction.hide(publishBuyFragment);
@@ -193,7 +198,10 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         transaction.hide(meFragment);
         transaction.hide(persionCenterGongYingFragment);
         transaction.hide(persionCenterCaiGouFragment);
+        transaction.hide(xunPanFragment);
+
         transaction.commit();
+
         tv_home.setTextColor(getResources().getColor(R.color.bottom_text));
         tv_fenl.setTextColor(getResources().getColor(R.color.text));
         tv_fbqg.setTextColor(getResources().getColor(R.color.text));
@@ -213,7 +221,6 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     @Event(value = {R.id.ll_home, R.id.ll_Fl, R.id.ll_fbqg, R.id.ll_card, R.id.ll_My, R.id.ll_message}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         String token = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.TOKEN, "");
-        String role_type = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "");
         switch (view.getId()) {
             case R.id.ll_home:
                 tv_home.setTextColor(getResources().getColor(R.color.bottom_text));
@@ -261,7 +268,11 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 iv_message.setImageResource(R.drawable.liaotian);
                 iv_my.setImageResource(R.drawable.wode);
                 if (token != null && !token.equals("")) {
-                    hideFragment(2);
+                    if (role_type != null && role_type.equals("1")) {
+                        hideFragment(8);
+                    } else {
+                        hideFragment(2);
+                    }
                 } else {
                     startActivity(new Intent(this, LoginActivity.class));
                 }
@@ -399,6 +410,15 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     @Override
     protected void onResume() {
         super.onResume();
+
+        role_type = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1");
+
+        if (role_type != null && role_type.equals("1")) {
+            tv_fbqg.setText("询盘推送");
+        } else {
+            tv_fbqg.setText("发布求购");
+        }
+
         upGetMessageData();
 
     }

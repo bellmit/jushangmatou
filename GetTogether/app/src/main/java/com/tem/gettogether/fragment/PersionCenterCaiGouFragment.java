@@ -19,10 +19,12 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.my.BuyingManagementActivity;
 import com.tem.gettogether.activity.my.CgsAuthenticationActivity;
 import com.tem.gettogether.activity.my.CorporateInformationActivity;
 import com.tem.gettogether.activity.my.GYWeActivity;
 import com.tem.gettogether.activity.my.SettingActivity;
+import com.tem.gettogether.activity.my.ShopRzFailedActivity;
 import com.tem.gettogether.activity.my.TAdviseActivity;
 import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActivity;
 import com.tem.gettogether.base.BaseActivity;
@@ -44,6 +46,8 @@ import org.xutils.x;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import cc.duduhuo.custoast.CusToast;
 
 @ContentView(R.layout.fragment_persion_center_caigou)
 public class PersionCenterCaiGouFragment extends BaseFragment {
@@ -86,6 +90,7 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
 
     private TwinklingRefreshLayout refreshLayout;
     private MyMessageBean.ResultBean resultBean = new MyMessageBean.ResultBean();
+    private String is_verify;// 采购商认证状态
 
     @Nullable
     @Override
@@ -124,6 +129,7 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
                         resultBean = myMessageBean.getResult();
                         Glide.with(getActivity()).load(myMessageBean.getResult().getHead_pic() + "").asBitmap().error(R.drawable.img12x).centerCrop().into(new BitmapImageViewTarget(iv_head));
                         tv_name.setText(myMessageBean.getResult().getNickname());
+                        is_verify = myMessageBean.getResult().getIs_verify();
                     }
 
 
@@ -172,14 +178,23 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
             case R.id.tv_dsh:// 已结款
                 break;
             case R.id.rl_my_message:// 个人信息
-                startActivity(new Intent(getActivity(), CorporateInformationActivity.class).putExtra(Contacts.PERSION_ENTERPRISE_INFORMATION,1));
+                startActivity(new Intent(getActivity(), CorporateInformationActivity.class).putExtra(Contacts.PERSION_ENTERPRISE_INFORMATION, 1));
                 break;
-            case R.id.rl_ksbh:// 采购订单
+            case R.id.rl_ksbh:// 求购管理
+                startActivity(new Intent(getActivity() , BuyingManagementActivity.class));
                 break;
             case R.id.rl_dzgl:// 收货地址
                 break;
             case R.id.rl_sprz: // 采购商认证
-                startActivity(new Intent(getActivity(), CgsAuthenticationActivity.class));
+                if (is_verify.equals("0")) {
+                    startActivity(new Intent(getActivity(), CgsAuthenticationActivity.class));
+                } else if (is_verify.equals("1")) {
+                    CusToast.showToast("认证通过");
+                } else if (is_verify.equals("2")) {
+                    startActivity(new Intent(getActivity(), ShopRzFailedActivity.class).putExtra(Contacts.RZ_TYPE, 1));
+                } else if (is_verify.equals("3")) {
+                    CusToast.showToast("审核中");
+                }
                 break;
             case R.id.rl_zxkf:// 在线客服
                 break;
@@ -225,4 +240,9 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        upGetMessageData();
+    }
 }

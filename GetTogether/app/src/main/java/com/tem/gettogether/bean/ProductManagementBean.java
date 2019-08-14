@@ -52,6 +52,15 @@ public class ProductManagementBean {
         private String batch_number;
         private String shop_price;
         private String goods_images;
+        private String is_enquiry;
+
+        public String getIs_enquiry() {
+            return is_enquiry;
+        }
+
+        public void setIs_enquiry(String is_enquiry) {
+            this.is_enquiry = is_enquiry;
+        }
 
         public String getGoods_id() {
             return goods_id;

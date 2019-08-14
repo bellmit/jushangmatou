@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.my.XTMessageActivity;
 import com.tem.gettogether.base.BaseActivity;
+import com.tem.gettogether.base.BaseFragment;
 import com.tem.gettogether.rongyun.ConversationListAdapterEx;
 
 import org.xutils.view.annotation.ContentView;
@@ -39,7 +40,7 @@ import io.rong.imlib.model.Conversation;
  * A simple {@link Fragment} subclass.
  */
 @ContentView(R.layout.fragment_message)
-public class MessageFragment extends Fragment {
+public class MessageFragment extends BaseFragment {
 
     private   BaseActivity baseActivity;
 

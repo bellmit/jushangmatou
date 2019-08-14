@@ -28,7 +28,7 @@ public class BaseConstant {
 
         public static final String Shop_goods_id = "goods_id";
         public static final String Shop_store_id = "store_id";
-
+        public static final String LEVER = "lever";
     }
     public static class ReceiverAction {
         public static final String REFRESHFEE = "com.call.beeper";

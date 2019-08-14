@@ -156,6 +156,45 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:text="*"
+                        android:textColor="@color/my_red" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="身份证/护照"
+                        android:textColor="@color/my_sprz_text"
+                        android:textSize="14dp" />
+
+                    <EditText
+                        android:id="@+id/et_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="请输入您的身份证或护照"
+                        android:maxLength="18"
+                        android:maxLines="1"
+                        android:paddingStart="10dp"
+                        android:textColorHint="@color/my_sprz_hind"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="*"
                         android:textColor="@color/my_red"
                         android:visibility="invisible" />
 
@@ -171,11 +210,11 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:orientation="horizontal"
-                    android:paddingBottom="20dp"
-                    android:paddingTop="20dp">
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp">
 
                     <RelativeLayout
                         android:id="@+id/rl_card_image1"
@@ -226,12 +265,12 @@
     </com.tem.gettogether.view.BaseScrollView>
 
     <TextView
-        android:id="@+id/tv_downStep"
+        android:id="@+id/tv_save"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="30dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="30dp"
         android:background="@color/home_red"
         android:gravity="center"
         android:text="保存"

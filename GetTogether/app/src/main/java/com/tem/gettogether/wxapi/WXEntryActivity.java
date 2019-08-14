@@ -275,6 +275,8 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                         SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.NAME, BaseApplication.getInstance().bean.getNickname());
                         SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.TYPE, "3");//微信
                         SharedPreferencesUtils.saveString(WXEntryActivity.this,BaseConstant.SPConstant.USERID,loginBean.getResult().getUser_id());
+                        SharedPreferencesUtils.saveString(WXEntryActivity.this,BaseConstant.SPConstant.LEVER,loginBean.getResult().getLevel());
+
                         UserBean userBean = new UserBean();
                         userBean.setToken(loginBean.getResult().getToken());
                         userBean.setUserName(loginBean.getResult().getNickname());

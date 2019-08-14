@@ -371,7 +371,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
-                                android:text="@string/caigoudingdan"
+                                android:text="求购管理"
                                 android:textColor="@color/text3"
                                 android:textSize="14dp" />
 

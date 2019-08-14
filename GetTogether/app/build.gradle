@@ -93,4 +93,5 @@ dependencies {
     compile 'com.youth.banner:banner:1.4.10'
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.2@aar'
     compile project(":groupedadapter")
+    compile 'com.github.anzaizai:EasySwipeMenuLayout:1.1.4'
 }

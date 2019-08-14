@@ -19,11 +19,13 @@ import com.tem.gettogether.R;
 import com.tem.gettogether.activity.MyShopActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.entity.TabEntity;
 import com.tem.gettogether.fragment.MemberClassificationFragment;
 import com.tem.gettogether.fragment.MemberInformationFragment;
 import com.tem.gettogether.fragment.OpenVipFragment;
 import com.tem.gettogether.fragment.RefundFragment;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -72,7 +74,7 @@ public class VipCenterActivity extends BaseActivity {
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setText(getResources().getString(R.string.upgrade_membership));
 
-        if(BaseApplication.getInstance().userBean.getLever().equals("2")){
+        if(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7").equals("2")){
             tv_title_right.setVisibility(View.GONE);
         }
 

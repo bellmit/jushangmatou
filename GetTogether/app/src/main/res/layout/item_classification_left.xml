@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="100dp"
-    android:layout_height="40dp"
+    android:layout_height="60dp"
     android:orientation="horizontal"
     >
     <View
         android:id="@+id/view"
         android:layout_width="2dp"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:background="#f94956"
         />
     <TextView
         android:id="@+id/title_name"
         android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:textSize="20sp"
+        android:layout_height="60dp"
+        android:textSize="14sp"
         android:textColor="@color/black"
         android:gravity="center"
         android:text="男装"

@@ -287,6 +287,25 @@ public class URLConstant {
     // 新分类接口列表
     public final static String SEARCH_LIST_URL = SERVER + "/Api/Goods/category3_goodsList";
 
-    // 企业认证
+    // 企业信息
     public final static String ENTERPISE_INFO = SERVER + "/Api/User/enterprise_info";
+
+    // 企业信息保存
+    public final static String ENTERPISE_INFO_SAVE = SERVER + "/Api/User/enterprise_personal_info_submit";
+
+    // 个人信息
+    public final static String PERSION_INFO = SERVER + "/Api/User/personal_info";
+
+    // 采购商认证
+    public final static String CAIGOUSHANG_RZ = SERVER + "/Api/Newjoin/buyer_info";
+
+    // 采购商认证失败原因
+    public final static String CAIGOUSHANG_RZ_REASON = SERVER + "/Api/User/buyer_fail_reason";
+
+    // 采购商求购信息删除接口
+    public final static String BUYING_MANAGEMENT_DELETE = SERVER + "/Api/Goods/buyer_tradeDel";
+
+    // 购物车数量
+    public final static String CART_NUM = SERVER + "/Api/Cart/mod_goods_num";
+
 }

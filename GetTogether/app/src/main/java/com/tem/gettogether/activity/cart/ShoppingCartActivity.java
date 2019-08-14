@@ -18,6 +18,7 @@ import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
 import com.tem.gettogether.activity.my.AddressGLActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
 import com.tem.gettogether.base.URLConstant;
@@ -26,6 +27,7 @@ import com.tem.gettogether.bean.CartDataBean;
 import com.tem.gettogether.bean.JieSuanBean;
 import com.tem.gettogether.rongyun.RongTalk;
 import com.tem.gettogether.utils.NetWorkUtils;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.RoundImageView;
@@ -61,22 +63,23 @@ public class ShoppingCartActivity extends BaseActivity {
     private int PAGE_NUM = 1;
     @ViewInject(R.id.tv_guanli)
     private TextView tv_guanli;
-    private  int NumConnect=1;
+    private int NumConnect = 1;
     @ViewInject(R.id.tv_go_js)
     private TextView tv_go_js;
     @ViewInject(R.id.tv_all_price)
     private TextView tv_all_price;
     @ViewInject(R.id.iv_cart_All)
     private ImageView iv_cart_All;
-    private boolean isGLWC=false;
+    private boolean isGLWC = false;
     @ViewInject(R.id.tv_yx_show)
     private TextView tv_yx_show;
     private BaseActivity baseActivity;
     @ViewInject(R.id.rl_close)
     private RelativeLayout rl_close;
-    private List<CartDataBean.ResultBean.StoreListBean> storeListBeans=new ArrayList<>();
-    private CartDataBean.ResultBean.TotalPriceBean totalPriceBeans=new CartDataBean.ResultBean.TotalPriceBean();
+    private List<CartDataBean.ResultBean.StoreListBean> storeListBeans = new ArrayList<>();
+    private CartDataBean.ResultBean.TotalPriceBean totalPriceBeans = new CartDataBean.ResultBean.TotalPriceBean();
     private String goods_id;
+
     @Override
     protected void initData() {
         x.view().inject(this);
@@ -141,59 +144,60 @@ public class ShoppingCartActivity extends BaseActivity {
 //        order_refresh_fragment.setRefreshViewHolder(refreshViewHolder);
 //        order_refresh_fragment.shouldHandleRecyclerViewLoadingMore(order_rl);
 
-
+        adapter = new CartAdapter(storeListBeans);
+        order_rl.setAdapter(adapter);
     }
 
-    @Event(value = {R.id.rl_close,R.id.tv_guanli,R.id.tv_go_js,R.id.ll_all_xz},type = View.OnClickListener.class)
+    @Event(value = {R.id.rl_close, R.id.tv_guanli, R.id.tv_go_js, R.id.ll_all_xz}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
                 startActivity(new Intent(this, ShoppingParticularsActivity.class)
-                        .putExtra("goods_id",goods_id));
+                        .putExtra("goods_id", goods_id));
                 rl_close.setVisibility(View.GONE);
                 break;
             case R.id.tv_guanli:
-                if(isGLWC==false){
+                if (isGLWC == false) {
                     tv_guanli.setText(R.string.wancheng);
                     tv_go_js.setText(R.string.shanchu);
                     tv_go_js.setBackgroundColor(getResources().getColor(R.color.cart_bg_6c));
-                    isGLWC=true;
-                }else{
+                    isGLWC = true;
+                } else {
                     tv_guanli.setText(R.string.guanli);
                     tv_go_js.setText(R.string.goujiesuan);
                     upCartData();
                     tv_go_js.setBackgroundColor(getResources().getColor(R.color.cart_bg_6c));
-                    isGLWC=false;
+                    isGLWC = false;
                 }
                 break;
             case R.id.tv_go_js:
                 final List<Integer> cartId = new ArrayList<>();
-                String str ="";
-                if(storeListBeans!=null&&storeListBeans.size()>0){
-                    for(int shopAll=0;shopAll<storeListBeans.size();shopAll++){
-                        for (int all=0;all<storeListBeans.get(shopAll).getCartList().size();all++){
-                            if(storeListBeans.get(shopAll).getCartList().get(all).getItemXZ().equals("1")){
+                String str = "";
+                if (storeListBeans != null && storeListBeans.size() > 0) {
+                    for (int shopAll = 0; shopAll < storeListBeans.size(); shopAll++) {
+                        for (int all = 0; all < storeListBeans.get(shopAll).getCartList().size(); all++) {
+                            if (storeListBeans.get(shopAll).getCartList().get(all).getItemXZ().equals("1")) {
                                 cartId.add(Integer.parseInt(storeListBeans.get(shopAll).getCartList().get(all).getCart_id()));
                             }
                         }
                     }
                     Collections.sort(cartId);
                     for (int i = 0; i < cartId.size(); i++) {
-                        str +=cartId.get(i)+"," ;
+                        str += cartId.get(i) + ",";
                     }
                 }
-                if(!str.equals("")){
-                    String cartid=str.substring(0,str.length()-1);
-                    if(tv_go_js.getText().toString().equals(getResources().getString(R.string.shanchu))){
+                if (!str.equals("")) {
+                    String cartid = str.substring(0, str.length() - 1);
+                    if (tv_go_js.getText().toString().equals(getResources().getString(R.string.shanchu))) {
                         upRemoveCartData(cartid);
-                    }else{
+                    } else {
                         Map<String, Object> map = new HashMap<>();
                         map.put("token", BaseApplication.getInstance().userBean.getToken());
-                        if(cartid!=null&&!cartid.equals("")){
+                        if (cartid != null && !cartid.equals("")) {
                             map.put("ids", cartid);
                         }
-                        upJieSCartData(map,cartid);
-                        Log.i("====购物车选择id----",cartid+"---");
+                        upJieSCartData(map, cartid);
+                        Log.i("====购物车选择id----", cartid + "---");
 //                        tv_all_price.setVisibility(View.VISIBLE);
 //                        iv_cart_All.setImageResource(R.drawable.cart_wxz_icon);
 //                        tv_yx_show.setText("");
@@ -204,7 +208,7 @@ public class ShoppingCartActivity extends BaseActivity {
 //                        .putExtra("cartid",cartid));
 
                     }
-                }else{
+                } else {
 
                     CusToast.showToast("请选择商品");
                     return;
@@ -212,25 +216,25 @@ public class ShoppingCartActivity extends BaseActivity {
 
                 break;
             case R.id.ll_all_xz:
-                if(storeListBeans!=null){
+                if (storeListBeans != null) {
                     if (isShopXz == false) {
-                        for(int shopAll=0;shopAll<storeListBeans.size();shopAll++){
-                            for (int all=0;all<storeListBeans.get(shopAll).getCartList().size();all++){
+                        for (int shopAll = 0; shopAll < storeListBeans.size(); shopAll++) {
+                            for (int all = 0; all < storeListBeans.get(shopAll).getCartList().size(); all++) {
                                 storeListBeans.get(shopAll).getCartList().get(all).setItemXZ("1");
                             }
                         }
 
                         isShopXz = true;
                     } else {
-                        for(int shopAll=0;shopAll<storeListBeans.size();shopAll++){
-                            for (int all=0;all<storeListBeans.get(shopAll).getCartList().size();all++){
+                        for (int shopAll = 0; shopAll < storeListBeans.size(); shopAll++) {
+                            for (int all = 0; all < storeListBeans.get(shopAll).getCartList().size(); all++) {
                                 storeListBeans.get(shopAll).getCartList().get(all).setItemXZ("0");
                             }
                         }
                         isShopXz = false;
                     }
                     adapter.notifyDataSetChanged();
-                }else{
+                } else {
                     CusToast.showToast("请添加商品");
                 }
 
@@ -238,7 +242,7 @@ public class ShoppingCartActivity extends BaseActivity {
         }
     }
 
-    private JieSuanBean.ResultBean.AddressListBean addressListBeans=new JieSuanBean.ResultBean.AddressListBean();
+    private JieSuanBean.ResultBean.AddressListBean addressListBeans = new JieSuanBean.ResultBean.AddressListBean();
 
     private void upJieSCartData(Map<String, Object> map, final String cartid) {
         Set keys = map.keySet();
@@ -262,13 +266,13 @@ public class ShoppingCartActivity extends BaseActivity {
                     String msg = jsonObject.optString("msg");
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        JieSuanBean jieSuanBean=gson.fromJson(result,JieSuanBean.class);
-                        addressListBeans=jieSuanBean.getResult().getAddressList();
-                        String cart_ids=jieSuanBean.getResult().getCart_ids();
+                        JieSuanBean jieSuanBean = gson.fromJson(result, JieSuanBean.class);
+                        addressListBeans = jieSuanBean.getResult().getAddressList();
+                        String cart_ids = jieSuanBean.getResult().getCart_ids();
 
-                        upHQpriceData(cartid,cart_ids);
+                        upHQpriceData(cartid, cart_ids);
 
-                    }else if(res.equals("-1")){
+                    } else if (res.equals("-1")) {
                         CusToast.showToast(msg);
                         return;
                     }
@@ -293,11 +297,12 @@ public class ShoppingCartActivity extends BaseActivity {
             }
         });
     }
+
     private void upHQpriceData(final String cartid, final String cart_ids) {
         Map<String, Object> map = new HashMap<>();
         map.put("token", BaseApplication.getInstance().userBean.getToken());
-        if(addressListBeans.getAddress_id()!=null){
-            map.put("address_id", addressListBeans.getAddress_id()+"");
+        if (addressListBeans.getAddress_id() != null) {
+            map.put("address_id", addressListBeans.getAddress_id() + "");
         }
 //        map.put("act", "");
         map.put("ids", cart_ids);
@@ -320,9 +325,9 @@ public class ShoppingCartActivity extends BaseActivity {
                         tv_go_js.setBackgroundColor(getResources().getColor(R.color.cart_bg_6c));
                         tv_go_js.setText(R.string.goujiesuan);
                         tv_all_price.setText("¥0.00");
-                        startActivity(new Intent(getContext(),CloseAccountActivity.class)
-                                .putExtra("cartid",cartid));
-                    }else  if (res.equals("-1")){
+                        startActivity(new Intent(getContext(), CloseAccountActivity.class)
+                                .putExtra("cartid", cartid));
+                    } else if (res.equals("-1")) {
                         startActivity(new Intent(getContext(), AddressGLActivity.class));
                         CusToast.showToast(msg);
                     }
@@ -347,12 +352,13 @@ public class ShoppingCartActivity extends BaseActivity {
         });
     }
 
-    private boolean isALLxz=false;
+    private boolean isALLxz = false;
     private boolean isShopXz = false;
     private boolean isShoppingXz = false;
-    private   ImageView iv_cart_shopping_isxz;
+    private ImageView iv_cart_shopping_isxz;
     private CartAdapter adapter;
     private int Allnum;
+
     public class CartAdapter extends BaseQuickAdapter {
 
         public CartAdapter(List<CartDataBean.ResultBean.StoreListBean> data) {
@@ -361,15 +367,15 @@ public class ShoppingCartActivity extends BaseActivity {
 
         @Override
         protected void convert(final com.chad.library.adapter.base.BaseViewHolder baseViewHolder, Object o) {
-            baseViewHolder.setText(R.id.tv_shop_name,storeListBeans.get(baseViewHolder.getAdapterPosition()).getStore_name());
+            baseViewHolder.setText(R.id.tv_shop_name, storeListBeans.get(baseViewHolder.getAdapterPosition()).getStore_name());
             RecyclerView recyclerView = baseViewHolder.getView(R.id.cartItem_recycler);
             final ImageView iv_cart_isxz = baseViewHolder.getView(R.id.iv_cart_isxz);
 
-            Allnum=totalPriceBeans.getNum();
+            Allnum = totalPriceBeans.getNum();
 
             int shopNum = 0;
-            for(int shopAll=0;shopAll<storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().size();shopAll++){
-                if(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(shopAll).getItemXZ().equals("1")){
+            for (int shopAll = 0; shopAll < storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().size(); shopAll++) {
+                if (storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(shopAll).getItemXZ().equals("1")) {
                     shopNum++;
                 }
             }
@@ -383,19 +389,19 @@ public class ShoppingCartActivity extends BaseActivity {
             }
 
             int QBNum = 0;
-            for(int shopAll=0;shopAll<storeListBeans.size();shopAll++){
-                if(storeListBeans.get(shopAll).getShopXZ().equals("1")){
+            for (int shopAll = 0; shopAll < storeListBeans.size(); shopAll++) {
+                if (storeListBeans.get(shopAll).getShopXZ().equals("1")) {
                     QBNum++;
                 }
             }
             if (QBNum == storeListBeans.size()) {
                 iv_cart_All.setImageResource(R.drawable.cart_xz_icon);
-                tv_yx_show.setText("（"+totalPriceBeans.getNum()+"）");
+                tv_yx_show.setText("（" + totalPriceBeans.getNum() + "）");
                 tv_go_js.setBackgroundColor(getResources().getColor(R.color.my_red));
-                tv_go_js.setText(R.string.goujiesuan+"（"+totalPriceBeans.getNum()+"）");
-                tv_all_price.setText("¥"+totalPriceBeans.getTotal_fee());
+                tv_go_js.setText(R.string.goujiesuan + "（" + totalPriceBeans.getNum() + "）");
+                tv_all_price.setText("¥" + totalPriceBeans.getTotal_fee());
                 tv_all_price.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 tv_all_price.setVisibility(View.VISIBLE);
                 iv_cart_All.setImageResource(R.drawable.cart_wxz_icon);
                 tv_yx_show.setText("");
@@ -406,12 +412,12 @@ public class ShoppingCartActivity extends BaseActivity {
             baseViewHolder.getView(R.id.ll_shop_isxz).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    for (int all=0;all<storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().size();all++){
-                        if(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(all).getItemXZ().equals("0")){
+                    for (int all = 0; all < storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().size(); all++) {
+                        if (storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(all).getItemXZ().equals("0")) {
                             storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(all).setItemXZ("1");
                             storeListBeans.get(baseViewHolder.getAdapterPosition()).setShopXZ("1");
 
-                        }else{
+                        } else {
                             storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(all).setItemXZ("0");
                             storeListBeans.get(baseViewHolder.getAdapterPosition()).setShopXZ("0");
 
@@ -430,17 +436,17 @@ public class ShoppingCartActivity extends BaseActivity {
 
                                         @Override
                                         public void onBind(BaseViewHolder holder, final int position) {
-                                            iv_cart_shopping_isxz=holder.getImageView(R.id.iv_cart_shopping_isxz);
+                                            iv_cart_shopping_isxz = holder.getImageView(R.id.iv_cart_shopping_isxz);
                                             TextView tv_red_num = holder.getTextView(R.id.tv_red_num);
                                             TextView tv_shopping_qpl = holder.getTextView(R.id.tv_shopping_qpl);
-                                            final TextView tv_connectNum=holder.getTextView(R.id.tv_connectNum);
-                                            final TextView tv_shopping_price= holder.getTextView(R.id.tv_shopping_price);
-                                            RoundImageView iv_shopping_image= (RoundImageView) holder.getImageView(R.id.iv_shopping_image);
+                                            final TextView tv_connectNum = holder.getTextView(R.id.tv_connectNum);
+                                            final TextView tv_shopping_price = holder.getTextView(R.id.tv_shopping_price);
+                                            RoundImageView iv_shopping_image = (RoundImageView) holder.getImageView(R.id.iv_shopping_image);
                                             Glide.with(getContext()).load(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_logo()).error(R.mipmap.myy322x).into(iv_shopping_image);
                                             tv_connectNum.setText(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_num());
                                             holder.getTextView(R.id.tv_connect).setText(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_name());
-                                            if(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getIs_enquiry().equals("1")){//立即询价
-                                                holder.getTextView(R.id.tv_red_num).setText(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getBatch_number()+"件起批");
+                                            if (storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getIs_enquiry().equals("1")) {//立即询价
+                                                holder.getTextView(R.id.tv_red_num).setText(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getBatch_number() + "件起批");
                                                 tv_shopping_qpl.setVisibility(View.GONE);
                                                 tv_red_num.setVisibility(View.VISIBLE);
                                                 tv_shopping_price.setText("立即询价");
@@ -448,36 +454,36 @@ public class ShoppingCartActivity extends BaseActivity {
 //                            holder.getTextView(R.id.tv_cart_add).setEnabled(false);
 
                                                 tv_shopping_price.setTextColor(getResources().getColor(R.color.my_yellow));
-                                            }else{
+                                            } else {
                                                 tv_shopping_qpl.setVisibility(View.VISIBLE);
                                                 tv_red_num.setVisibility(View.GONE);
-                                                holder.getTextView(R.id.tv_shopping_qpl).setText(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getBatch_number()+"件起批");
-                                                holder.getTextView(R.id.tv_shopping_price).setText("¥"+storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_price()+"/件");
+                                                holder.getTextView(R.id.tv_shopping_qpl).setText(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getBatch_number() + "件起批");
+                                                holder.getTextView(R.id.tv_shopping_price).setText("¥" + storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_price() + "/件");
                                                 tv_shopping_price.setTextColor(getResources().getColor(R.color.my_red));
                                             }
 
-                                            if(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getItemXZ().equals("0")){
+                                            if (storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getItemXZ().equals("0")) {
                                                 iv_cart_shopping_isxz.setImageResource(R.drawable.cart_wxz_icon);
-                                                if(isGLWC==false){
+                                                if (isGLWC == false) {
                                                     tv_go_js.setText(R.string.goujiesuan);
                                                     tv_go_js.setBackgroundColor(getResources().getColor(R.color.cart_bg_6c));
-                                                }else{
+                                                } else {
                                                     tv_go_js.setText(R.string.shanchu);
                                                     tv_go_js.setBackgroundColor(getResources().getColor(R.color.cart_bg_6c));
                                                 }
-                                            }else{
+                                            } else {
                                                 iv_cart_shopping_isxz.setImageResource(R.drawable.cart_xz_icon);
-                                                if(isGLWC==false){
+                                                if (isGLWC == false) {
                                                     tv_go_js.setText(R.string.goujiesuan);
                                                     tv_go_js.setBackgroundColor(getResources().getColor(R.color.my_red));
-                                                }else{
+                                                } else {
                                                     tv_go_js.setText(R.string.shanchu);
                                                     tv_go_js.setBackgroundColor(getResources().getColor(R.color.my_red));
                                                 }
                                             }
-                                            for(int shopAll1=0;shopAll1<storeListBeans.size();shopAll1++){
-                                                for(int shopAll=0;shopAll<storeListBeans.get(shopAll1).getCartList().size();shopAll++){
-                                                    if(storeListBeans.get(shopAll1).getCartList().get(shopAll).getItemXZ().equals("1")){
+                                            for (int shopAll1 = 0; shopAll1 < storeListBeans.size(); shopAll1++) {
+                                                for (int shopAll = 0; shopAll < storeListBeans.get(shopAll1).getCartList().size(); shopAll++) {
+                                                    if (storeListBeans.get(shopAll1).getCartList().get(shopAll).getItemXZ().equals("1")) {
                                                         tv_go_js.setBackgroundColor(getResources().getColor(R.color.my_red));
                                                         tv_all_price.setVisibility(View.INVISIBLE);
                                                     }
@@ -487,10 +493,10 @@ public class ShoppingCartActivity extends BaseActivity {
                                             holder.getView(R.id.rl_item_zt).setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
-                                                    if(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getItemXZ().equals("0")){
+                                                    if (storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getItemXZ().equals("0")) {
                                                         storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).setItemXZ("1");
 
-                                                    }else{
+                                                    } else {
                                                         storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).setItemXZ("0");
                                                     }
                                                     adapter.notifyDataSetChanged();
@@ -500,7 +506,7 @@ public class ShoppingCartActivity extends BaseActivity {
                                             tv_shopping_price.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
-                                                    if(tv_shopping_price.getText().toString().equals("立即询价")){
+                                                    if (tv_shopping_price.getText().toString().equals("立即询价")) {
                                                         try {
                                                             if (BaseApplication.getInstance().userBean != null) {
                                                                 //发消息
@@ -530,29 +536,33 @@ public class ShoppingCartActivity extends BaseActivity {
                                             holder.getTextView(R.id.tv_cart_jian).setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
-                                                    int numJian=Integer.parseInt(tv_connectNum.getText().toString().trim());
-                                                    if(numJian<=1){
+                                                    int numJian = Integer.parseInt(tv_connectNum.getText().toString().trim());
+                                                    if (numJian <= 1) {
                                                         CusToast.showToast("数量不能少于1");
                                                         return;
                                                     }
                                                     numJian--;
+                                                    updateCartNum(numJian, storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getCart_id());
+                                                    upCartData();
+                                                    CartAdapter.this.notifyDataSetChanged();
                                                     Allnum--;
-                                                    tv_go_js.setText(R.string.goujiesuan+"（"+Allnum+"）");
-                                                    tv_yx_show.setText("（"+Allnum+"）");
-                                                    tv_connectNum.setText(numJian+"");
-//                                NumberFormat nf = new DecimalFormat("##.##");
-//                                String str = nf.format(zi);
+                                                    tv_go_js.setText(R.string.goujiesuan + "（" + Allnum + "）");
+                                                    tv_yx_show.setText("（" + Allnum + "）");
+//                                                    tv_connectNum.setText(numJian + "");
                                                 }
                                             });
                                             holder.getTextView(R.id.tv_cart_add).setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
-                                                    int numadd=Integer.parseInt(tv_connectNum.getText().toString().trim());
+                                                    int numadd = Integer.parseInt(tv_connectNum.getText().toString().trim());
                                                     numadd++;
+                                                    updateCartNum(numadd, storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getCart_id());
+                                                    upCartData();
+                                                    CartAdapter.this.notifyDataSetChanged();
                                                     Allnum++;
-                                                    tv_go_js.setText(R.string.goujiesuan+"（"+Allnum+"）");
-                                                    tv_yx_show.setText("（"+Allnum+"）");
-                                                    tv_connectNum.setText(numadd+"");
+                                                    tv_go_js.setText(R.string.goujiesuan + "（" + Allnum + "）");
+                                                    tv_yx_show.setText("（" + Allnum + "）");
+//                                                    tv_connectNum.setText(numadd + "");
                                                 }
                                             });
                                         }
@@ -561,11 +571,47 @@ public class ShoppingCartActivity extends BaseActivity {
 
         }
     }
-    
+
+    private void updateCartNum(int goodsNum, String Id) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("goods_num", goodsNum);
+        map.put("id", Id);
+        XUtil.Post(URLConstant.CART_NUM, map, new MyCallBack<String>() {
+
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    if (res.equals("1")) {
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+            }
+
+        });
+    }
+
     private void upCartData() {
         Map<String, Object> map = new HashMap<>();
-        if(BaseApplication.getInstance().userBean==null)return;
+        if (BaseApplication.getInstance().userBean == null) return;
+        Log.d("chenshichun","========token==="+ BaseApplication.getInstance().userBean.getToken());
         map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         XUtil.Post(URLConstant.CART_LIEBIAO, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
@@ -580,10 +626,11 @@ public class ShoppingCartActivity extends BaseActivity {
 
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        CartDataBean cartDataBean=gson.fromJson(result,CartDataBean.class);
-                        storeListBeans=cartDataBean.getResult().getStoreList();
-                        totalPriceBeans=cartDataBean.getResult().getTotal_price();
-                    }else if(msg.equals("")){
+                        CartDataBean cartDataBean = gson.fromJson(result, CartDataBean.class);
+                        storeListBeans.removeAll(storeListBeans);
+                        storeListBeans.addAll( cartDataBean.getResult().getStoreList());
+                        totalPriceBeans = cartDataBean.getResult().getTotal_price();
+                    } else if (msg.equals("")) {
                         tv_all_price.setVisibility(View.VISIBLE);
                         iv_cart_All.setImageResource(R.drawable.cart_wxz_icon);
                         tv_yx_show.setText("");
@@ -600,8 +647,7 @@ public class ShoppingCartActivity extends BaseActivity {
             @Override
             public void onFinished() {
                 super.onFinished();
-                adapter = new CartAdapter(storeListBeans);
-                order_rl.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -611,6 +657,7 @@ public class ShoppingCartActivity extends BaseActivity {
             }
         });
     }
+
     private void upRemoveCartData(String ids) {
         Map<String, Object> map = new HashMap<>();
         map.put("token", BaseApplication.getInstance().userBean.getToken());

@@ -437,6 +437,7 @@
         <activity android:name="com.tem.gettogether.activity.my.ProductManagmentActivity"/>
         <activity android:name="com.tem.gettogether.activity.my.VisitorActivity"/>
         <activity android:name="com.tem.gettogether.activity.my.ShopRzFailedActivity"/>
+        <activity android:name="com.tem.gettogether.activity.my.BuyingManagementActivity"/>
         <activity android:name="com.tem.gettogether.activity.cart.ShoppingCartActivity"/>
     </application>
 

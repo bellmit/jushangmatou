@@ -33,6 +33,7 @@
                     android:paddingEnd="16dp">
 
                     <LinearLayout
+                        android:id="@+id/ll_image_xg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -88,7 +89,8 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/right_more" />
+                            android:src="@drawable/right_more"
+                            android:visibility="gone" />
                     </LinearLayout>
 
                     <View
@@ -154,7 +156,8 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/right_more" />
+                            android:src="@drawable/right_more"
+                            android:visibility="gone" />
                     </LinearLayout>
 
                     <View
@@ -163,6 +166,7 @@
                         android:background="@color/line" />
 
                     <LinearLayout
+                        android:id="@+id/country_ll"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center_vertical"
@@ -212,7 +216,8 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/right_more" />
+                            android:src="@drawable/right_more"
+                            android:visibility="gone" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -277,7 +282,8 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/right_more" />
+                            android:src="@drawable/right_more"
+                            android:visibility="gone" />
                     </LinearLayout>
 
                     <View
@@ -296,11 +302,12 @@
                             android:layout_height="wrap_content"
                             android:text="公司简介" />
 
-                        <TextView
+                        <EditText
                             android:id="@+id/company_profile_tv"
                             android:layout_width="0dp"
                             android:layout_height="70dp"
                             android:layout_weight="1"
+                            android:background="@null"
                             android:hint="(请输入文字)" />
                     </LinearLayout>
                 </LinearLayout>

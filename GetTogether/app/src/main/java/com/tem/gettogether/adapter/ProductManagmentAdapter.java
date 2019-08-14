@@ -39,7 +39,11 @@ public class ProductManagmentAdapter extends RecyclerView.Adapter<ProductManagme
         int imageSize = SizeUtil.dp2px(context, 110);
         Glide.with(context).load(mDatas.get(position).getGoods_images()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(imageSize, imageSize).into(holder.iv_image);
         holder.tv_title.setText(mDatas.get(position).getGoods_name());
-        holder.tv_Shop_price.setText(mDatas.get(position).getShop_price());
+        if(mDatas.get(position).getIs_enquiry().equals("1")){
+            holder.tv_Shop_price.setText("面议");
+        }else{
+            holder.tv_Shop_price.setText(mDatas.get(position).getShop_price());
+        }
         holder.tv_shuoming.setText(mDatas.get(position).getBatch_number() + "件");
         if (pageType == 0) {
             holder.shelf_tv.setVisibility(View.GONE);

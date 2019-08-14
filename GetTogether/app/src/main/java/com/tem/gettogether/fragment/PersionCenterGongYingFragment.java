@@ -179,8 +179,8 @@ public class PersionCenterGongYingFragment extends BaseFragment {
         if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", BaseApplication.getInstance().userBean.getToken());
 //                map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
-        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
-        Log.d("chenshichun","==========="+SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
+        Log.d("chenshichun", "===========" + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
 
         baseActivity.showDialog();
         XUtil.Post(URLConstant.RZ_FAILED, map, new MyCallBack<String>() {
@@ -194,8 +194,9 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                     String msg = jsonObject.optString("msg");
                     String resultMessage = jsonObject.optString("result");
                     if (res.equals("1")) {
-                        startActivity(new Intent(getActivity(), ShopRzFailedActivity.class).putExtra(Contacts.SHOP_RZ_FAILED, resultMessage));
-                    } else{
+                        startActivity(new Intent(getActivity(), ShopRzFailedActivity.class).putExtra(Contacts.SHOP_RZ_FAILED, resultMessage)
+                                .putExtra(Contacts.RZ_TYPE, 0));
+                    } else {
                         if (resultBean.getStore_status() == 1) {//店铺管理
                             startActivity(new Intent(getActivity(), StoreManagementActivity.class));
                         } else if (resultBean.getStore_status() == 2) {
@@ -246,19 +247,19 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                 break;
             case R.id.tv_all:// 全部
                 startActivity(new Intent(getActivity(), MyOrderActivity.class)
-                        .putExtra("tabType","0"));
+                        .putExtra("tabType", "0"));
                 break;
             case R.id.tv_dfk:// 待下单
                 startActivity(new Intent(getActivity(), MyOrderActivity.class)
-                        .putExtra("tabType","1"));
+                        .putExtra("tabType", "1"));
                 break;
             case R.id.tv_dfh:// 待发货
                 startActivity(new Intent(getActivity(), MyOrderActivity.class)
-                        .putExtra("tabType","2"));
+                        .putExtra("tabType", "2"));
                 break;
             case R.id.tv_dsh:// 待结款
                 startActivity(new Intent(getActivity(), MyOrderActivity.class)
-                        .putExtra("tabType","3"));
+                        .putExtra("tabType", "3"));
                 break;
             case R.id.rl_my_message:// 企业信息
                 startActivity(new Intent(getActivity(), CorporateInformationActivity.class).putExtra(Contacts.PERSION_ENTERPRISE_INFORMATION, 0));
@@ -381,5 +382,11 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                 mPop.dismiss();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        upGetMessageData();
     }
 }

@@ -59,7 +59,7 @@ public class MemberInformationFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        userLever = BaseApplication.getInstance().userBean.getLever();
+        userLever = SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7");
         if (userLever.equals("7")) {
             user_lever.setText("游客");
             detail_ll.setVisibility(View.GONE);

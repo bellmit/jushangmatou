@@ -34,9 +34,11 @@ public class ClassificationLeftAdapter extends RecyclerView.Adapter<Classificati
     public void onBindViewHolder(ClassificationLeftAdapter.ViewHolder holder, final int position) {
         if (choosePos == position) {
             holder.title_name.setTextColor(context.getResources().getColor(R.color.bottom_text));
+            holder.title_name.setBackgroundColor(context.getResources().getColor(R.color.line1));
             holder.view.setVisibility(View.VISIBLE);
         } else {
             holder.title_name.setTextColor(context.getResources().getColor(R.color.black));
+            holder.title_name.setBackgroundColor(context.getResources().getColor(R.color.white));
             holder.view.setVisibility(View.GONE);
         }
         holder.title_name.setText(mDatas.get(position).getName());

@@ -102,6 +102,15 @@ public class MyMessageBean {
         private String level_name;
         private String service_qq;
         private String expire_time;
+        private String is_verify;
+
+        public String getIs_verify() {
+            return is_verify;
+        }
+
+        public void setIs_verify(String is_verify) {
+            this.is_verify = is_verify;
+        }
 
         public String getExpire_time() {
             return expire_time;

@@ -88,7 +88,7 @@
                             android:id="@+id/recyclerView_left"
                             android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:background="@color/cart_text_cf" />
+                            android:background="@color/white" />
 
                     </RelativeLayout>
                 </LinearLayout>
