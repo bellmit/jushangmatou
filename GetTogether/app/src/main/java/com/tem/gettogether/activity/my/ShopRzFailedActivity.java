@@ -66,7 +66,7 @@ public class ShopRzFailedActivity extends BaseActivity {
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
                     if (res.equals("1")) {
-                        reason_detail_tv.setText(message);
+                        reason_detail_tv.setText(jsonObject.optString("result"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -103,8 +103,10 @@ public class ShopRzFailedActivity extends BaseActivity {
             case R.id.rz_btn:
                 if (rz_type == 0) {
                     startActivity(new Intent(this, ShopAuthenticationActivity.class));
+                    finish();
                 } else {
                     startActivity(new Intent(this, CgsAuthenticationActivity.class));
+                    finish();
                 }
                 break;
         }

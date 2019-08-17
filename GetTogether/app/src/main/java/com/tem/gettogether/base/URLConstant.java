@@ -308,4 +308,13 @@ public class URLConstant {
     // 购物车数量
     public final static String CART_NUM = SERVER + "/Api/Cart/mod_goods_num";
 
+    // 确认收货
+    public final static String CONFIRM_RECEIPT = SERVER + "/Api/User/buyer_receiveConfirm";
+
+    // 确认发货
+    public final static String CONFIRM_SEND = SERVER + "/Api/User/seller_sendConfirm";
+
+    // 确认结款
+    public final static String CONFIRM_GET_MONEY = SERVER + "/Api/User/seller_getMoneyConfirm";
+
 }

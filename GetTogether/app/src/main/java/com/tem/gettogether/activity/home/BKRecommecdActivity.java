@@ -106,7 +106,6 @@ public class BKRecommecdActivity extends BaseActivity {
                     map3.put("sort",sort);
                     map3.put("sort_asc",paixu);
                     map3.put("one_id",category_id);
-
                     upShopData(map3);
                 }
             }

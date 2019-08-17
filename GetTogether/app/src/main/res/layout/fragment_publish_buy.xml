@@ -296,7 +296,6 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:hint="@string/qsrqgnum"
-                    android:inputType="number"
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:paddingStart="10dp"

@@ -1855,6 +1855,15 @@ public class HomeDataNewBean {
             private String id;
             private String ara_mobile_name;
             private String mobile_des;
+            private String app_image;
+
+            public String getApp_image() {
+                return app_image;
+            }
+
+            public void setApp_image(String app_image) {
+                this.app_image = app_image;
+            }
 
             public void setCategory_id(String category_id) {
                 this.category_id = category_id;

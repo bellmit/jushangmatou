@@ -3,6 +3,7 @@ package com.tem.gettogether.activity.home;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
+import com.tem.gettogether.ShowImageDetail;
 import com.tem.gettogether.activity.my.WaiMaoQiuGouActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
@@ -27,6 +29,7 @@ import com.tem.gettogether.utils.SizeUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import org.json.JSONException;
@@ -71,6 +74,8 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
     private TextView online_communication_tv;
     @ViewInject(R.id.refreshLayout)
     private TwinklingRefreshLayout refreshLayout;
+    @ViewInject(R.id.goods_desc)
+    private TextView goods_desc;
 
     private List<WaiMaoQiuGouBean.ResultEntity> waiMaoQiuGouBeans = new ArrayList<>();
     private int isHomeList=0;
@@ -95,7 +100,6 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
             map.put("language", yuyan);
         }
         map.put("trade_id", trade_id);
-        Log.d("chenshichun", "======trade_id=====  " + trade_id);
         showDialog();
         XUtil.Post(URLConstant.HOMEQIUGOUDETAIL, map, new MyCallBack<String>() {
             @Override
@@ -105,6 +109,7 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
+                    Log.d("chenshichun","=======外贸求购详情===="+result);
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         WaiMaoQiuGouBean waiMaoQiuGouBean = gson.fromJson(result, WaiMaoQiuGouBean.class);
@@ -143,9 +148,20 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
         delivery_time_tv.setText("交货时间：" + waiMaoQiuGouBeans.get(0).getAttach_time());
         num_tv.setText("求购数量：" + waiMaoQiuGouBeans.get(0).getGoods_num());
         release_time_tv.setText("发布时间：" + waiMaoQiuGouBeans.get(0).getAdd_time());
+        goods_desc.setText(waiMaoQiuGouBeans.get(0).getGoods_desc());
 
         banner.setImageLoader(new GlideImageLoader());
         banner.setImages(waiMaoQiuGouBeans.get(0).getGoods_logo());
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Log.d("chenshichun","===========position  "+position);
+                Intent intent2 = new Intent(HomeBuyDetailNewActivity.this, ShowImageDetail.class);
+                intent2.putStringArrayListExtra("paths",waiMaoQiuGouBeans.get(0).getGoods_logo());
+                intent2.putExtra("index", position);
+                startActivity(intent2);
+            }
+        });
         banner.start();
 
         online_communication_tv.setOnClickListener(new View.OnClickListener() {

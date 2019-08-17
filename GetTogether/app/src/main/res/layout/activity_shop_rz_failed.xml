@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="50dp"
                     android:paddingEnd="20dp"
-                    android:text="你好,由于您的证件上传有误，因此审核未通过，请您重新认证上传，感谢您的配合！"
+                    android:text="null"
                     android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

@@ -2,6 +2,7 @@ package com.tem.gettogether.activity.classification;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -62,12 +63,13 @@ public class ClassificationActivity extends BaseActivity {
     private boolean isChengJiaoCiShuSort = false;
     private boolean isHuiFuLvSort = false;
     private boolean isJiaGeSort = false;
-
+    private int type;
     @Override
     protected void initData() {
         x.view().inject(this);
         tv_title.setText(getIntent().getStringExtra("classification_name"));
         classificationId = getIntent().getStringExtra("classification_id");
+        type = getIntent().getIntExtra("classification_type",3);
         initViews();
         initDatas(1, classificationId, true, false);
         initRefresh();
@@ -127,6 +129,7 @@ public class ClassificationActivity extends BaseActivity {
             map.put("key", keyValue);
             map.put("sort", sort);
             map.put("page", currentPage);
+            map.put("type",type);
         }
         showDialog();
         XUtil.Post(URLConstant.SEARCH_LIST_URL, map, new MyCallBack<String>() {
@@ -137,6 +140,7 @@ public class ClassificationActivity extends BaseActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
+                    Log.d("chenshichun","=====result======"+result);
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         if (isNormal) {

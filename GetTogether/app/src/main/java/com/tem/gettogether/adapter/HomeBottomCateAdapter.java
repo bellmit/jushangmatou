@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tem.gettogether.activity.classification.ClassificationActivity;
 import com.tem.gettogether.bean.HomeDataBean;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.home.BKRecommecdActivity;
@@ -54,14 +55,18 @@ public class HomeBottomCateAdapter extends RecyclerView.Adapter<HomeBottomCateAd
         if(position==0||position==1||position==2){
             holder.view_line_bo.setVisibility(View.VISIBLE);
         }
-        Glide.with(context).load(mDatas.get(position).getApp_bottom_pic()) .asBitmap().placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).into(new TransformationUtils(holder.iv_left_image));
-        Glide.with(context).load(mDatas.get(position).getApp_bottom_pic()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).into(holder.iv_right_image);
+        Glide.with(context).load(mDatas.get(position).getApp_image()) .asBitmap().placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).into(new TransformationUtils(holder.iv_left_image));
+        Glide.with(context).load(mDatas.get(position).getApp_image()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).into(holder.iv_right_image);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context.startActivity(new Intent(context, BKRecommecdActivity.class)
-                        .putExtra("category_id",mDatas.get(position).getId()));
+                /*context.startActivity(new Intent(context, BKRecommecdActivity.class)
+                        .putExtra("category_id",mDatas.get(position).getId()));*/
+                context.startActivity(new Intent(context, ClassificationActivity.class)
+                        .putExtra("classification_id",mDatas.get(position).getCategory_id())
+                        .putExtra("classification_type",2)
+                        .putExtra("classification_name",mDatas.get(position).getName()));
             }
         });
     }

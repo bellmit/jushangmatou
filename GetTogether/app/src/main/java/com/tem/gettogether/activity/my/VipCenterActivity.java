@@ -26,6 +26,7 @@ import com.tem.gettogether.fragment.MemberInformationFragment;
 import com.tem.gettogether.fragment.OpenVipFragment;
 import com.tem.gettogether.fragment.RefundFragment;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.view.CircularImage;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -47,12 +48,12 @@ public class VipCenterActivity extends BaseActivity {
     @ViewInject(R.id.rl_close)
     private RelativeLayout rl_close;
     @ViewInject(R.id.head_pic)
-    private ImageView head_pic;
+    private CircularImage head_pic;
     @ViewInject(R.id.nick_name)
     private TextView nick_name;
     @ViewInject(R.id.account)
     private TextView account;
-
+    private String headPic;
     private String[] mTitles;
     private int[] mIconUnselectIds = {
             R.drawable.member_classification_icon, /*R.drawable.join_membership_icon,*/
@@ -69,7 +70,7 @@ public class VipCenterActivity extends BaseActivity {
 
         mTitles = new String[]{getResources().getString(R.string.membership_classification)/*, "开通会员"*/,
                 getResources().getString(R.string.membership_information), getResources().getString(R.string.application_refund)};
-
+        headPic = getIntent().getStringExtra("head_pic");
         tv_title.setText(getResources().getString(R.string.membership_center));
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setText(getResources().getString(R.string.upgrade_membership));
@@ -78,11 +79,10 @@ public class VipCenterActivity extends BaseActivity {
             tv_title_right.setVisibility(View.GONE);
         }
 
-        Glide.with(getContext()).load(BaseApplication.getInstance().userBean.getHeadUrl()).asBitmap().error(R.drawable.img12x).centerCrop().into(new BitmapImageViewTarget(head_pic));
+        Glide.with(getContext()).load(headPic).error(R.drawable.img12x).centerCrop().into(head_pic);
         nick_name.setText(BaseApplication.getInstance().userBean.getUserName());
         account.setText(BaseApplication.getInstance().userBean.getPhone());
         mFragments.add(new MemberClassificationFragment());
-//        mFragments.add(new OpenVipFragment());
         mFragments.add(new MemberInformationFragment());
         mFragments.add(new RefundFragment());
 

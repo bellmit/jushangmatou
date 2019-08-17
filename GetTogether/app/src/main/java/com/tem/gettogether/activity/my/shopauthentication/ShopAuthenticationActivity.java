@@ -11,8 +11,10 @@ import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.utils.Contacts;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 
@@ -113,11 +115,14 @@ public class ShopAuthenticationActivity extends BaseActivity {
         map.put("contacts_email", youxiang);
         map.put("apply_type", RZType);
         map.put("mobile",mobile);
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         showDialog();
+        Log.d("chenshichun","=====cscscscscscsc======");
         XUtil.Post(URLConstant.JINBENXINXI_UPLOADING, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
+                Log.d("chenshichun","=====认证======"+result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");

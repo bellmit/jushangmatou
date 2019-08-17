@@ -43,7 +43,7 @@ public class HomeHotSellAdapter extends RecyclerView.Adapter<HomeHotSellAdapter.
         Glide.with(context).load(mDatas.get(position).getOriginal_img()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(imageSize, imageSize).into(holder.pic_iv);
 
         holder.product_title.setText(mDatas.get(position).getGoods_name());
-        holder.buy_price_tv.setText(mDatas.get(position).getMember_goods_price());
+        holder.buy_price_tv.setText(mDatas.get(position).getGoods_price());
         holder.tv_sell_count.setText(mDatas.get(position).getGoods_num());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

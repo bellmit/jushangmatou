@@ -36,7 +36,9 @@ import com.tem.gettogether.activity.my.TAdviseActivity;
 import com.tem.gettogether.activity.my.VipCenterActivity;
 import com.tem.gettogether.activity.my.VisitorActivity;
 import com.tem.gettogether.activity.my.XunPanTuiSongActivity;
+import com.tem.gettogether.activity.my.shopauthentication.DistributorAuthenticationActivity;
 import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActivity;
+import com.tem.gettogether.activity.order.GongYingOrderActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
@@ -106,7 +108,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
     private BaseActivity baseActivity;
     private MyMessageBean.ResultBean resultBean = new MyMessageBean.ResultBean();
     private String userLever;
-
+    private MyMessageBean myMessageBean;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -140,7 +142,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                     String msg = jsonObject.optString("msg");
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        MyMessageBean myMessageBean = gson.fromJson(result, MyMessageBean.class);
+                        myMessageBean = gson.fromJson(result, MyMessageBean.class);
                         resultBean = myMessageBean.getResult();
                         Glide.with(getActivity()).load(myMessageBean.getResult().getHead_pic() + "").asBitmap().error(R.drawable.img12x).centerCrop().into(new BitmapImageViewTarget(iv_head));
                         tv_name.setText(myMessageBean.getResult().getNickname());
@@ -180,7 +182,6 @@ public class PersionCenterGongYingFragment extends BaseFragment {
         map.put("token", BaseApplication.getInstance().userBean.getToken());
 //                map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
-        Log.d("chenshichun", "===========" + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
 
         baseActivity.showDialog();
         XUtil.Post(URLConstant.RZ_FAILED, map, new MyCallBack<String>() {
@@ -246,26 +247,26 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), VisitorActivity.class));
                 break;
             case R.id.tv_all:// 全部
-                startActivity(new Intent(getActivity(), MyOrderActivity.class)
+                startActivity(new Intent(getActivity(), GongYingOrderActivity.class)
                         .putExtra("tabType", "0"));
                 break;
             case R.id.tv_dfk:// 待下单
-                startActivity(new Intent(getActivity(), MyOrderActivity.class)
+                startActivity(new Intent(getActivity(), GongYingOrderActivity.class)
                         .putExtra("tabType", "1"));
                 break;
             case R.id.tv_dfh:// 待发货
-                startActivity(new Intent(getActivity(), MyOrderActivity.class)
+                startActivity(new Intent(getActivity(), GongYingOrderActivity.class)
                         .putExtra("tabType", "2"));
                 break;
             case R.id.tv_dsh:// 待结款
-                startActivity(new Intent(getActivity(), MyOrderActivity.class)
+                startActivity(new Intent(getActivity(), GongYingOrderActivity.class)
                         .putExtra("tabType", "3"));
                 break;
             case R.id.rl_my_message:// 企业信息
                 startActivity(new Intent(getActivity(), CorporateInformationActivity.class).putExtra(Contacts.PERSION_ENTERPRISE_INFORMATION, 0));
                 break;
             case R.id.rl_ksbh:// 会员信息
-                startActivity(new Intent(getActivity(), VipCenterActivity.class));
+                startActivity(new Intent(getActivity(), VipCenterActivity.class).putExtra("head_pic",myMessageBean.getResult().getHead_pic()));
                 break;
             case R.id.rl_dzgl:// 推送轮盘
                 startActivity(new Intent(getActivity(), XunPanTuiSongActivity.class));

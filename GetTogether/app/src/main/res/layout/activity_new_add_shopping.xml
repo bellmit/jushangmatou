@@ -30,8 +30,8 @@
                     android:focusableInTouchMode="true"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp"
-                    android:paddingStart="16dp">
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -77,6 +77,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.RecyclerView
@@ -90,9 +91,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="gone"
                     android:text="最多添加9张图片"
                     android:textColor="@color/text6" />
 
@@ -106,8 +108,8 @@
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp"
-                    android:paddingStart="16dp">
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -147,8 +149,8 @@
                         android:id="@+id/checkbox2"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginStart="20dp"
+                        android:layout_marginEnd="10dp"
                         android:background="@drawable/circle_check" />
 
                     <TextView
@@ -170,8 +172,8 @@
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp"
-                    android:paddingStart="16dp">
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -198,7 +200,7 @@
                         android:background="@null"
                         android:ellipsize="end"
                         android:hint="请填写商品售价"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:maxLines="1"
                         android:paddingStart="15dp"
                         android:textSize="13dp" />
@@ -221,8 +223,8 @@
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp"
-                    android:paddingStart="16dp">
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -271,8 +273,8 @@
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp"
-                    android:paddingStart="16dp">
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -320,8 +322,8 @@
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp"
                     android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     android:visibility="gone">
 
                     <TextView
@@ -369,8 +371,8 @@
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp"
-                    android:paddingStart="16dp">
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -417,8 +419,8 @@
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp"
                     android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     android:visibility="gone">
 
                     <TextView
@@ -469,8 +471,8 @@
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp"
                     android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     android:visibility="gone">
 
                     <TextView
@@ -521,9 +523,8 @@
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp"
                     android:paddingStart="16dp"
-                    >
+                    android:paddingEnd="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -547,12 +548,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:background="@null"
                         android:ellipsize="end"
                         android:gravity="center_vertical"
-                        android:background="@null"
+                        android:hint="请选择商品规格"
                         android:maxLines="1"
                         android:paddingStart="15dp"
-                        android:hint="请选择商品规格"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -572,8 +573,8 @@
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp"
                     android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     android:visibility="gone">
 
                     <TextView
@@ -614,8 +615,8 @@
                         android:id="@+id/checkbox4"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginStart="20dp"
+                        android:layout_marginEnd="10dp"
                         android:background="@drawable/circle_check" />
 
                     <TextView
@@ -637,8 +638,8 @@
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp"
-                    android:paddingStart="16dp">
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -687,8 +688,8 @@
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp"
-                    android:paddingStart="16dp">
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -732,13 +733,62 @@
                     android:background="@color/line" />
 
                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:drawablePadding="10dp"
+                        android:text="*"
+                        android:textColor="@color/my_red"
+                        android:textSize="13dp"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:text="文字介绍："
+                        android:textSize="13dp" />
+
+                    <EditText
+                        android:id="@+id/text_description_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:ellipsize="end"
+                        android:hint="请输入文字介绍"
+                        android:inputType="text"
+                        android:maxLines="2"
+                        android:paddingStart="15dp"
+                        android:textSize="13dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/right_more" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
+                <LinearLayout
                     android:id="@+id/ll_shop_JJ"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp"
-                    android:paddingStart="16dp">
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -788,8 +838,8 @@
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp"
-                    android:paddingStart="16dp">
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -808,7 +858,7 @@
                         android:text="图文详情："
                         android:textSize="13dp" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/rt_tuwen"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -816,9 +866,9 @@
                         android:background="@null"
                         android:ellipsize="end"
                         android:gravity="center_vertical"
+                        android:hint="请上传商品详情图"
                         android:maxLines="1"
                         android:paddingStart="15dp"
-                        android:hint="请填写产品介绍（可在下方上传图片）"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -830,17 +880,17 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:visibility="gone"
-                    android:background="@color/line" />
+                    android:background="@color/line"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:visibility="gone"
+                    android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:paddingStart="16dp">
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -900,10 +950,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
-                    android:text="最多添加3张图片"
+                    android:layout_marginBottom="10dp"
+                    android:text="最多添加9张图片"
                     android:textColor="@color/text6" />
             </LinearLayout>
 
@@ -916,10 +966,10 @@
                     android:id="@+id/tv_fbShopping"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="20dp"
                     android:background="@drawable/main_fbqg15"
                     android:gravity="center"
                     android:text="发布产品"

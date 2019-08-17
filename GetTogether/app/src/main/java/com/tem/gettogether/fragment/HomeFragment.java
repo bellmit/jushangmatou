@@ -29,6 +29,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.LoginActivity;
+import com.tem.gettogether.activity.classification.ClassificationActivity;
 import com.tem.gettogether.activity.home.BKRecommecdActivity;
 import com.tem.gettogether.activity.home.ClothingBazaarActivity;
 import com.tem.gettogether.activity.home.HomeGongGaoActivity;
@@ -260,8 +261,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 holder.getView(R.id.ll_bktj_item).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(getActivity(), BKRecommecdActivity.class)
-                        .putExtra("category_id",bottomCateBeans.get(position).getId()));
+                        /*startActivity(new Intent(getActivity(), BKRecommecdActivity.class)
+                        .putExtra("category_id",bottomCateBeans.get(position).getId()));*/
+                        startActivity(new Intent(getContext(), ClassificationActivity.class)
+                                .putExtra("classification_id",bottomCateBeans.get(position).getCategory_id())
+                                .putExtra("classification_type",2)
+                                .putExtra("classification_name",bottomCateBeans.get(position).getName()));
                     }
                 });
 

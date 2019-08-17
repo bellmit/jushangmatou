@@ -152,9 +152,10 @@ public class ShoppingCartActivity extends BaseActivity {
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
-                startActivity(new Intent(this, ShoppingParticularsActivity.class)
+                /*startActivity(new Intent(this, ShoppingParticularsActivity.class)
                         .putExtra("goods_id", goods_id));
-                rl_close.setVisibility(View.GONE);
+                rl_close.setVisibility(View.GONE);*/
+                finish();
                 break;
             case R.id.tv_guanli:
                 if (isGLWC == false) {

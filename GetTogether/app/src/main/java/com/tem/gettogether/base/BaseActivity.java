@@ -27,6 +27,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.bugtags.library.Bugtags;
 import com.tem.gettogether.R;
 import com.tem.gettogether.dialog.CommonDialogLayout;
 import com.tem.gettogether.dialog.ShowAlertDialog;
@@ -69,6 +70,7 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
         initData();
         initView();
     }
+
     public BaseActivity getContext() {
         return this;
     }
@@ -76,12 +78,15 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
     public void showProgress() {
         showProgress("加载中", true, true);
     }
+
     public void showProgress(String msg) {
         showProgress(msg, true, true);
     }
+
     private AlertDialog dialog;
     private CommonDialogLayout dialogView;
     private Animatable loadingDrawable;
+
     //取消对话框
     public void dismissProgress() {
         if (dialog != null) {
@@ -99,12 +104,14 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
 
     /**
      * 语言切换
+     *
      * @param newBase
      */
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(LanguageUtil.attachBaseContext(newBase));
     }
+
     protected Dialog dialog2;
 
     public void showDialog() {
@@ -123,7 +130,8 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
         //    hideProgress();
 
     }
-    public static void log (String tag, String msg) {  //信息太长,分段打印
+
+    public static void log(String tag, String msg) {  //信息太长,分段打印
         //因为String的length是字符数量不是字节数量所以为了防止中文字符过多，
         //  把4*1024的MAX字节打印长度改为2001字符数
         int max_str_length = 2001 - tag.length();
@@ -135,6 +143,7 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
         //剩余部分
         Log.i(tag, msg);
     }
+
     //显示加载对话框
     public void showProgress(String msg, boolean showMsg, final boolean cancelable) {
 
@@ -189,8 +198,8 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
             loadingDrawable.start();
             dialog.getWindow().setContentView(dialogView);
             WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
-            params.width = dp2px(this,100);
-            params.height = dp2px(this,100);
+            params.width = dp2px(this, 100);
+            params.height = dp2px(this, 100);
             params.dimAmount = 0.01f;
             dialog.getWindow().setAttributes(params);
         } catch (Throwable throwable) {
@@ -206,6 +215,7 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
         float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
+
     /**
      * 跳转activity
      *
@@ -214,6 +224,7 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
     public void gotoAtivity(Class clazz) {
         gotoAtivity(clazz, null);
     }
+
     /**
      * 跳转activity
      *
@@ -228,6 +239,7 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
         }
         startActivity(it);
     }
+
     public int getScreenHeight() {
         DisplayMetrics dm = new DisplayMetrics();
         ((Activity) (mContext)).getWindowManager().getDefaultDisplay().getMetrics(dm);//display = getWindowManager().getDefaultDisplay();display.getMetrics(dm)（把屏幕尺寸信息赋值给DisplayMetrics dm）;
@@ -241,6 +253,7 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
         int width = dm.widthPixels;
         return width;
     }
+
     protected abstract void initData();
 
     protected abstract void initView();
@@ -255,7 +268,15 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
 
     @Override
     protected void onPause() {
+        Bugtags.onPause(this);
         super.onPause();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        //注：回调 3
+        Bugtags.onDispatchTouchEvent(this, event);
+        return super.dispatchTouchEvent(event);
     }
 
     @Override
@@ -267,11 +288,13 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
 
         initAppLanguage();
     }
+
     @Override
     public void finish() {
         dismissProgress();
         super.finish();
     }
+
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -282,9 +305,10 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
         /**
          * 设置纵向
          */
-        if(getRequestedOrientation()!= ActivityInfo.SCREEN_ORIENTATION_PORTRAIT){
+        if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
+        Bugtags.onResume(this);
         super.onResume();
     }
 
@@ -365,14 +389,14 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
      * 关闭软键盘
      *
      * @param mEditText 输入框
-     * @param mContext 上下文
+     * @param mContext  上下文
      */
-    public static void closeKeybord(EditText mEditText, Context mContext)
-    {
+    public static void closeKeybord(EditText mEditText, Context mContext) {
         InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
 
         imm.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
@@ -381,25 +405,25 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
         return true;
     }
 
-    public void initAppLanguage(){
-        if (SharedPreferencesUtils.getString(this,BaseConstant.SPConstant.language,"").equals("zh")){
+    public void initAppLanguage() {
+        if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "").equals("zh")) {
             DisplayMetrics dm = getResources().getDisplayMetrics();
             Configuration config = getResources().getConfiguration();
             // 应用用户选择语言
             config.locale = Locale.CHINESE;
-            getResources().updateConfiguration(config,dm);
-        }else if (SharedPreferencesUtils.getString(this,BaseConstant.SPConstant.language,"").equals("en")){
+            getResources().updateConfiguration(config, dm);
+        } else if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "").equals("en")) {
             DisplayMetrics dm = getResources().getDisplayMetrics();
             Configuration config = getResources().getConfiguration();
             // 应用用户选择语言
             config.locale = Locale.ENGLISH;
-            getResources().updateConfiguration(config,dm);
-        }else if (SharedPreferencesUtils.getString(this,BaseConstant.SPConstant.language,"").equals("ara")){
+            getResources().updateConfiguration(config, dm);
+        } else if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "").equals("ara")) {
             DisplayMetrics dm = getResources().getDisplayMetrics();
             Configuration config = getResources().getConfiguration();
             // 应用用户选择语言
             config.locale = new Locale("ar");
-            getResources().updateConfiguration(config,dm);
+            getResources().updateConfiguration(config, dm);
         }
     }
 }

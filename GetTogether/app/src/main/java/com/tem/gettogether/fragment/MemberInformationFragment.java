@@ -63,9 +63,9 @@ public class MemberInformationFragment extends BaseFragment {
         if (userLever.equals("7")) {
             user_lever.setText("游客");
             detail_ll.setVisibility(View.GONE);
-        } else if (user_lever.equals("1")) {
+        } else if (userLever.equals("1")) {
             user_lever.setText("普通会员");
-        } else if (user_lever.equals("2")) {
+        } else if (userLever.equals("2")) {
             user_lever.setText("高级会员");
         }
 
@@ -93,9 +93,9 @@ public class MemberInformationFragment extends BaseFragment {
                         ustart_time.setText(memberInformationBean.getResult().getUstart_time());
                         uexpire_time.setText(memberInformationBean.getResult().getUexpire_time());
                         pay_type.setText(memberInformationBean.getResult().getPay_name());
-                        if(user_lever.equals("1")) {
+                        if(userLever.equals("1")) {
                             pay_fee.setText(memberInformationBean.getResult().getRegularmdeposit());
-                        }else if(user_lever.equals("2")){
+                        }else if(userLever.equals("2")){
                             pay_fee.setText(memberInformationBean.getResult().getSeniormfee());
                         }
                     }

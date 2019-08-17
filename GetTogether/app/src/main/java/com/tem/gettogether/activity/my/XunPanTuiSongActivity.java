@@ -4,6 +4,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
@@ -25,13 +26,15 @@ public class XunPanTuiSongActivity extends BaseActivity {
     private TabLayout myTab;
     @ViewInject(R.id.myView)
     private ViewPager myView;
+    @ViewInject(R.id.head_view)
+    private TextView head_view;
     private List<String> myTitle;
     private List<Fragment>myFragment;
-
     @Override
     protected void initData() {
         x.view().inject(this);
         tv_title.setText("询盘推送");
+        head_view.setVisibility(View.GONE);
         initDatas();
         initViews();
     }

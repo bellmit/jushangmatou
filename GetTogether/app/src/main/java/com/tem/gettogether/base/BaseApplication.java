@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.util.DisplayMetrics;
 
 
+import com.bugtags.library.Bugtags;
 import com.tem.gettogether.bean.UserBean;
 import com.tem.gettogether.bean.WeiXinBean1;
 import com.tem.gettogether.bean.WeiXinMessageBean;
@@ -70,6 +71,7 @@ public class BaseApplication extends Application {
         setInputProvider();
         UMShareAPI.get(this);
         initAppLanguage();
+        Bugtags.start("42c655de1b4f612f3e488385c64f3e81", this, Bugtags.BTGInvocationEventBubble);
     }
     {
         PlatformConfig.setQQZone("101557245", "2fe9d31228f7ccb88ffd26beb709d31e");

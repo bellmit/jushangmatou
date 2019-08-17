@@ -46,12 +46,20 @@ public class ClassificationListBean {
          * shop_price : 100.00
          * batch_number : 258
          */
-
+        private String goods_id;
         private String level_id;
         private String original_img;
         private String goods_name;
         private String shop_price;
         private String batch_number;
+
+        public String getGoods_id() {
+            return goods_id;
+        }
+
+        public void setGoods_id(String goods_id) {
+            this.goods_id = goods_id;
+        }
 
         public String getLevel_id() {
             return level_id;

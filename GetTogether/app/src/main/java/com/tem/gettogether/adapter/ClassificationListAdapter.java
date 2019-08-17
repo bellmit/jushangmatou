@@ -1,6 +1,7 @@
 package com.tem.gettogether.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
 import com.tem.gettogether.bean.ClassificationListBean;
 import com.tem.gettogether.view.RoundImageView;
 
@@ -38,15 +40,25 @@ public class ClassificationListAdapter extends RecyclerView.Adapter<Classificati
         holder.tv_name.setText(mDatas.get(position).getGoods_name());
         holder.tv_price.setText("￥" + mDatas.get(position).getShop_price());
         holder.tv_numbear.setText(mDatas.get(position).getBatch_number()+"个起购");
-        if (mDatas.get(position).getLevel_id().equals("7")) {
-            holder.tv_member.setVisibility(View.GONE);
-        } else if (mDatas.get(position).getLevel_id().equals("1")) {
-            holder.tv_member.setVisibility(View.VISIBLE);
-            holder.tv_member.setText("普通会员");
-        } else if (mDatas.get(position).getLevel_id().equals("2")) {
-            holder.tv_member.setVisibility(View.VISIBLE);
-            holder.tv_member.setText("高级会员");
+        if(mDatas.get(position).getLevel_id()!=null) {
+            if (mDatas.get(position).getLevel_id().equals("7")) {
+                holder.tv_member.setVisibility(View.GONE);
+            } else if (mDatas.get(position).getLevel_id().equals("1")) {
+                holder.tv_member.setVisibility(View.VISIBLE);
+                holder.tv_member.setText("普通会员");
+            } else if (mDatas.get(position).getLevel_id().equals("2")) {
+                holder.tv_member.setVisibility(View.VISIBLE);
+                holder.tv_member.setText("高级会员");
+            }
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, ShoppingParticularsActivity.class)
+                        .putExtra("goods_id",mDatas.get(position).getGoods_id()));
+            }
+        });
     }
 
     @Override

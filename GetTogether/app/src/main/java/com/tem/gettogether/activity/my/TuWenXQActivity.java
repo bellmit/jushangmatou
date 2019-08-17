@@ -153,7 +153,11 @@ public class TuWenXQActivity extends BaseActivity  implements View.OnClickListen
             case R.id.rl_title_right:
                 if(cartImage.size()>0){
                     for (int i = 0; i < cartImage.size(); i++) {
-                        strImage +=cartImage.get(i)+"," ;
+                        if(i<cartImage.size()-1) {
+                            strImage += cartImage.get(i) + ",";
+                        }else{
+                            strImage += cartImage.get(i);
+                        }
                     }
 //                    Log.i("===返回图片--",strImage);
                     setResult(RESULT_OK,new Intent().putExtra("goods_content",strImage)

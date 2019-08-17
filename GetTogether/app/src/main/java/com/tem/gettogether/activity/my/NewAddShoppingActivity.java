@@ -84,7 +84,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
     @ViewInject(R.id.et_QPNum)
     private EditText et_QPNum;
     @ViewInject(R.id.rt_tuwen)
-    private EditText rt_tuwen;
+    private TextView rt_tuwen;
     @ViewInject(R.id.tv_XZguan)
     private TextView tv_XZguan;
     @ViewInject(R.id.tv_XZshopFL)
@@ -111,7 +111,8 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
     private EditText et_GuanJC;
     @ViewInject(R.id.et_ShoppingJJ)
     private EditText et_ShoppingJJ;
-
+    @ViewInject(R.id.text_description_tv)
+    private EditText text_description_tv;
     @ViewInject(R.id.publish_task_recyclerView)
     private RecyclerView publish_recy;
     @ViewInject(R.id.recyclerView)
@@ -280,11 +281,11 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                 mPop = null;
                 showPop(ll_shop_FL);
                 break;
-            /*case R.id.ll_XQ_ms:
+            case R.id.ll_XQ_ms:
                 startActivityForResult(new Intent(NewAddShoppingActivity.this, TuWenXQActivity.class)
                         .putStringArrayListExtra("listImage", listImage), 6666);
 
-                break;*/
+                break;
             case R.id.ll_bd_FL://本店分类
                 type = 3;
                 mPop = null;
@@ -298,7 +299,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                 Map<String, Object> map = new HashMap<>();
                 if (BaseApplication.getInstance().userBean == null) return;
                 map.put("token", BaseApplication.getInstance().userBean.getToken());
-                map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
+                map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
 
                 if (et_cpName.getText().toString().equals("")) {
                     CusToast.showToast("请填写商品名称");
@@ -315,70 +316,81 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                 }
 
                 map.put("goods_name", et_cpName.getText().toString());
-                Log.d("chenshichun", "======et_cpName=====  " + et_cpName.getText().toString());
+                Log.d("chenshichun", "======goods_name=====  " + et_cpName.getText().toString());
 
                 map.put("goods_sn", et_ShoppingHH.getText().toString());
-                Log.d("chenshichun", "======et_ShoppingHH=====  " + et_ShoppingHH.getText().toString());
+                Log.d("chenshichun", "======goods_sn=====  " + et_ShoppingHH.getText().toString());
 
                 map.put("batch_number", et_QPNum.getText().toString());
-                Log.d("chenshichun", "======et_QPNum=====  " + et_QPNum.getText().toString());
+                Log.d("chenshichun", "======batch_number=====  " + et_QPNum.getText().toString());
 
 //                map.put("pavilion_id", addGID);
 //                map.put("pavilion_cate_id", addGFLID);
 //                map.put("cat_id1", addFL1ID);
                 map.put("cat_id2", addGID);
-                Log.d("chenshichun", "======addGID=====  " + addGID);
+                Log.d("chenshichun", "======cat_id2=====  " + addGID);
 
                 map.put("cat_id3", addGFLID);
-                Log.d("chenshichun", "======addGFLID=====  " + addGFLID);
+                Log.d("chenshichun", "======cat_id3=====  " + addGFLID);
 
 //                map.put("store_cat_id1", BDFL1ID);
 //                map.put("store_cat_id2", BDFL2ID);
 //                map.put("store_cat_id3", BDL3ID);
                 map.put("shop_price", et_ShopingSJ.getText().toString());
-                Log.d("chenshichun", "======et_ShopingSJ=====  " + et_ShopingSJ);
+                Log.d("chenshichun", "======shop_price=====  " + et_ShopingSJ.getText().toString());
 
 
                 map.put("is_enquiry", isxunjia);
-                Log.d("chenshichun", "======isxunjia=====  " + isxunjia);
+                Log.d("chenshichun", "======is_enquiry=====  " + isxunjia);
 
 //                map.put("is_free_shipping", isbaoyou);
                 map.put("store_count", et_KuCNum.getText().toString());
-                Log.d("chenshichun", "======et_KuCNum=====  " + et_KuCNum.getText().toString());
+                Log.d("chenshichun", "======store_count=====  " + et_KuCNum.getText().toString());
 
                 map.put("keywords", et_GuanJC.getText().toString());
-                Log.d("chenshichun", "======et_GuanJC=====  " + et_GuanJC.getText().toString());
+                Log.d("chenshichun", "======keywords=====  " + et_GuanJC.getText().toString());
 
                 map.put("goods_remark", et_ShoppingJJ.getText().toString());
-                Log.d("chenshichun", "======et_ShoppingJJ=====  " + et_ShoppingJJ.getText().toString());
+                Log.d("chenshichun", "======goods_remark=====  " + et_ShoppingJJ.getText().toString());
 
-                if (goods_content != null && !goods_content.equals("")) {
-                    Log.d("chenshichun", "======goods_content=====  " + goods_content);
-                    map.put("goods_content", rt_tuwen.getText().toString());
+                if (text_description_tv.getText().toString() != null && !text_description_tv.getText().toString().equals("")) {
+                    Log.d("chenshichun", "======goods_content=====  " + text_description_tv.getText().toString());
+                    map.put("goods_content", text_description_tv.getText().toString());
                 }
                 /*if (resultBeansGFL.size() > 0) {
                     map.put("sku_str", resultBeansGFL.get(0).getSku_str());
                 }*/
-                map.put("sku_str",tv_ShoppingGG.getText().toString());// 规格
-                if (cartImage.size() > 0) {
+                map.put("sku_str", tv_ShoppingGG.getText().toString());// 规格
+                /*if (cartImage.size() > 0) {
                     for (int i = 0; i < cartImage.size(); i++) {
-                        strImage += cartImage.get(i) + ",";
+                        if (i < cartImage.size() - 1) {
+                            strImage += cartImage.get(i) + ",";
+                        } else {
+                            strImage += cartImage.get(i);
+                        }
                     }
                 }
 
                 if (!strImage.equals("")) {
-                    Log.d("chenshichun", "======strImage=====  " + strImage);
+                    Log.d("chenshichun", "======goods_images=====  ");
                     map.put("goods_images", strImage);
+                }*/
+                if(!goods_content.equals("")) {
+                    map.put("original_img", goods_content);
+                    Log.d("chenshichun","=====goods_images======"+goods_content);
                 }
-
-                if (cartTwoImage.size() > 0) {
-                    for (int i = 0; i < cartTwoImage.size(); i++) {
-                        strTwoImage += cartTwoImage.get(i) + ",";
+                if (cartImage.size() > 0) {
+                    for (int i = 0; i < cartImage.size(); i++) {
+                        if (i < cartImage.size() - 1) {
+                            strTwoImage += cartImage.get(i) + ",";
+                        } else {
+                            strTwoImage += cartImage.get(i);
+                        }
                     }
                 }
                 if (!strTwoImage.equals("")) {
-                    Log.d("chenshichun", "======strTwoImage=====  " + strTwoImage);
-                    map.put("original_img", strTwoImage);
+                    Log.d("chenshichun", "======original_img=====  " + strTwoImage);
+                    map.put("goods_images", strTwoImage);
                 }
                 map.put("is_on_sale", "1");
                 upTJSHData(map);
@@ -387,7 +399,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
     }
 
     private void upTJSHData(Map<String, Object> map) {
-        Log.d("chenshichun","=====请求======");
+        Log.d("chenshichun", "=====请求======");
         XUtil.Post(URLConstant.ADDXINCHANPIN, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
@@ -526,6 +538,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                             @Override
                             public void onBind(BaseViewHolder holder2, final int position2) {
                                 holder2.getTextView(R.id.tv_item).setText(mCategoriesBeans.get(position).getSon().get(position2).getName());
+
                                 holder2.getTextView(R.id.tv_item).setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -559,6 +572,18 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                 @Override
                 public void onBind(BaseViewHolder holder2, final int position2) {
                     holder2.getTextView(R.id.tv_item).setText(mCategoriesBeans.get(0).getSon().get(position2).getName());
+                    holder2.getTextView(R.id.tv_item).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (ADDGName == null) {
+                                ADDGName = mCategoriesBeans.get(0).getName();
+                                addGID = mCategoriesBeans.get(0).getId();
+                            }
+                            addGFLID = mCategoriesBeans.get(0).getSon().get(position2).getId();
+                            tv_XZshopFL.setText(ADDGName + " " + mCategoriesBeans.get(0).getSon().get(position2).getName());
+                            mPop.dismiss();
+                        }
+                    });
                 }
 
             };
@@ -577,7 +602,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
             return;
         }
         map.put("token", BaseApplication.getInstance().userBean.getToken());
-        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
 
         showDialog();
         XUtil.Post(URLConstant.CATEGORIES, map, new MyCallBack<String>() {
@@ -769,6 +794,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Log.d("chenshichun","===========recycleType "+recycleType);
                         if (recycleType == 0) {
                             if (imagePaths.size() > 0) {
                                 imagePaths.remove(imagePaths.get(index1));
@@ -784,10 +810,6 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                                 cartTwoImage.remove(cartTwoImage.get(index1));
                             }
                         }
-                        /*if (compressPaths.size() > 0) {
-                            compressPaths.remove(compressPaths.get(index1));
-                        }*/
-
 
                         mTaskImgAdapter.notifyDataSetChanged();
                         mTaskImgAdapter1.notifyDataSetChanged();
@@ -1107,6 +1129,8 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                     String msg = jsonObject.optString("msg");
                     if (res.equals("1")) {
                         Gson gson = new Gson();
+                        Log.d("chenshichun","===========recycleType  "+recycleType);
+
                         if (recycleType == 0) {
                             imagePaths.add(imagePaths.size() - 1, path);
                             Log.d("chenshichun", "=======imagePaths==size==" + imagePaths.size());
@@ -1115,7 +1139,6 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                             imageTwoPaths.add(imageTwoPaths.size() - 1, path);
                             mTaskImgAdapter1.notifyDataSetChanged();
                             Log.d("chenshichun", "======imageTwoPaths=size====" + imageTwoPaths.size());
-
                         }
                         ImageDataBean imageDataBean = gson.fromJson(result, ImageDataBean.class);
                         if (imageDataBean.getResult().getImage_show().size() > 0) {

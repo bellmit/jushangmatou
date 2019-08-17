@@ -23,10 +23,13 @@ import com.tem.gettogether.activity.my.BuyingManagementActivity;
 import com.tem.gettogether.activity.my.CgsAuthenticationActivity;
 import com.tem.gettogether.activity.my.CorporateInformationActivity;
 import com.tem.gettogether.activity.my.GYWeActivity;
+import com.tem.gettogether.activity.my.MyOrderActivity;
 import com.tem.gettogether.activity.my.SettingActivity;
 import com.tem.gettogether.activity.my.ShopRzFailedActivity;
 import com.tem.gettogether.activity.my.TAdviseActivity;
+import com.tem.gettogether.activity.my.shopauthentication.DistributorAuthenticationActivity;
 import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActivity;
+import com.tem.gettogether.activity.order.CaiGouShangOrderActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseFragment;
@@ -155,7 +158,7 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
     }
 
     @Event(value = {R.id.tv_setting, R.id.rl_sprz, R.id.tv_name, R.id.ll_scj, R.id.ll_zj, R.id.ll_qb,
-            R.id.tv_dfh, R.id.tv_dsh, R.id.rl_my_message, R.id.rl_dzgl, R.id.rl_ksbh, R.id.rl_zxkf, R.id.rl_tdyj, R.id.rl_gywm}, type = View.OnClickListener.class)
+            R.id.tv_all, R.id.tv_dfk, R.id.tv_dfh, R.id.tv_dsh, R.id.rl_my_message, R.id.rl_dzgl, R.id.rl_ksbh, R.id.rl_zxkf, R.id.rl_tdyj, R.id.rl_gywm}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.tv_setting:// 设置
@@ -170,18 +173,26 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
             case R.id.ll_qb:// 我的采购
                 break;
             case R.id.tv_all:// 全部
+                startActivity(new Intent(getActivity(), CaiGouShangOrderActivity.class)
+                        .putExtra("tabType", "0"));
                 break;
-            case R.id.tv_dfk:// 已下单
+            case R.id.tv_dfk:// 待下单
+                startActivity(new Intent(getActivity(), CaiGouShangOrderActivity.class)
+                        .putExtra("tabType", "1"));
                 break;
-            case R.id.tv_dfh:// 已收货
+            case R.id.tv_dfh:// 待发货
+                startActivity(new Intent(getActivity(), CaiGouShangOrderActivity.class)
+                        .putExtra("tabType", "2"));
                 break;
-            case R.id.tv_dsh:// 已结款
+            case R.id.tv_dsh:// 待结款
+                startActivity(new Intent(getActivity(), CaiGouShangOrderActivity.class)
+                        .putExtra("tabType", "3"));
                 break;
             case R.id.rl_my_message:// 个人信息
                 startActivity(new Intent(getActivity(), CorporateInformationActivity.class).putExtra(Contacts.PERSION_ENTERPRISE_INFORMATION, 1));
                 break;
             case R.id.rl_ksbh:// 求购管理
-                startActivity(new Intent(getActivity() , BuyingManagementActivity.class));
+                startActivity(new Intent(getActivity(), BuyingManagementActivity.class));
                 break;
             case R.id.rl_dzgl:// 收货地址
                 break;

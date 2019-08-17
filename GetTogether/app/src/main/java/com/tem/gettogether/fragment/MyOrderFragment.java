@@ -35,6 +35,7 @@ import com.tem.gettogether.activity.my.OrderXQActivity;
 import com.tem.gettogether.activity.my.PostEvaluationActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseFragment;
 import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.R;
@@ -46,6 +47,7 @@ import com.tem.gettogether.bean.WechatDataBean;
 import com.tem.gettogether.utils.ListUtils;
 import com.tem.gettogether.utils.NetWorkUtils;
 import com.tem.gettogether.utils.PayResult;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.UiUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -337,6 +339,8 @@ public class MyOrderFragment extends BaseFragment {
         Map<String, Object> map = new HashMap<>();
         if(BaseApplication.getInstance().userBean==null)return;
         map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
+        map.put("role_type",0/*SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, "7")*/);
         Log.d("chenshichun","===========mTab  "+mTab);
         if(mTab==0){
             map.put("type", "");

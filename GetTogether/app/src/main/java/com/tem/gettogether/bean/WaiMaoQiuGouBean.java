@@ -1,5 +1,6 @@
 package com.tem.gettogether.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WaiMaoQiuGouBean {
@@ -54,7 +55,7 @@ public class WaiMaoQiuGouBean {
          * country_id : null
          */
         private String goods_name;
-        private List<String> goods_logo;
+        private ArrayList<String> goods_logo;
         private String attach_time;
         private String user_id;
         private String goods_cate;
@@ -106,7 +107,7 @@ public class WaiMaoQiuGouBean {
             this.goods_name = goods_name;
         }
 
-        public void setGoods_logo(List<String> goods_logo) {
+        public void setGoods_logo(ArrayList<String> goods_logo) {
             this.goods_logo = goods_logo;
         }
 
@@ -154,7 +155,7 @@ public class WaiMaoQiuGouBean {
             return goods_name;
         }
 
-        public List<String> getGoods_logo() {
+        public ArrayList<String> getGoods_logo() {
             return goods_logo;
         }
 

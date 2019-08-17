@@ -86,6 +86,16 @@ public class DistributorAuthenticationActivity extends BaseActivity {
     private LinearLayout not_persion_ll;
     @ViewInject(R.id.tv_upStep)
     private TextView tv_upStep;
+    @ViewInject(R.id.iv_close1)
+    private ImageView iv_close1;
+    @ViewInject(R.id.iv_close2)
+    private ImageView iv_close2;
+    @ViewInject(R.id.iv_close3)
+    private ImageView iv_close3;
+    @ViewInject(R.id.iv_close4)
+    private ImageView iv_close4;
+    @ViewInject(R.id.iv_close5)
+    private ImageView iv_close5;
 
     //系统相机
     public static final int REQUEST_CODE_CAMERA_PERMISSION = 101;
@@ -131,9 +141,29 @@ public class DistributorAuthenticationActivity extends BaseActivity {
 
     }
 
-    @Event(value = {R.id.tv_upStep, R.id.rl_close, R.id.rl_card_image1, R.id.rl_card_image2, R.id.rl_card_image3, R.id.rl_card_image4, R.id.rl_card_image5, R.id.tv_save}, type = View.OnClickListener.class)
+    @Event(value = {R.id.iv_close1, R.id.iv_close2, R.id.iv_close3, R.id.iv_close4, R.id.iv_close5, R.id.tv_upStep, R.id.rl_close, R.id.rl_card_image1, R.id.rl_card_image2, R.id.rl_card_image3, R.id.rl_card_image4, R.id.rl_card_image5, R.id.tv_save}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
+            case R.id.iv_close1:
+                iv_image_1.setImageBitmap(null);
+                iv_close1.setVisibility(View.GONE);
+                break;
+            case R.id.iv_close2:
+                iv_image_2.setImageBitmap(null);
+                iv_close2.setVisibility(View.GONE);
+                break;
+            case R.id.iv_close3:
+                iv_image_3.setImageBitmap(null);
+                iv_close3.setVisibility(View.GONE);
+                break;
+            case R.id.iv_close4:
+                iv_image_4.setImageBitmap(null);
+                iv_close4.setVisibility(View.GONE);
+                break;
+            case R.id.iv_close5:
+                iv_image_5.setImageBitmap(null);
+                iv_close5.setVisibility(View.GONE);
+                break;
             case R.id.rl_close:
                 closeKeybord(et_card_num, this);
                 finish();
@@ -155,7 +185,6 @@ public class DistributorAuthenticationActivity extends BaseActivity {
                 showPop(rl_card_image3);
                 break;
             case R.id.rl_card_image4:
-                Log.d("chenshichun", "-----------" + rl_card_image4);
                 imageType = 4;
                 showPop(rl_card_image4);
                 break;
@@ -164,7 +193,7 @@ public class DistributorAuthenticationActivity extends BaseActivity {
                 showPop(rl_card_image5);
                 break;
             case R.id.tv_save:
-                if (et_card_num.getText().toString().equals(getResources().getString(R.string.please_input))) {
+                if (et_card_num.getText().toString().equals(getResources().getString(R.string.please_input))||et_card_num.getText().toString().equals("")) {
                     CusToast.showToast("请输入身份证号");
                     return;
                 }
@@ -398,7 +427,7 @@ public class DistributorAuthenticationActivity extends BaseActivity {
             Bitmap bitmap = BitmapFactory.decodeFile(mCropImageFile.toString());
             Map<String, Object> map = new HashMap<>();
             map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
-            upInputImageData(map,bitmap);
+            upInputImageData(map, bitmap);
         }
     }
 
@@ -420,22 +449,27 @@ public class DistributorAuthenticationActivity extends BaseActivity {
                         if (imageType == 1) {
                             iv_image_1.setImageBitmap(bitmap);
                             iv_image_1.setVisibility(View.VISIBLE);
+                            iv_close1.setVisibility(View.VISIBLE);
                             Image_1 = imageDataBean.getResult().getImage_show().get(0);
                         } else if (imageType == 2) {
                             iv_image_2.setImageBitmap(bitmap);
                             iv_image_2.setVisibility(View.VISIBLE);
+                            iv_close2.setVisibility(View.VISIBLE);
                             Image_2 = imageDataBean.getResult().getImage_show().get(0);
                         } else if (imageType == 3) {
                             iv_image_3.setImageBitmap(bitmap);
                             iv_image_3.setVisibility(View.VISIBLE);
+                            iv_close3.setVisibility(View.VISIBLE);
                             Image_3 = imageDataBean.getResult().getImage_show().get(0);
                         } else if (imageType == 4) {
                             iv_image_4.setImageBitmap(bitmap);
                             iv_image_4.setVisibility(View.VISIBLE);
+                            iv_close4.setVisibility(View.VISIBLE);
                             Image_4 = imageDataBean.getResult().getImage_show().get(0);
                         } else if (imageType == 5) {
                             iv_image_5.setImageBitmap(bitmap);
                             iv_image_5.setVisibility(View.VISIBLE);
+                            iv_close5.setVisibility(View.VISIBLE);
                             Image_5 = imageDataBean.getResult().getImage_show().get(0);
                         }
                     } else {

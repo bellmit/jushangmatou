@@ -255,7 +255,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="@string/yixiadan"
+                            android:text="待收货"
                             android:textColor="@color/text6"
                             android:textSize="12dp" />
 
@@ -269,7 +269,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="@string/yishouhuo"
+                            android:text="待结款"
                             android:textColor="@color/text6"
                             android:textSize="12dp" />
 
@@ -283,7 +283,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="@string/yijiekuan"
+                            android:text="已完成"
                             android:textColor="@color/text6"
                             android:textSize="12dp" />
                     </LinearLayout>

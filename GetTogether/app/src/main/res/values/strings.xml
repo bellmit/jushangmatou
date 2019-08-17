@@ -269,8 +269,8 @@
     <string name="ordinary_member">普通会员</string>
     <string name="senior_member">高级会员</string>
     <string name="member_store">会员商铺</string>
-    <string name="yuan_2000">元/押金</string>
-    <string name="yuan_998">元/年</string>
+    <string name="yuan_2000">2000元/押金</string>
+    <string name="yuan_998">998元/年</string>
     <string name="select_payment_method">请选择支付方式</string>
     <string name="alipay">支付宝</string>
     <string name="weChat">微信</string>

@@ -55,6 +55,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/gaojihuiyuan_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
@@ -126,6 +127,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/putonghuiyuan_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
