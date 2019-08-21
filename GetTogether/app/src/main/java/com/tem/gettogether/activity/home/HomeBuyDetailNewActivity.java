@@ -17,6 +17,7 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.ShowImageDetail;
+import com.tem.gettogether.activity.LoginActivity;
 import com.tem.gettogether.activity.my.WaiMaoQiuGouActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
@@ -181,6 +182,8 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
                         }
                     } else {
                         CusToast.showToast("token失效");
+                        startActivity(new Intent(HomeBuyDetailNewActivity.this, LoginActivity.class));
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

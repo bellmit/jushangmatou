@@ -46,7 +46,8 @@ public class HomeLianMengActivity extends BaseActivity {
     private RelativeLayout rl_close;
     @ViewInject(R.id.refreshLayout)
     private TwinklingRefreshLayout refreshLayout;
-
+    @ViewInject(R.id.ll_empty)
+    private RelativeLayout ll_empty;
     private HomeLianMengSecondAdapter mHomeLianMengSecondAdapter;
     private List<HomeLianMengBean.ResultEntity> homeDataBean = new ArrayList<>();
     private int currentPage = 1;
@@ -73,7 +74,7 @@ public class HomeLianMengActivity extends BaseActivity {
         }
     }
 
-    private void initDatas(final int currentPage,final boolean isNormal, final boolean isLoadMore) {
+    private void initDatas(final int currentPage, final boolean isNormal, final boolean isLoadMore) {
         Map<String, Object> map = new HashMap<>();
         String yuyan = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "");
         if (yuyan != null) {
@@ -93,18 +94,28 @@ public class HomeLianMengActivity extends BaseActivity {
                         Gson gson = new Gson();
                         if (isNormal) {
                             homeDataBean = gson.fromJson(result, HomeLianMengBean.class).getResult();
-                            setData();
+                            if (homeDataBean.size() == 0) {
+                                ll_empty.setVisibility(View.VISIBLE);
+                            } else {
+                                ll_empty.setVisibility(View.GONE);
+                                setData();
+                            }
                         } else {
-                            if(isLoadMore){
+                            if (isLoadMore) {
 
-                                if(gson.fromJson(result, HomeLianMengBean.class).getResult().size()>0) {
+                                if (gson.fromJson(result, HomeLianMengBean.class).getResult().size() > 0) {
                                     homeDataBean.addAll(gson.fromJson(result, HomeLianMengBean.class).getResult());
                                     mHomeLianMengSecondAdapter.notifyDataSetChanged();
                                 }
-                            }else{
-                                    homeDataBean.clear();
-                                    homeDataBean.addAll(gson.fromJson(result, HomeLianMengBean.class).getResult());
-                                    mHomeLianMengSecondAdapter.notifyDataSetChanged();
+                            } else {
+                                if (gson.fromJson(result, HomeLianMengBean.class).getResult().size() == 0) {
+                                    ll_empty.setVisibility(View.VISIBLE);
+                                } else {
+                                    ll_empty.setVisibility(View.GONE);
+                                }
+                                homeDataBean.clear();
+                                homeDataBean.addAll(gson.fromJson(result, HomeLianMengBean.class).getResult());
+                                mHomeLianMengSecondAdapter.notifyDataSetChanged();
                             }
                         }
                     }
@@ -146,7 +157,7 @@ public class HomeLianMengActivity extends BaseActivity {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
-                initDatas(1, false,false);
+                initDatas(1, false, false);
                 refreshLayout.finishRefreshing();
             }
 
@@ -154,7 +165,7 @@ public class HomeLianMengActivity extends BaseActivity {
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
                 currentPage++;
-                initDatas(currentPage, false,true);
+                initDatas(currentPage, false, true);
                 refreshLayout.finishLoadmore();
             }
 

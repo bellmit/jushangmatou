@@ -19,6 +19,7 @@ import com.tem.gettogether.R;
 import com.tem.gettogether.activity.home.ShopActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseFragment;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.ShopLBBean;
@@ -26,6 +27,7 @@ import com.tem.gettogether.dialog.Effectstype;
 import com.tem.gettogether.dialog.LogoutDialogBuilder;
 import com.tem.gettogether.utils.ListUtils;
 import com.tem.gettogether.utils.NetWorkUtils;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.UiUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -225,7 +227,8 @@ public class SCShopFragment extends BaseFragment {
         Map<String, Object> map = new HashMap<>();
         map.put("store_id", store_id);
         if (BaseApplication.getInstance().userBean == null) return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         XUtil.Post(URLConstant.SHOPISGUANZHU, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
@@ -264,7 +267,7 @@ public class SCShopFragment extends BaseFragment {
 
     private void upShopLBData(int page){
         Map<String,Object> map=new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("page",page);
 
         baseActivity.showDialog();

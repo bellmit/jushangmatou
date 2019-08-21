@@ -16,12 +16,14 @@ import com.tem.gettogether.R;
 import com.tem.gettogether.activity.home.ShopActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.MyZJBean;
 import com.tem.gettogether.dialog.Effectstype;
 import com.tem.gettogether.dialog.LogoutDialogBuilder;
 import com.tem.gettogether.utils.ListUtils;
 import com.tem.gettogether.utils.NetWorkUtils;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.powerfulrecyclerview.HomeListFreshRecyclerView;
@@ -83,7 +85,7 @@ public class ZuJiActivity extends BaseActivity {
                 clearList(listBeanXES);
                     Map<String,Object> map3=new HashMap<>();
                     map3.put("page",PAGE_NUM);
-                map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                 upShopData(map3);
 
@@ -99,7 +101,7 @@ public class ZuJiActivity extends BaseActivity {
                 PAGE_NUM++;
                 Map<String,Object> map3=new HashMap<>();
                 map3.put("page",PAGE_NUM);
-                map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                 upShopData(map3);
                 return true;
@@ -130,7 +132,7 @@ public class ZuJiActivity extends BaseActivity {
         tv_title_right.setText(R.string.qingkong);
         Map<String,Object> map3=new HashMap<>();
         map3.put("page","1");
-        map3.put("token", BaseApplication.getInstance().userBean.getToken());
+        map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         upShopData(map3);
 
     }
@@ -148,7 +150,7 @@ public class ZuJiActivity extends BaseActivity {
                 PAGE_NUM++;
                 Map<String,Object> map3=new HashMap<>();
                 map3.put("page",PAGE_NUM);
-                map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                 upShopData(map3);
                 break;
 
@@ -211,7 +213,8 @@ public class ZuJiActivity extends BaseActivity {
     }
     private void upRemoveAllData(){
         Map<String,Object> map=new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         XUtil.Post(URLConstant.SHOPPING_REMOVEALLZUJI,map,new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {
@@ -225,7 +228,7 @@ public class ZuJiActivity extends BaseActivity {
                         Gson gson=new Gson();
                         Map<String,Object> map3=new HashMap<>();
                         map3.put("page","1");
-                        map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                        map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                         upShopData(map3);
                     }
@@ -252,7 +255,7 @@ public class ZuJiActivity extends BaseActivity {
     }
     private void upRemoveitenmData(String footprint_id){
         Map<String,Object> map=new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("footprint_id",footprint_id);
 
         XUtil.Post(URLConstant.SHOPPING_REMOVEITEMZUJI,map,new MyCallBack<String>(){
@@ -269,7 +272,7 @@ public class ZuJiActivity extends BaseActivity {
                         Gson gson=new Gson();
                         Map<String,Object> map3=new HashMap<>();
                         map3.put("page","1");
-                        map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                        map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                         upShopData(map3);
                     }

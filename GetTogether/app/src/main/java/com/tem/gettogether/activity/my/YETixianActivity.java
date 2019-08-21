@@ -17,8 +17,10 @@ import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.YHCardBean;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 
@@ -84,7 +86,8 @@ public class YETixianActivity extends BaseActivity {
                 if(!jitx.equals("")&&Integer.parseInt(jitx)>10){
                     Map<String,Object> map3=new HashMap<>();
                     map3.put("money",jitx);
-                    map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                    map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                     if(resultBeans.size()>0){
                         map3.put("bank_id",resultBeans.get(0).getBank_id());
                     }
@@ -100,7 +103,8 @@ public class YETixianActivity extends BaseActivity {
     }
     private void  upcardLBData(){
         Map<String,Object> map=new HashMap<>();
-        map.put("token",BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         showDialog();
         XUtil.Post(URLConstant.YINHANGFKALIEBIAO,map,new MyCallBack<String>(){
             @Override

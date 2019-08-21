@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/item_bottom_shop"
+            android:text="我的采购"
             android:textColor="@color/text3"
             android:textSize="16dp" />
 

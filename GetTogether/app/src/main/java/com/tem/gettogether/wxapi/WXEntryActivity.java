@@ -46,8 +46,8 @@ import cc.duduhuo.custoast.CusToast;
 
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     private static final String TAG = "WXEntryActivity";
-    private static final String SECRET = "e0032941280de56565b3512804f0df67";
-    private static final String WXAPP_ID = "wx93eea65ba215f901";
+    private static final String SECRET = "M82B2jANBgkqhkiG780010AAOCAQ8001";
+    private static final String WXAPP_ID = "wx84afd2924379c340";
     private String url_access_token = "https://api.weixin.qq.com/sns/oauth2/access_token?";
     private String url_refresh_token = "https://api.weixin.qq.com/sns/oauth2/refresh_token?";
     private String userinfo_url = "https://api.weixin.qq.com/sns/userinfo?";
@@ -288,7 +288,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                         BaseApplication.getInstance().userBean = userBean;
 //                        startActivity(new Intent(WXEntryActivity.this,MainActivity.class));
 
-                        if (loginBean.getResult().getMobile_validated() == "0") {
+                        if (loginBean.getResult().getMobile_validated().equals("0")) {
                             startActivity(new Intent(WXEntryActivity.this, RegisterActivity.class).putExtra(Contacts.REGISTER_TYPE, 1).putExtra(Contacts.REGISTER_OPEN_ID, BaseApplication.getInstance().bean.getOpenid()));
                         } else {
                             startActivity(new Intent(WXEntryActivity.this, MainActivity.class));

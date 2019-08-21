@@ -13,10 +13,12 @@ import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.KSBHBean;
 import com.tem.gettogether.utils.ListUtils;
 import com.tem.gettogether.utils.NetWorkUtils;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.UiUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -49,7 +51,8 @@ public class KSPHActivity extends BaseActivity {
     private BGARefreshLayout order_refresh_fragment;
     private int PAGE_NUM = 1;
     private List<KSBHBean.ResultBean> list;
-    private List<KSBHBean.ResultBean> resultBeans=new ArrayList<>();
+    private List<KSBHBean.ResultBean> resultBeans = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,19 +64,19 @@ public class KSPHActivity extends BaseActivity {
     @Override
     protected void initData() {
         tv_title.setText("快速补货");
-        Map<String,Object> map3=new HashMap<>();
-        map3.put("page",PAGE_NUM);
-        if(BaseApplication.getInstance().userBean==null)return;
-
-        map3.put("token", BaseApplication.getInstance().userBean.getToken());
-
+        Map<String, Object> map3 = new HashMap<>();
+        map3.put("page", PAGE_NUM);
+        if (BaseApplication.getInstance().userBean == null) return;
+        map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         upKSBHData(map3);
     }
+
     public void clearList(List<KSBHBean.ResultBean> list) {
         if (!ListUtils.isEmpty(list)) {
             list.clear();
         }
     }
+
     @Override
     protected void initView() {
         order_refresh_fragment.setDelegate(new BGARefreshLayout.BGARefreshLayoutDelegate() {
@@ -85,12 +88,12 @@ public class KSPHActivity extends BaseActivity {
                     }
                     return;
                 }
-                PAGE_NUM=1;
-                PAGE_NUM=1;
+                PAGE_NUM = 1;
+                PAGE_NUM = 1;
                 clearList(resultBeans);
-                Map<String,Object> map3=new HashMap<>();
-                map3.put("page",PAGE_NUM);
-                map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                Map<String, Object> map3 = new HashMap<>();
+                map3.put("page", PAGE_NUM);
+                map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                 upKSBHData(map3);
 
@@ -100,13 +103,14 @@ public class KSPHActivity extends BaseActivity {
             @Override
             public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
                 if (!NetWorkUtils.isNetworkAvailable(KSPHActivity.this)) {
-                    CusToast.showToast( "请检查网络");
+                    CusToast.showToast("请检查网络");
                     return false;
                 }
                 PAGE_NUM++;
-                Map<String,Object> map3=new HashMap<>();
-                map3.put("page",PAGE_NUM);
-                map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                Map<String, Object> map3 = new HashMap<>();
+                map3.put("page", PAGE_NUM);
+                map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
 
                 upKSBHData(map3);
                 return true;
@@ -126,6 +130,7 @@ public class KSPHActivity extends BaseActivity {
         order_refresh_fragment.shouldHandleRecyclerViewLoadingMore(order_rl);
 
     }
+
     @Event(value = {R.id.rl_close}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
@@ -135,9 +140,10 @@ public class KSPHActivity extends BaseActivity {
 
         }
     }
-    private void  upKSBHData(Map<String,Object> map){
 
-        XUtil.Post(URLConstant.SHOPPING_KSBH,map,new MyCallBack<String>(){
+    private void upKSBHData(Map<String, Object> map) {
+
+        XUtil.Post(URLConstant.SHOPPING_KSBH, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -148,20 +154,19 @@ public class KSPHActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
 
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        KSBHBean ksbhBean=gson.fromJson(result,KSBHBean.class);
-                        list=ksbhBean.getResult();
-                        if (ListUtils.isEmpty(list)){
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        KSBHBean ksbhBean = gson.fromJson(result, KSBHBean.class);
+                        list = ksbhBean.getResult();
+                        if (ListUtils.isEmpty(list)) {
                             UiUtils.toast("没有更新的数据");
                             return;
                         }
                         resultBeans.addAll(list);
-                    }else{
+                    } else {
                         String msg = jsonObject.optString("msg");
                         CusToast.showToast(msg);
                     }
-
 
 
                 } catch (JSONException e) {
@@ -172,7 +177,7 @@ public class KSPHActivity extends BaseActivity {
             @Override
             public void onFinished() {
                 super.onFinished();
-                KSBHAdapter adapter=new KSBHAdapter(resultBeans);
+                KSBHAdapter adapter = new KSBHAdapter(resultBeans);
                 order_rl.setAdapter(adapter);
 
             }
@@ -185,6 +190,7 @@ public class KSPHActivity extends BaseActivity {
             }
         });
     }
+
     public class KSBHAdapter extends BaseQuickAdapter {
 
         public KSBHAdapter(List<KSBHBean.ResultBean> data) {//
@@ -193,13 +199,11 @@ public class KSPHActivity extends BaseActivity {
 
         @Override
         protected void convert(final com.chad.library.adapter.base.BaseViewHolder baseViewHolder, Object o) {
-            ImageView iv_image=baseViewHolder.getView(R.id.iv_image);
+            ImageView iv_image = baseViewHolder.getView(R.id.iv_image);
             Glide.with(KSPHActivity.this).load(resultBeans.get(baseViewHolder.getAdapterPosition()).getImage()).error(R.mipmap.myy322x).into(iv_image);
-            baseViewHolder.setText(R.id.tv_title,resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
-            baseViewHolder.setText(R.id.tv_price,"¥"+resultBeans.get(baseViewHolder.getAdapterPosition()).getShop_price());
-            baseViewHolder.setText(R.id.tv_qg,resultBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number()+"个起购");
-
-
+            baseViewHolder.setText(R.id.tv_title, resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
+            baseViewHolder.setText(R.id.tv_price, "¥" + resultBeans.get(baseViewHolder.getAdapterPosition()).getShop_price());
+            baseViewHolder.setText(R.id.tv_qg, resultBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number() + "个起购");
 
 
         }

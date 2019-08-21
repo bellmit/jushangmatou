@@ -17,6 +17,7 @@ import com.tem.gettogether.R;
 import com.tem.gettogether.ShowImageDetail;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
 import com.tem.gettogether.base.URLConstant;
@@ -24,6 +25,7 @@ import com.tem.gettogether.bean.BuyLieBiaoBean;
 import com.tem.gettogether.rongyun.RongTalk;
 import com.tem.gettogether.utils.ListUtils;
 import com.tem.gettogether.utils.NetWorkUtils;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.powerfulrecyclerview.HomeListFreshRecyclerView;
@@ -64,7 +66,8 @@ public class BuyMessageActivity extends BaseActivity {
         Map<String,Object> map3=new HashMap<>();
         map3.put("page","1");
         upShopData(map3);
-        map3.put("token", BaseApplication.getInstance().userBean==null||BaseApplication.getInstance().userBean.getToken().equals("")?"":BaseApplication.getInstance().userBean.getToken());
+        map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
     }
 
     @Override
@@ -88,8 +91,7 @@ public class BuyMessageActivity extends BaseActivity {
                 clearList(resultBeans);
                 Map<String,Object> map3=new HashMap<>();
                 map3.put("page",PAGE_NUM);
-                map3.put("token", BaseApplication.getInstance().userBean==null||BaseApplication.getInstance().userBean.getToken().equals("")?"":BaseApplication.getInstance().userBean.getToken());
-
+                map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                 upShopData(map3);
 
 
@@ -104,7 +106,7 @@ public class BuyMessageActivity extends BaseActivity {
                 PAGE_NUM++;
                 Map<String,Object> map3=new HashMap<>();
                 map3.put("page",PAGE_NUM);
-                map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                 upShopData(map3);
                 return true;

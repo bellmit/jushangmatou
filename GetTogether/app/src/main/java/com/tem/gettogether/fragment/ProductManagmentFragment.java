@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.Footer.LoadingView;
@@ -45,6 +46,8 @@ public class ProductManagmentFragment extends BaseFragment {
     private RecyclerView recyclerView;
     @ViewInject(R.id.refreshLayout)
     private TwinklingRefreshLayout refreshLayout;
+    @ViewInject(R.id.ll_empty)
+    private RelativeLayout ll_empty;
     private ProductManagmentAdapter mProductManagmentAdapter;
     private int currentPage = 1;
     private List<ProductManagementBean.ResultBean> mProductManagementBeans = new ArrayList<>();
@@ -59,7 +62,7 @@ public class ProductManagmentFragment extends BaseFragment {
 
     @Override
     public void onResume() {
-        Log.d("chenshichun","===========onResume");
+        Log.d("chenshichun", "===========onResume");
         super.onResume();
     }
 
@@ -80,7 +83,7 @@ public class ProductManagmentFragment extends BaseFragment {
         IntentFilter filter = new IntentFilter();
         filter.addAction("REFRESH_DATA");
         //注册广播接收
-        getContext().registerReceiver( new MyReceiver01(), filter);
+        getContext().registerReceiver(new MyReceiver01(), filter);
     }
 
     private void initDatas(final int currentPage, final boolean isLoadMore) {
@@ -105,7 +108,12 @@ public class ProductManagmentFragment extends BaseFragment {
                         Gson gson = new Gson();
                         if (!isLoadMore) {
                             mProductManagementBeans = gson.fromJson(result, ProductManagementBean.class).getResult();
-                            setData();
+                            if (mProductManagementBeans.size() == 0) {
+                                ll_empty.setVisibility(View.VISIBLE);
+                            } else {
+                                ll_empty.setVisibility(View.GONE);
+                                setData();
+                            }
                         } else {
                             mProductManagementBeans = gson.fromJson(result, ProductManagementBean.class).getResult();
                             mProductManagmentAdapter.notifyDataSetChanged();
@@ -130,9 +138,9 @@ public class ProductManagmentFragment extends BaseFragment {
         });
     }
 
-    private void operationalData(String goodsId,String url) {
+    private void operationalData(String goodsId, String url) {
         Map<String, Object> map = new HashMap<>();
-        map.put("goods_id",goodsId);
+        map.put("goods_id", goodsId);
         XUtil.Post(url, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
@@ -170,12 +178,12 @@ public class ProductManagmentFragment extends BaseFragment {
         mProductManagmentAdapter.setOnClickView(new ProductManagmentAdapter.onClickView() {
             @Override
             public void setShelfClick(String id) {
-                operationalData(id,URLConstant.SHELF_URL);
+                operationalData(id, URLConstant.SHELF_URL);
             }
 
             @Override
             public void setObtainedClick(String id) {
-                operationalData(id,URLConstant.OBTAINED_URL);
+                operationalData(id, URLConstant.OBTAINED_URL);
             }
 
             @Override
@@ -185,7 +193,7 @@ public class ProductManagmentFragment extends BaseFragment {
 
             @Override
             public void setDeleteClick(String id) {
-                operationalData(id,URLConstant.DELETE_URL);
+                operationalData(id, URLConstant.DELETE_URL);
             }
         });
     }
@@ -223,13 +231,14 @@ public class ProductManagmentFragment extends BaseFragment {
             }
         });
     }
+
     public class MyReceiver01 extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             //获取广播的名字
-            String action=intent.getAction();
-            if("REFRESH_DATA".equals(action)){
-                typePage = intent.getIntExtra("page",0);
+            String action = intent.getAction();
+            if ("REFRESH_DATA".equals(action)) {
+                typePage = intent.getIntExtra("page", 0);
                 if (typePage == 0) {//出售中商品列表Store/getPurchaseList
                     tap = 1;
                 } else if (typePage == 1) {//已下架商品列表

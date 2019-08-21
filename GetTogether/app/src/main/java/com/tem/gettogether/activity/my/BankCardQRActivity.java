@@ -10,7 +10,9 @@ import android.widget.TextView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 
@@ -81,7 +83,7 @@ public class BankCardQRActivity extends BaseActivity {
     }
     private void upyinhCode(final String yinhang){
         Map<String,Object> map=new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("user_name",Name);
         map.put("bank_number",Num);
         map.put("bank_name",yinhang);

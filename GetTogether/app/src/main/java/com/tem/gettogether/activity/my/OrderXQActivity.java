@@ -26,6 +26,7 @@ import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
 import com.tem.gettogether.base.URLConstant;
@@ -34,6 +35,7 @@ import com.tem.gettogether.bean.OrderDataBean;
 import com.tem.gettogether.bean.WechatDataBean;
 import com.tem.gettogether.rongyun.RongTalk;
 import com.tem.gettogether.utils.PayResult;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.OnPasswordInputFinish2;
@@ -331,7 +333,7 @@ public class OrderXQActivity extends BaseActivity {
     }
     private void upQRSHData() {
         Map<String, Object> map = new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("order_id",resultBeans.getOrder_id());
         XUtil.Post(URLConstant.QUERENSH_LIEBIAO, map, new MyCallBack<String>() {
             @Override
@@ -368,7 +370,7 @@ public class OrderXQActivity extends BaseActivity {
     }
     private void upOrderXQData() {
         Map<String, Object> map = new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("order_id",order_id);
         showDialog();
         XUtil.Post(URLConstant.QUERENSH_XIANGQING, map, new MyCallBack<String>() {
@@ -409,7 +411,7 @@ public class OrderXQActivity extends BaseActivity {
     }
     private void upCancleCartData() {
         Map<String, Object> map = new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("order_id",resultBeans.getOrder_id());
         showDialog();
         XUtil.Post(URLConstant.CANCLE_LIEBIAO, map, new MyCallBack<String>() {
@@ -448,7 +450,8 @@ public class OrderXQActivity extends BaseActivity {
     }
     private void upremoveCartData() {
         Map<String, Object> map = new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         map.put("order_id",resultBeans.getOrder_id());
         showDialog();
         XUtil.Post(URLConstant.SHANCHUDINGDAN, map, new MyCallBack<String>() {
@@ -591,12 +594,13 @@ public class OrderXQActivity extends BaseActivity {
                 }else if(PayType==2){//支付宝
                     Map<String,Object> map3=new HashMap<>();
                     map3.put("master_order_sn",resultBeans.getMaster_order_sn());
-                    map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                    map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                     upYETXData(map3);
                 }else if(PayType==3){//微信
                     Map<String,Object> map3=new HashMap<>();
                     map3.put("master_order_sn",resultBeans.getMaster_order_sn());
-                    map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                    map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                     upYETXData(map3);
                 }
                 mPop.dismiss();
@@ -738,7 +742,7 @@ public class OrderXQActivity extends BaseActivity {
                     Map<String,Object> map3=new HashMap<>();
                     map3.put("master_order_sn",resultBeans.getMaster_order_sn());
                     map3.put("pay_password", paypass);
-                    map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                    map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                     Log.i("=====余额支付--",resultBeans.getMaster_order_sn()+"--"+paypass);
                     upYETXData(map3);

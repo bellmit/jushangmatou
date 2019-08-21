@@ -93,7 +93,7 @@ public class BuyingManagementActivity extends BaseActivity implements BuyingMana
                             homeDataBean = gson.fromJson(result, QiuGouListBean.class).getResult();
                             setData();
                         } else {
-                            homeDataBean = gson.fromJson(result, QiuGouListBean.class).getResult();
+                            homeDataBean.addAll(gson.fromJson(result, QiuGouListBean.class).getResult());
                             mHomeBuyAdapter.notifyDataSetChanged();
                         }
                     }

@@ -14,12 +14,14 @@ import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.MyAddressBean;
 import com.tem.gettogether.dialog.Effectstype;
 import com.tem.gettogether.dialog.LogoutDialogBuilder;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 
@@ -225,7 +227,8 @@ public class AddressGLActivity extends BaseActivity {
 
     private void upGetAddressData() {
         Map<String, Object> map = new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         showDialog();
         XUtil.Post(URLConstant.GEI_ADDRESS_LIEBIAO, map, new MyCallBack<String>() {
             @Override
@@ -265,9 +268,9 @@ public class AddressGLActivity extends BaseActivity {
 
     private void upSetMoAddressData(String id) {
         Map<String, Object> map = new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         map.put("address_id", id);
-        Log.i("===参数--", BaseApplication.getInstance().userBean.getToken() + "--" + id);
         showDialog();
         XUtil.Post(URLConstant.ADDRESS_SETTINGMOREN, map, new MyCallBack<String>() {
             @Override
@@ -308,7 +311,7 @@ public class AddressGLActivity extends BaseActivity {
 
     private void upRemoveAddressData(String id) {
         Map<String, Object> map = new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("id", id);
 
         showDialog();

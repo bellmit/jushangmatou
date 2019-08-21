@@ -10,7 +10,9 @@ import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.OnPasswordInputFinish2;
@@ -99,7 +101,7 @@ public class XGPayPass2Activity extends BaseActivity {
                 break;
             case R.id.rl_title_right://下一步
                 Map<String,Object> map=new HashMap<>();
-                map.put("token", BaseApplication.getInstance().userBean.getToken());
+                map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                 map.put("newpass",newPay);
                 map.put("opass",newPay2);
                 upPassXGData(map);

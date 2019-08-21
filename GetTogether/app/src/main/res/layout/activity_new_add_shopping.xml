@@ -66,6 +66,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:src="@drawable/right_more" />
                 </LinearLayout>
 
@@ -189,7 +190,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="商品售价："
+                        android:text="商品价格："
                         android:textSize="13dp" />
 
                     <EditText
@@ -208,6 +209,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:src="@drawable/right_more" />
                 </LinearLayout>
 
@@ -259,6 +261,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:src="@drawable/right_more" />
                 </LinearLayout>
 
@@ -308,6 +311,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:src="@drawable/right_more" />
                 </LinearLayout>
 
@@ -559,6 +563,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:src="@drawable/right_more" />
                 </LinearLayout>
 
@@ -674,6 +679,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:src="@drawable/right_more" />
                 </LinearLayout>
 
@@ -724,6 +730,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:src="@drawable/right_more" />
                 </LinearLayout>
 
@@ -732,54 +739,7 @@
                     android:layout_height="1dp"
                     android:background="@color/line" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:drawablePadding="10dp"
-                        android:text="*"
-                        android:textColor="@color/my_red"
-                        android:textSize="13dp"
-                        android:visibility="invisible" />
-
-                    <TextView
-                        android:layout_width="110dp"
-                        android:layout_height="wrap_content"
-                        android:drawablePadding="10dp"
-                        android:text="文字介绍："
-                        android:textSize="13dp" />
-
-                    <EditText
-                        android:id="@+id/text_description_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:ellipsize="end"
-                        android:hint="请输入文字介绍"
-                        android:inputType="text"
-                        android:maxLines="2"
-                        android:paddingStart="15dp"
-                        android:textSize="13dp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/right_more" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/line" />
 
                 <LinearLayout
                     android:id="@+id/ll_shop_JJ"
@@ -823,6 +783,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:src="@drawable/right_more" />
                 </LinearLayout>
 
@@ -830,7 +791,55 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/line" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:drawablePadding="10dp"
+                        android:text="*"
+                        android:textColor="@color/my_red"
+                        android:textSize="13dp"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:text="文字介绍："
+                        android:textSize="13dp" />
+
+                    <EditText
+                        android:id="@+id/text_description_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:ellipsize="end"
+                        android:hint="请输入文字介绍"
+                        android:inputType="text"
+                        android:maxLines="2"
+                        android:paddingStart="15dp"
+                        android:textSize="13dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:src="@drawable/right_more" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
                 <LinearLayout
                     android:id="@+id/ll_XQ_ms"
 
@@ -874,6 +883,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:src="@drawable/right_more" />
                 </LinearLayout>
 
@@ -881,8 +891,54 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/line"
-                    android:visibility="gone" />
+                    />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:drawablePadding="10dp"
+                        android:text="*"
+                        android:textColor="@color/my_red"
+                        android:textSize="13dp"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:text="商品图片："
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:background="@null"
+                        android:hint="请上传商品图片(最多9张)"
+                        android:paddingStart="15dp"
+                        android:textSize="13dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:src="@drawable/right_more" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"

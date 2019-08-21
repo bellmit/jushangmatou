@@ -223,7 +223,7 @@ public class DistributorAuthenticationActivity extends BaseActivity {
 
                     Map<String, Object> map = new HashMap<>();
                     if (BaseApplication.getInstance().userBean == null) return;
-                    map.put("token", BaseApplication.getInstance().userBean.getToken());
+                    map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                     map.put("legal_identity", et_card_num.getText().toString());
                     map.put("apply_type", apply_type);
                     map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
@@ -241,7 +241,8 @@ public class DistributorAuthenticationActivity extends BaseActivity {
                 } else {
                     Map<String, Object> map = new HashMap<>();
                     if (BaseApplication.getInstance().userBean == null) return;
-                    map.put("token", BaseApplication.getInstance().userBean.getToken());
+                    map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                     map.put("store_person_identity", et_card_num.getText().toString());
                     map.put("apply_type", apply_type);
                     if (Image_1 != null || Image_2 != null) {

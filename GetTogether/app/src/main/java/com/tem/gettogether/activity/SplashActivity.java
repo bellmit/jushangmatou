@@ -111,7 +111,6 @@ public class SplashActivity extends BaseActivity {
                     upLogin(phone,pass,type);
                 }else {
                     startActivity(new Intent(SplashActivity.this,MainActivity.class));
-//                    startActivity(new Intent(this,LoginActivity.class));
                     finish();
                 }
             }else  if(type.equals("2")){//QQ
@@ -267,7 +266,7 @@ public class SplashActivity extends BaseActivity {
                         userBean.setLever(loginBean.getResult().getLevel());
                         BaseApplication.getInstance().userBean = userBean;
                         doConnection();
-                        if (loginBean.getResult().getMobile_validated() == "0") {
+                        if (loginBean.getResult().getMobile_validated().equals("0")) {
                             startActivity(new Intent(SplashActivity.this, RegisterActivity.class).putExtra(Contacts.REGISTER_TYPE, 1).putExtra(Contacts.REGISTER_OPEN_ID, BaseApplication.getInstance().bean.getOpenid()));
                         } else {
                             startActivity(new Intent(SplashActivity.this, MainActivity.class));

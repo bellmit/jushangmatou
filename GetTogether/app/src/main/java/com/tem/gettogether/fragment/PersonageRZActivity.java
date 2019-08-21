@@ -31,6 +31,7 @@ import com.tem.gettogether.activity.MainActivity;
 
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
 import com.tem.gettogether.base.URLConstant;
@@ -39,6 +40,7 @@ import com.tem.gettogether.bean.ImageDataBean;
 import com.tem.gettogether.bean.PersonagerMessageBean;
 import com.tem.gettogether.utils.Base64BitmapUtil;
 import com.tem.gettogether.utils.ListUtils;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.permissions.AppUtils;
 import com.tem.gettogether.utils.permissions.FileUtils;
 import com.tem.gettogether.utils.permissions.PermissionsActivity;
@@ -188,7 +190,7 @@ public class PersonageRZActivity extends BaseActivity {
                 String khyhName=et_khyhzh.getText().toString();
                 Map<String,Object> map=new HashMap<>();
                 if(BaseApplication.getInstance().userBean==null)return;
-                map.put("token",BaseApplication.getInstance().userBean.getToken());
+                map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                 map.put("store_name",dpname);
                 map.put("sc_id",DPDL);
                 map.put("pavilion_id",GFL);

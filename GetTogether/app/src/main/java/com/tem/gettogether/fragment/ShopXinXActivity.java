@@ -29,10 +29,12 @@ import com.tem.gettogether.ShowImageDetail;
 import com.tem.gettogether.activity.LoginActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.ImageDataBean;
 import com.tem.gettogether.bean.MyShopDataBean;
 import com.tem.gettogether.utils.Base64BitmapUtil;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.permissions.AppUtils;
 import com.tem.gettogether.utils.permissions.FileUtils;
 import com.tem.gettogether.utils.permissions.PermissionsActivity;
@@ -170,7 +172,8 @@ public class ShopXinXActivity extends BaseActivity {
             case R.id.tv_fbcp:
                 Map<String,Object> map=new HashMap<>();
                 if(BaseApplication.getInstance().userBean==null)return;
-                map.put("token",BaseApplication.getInstance().userBean.getToken());
+                map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                 if(et_ShopName.getText().toString().equals("")){
                     CusToast.showToast("请输入店铺名称");
                     return;
@@ -246,7 +249,7 @@ public class ShopXinXActivity extends BaseActivity {
             startActivity(new Intent(this, LoginActivity.class));
             return;
         }
-        map.put("token",BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         showDialog();
         XUtil.Post(URLConstant.MYDEDIANPOU_XINXI, map, new MyCallBack<String>() {

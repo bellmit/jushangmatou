@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.Footer.LoadingView;
@@ -47,7 +48,8 @@ public class CaiGouShangOrderFragment extends BaseFragment {
     private RecyclerView recyclerView;
     @ViewInject(R.id.refreshLayout)
     private TwinklingRefreshLayout refreshLayout;
-
+    @ViewInject(R.id.ll_empty)
+    private RelativeLayout ll_empty;
     private CaiGouShangOrderAdapter mOrderAdapter;
     private List<MyOrderdataBean.ResultBean> resultBeans = new ArrayList<>();
     private int currentPage = 1;
@@ -108,7 +110,8 @@ public class CaiGouShangOrderFragment extends BaseFragment {
     private void initDatas(final int currentPage, final boolean isNormal, final boolean isLoadMore) {
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         map.put("role_type", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, "7"));
         if (mTab == 0) {// 全部
@@ -128,12 +131,19 @@ public class CaiGouShangOrderFragment extends BaseFragment {
             public void onSuccess(String result) {
                 super.onSuccess(result);
                 baseActivity.closeDialog();
+                Log.d("chenshichun", "=======采购商订单====" + result);
+
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         if (isNormal) {
+                            if (resultBeans.size() == 0) {
+                                ll_empty.setVisibility(View.VISIBLE);
+                            } else {
+                                ll_empty.setVisibility(View.GONE);
+                            }
                             resultBeans.addAll(gson.fromJson(result, MyOrderdataBean.class).getResult());
                             mOrderAdapter.notifyDataSetChanged();
                         } else {
@@ -144,6 +154,11 @@ public class CaiGouShangOrderFragment extends BaseFragment {
                                     mOrderAdapter.notifyDataSetChanged();
                                 }
                             } else {
+                                if (resultBeans.size() == 0) {
+                                    ll_empty.setVisibility(View.VISIBLE);
+                                } else {
+                                    ll_empty.setVisibility(View.GONE);
+                                }
                                 resultBeans.clear();
                                 resultBeans.addAll(gson.fromJson(result, MyOrderdataBean.class).getResult());
                                 mOrderAdapter.notifyDataSetChanged();
@@ -174,7 +189,8 @@ public class CaiGouShangOrderFragment extends BaseFragment {
     private void confirmReceipt(String orderId) {// 确认收货
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         map.put("order_id", orderId);
         baseActivity.showDialog();

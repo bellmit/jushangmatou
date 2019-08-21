@@ -210,7 +210,11 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         tv_my.setTextColor(getResources().getColor(R.color.text));
         iv_home.setImageResource(R.drawable.shouye2);
         iv_fl.setImageResource(R.drawable.fenlei);
-        iv_fbqg.setImageResource(R.drawable.fbqg_main);
+        if (role_type != null && role_type.equals("1")) {
+            iv_fbqg.setImageResource(R.drawable.xunpan_gray);
+        }else{
+            iv_fbqg.setImageResource(R.drawable.fbqg_main);
+        }
         iv_cart.setImageResource(R.drawable.jinhuoche1);
         iv_message.setImageResource(R.drawable.liaotian);
         iv_my.setImageResource(R.drawable.wode);
@@ -231,7 +235,11 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 tv_my.setTextColor(getResources().getColor(R.color.text));
                 iv_home.setImageResource(R.drawable.shouye2);
                 iv_fl.setImageResource(R.drawable.fenlei);
-                iv_fbqg.setImageResource(R.drawable.fbqg_main);
+                if (role_type != null && role_type.equals("1")) {
+                    iv_fbqg.setImageResource(R.drawable.xunpan_gray);
+                }else{
+                    iv_fbqg.setImageResource(R.drawable.fbqg_main);
+                }
                 iv_cart.setImageResource(R.drawable.jinhuoche1);
                 iv_message.setImageResource(R.drawable.liaotian);
                 iv_my.setImageResource(R.drawable.wode);
@@ -247,7 +255,11 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 tv_my.setTextColor(getResources().getColor(R.color.text));
                 iv_home.setImageResource(R.drawable.shouye);
                 iv_fl.setImageResource(R.drawable.fenlei2);
-                iv_fbqg.setImageResource(R.drawable.fbqg_main);
+                if (role_type != null && role_type.equals("1")) {
+                    iv_fbqg.setImageResource(R.drawable.xunpan_gray);
+                }else{
+                    iv_fbqg.setImageResource(R.drawable.fbqg_main);
+                }
                 iv_cart.setImageResource(R.drawable.jinhuoche1);
                 iv_message.setImageResource(R.drawable.liaotian);
                 iv_my.setImageResource(R.drawable.wode);
@@ -263,7 +275,11 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 tv_my.setTextColor(getResources().getColor(R.color.text));
                 iv_home.setImageResource(R.drawable.shouye);
                 iv_fl.setImageResource(R.drawable.fenlei);
-                iv_fbqg.setImageResource(R.drawable.fbqh_2main);
+                if (role_type != null && role_type.equals("1")) {
+                    iv_fbqg.setImageResource(R.drawable.xunpan);
+                }else{
+                    iv_fbqg.setImageResource(R.drawable.fbqh_2main);
+                }
                 iv_cart.setImageResource(R.drawable.jinhuoche1);
                 iv_message.setImageResource(R.drawable.liaotian);
                 iv_my.setImageResource(R.drawable.wode);
@@ -286,7 +302,11 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 tv_my.setTextColor(getResources().getColor(R.color.text));
                 iv_home.setImageResource(R.drawable.shouye);
                 iv_fl.setImageResource(R.drawable.fenlei);
-                iv_fbqg.setImageResource(R.drawable.fbqg_main);
+                if (role_type != null && role_type.equals("1")) {
+                    iv_fbqg.setImageResource(R.drawable.xunpan_gray);
+                }else{
+                    iv_fbqg.setImageResource(R.drawable.fbqg_main);
+                }
                 iv_cart.setImageResource(R.drawable.jinhuoche2);
                 iv_message.setImageResource(R.drawable.liaotian);
                 iv_my.setImageResource(R.drawable.wode);
@@ -306,7 +326,11 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 tv_my.setTextColor(getResources().getColor(R.color.text));
                 iv_home.setImageResource(R.drawable.shouye);
                 iv_fl.setImageResource(R.drawable.fenlei);
-                iv_fbqg.setImageResource(R.drawable.fbqg_main);
+                if (role_type != null && role_type.equals("1")) {
+                    iv_fbqg.setImageResource(R.drawable.xunpan_gray);
+                }else{
+                    iv_fbqg.setImageResource(R.drawable.fbqg_main);
+                }
                 iv_cart.setImageResource(R.drawable.jinhuoche1);
                 iv_message.setImageResource(R.drawable.liaotian2);
                 iv_my.setImageResource(R.drawable.wode);
@@ -326,7 +350,11 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                     tv_my.setTextColor(getResources().getColor(R.color.bottom_text));
                     iv_home.setImageResource(R.drawable.shouye);
                     iv_fl.setImageResource(R.drawable.fenlei);
-                    iv_fbqg.setImageResource(R.drawable.fbqg_main);
+                    if (role_type != null && role_type.equals("1")) {
+                        iv_fbqg.setImageResource(R.drawable.xunpan_gray);
+                    }else{
+                        iv_fbqg.setImageResource(R.drawable.fbqg_main);
+                    }
                     iv_cart.setImageResource(R.drawable.jinhuoche1);
                     iv_message.setImageResource(R.drawable.liaotian);
                     iv_my.setImageResource(R.drawable.wode2);
@@ -415,8 +443,10 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
 
         if (role_type != null && role_type.equals("1")) {
             tv_fbqg.setText("询盘推送");
+            iv_fbqg.setImageResource(R.drawable.xunpan_gray);
         } else {
             tv_fbqg.setText("发布求购");
+            iv_fbqg.setImageResource(R.drawable.fbqg_main);
         }
 
         upGetMessageData();
@@ -496,7 +526,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     private void upGetMessageData() {
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         XUtil.Post(URLConstant.XITONGXIAO_WEIDU, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {

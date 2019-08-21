@@ -27,6 +27,7 @@ import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
 import com.tem.gettogether.base.URLConstant;
@@ -34,6 +35,7 @@ import com.tem.gettogether.bean.ImageDataBean;
 import com.tem.gettogether.utils.Base64BitmapUtil;
 import com.tem.gettogether.utils.BitnapUtils;
 import com.tem.gettogether.utils.Confirg;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.permissions.PermissionsActivity;
 import com.tem.gettogether.utils.permissions.PermissionsChecker;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
@@ -310,7 +312,8 @@ public class TuWenXQActivity extends BaseActivity  implements View.OnClickListen
                         Gson gson = new Gson();
                         ImageDataBean imageDataBean=gson.fromJson(result,ImageDataBean.class);
                         Map<String,Object> map=new HashMap<>();
-                        map.put("token", BaseApplication.getInstance().userBean.getToken());
+                        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                         if(imageDataBean.getResult().getImage_show().size()>=0){
                             map.put("head_pic", imageDataBean.getResult().getImage_show().get(0));
                             cartImage.add(imageDataBean.getResult().getImage_show().get(0));

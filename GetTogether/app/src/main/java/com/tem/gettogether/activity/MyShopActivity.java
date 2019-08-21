@@ -88,7 +88,7 @@ public class MyShopActivity extends BaseActivity {
     private void upGetMessageData() {
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         map.put("store_status", 1);
         XUtil.Post(URLConstant.SHOP_INFORMATION, map, new MyCallBack<String>() {

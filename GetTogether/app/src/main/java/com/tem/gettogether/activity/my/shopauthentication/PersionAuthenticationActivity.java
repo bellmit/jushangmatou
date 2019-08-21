@@ -23,6 +23,7 @@ import com.tem.gettogether.activity.my.EnterpriseShopRZActivity;
 import com.tem.gettogether.activity.my.UploadQYActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
 import com.tem.gettogether.base.URLConstant;
@@ -30,6 +31,7 @@ import com.tem.gettogether.bean.AddressDataBean;
 import com.tem.gettogether.bean.PersonagerMessageBean;
 import com.tem.gettogether.utils.Contacts;
 import com.tem.gettogether.utils.ListUtils;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.permissions.PermissionsActivity;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -228,7 +230,8 @@ public class PersionAuthenticationActivity extends BaseActivity {
 
                 Map<String, Object> map = new HashMap<>();
                 if (BaseApplication.getInstance().userBean == null) return;
-                map.put("token", BaseApplication.getInstance().userBean.getToken());
+                map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                 /*------工厂区域和店铺区域处理----*/
                 if (company_province == null)
                     company_province = store_province;

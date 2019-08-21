@@ -76,7 +76,8 @@ public class MemberInformationFragment extends BaseFragment {
     private void getMemberInformationData() {
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
         XUtil.Post(URLConstant.MEMBER_INFORMATION, map, new MyCallBack<String>() {
             @Override

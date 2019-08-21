@@ -28,11 +28,13 @@ import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.ImageDataBean;
 import com.tem.gettogether.bean.MyMessageBean;
 import com.tem.gettogether.dialog.CheckUpDialog;
 import com.tem.gettogether.utils.Base64BitmapUtil;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.permissions.AppUtils;
 import com.tem.gettogether.utils.permissions.FileUtils;
 import com.tem.gettogether.utils.permissions.PermissionsActivity;
@@ -107,7 +109,8 @@ public class GRMeassageActivity extends BaseActivity {
     private void upGetMessageData() {
         Map<String,Object> map=new HashMap<>();
         if(BaseApplication.getInstance().userBean==null)return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         showDialog();
         XUtil.Post(URLConstant.GET_MESSAGE, map, new MyCallBack<String>() {
             @Override
@@ -184,7 +187,7 @@ public class GRMeassageActivity extends BaseActivity {
                 if (!et_Name.getText().toString().equals("")) {
                     tv_name.setText(et_Name.getText().toString());
                     Map<String,Object> map=new HashMap<>();
-                    map.put("token", BaseApplication.getInstance().userBean.getToken());
+                    map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                     map.put("nickname", et_Name.getText().toString());
                     upXGMessageData(map);
                     dialogSucceed.cancel();
@@ -373,7 +376,8 @@ public class GRMeassageActivity extends BaseActivity {
                         Gson gson = new Gson();
                         ImageDataBean imageDataBean=gson.fromJson(result,ImageDataBean.class);
                         Map<String,Object> map=new HashMap<>();
-                        map.put("token", BaseApplication.getInstance().userBean.getToken());
+                        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                         if(imageDataBean.getResult().getImage_show().size()>=0){
                             map.put("head_pic", imageDataBean.getResult().getImage_show().get(0));
                         }

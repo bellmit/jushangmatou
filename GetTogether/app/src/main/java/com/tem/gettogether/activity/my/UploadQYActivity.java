@@ -27,9 +27,11 @@ import com.tem.gettogether.R;
 import com.tem.gettogether.ShowImageDetail;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.ImageDataBean;
 import com.tem.gettogether.utils.Base64BitmapUtil;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.permissions.AppUtils;
 import com.tem.gettogether.utils.permissions.FileUtils;
 import com.tem.gettogether.utils.permissions.PermissionsActivity;
@@ -163,7 +165,7 @@ public class UploadQYActivity extends BaseActivity {
             case R.id.tv_nextStep:
                 Map<String,Object> map=new HashMap<>();
                 if(BaseApplication.getInstance().userBean==null)return;
-                map.put("token",BaseApplication.getInstance().userBean.getToken());
+                map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                 if(Image_1!=null){
                     map.put("business_licence_cert",Image_1);
                 }

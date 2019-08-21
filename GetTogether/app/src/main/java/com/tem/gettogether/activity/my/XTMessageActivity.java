@@ -15,10 +15,12 @@ import com.tem.gettogether.R;
 import com.tem.gettogether.activity.LoginActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.XITMessageLBBean;
 import com.tem.gettogether.utils.ListUtils;
 import com.tem.gettogether.utils.NetWorkUtils;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.powerfulrecyclerview.HomeListFreshRecyclerView;
@@ -70,7 +72,8 @@ public class XTMessageActivity extends BaseActivity {
         super.onResume();
         Map<String,Object> map3=new HashMap<>();
         map3.put("page","1");
-        map3.put("token", BaseApplication.getInstance().userBean.getToken());
+        map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         upShopData(map3);
     }
 
@@ -89,7 +92,7 @@ public class XTMessageActivity extends BaseActivity {
                 clearList(resultBeans);
                 Map<String,Object> map3=new HashMap<>();
                 map3.put("page",PAGE_NUM);
-                map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                 upShopData(map3);
 
@@ -105,7 +108,7 @@ public class XTMessageActivity extends BaseActivity {
                 PAGE_NUM++;
                 Map<String,Object> map3=new HashMap<>();
                 map3.put("page",PAGE_NUM);
-                map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                 upShopData(map3);
                 return true;
@@ -228,7 +231,8 @@ public class XTMessageActivity extends BaseActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             Map<String,Object> map3=new HashMap<>();
                             map3.put("msg_id",resultBeans.get(baseViewHolder.getAdapterPosition()).getMsg_id());
-                            map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                            map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                             upRemoveMessageData(map3);
                         }
                     });
@@ -258,7 +262,8 @@ public class XTMessageActivity extends BaseActivity {
                         PAGE_NUM=1;
                         Map<String,Object> map3=new HashMap<>();
                         map3.put("page",PAGE_NUM);
-                        map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                        map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                         upShopData(map3);
                     }else{
                         if(msg.contains("token")){

@@ -22,10 +22,12 @@ import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.AliPayBean;
 import com.tem.gettogether.bean.WechatDataBean;
 import com.tem.gettogether.utils.PayResult;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tencent.mm.sdk.modelpay.PayReq;
@@ -88,7 +90,7 @@ public class YEChongzhiActivity extends BaseActivity {
                 if(!czje.equals("")&&Integer.parseInt(czje)>10){
                     Map<String,Object> map3=new HashMap<>();
                     map3.put("money",czje);
-                    map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                    map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                     upYETXData(map3);
                 }else {
                     CusToast.showToast("充值金额不能少于10");

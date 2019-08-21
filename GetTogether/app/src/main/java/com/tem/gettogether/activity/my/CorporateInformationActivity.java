@@ -134,7 +134,7 @@ public class CorporateInformationActivity extends BaseActivity {
 
     private void getPersionData() {
         Map<String, Object> map = new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         XUtil.Post(URLConstant.PERSION_INFO, map, new MyCallBack<String>() {
             @Override
@@ -192,7 +192,7 @@ public class CorporateInformationActivity extends BaseActivity {
 
     private void getData() {
         Map<String, Object> map = new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         XUtil.Post(URLConstant.ENTERPISE_INFO, map, new MyCallBack<String>() {
             @Override
@@ -251,7 +251,7 @@ public class CorporateInformationActivity extends BaseActivity {
 
     private void saveData() {
         Map<String, Object> map = new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         map.put("country_id", countryId);
         map.put("sex", man_rb.isChecked() ? "0" : "1");
@@ -566,7 +566,7 @@ public class CorporateInformationActivity extends BaseActivity {
                         Gson gson = new Gson();
                         ImageDataBean imageDataBean = gson.fromJson(result, ImageDataBean.class);
                         Map<String, Object> map = new HashMap<>();
-                        map.put("token", BaseApplication.getInstance().userBean.getToken());
+                        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                         if (imageDataBean.getResult().getImage_show().size() >= 0) {
                             map.put("head_pic", imageDataBean.getResult().getImage_show().get(0));
                         }

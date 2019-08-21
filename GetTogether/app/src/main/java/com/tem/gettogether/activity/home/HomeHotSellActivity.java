@@ -45,7 +45,8 @@ public class HomeHotSellActivity extends BaseActivity {
     private RelativeLayout rl_close;
     @ViewInject(R.id.refreshLayout)
     private TwinklingRefreshLayout refreshLayout;
-
+    @ViewInject(R.id.ll_empty)
+    private RelativeLayout ll_empty;
     private HomeHotSellSecondAdapter mHomeHotSellSecondAdapter;
     private List<HomeHotSellBean.ResultEntity> homeDataBean = new ArrayList<>();
     private int currentPage = 1;
@@ -84,6 +85,7 @@ public class HomeHotSellActivity extends BaseActivity {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
+                Log.d("chenshichun","=======外贸热销列表===="+result);
                 closeDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -92,7 +94,12 @@ public class HomeHotSellActivity extends BaseActivity {
                         Gson gson = new Gson();
                         if (!isLoadMore) {
                             homeDataBean = gson.fromJson(result, HomeHotSellBean.class).getResult();
-                            setData();
+                            if(homeDataBean.size()==0){
+                                ll_empty.setVisibility(View.VISIBLE);
+                            }else {
+                                ll_empty.setVisibility(View.GONE);
+                                setData();
+                            }
                         } else {
                             homeDataBean.addAll(gson.fromJson(result, HomeHotSellBean.class).getResult());
                             mHomeHotSellSecondAdapter.notifyDataSetChanged();

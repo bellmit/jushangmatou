@@ -104,7 +104,7 @@ public class BuyMemberActivity extends BaseActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     rb_senior_member.setChecked(false);
-                    moneyText.setText(ordinaryMember+getResources().getText(R.string.yuan_2000));
+                    moneyText.setText(ordinaryMember+"元/押金");
                 }
             }
         });
@@ -113,7 +113,7 @@ public class BuyMemberActivity extends BaseActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     rb_ordinary_member.setChecked(false);
-                    moneyText.setText(seniorMember+getResources().getText(R.string.yuan_998));
+                    moneyText.setText(seniorMember+"元/年");
                 }
             }
         });
@@ -217,7 +217,8 @@ public class BuyMemberActivity extends BaseActivity {
     private void wx() {
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         map.put("level_id", rb_ordinary_member.isChecked() ? 1 : 2);
         XUtil.Post(URLConstant.DIANPU_WX_FUWUFEI, map, new MyCallBack<String>() {
             @Override
@@ -278,7 +279,8 @@ public class BuyMemberActivity extends BaseActivity {
     private void pay_zfb() {
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         map.put("level_id", rb_ordinary_member.isChecked() ? 1 : 2);
         XUtil.Post(URLConstant.DIANPU_ZFB_FUWUFEI, map, new MyCallBack<String>() {
             @Override
@@ -319,11 +321,9 @@ public class BuyMemberActivity extends BaseActivity {
     private void getMemberFee() {
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
-        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
-        Log.d("chenshichun","=======token===="+BaseApplication.getInstance().userBean.getToken());
-        Log.d("chenshichun","=======user_id===="+BaseApplication.getInstance().userBean.getUser_id());
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
 
         XUtil.Post(URLConstant.JOIN_USER_LEVER, map, new MyCallBack<String>() {
             @Override
@@ -341,10 +341,10 @@ public class BuyMemberActivity extends BaseActivity {
                         seniorMember = memberAmountBean.getResult().getSeniormfee();
                         lever = memberAmountBean.getResult().getLevel();
                         if(lever.equals("7")){
-                            moneyText.setText(seniorMember+getResources().getText(R.string.yuan_998));
+                            moneyText.setText(seniorMember+"元/年");
                         }else if(lever.equals("1")){
                             rl_ordinary_member.setVisibility(View.GONE);
-                            moneyText.setText(seniorMember+getResources().getText(R.string.yuan_998));
+                            moneyText.setText(seniorMember+"元/押金");
                         }
                     }
                 } catch (JSONException e) {
@@ -370,7 +370,8 @@ public class BuyMemberActivity extends BaseActivity {
     private void getStoreServiceFee() {
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         XUtil.Post(URLConstant.DIANPU_FUWUFEI, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {

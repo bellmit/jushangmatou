@@ -27,6 +27,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/star"
+                    android:textColor="@color/my_red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/id_card_nun"
                     android:textColor="@color/black"
                     android:textSize="14dp"

@@ -24,6 +24,7 @@ import com.tem.gettogether.R;
 import com.tem.gettogether.ShowImageDetail;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
 import com.tem.gettogether.base.URLConstant;
@@ -33,6 +34,7 @@ import com.tem.gettogether.bean.PingjiaBean;
 import com.tem.gettogether.utils.Base64BitmapUtil;
 import com.tem.gettogether.utils.BitnapUtils;
 import com.tem.gettogether.utils.Confirg;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.permissions.PermissionsActivity;
 import com.tem.gettogether.utils.permissions.PermissionsChecker;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
@@ -1003,7 +1005,7 @@ public class PostEvaluationActivity extends BaseActivity   {
                        String value=new Gson().toJson(pingjiaBean);
                        map.put(goodsListBeans.get(0).getGoods_id(),value);
                        String ramank= new Gson().toJson(map);
-                       mapSC.put("token", BaseApplication.getInstance().userBean.getToken());
+                       mapSC.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                        mapSC.put("order_id",order_id);
                        mapSC.put("store_packge_hidden",msxfRank);
                        mapSC.put("store_speed_hidden",mjfwRank);
@@ -1034,7 +1036,8 @@ public class PostEvaluationActivity extends BaseActivity   {
                        map.put(goodsListBeans.get(0).getGoods_id(),value1);
                        map.put(goodsListBeans.get(1).getGoods_id(),value11);
                        String ramank2= new Gson().toJson(map);
-                       mapSC.put("token", BaseApplication.getInstance().userBean.getToken());
+                       mapSC.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                        mapSC.put("order_id",order_id);
                        mapSC.put("store_packge_hidden",msxfRank);
                        mapSC.put("store_speed_hidden",mjfwRank);
@@ -1072,7 +1075,8 @@ public class PostEvaluationActivity extends BaseActivity   {
                            map.put(goodsListBeans.get(1).getGoods_id(),value33);
                            map.put(goodsListBeans.get(2).getGoods_id(),value333);
                        String ramank3= new Gson().toJson(map);
-                       mapSC.put("token", BaseApplication.getInstance().userBean.getToken());
+                       mapSC.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                        mapSC.put("order_id",order_id);
                        mapSC.put("store_packge_hidden",msxfRank);
                        mapSC.put("store_speed_hidden",mjfwRank);
@@ -1121,7 +1125,8 @@ public class PostEvaluationActivity extends BaseActivity   {
                        map.put(goodsListBeans.get(3).getGoods_id(),value44);
 
                        String ramank4= new Gson().toJson(map);
-                       mapSC.put("token", BaseApplication.getInstance().userBean.getToken());
+                       mapSC.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                        mapSC.put("order_id",order_id);
                        mapSC.put("store_packge_hidden",msxfRank);
                        mapSC.put("store_speed_hidden",mjfwRank);
@@ -1178,7 +1183,8 @@ public class PostEvaluationActivity extends BaseActivity   {
                        map.put(goodsListBeans.get(4).getGoods_id(),value55);
 
                        String ramank5= new Gson().toJson(map);
-                       mapSC.put("token", BaseApplication.getInstance().userBean.getToken());
+                       mapSC.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                        mapSC.put("order_id",order_id);
                        mapSC.put("store_packge_hidden",msxfRank);
                        mapSC.put("store_speed_hidden",mjfwRank);
@@ -1242,7 +1248,8 @@ public class PostEvaluationActivity extends BaseActivity   {
                        map.put(goodsListBeans.get(5).getGoods_id(),value66);
 
                        String ramank6= new Gson().toJson(map);
-                       mapSC.put("token", BaseApplication.getInstance().userBean.getToken());
+                       mapSC.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                        mapSC.put("order_id",order_id);
                        mapSC.put("store_packge_hidden",msxfRank);
                        mapSC.put("store_speed_hidden",mjfwRank);
@@ -1315,7 +1322,8 @@ public class PostEvaluationActivity extends BaseActivity   {
                        map.put(goodsListBeans.get(6).getGoods_id(),value76);
 
                        String ramank7= new Gson().toJson(map);
-                       mapSC.put("token", BaseApplication.getInstance().userBean.getToken());
+                       mapSC.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                        mapSC.put("order_id",order_id);
                        mapSC.put("store_packge_hidden",msxfRank);
                        mapSC.put("store_speed_hidden",mjfwRank);
@@ -1395,7 +1403,8 @@ public class PostEvaluationActivity extends BaseActivity   {
                        map.put(goodsListBeans.get(7).getGoods_id(),value88);
 
                        String ramank8= new Gson().toJson(map);
-                       mapSC.put("token", BaseApplication.getInstance().userBean.getToken());
+                       mapSC.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                        mapSC.put("order_id",order_id);
                        mapSC.put("store_packge_hidden",msxfRank);
                        mapSC.put("store_speed_hidden",mjfwRank);
@@ -1482,7 +1491,8 @@ public class PostEvaluationActivity extends BaseActivity   {
                        map.put(goodsListBeans.get(8).getGoods_id(),value99);
 
                        String ramank9= new Gson().toJson(map);
-                       mapSC.put("token", BaseApplication.getInstance().userBean.getToken());
+                       mapSC.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                        mapSC.put("order_id",order_id);
                        mapSC.put("store_packge_hidden",msxfRank);
                        mapSC.put("store_speed_hidden",mjfwRank);
@@ -1538,7 +1548,8 @@ public class PostEvaluationActivity extends BaseActivity   {
     }
     private void upOrderXQData() {
         Map<String, Object> map = new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         map.put("order_id",order_id);
         showDialog();
         XUtil.Post(URLConstant.QUERENSH_XIANGQING, map, new MyCallBack<String>() {
@@ -1939,7 +1950,8 @@ public class PostEvaluationActivity extends BaseActivity   {
                         ImageDataBean imageDataBean=gson.fromJson(result,ImageDataBean.class);
                         resultImageBeans=imageDataBean.getResult().getImage_show();
                         Map<String,Object> map=new HashMap<>();
-                        map.put("token", BaseApplication.getInstance().userBean.getToken());
+                        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                         if(imageDataBean.getResult().getImage_show().size()>=0){
                             map.put("head_pic", imageDataBean.getResult().getImage_show().get(0));
                             switch (ShoppingType){

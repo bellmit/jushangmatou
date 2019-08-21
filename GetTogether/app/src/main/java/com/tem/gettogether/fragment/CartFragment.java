@@ -25,6 +25,7 @@ import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
 import com.tem.gettogether.activity.my.AddressGLActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
 import com.tem.gettogether.base.URLConstant;
@@ -33,6 +34,7 @@ import com.tem.gettogether.bean.CartDataBean;
 import com.tem.gettogether.bean.JieSuanBean;
 import com.tem.gettogether.rongyun.RongTalk;
 import com.tem.gettogether.utils.NetWorkUtils;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.RoundImageView;
@@ -212,7 +214,8 @@ public class CartFragment extends TabFragment {
                         upRemoveCartData(cartid);
                     } else {
                         Map<String, Object> map = new HashMap<>();
-                        map.put("token", BaseApplication.getInstance().userBean.getToken());
+                        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                         if (cartid != null && !cartid.equals("")) {
                             map.put("ids", cartid);
                         }
@@ -330,7 +333,8 @@ public class CartFragment extends TabFragment {
 
     private void upHQpriceData(final String cartid, final String cart_ids) {
         Map<String, Object> map = new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         if (addressListBeans.getAddress_id() != null) {
             map.put("address_id", addressListBeans.getAddress_id() + "");
         }
@@ -601,7 +605,8 @@ public class CartFragment extends TabFragment {
     private void upCartData() {
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         XUtil.Post(URLConstant.CART_LIEBIAO, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
@@ -650,7 +655,7 @@ public class CartFragment extends TabFragment {
 
     private void upRemoveCartData(String ids) {
         Map<String, Object> map = new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("ids", ids);
 
         XUtil.Post(URLConstant.REMOVE_CART, map, new MyCallBack<String>() {

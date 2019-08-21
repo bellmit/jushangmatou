@@ -80,7 +80,7 @@ public class VipCenterActivity extends BaseActivity {
         }
 
         Glide.with(getContext()).load(headPic).error(R.drawable.img12x).centerCrop().into(head_pic);
-        nick_name.setText(BaseApplication.getInstance().userBean.getUserName());
+        nick_name.setText(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.NAME, ""));
         account.setText(BaseApplication.getInstance().userBean.getPhone());
         mFragments.add(new MemberClassificationFragment());
         mFragments.add(new MemberInformationFragment());

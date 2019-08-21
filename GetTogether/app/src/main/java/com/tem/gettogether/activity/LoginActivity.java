@@ -76,7 +76,7 @@ public class LoginActivity extends BaseActivity {
     @ViewInject(R.id.ll_wechat_login)
     private LinearLayout ll_wechat_login;
     private IWXAPI api;
-    private String APP_ID = "wx93eea65ba215f901";
+    private String APP_ID = "wx84afd2924379c340";
     public ArrayList<SnsPlatform> platforms = new ArrayList<SnsPlatform>();
     private SHARE_MEDIA[] list = {SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN};
 
@@ -456,7 +456,7 @@ public class LoginActivity extends BaseActivity {
 //                        userBean.setRole_type(loginBean.getResult().getRole_type());
                         BaseApplication.getInstance().userBean = userBean;
 //                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                        if (loginBean.getResult().getMobile_validated() == "0") {
+                        if (loginBean.getResult().getMobile_validated().equals("0")) {
                             startActivity(new Intent(LoginActivity.this, RegisterActivity.class).putExtra(Contacts.REGISTER_TYPE, 1).putExtra(Contacts.REGISTER_OPEN_ID, QQopenid));
                         } else {
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));

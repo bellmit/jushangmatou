@@ -1,13 +1,20 @@
 package com.tem.gettogether.fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,6 +26,8 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.LoginActivity;
+import com.tem.gettogether.activity.my.AddressGLActivity;
 import com.tem.gettogether.activity.my.BuyingManagementActivity;
 import com.tem.gettogether.activity.my.CgsAuthenticationActivity;
 import com.tem.gettogether.activity.my.CorporateInformationActivity;
@@ -32,10 +41,13 @@ import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActi
 import com.tem.gettogether.activity.order.CaiGouShangOrderActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseFragment;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.MyMessageBean;
+import com.tem.gettogether.dialog.CheckUpDialog;
 import com.tem.gettogether.utils.Contacts;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.CircularImage;
@@ -115,7 +127,8 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
     private void upGetMessageData() {
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         baseActivity.showDialog();
         XUtil.Post(URLConstant.GET_MESSAGE, map, new MyCallBack<String>() {
             @Override
@@ -132,10 +145,12 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
                         resultBean = myMessageBean.getResult();
                         Glide.with(getActivity()).load(myMessageBean.getResult().getHead_pic() + "").asBitmap().error(R.drawable.img12x).centerCrop().into(new BitmapImageViewTarget(iv_head));
                         tv_name.setText(myMessageBean.getResult().getNickname());
+                        SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.NAME, myMessageBean.getResult().getNickname());
                         is_verify = myMessageBean.getResult().getIs_verify();
+                    }else{
+                        CusToast.showToast("登录失效");
+                        startActivity(new Intent(getContext(), LoginActivity.class));
                     }
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -157,14 +172,18 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
         });
     }
 
-    @Event(value = {R.id.tv_setting, R.id.rl_sprz, R.id.tv_name, R.id.ll_scj, R.id.ll_zj, R.id.ll_qb,
+    @Event(value = {R.id.iv_head,R.id.tv_setting, R.id.rl_sprz, R.id.tv_name, R.id.ll_scj, R.id.ll_zj, R.id.ll_qb,
             R.id.tv_all, R.id.tv_dfk, R.id.tv_dfh, R.id.tv_dsh, R.id.rl_my_message, R.id.rl_dzgl, R.id.rl_ksbh, R.id.rl_zxkf, R.id.rl_tdyj, R.id.rl_gywm}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
+            case R.id.iv_head:
+                startActivity(new Intent(getActivity(), SettingActivity.class));
+                break;
             case R.id.tv_setting:// 设置
                 startActivity(new Intent(getActivity(), SettingActivity.class));
                 break;
             case R.id.tv_name:// 修改名字
+                upName();
                 break;
             case R.id.ll_scj:// 收藏夹
                 break;
@@ -195,6 +214,7 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), BuyingManagementActivity.class));
                 break;
             case R.id.rl_dzgl:// 收货地址
+                startActivity(new Intent(getActivity(), AddressGLActivity.class));
                 break;
             case R.id.rl_sprz: // 采购商认证
                 if (is_verify.equals("0")) {
@@ -208,6 +228,7 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
                 }
                 break;
             case R.id.rl_zxkf:// 在线客服
+                showPop(rl_zxkf);
                 break;
             case R.id.rl_tdyj:// 提点意见
                 startActivity(new Intent(getActivity(), TAdviseActivity.class));
@@ -256,4 +277,141 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
         super.onResume();
         upGetMessageData();
     }
+
+    private void upName() {
+        final CheckUpDialog dialogSucceed = new CheckUpDialog(getContext(), R.style.MyDialog);
+        dialogSucceed.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogSucceed.setContentView(R.layout.activity_setting_name);
+        dialogSucceed.setCancelable(false);//不能用返回键
+        final EditText et_Name = (EditText) dialogSucceed.findViewById(R.id.et_Name);
+        dialogSucceed.findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogSucceed.cancel();
+            }
+        });
+        dialogSucceed.findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!et_Name.getText().toString().equals("")) {
+                    tv_name.setText(et_Name.getText().toString());
+                    Map<String,Object> map=new HashMap<>();
+                    map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
+                    map.put("nickname", et_Name.getText().toString());
+                    upXGMessageData(map);
+                    dialogSucceed.cancel();
+                } else {
+                    CusToast.showToast("请填写昵称");
+                    return;
+                }
+            }
+        });
+        dialogSucceed.show();
+    }
+
+    private void upXGMessageData(Map<String, Object> map) {
+        baseActivity.showDialog();
+        XUtil.Post(URLConstant.XIUGAI_MESSAGE, map, new MyCallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                Log.i("====修改个人信息===", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    String msg = jsonObject.optString("msg");
+                    CusToast.showToast(msg);
+                    if (res.equals("1")) {
+                        upGetMessageData();
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                baseActivity.closeDialog();
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                ex.printStackTrace();
+                baseActivity.closeDialog();
+            }
+        });
+    }
+
+    private PopupWindow mPop;
+
+    //初始化弹窗
+    private void initPop() {
+        if (mPop == null) {
+            View view = LayoutInflater.from(getActivity()).inflate(R.layout.pop_layout, null);
+            mPop = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            //点击弹窗外消失mPop
+            mPop.setFocusable(true);
+            mPop.setOutsideTouchable(true);
+            //设置背景，才能使用动画效果
+            mPop.setBackgroundDrawable(new BitmapDrawable());
+            //设置动画
+            mPop.setAnimationStyle(R.style.PopWindowAnim);
+            //设置弹窗消失监听
+            mPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+                    lp.alpha = 1f;
+                    getActivity().getWindow().setAttributes(lp);
+                }
+            });
+            //设置弹窗内的点击事件
+            setPopClickListener(view);
+        }
+    }
+
+    //显示弹窗
+    private void showPop(View v) {
+        initPop();
+        if (mPop.isShowing())
+            return;
+        //设置弹窗底部位置
+        mPop.showAtLocation(v, Gravity.BOTTOM, 0, 0);
+        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+        lp.alpha = 0.6f;
+        getActivity().getWindow().setAttributes(lp);
+    }
+
+    private void setPopClickListener(View view) {
+        TextView tv_iteam1, photo, cancle;
+        photo = view.findViewById(R.id.photo);
+        cancle = view.findViewById(R.id.cancle);
+        tv_iteam1 = view.findViewById(R.id.tv_iteam1);
+        tv_iteam1.setText(R.string.kefudian);
+        photo.setText(getResources().getText(R.string.call) + resultBean.getService_qq());
+        photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                Uri datav = Uri.parse("tel:" + resultBean.getService_qq());
+                intent.setData(datav);
+                startActivity(intent);
+                mPop.dismiss();
+
+            }
+        });
+        cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPop.dismiss();
+            }
+        });
+    }
+
 }

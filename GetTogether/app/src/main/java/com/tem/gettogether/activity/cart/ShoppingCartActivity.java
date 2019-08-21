@@ -193,7 +193,8 @@ public class ShoppingCartActivity extends BaseActivity {
                         upRemoveCartData(cartid);
                     } else {
                         Map<String, Object> map = new HashMap<>();
-                        map.put("token", BaseApplication.getInstance().userBean.getToken());
+                        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                         if (cartid != null && !cartid.equals("")) {
                             map.put("ids", cartid);
                         }
@@ -301,7 +302,8 @@ public class ShoppingCartActivity extends BaseActivity {
 
     private void upHQpriceData(final String cartid, final String cart_ids) {
         Map<String, Object> map = new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         if (addressListBeans.getAddress_id() != null) {
             map.put("address_id", addressListBeans.getAddress_id() + "");
         }
@@ -610,8 +612,8 @@ public class ShoppingCartActivity extends BaseActivity {
     private void upCartData() {
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
-        Log.d("chenshichun","========token==="+ BaseApplication.getInstance().userBean.getToken());
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         XUtil.Post(URLConstant.CART_LIEBIAO, map, new MyCallBack<String>() {
             @Override
@@ -661,7 +663,7 @@ public class ShoppingCartActivity extends BaseActivity {
 
     private void upRemoveCartData(String ids) {
         Map<String, Object> map = new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("ids", ids);
 
         XUtil.Post(URLConstant.REMOVE_CART, map, new MyCallBack<String>() {

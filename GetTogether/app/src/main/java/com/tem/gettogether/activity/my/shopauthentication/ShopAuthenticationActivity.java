@@ -27,6 +27,8 @@ import org.xutils.x;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cc.duduhuo.custoast.CusToast;
 
@@ -109,7 +111,13 @@ public class ShopAuthenticationActivity extends BaseActivity {
             CusToast.showToast("请输入您身的电子邮箱");
             return;
         }
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        if(!isEmail(youxiang)){
+            CusToast.showToast("请输入正确电子邮箱格式");
+            return;
+        }
+
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         map.put("contacts_name", name);
         map.put("contacts_mobile", phone);
         map.put("contacts_email", youxiang);
@@ -151,6 +159,14 @@ public class ShopAuthenticationActivity extends BaseActivity {
                 closeDialog();
             }
         });
+    }
+
+    public static boolean isEmail(String email){
+        if (null==email || "".equals(email)) return false;
+        //Pattern p = Pattern.compile("\\w+@(\\w+.)+[a-z]{2,3}"); //简单匹配
+        Pattern p =  Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");//复杂匹配
+        Matcher m = p.matcher(email);
+        return m.matches();
     }
 
 }

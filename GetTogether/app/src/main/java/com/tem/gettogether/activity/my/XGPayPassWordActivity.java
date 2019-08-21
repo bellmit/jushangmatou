@@ -11,7 +11,9 @@ import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.OnPasswordInputFinish;
@@ -81,7 +83,7 @@ public class XGPayPassWordActivity extends BaseActivity {
             @Override
             public void queding( ) {
                 Map<String,Object> map=new HashMap<>();
-                map.put("token", BaseApplication.getInstance().userBean.getToken());
+                map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                 map.put("pass",payPass);
                 upPassXGData(map);
             }

@@ -200,7 +200,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
 
     @Override
     protected void initData() {
-        tv_title.setText("新增产品");
+        tv_title.setText("店铺上新");
         upBDFLData();
         upCategories();
         imagePaths.clear();
@@ -284,7 +284,6 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
             case R.id.ll_XQ_ms:
                 startActivityForResult(new Intent(NewAddShoppingActivity.this, TuWenXQActivity.class)
                         .putStringArrayListExtra("listImage", listImage), 6666);
-
                 break;
             case R.id.ll_bd_FL://本店分类
                 type = 3;
@@ -298,7 +297,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
 
                 Map<String, Object> map = new HashMap<>();
                 if (BaseApplication.getInstance().userBean == null) return;
-                map.put("token", BaseApplication.getInstance().userBean.getToken());
+                map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                 map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
 
                 if (et_cpName.getText().toString().equals("")) {
@@ -601,7 +600,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
             CusToast.showToast("登录失效，请重新登录");
             return;
         }
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
 
         showDialog();
@@ -609,7 +608,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
-                Log.i("===本店分类--", result);
+                Log.i("===商品分类--", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
@@ -646,7 +645,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
             CusToast.showToast("登录失效，请重新登录");
             return;
         }
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         showDialog();
         XUtil.Post(URLConstant.BENDIANFENLEI, map, new MyCallBack<String>() {
             @Override
@@ -686,7 +685,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
     private void upShoppingGGData() {
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("cat_id3", addFL3ID);
         if (resultBeansGFL.size() > 0) {
             map.put("sku_str", resultBeansGFL.get(0).getSku_str());

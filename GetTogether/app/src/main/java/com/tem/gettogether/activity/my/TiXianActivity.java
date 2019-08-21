@@ -11,10 +11,12 @@ import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.CZJLBean;
 import com.tem.gettogether.utils.ListUtils;
 import com.tem.gettogether.utils.NetWorkUtils;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.powerfulrecyclerview.HomeListFreshRecyclerView;
@@ -69,7 +71,8 @@ public class TiXianActivity extends BaseActivity {
                 clearList(txdataBean);
                 Map<String,Object> map3=new HashMap<>();
                 map3.put("page",PAGE_NUM);
-                map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                 upCZJLData(map3);
 
 
@@ -84,7 +87,7 @@ public class TiXianActivity extends BaseActivity {
                 PAGE_NUM++;
                 Map<String,Object> map3=new HashMap<>();
                 map3.put("page",PAGE_NUM);
-                map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                 upCZJLData(map3);
                 return true;
@@ -110,7 +113,7 @@ public class TiXianActivity extends BaseActivity {
         tv_title.setText("提现记录");
         Map<String,Object> map3=new HashMap<>();
         map3.put("page",PAGE_NUM);
-        map3.put("token", BaseApplication.getInstance().userBean.getToken());
+        map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         upCZJLData(map3);
     }
     @Event(value = {R.id.rl_close}, type = View.OnClickListener.class)

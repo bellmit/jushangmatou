@@ -29,12 +29,14 @@ import com.tem.gettogether.R;
 import com.tem.gettogether.ShowImageDetail;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.ImageDataBean;
 import com.tem.gettogether.bean.ShopDTfabuBean;
 import com.tem.gettogether.utils.Base64BitmapUtil;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.permissions.AppUtils;
 import com.tem.gettogether.utils.permissions.FileUtils;
 import com.tem.gettogether.utils.permissions.PermissionsActivity;
@@ -127,8 +129,10 @@ public class ShopDTFBActivity extends BaseActivity {
                 break;
             case R.id.rl_title_right:
                 Map<String,Object> map=new HashMap<>();
+
                 if(BaseApplication.getInstance().userBean==null)return;
-                map.put("token",BaseApplication.getInstance().userBean.getToken());
+                map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                 if(Image_1!=null){
                     map.put("images",Image_1);
                 }
@@ -229,7 +233,7 @@ public class ShopDTFBActivity extends BaseActivity {
     }
     private void upRequest(){
         Map<String,Object> map=new HashMap<>();
-        map.put("token",BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         showDialog();
         XUtil.Post(URLConstant.DINAPUFABU,map,new MyCallBack<String>(){
             @Override

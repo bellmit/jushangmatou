@@ -15,12 +15,14 @@ import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.HotSouSuoBean;
 import com.tem.gettogether.bean.SouSuoLSBean;
 import com.tem.gettogether.utils.ListUtils;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.UiUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -111,7 +113,7 @@ public class HomeSouSuoActivity extends BaseActivity {
     private void upSouSuoLSData(){
         Map<String,Object> map=new HashMap<>();
         if(BaseApplication.getInstance().userBean==null)return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("store_id",store_id);
 
         showDialog();
@@ -191,6 +193,7 @@ public class HomeSouSuoActivity extends BaseActivity {
                             UiUtils.toast("没有更新的数据");
                             return;
                         }
+                        hotresultBeans.removeAll(hotresultBeans);
                         hotresultBeans.addAll(list);
                     }
 
@@ -236,7 +239,8 @@ public class HomeSouSuoActivity extends BaseActivity {
     }
     private void upRemoveData(){
         Map<String,Object> map=new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         map.put("store_id",store_id);
         showDialog();
         XUtil.Post(URLConstant.REMOVESOUSUOLISHI,map,new MyCallBack<String>(){

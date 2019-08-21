@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.Footer.LoadingView;
@@ -48,7 +49,8 @@ public class GongYingShangOrderFragment extends BaseFragment {
     private RecyclerView recyclerView;
     @ViewInject(R.id.refreshLayout)
     private TwinklingRefreshLayout refreshLayout;
-
+    @ViewInject(R.id.ll_empty)
+    private RelativeLayout ll_empty;
     private GongYingShangOrderAdapter mOrderAdapter;
     private List<MyOrderdataBean.ResultBean> resultBeans = new ArrayList<>();
     private int currentPage = 1;
@@ -107,7 +109,8 @@ public class GongYingShangOrderFragment extends BaseFragment {
     private void initDatas(final int currentPage, final boolean isNormal, final boolean isLoadMore) {
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         map.put("role_type", 1);
         if (mTab == 0) {// 全部
@@ -130,12 +133,17 @@ public class GongYingShangOrderFragment extends BaseFragment {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
-                    Log.d("chenshichun", "=======全部result====" + result);
+                    Log.d("chenshichun", "=======供应商订单====" + result);
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         if (isNormal) {
                             resultBeans = gson.fromJson(result, MyOrderdataBean.class).getResult();
-                            setData();
+                            if (resultBeans.size() == 0) {
+                                ll_empty.setVisibility(View.VISIBLE);
+                            } else {
+                                ll_empty.setVisibility(View.GONE);
+                                setData();
+                            }
                         } else {
                             if (isLoadMore) {
 
@@ -144,6 +152,11 @@ public class GongYingShangOrderFragment extends BaseFragment {
                                     mOrderAdapter.notifyDataSetChanged();
                                 }
                             } else {
+                                if (gson.fromJson(result, MyOrderdataBean.class).getResult().size() == 0) {
+                                    ll_empty.setVisibility(View.VISIBLE);
+                                } else {
+                                    ll_empty.setVisibility(View.GONE);
+                                }
                                 resultBeans.clear();
                                 resultBeans.addAll(gson.fromJson(result, MyOrderdataBean.class).getResult());
                                 mOrderAdapter.notifyDataSetChanged();
@@ -174,7 +187,8 @@ public class GongYingShangOrderFragment extends BaseFragment {
     private void confirmSend(String Url, String orderId) {// 确认发货
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         map.put("order_id", orderId);
         baseActivity.showDialog();

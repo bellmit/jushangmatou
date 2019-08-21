@@ -5,6 +5,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -13,8 +14,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -182,7 +186,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
     public void initView() {
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3, LinearLayoutManager.VERTICAL, false));
-        mTaskImgAdapter = new MyPublicTaskRecycleAdapter(getActivity(), imageRes, imagePaths, this, this,0);
+        mTaskImgAdapter = new MyPublicTaskRecycleAdapter(getActivity(), imageRes, imagePaths, this, this, 0);
         recyclerView.setAdapter(mTaskImgAdapter);
 
     }
@@ -334,8 +338,8 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                         mTaskImgAdapter.notifyDataSetChanged();
                     }
                 });
-                Log.d("chenshichun","=======imagePaths===="+imagePaths);
-                Log.d("chenshichun","======imagePaths.size()====="+imagePaths.size());
+                Log.d("chenshichun", "=======imagePaths====" + imagePaths);
+                Log.d("chenshichun", "======imagePaths.size()=====" + imagePaths.size());
                 if (imagePaths.size() - 1 != index1)
                     builder.show();
 
@@ -351,7 +355,8 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         if (BaseApplication.getInstance().userBean == null) {
             return;
         }
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         map.put("goods_name", et_cpName.getText().toString());
         map.put("goods_desc", et_cpms.getText().toString());
 //      map.put("goods_cate",goods_cate);
@@ -611,6 +616,8 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("chenshichun", "========="+requestCode);
+
         super.onActivityResult(requestCode, resultCode, data);
         //系统相机权限
         if (requestCode == REQUEST_CODE_CAMERA_PERMISSION) {
@@ -632,7 +639,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                     Map<String, Object> map = new HashMap<>();
                     Bitmap bitmap = BitmapFactory.decodeFile(mCropImageFile.toString());
                     map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
-                    upMessageData(map,cropPath.substring(cropPath.indexOf("/storage")));
+                    upMessageData(map, cropPath.substring(cropPath.indexOf("/storage")));
                 } else {
                     CusToast.showToast("无法添加更多图片！");
                 }
@@ -671,7 +678,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                                 Bitmap bitmap = BitmapFactory.decodeFile(compressImage.toString());
                                 Map<String, Object> map = new HashMap<>();
                                 map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
-                                upMessageData(map,list.get(i));
+                                upMessageData(map, list.get(i));
                             }
                         } else {
                             CusToast.showToast("无法添加更多图片！");
@@ -700,7 +707,8 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                         Gson gson = new Gson();
                         ImageDataBean imageDataBean = gson.fromJson(result, ImageDataBean.class);
                         Map<String, Object> map = new HashMap<>();
-                        map.put("token", BaseApplication.getInstance().userBean.getToken());
+                        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                         if (imageDataBean.getResult().getImage_show().size() >= 0) {
                             map.put("head_pic", imageDataBean.getResult().getImage_show().get(0));
                             cartImage.add(imageDataBean.getResult().getImage_show().get(0));
@@ -920,8 +928,16 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         tv_iteam1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                imageCapture();
-//                PermissionsActivity.startActivityForResult(getActivity(), REQUEST_CODE_CAMERA_PERMISSION, PERMISSIONS_CAMERA);//打开系统相机需要相机权限
+
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {//申请WRITE_EXTERNAL_STORAGE权限
+
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 1);
+
+                }else{
+                    imageCapture();//系统相机拍照
+                }
+
+//              PermissionsActivity.startActivityForResult(getActivity(), REQUEST_CODE_CAMERA_PERMISSION, PERMISSIONS_CAMERA);//打开系统相机需要相机权限
                 mmPop.dismiss();
             }
         });
@@ -979,6 +995,22 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         // 去拍照,拍照的结果存到pictureUri对应的路径中
         intent.putExtra(MediaStore.EXTRA_OUTPUT, pictureUri);
         startActivityForResult(intent, PHOTO_PICKED_FROM_CAMERA);
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Log.d("chenshichun","====requestCode======="+requestCode);
+        if(requestCode == 1) {
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                imageCapture();
+                //权限获取成功
+            }else{
+                CusToast.showToast("请先打开相机权限");
+                //权限被拒绝
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     /**

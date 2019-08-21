@@ -10,7 +10,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -24,11 +27,10 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
-import com.tem.gettogether.activity.SplashActivity;
+import com.tem.gettogether.activity.LoginActivity;
 import com.tem.gettogether.activity.my.CorporateInformationActivity;
 import com.tem.gettogether.activity.my.FansActivity;
 import com.tem.gettogether.activity.my.GYWeActivity;
-import com.tem.gettogether.activity.my.MyOrderActivity;
 import com.tem.gettogether.activity.my.SettingActivity;
 import com.tem.gettogether.activity.my.ShopRzFailedActivity;
 import com.tem.gettogether.activity.my.StoreManagementActivity;
@@ -36,7 +38,6 @@ import com.tem.gettogether.activity.my.TAdviseActivity;
 import com.tem.gettogether.activity.my.VipCenterActivity;
 import com.tem.gettogether.activity.my.VisitorActivity;
 import com.tem.gettogether.activity.my.XunPanTuiSongActivity;
-import com.tem.gettogether.activity.my.shopauthentication.DistributorAuthenticationActivity;
 import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActivity;
 import com.tem.gettogether.activity.order.GongYingOrderActivity;
 import com.tem.gettogether.base.BaseActivity;
@@ -44,8 +45,8 @@ import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseFragment;
 import com.tem.gettogether.base.URLConstant;
-import com.tem.gettogether.bean.CategoriesBean;
 import com.tem.gettogether.bean.MyMessageBean;
+import com.tem.gettogether.dialog.CheckUpDialog;
 import com.tem.gettogether.utils.Contacts;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
@@ -103,12 +104,17 @@ public class PersionCenterGongYingFragment extends BaseFragment {
     private TextView tv_shop_RZ;
     @ViewInject(R.id.iv_head)
     private CircularImage iv_head;
+    @ViewInject(R.id.rz_status_tv)
+    private TextView rz_status_tv;
     @ViewInject(R.id.refreshLayout)
     private TwinklingRefreshLayout refreshLayout;
+    @ViewInject(R.id.huiyuan_iv)
+    private ImageView huiyuan_iv;
     private BaseActivity baseActivity;
     private MyMessageBean.ResultBean resultBean = new MyMessageBean.ResultBean();
     private String userLever;
     private MyMessageBean myMessageBean;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -129,7 +135,8 @@ public class PersionCenterGongYingFragment extends BaseFragment {
     private void upGetMessageData() {
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         baseActivity.showDialog();
         XUtil.Post(URLConstant.GET_MESSAGE, map, new MyCallBack<String>() {
             @Override
@@ -144,12 +151,30 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                         Gson gson = new Gson();
                         myMessageBean = gson.fromJson(result, MyMessageBean.class);
                         resultBean = myMessageBean.getResult();
+
                         Glide.with(getActivity()).load(myMessageBean.getResult().getHead_pic() + "").asBitmap().error(R.drawable.img12x).centerCrop().into(new BitmapImageViewTarget(iv_head));
                         tv_name.setText(myMessageBean.getResult().getNickname());
+                        SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.NAME, myMessageBean.getResult().getNickname());
+
                         userLever = myMessageBean.getResult().getLevel();
+                        if (userLever.equals("7")) {
+                            huiyuan_iv.setBackground(null);
+                        } else if (userLever.equals("1")) {
+                            huiyuan_iv.setBackgroundResource(R.drawable.my_huiyuan_gray);
+                        } else if (userLever.equals("2")) {
+                            huiyuan_iv.setBackgroundResource(R.drawable.my_huiyuan);
+                        }
                         if (resultBean.getStore_status() == 1) {
                             tv_shop_RZ.setText("店铺管理");
+                            rz_status_tv.setText("已认证");
+                        } else if (resultBean.getStore_status() == 2) {
+                            rz_status_tv.setText("认证审核中");
+                        } else {
+                            rz_status_tv.setText("待认证");
                         }
+                    } else {
+                        CusToast.showToast("登录失效");
+                        startActivity(new Intent(getContext(), LoginActivity.class));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -179,7 +204,8 @@ public class PersionCenterGongYingFragment extends BaseFragment {
     private void upGetRzFailedData() {
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
 //                map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
 
@@ -228,15 +254,18 @@ public class PersionCenterGongYingFragment extends BaseFragment {
         });
     }
 
-
-    @Event(value = {R.id.tv_setting, R.id.rl_sprz, R.id.tv_name, R.id.tv_all, R.id.ll_scj, R.id.ll_zj, R.id.ll_qb,
+    @Event(value = {R.id.iv_head, R.id.tv_setting, R.id.rl_sprz, R.id.tv_name, R.id.tv_all, R.id.ll_scj, R.id.ll_zj, R.id.ll_qb,
             R.id.tv_dfh, R.id.tv_dsh, R.id.tv_dfk, R.id.rl_my_message, R.id.rl_dzgl, R.id.rl_ksbh, R.id.rl_zxkf, R.id.rl_tdyj, R.id.rl_gywm}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
+            case R.id.iv_head:
+                startActivity(new Intent(getActivity(), SettingActivity.class));
+                break;
             case R.id.tv_setting:// 设置
                 startActivity(new Intent(getActivity(), SettingActivity.class));
                 break;
             case R.id.tv_name:// 修改名字
+                upName();
                 break;
             case R.id.ll_scj:// 商品
                 break;
@@ -266,7 +295,9 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), CorporateInformationActivity.class).putExtra(Contacts.PERSION_ENTERPRISE_INFORMATION, 0));
                 break;
             case R.id.rl_ksbh:// 会员信息
-                startActivity(new Intent(getActivity(), VipCenterActivity.class).putExtra("head_pic",myMessageBean.getResult().getHead_pic()));
+                if (myMessageBean != null) {
+                    startActivity(new Intent(getActivity(), VipCenterActivity.class).putExtra("head_pic", myMessageBean.getResult().getHead_pic()));
+                }
                 break;
             case R.id.rl_dzgl:// 推送轮盘
                 startActivity(new Intent(getActivity(), XunPanTuiSongActivity.class));
@@ -390,4 +421,75 @@ public class PersionCenterGongYingFragment extends BaseFragment {
         super.onResume();
         upGetMessageData();
     }
+
+    private void upName() {
+        final CheckUpDialog dialogSucceed = new CheckUpDialog(getContext(), R.style.MyDialog);
+        dialogSucceed.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogSucceed.setContentView(R.layout.activity_setting_name);
+        dialogSucceed.setCancelable(false);//不能用返回键
+        final EditText et_Name = (EditText) dialogSucceed.findViewById(R.id.et_Name);
+        dialogSucceed.findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogSucceed.cancel();
+            }
+        });
+        dialogSucceed.findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!et_Name.getText().toString().equals("")) {
+                    tv_name.setText(et_Name.getText().toString());
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
+                    map.put("nickname", et_Name.getText().toString());
+                    upXGMessageData(map);
+                    dialogSucceed.cancel();
+                } else {
+                    CusToast.showToast("请填写昵称");
+                    return;
+                }
+            }
+        });
+        dialogSucceed.show();
+    }
+
+    private void upXGMessageData(Map<String, Object> map) {
+        baseActivity.showDialog();
+        XUtil.Post(URLConstant.XIUGAI_MESSAGE, map, new MyCallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                Log.i("====修改个人信息===", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    String msg = jsonObject.optString("msg");
+                    CusToast.showToast(msg);
+                    if (res.equals("1")) {
+                        upGetMessageData();
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                baseActivity.closeDialog();
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                ex.printStackTrace();
+                baseActivity.closeDialog();
+            }
+        });
+    }
+
 }

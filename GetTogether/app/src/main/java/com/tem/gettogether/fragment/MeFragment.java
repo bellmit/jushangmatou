@@ -44,8 +44,10 @@ import com.tem.gettogether.activity.my.TAdviseActivity;
 import com.tem.gettogether.activity.my.ZuJiActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.MyMessageBean;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.CircularImage;
@@ -355,7 +357,8 @@ public class MeFragment extends TabFragment implements IUnReadMessageObserver, D
     private void upGetMessageData() {
         Map<String,Object> map=new HashMap<>();
         if(BaseApplication.getInstance().userBean==null)return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         baseActivity.showDialog();
         XUtil.Post(URLConstant.GET_MESSAGE, map, new MyCallBack<String>() {
             @Override
@@ -489,7 +492,8 @@ public class MeFragment extends TabFragment implements IUnReadMessageObserver, D
     private void upMessageNumData() {
         Map<String,Object> map=new HashMap<>();
         if(BaseApplication.getInstance().userBean==null)return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         XUtil.Post(URLConstant.XITONGXIAO_WEIDU, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {

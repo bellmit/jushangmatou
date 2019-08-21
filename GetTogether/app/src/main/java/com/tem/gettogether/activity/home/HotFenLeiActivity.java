@@ -1,11 +1,14 @@
 package com.tem.gettogether.activity.home;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -48,10 +51,12 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 public class HotFenLeiActivity extends BaseActivity {
     @ViewInject(R.id.tv_zonghe)
     private TextView tv_zonghe;
-    @ViewInject(R.id.tv_pfl)
+    @ViewInject(R.id.chengjiaocishu)
     private TextView tv_pfl;
-    @ViewInject(R.id.tv_xl)
+    @ViewInject(R.id.price_tv)
     private TextView tv_xl;
+    @ViewInject(R.id.huifulv)
+    private TextView huifulv;
     @ViewInject(R.id.order_rl)
     private HomeListFreshRecyclerView order_rl;
     @ViewInject(R.id.order_refresh_fragment)
@@ -59,12 +64,16 @@ public class HotFenLeiActivity extends BaseActivity {
     private int PAGE_NUM = 1;
     private String category_id;
     private String keywords;
-    private String paixu="desc";
-    private String sort="sort";
+    private String paixu = "desc";
+    private String sort = "sort";
     @ViewInject(R.id.et_sousuo)
     private EditText et_sousuo;
+    @ViewInject(R.id.ll_empty)
+    private RelativeLayout ll_empty;
     private List<SouSuoDataBean.ResultBean> list;
-    private List<SouSuoDataBean.ResultBean> resultBeans=new ArrayList<>();
+    private List<SouSuoDataBean.ResultBean> resultBeans = new ArrayList<>();
+    private boolean zonghepaixu, chengjiapaixu, huifupaixu, jiagepaixu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,27 +84,27 @@ public class HotFenLeiActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        category_id=getIntent().getStringExtra("category_id");
-        keywords=getIntent().getStringExtra("keywords");
+        category_id = getIntent().getStringExtra("category_id");
+        keywords = getIntent().getStringExtra("keywords");
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(category_id!=null&&!category_id.equals("")){
-            Map<String,Object> map3=new HashMap<>();
-            map3.put("category_id",category_id);
-            map3.put("page",1);
-            map3.put("sort",sort);
-            map3.put("sort_asc",paixu);
+        if (category_id != null && !category_id.equals("")) {
+            Map<String, Object> map3 = new HashMap<>();
+            map3.put("category_id", category_id);
+            map3.put("page", 1);
+            map3.put("sort", sort);
+            map3.put("sort_asc", paixu);
             upShopData(map3);
-        }else if(keywords!=null&&!keywords.equals("")){
-            Map<String,Object> map3=new HashMap<>();
-            map3.put("page",1);
-            map3.put("sort",sort);
-            map3.put("sort_asc",paixu);
-            map3.put("keywords",keywords);
+        } else if (keywords != null && !keywords.equals("")) {
+            Map<String, Object> map3 = new HashMap<>();
+            map3.put("page", 1);
+            map3.put("sort", sort);
+            map3.put("sort_asc", paixu);
+            map3.put("keywords", keywords);
             upShopData(map3);
         }
     }
@@ -111,21 +120,21 @@ public class HotFenLeiActivity extends BaseActivity {
                     }
                     return;
                 }
-                PAGE_NUM=1;
+                PAGE_NUM = 1;
                 clearList(resultBeans);
-                if(category_id!=null&&!category_id.equals("")){
-                    Map<String,Object> map3=new HashMap<>();
-                    map3.put("category_id",category_id);
-                    map3.put("page",PAGE_NUM);
-                    map3.put("sort",sort);
-                    map3.put("sort_asc",paixu);
+                if (category_id != null && !category_id.equals("")) {
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("category_id", category_id);
+                    map3.put("page", PAGE_NUM);
+                    map3.put("sort", sort);
+                    map3.put("sort_asc", paixu);
                     upShopData(map3);
-                }else if(keywords!=null&&!keywords.equals("")){
-                    Map<String,Object> map3=new HashMap<>();
-                    map3.put("page",PAGE_NUM);
-                    map3.put("sort",sort);
-                    map3.put("sort_asc",paixu);
-                    map3.put("keywords",keywords);
+                } else if (keywords != null && !keywords.equals("")) {
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("page", PAGE_NUM);
+                    map3.put("sort", sort);
+                    map3.put("sort_asc", paixu);
+                    map3.put("keywords", keywords);
                     upShopData(map3);
                 }
 
@@ -134,23 +143,23 @@ public class HotFenLeiActivity extends BaseActivity {
             @Override
             public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
                 if (!NetWorkUtils.isNetworkAvailable(HotFenLeiActivity.this)) {
-                    CusToast.showToast( "请检查网络");
+                    CusToast.showToast("请检查网络");
                     return false;
                 }
                 PAGE_NUM++;
-                if(category_id!=null&&!category_id.equals("")){
-                    Map<String,Object> map3=new HashMap<>();
-                    map3.put("category_id",category_id);
-                    map3.put("page",PAGE_NUM);
-                    map3.put("sort",sort);//销量
-                    map3.put("sort_asc",paixu);
+                if (category_id != null && !category_id.equals("")) {
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("category_id", category_id);
+                    map3.put("page", PAGE_NUM);
+                    map3.put("sort", sort);//销量
+                    map3.put("sort_asc", paixu);
                     upShopData(map3);
-                }else if(keywords!=null&&!keywords.equals("")){
-                    Map<String,Object> map3=new HashMap<>();
-                    map3.put("page",PAGE_NUM);
-                    map3.put("sort",sort);//销量
-                    map3.put("sort_asc",paixu);
-                    map3.put("keywords",keywords);
+                } else if (keywords != null && !keywords.equals("")) {
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("page", PAGE_NUM);
+                    map3.put("sort", sort);//销量
+                    map3.put("sort_asc", paixu);
+                    map3.put("keywords", keywords);
                     upShopData(map3);
                 }
                 return true;
@@ -172,7 +181,17 @@ public class HotFenLeiActivity extends BaseActivity {
 
     }
 
-    @Event(value = {R.id.rl_close,R.id.tv_zonghe,R.id.tv_pfl,R.id.tv_xl,R.id.rl_sousuo}, type = View.OnClickListener.class)
+    private void setDrawableRight(TextView view, boolean isDown) {
+        Drawable img_on, img_off;
+        Resources res = getResources();
+        img_off = res.getDrawable(R.drawable.jiangxu);
+        img_on = res.getDrawable(R.drawable.shengxu);
+        img_off.setBounds(0, 0, img_off.getMinimumWidth(), img_off.getMinimumHeight());
+        img_on.setBounds(0, 0, img_on.getMinimumWidth(), img_on.getMinimumHeight());
+        view.setCompoundDrawables(null, null, isDown ? img_off : img_on, null); //设置左图标
+    }
+
+    @Event(value = {R.id.rl_close, R.id.tv_zonghe, R.id.huifulv, R.id.chengjiaocishu, R.id.price_tv, R.id.rl_sousuo}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
@@ -182,84 +201,145 @@ public class HotFenLeiActivity extends BaseActivity {
                 tv_zonghe.setTextColor(getResources().getColor(R.color.home_red));
                 tv_pfl.setTextColor(getResources().getColor(R.color.text3));
                 tv_xl.setTextColor(getResources().getColor(R.color.text3));
-                sort="sort";
-                paixu="desc";
-                if(category_id!=null&&!category_id.equals("")){
-                    Map<String,Object> map3=new HashMap<>();
-                    map3.put("category_id",category_id);
-                    map3.put("page","1");
-                    map3.put("sort",sort);
-                    map3.put("sort_asc",paixu);
+                huifulv.setTextColor(getResources().getColor(R.color.text3));
+
+                sort = "sort";
+                if (!zonghepaixu) {
+                    paixu = "desc";
+                    setDrawableRight(tv_zonghe,false);
+                    zonghepaixu = true;
+                } else {
+                    setDrawableRight(tv_zonghe,true);
+                    paixu = "asc";
+                    zonghepaixu = false;
+                }
+                if (category_id != null && !category_id.equals("")) {
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("category_id", category_id);
+                    map3.put("page", "1");
+                    map3.put("sort", sort);
+                    map3.put("sort_asc", paixu);
                     upShopData(map3);
-                }else if(keywords!=null&&!keywords.equals("")){
-                    Map<String,Object> map3=new HashMap<>();
-                    map3.put("page","1");
-                    map3.put("sort",sort);
-                    map3.put("sort_asc",paixu);
-                    map3.put("keywords",keywords);
+                } else if (keywords != null && !keywords.equals("")) {
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("page", "1");
+                    map3.put("sort", sort);
+                    map3.put("sort_asc", paixu);
+                    map3.put("keywords", keywords);
                     upShopData(map3);
                 }
 
                 break;
-            case R.id.tv_pfl:
+            case R.id.huifulv:
+                huifulv.setTextColor(getResources().getColor(R.color.home_red));
+                tv_pfl.setTextColor(getResources().getColor(R.color.text3));
+                tv_xl.setTextColor(getResources().getColor(R.color.text3));
+                tv_zonghe.setTextColor(getResources().getColor(R.color.text3));
+
+                sort = "sort";
+                if (!huifupaixu) {
+                    paixu = "desc";
+                    setDrawableRight(huifulv,false);
+                    huifupaixu = true;
+                } else {
+                    setDrawableRight(huifulv,true);
+                    paixu = "asc";
+                    huifupaixu = false;
+                }
+                if (category_id != null && !category_id.equals("")) {
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("category_id", category_id);
+                    map3.put("page", "1");
+                    map3.put("sort", sort);
+                    map3.put("sort_asc", paixu);
+                    upShopData(map3);
+                } else if (keywords != null && !keywords.equals("")) {
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("page", "1");
+                    map3.put("sort", sort);
+                    map3.put("sort_asc", paixu);
+                    map3.put("keywords", keywords);
+                    upShopData(map3);
+                }
+                break;
+            case R.id.chengjiaocishu:
                 tv_zonghe.setTextColor(getResources().getColor(R.color.text3));
                 tv_pfl.setTextColor(getResources().getColor(R.color.home_red));
                 tv_xl.setTextColor(getResources().getColor(R.color.text3));
-                sort="batch_number";
-                paixu="asc";
-                if(category_id!=null&&!category_id.equals("")){
-                    Map<String,Object> map2=new HashMap<>();
-                    map2.put("page","1");
-                    map2.put("sort",sort);//批发
-                    map2.put("sort_asc",paixu);
-                    map2.put("category_id",category_id);
+                huifulv.setTextColor(getResources().getColor(R.color.text3));
+
+                sort = "sales_sum";
+                if (!chengjiapaixu) {
+                    paixu = "desc";
+                    setDrawableRight(tv_pfl,false);
+                    chengjiapaixu = true;
+                } else {
+                    setDrawableRight(tv_pfl,true);
+                    paixu = "asc";
+                    chengjiapaixu = false;
+                }
+                if (category_id != null && !category_id.equals("")) {
+                    Map<String, Object> map2 = new HashMap<>();
+                    map2.put("page", "1");
+                    map2.put("sort", sort);//批发
+                    map2.put("sort_asc", paixu);
+                    map2.put("category_id", category_id);
                     upShopData(map2);
-                }else if(keywords!=null&&!keywords.equals("")){
-                    Map<String,Object> map2=new HashMap<>();
-                    map2.put("page","1");
-                    map2.put("sort",sort);//批发
-                    map2.put("sort_asc",paixu);
-                    map2.put("keywords",keywords);
+                } else if (keywords != null && !keywords.equals("")) {
+                    Map<String, Object> map2 = new HashMap<>();
+                    map2.put("page", "1");
+                    map2.put("sort", sort);//批发
+                    map2.put("sort_asc", paixu);
+                    map2.put("keywords", keywords);
                     upShopData(map2);
                 }
 
 
                 break;
-            case R.id.tv_xl:
+            case R.id.price_tv:
                 tv_zonghe.setTextColor(getResources().getColor(R.color.text3));
                 tv_pfl.setTextColor(getResources().getColor(R.color.text3));
                 tv_xl.setTextColor(getResources().getColor(R.color.home_red));
-                sort="sales_sum";
-                paixu="desc";
-                if(category_id!=null&&!category_id.equals("")){
-                    Map<String,Object> map=new HashMap<>();
-                    map.put("page","1");
-                    map.put("sort",sort);//销量
-                    map.put("sort_asc",paixu);
-                    map.put("category_id",category_id);
+                huifulv.setTextColor(getResources().getColor(R.color.text3));
+                sort = "sales_sum";
+                if (!jiagepaixu) {
+                    paixu = "desc";
+                    setDrawableRight(tv_xl,false);
+                    jiagepaixu = true;
+                } else {
+                    setDrawableRight(tv_xl,true);
+                    paixu = "asc";
+                    jiagepaixu = false;
+                }
+                if (category_id != null && !category_id.equals("")) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("page", "1");
+                    map.put("sort", sort);//销量
+                    map.put("sort_asc", paixu);
+                    map.put("category_id", category_id);
                     upShopData(map);
-                }else if(keywords!=null&&!keywords.equals("")){
-                    Map<String,Object> map=new HashMap<>();
-                    map.put("page","1");
-                    map.put("sort",sort);//销量
-                    map.put("sort_asc",paixu);
-                    map.put("keywords",keywords);
+                } else if (keywords != null && !keywords.equals("")) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("page", "1");
+                    map.put("sort", sort);//销量
+                    map.put("sort_asc", paixu);
+                    map.put("keywords", keywords);
                     upShopData(map);
                 }
                 break;
             case R.id.rl_sousuo:
-                String sousuo=et_sousuo.getText().toString().trim();
-                if(sousuo.equals("")){
+                String sousuo = et_sousuo.getText().toString().trim();
+                if (sousuo.equals("")) {
                     CusToast.showToast("请输入搜索内容");
                     return;
                 }
-                keywords=sousuo;
-                category_id="";
-                Map<String,Object> map=new HashMap<>();
-                map.put("page","1");
-                map.put("sort",sort);
-                map.put("sort_asc",paixu);
-                map.put("keywords",sousuo);
+                keywords = sousuo;
+                category_id = "";
+                Map<String, Object> map = new HashMap<>();
+                map.put("page", "1");
+                map.put("sort", sort);
+                map.put("sort_asc", paixu);
+                map.put("keywords", sousuo);
                 upShopData(map);
 
                 break;
@@ -267,12 +347,14 @@ public class HotFenLeiActivity extends BaseActivity {
 
         }
     }
+
     public void clearList(List<SouSuoDataBean.ResultBean> list) {
         if (!ListUtils.isEmpty(list)) {
             list.clear();
         }
     }
-    private void upShopData( Map<String,Object> map){
+
+    private void upShopData(Map<String, Object> map) {
         Set keys = map.keySet();
         if (keys != null) {
             Iterator iterator = keys.iterator();
@@ -282,7 +364,7 @@ public class HotFenLeiActivity extends BaseActivity {
                 Log.e("--搜索参数打印--" + key, "" + value + "\n");
             }
         }
-        XUtil.Post(URLConstant.SHANGPINLIEBIAO,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.SHANGPINLIEBIAO, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -293,14 +375,14 @@ public class HotFenLeiActivity extends BaseActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        SouSuoDataBean souSuoDataBean=gson.fromJson(result,SouSuoDataBean.class);
-                        if(PAGE_NUM==1){
-                            resultBeans=souSuoDataBean.getResult();
-                        }else{
-                            list=souSuoDataBean.getResult();
-                            if (ListUtils.isEmpty(list)){
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        SouSuoDataBean souSuoDataBean = gson.fromJson(result, SouSuoDataBean.class);
+                        if (PAGE_NUM == 1) {
+                            resultBeans = souSuoDataBean.getResult();
+                        } else {
+                            list = souSuoDataBean.getResult();
+                            if (ListUtils.isEmpty(list)) {
                                 UiUtils.toast("没有更新的数据");
                                 return;
                             }
@@ -319,7 +401,12 @@ public class HotFenLeiActivity extends BaseActivity {
             public void onFinished() {
                 super.onFinished();
 //                closeDialog();
-                HotFLAdapter adapter=new HotFLAdapter(resultBeans);
+                if(resultBeans.size()==0){
+                    ll_empty.setVisibility(View.VISIBLE);
+                }else{
+                    ll_empty.setVisibility(View.GONE);
+                }
+                HotFLAdapter adapter = new HotFLAdapter(resultBeans);
                 order_rl.setAdapter(adapter);
             }
 
@@ -332,6 +419,7 @@ public class HotFenLeiActivity extends BaseActivity {
             }
         });
     }
+
     public class HotFLAdapter extends BaseQuickAdapter {
 
         public HotFLAdapter(List<SouSuoDataBean.ResultBean> data) {//
@@ -340,19 +428,19 @@ public class HotFenLeiActivity extends BaseActivity {
 
         @Override
         protected void convert(final BaseViewHolder baseViewHolder, Object o) {
-            RoundImageView iv_image=baseViewHolder.getView(R.id.iv_image);
+            RoundImageView iv_image = baseViewHolder.getView(R.id.iv_image);
             Glide.with(HotFenLeiActivity.this).load(resultBeans.get(baseViewHolder.getAdapterPosition()).getImage()).error(R.mipmap.myy322x).into(iv_image);
-            baseViewHolder.setText(R.id.tv_name,resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
-            baseViewHolder.setText(R.id.tv_numbear,resultBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number()+"件起批");
-            baseViewHolder.setText(R.id.tv_pingjia,resultBeans.get(baseViewHolder.getAdapterPosition()).getBest_percent()+"好评");
+            baseViewHolder.setText(R.id.tv_name, resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
+            baseViewHolder.setText(R.id.tv_numbear, resultBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number() + "件起批");
+            baseViewHolder.setText(R.id.tv_pingjia, resultBeans.get(baseViewHolder.getAdapterPosition()).getBest_percent() + "好评");
             baseViewHolder.getView(R.id.ll_item_all).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(BaseApplication.getInstance().userBean==null){
-                        startActivity(new Intent(HotFenLeiActivity.this,LoginActivity.class));
-                    }else {
-                        startActivity(new Intent(HotFenLeiActivity.this,ShoppingParticularsActivity.class)
-                                .putExtra("goods_id",resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_id()));
+                    if (BaseApplication.getInstance().userBean == null) {
+                        startActivity(new Intent(HotFenLeiActivity.this, LoginActivity.class));
+                    } else {
+                        startActivity(new Intent(HotFenLeiActivity.this, ShoppingParticularsActivity.class)
+                                .putExtra("goods_id", resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_id()));
                     }
 
                 }

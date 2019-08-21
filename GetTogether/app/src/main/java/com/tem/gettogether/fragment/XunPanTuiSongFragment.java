@@ -49,7 +49,7 @@ public class XunPanTuiSongFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         rl_close.setVisibility(View.GONE);
         tv_title.setText("询盘推送");
-        tv_title_right.setVisibility(View.VISIBLE);
+        tv_title_right.setVisibility(View.GONE);
         tv_title_right.setText("查看会员权限");
         initDatas();
         initViews();

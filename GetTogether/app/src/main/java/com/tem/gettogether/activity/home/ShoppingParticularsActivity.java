@@ -33,6 +33,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.ShowImageDetail;
+import com.tem.gettogether.activity.LoginActivity;
 import com.tem.gettogether.activity.MainActivity;
 import com.tem.gettogether.activity.cart.CloseAccountActivity;
 import com.tem.gettogether.activity.cart.ShoppingCartActivity;
@@ -41,6 +42,7 @@ import com.tem.gettogether.adapter.OrderDetailAdapter;
 import com.tem.gettogether.adapter.RollingTextAdapter;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
 import com.tem.gettogether.base.URLConstant;
@@ -50,6 +52,7 @@ import com.tem.gettogether.bean.OrderDetailBean;
 import com.tem.gettogether.bean.ShoppingXQBean;
 import com.tem.gettogether.rongyun.RongTalk;
 import com.tem.gettogether.utils.GlideImageLoader;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.CircularImage;
@@ -167,7 +170,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private ShareAction mShareAction;
     private UMShareListener mShareListener;
     private IWXAPI wxAPI;
-    private String APP_ID = "wx93eea65ba215f901";
+    private String APP_ID = "wx84afd2924379c340";
     private int allNum;
     private OrderDetailAdapter mOrderDetailAdapter;
 
@@ -231,7 +234,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 tv_sjgz.setText("已关注");
             }
         }
-        if (goodsBean.getIs_enquiry() != null) {
+        /*if (goodsBean.getIs_enquiry() != null) {
             if (goodsBean.getIs_enquiry().equals("1")) {
                 tv_ljxj.setText(getResources().getText(R.string.ask));
             } else {
@@ -240,7 +243,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
         } else {
             tv_ljxj.setText(getResources().getText(R.string.buy));
-        }
+        }*/
 
         tv_shop_name.setText(storeBean.getStore_name());
         tv_shop_jj.setText(storeBean.getStore_des());
@@ -416,67 +419,28 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
                 break;
             case R.id.tv_ljxj:
-                if (tv_ljxj.getText().toString().equals(getResources().getString(R.string.ask))) {
-                    try {
-                        if (BaseApplication.getInstance().userBean != null) {
-                            //发消息
-                            if (BaseApplication.getInstance().userBean.getChat_id() != null && !BaseApplication.getInstance().userBean.getChat_id().equals("")) {
-                                Log.e("====进入聊天界面  IMG===", BaseApplication.getInstance().userBean.getChat_id() + "");
-                                if (storeBean != null && storeBean.getStore_user_id() != null) {
-                                    RongTalk.doConnection(ShoppingParticularsActivity.this, BaseApplication.getInstance().userBean.getChat_id()
-                                            , storeBean.getStore_user_id(), storeBean.getStore_name(),
-                                            storeBean.getStore_logo(), storeBean.getStore_id());
-                                } else {
-                                    CusToast.showToast("该店铺无效");
-                                }
-
+                try {
+                    if (BaseApplication.getInstance().userBean != null) {
+                        //发消息
+                        if (BaseApplication.getInstance().userBean.getChat_id() != null && !BaseApplication.getInstance().userBean.getChat_id().equals("")) {
+                            Log.e("====进入聊天界面  IMG===", BaseApplication.getInstance().userBean.getChat_id() + "");
+                            if (storeBean != null && storeBean.getStore_user_id() != null) {
+                                RongTalk.doConnection(ShoppingParticularsActivity.this, BaseApplication.getInstance().userBean.getChat_id()
+                                        , storeBean.getStore_user_id(), storeBean.getStore_name(),
+                                        storeBean.getStore_logo(), storeBean.getStore_id());
+                            } else {
+                                CusToast.showToast("该店铺无效");
                             }
-                        } else {
-                            CusToast.showToast("token失效");
-                        }
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        CusToast.showToast("客服无效");
+                        }
+                    } else {
+                        startActivity(new Intent(this, LoginActivity.class));
+                        CusToast.showToast("token失效");
                     }
 
-                } else if (tv_ljxj.getText().toString().equals(getResources().getString(R.string.buy))) {
-                    String sku = "";
-                    if (goodsBean.getGoods_spec_list() != null) {
-                        final List<Integer> skuid = new ArrayList<>();
-                        if (goodsBean.getGoods_spec_list().size() >= 1) {
-                            skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(0).get(numpositionCorclo).getItem_id()));
-                        }
-                        if (goodsBean.getGoods_spec_list().size() >= 2) {
-                            skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(1).get(numpositionCC).getItem_id()));
-                        }
-                        if (goodsBean.getGoods_spec_list().size() >= 3) {
-                            skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(2).get(numpositionML).getItem_id()));
-                        }
-                        if (goodsBean.getGoods_spec_list().size() >= 4) {
-                            skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(3).get(numpositionQT).getItem_id()));
-                        }
-                        Collections.sort(skuid);
-                        String str = "";
-                        for (int i = 0; i < skuid.size(); i++) {
-                            str += skuid.get(i) + "_";
-                        }
-                        sku = str.substring(0, str.length() - 1);
-                    }
-                    try {
-                        allNum = Integer.parseInt(tv_num.getText().toString());
-                        Map<String, Object> map = new HashMap<>();
-                        map.put("token", BaseApplication.getInstance().userBean.getToken());
-                        map.put("goods_id", goods_id);
-                        map.put("goods_num", String.valueOf(allNum));
-                        map.put("unique_id", "1");
-                        map.put("key", sku);
-                        upJieSCartData(map, sku, allNum);
-
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    CusToast.showToast("客服无效");
                 }
 
                 break;
@@ -678,7 +642,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
             }
 
             TextView tv_ljgm = view.findViewById(R.id.tv_ljgm);
-            if (goodsBean.getIs_enquiry() != null) {
+           /* if (goodsBean.getIs_enquiry() != null) {
                 if (goodsBean.getIs_enquiry().equals("1")) {
                     tv_ljgm.setVisibility(View.GONE);
                 } else {
@@ -688,7 +652,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
             } else {
                 tv_ljgm.setVisibility(View.VISIBLE);
-            }
+            }*/
             //立即购买
             tv_ljgm.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -728,7 +692,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
 //                                .putExtra("key", sku)
 //                                .putExtra("goods_num", String.valueOf(num_gwc)));
                         Map<String, Object> map = new HashMap<>();
-                        map.put("token", BaseApplication.getInstance().userBean.getToken());
+                        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                         map.put("goods_id", goods_id);
                         map.put("goods_num", String.valueOf(allNum));
                         map.put("unique_id", "1");
@@ -959,7 +923,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
         Log.d("chenshichun", "-----goods_id  " + goods_id);
         Map<String, Object> map = new HashMap<>();
         if (BaseApplication.getInstance().userBean == null) return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("goods_id", goods_id);
 
         showDialog();
@@ -1071,7 +1035,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private void upAddCart(final String goods_num, String key) {
         Map<String, Object> map = new HashMap<>();
         map.put("goods_id", goods_id);
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("goods_num", goods_num);
         if (key != null && !key.equals("")) {
             map.put("key", key);
@@ -1180,7 +1144,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
     private void upHQpriceData(String cartIds, final String sku, final int num_ljgm) {
         Map<String, Object> map = new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         if (addressListBeans.getAddress_id() != null) {
             map.put("address_id", addressListBeans.getAddress_id() + "");
         }
@@ -1232,7 +1196,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private void upShoppingSC(final String type) {
         Map<String, Object> map = new HashMap<>();
         map.put("goods_id", goods_id);
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("type", type);
         showDialog();
         XUtil.Post(URLConstant.SHOPPING_SHOUCANG, map, new MyCallBack<String>() {
@@ -1288,7 +1252,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
         Map<String, Object> map = new HashMap<>();
         map.put("store_id", store_id);
         if (BaseApplication.getInstance().userBean == null) return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         showDialog();
         XUtil.Post(URLConstant.SHOPISGUANZHU, map, new MyCallBack<String>() {
             @Override

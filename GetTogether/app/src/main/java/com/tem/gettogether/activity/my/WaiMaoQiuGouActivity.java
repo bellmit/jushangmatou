@@ -44,7 +44,8 @@ public class WaiMaoQiuGouActivity extends BaseActivity {
     private RelativeLayout rl_close;
     @ViewInject(R.id.refreshLayout)
     private TwinklingRefreshLayout refreshLayout;
-
+    @ViewInject(R.id.ll_empty)
+    private RelativeLayout ll_empty;
     private HomeBuyListAdapter mHomeBuyAdapter;
     private List<QiuGouListBean.ResultBean> homeDataBean = new ArrayList<>();
 
@@ -92,9 +93,14 @@ public class WaiMaoQiuGouActivity extends BaseActivity {
                         Gson gson = new Gson();
                         if (!isLoadMore) {
                             homeDataBean = gson.fromJson(result, QiuGouListBean.class).getResult();
-                            setData();
+                            if(homeDataBean.size()==0){
+                                ll_empty.setVisibility(View.VISIBLE);
+                            }else {
+                                ll_empty.setVisibility(View.GONE);
+                                setData();
+                            }
                         } else {
-                            homeDataBean = gson.fromJson(result, QiuGouListBean.class).getResult();
+                            homeDataBean.addAll(gson.fromJson(result, QiuGouListBean.class).getResult());
                             mHomeBuyAdapter.notifyDataSetChanged();
                         }
                     }

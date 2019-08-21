@@ -32,6 +32,7 @@ import com.tem.gettogether.R;
 import com.tem.gettogether.activity.LoginActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseFragment;
 import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
@@ -44,6 +45,7 @@ import com.tem.gettogether.fragment.ShopHomeFragment;
 import com.tem.gettogether.fragment.ShopPingJFragment;
 import com.tem.gettogether.fragment.ShopShoppingFragment;
 import com.tem.gettogether.rongyun.RongTalk;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.RoundImageView;
@@ -425,7 +427,8 @@ public class ShopActivity extends BaseActivity {
     private void upShopData(String store_id){
         Map<String,Object> map=new HashMap<>();
         if(BaseApplication.getInstance().userBean==null)return;
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         map.put("store_id",store_id);
         showDialog();
         XUtil.Post(URLConstant.SHOPHOMEHEAD,map,new MyCallBack<String>(){
@@ -520,7 +523,8 @@ public class ShopActivity extends BaseActivity {
             startActivity(new Intent(this,LoginActivity.class));
         }else {
             map.put("store_id",store_id);
-            map.put("token",BaseApplication.getInstance().userBean.getToken());
+            map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         }
         showDialog();
         XUtil.Post(URLConstant.SHOPISGUANZHU,map,new MyCallBack<String>(){

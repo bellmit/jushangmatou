@@ -27,6 +27,7 @@ import com.tem.gettogether.R;
 import com.tem.gettogether.activity.my.AddressGLActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
 import com.tem.gettogether.base.URLConstant;
@@ -35,6 +36,7 @@ import com.tem.gettogether.bean.JieSPriceBean;
 import com.tem.gettogether.bean.JieSuanBean;
 import com.tem.gettogether.bean.WechatDataBean;
 import com.tem.gettogether.utils.PayResult;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.OnPasswordInputFinish2;
@@ -228,7 +230,8 @@ public class CloseAccountActivity extends BaseActivity {
     private String orderNum;
     private void upTJDDData() {
         Map<String, Object> map = new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         Log.d("chenshichun","======addressListBeans.getAddress_id()=====  "+addressListBeans.getAddress_id());
         map.put("address_id", addressListBeans.getAddress_id());
         map.put("act", "submit_order");
@@ -274,7 +277,8 @@ public class CloseAccountActivity extends BaseActivity {
 
     private void upJieSCartData() {
         Map<String, Object> map = new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         if(unique_id!=null&&unique_id.equals("1")){
             map.put("goods_id", goods_id);
             map.put("goods_num", goods_num);
@@ -343,7 +347,8 @@ public class CloseAccountActivity extends BaseActivity {
     }
     private void upHQpriceData() {
         Map<String, Object> map = new HashMap<>();
-        map.put("token", BaseApplication.getInstance().userBean.getToken());
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
         if(addressListBeans.getAddress_id()!=null){
             map.put("address_id", addressListBeans.getAddress_id()+"");
         }
@@ -548,12 +553,13 @@ public class CloseAccountActivity extends BaseActivity {
                 }else if(PayType==2){//支付宝
                     Map<String,Object> map3=new HashMap<>();
                     map3.put("master_order_sn",orderNum);
-                    map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                    map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
                     upYETXData(map3);
                 }else if(PayType==3){//微信
                     Map<String,Object> map3=new HashMap<>();
                     map3.put("master_order_sn",orderNum);
-                    map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                    map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                     upYETXData(map3);
                 }
                 mPop.dismiss();
@@ -626,7 +632,7 @@ public class CloseAccountActivity extends BaseActivity {
                     Map<String,Object> map3=new HashMap<>();
                     map3.put("master_order_sn",orderNum);
                     map3.put("pay_password", paypass);
-                    map3.put("token", BaseApplication.getInstance().userBean.getToken());
+                    map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                     upYETXData(map3);
                     mPopPay.dismiss();
