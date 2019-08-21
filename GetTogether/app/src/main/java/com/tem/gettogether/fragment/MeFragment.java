@@ -202,7 +202,7 @@ public class MeFragment extends TabFragment implements IUnReadMessageObserver, D
                 startActivity(new Intent(getActivity(), StoreManagementActivity.class));
                 break;
             case R.id.ll_dprz://我的商铺
-                if(resultBean.getStore_status()==1){//店铺管理
+                /*if(resultBean.getStore_status()==1){//店铺管理
                     startActivity(new Intent(getActivity(), StoreManagementActivity.class));
 
                 }else  if(resultBean.getStore_status()==2){
@@ -213,7 +213,7 @@ public class MeFragment extends TabFragment implements IUnReadMessageObserver, D
                     startActivity(new Intent(getActivity(),NewShopRenZhengActivity.class));
 
 
-                }
+                }*/
 //                startActivity(new Intent(getActivity(),ShopRZActivity.class));
                 break;
             case R.id.ll_scj://收藏夹
@@ -256,7 +256,7 @@ public class MeFragment extends TabFragment implements IUnReadMessageObserver, D
                 startActivity(new Intent(getActivity(),AddressGLActivity.class));
                 break;
             case R.id.rl_sprz://商铺认证
-                if(resultBean.getStore_status()==1){//店铺管理
+             /*   if(resultBean.getStore_status()==1){//店铺管理
                     startActivity(new Intent(getActivity(), StoreManagementActivity.class));
                 }else  if(resultBean.getStore_status()==2){
                     CusToast.showToast("店铺审核中");
@@ -265,7 +265,7 @@ public class MeFragment extends TabFragment implements IUnReadMessageObserver, D
 //                    startActivity(new Intent(getActivity(),ShopRZSHActivity.class));
                     startActivity(new Intent(getActivity(),NewShopRenZhengActivity.class));
                 }
-
+*/
                 break;
             case R.id.rl_zxkf://在线客服
                 showPop(rl_zxkf);
@@ -373,7 +373,7 @@ public class MeFragment extends TabFragment implements IUnReadMessageObserver, D
                         Gson gson = new Gson();
                         MyMessageBean myMessageBean=gson.fromJson(result,MyMessageBean.class);
 
-                        Glide.with(getActivity()).load(myMessageBean.getResult().getHead_pic()+"").asBitmap().error( R.drawable.img12x).centerCrop().into(new BitmapImageViewTarget(iv_head));
+                        Glide.with(getActivity()).load(myMessageBean.getResult().getHead_pic()+"").asBitmap().error( R.mipmap.myy322x).centerCrop().into(new BitmapImageViewTarget(iv_head));
                         tv_name.setText(myMessageBean.getResult().getNickname());
                         tv_qb_num.setText(myMessageBean.getResult().getUser_money());
                         tv_zjNum.setText(myMessageBean.getResult().getFootprint_count());
@@ -396,16 +396,16 @@ public class MeFragment extends TabFragment implements IUnReadMessageObserver, D
 
 
 
-                        if(myMessageBean.getResult().getStore_status()==0){
+                        if(myMessageBean.getResult().getStore_status().equals("0")){
                             tv_shopZZ.setText(R.string.shopRZ);
                             tv_shop_RZ.setText(R.string.shopRZ);
-                        }else if(myMessageBean.getResult().getStore_status()==3){
+                        }else if(myMessageBean.getResult().getStore_status().equals(3)){
                             tv_shopZZ.setText(R.string.shopRZ);
                             tv_shop_RZ.setText(R.string.shopRZ);
-                        }else if(myMessageBean.getResult().getStore_status()==4){
+                        }else if(myMessageBean.getResult().getStore_status().equals("4")){
                             tv_shopZZ.setText(R.string.shopRZ);
                             tv_shop_RZ.setText(R.string.shopRZ);
-                        }else if(myMessageBean.getResult().getStore_status()==1){
+                        }else if(myMessageBean.getResult().getStore_status().equals("1")){
                             tv_shopZZ.setText(R.string.dianpuguanli);
                             tv_shop_RZ.setText(R.string.dianpuguanli);
                         }

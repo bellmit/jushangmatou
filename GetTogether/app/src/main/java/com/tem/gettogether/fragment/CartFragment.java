@@ -557,7 +557,7 @@ public class CartFragment extends TabFragment {
 
                                                                 }
                                                             } else {
-                                                                CusToast.showToast("token失效");
+                                                                CusToast.showToast("请先登录");
                                                             }
 
                                                         } catch (Exception e) {

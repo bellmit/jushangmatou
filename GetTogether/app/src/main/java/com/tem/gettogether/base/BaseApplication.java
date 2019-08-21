@@ -44,7 +44,7 @@ public class BaseApplication extends Application {
     public static BaseApplication mInstance;
     public UserBean userBean;
     public int isWXPay = 100;
-    public final String WXAPP_ID = "wx84afd2924379c340";
+    public final String WXAPP_ID = "wx93eea65ba215f901";
     public IWXAPI api;
     public WeiXinBean1 wxbean;
     public WeiXinMessageBean bean;

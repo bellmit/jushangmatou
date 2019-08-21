@@ -25,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.my.AddressGLActivity;
+import com.tem.gettogether.activity.order.CaiGouShangOrderActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
@@ -250,9 +251,11 @@ public class CloseAccountActivity extends BaseActivity {
                     String msg = jsonObject.optString("msg");
                     CusToast.showToast(msg);
                     if (res.equals("1")) {
-                        Gson gson = new Gson();
+                        /*Gson gson = new Gson();
                         orderNum = jsonObject.optString("result");
-                        showPop(tv_tijiao);
+                        showPop(tv_tijiao);*/
+                        startActivity(new Intent(CloseAccountActivity.this, CaiGouShangOrderActivity.class)
+                                .putExtra("tabType", "1"));
                     }
 
                 } catch (JSONException e) {

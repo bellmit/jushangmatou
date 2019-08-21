@@ -185,7 +185,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
     private final int CROP_FROM_CAMERA = 333;
     private File mCropImageFile;
     private int isshanpinImage = 0;
-    private String goods_content;
+    private String goods_content = "";
     private int recycleType;
 
     @Override
@@ -356,28 +356,9 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                     Log.d("chenshichun", "======goods_content=====  " + text_description_tv.getText().toString());
                     map.put("goods_content", text_description_tv.getText().toString());
                 }
-                /*if (resultBeansGFL.size() > 0) {
-                    map.put("sku_str", resultBeansGFL.get(0).getSku_str());
-                }*/
                 map.put("sku_str", tv_ShoppingGG.getText().toString());// 规格
-                /*if (cartImage.size() > 0) {
-                    for (int i = 0; i < cartImage.size(); i++) {
-                        if (i < cartImage.size() - 1) {
-                            strImage += cartImage.get(i) + ",";
-                        } else {
-                            strImage += cartImage.get(i);
-                        }
-                    }
-                }
-
-                if (!strImage.equals("")) {
-                    Log.d("chenshichun", "======goods_images=====  ");
-                    map.put("goods_images", strImage);
-                }*/
-                if(!goods_content.equals("")) {
-                    map.put("original_img", goods_content);
-                    Log.d("chenshichun","=====goods_images======"+goods_content);
-                }
+                Log.d("chenshichun", "=====goods_content======" + goods_content);
+                map.put("original_img", goods_content);
                 if (cartImage.size() > 0) {
                     for (int i = 0; i < cartImage.size(); i++) {
                         if (i < cartImage.size() - 1) {
@@ -387,10 +368,8 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                         }
                     }
                 }
-                if (!strTwoImage.equals("")) {
-                    Log.d("chenshichun", "======original_img=====  " + strTwoImage);
-                    map.put("goods_images", strTwoImage);
-                }
+                Log.d("chenshichun", "======original_img=====  " + strTwoImage);
+                map.put("goods_images", strTwoImage);
                 map.put("is_on_sale", "1");
                 upTJSHData(map);
                 break;
@@ -793,7 +772,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Log.d("chenshichun","===========recycleType "+recycleType);
+                        Log.d("chenshichun", "===========recycleType " + recycleType);
                         if (recycleType == 0) {
                             if (imagePaths.size() > 0) {
                                 imagePaths.remove(imagePaths.get(index1));
@@ -1128,7 +1107,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                     String msg = jsonObject.optString("msg");
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        Log.d("chenshichun","===========recycleType  "+recycleType);
+                        Log.d("chenshichun", "===========recycleType  " + recycleType);
 
                         if (recycleType == 0) {
                             imagePaths.add(imagePaths.size() - 1, path);

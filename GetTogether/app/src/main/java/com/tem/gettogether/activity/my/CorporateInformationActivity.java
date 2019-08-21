@@ -148,7 +148,7 @@ public class CorporateInformationActivity extends BaseActivity {
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         CompanyPersionInformationBean mCompanyPersionInformationBean = gson.fromJson(result, CompanyPersionInformationBean.class);
-                        Glide.with(getContext()).load(mCompanyPersionInformationBean.getResult().getHead_pic() + "").error(R.drawable.img12x).centerCrop().into(head_iv);
+                        Glide.with(getContext()).load(mCompanyPersionInformationBean.getResult().getHead_pic() + "").error(R.mipmap.myy322x).centerCrop().into(head_iv);
                         name_tv.setText(mCompanyPersionInformationBean.getResult().getNickname());
                         country_tv.setText(mCompanyPersionInformationBean.getResult().getCountry_name());
                         phone_num_tv.setText(mCompanyPersionInformationBean.getResult().getMobile());
@@ -206,7 +206,7 @@ public class CorporateInformationActivity extends BaseActivity {
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         CompanyPersionInformationBean mCompanyPersionInformationBean = gson.fromJson(result, CompanyPersionInformationBean.class);
-                        Glide.with(getContext()).load(mCompanyPersionInformationBean.getResult().getHead_pic() + "").error(R.drawable.img12x).centerCrop().into(head_iv);
+                        Glide.with(getContext()).load(mCompanyPersionInformationBean.getResult().getHead_pic() + "").error(R.mipmap.myy322x).centerCrop().into(head_iv);
                         name_tv.setText(mCompanyPersionInformationBean.getResult().getNickname());
                         country_tv.setText(mCompanyPersionInformationBean.getResult().getCountry_name());
                         phone_num_tv.setText(mCompanyPersionInformationBean.getResult().getMobile());
@@ -509,7 +509,7 @@ public class CorporateInformationActivity extends BaseActivity {
             Map<String, Object> map = new HashMap<>();
             map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
             upMessageData(map);
-//            GlideLoadUtils.getInstance().glideAvatarLoad(this, path, iv_head, R.drawable.img12x);
+//            GlideLoadUtils.getInstance().glideAvatarLoad(this, path, iv_head, R.mipmap.myy322x);
 
         }
     }

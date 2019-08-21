@@ -143,7 +143,7 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
                         Gson gson = new Gson();
                         MyMessageBean myMessageBean = gson.fromJson(result, MyMessageBean.class);
                         resultBean = myMessageBean.getResult();
-                        Glide.with(getActivity()).load(myMessageBean.getResult().getHead_pic() + "").asBitmap().error(R.drawable.img12x).centerCrop().into(new BitmapImageViewTarget(iv_head));
+                        Glide.with(getActivity()).load(myMessageBean.getResult().getHead_pic() + "").asBitmap().error(R.mipmap.myy322x).centerCrop().into(new BitmapImageViewTarget(iv_head));
                         tv_name.setText(myMessageBean.getResult().getNickname());
                         SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.NAME, myMessageBean.getResult().getNickname());
                         is_verify = myMessageBean.getResult().getIs_verify();

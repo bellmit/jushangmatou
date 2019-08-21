@@ -15,6 +15,7 @@ import com.tem.gettogether.activity.LoginActivity;
 import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
 import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.bean.HomeDataNewBean;
+import com.tem.gettogether.utils.SizeUtil;
 import com.tem.gettogether.utils.TransformationUtils;
 
 import java.util.List;
@@ -37,7 +38,8 @@ public class HomeXinPinAdapter extends RecyclerView.Adapter<HomeXinPinAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Glide.with(context).load(mDatas.get(position).getOriginal_img()).asBitmap().placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).into(new TransformationUtils(holder.iv_image));
+        int imageSize= SizeUtil.dp2px(context,180);
+        Glide.with(context).load(mDatas.get(position).getOriginal_img()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(imageSize, imageSize).into(holder.iv_image);
         holder.title_tv.setText(mDatas.get(position).getGoods_name());
         holder.price_tv.setText(mDatas.get(position).getShop_price());
         holder.count_tv.setText(mDatas.get(position).getBatch_number());

@@ -5,9 +5,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
@@ -37,6 +39,7 @@ public class GongYingOrderActivity extends BaseActivity {
     private String mTabId;
     private int position = 0;
     private String[] titles;
+    private NoScrollViewPagerAdapter pagerAdapter;
 
     @Override
     protected void initData() {
@@ -83,11 +86,12 @@ public class GongYingOrderActivity extends BaseActivity {
     }
 
     private void initFragmentTitle() {
-        titles = new String[]{getResources().getString(R.string.all), getResources().getString(R.string.yishouhuo), getResources().getString(R.string.yijiekuan), getResources().getString(R.string.complete)};
+        titles = new String[]{getResources().getString(R.string.all), "待发货", "待收货", getResources().getString(R.string.yijiekuan), getResources().getString(R.string.complete)};
         mList_title = new ArrayList<>();
         list_fragment = new ArrayList<>();
         mList_title.add(getResources().getString(R.string.all));
-        mList_title.add(getResources().getString(R.string.yishouhuo));
+        mList_title.add("待发货");
+        mList_title.add("待收货");
         mList_title.add(getResources().getString(R.string.yijiekuan));
         mList_title.add(getResources().getString(R.string.complete));
 
@@ -154,4 +158,72 @@ public class GongYingOrderActivity extends BaseActivity {
             return list_Title.get(position);
         }
     }
+
+    private class NoScrollViewPagerAdapter extends FragmentPagerAdapter {
+        private List<String> tags;//标示fragment的tag
+        private FragmentManager fragmentManager;
+
+        NoScrollViewPagerAdapter(FragmentManager fm) {
+            super(fm);
+            this.tags = new ArrayList<>();
+            this.fragmentManager = fm;
+        }
+
+        //Fragment的实例化工作
+        @Override
+        public Fragment getItem(int position) {
+            return GongYingShangOrderFragment.getInstance(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mList_title.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mList_title.get(position);
+        }
+
+        //返回PagerAdapter.POSITION_NONE保证调用notifyDataSetChanged刷新Fragment。
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;//必须返回的是POSITION_NONE，否则不会刷新
+
+        }
+
+        //这个就不说了
+        private String makeFragmentName(int viewId, long id) {
+            return "android:switcher:" + viewId + ":" + id;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+        }
+
+        //必须重写此方法，添加tag一一做记录
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            tags.add(makeFragmentName(container.getId(), getItemId(position)));
+            Fragment fragment = (Fragment) super.instantiateItem(container, position);
+            this.fragmentManager.beginTransaction().show(fragment).commit();
+            return fragment;
+        }
+
+        //根据tag查找缓存的fragment，移除缓存的fragment，替换成新的
+        public void setNewFragments() {
+            if (this.tags != null) {
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                for (int i = 0; i < tags.size(); i++) {
+                    fragmentTransaction.remove(fragmentManager.findFragmentByTag(tags.get(i)));
+                }
+                fragmentTransaction.commit();
+                fragmentManager.executePendingTransactions();
+                tags.clear();
+            }
+            notifyDataSetChanged();
+        }
+    }
+
 }

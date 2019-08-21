@@ -32,7 +32,6 @@
             android:layout_width="80dp"
             android:layout_alignParentEnd="true"
             android:paddingEnd="16dp"
-            android:visibility="gone"
             android:layout_height="match_parent">
             <TextView
                 android:id="@+id/tv_title_right"

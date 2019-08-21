@@ -124,7 +124,7 @@ public class GRMeassageActivity extends BaseActivity {
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         MyMessageBean myMessageBean=gson.fromJson(result,MyMessageBean.class);
-                        Glide.with(GRMeassageActivity.this).load(myMessageBean.getResult().getHead_pic()+"").asBitmap().error( R.drawable.img12x).centerCrop().into(new BitmapImageViewTarget(iv_head));
+                        Glide.with(GRMeassageActivity.this).load(myMessageBean.getResult().getHead_pic()+"").asBitmap().error(R.mipmap.myy322x).centerCrop().into(new BitmapImageViewTarget(iv_head));
                         tv_name.setText(myMessageBean.getResult().getNickname());
                         tv_zhanghao.setText(myMessageBean.getResult().getMobile());
                         tv_sfzh.setText(myMessageBean.getResult().getTruename()+"");

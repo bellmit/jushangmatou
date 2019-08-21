@@ -248,6 +248,7 @@
                 android:layout_height="49dp"
                 android:gravity="center"
                 android:layout_weight="1"
+                android:visibility="gone"
                 android:background="@color/my_yellow"
                 android:text="立即购买"
                 android:textSize="17dp"

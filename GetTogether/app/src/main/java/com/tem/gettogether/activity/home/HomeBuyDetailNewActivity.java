@@ -181,7 +181,7 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
                             }
                         }
                     } else {
-                        CusToast.showToast("token失效");
+                        CusToast.showToast("请先登录");
                         startActivity(new Intent(HomeBuyDetailNewActivity.this, LoginActivity.class));
 
                     }

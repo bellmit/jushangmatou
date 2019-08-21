@@ -30,7 +30,7 @@
                 android:id="@+id/iv_head"
                 android:layout_width="59dp"
                 android:layout_height="59dp"
-                android:src="@drawable/img12x" />
+                android:src="@mipmap/myy322x" />
 
             <TextView
                 android:id="@+id/tv_name"

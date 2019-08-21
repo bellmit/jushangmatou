@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -16,14 +17,12 @@ import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.tem.gettogether.R;
-import com.tem.gettogether.activity.MyShopActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.entity.TabEntity;
 import com.tem.gettogether.fragment.MemberClassificationFragment;
 import com.tem.gettogether.fragment.MemberInformationFragment;
-import com.tem.gettogether.fragment.OpenVipFragment;
 import com.tem.gettogether.fragment.RefundFragment;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.view.CircularImage;
@@ -74,12 +73,11 @@ public class VipCenterActivity extends BaseActivity {
         tv_title.setText(getResources().getString(R.string.membership_center));
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setText(getResources().getString(R.string.upgrade_membership));
-
-        if(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7").equals("2")){
+        if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7").equals("2")) {
             tv_title_right.setVisibility(View.GONE);
         }
 
-        Glide.with(getContext()).load(headPic).error(R.drawable.img12x).centerCrop().into(head_pic);
+        Glide.with(getContext()).load(/*headPic*/SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.head_pic, headPic)).error(R.mipmap.myy322x).centerCrop().into(head_pic);
         nick_name.setText(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.NAME, ""));
         account.setText(BaseApplication.getInstance().userBean.getPhone());
         mFragments.add(new MemberClassificationFragment());
@@ -163,9 +161,13 @@ public class VipCenterActivity extends BaseActivity {
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
+                Log.d("chenshichun","======rl_close=====");
+
                 finish();
                 break;
             case R.id.tv_title_right:
+                Log.d("chenshichun","======tv_title_right=====");
+
                 startActivity(new Intent(this, BuyMemberActivity.class));
                 break;
         }

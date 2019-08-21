@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseApplication;
@@ -27,7 +26,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pay_result);
 
-        api = WXAPIFactory.createWXAPI(this, "wx84afd2924379c340");
+        api = WXAPIFactory.createWXAPI(this, "wx93eea65ba215f901");
         api.handleIntent(getIntent(), this);
     }
 
@@ -50,15 +49,11 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
         if (resp.errCode==0) {
             BaseApplication.getInstance().isWXPay = resp.errCode;
-            Toast.makeText(WXPayEntryActivity.this, "微信支付成功啦", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(WXPayEntryActivity.this, "微信支付成功啦", Toast.LENGTH_SHORT).show();
             finish();
-        }/*else if(resp.errCode ==-1){
-            Toast.makeText(getApplicationContext(), "支付取消", Toast.LENGTH_SHORT).show();
+        }else{
             finish();
-        }else if(resp.errCode ==-2){
-            Toast.makeText(getApplicationContext(), "请求失败", Toast.LENGTH_SHORT).show();
-            finish();
-        }*/
+        }
 
 //        if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
 //            MyApplication.getInstance().isWXPay = resp.errCode;

@@ -48,6 +48,8 @@ public class MemberInformationFragment extends BaseFragment {
     private TextView pay_fee;
     @ViewInject(R.id.pay_type)
     private TextView pay_type;
+    @ViewInject(R.id.yajin_ll)
+    private LinearLayout yajin_ll;
     private String userLever;
 
     @Nullable
@@ -67,6 +69,7 @@ public class MemberInformationFragment extends BaseFragment {
             user_lever.setText("普通会员");
         } else if (userLever.equals("2")) {
             user_lever.setText("高级会员");
+            yajin_ll.setVisibility(View.GONE);
         }
 
         userName.setText(BaseApplication.getInstance().userBean.getUserName());

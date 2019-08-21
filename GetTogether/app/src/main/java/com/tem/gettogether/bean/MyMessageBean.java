@@ -94,7 +94,7 @@ public class MyMessageBean {
         private String footprint_count;
         private String coupon_count;
         private String collect_count;
-        private int store_status;
+        private String store_status;
         private String waitPay;
         private String waitSend;
         private String waitReceive;
@@ -304,11 +304,11 @@ public class MyMessageBean {
             this.collect_count = collect_count;
         }
 
-        public int getStore_status() {
+        public String getStore_status() {
             return store_status;
         }
 
-        public void setStore_status(int store_status) {
+        public void setStore_status(String store_status) {
             this.store_status = store_status;
         }
 

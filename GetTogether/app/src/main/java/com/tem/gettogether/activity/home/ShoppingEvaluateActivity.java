@@ -207,7 +207,7 @@ public class ShoppingEvaluateActivity extends BaseActivity {
             ImageView iv_iamge3 = baseViewHolder.getView(R.id.iv_iamge3);
 
             CircularImage iv_user_image = baseViewHolder.getView(R.id.iv_user_image);
-            Glide.with(ShoppingEvaluateActivity.this).load(commentListBeans.get(baseViewHolder.getAdapterPosition()).getHead_pic()).error(R.drawable.img12x).into(iv_user_image);
+            Glide.with(ShoppingEvaluateActivity.this).load(commentListBeans.get(baseViewHolder.getAdapterPosition()).getHead_pic()).error(R.mipmap.myy322x).into(iv_user_image);
             baseViewHolder.setText(R.id.tv_user_name,commentListBeans.get(baseViewHolder.getAdapterPosition()).getNickname());
             baseViewHolder.setText(R.id.tv_pj_time,commentListBeans.get(baseViewHolder.getAdapterPosition()).getAdd_time());
             if (commentListBeans.get(baseViewHolder.getAdapterPosition()).getImg().size() >= 3) {

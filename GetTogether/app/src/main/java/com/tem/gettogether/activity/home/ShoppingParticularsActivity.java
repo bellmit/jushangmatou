@@ -170,7 +170,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private ShareAction mShareAction;
     private UMShareListener mShareListener;
     private IWXAPI wxAPI;
-    private String APP_ID = "wx84afd2924379c340";
+    private String APP_ID = "wx93eea65ba215f901";
     private int allNum;
     private OrderDetailAdapter mOrderDetailAdapter;
 
@@ -269,7 +269,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 ImageView iv_iamge3 = holder.getImageView(R.id.iv_iamge3);
 
                 CircularImage iv_user_image = holder.getView(R.id.iv_user_image);
-                Glide.with(ShoppingParticularsActivity.this).load(commentBeans.get(position).getHead_pic()).error(R.drawable.img12x).into(iv_user_image);
+                Glide.with(ShoppingParticularsActivity.this).load(commentBeans.get(position).getHead_pic()).error(R.mipmap.myy322x).into(iv_user_image);
                 holder.getTextView(R.id.tv_user_name).setText(commentBeans.get(position).getNickname());
                 holder.getTextView(R.id.tv_pj_time).setText(commentBeans.get(position).getAdd_time());
                 if (commentBeans.get(position).getImg().size() >= 3) {
@@ -391,7 +391,11 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         .putExtra("goods_id", goods_id));
                 break;
             case R.id.tv_jrgwc:
-                showPop(tv_jrgwc);
+                if(SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")){
+                    CusToast.showToast("供应商暂无此功能");
+                }else{
+                    showPop(tv_jrgwc);
+                }
                 break;
             case R.id.ll_shuxing_xz:
                 showPop(ll_shuxing_xz);
@@ -435,7 +439,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         }
                     } else {
                         startActivity(new Intent(this, LoginActivity.class));
-                        CusToast.showToast("token失效");
+                        CusToast.showToast("请先登录");
                     }
 
                 } catch (Exception e) {
@@ -460,7 +464,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
                         }
                     } else {
-                        CusToast.showToast("token失效");
+                        CusToast.showToast("请先登录");
                     }
 
                 } catch (Exception e) {

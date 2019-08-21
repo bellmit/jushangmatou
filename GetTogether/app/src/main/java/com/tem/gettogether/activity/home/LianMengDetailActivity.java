@@ -1,6 +1,7 @@
 package com.tem.gettogether.activity.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
+import com.tem.gettogether.ShowImageDetail;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
@@ -20,6 +22,7 @@ import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import org.json.JSONException;
@@ -76,7 +79,6 @@ public class LianMengDetailActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
     }
 
     @Event(value = {R.id.rl_close}, type = View.OnClickListener.class)
@@ -148,6 +150,15 @@ public class LianMengDetailActivity extends BaseActivity {
         //设置图片集合
         banner.setImages(detailDataBean.get(0).getCompany_images2());
         //banner设置方法全部调用完毕时最后调用
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Intent intent2 = new Intent(LianMengDetailActivity.this, ShowImageDetail.class);
+                intent2.putStringArrayListExtra("paths",detailDataBean.get(0).getCompany_images2());
+                intent2.putExtra("index", position);
+                startActivity(intent2);
+            }
+        });
         banner.start();
     }
 

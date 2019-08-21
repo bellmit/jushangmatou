@@ -14,7 +14,7 @@
             android:id="@+id/pic_iv"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@drawable/img12x"
+            android:background="@mipmap/myy322x"
             android:scaleType="fitXY"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

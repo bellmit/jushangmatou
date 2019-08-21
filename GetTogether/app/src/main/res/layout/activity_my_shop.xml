@@ -336,7 +336,7 @@
                         android:id="@+id/iv_image_1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/img12x"
+                        android:background="@mipmap/myy322x"
                         android:scaleType="centerCrop" />
                 </RelativeLayout>
 
@@ -351,7 +351,7 @@
                         android:id="@+id/iv_image_2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/img12x"
+                        android:background="@mipmap/myy322x"
                         android:scaleType="centerCrop" />
                 </RelativeLayout>
             </LinearLayout>
@@ -415,7 +415,7 @@
                             android:id="@+id/iv_image_3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/img12x"
+                            android:background="@mipmap/myy322x"
                             android:scaleType="centerCrop" />
                     </RelativeLayout>
 
@@ -479,7 +479,7 @@
                                 android:id="@+id/iv_image_4"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="@drawable/img12x"
+                                android:background="@mipmap/myy322x"
                                 android:scaleType="centerCrop" />
                         </RelativeLayout>
 
@@ -493,7 +493,7 @@
                                 android:id="@+id/iv_image_5"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="@drawable/img12x"
+                                android:background="@mipmap/myy322x"
                                 android:scaleType="centerCrop" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -515,7 +515,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="@drawable/img12x"
+                                android:background="@mipmap/myy322x"
                                 android:scaleType="centerCrop" />
                         </RelativeLayout>
 

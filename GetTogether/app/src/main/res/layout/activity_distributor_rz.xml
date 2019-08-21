@@ -307,7 +307,7 @@
                         android:layout_height="40dp"
                         android:gravity="center_vertical"
                         android:paddingStart="16dp"
-                        android:text="请上传3张真实的工厂实景图，让采购商更清楚您的实力！"
+                        android:text="请上传2张真实的工厂实景图，让采购商更清楚您的实力！"
                         android:textColor="@color/black" />
 
                     <View

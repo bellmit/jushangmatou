@@ -364,9 +364,11 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         map.put("attach_time", attach_time);
         map.put("country_id", country_id);
         if (qgNum == 1) {
+            map.put("release", 1);
             map.put("goods_num", et_qgNum.getText().toString());
         } else if (qgNum == 2) {
             map.put("release", 2);
+            map.put("goods_num", "按商户起订量");
         }
         if (cartImage.size() > 0) {
             for (int i = 0; i < cartImage.size(); i++) {

@@ -241,7 +241,7 @@ public class ShopActivity extends BaseActivity {
 
                         }
                     }else{
-                        CusToast.showToast("token失效");
+                        CusToast.showToast("请先登录");
                     }
 
 

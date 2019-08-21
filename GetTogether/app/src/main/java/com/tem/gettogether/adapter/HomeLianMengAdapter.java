@@ -40,7 +40,6 @@ public class HomeLianMengAdapter extends RecyclerView.Adapter<HomeLianMengAdapte
     public void onBindViewHolder(ViewHolder holder, final int position) {
         int imageSize= SizeUtil.dp2px(context,100);
 
-        Log.d("chenshichun","======getCompany_logo====="+mDatas.get(position).getCompany_logo());
         Glide.with(context).load(mDatas.get(position).getCompany_logo()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(imageSize, imageSize).into(holder.pic_iv);
         holder.company_name.setText(mDatas.get(position).getCompany_name());
         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -184,7 +184,7 @@
                         android:text="*"
                         android:textColor="@color/my_red"
                         android:textSize="13dp"
-                        android:visibility="invisible" />
+                        />
 
                     <TextView
                         android:layout_width="110dp"

@@ -1,5 +1,6 @@
 package com.tem.gettogether.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LianMengDetailBean {
@@ -59,7 +60,7 @@ public class LianMengDetailBean {
         private String qq;
         private String company_images;
         private String createtime;
-        private List<String> company_images2;
+        private ArrayList<String> company_images2;
         private String address;
         private String maindeal;
         private String contact_person;
@@ -121,7 +122,7 @@ public class LianMengDetailBean {
             this.createtime = createtime;
         }
 
-        public void setCompany_images2(List<String> company_images2) {
+        public void setCompany_images2(ArrayList<String> company_images2) {
             this.company_images2 = company_images2;
         }
 
@@ -185,7 +186,7 @@ public class LianMengDetailBean {
             return createtime;
         }
 
-        public List<String> getCompany_images2() {
+        public ArrayList<String> getCompany_images2() {
             return company_images2;
         }
 

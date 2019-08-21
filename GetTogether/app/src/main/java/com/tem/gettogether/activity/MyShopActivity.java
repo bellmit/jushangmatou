@@ -119,19 +119,19 @@ public class MyShopActivity extends BaseActivity {
                         } else if (apply_type.equals("2")) {// 工厂
                         }
                         if (mShopInformationBean.getResult().get(0).getLegal_identity_cert().get(0) != null) {
-                            Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getLegal_identity_cert().get(0) + "").asBitmap().error(R.drawable.img12x).centerCrop().into(new BitmapImageViewTarget(iv_image_1));
+                            Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getLegal_identity_cert().get(0) + "").asBitmap().error(R.mipmap.myy322x).centerCrop().into(new BitmapImageViewTarget(iv_image_1));
                         }
                         if (mShopInformationBean.getResult().get(0).getLegal_identity_cert().get(1) != null) {
-                            Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getLegal_identity_cert().get(1) + "").asBitmap().error(R.drawable.img12x).centerCrop().into(new BitmapImageViewTarget(iv_image_2));
+                            Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getLegal_identity_cert().get(1) + "").asBitmap().error(R.mipmap.myy322x).centerCrop().into(new BitmapImageViewTarget(iv_image_2));
                         }
                         if (mShopInformationBean.getResult().get(0).getBusiness_licence_cert().get(0) != null) {
-                            Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getBusiness_licence_cert().get(0) + "").asBitmap().error(R.drawable.img12x).centerCrop().into(new BitmapImageViewTarget(iv_image_3));
+                            Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getBusiness_licence_cert().get(0) + "").asBitmap().error(R.mipmap.myy322x).centerCrop().into(new BitmapImageViewTarget(iv_image_3));
                         }
                         if (mShopInformationBean.getResult().get(0).getFactory_scene().get(0) != null) {
-                            Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getFactory_scene().get(0) + "").asBitmap().error(R.drawable.img12x).centerCrop().into(new BitmapImageViewTarget(iv_image_4));
+                            Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getFactory_scene().get(0) + "").asBitmap().error(R.mipmap.myy322x).centerCrop().into(new BitmapImageViewTarget(iv_image_4));
                         }
                         if (mShopInformationBean.getResult().get(0).getFactory_scene().get(1) != null) {
-                            Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getFactory_scene().get(1) + "").asBitmap().error(R.drawable.img12x).centerCrop().into(new BitmapImageViewTarget(iv_image_5));
+                            Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getFactory_scene().get(1) + "").asBitmap().error(R.mipmap.myy322x).centerCrop().into(new BitmapImageViewTarget(iv_image_5));
                         }
                     }
                 } catch (JSONException e) {

@@ -1,5 +1,6 @@
 package com.tem.gettogether.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -13,14 +14,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.my.VipCenterActivity;
 import com.tem.gettogether.base.BaseFragment;
 
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cc.duduhuo.custoast.CusToast;
 
 @ContentView(R.layout.activity_xpts)
 public class XunPanTuiSongFragment extends BaseFragment {
@@ -49,10 +54,20 @@ public class XunPanTuiSongFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         rl_close.setVisibility(View.GONE);
         tv_title.setText("询盘推送");
-        tv_title_right.setVisibility(View.GONE);
+        tv_title_right.setVisibility(View.VISIBLE);
+        tv_title_right.setTextSize(14);
         tv_title_right.setText("查看会员权限");
         initDatas();
         initViews();
+    }
+
+    @Event(value = {R.id.tv_title_right}, type = View.OnClickListener.class)
+    private void getEvent(View view) {
+        switch (view.getId()) {
+            case R.id.tv_title_right:
+                startActivity(new Intent(getActivity(), VipCenterActivity.class));
+                break;
+        }
     }
 
     private void initDatas() {

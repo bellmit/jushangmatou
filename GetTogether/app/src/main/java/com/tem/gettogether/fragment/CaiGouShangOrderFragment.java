@@ -42,6 +42,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.rong.message.CSChangeModeMessage;
+
 @ContentView(R.layout.fragment_new_my_order)
 public class CaiGouShangOrderFragment extends BaseFragment {
     @ViewInject(R.id.recyclerView)
@@ -55,9 +57,9 @@ public class CaiGouShangOrderFragment extends BaseFragment {
     private int currentPage = 1;
     private BaseActivity baseActivity;
     private int mTab = 0;
-    private int state = -1;
 
     public static CaiGouShangOrderFragment getInstance(int tab) {
+        Log.d("chenshichun","===========");
         CaiGouShangOrderFragment fragment = new CaiGouShangOrderFragment();
         fragment.setArguments(setArguments(tab));
         return fragment;
@@ -72,14 +74,28 @@ public class CaiGouShangOrderFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        Log.d("chenshichun","===========");
 
         return x.view().inject(this, inflater, container);
 
     }
 
     @Override
+    public void onResume() {
+        Log.d("chenshichun","===========");
+        super.onResume();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        Log.d("chenshichun","=====hidden======"+hidden);
+        super.onHiddenChanged(hidden);
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        Log.d("chenshichun","===========");
+
         baseActivity = (BaseActivity) getActivity();
         loadData();
         setData();
@@ -88,23 +104,13 @@ public class CaiGouShangOrderFragment extends BaseFragment {
         IntentFilter filter = new IntentFilter();
         filter.addAction("ORDER_REFRESH_DATA");
         //注册广播接收
-        getContext().registerReceiver( new MyReceiver01(), filter);
+        getContext().registerReceiver(new MyReceiver01(), filter);
+        ll_empty.setVisibility(View.VISIBLE);
         super.onActivityCreated(savedInstanceState);
     }
 
     private void loadData() {
         mTab = getArguments().getInt("tab");
-        if (mTab == 0) {
-            state = -1;
-        } else if (mTab == 1) {
-            state = 100;
-        } else if (mTab == 2) {
-            state = 101;
-        } else if (mTab == 3) {
-            state = 2;
-        } else if (mTab == 4) {
-            state = 2;
-        }
     }
 
     private void initDatas(final int currentPage, final boolean isNormal, final boolean isLoadMore) {
@@ -114,13 +120,16 @@ public class CaiGouShangOrderFragment extends BaseFragment {
 
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         map.put("role_type", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, "7"));
+        Log.d("chenshichun","======mTab=====" +mTab);
         if (mTab == 0) {// 全部
             map.put("type", 1);
-        } else if (mTab == 1) {// 待收货
+        } else if (mTab == 1) {// 待发货
+            map.put("type", "WAITSEND");
+        } else if (mTab == 2) {// 待收货
             map.put("type", "WAITRECEIVE");
-        } else if (mTab == 2) {// 待结款
+        } else if (mTab == 3) {// 待结款
             map.put("type", "WAITCCOMMENT");
-        } else if (mTab == 3) {// 已完成
+        } else if (mTab == 4) {// 已完成
             map.put("type", "FINISH");
         }
         map.put("page", currentPage);
@@ -139,13 +148,13 @@ public class CaiGouShangOrderFragment extends BaseFragment {
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         if (isNormal) {
+                            resultBeans.addAll(gson.fromJson(result, MyOrderdataBean.class).getResult());
+                            mOrderAdapter.notifyDataSetChanged();
                             if (resultBeans.size() == 0) {
                                 ll_empty.setVisibility(View.VISIBLE);
                             } else {
                                 ll_empty.setVisibility(View.GONE);
                             }
-                            resultBeans.addAll(gson.fromJson(result, MyOrderdataBean.class).getResult());
-                            mOrderAdapter.notifyDataSetChanged();
                         } else {
                             if (isLoadMore) {
 
@@ -154,14 +163,14 @@ public class CaiGouShangOrderFragment extends BaseFragment {
                                     mOrderAdapter.notifyDataSetChanged();
                                 }
                             } else {
+                                resultBeans.clear();
+                                resultBeans.addAll(gson.fromJson(result, MyOrderdataBean.class).getResult());
+                                mOrderAdapter.notifyDataSetChanged();
                                 if (resultBeans.size() == 0) {
                                     ll_empty.setVisibility(View.VISIBLE);
                                 } else {
                                     ll_empty.setVisibility(View.GONE);
                                 }
-                                resultBeans.clear();
-                                resultBeans.addAll(gson.fromJson(result, MyOrderdataBean.class).getResult());
-                                mOrderAdapter.notifyDataSetChanged();
                             }
                         }
                     }
@@ -233,7 +242,7 @@ public class CaiGouShangOrderFragment extends BaseFragment {
         mOrderAdapter.setOnClickItem(new CaiGouShangOrderAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Log.d("chenshichun","========getOrder_id===  "+resultBeans.get(position).getOrder_id());
+                Log.d("chenshichun", "========getOrder_id===  " + resultBeans.get(position).getOrder_id());
                 confirmReceipt(resultBeans.get(position).getOrder_id());
             }
         });
@@ -272,13 +281,14 @@ public class CaiGouShangOrderFragment extends BaseFragment {
             }
         });
     }
+
     public class MyReceiver01 extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             //获取广播的名字
-            String action=intent.getAction();
-            if("ORDER_REFRESH_DATA".equals(action)){
-                mTab = intent.getIntExtra("page",0);
+            String action = intent.getAction();
+            if ("ORDER_REFRESH_DATA".equals(action)) {
+                mTab = intent.getIntExtra("page", 0);
                 initDatas(1, false, false);
             }
         }

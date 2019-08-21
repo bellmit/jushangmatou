@@ -22,8 +22,8 @@
 
             <com.tem.gettogether.view.CircularImage
                 android:id="@+id/head_pic"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/head_icon0"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingLeft="120dp"
+                android:paddingLeft="100dp"
                 app:layout_constraintBottom_toBottomOf="@id/head_pic"
                 app:layout_constraintLeft_toRightOf="@id/head_pic"
                 app:layout_constraintTop_toTopOf="@id/head_pic">

@@ -219,6 +219,17 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         iv_message.setImageResource(R.drawable.liaotian);
         iv_my.setImageResource(R.drawable.wode);
         openTab(0);
+
+        role_type = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1");
+
+        if (role_type != null && role_type.equals("1")) {
+            tv_fbqg.setText("询盘推送");
+            iv_fbqg.setImageResource(R.drawable.xunpan_gray);
+        } else {
+            tv_fbqg.setText("发布求购");
+            iv_fbqg.setImageResource(R.drawable.fbqg_main);
+        }
+
     }
 
 
@@ -439,15 +450,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     protected void onResume() {
         super.onResume();
 
-        role_type = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1");
 
-        if (role_type != null && role_type.equals("1")) {
-            tv_fbqg.setText("询盘推送");
-            iv_fbqg.setImageResource(R.drawable.xunpan_gray);
-        } else {
-            tv_fbqg.setText("发布求购");
-            iv_fbqg.setImageResource(R.drawable.fbqg_main);
-        }
 
         upGetMessageData();
 

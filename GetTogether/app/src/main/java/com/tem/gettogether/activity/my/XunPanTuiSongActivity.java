@@ -1,5 +1,6 @@
 package com.tem.gettogether.activity.my;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -12,6 +13,7 @@ import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.fragment.XunPanFragment;
 
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
@@ -28,12 +30,17 @@ public class XunPanTuiSongActivity extends BaseActivity {
     private ViewPager myView;
     @ViewInject(R.id.head_view)
     private TextView head_view;
+    @ViewInject(R.id.tv_title_right)
+    TextView tv_title_right;
     private List<String> myTitle;
     private List<Fragment>myFragment;
     @Override
     protected void initData() {
         x.view().inject(this);
         tv_title.setText("询盘推送");
+        tv_title_right.setVisibility(View.VISIBLE);
+        tv_title_right.setTextSize(14);
+        tv_title_right.setText("查看会员权限");
         head_view.setVisibility(View.GONE);
         initDatas();
         initViews();
@@ -55,7 +62,14 @@ public class XunPanTuiSongActivity extends BaseActivity {
         myFragment.add(new XunPanFragment());
 
     }
-
+    @Event(value = {R.id.tv_title_right}, type = View.OnClickListener.class)
+    private void getEvent(View view) {
+        switch (view.getId()) {
+            case R.id.tv_title_right:
+                startActivity(new Intent(XunPanTuiSongActivity.this, VipCenterActivity.class));
+                break;
+        }
+    }
     private void initViews(){
         //预加载
         myView.setOffscreenPageLimit(myFragment.size());

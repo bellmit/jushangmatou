@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActivity;
 import com.tem.gettogether.base.BaseActivity;
+import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.utils.Contacts;
@@ -25,6 +26,8 @@ import org.xutils.x;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import cc.duduhuo.custoast.CusToast;
 
 @ContentView(R.layout.activity_shop_rz_failed)
 public class ShopRzFailedActivity extends BaseActivity {
@@ -46,10 +49,54 @@ public class ShopRzFailedActivity extends BaseActivity {
         if (rz_type == 0) {
             tv_title.setText("商铺认证");
             reason_detail_tv.setText(message);
+            upGetRzFailedData();
         } else {
             tv_title.setText("采购商认证");
             getData();
         }
+    }
+
+    /*
+     * 店铺信息
+     * */
+    private void upGetRzFailedData() {
+        Map<String, Object> map = new HashMap<>();
+        if (BaseApplication.getInstance().userBean == null) return;
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
+
+        showDialog();
+        XUtil.Post(URLConstant.RZ_FAILED, map, new MyCallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                Log.i("====获取个人信息===", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    String msg = jsonObject.optString("msg");
+                    if (res.equals("1")) {
+                        reason_detail_tv.setText(jsonObject.optString("result"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                closeDialog();
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                ex.printStackTrace();
+                closeDialog();
+            }
+        });
     }
 
     private void getData() {

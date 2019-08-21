@@ -76,7 +76,7 @@ public class LoginActivity extends BaseActivity {
     @ViewInject(R.id.ll_wechat_login)
     private LinearLayout ll_wechat_login;
     private IWXAPI api;
-    private String APP_ID = "wx84afd2924379c340";
+    private String APP_ID = "wx93eea65ba215f901";
     public ArrayList<SnsPlatform> platforms = new ArrayList<SnsPlatform>();
     private SHARE_MEDIA[] list = {SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN};
 
@@ -255,6 +255,7 @@ public class LoginActivity extends BaseActivity {
                         SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.ROLE_TYPE, loginBean.getResult().getRole_type());
                         SharedPreferencesUtils.saveString(LoginActivity.this,BaseConstant.SPConstant.USERID,loginBean.getResult().getUser_id());
                         SharedPreferencesUtils.saveString(LoginActivity.this,BaseConstant.SPConstant.LEVER,loginBean.getResult().getLevel());
+                        SharedPreferencesUtils.saveString(LoginActivity.this,BaseConstant.SPConstant.head_pic,loginBean.getResult().getHead_pic());
 
                         UserBean userBean = new UserBean();
                         userBean.setToken(loginBean.getResult().getToken());

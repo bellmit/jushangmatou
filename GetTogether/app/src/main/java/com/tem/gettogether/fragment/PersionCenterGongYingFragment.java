@@ -152,7 +152,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                         myMessageBean = gson.fromJson(result, MyMessageBean.class);
                         resultBean = myMessageBean.getResult();
 
-                        Glide.with(getActivity()).load(myMessageBean.getResult().getHead_pic() + "").asBitmap().error(R.drawable.img12x).centerCrop().into(new BitmapImageViewTarget(iv_head));
+                        Glide.with(getActivity()).load(myMessageBean.getResult().getHead_pic() + "").asBitmap().error(R.mipmap.myy322x).centerCrop().into(new BitmapImageViewTarget(iv_head));
                         tv_name.setText(myMessageBean.getResult().getNickname());
                         SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.NAME, myMessageBean.getResult().getNickname());
 
@@ -164,10 +164,10 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                         } else if (userLever.equals("2")) {
                             huiyuan_iv.setBackgroundResource(R.drawable.my_huiyuan);
                         }
-                        if (resultBean.getStore_status() == 1) {
+                        if (resultBean.getStore_status().equals("1")) {
                             tv_shop_RZ.setText("店铺管理");
                             rz_status_tv.setText("已认证");
-                        } else if (resultBean.getStore_status() == 2) {
+                        } else if (resultBean.getStore_status().equals("2")) {
                             rz_status_tv.setText("认证审核中");
                         } else {
                             rz_status_tv.setText("待认证");
@@ -175,63 +175,6 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                     } else {
                         CusToast.showToast("登录失效");
                         startActivity(new Intent(getContext(), LoginActivity.class));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFinished() {
-                super.onFinished();
-                baseActivity.closeDialog();
-
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                super.onError(ex, isOnCallback);
-                ex.printStackTrace();
-                baseActivity.closeDialog();
-            }
-        });
-    }
-
-
-    /*
-     * 店铺信息
-     * */
-    private void upGetRzFailedData() {
-        Map<String, Object> map = new HashMap<>();
-        if (BaseApplication.getInstance().userBean == null) return;
-        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-
-//                map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
-        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
-
-        baseActivity.showDialog();
-        XUtil.Post(URLConstant.RZ_FAILED, map, new MyCallBack<String>() {
-            @Override
-            public void onSuccess(String result) {
-                super.onSuccess(result);
-                Log.i("====获取个人信息===", result);
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    String res = jsonObject.optString("status");
-                    String msg = jsonObject.optString("msg");
-                    String resultMessage = jsonObject.optString("result");
-                    if (res.equals("1")) {
-                        startActivity(new Intent(getActivity(), ShopRzFailedActivity.class).putExtra(Contacts.SHOP_RZ_FAILED, resultMessage)
-                                .putExtra(Contacts.RZ_TYPE, 0));
-                    } else {
-                        if (resultBean.getStore_status() == 1) {//店铺管理
-                            startActivity(new Intent(getActivity(), StoreManagementActivity.class));
-                        } else if (resultBean.getStore_status() == 2) {
-                            CusToast.showToast("店铺审核中");
-                            return;
-                        } else if (resultBean.getStore_status() == 0 || resultBean.getStore_status() == 3 || resultBean.getStore_status() == 4) {//店铺管理
-                            startActivity(new Intent(getActivity(), ShopAuthenticationActivity.class));
-                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -279,15 +222,15 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), GongYingOrderActivity.class)
                         .putExtra("tabType", "0"));
                 break;
-            case R.id.tv_dfk:// 待下单
+            case R.id.tv_dfk:// 待收货
                 startActivity(new Intent(getActivity(), GongYingOrderActivity.class)
                         .putExtra("tabType", "1"));
                 break;
-            case R.id.tv_dfh:// 待发货
+            case R.id.tv_dfh:// 待结款
                 startActivity(new Intent(getActivity(), GongYingOrderActivity.class)
                         .putExtra("tabType", "2"));
                 break;
-            case R.id.tv_dsh:// 待结款
+            case R.id.tv_dsh:// 已完成
                 startActivity(new Intent(getActivity(), GongYingOrderActivity.class)
                         .putExtra("tabType", "3"));
                 break;
@@ -303,7 +246,18 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), XunPanTuiSongActivity.class));
                 break;
             case R.id.rl_sprz: // 商铺认证
-                upGetRzFailedData();
+                if (resultBean.getStore_status().equals("1")) {//店铺管理
+
+                    startActivity(new Intent(getActivity(), StoreManagementActivity.class));
+                } else if (resultBean.getStore_status().equals("2")) {
+                    CusToast.showToast("店铺审核中");
+                    return;
+                } else if (resultBean.getStore_status().equals("3")) {// 认证失败
+                    startActivity(new Intent(getActivity(), ShopRzFailedActivity.class)
+                            .putExtra(Contacts.RZ_TYPE, 0));
+                } else if (resultBean.getStore_status().equals("4")) {// 认证
+                    startActivity(new Intent(getActivity(), ShopAuthenticationActivity.class));
+                }
                 break;
             case R.id.rl_zxkf:// 在线客服
                 showPop(rl_zxkf);

@@ -130,7 +130,7 @@ public class ShopPingJFragment extends BaseFragment {
             if(commentListBeans.get(baseViewHolder.getAdapterPosition()).getImg().size()>=1){
                 Glide.with(getActivity()).load(commentListBeans.get(baseViewHolder.getAdapterPosition()).getImg().get(0)).error(R.mipmap.myy322x).into(iv_pic);
             }
-            Glide.with(getActivity()).load(commentListBeans.get(baseViewHolder.getAdapterPosition()).getHead_pic()).error(R.drawable.img12x).into(iv_image_head);
+            Glide.with(getActivity()).load(commentListBeans.get(baseViewHolder.getAdapterPosition()).getHead_pic()).error(R.mipmap.myy322x).into(iv_image_head);
 
         }
     }

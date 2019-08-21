@@ -53,6 +53,7 @@ public class BuyingManagementActivity extends BaseActivity implements BuyingMana
     protected void initData() {
         x.view().inject(this);
         tv_title.setText("求购管理");
+        setData();
         initDatas(1, false);
         initRefresh();
     }
@@ -90,8 +91,9 @@ public class BuyingManagementActivity extends BaseActivity implements BuyingMana
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         if (!isLoadMore) {
-                            homeDataBean = gson.fromJson(result, QiuGouListBean.class).getResult();
-                            setData();
+                            homeDataBean.removeAll(homeDataBean);
+                            homeDataBean.addAll(gson.fromJson(result, QiuGouListBean.class).getResult());
+                            mHomeBuyAdapter.notifyDataSetChanged();
                         } else {
                             homeDataBean.addAll(gson.fromJson(result, QiuGouListBean.class).getResult());
                             mHomeBuyAdapter.notifyDataSetChanged();

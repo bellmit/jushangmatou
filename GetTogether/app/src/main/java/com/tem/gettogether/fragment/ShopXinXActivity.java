@@ -275,11 +275,11 @@ public class ShopXinXActivity extends BaseActivity {
 
                         if(myShopDataBe.getResult().getApp_store_logo()!=null&&!myShopDataBe.getResult().getApp_store_logo().equals("")){
                             tv_image1.setVisibility(View.GONE);
-                            Glide.with(ShopXinXActivity.this).load(myShopDataBe.getResult().getApp_store_logo()+"").asBitmap().error( R.drawable.img12x).centerCrop().into(iv_image1);
+                            Glide.with(ShopXinXActivity.this).load(myShopDataBe.getResult().getApp_store_logo()+"").asBitmap().error( R.mipmap.myy322x).centerCrop().into(iv_image1);
                         }
                         if(myShopDataBe.getResult().getApp_store_banner()!=null&&!myShopDataBe.getResult().getApp_store_banner().equals("")){
                             tv_image2.setVisibility(View.GONE);
-                            Glide.with(ShopXinXActivity.this).load(myShopDataBe.getResult().getApp_store_banner()+"").asBitmap().error( R.drawable.img12x).centerCrop().into(iv_image2);
+                            Glide.with(ShopXinXActivity.this).load(myShopDataBe.getResult().getApp_store_banner()+"").asBitmap().error( R.mipmap.myy322x).centerCrop().into(iv_image2);
 
 
                         }

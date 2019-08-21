@@ -9,7 +9,9 @@ import android.widget.TextView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.MyShopActivity;
 import com.tem.gettogether.base.BaseActivity;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.fragment.ShopXinXActivity;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -34,8 +36,11 @@ public class StoreManagementActivity extends BaseActivity {
     @Override
     protected void initData() {
         tv_title.setText(R.string.dianpuguanli);
-        rl_title_right.setVisibility(View.VISIBLE);
-
+        if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7").equals("2")) {
+            rl_title_right.setVisibility(View.GONE);
+        }else{
+            rl_title_right.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

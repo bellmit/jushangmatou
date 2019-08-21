@@ -42,7 +42,7 @@
                                 android:id="@+id/iv_head"
                                 android:layout_width="59dp"
                                 android:layout_height="59dp"
-                                android:src="@drawable/img12x" />
+                                android:src="@mipmap/myy322x" />
 
                             <ImageView
                                 android:id="@+id/huiyuan_iv"
@@ -256,7 +256,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="待发货"
+                            android:text="待收货"
                             android:textColor="@color/text6"
                             android:textSize="12dp" />
 
