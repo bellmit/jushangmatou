@@ -409,6 +409,13 @@
             android:name="com.tem.gettogether.activity.my.TuWenXQActivity"
             android:configChanges="locale" />
         <activity
+            android:name="com.tem.gettogether.activity.my.ZhuTuXQActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.my.ZhuTuXQNewActivity"
+            android:configChanges="locale" />
+
+        <activity
             android:name="com.tem.gettogether.activity.my.ChanPinGLActivity"
             android:configChanges="locale" />
         <activity
@@ -441,6 +448,8 @@
         <activity android:name="com.tem.gettogether.activity.cart.ShoppingCartActivity"/>
         <activity android:name="com.tem.gettogether.activity.order.CaiGouShangOrderActivity"/>
         <activity android:name="com.tem.gettogether.activity.order.GongYingOrderActivity"/>
+        <activity android:name="com.tem.gettogether.activity.order.CaiGouShangNewOrderActivity"/>
+
     </application>
 
 </manifest>

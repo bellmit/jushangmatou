@@ -51,15 +51,15 @@ public class CaiGouShangOrderActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-//        mAdapter = new OrderAdapter(getSupportFragmentManager(), mList_title, list_fragment);
-//        vp_client.setOffscreenPageLimit(6);
-//        vp_client.setAdapter(mAdapter);
-//        ps_tab.setupWithViewPager(vp_client);
-//        if (!TextUtils.isEmpty(mTabId)) {
-//            int i = Integer.parseInt(mTabId);
-//            position = i;
-//            vp_client.setCurrentItem(i);
-//        }
+        mAdapter = new OrderAdapter(getSupportFragmentManager(), mList_title, list_fragment);
+        vp_client.setOffscreenPageLimit(6);
+        vp_client.setAdapter(mAdapter);
+        ps_tab.setupWithViewPager(vp_client);
+        if (!TextUtils.isEmpty(mTabId)) {
+            int i = Integer.parseInt(mTabId);
+            position = i;
+            vp_client.setCurrentItem(i);
+        }
 
         vp_client.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
@@ -95,27 +95,29 @@ public class CaiGouShangOrderActivity extends BaseActivity {
         mList_title.add(getResources().getString(R.string.yijiekuan));
         mList_title.add(getResources().getString(R.string.complete));
 
-        /*for (int a = 0; a < titles.length; a++) {
+        for (int a = 0; a < titles.length; a++) {
             ps_tab.addTab(ps_tab.newTab());
             ps_tab.getTabAt(a).setText(titles[a]);
             CaiGouShangOrderFragment mFragment = CaiGouShangOrderFragment.getInstance(a);
             list_fragment.add(a, mFragment);
-        }*/
-        if (pagerAdapter == null) {
+        }
+/*        if (pagerAdapter == null) {
             pagerAdapter = new NoScrollViewPagerAdapter(getSupportFragmentManager());//继承FragmentPagerAdapter
         }
         vp_client.setAdapter(pagerAdapter);
         vp_client.setOffscreenPageLimit(1);
         ps_tab.setupWithViewPager(vp_client);
-        pagerAdapter.setNewFragments();//这是我在FragmentPagerAdapter中定义的刷新方法，
+        pagerAdapter.setNewFragments();//这是我在FragmentPagerAdapter中定义的刷新方法，*/
 
 
-       /* ps_tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        ps_tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                int math = (int) ((Math.random() * 100));
                 Intent intent = new Intent("ORDER_REFRESH_DATA");
                 intent.putExtra("page", tab.getPosition());
-//                sendBroadcast(intent);
+                intent.putExtra("random",math);
+                sendBroadcast(intent);
             }
 
             @Override
@@ -128,7 +130,6 @@ public class CaiGouShangOrderActivity extends BaseActivity {
 
             }
         });
-*/
     }
 
     @Event(value = {R.id.rl_close}, type = View.OnClickListener.class)
@@ -161,6 +162,11 @@ public class CaiGouShangOrderActivity extends BaseActivity {
         @Override
         public int getCount() {
             return list_fragment != null && !list_fragment.isEmpty() ? list_fragment.size() : 0;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            return super.instantiateItem(container, position);
         }
 
         @Override

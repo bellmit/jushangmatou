@@ -1,1 +1,1 @@
-include ':app', ':IMKit', ':IMLib', ':multi-image-selector', ':pickerview','groupedadapter'
+include ':app', ':IMKit', ':IMLib', ':multi-image-selector', ':pickerview','groupedadapter','pictureselector'

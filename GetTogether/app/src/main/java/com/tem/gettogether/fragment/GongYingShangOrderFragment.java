@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
@@ -70,6 +71,17 @@ public class GongYingShangOrderFragment extends BaseFragment {
     }
 
     @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        Log.d("chenshichun","=======onCreateAnimation====");
+        return super.onCreateAnimation(transit, enter, nextAnim);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -88,7 +100,7 @@ public class GongYingShangOrderFragment extends BaseFragment {
         filter.addAction("ORDER_REFRESH_DATA");
         //注册广播接收
         getContext().registerReceiver(new MyReceiver01(), filter);
-        ll_empty.setVisibility(View.VISIBLE);
+//        ll_empty.setVisibility(View.VISIBLE);
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -144,19 +156,20 @@ public class GongYingShangOrderFragment extends BaseFragment {
                                 }
 
                             } else {
-                                Log.d("chenshichun","=======刷新====");
-                                Log.d("chenshichun","==========="+gson.fromJson(result, MyOrderdataBean.class).getResult());
-                                if(gson.fromJson(result, MyOrderdataBean.class).getResult().equals("")){
-                                    Log.d("chenshichun","=======刷新1111====");
+                                if(jsonObject.optString("result").equals("")){// 刷新没数据
+                                    resultBeans.removeAll(resultBeans);
                                     mOrderAdapter.notifyDataSetChanged();
                                 }else {
-                                    resultBeans.clear();
+                                    Log.d("chenshichun","========有数据===");
+                                    resultBeans.removeAll(resultBeans);
                                     resultBeans.addAll(gson.fromJson(result, MyOrderdataBean.class).getResult());
-                                    Log.d("chenshichun", "=======刷新11====");
                                     mOrderAdapter.notifyDataSetChanged();
                                 }
+                                Log.d("chenshichun","========有数据size==="+resultBeans.size());
                                 if (resultBeans.size() > 0) {
                                     ll_empty.setVisibility(View.GONE);
+                                }else{
+//                                    ll_empty.setVisibility(View.VISIBLE);
                                 }
                             }
                         }
@@ -273,7 +286,7 @@ public class GongYingShangOrderFragment extends BaseFragment {
         });
     }
 
-
+    public static int currentRandom=-1;
     public class MyReceiver01 extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -281,7 +294,11 @@ public class GongYingShangOrderFragment extends BaseFragment {
             String action = intent.getAction();
             if ("ORDER_REFRESH_DATA".equals(action)) {
                 mTab = intent.getIntExtra("page", 0);
-                initDatas(1, false, false);
+//                int random = intent.getIntExtra("random",0);
+//                if(currentRandom != random) {
+                    initDatas(1, false, false);
+//                    currentRandom = random;
+//                }
             }
         }
     }

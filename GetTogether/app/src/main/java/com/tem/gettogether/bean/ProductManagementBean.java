@@ -7,7 +7,7 @@ public class ProductManagementBean {
     /**
      * status : 1
      * msg : 获取成功
-     * result : [{"goods_id":"5754","goods_name":"好的哈哈哈","store_count":"6767","shop_price":"5454.00","goods_images":"http://www.jsmtgou.com/jushangmatou/Uploads/head_img/20190808/20190808113215_50293.jpeg"}]
+     * result : [{"goods_id":"5754","goods_name":"好的哈哈哈","store_count":"6767","shop_price":"5454.00","cover_image":"http://www.jsmtgou.com/jushangmatou/Uploads/head_img/20190808/20190808113215_50293.jpeg"}]
      */
 
     private int status;
@@ -44,14 +44,14 @@ public class ProductManagementBean {
          * goods_name : 好的哈哈哈
          * store_count : 6767
          * shop_price : 5454.00
-         * goods_images : http://www.jsmtgou.com/jushangmatou/Uploads/head_img/20190808/20190808113215_50293.jpeg
+         * cover_image : http://www.jsmtgou.com/jushangmatou/Uploads/head_img/20190808/20190808113215_50293.jpeg
          */
 
         private String goods_id;
         private String goods_name;
         private String batch_number;
         private String shop_price;
-        private String goods_images;
+        private String cover_image;
         private String is_enquiry;
 
         public String getIs_enquiry() {
@@ -94,12 +94,12 @@ public class ProductManagementBean {
             this.shop_price = shop_price;
         }
 
-        public String getGoods_images() {
-            return goods_images;
+        public String getcover_image() {
+            return cover_image;
         }
 
-        public void setGoods_images(String goods_images) {
-            this.goods_images = goods_images;
+        public void setcover_image(String cover_image) {
+            this.cover_image = cover_image;
         }
     }
 }

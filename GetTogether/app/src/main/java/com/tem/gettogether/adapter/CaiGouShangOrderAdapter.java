@@ -45,7 +45,6 @@ public class CaiGouShangOrderAdapter extends RecyclerView.Adapter<CaiGouShangOrd
         holder.tv_shopping_num.setText("共" + resultBeans.get(position).getGoods_all_num() + " 件商品 合计:￥");
         holder.tv_all_peice.setText(resultBeans.get(position).getTotal_amount() + "（含运费¥" +
                 resultBeans.get(position).getShipping_price() + "）");
-        Log.d("chenshichun","========getOrder_status_code===  "+resultBeans.get(position).getOrder_status_code());
         if(resultBeans.get(position).getOrder_status_code()!=null&&resultBeans.get(position).getOrder_status_code().equals("WAITRECEIVE")){
             holder.tv_red_right.setVisibility(View.VISIBLE);
         }else{

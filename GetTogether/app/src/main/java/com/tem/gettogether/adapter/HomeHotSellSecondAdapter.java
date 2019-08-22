@@ -34,24 +34,24 @@ public class HomeHotSellSecondAdapter extends RecyclerView.Adapter<HomeHotSellSe
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_home_hot_sell, parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_home_hot_sell, parent, false);
         return new HomeHotSellSecondAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         int imageSize = SizeUtil.dp2px(context, 110);
-        Glide.with(context).load(mDatas.get(position).getOriginal_img()).asBitmap().placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x)
+        Glide.with(context).load(mDatas.get(position).getcover_image()).asBitmap().placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x)
                 .override(imageSize, imageSize).into(holder.pic_iv);
         holder.product_title.setText(mDatas.get(position).getGoods_name());
-        holder.buy_price_tv.setText(mDatas.get(position).getMember_goods_price());
+        holder.buy_price_tv.setText("￥" + mDatas.get(position).getMember_goods_price());
         holder.tv_sell_count.setText(mDatas.get(position).getGoods_num());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(BaseApplication.getInstance().userBean==null){
-                    context.startActivity(new Intent(context,LoginActivity.class));
-                }else {
+                if (BaseApplication.getInstance().userBean == null) {
+                    context.startActivity(new Intent(context, LoginActivity.class));
+                } else {
                     context.startActivity(new Intent(context, ShoppingParticularsActivity.class)
                             .putExtra("goods_id", mDatas.get(position).getGoods_id()));
                 }

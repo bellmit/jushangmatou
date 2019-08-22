@@ -228,11 +228,11 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                 break;
             case R.id.tv_dfh:// 待结款
                 startActivity(new Intent(getActivity(), GongYingOrderActivity.class)
-                        .putExtra("tabType", "2"));
+                        .putExtra("tabType", "3"));
                 break;
             case R.id.tv_dsh:// 已完成
                 startActivity(new Intent(getActivity(), GongYingOrderActivity.class)
-                        .putExtra("tabType", "3"));
+                        .putExtra("tabType", "4"));
                 break;
             case R.id.rl_my_message:// 企业信息
                 startActivity(new Intent(getActivity(), CorporateInformationActivity.class).putExtra(Contacts.PERSION_ENTERPRISE_INFORMATION, 0));

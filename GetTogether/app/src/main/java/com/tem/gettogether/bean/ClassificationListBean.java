@@ -7,7 +7,7 @@ public class ClassificationListBean {
     /**
      * status : 1
      * msg : 获取成功
-     * result : [{"level_id":"7","original_img":"","goods_name":"测试","shop_price":"100.00","batch_number":"258"}]
+     * result : [{"level_id":"7","cover_image":"","goods_name":"测试","shop_price":"100.00","batch_number":"258"}]
      */
 
     private int status;
@@ -41,14 +41,14 @@ public class ClassificationListBean {
     public static class ResultBean {
         /**
          * level_id : 7
-         * original_img :
+         * cover_image :
          * goods_name : 测试
          * shop_price : 100.00
          * batch_number : 258
          */
         private String goods_id;
         private String level_id;
-        private String original_img;
+        private String cover_image;
         private String goods_name;
         private String shop_price;
         private String batch_number;
@@ -69,12 +69,12 @@ public class ClassificationListBean {
             this.level_id = level_id;
         }
 
-        public String getOriginal_img() {
-            return original_img;
+        public String getcover_image() {
+            return cover_image;
         }
 
-        public void setOriginal_img(String original_img) {
-            this.original_img = original_img;
+        public void setcover_image(String cover_image) {
+            this.cover_image = cover_image;
         }
 
         public String getGoods_name() {

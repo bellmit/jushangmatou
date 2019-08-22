@@ -222,7 +222,7 @@ public class BKRecommecdActivity extends BaseActivity {
         @Override
         protected void convert(final BaseViewHolder baseViewHolder, Object o) {
             ImageView iv_image=baseViewHolder.getView(R.id.iv_image);
-            Glide.with(BKRecommecdActivity.this).load(resultBeans.get(baseViewHolder.getAdapterPosition()).getImage()).error(R.mipmap.myy322x).into(iv_image);
+            Glide.with(BKRecommecdActivity.this).load(resultBeans.get(baseViewHolder.getAdapterPosition()).getcover_image()).error(R.mipmap.myy322x).into(iv_image);
             baseViewHolder.setText(R.id.tv_name,resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
             baseViewHolder.setText(R.id.tv_qigou,resultBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number()+"件起批");
             baseViewHolder.setText(R.id.tv_price,resultBeans.get(baseViewHolder.getAdapterPosition()).getShop_price());

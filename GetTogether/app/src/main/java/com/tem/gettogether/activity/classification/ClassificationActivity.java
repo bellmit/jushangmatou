@@ -60,7 +60,7 @@ public class ClassificationActivity extends BaseActivity {
     private String classificationId;
     private ClassificationListAdapter mClassifcationListAdapter;
     List<ClassificationListBean.ResultBean> mClassificationListBeans = new ArrayList<>();
-    private int currentPage;
+    private int currentPage=1;
     private String keyValue = "is_new";
     private String sort = "desc";
     private boolean isZongheSort = false;
@@ -129,6 +129,7 @@ public class ClassificationActivity extends BaseActivity {
         Map<String, Object> map = new HashMap<>();
         String yuyan = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "");
         if (yuyan != null) {
+            Log.d("chenshichun","===========currentPage  "+currentPage);
             map.put("language", yuyan);
             map.put("id", classificationId);
             map.put("key", keyValue);

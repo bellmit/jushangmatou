@@ -283,7 +283,7 @@ public class ShoppingFragment extends BaseFragment {
         @Override
         protected void convert(final BaseViewHolder baseViewHolder, Object o) {
             ImageView iv_pic=baseViewHolder.getView(R.id.iv_pic);
-            Glide.with(getActivity()).load(resultBeans.get(baseViewHolder.getAdapterPosition()).getImage()).error(R.mipmap.myy322x).into(iv_pic);
+            Glide.with(getActivity()).load(resultBeans.get(baseViewHolder.getAdapterPosition()).getcover_image()).error(R.mipmap.myy322x).into(iv_pic);
             baseViewHolder.setText(R.id.tv_shoping_jj,resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
             baseViewHolder.setText(R.id.tv_qpl,resultBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number()+"件起批");
             baseViewHolder.setText(R.id.tv_hpl,resultBeans.get(baseViewHolder.getAdapterPosition()).getBest_percent()+"好评");

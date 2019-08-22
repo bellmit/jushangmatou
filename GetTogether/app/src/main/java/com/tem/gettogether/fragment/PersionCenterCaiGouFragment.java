@@ -32,12 +32,9 @@ import com.tem.gettogether.activity.my.BuyingManagementActivity;
 import com.tem.gettogether.activity.my.CgsAuthenticationActivity;
 import com.tem.gettogether.activity.my.CorporateInformationActivity;
 import com.tem.gettogether.activity.my.GYWeActivity;
-import com.tem.gettogether.activity.my.MyOrderActivity;
 import com.tem.gettogether.activity.my.SettingActivity;
 import com.tem.gettogether.activity.my.ShopRzFailedActivity;
 import com.tem.gettogether.activity.my.TAdviseActivity;
-import com.tem.gettogether.activity.my.shopauthentication.DistributorAuthenticationActivity;
-import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActivity;
 import com.tem.gettogether.activity.order.CaiGouShangOrderActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
@@ -195,17 +192,17 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), CaiGouShangOrderActivity.class)
                         .putExtra("tabType", "0"));
                 break;
-            case R.id.tv_dfk:// 待下单
-                startActivity(new Intent(getActivity(), CaiGouShangOrderActivity.class)
-                        .putExtra("tabType", "1"));
-                break;
-            case R.id.tv_dfh:// 待发货
+            case R.id.tv_dfk:// 待收货
                 startActivity(new Intent(getActivity(), CaiGouShangOrderActivity.class)
                         .putExtra("tabType", "2"));
                 break;
-            case R.id.tv_dsh:// 待结款
+            case R.id.tv_dfh:// 待结款
                 startActivity(new Intent(getActivity(), CaiGouShangOrderActivity.class)
                         .putExtra("tabType", "3"));
+                break;
+            case R.id.tv_dsh:// 待完成
+                startActivity(new Intent(getActivity(), CaiGouShangOrderActivity.class)
+                        .putExtra("tabType", "4"));
                 break;
             case R.id.rl_my_message:// 个人信息
                 startActivity(new Intent(getActivity(), CorporateInformationActivity.class).putExtra(Contacts.PERSION_ENTERPRISE_INFORMATION, 1));

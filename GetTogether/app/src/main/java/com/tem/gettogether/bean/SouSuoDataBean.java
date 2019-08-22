@@ -11,7 +11,7 @@ public class SouSuoDataBean {
     /**
      * status : 1
      * msg : 获取成功
-     * result : [{"goods_id":"583","goods_name":"堆堆袜 女 日系秋冬棉薄款女袜 纯色复古森系短靴袜套长筒袜子","shop_price":"2.50","batch_number":"5000","best_percent":"100%","image":"http://test.uonep.com/jushangmatou/Public/upload/goods/thumb/583/goods_thumb_583_400_400.png"}]
+     * result : [{"goods_id":"583","goods_name":"堆堆袜 女 日系秋冬棉薄款女袜 纯色复古森系短靴袜套长筒袜子","shop_price":"2.50","batch_number":"5000","best_percent":"100%","cover_image":"http://test.uonep.com/jushangmatou/Public/upload/goods/thumb/583/goods_thumb_583_400_400.png"}]
      */
 
     private int status;
@@ -49,7 +49,7 @@ public class SouSuoDataBean {
          * shop_price : 2.50
          * batch_number : 5000
          * best_percent : 100%
-         * image : http://test.uonep.com/jushangmatou/Public/upload/goods/thumb/583/goods_thumb_583_400_400.png
+         * cover_image : http://test.uonep.com/jushangmatou/Public/upload/goods/thumb/583/goods_thumb_583_400_400.png
          */
 
         private String goods_id;
@@ -57,8 +57,7 @@ public class SouSuoDataBean {
         private String shop_price;
         private String batch_number;
         private String best_percent;
-        private String image;
-
+        private String cover_image;
         public String getGoods_id() {
             return goods_id;
         }
@@ -99,12 +98,12 @@ public class SouSuoDataBean {
             this.best_percent = best_percent;
         }
 
-        public String getImage() {
-            return image;
+        public String getcover_image() {
+            return cover_image;
         }
 
-        public void setImage(String image) {
-            this.image = image;
+        public void setcover_image(String cover_image) {
+            this.cover_image = cover_image;
         }
     }
 }

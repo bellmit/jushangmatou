@@ -38,17 +38,21 @@ public class HomeXinPinAdapter extends RecyclerView.Adapter<HomeXinPinAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        int imageSize= SizeUtil.dp2px(context,180);
-        Glide.with(context).load(mDatas.get(position).getOriginal_img()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(imageSize, imageSize).into(holder.iv_image);
+        int imageSize = SizeUtil.dp2px(context, 180);
+        Glide.with(context).load(mDatas.get(position).getcover_image()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(imageSize, imageSize).into(holder.iv_image);
         holder.title_tv.setText(mDatas.get(position).getGoods_name());
-        holder.price_tv.setText(mDatas.get(position).getShop_price());
+        if (mDatas.get(position).getIs_enquiry().equals("1")) {
+            holder.price_tv.setText("面议");
+        } else {
+            holder.price_tv.setText("￥"+mDatas.get(position).getShop_price());
+        }
         holder.count_tv.setText(mDatas.get(position).getBatch_number());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(BaseApplication.getInstance().userBean==null){
-                    context.startActivity(new Intent(context,LoginActivity.class));
-                }else {
+                if (BaseApplication.getInstance().userBean == null) {
+                    context.startActivity(new Intent(context, LoginActivity.class));
+                } else {
                     context.startActivity(new Intent(context, ShoppingParticularsActivity.class)
                             .putExtra("goods_id", mDatas.get(position).getGoods_id()));
                 }

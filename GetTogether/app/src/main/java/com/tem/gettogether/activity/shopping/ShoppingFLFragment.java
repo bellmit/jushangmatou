@@ -309,7 +309,7 @@ public class ShoppingFLFragment extends BaseFragment {
         @Override
         protected void convert(final BaseViewHolder baseViewHolder, Object o) {
             RoundImageView iv_image=baseViewHolder.getView(R.id.iv_image);
-            Glide.with(getActivity()).load(resultBeans.get(baseViewHolder.getAdapterPosition()).getImage()).error(R.mipmap.myy322x).into(iv_image);
+            Glide.with(getActivity()).load(resultBeans.get(baseViewHolder.getAdapterPosition()).getcover_image()).error(R.mipmap.myy322x).into(iv_image);
             baseViewHolder.setText(R.id.tv_name,resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
             baseViewHolder.setText(R.id.tv_numbear,resultBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number()+"件起批");
             baseViewHolder.setText(R.id.tv_pingjia,resultBeans.get(baseViewHolder.getAdapterPosition()).getBest_percent()+"好评");

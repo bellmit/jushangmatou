@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/groupedadapter/groupedadapter.iml" filepath="$PROJECT_DIR$/groupedadapter/groupedadapter.iml" />
       <module fileurl="file://$PROJECT_DIR$/multi-image-selector/multi-image-selector.iml" filepath="$PROJECT_DIR$/multi-image-selector/multi-image-selector.iml" />
       <module fileurl="file://$PROJECT_DIR$/pickerview/pickerview.iml" filepath="$PROJECT_DIR$/pickerview/pickerview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pictureselector/pictureselector.iml" filepath="$PROJECT_DIR$/pictureselector/pictureselector.iml" />
     </modules>
   </component>
 </project>

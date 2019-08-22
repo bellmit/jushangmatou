@@ -36,7 +36,7 @@ public class ClassificationListAdapter extends RecyclerView.Adapter<Classificati
 
     @Override
     public void onBindViewHolder(ClassificationListAdapter.ViewHolder holder, final int position) {
-        Glide.with(context).load(mDatas.get(position).getOriginal_img()).error(R.mipmap.myy322x).into(holder.iv_image);
+        Glide.with(context).load(mDatas.get(position).getcover_image()).error(R.mipmap.myy322x).into(holder.iv_image);
         holder.tv_name.setText(mDatas.get(position).getGoods_name());
         holder.tv_price.setText("￥" + mDatas.get(position).getShop_price());
         holder.tv_numbear.setText(mDatas.get(position).getBatch_number()+"个起购");

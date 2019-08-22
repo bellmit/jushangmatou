@@ -1,6 +1,7 @@
 package com.tem.gettogether.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
 import com.tem.gettogether.bean.ProductManagementBean;
 import com.tem.gettogether.utils.SizeUtil;
 
@@ -37,12 +39,12 @@ public class ProductManagmentAdapter extends RecyclerView.Adapter<ProductManagme
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         int imageSize = SizeUtil.dp2px(context, 110);
-        Glide.with(context).load(mDatas.get(position).getGoods_images()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(imageSize, imageSize).into(holder.iv_image);
+        Glide.with(context).load(mDatas.get(position).getcover_image()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(imageSize, imageSize).into(holder.iv_image);
         holder.tv_title.setText(mDatas.get(position).getGoods_name());
         if(mDatas.get(position).getIs_enquiry().equals("1")){
             holder.tv_Shop_price.setText("面议");
         }else{
-            holder.tv_Shop_price.setText(mDatas.get(position).getShop_price());
+            holder.tv_Shop_price.setText("￥"+mDatas.get(position).getShop_price());
         }
         holder.tv_shuoming.setText(mDatas.get(position).getBatch_number() + "件");
         if (pageType == 0) {
@@ -61,7 +63,13 @@ public class ProductManagmentAdapter extends RecyclerView.Adapter<ProductManagme
             holder.edit_tv.setVisibility(View.VISIBLE);
             holder.delete_tv.setVisibility(View.VISIBLE);
         }
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, ShoppingParticularsActivity.class)
+                        .putExtra("goods_id", mDatas.get(position).getGoods_id()));
+            }
+        });
         holder.shelf_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

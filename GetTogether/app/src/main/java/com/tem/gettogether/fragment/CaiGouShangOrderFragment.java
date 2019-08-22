@@ -59,7 +59,7 @@ public class CaiGouShangOrderFragment extends BaseFragment {
     private int mTab = 0;
 
     public static CaiGouShangOrderFragment getInstance(int tab) {
-        Log.d("chenshichun","===========");
+        Log.d("chenshichun", "===========");
         CaiGouShangOrderFragment fragment = new CaiGouShangOrderFragment();
         fragment.setArguments(setArguments(tab));
         return fragment;
@@ -74,7 +74,7 @@ public class CaiGouShangOrderFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("chenshichun","===========");
+        Log.d("chenshichun", "===========");
 
         return x.view().inject(this, inflater, container);
 
@@ -82,19 +82,19 @@ public class CaiGouShangOrderFragment extends BaseFragment {
 
     @Override
     public void onResume() {
-        Log.d("chenshichun","===========");
+        Log.d("chenshichun", "===========");
         super.onResume();
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
-        Log.d("chenshichun","=====hidden======"+hidden);
+        Log.d("chenshichun", "=====hidden======" + hidden);
         super.onHiddenChanged(hidden);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        Log.d("chenshichun","===========");
+        Log.d("chenshichun", "===========");
 
         baseActivity = (BaseActivity) getActivity();
         loadData();
@@ -120,7 +120,7 @@ public class CaiGouShangOrderFragment extends BaseFragment {
 
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         map.put("role_type", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, "7"));
-        Log.d("chenshichun","======mTab=====" +mTab);
+        Log.d("chenshichun", "======mTab=====" + mTab);
         if (mTab == 0) {// 全部
             map.put("type", 1);
         } else if (mTab == 1) {// 待发货
@@ -163,9 +163,14 @@ public class CaiGouShangOrderFragment extends BaseFragment {
                                     mOrderAdapter.notifyDataSetChanged();
                                 }
                             } else {
-                                resultBeans.clear();
-                                resultBeans.addAll(gson.fromJson(result, MyOrderdataBean.class).getResult());
-                                mOrderAdapter.notifyDataSetChanged();
+                                if (jsonObject.optString("result").equals("")) {// 刷新没数据
+                                    resultBeans.removeAll(resultBeans);
+                                    mOrderAdapter.notifyDataSetChanged();
+                                } else {
+                                    resultBeans.removeAll(resultBeans);
+                                    resultBeans.addAll(gson.fromJson(result, MyOrderdataBean.class).getResult());
+                                    mOrderAdapter.notifyDataSetChanged();
+                                }
                                 if (resultBeans.size() == 0) {
                                     ll_empty.setVisibility(View.VISIBLE);
                                 } else {
@@ -282,6 +287,8 @@ public class CaiGouShangOrderFragment extends BaseFragment {
         });
     }
 
+    public static int currentRandom = -1;
+
     public class MyReceiver01 extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -289,7 +296,12 @@ public class CaiGouShangOrderFragment extends BaseFragment {
             String action = intent.getAction();
             if ("ORDER_REFRESH_DATA".equals(action)) {
                 mTab = intent.getIntExtra("page", 0);
-                initDatas(1, false, false);
+                int random = intent.getIntExtra("random", 0);
+                Log.d("chenshichun", "=======mTab====" + mTab + "  random  " + random + "currentRandom " + currentRandom);
+                if (currentRandom != random) {
+                    initDatas(1, false, false);
+                    currentRandom = random;
+                }
             }
         }
     }

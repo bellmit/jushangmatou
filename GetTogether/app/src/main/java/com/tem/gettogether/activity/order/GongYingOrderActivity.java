@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -105,19 +106,22 @@ public class GongYingOrderActivity extends BaseActivity {
         ps_tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                int math = (int) ((Math.random() * 100));
                 Intent intent = new Intent("ORDER_REFRESH_DATA");
                 intent.putExtra("page", tab.getPosition());
+                intent.putExtra("random",math);
                 sendBroadcast(intent);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+                Log.d("chenshichun","==========bbb="+tab.getPosition());
 
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+Log.d("chenshichun","==========ccc="+tab.getPosition());
             }
         });
     }

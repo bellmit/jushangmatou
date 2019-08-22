@@ -57,11 +57,14 @@ import com.tem.gettogether.view.CheckBoxSample;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.util.LogUtil;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
@@ -135,7 +138,8 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
     private LinearLayout ll_shop_SJ;
     @ViewInject(R.id.ll_shop_phone)
     private LinearLayout ll_shop_phone;
-
+    @ViewInject(R.id.ll_fengmian)
+    private LinearLayout ll_fengmian;
     @ViewInject(R.id.ll_shop_GG)
     private LinearLayout ll_shop_GG;
     @ViewInject(R.id.ll_KC_Num)
@@ -146,6 +150,8 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
     private LinearLayout ll_shop_JJ;
     @ViewInject(R.id.ll_XQ_ms)
     private LinearLayout ll_XQ_ms;
+    @ViewInject(R.id.fengmian_tv)
+    private TextView fengmian_tv;
     private MyPublicTaskRecycleAdapter mTaskImgAdapter, mTaskImgAdapter1;
     private ArrayList<String> imagePaths = new ArrayList<>();
     private ArrayList<String> imageTwoPaths = new ArrayList<>();
@@ -187,7 +193,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
     private int isshanpinImage = 0;
     private String goods_content = "";
     private int recycleType;
-
+    private String cover_image = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -266,7 +272,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
         recyclerView.setAdapter(mTaskImgAdapter1);
     }
 
-    @Event(value = {R.id.rl_close, R.id.tv_fbShopping, R.id.ll_XQ_ms, R.id.ll_xuanZG, R.id.ll_shop_phone, R.id.ll_shop_FL, R.id.ll_bd_FL, R.id.ll_shop_GG}, type = View.OnClickListener.class)
+    @Event(value = {R.id.ll_fengmian,R.id.rl_close, R.id.tv_fbShopping, R.id.ll_XQ_ms, R.id.ll_xuanZG, R.id.ll_shop_phone, R.id.ll_shop_FL, R.id.ll_bd_FL, R.id.ll_shop_GG}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
@@ -284,6 +290,10 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
             case R.id.ll_XQ_ms:
                 startActivityForResult(new Intent(NewAddShoppingActivity.this, TuWenXQActivity.class)
                         .putStringArrayListExtra("listImage", listImage), 6666);
+                break;
+            case R.id.ll_fengmian:
+                startActivityForResult(new Intent(NewAddShoppingActivity.this, ZhuTuXQNewActivity.class)
+                        .putStringArrayListExtra("listImage2", listImage2), 7777);
                 break;
             case R.id.ll_bd_FL://本店分类
                 type = 3;
@@ -359,6 +369,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                 map.put("sku_str", tv_ShoppingGG.getText().toString());// 规格
                 Log.d("chenshichun", "=====goods_content======" + goods_content);
                 map.put("original_img", goods_content);
+                map.put("cover_image",cover_image);
                 if (cartImage.size() > 0) {
                     for (int i = 0; i < cartImage.size(); i++) {
                         if (i < cartImage.size() - 1) {
@@ -908,11 +919,25 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
         if (mCropImageFile != null) {
             String path = mCropImageFile.getAbsolutePath();
             Bitmap bitmap = BitmapFactory.decodeFile(mCropImageFile.toString());
+
             isshanpinImage = 1;
             Map<String, Object> map = new HashMap<>();
             map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
             upMessageData(map, path);
         }
+    }
+    public static Bitmap compressBitmap(Bitmap bitmap, int maxkb) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        int options = 100;
+        while (baos.toByteArray().length / 1024 > maxkb && options > 0) {
+            baos.reset();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);
+            options -= 5;
+        }
+        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
+        bitmap = BitmapFactory.decodeStream(isBm, null, null);
+        return bitmap;
     }
 
     @Override
@@ -932,7 +957,6 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                         if (recycleType == 0) {
                             if (imagePaths.size() < 10) {
                                 for (int i = 0; i < list.size(); i++) {
-                                    System.out.println("选中的路径：" + list.get(i));
                                     String pic_path = list.get(i);
                                     String targetPath = compressImageFilePath + Confirg.df.
                                             format(new Date()) + ".jpg";
@@ -942,6 +966,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                                         compressPaths.add(compressImage);
                                     }
                                     Bitmap bitmap = BitmapFactory.decodeFile(compressImage.toString());
+
                                     Map<String, Object> map = new HashMap<>();
                                     map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
                                     upMessageData(map, list.get(i));
@@ -954,7 +979,6 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                         } else {
                             if (imageTwoPaths.size() < 10) {
                                 for (int i = 0; i < list.size(); i++) {
-                                    System.out.println("选中的路径：" + list.get(i));
                                     String pic_path = list.get(i);
                                     String targetPath = compressImageFilePath + Confirg.df.
                                             format(new Date()) + ".jpg";
@@ -964,6 +988,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                                         compressPaths.add(compressImage);
                                     }
                                     Bitmap bitmap = BitmapFactory.decodeFile(compressImage.toString());
+
                                     Map<String, Object> map = new HashMap<>();
                                     map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
                                     upMessageData(map, list.get(i));
@@ -1013,9 +1038,21 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
 
 
         }
+
+        if (requestCode == 7777) {
+            if (resultCode == RESULT_OK) {
+                fengmian_tv.setText("已填写");
+                cover_image = data.getStringArrayListExtra("listImage2").get(0);
+                Log.d("chenshichun","==========qiancartImage=  "+listImage);
+
+            }
+
+
+        }
     }
 
     private ArrayList<String> listImage = new ArrayList<>();
+    private ArrayList<String> listImage2 = new ArrayList<>();
 
     private void imageCapture() {
         Intent intent;
