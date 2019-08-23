@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/pic_iv"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:background="@mipmap/myy322x"
             android:scaleType="fitXY"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="2"
-            android:paddingLeft="105dp"
+            android:paddingLeft="115dp"
             android:text="标题标题标题标题"
             app:layout_constraintTop_toTopOf="@+id/pic_iv" />
 

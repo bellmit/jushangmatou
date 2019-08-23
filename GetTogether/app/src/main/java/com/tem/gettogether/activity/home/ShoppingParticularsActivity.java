@@ -1,7 +1,5 @@
 package com.tem.gettogether.activity.home;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -34,12 +32,10 @@ import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.ShowImageDetail;
 import com.tem.gettogether.activity.LoginActivity;
-import com.tem.gettogether.activity.MainActivity;
 import com.tem.gettogether.activity.cart.CloseAccountActivity;
 import com.tem.gettogether.activity.cart.ShoppingCartActivity;
 import com.tem.gettogether.activity.my.AddressGLActivity;
 import com.tem.gettogether.adapter.OrderDetailAdapter;
-import com.tem.gettogether.adapter.RollingTextAdapter;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
@@ -56,6 +52,8 @@ import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.CircularImage;
+import com.tem.gettogether.view.Marquee;
+import com.tem.gettogether.view.MarqueeView;
 import com.tem.gettogether.view.RollTextItem;
 import com.tem.gettogether.view.RoundImageView;
 import com.tem.gettogether.view.TextViewSwitcher;
@@ -130,7 +128,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
     @ViewInject(R.id.iv_is_sc)
     private ImageView iv_is_sc;
     @ViewInject(R.id.iv_shop_image)
-    private ImageView iv_shop_image;
+    private CircularImage iv_shop_image;
     @ViewInject(R.id.tv_shop_name)
     TextView tv_shop_name;
     @ViewInject(R.id.tv_shop_jj)
@@ -153,11 +151,10 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private LinearLayout ll_openWeb;
     @ViewInject(R.id.rl_shard)
     private RelativeLayout rl_shard;
-    @ViewInject(R.id.rolltext)
-    private TextViewSwitcher rollingText;
     @ViewInject(R.id.order_detail_RecyclerView)
     private RecyclerView order_detail_RecyclerView;
-
+    @ViewInject(R.id.marqueeView)
+    private MarqueeView marqueeView;
     private List<RollTextItem> data = new ArrayList<>();
 
     private String goods_id;
@@ -166,6 +163,8 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private List<ShoppingXQBean.ResultBean.CommentBean> commentBeans = new ArrayList<>();
     private List<ShoppingXQBean.ResultBean.GalleryBean> galleryBeans = new ArrayList<>();
     private List<OrderDetailBean.ResultBean> orderDetails = new ArrayList<>();
+    private List<ShoppingXQBean.ResultBean.VpBean> mVpBeans = new ArrayList<>();
+    private List<ShoppingXQBean.ResultBean.OrderBean> mOrderBeans = new ArrayList<>();
     private String sctype;
     private ShareAction mShareAction;
     private UMShareListener mShareListener;
@@ -183,14 +182,13 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
         initData();
         upShopXQData();
-        initOrderData();
+
     }
 
     @Override
     protected void initData() {
         goods_id = getIntent().getStringExtra("goods_id");
         Log.i("=====店铺内商品id2--", goods_id + "");
-        initLiuLangData();
     }
 
     @Override
@@ -234,16 +232,6 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 tv_sjgz.setText("已关注");
             }
         }
-        /*if (goodsBean.getIs_enquiry() != null) {
-            if (goodsBean.getIs_enquiry().equals("1")) {
-                tv_ljxj.setText(getResources().getText(R.string.ask));
-            } else {
-                tv_ljxj.setText(getResources().getText(R.string.buy));
-            }
-
-        } else {
-            tv_ljxj.setText(getResources().getText(R.string.buy));
-        }*/
 
         tv_shop_name.setText(storeBean.getStore_name());
         tv_shop_jj.setText(storeBean.getStore_des());
@@ -318,27 +306,6 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 }
             }
         });
-
-        rollingText.setAdapter(new RollingTextAdapter() {
-            @Override
-            public int getCount() {
-                return data.size() / 2;
-            }
-
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public View getView(Context context, View contentView, int position) {
-                View view = View.inflate(context, R.layout.item_zhengzailiulan, null);
-                ((TextView) view.findViewById(R.id.tv_1)).setText(data.get(position).getName());
-                ((ImageView) view.findViewById(R.id.img_1)).setBackgroundResource(data.get(position).getImgId());
-                ((TextView) view.findViewById(R.id.tv_detail)).setText(data.get(position).getMsg());
-                ((TextView) view.findViewById(R.id.tv_2)).setText(data.get((position + 1) % data.size()).getName());
-                ((ImageView) view.findViewById(R.id.img_2)).setBackgroundResource(data.get((position + 1) % data.size()).getImgId());
-                ((TextView) view.findViewById(R.id.tv_detail2)).setText(data.get((position + 1) % data.size()).getMsg());
-                return view;
-            }
-        });
-        rollingText.startFlipping();
     }
 
     @Event(value = {R.id.iv_close, R.id.tv_jian, R.id.ll_openWeb, R.id.rl_shard, R.id.rl_kf, R.id.ll_gzsj, R.id.tv_ljxj, R.id.iv_dianpu, R.id.ll_issc, R.id.iv_go_cart, R.id.tv_add, R.id.tv_look_all_pj, R.id.ll_pingjia, R.id.tv_jrgwc, R.id.ll_shuxing_xz, R.id.rl_input_dp, R.id.rl_input_dp2}, type = View.OnClickListener.class)
@@ -391,9 +358,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         .putExtra("goods_id", goods_id));
                 break;
             case R.id.tv_jrgwc:
-                if(SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")){
+                if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
                     CusToast.showToast("供应商暂无此功能");
-                }else{
+                } else {
                     showPop(tv_jrgwc);
                 }
                 break;
@@ -950,7 +917,15 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         goodsBean = shoppingXQBean.getResult().getGoods();
                         storeBean = shoppingXQBean.getResult().getStore();
                         commentBeans = shoppingXQBean.getResult().getComment();
+                        mVpBeans = shoppingXQBean.getResult().getVp();
+                        mOrderBeans = shoppingXQBean.getResult().getOrder();
+                        initLiuLangData();
+                        if (shoppingXQBean.getResult().getOrder() != null) {
+                            initOrderData();
+                        }
+
                         galleryBeans = shoppingXQBean.getResult().getGallery();
+                        Log.d("chenshichun", "=========galleryBeans== " + galleryBeans.size());
 //                        if (skudata != null && !skudata.equals("")) {
 //                            Log.i("===商品详情--", "" + skudata);
 //                            object = new JSONObject(skudata);
@@ -968,11 +943,12 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 closeDialog();
                 final List<String> img = new ArrayList<>();
                 for (int i = 0; i < galleryBeans.size(); i++) {
+                    Log.d("chenshichun", "=======轮播====" + galleryBeans.get(i).getImage_url());
                     img.add(galleryBeans.get(i).getImage_url());
                 }
                 banner.setImageLoader(new GlideImageLoader());
                 banner.setImages(img);
-//                banner.isAutoPlay(false);
+                banner.isAutoPlay(false);
 
                 banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
@@ -983,7 +959,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     @Override
                     public void onPageSelected(int position) {
                         bannerNum = position;
-                        tv_image_num.setText(position + "/" + galleryBeans.size());
+                        tv_image_num.setText((position + 1) + "/" + galleryBeans.size());
 
                     }
 
@@ -1001,8 +977,6 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         intent2.putStringArrayListExtra("paths", (ArrayList<String>) img);
                         intent2.putExtra("index", bannerNum);
                         startActivity(intent2);
-//                        }
-
                     }
                 });
 
@@ -1430,24 +1404,27 @@ public class ShoppingParticularsActivity extends BaseActivity {
         return result;
     }
 
+    List<Marquee> marquees = new ArrayList<>();
+
     private void initLiuLangData() {
-        data.add(new RollTextItem("来自伊朗的小地雷正在查看该商品", R.drawable.head_icon0, "小地雷"));
-        data.add(new RollTextItem("来自埃及的高双正在查看该商品", R.drawable.head_icon1, "高双"));
-        data.add(new RollTextItem("来自肯尼亚的cuckoo正在查看该商品", R.drawable.head_icon2, "cuckoo"));
-        data.add(new RollTextItem("来自埃及的zhufeng正在查看该商品", R.drawable.head_icon3, "zhufeng"));
+        for (int i = 0; i < mVpBeans.size(); i++) {
+            Marquee marquee = new Marquee();
+            marquee.setImgUrl(mVpBeans.get(i).getHead_pic());
+            marquee.setTitle(mVpBeans.get(i).getNickname());
+            marquee.setDetail("来自" + mVpBeans.get(i).getCountry_name() + "的" + mVpBeans.get(i).getNickname() + "正在查看该商品");
+            marquees.add(marquee);
+        }
+        marqueeView.setImage(true);
+        marqueeView.startWithList(marquees);
     }
 
     private void initOrderData() {
-        OrderDetailBean.ResultBean mOrderDetailBean = new OrderDetailBean.ResultBean("Waithaka", "肯尼亚", "黑色", "32", "面议", "1600件", "2019-05-28");
-        orderDetails.add(mOrderDetailBean);
-        OrderDetailBean.ResultBean mOrderDetailBean1 = new OrderDetailBean.ResultBean("Talla Diakhate", "塞内加尔", "黑色", "32", "面议", "1700件", "2019-06-07");
-        orderDetails.add(mOrderDetailBean1);
-        OrderDetailBean.ResultBean mOrderDetailBean2 = new OrderDetailBean.ResultBean("Mohammed", "伊拉克", "黑色", "32", "面议", "1400件", "2019-06-17");
-        orderDetails.add(mOrderDetailBean2);
-        OrderDetailBean.ResultBean mOrderDetailBean3 = new OrderDetailBean.ResultBean("Mavas", "埃及", "黑色", "32", "面议", "4000件", "2019-06-29");
-        orderDetails.add(mOrderDetailBean3);
+       /* for(int i=0;i<mOrderBeans.size();i++){
+            OrderDetailBean.ResultBean mOrderDetailBean = new OrderDetailBean.ResultBean("Waithaka", "肯尼亚", "黑色", "32", "面议", "1600件", "2019-05-28");
+            orderDetails.add(mOrderDetailBean);
+        }*/
 
-        mOrderDetailAdapter = new OrderDetailAdapter(getContext(), orderDetails);
+        mOrderDetailAdapter = new OrderDetailAdapter(getContext(), mOrderBeans);
         order_detail_RecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         order_detail_RecyclerView.setAdapter(mOrderDetailAdapter);
     }

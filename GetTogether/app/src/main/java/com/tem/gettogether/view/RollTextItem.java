@@ -32,16 +32,26 @@ public class RollTextItem {
 
     private String name;
     private int textColor;
+    private String imagePath;
 
-    public RollTextItem(String msg, int imgId , String name){
-        this(msg,imgId,name, android.R.color.holo_blue_light);
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public RollTextItem(String msg, int imgId,  String name,int textColor){
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public RollTextItem(String msg, int imgId , String imagePath, String name){
+        this(msg,imgId,imagePath,name, android.R.color.holo_blue_light);
+    }
+
+    public RollTextItem(String msg, int imgId, String imagePath, String name,int textColor){
         this.msg = msg;
         this.imgId = imgId;
         this.name = name;
         this.textColor = textColor;
+        this.imagePath = imagePath;
     }
 
     public int getTextColor() {

@@ -56,6 +56,24 @@ public class ShoppingXQBean {
 
         private List<GalleryBean> gallery;
         private List<CommentBean> comment;
+        private List<VpBean> vp;
+        private List<OrderBean> order;
+
+        public List<OrderBean> getOrder() {
+            return order;
+        }
+
+        public void setOrder(List<OrderBean> order) {
+            this.order = order;
+        }
+
+        public List<VpBean> getVp() {
+            return vp;
+        }
+
+        public void setVp(List<VpBean> vp) {
+            this.vp = vp;
+        }
 
         public StoreBean getStore() {
             return store;
@@ -440,6 +458,108 @@ public class ShoppingXQBean {
 
             public void setImage_url(String image_url) {
                 this.image_url = image_url;
+            }
+        }
+
+        public static class VpBean {
+            /**
+             * country_name : 伊拉克
+             * nickname : 哈哈哈哈
+             * head_pic : http://www.jsmtgou.com/jushangmatou/Uploads/head_img/20190820/20190820171253_63177.jpeg
+             */
+
+            private String country_name;
+            private String nickname;
+            private String head_pic;
+
+            public String getCountry_name() {
+                return country_name;
+            }
+
+            public void setCountry_name(String country_name) {
+                this.country_name = country_name;
+            }
+
+            public String getNickname() {
+                return nickname;
+            }
+
+            public void setNickname(String nickname) {
+                this.nickname = nickname;
+            }
+
+            public String getHead_pic() {
+                return head_pic;
+            }
+
+            public void setHead_pic(String head_pic) {
+                this.head_pic = head_pic;
+            }
+        }
+
+        public static class OrderBean {
+            /**
+             * user_name : 小兔子
+             * country_name : null
+             * goods_num : 2
+             * add_time : 2019-08-22 10:39:47
+             * order_amount : 20000.00
+             * key_name : null
+             */
+
+            private String user_name;
+            private String country_name;
+            private String goods_num;
+            private String add_time;
+            private String order_amount;
+            private String key_name;
+
+            public String getUser_name() {
+                return user_name;
+            }
+
+            public void setUser_name(String user_name) {
+                this.user_name = user_name;
+            }
+
+            public String getCountry_name() {
+                return country_name;
+            }
+
+            public void setCountry_name(String country_name) {
+                this.country_name = country_name;
+            }
+
+            public String getGoods_num() {
+                return goods_num;
+            }
+
+            public void setGoods_num(String goods_num) {
+                this.goods_num = goods_num;
+            }
+
+            public String getAdd_time() {
+                return add_time;
+            }
+
+            public void setAdd_time(String add_time) {
+                this.add_time = add_time;
+            }
+
+            public String getOrder_amount() {
+                return order_amount;
+            }
+
+            public void setOrder_amount(String order_amount) {
+                this.order_amount = order_amount;
+            }
+
+            public String getKey_name() {
+                return key_name;
+            }
+
+            public void setKey_name(String key_name) {
+                this.key_name = key_name;
             }
         }
 

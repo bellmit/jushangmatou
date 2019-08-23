@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.tem.gettogether.R;
 import com.tem.gettogether.bean.HomeDataNewBean;
 import com.tem.gettogether.bean.OrderDetailBean;
+import com.tem.gettogether.bean.ShoppingXQBean;
 import com.tem.gettogether.utils.SizeUtil;
 import com.tem.gettogether.utils.TransformationUtils;
 
@@ -20,9 +21,9 @@ import java.util.List;
 
 public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.ViewHolder> {
     private Context context;
-    private List<OrderDetailBean.ResultBean> mDatas;
+    private List<ShoppingXQBean.ResultBean.OrderBean> mDatas;
 
-    public OrderDetailAdapter(Context context, List<OrderDetailBean.ResultBean> mDatas) {
+    public OrderDetailAdapter(Context context, List<ShoppingXQBean.ResultBean.OrderBean> mDatas) {
         this.context = context;
         this.mDatas = mDatas;
     }
@@ -35,13 +36,12 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.name_tv.setText(mDatas.get(position).getName());
-        holder.address_tv.setText(mDatas.get(position).getAddress());
-        holder.color_tv.setText(mDatas.get(position).getColor());
-        holder.size_tv.setText(mDatas.get(position).getSize());
-        holder.price_tv.setText(mDatas.get(position).getPrice());
-        holder.num_tv.setText(mDatas.get(position).getNum());
-        holder.time_tv.setText(mDatas.get(position).getTime());
+        holder.name_tv.setText(mDatas.get(position).getUser_name()==null?"null":mDatas.get(position).getUser_name());
+        holder.address_tv.setText(mDatas.get(position).getCountry_name()==null?"null":mDatas.get(position).getCountry_name());
+        holder.color_tv.setText(mDatas.get(position).getKey_name()==null?"null":mDatas.get(position).getKey_name());
+        holder.price_tv.setText(mDatas.get(position).getOrder_amount()==null?"null":mDatas.get(position).getOrder_amount());
+        holder.num_tv.setText(mDatas.get(position).getGoods_num()==null?"null":mDatas.get(position).getGoods_num());
+        holder.time_tv.setText(mDatas.get(position).getAdd_time()==null?"null":mDatas.get(position).getAdd_time());
         if(position%2==1) {
             holder.itemView.setBackgroundColor(0xffd1d1d1);
         }
@@ -56,7 +56,6 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         public TextView name_tv;
         public TextView address_tv;
         public TextView color_tv;
-        public TextView size_tv;
         public TextView price_tv;
         public TextView num_tv;
         public TextView time_tv;
@@ -65,7 +64,6 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
             name_tv = itemView.findViewById(R.id.name_tv);
             address_tv = itemView.findViewById(R.id.address_tv);
             color_tv = itemView.findViewById(R.id.color_tv);
-            size_tv = itemView.findViewById(R.id.size_tv);
             price_tv = itemView.findViewById(R.id.price_tv);
             num_tv = itemView.findViewById(R.id.num_tv);
             time_tv = itemView.findViewById(R.id.time_tv);

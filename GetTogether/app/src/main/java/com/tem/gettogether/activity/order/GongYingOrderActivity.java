@@ -115,13 +115,11 @@ public class GongYingOrderActivity extends BaseActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                Log.d("chenshichun","==========bbb="+tab.getPosition());
 
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-Log.d("chenshichun","==========ccc="+tab.getPosition());
             }
         });
     }

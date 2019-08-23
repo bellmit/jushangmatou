@@ -169,9 +169,11 @@ public class GongYingShangOrderFragment extends BaseFragment {
                                 if (resultBeans.size() > 0) {
                                     ll_empty.setVisibility(View.GONE);
                                 }else{
-//                                    ll_empty.setVisibility(View.VISIBLE);
+                                    ll_empty.setVisibility(View.VISIBLE);
                                 }
                             }
+                            Log.d("chenshichun","=======notifyDataSetChanged====");
+                            mOrderAdapter.notifyDataSetChanged();
                         }
                     }
 

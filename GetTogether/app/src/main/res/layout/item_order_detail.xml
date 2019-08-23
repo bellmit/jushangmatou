@@ -5,9 +5,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dp_10"
-        android:orientation="horizontal">
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10">
 
         <TextView
             android:id="@+id/name_tv"
@@ -17,7 +18,7 @@
             android:gravity="center"
             android:text="采购商"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <TextView
             android:id="@+id/address_tv"
@@ -27,11 +28,11 @@
             android:gravity="center"
             android:text="出口地区"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
@@ -42,46 +43,15 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="顏色:"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-
-                <TextView
                     android:id="@+id/color_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="黑色"
                     android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="尺码:"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/size_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="42"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-            </LinearLayout>
         </LinearLayout>
 
         <TextView
@@ -92,7 +62,7 @@
             android:gravity="center"
             android:text="价格"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <TextView
             android:id="@+id/num_tv"
@@ -102,16 +72,17 @@
             android:gravity="center"
             android:text="数量"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
-        <TextView
-            android:id="@+id/time_tv"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="成交时间"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/time_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="成交时间"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+
     </LinearLayout>
 </RelativeLayout>

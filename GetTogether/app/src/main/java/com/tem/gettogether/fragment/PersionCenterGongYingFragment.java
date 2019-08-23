@@ -52,6 +52,7 @@ import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.CircularImage;
+import com.tem.gettogether.wxapi.WXEntryActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -157,6 +158,8 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                         SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.NAME, myMessageBean.getResult().getNickname());
 
                         userLever = myMessageBean.getResult().getLevel();
+                        SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.LEVER, userLever);
+
                         if (userLever.equals("7")) {
                             huiyuan_iv.setBackground(null);
                         } else if (userLever.equals("1")) {

@@ -449,9 +449,9 @@ public class ShopActivity extends BaseActivity {
                         tv_shop_name.setText(resultBean.getStore_name());
                         tv_shop_peopleNum.setText(resultBean.getStore_collect()+"人关注");
                         tv_shop_xj.setText(resultBean.getStore_name());
-                        Glide.with(ShopActivity.this).load(resultBean.getStore_logo()).error(R.mipmap.myy322x).into(iv_shop_image);
+                        Glide.with(ShopActivity.this).load(resultBean.getStore_logo()).error(R.drawable.head_bg).into(iv_shop_image);
 
-                        Glide.with(ShopActivity.this).load(resultBean.getStore_background()).error(R.mipmap.myy322x).into(iv_image_top);
+                        Glide.with(ShopActivity.this).load(resultBean.getStore_background()).error(R.drawable.shop_bg).into(iv_image_top);
                         if(resultBean.getIs_collect().equals("0")){
                             tv_isgz.setText("关注");
                             iv_isgz_icon.setImageResource(R.drawable.add_icon_b);

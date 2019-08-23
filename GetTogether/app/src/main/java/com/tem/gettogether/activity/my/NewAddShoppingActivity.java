@@ -961,7 +961,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                                     String targetPath = compressImageFilePath + Confirg.df.
                                             format(new Date()) + ".jpg";
                                     //调用压缩图片的方法，返回压缩后的图片path
-                                    final String compressImage = BitnapUtils.compressImage(pic_path, targetPath, 40);
+                                    final String compressImage = BitnapUtils.compressImage(pic_path, targetPath, 60);
                                     if (isshanpinImage == 0) {
                                         compressPaths.add(compressImage);
                                     }
@@ -970,7 +970,6 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                                     Map<String, Object> map = new HashMap<>();
                                     map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
                                     upMessageData(map, list.get(i));
-
                                 }
 
                             } else {
@@ -983,7 +982,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                                     String targetPath = compressImageFilePath + Confirg.df.
                                             format(new Date()) + ".jpg";
                                     //调用压缩图片的方法，返回压缩后的图片path
-                                    final String compressImage = BitnapUtils.compressImage(pic_path, targetPath, 40);
+                                    final String compressImage = BitnapUtils.compressImage(pic_path, targetPath, 60);
                                     if (isshanpinImage == 0) {
                                         compressPaths.add(compressImage);
                                     }
@@ -1144,22 +1143,18 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                     String msg = jsonObject.optString("msg");
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        Log.d("chenshichun", "===========recycleType  " + recycleType);
 
                         if (recycleType == 0) {
                             imagePaths.add(imagePaths.size() - 1, path);
-                            Log.d("chenshichun", "=======imagePaths==size==" + imagePaths.size());
                             mTaskImgAdapter.notifyDataSetChanged();
                         } else {
                             imageTwoPaths.add(imageTwoPaths.size() - 1, path);
                             mTaskImgAdapter1.notifyDataSetChanged();
-                            Log.d("chenshichun", "======imageTwoPaths=size====" + imageTwoPaths.size());
                         }
                         ImageDataBean imageDataBean = gson.fromJson(result, ImageDataBean.class);
                         if (imageDataBean.getResult().getImage_show().size() > 0) {
                             if (isshanpinImage == 1) {
                                 Image_1 = imageDataBean.getResult().getImage_show().get(0);
-                                Log.i("====上传图片222===", Image_1 + "--");
                                 tv_is_pic.setText("已上传");
                             } else {
                                 if (recycleType == 0) {

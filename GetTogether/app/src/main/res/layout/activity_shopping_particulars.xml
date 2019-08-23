@@ -35,7 +35,7 @@
                         android:id="@+id/banner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:image_scale_type="center_crop"
+                        app:image_scale_type="fit_xy"
                         app:indicator_drawable_selected="@drawable/banner_bg2"
                         app:indicator_drawable_unselected="@drawable/banner_bg"
                         app:indicator_height="1dp"
@@ -331,16 +331,13 @@
                     android:layout_height="1dp"
                     android:background="@color/Orange" />
 
-                <com.tem.gettogether.view.TextViewSwitcher
-                    android:id="@+id/rolltext"
+                <com.tem.gettogether.view.MarqueeView
+                    android:id="@+id/marqueeView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:autoStart="false"
-                    app:flipDuration="500"
-                    app:flipInterval="2000"
-                    app:inAnimation="@anim/rolling_text_in"
-                    app:outAnimation="@anim/rolling_text_out" />
+                    app:mvAnimDuration="500"
+                    app:mvInterval="3000"
+                    app:mvTextSize="14sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -554,7 +551,7 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
+                        <com.tem.gettogether.view.CircularImage
                             android:id="@+id/iv_shop_image"
                             android:layout_width="50dp"
                             android:layout_height="50dp"

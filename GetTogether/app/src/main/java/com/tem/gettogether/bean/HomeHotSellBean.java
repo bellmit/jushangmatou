@@ -157,6 +157,7 @@ public class HomeHotSellBean {
         private String add_time;
         private String order_sn;
         private String transaction;
+        private String original_img;
 
         public String getIs_enquiry() {
             return is_enquiry;

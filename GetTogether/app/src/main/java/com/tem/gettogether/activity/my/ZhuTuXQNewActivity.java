@@ -2,6 +2,7 @@ package com.tem.gettogether.activity.my;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,6 +15,8 @@ import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.ImageDataBean;
 import com.tem.gettogether.utils.Base64BitmapUtil;
+import com.tem.gettogether.utils.BitnapUtils;
+import com.tem.gettogether.utils.Confirg;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -26,7 +29,9 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,6 +48,7 @@ public class ZhuTuXQNewActivity extends BaseActivity {
     private TextView tv_title_right;
     @ViewInject(R.id.iamge_iv)
     private ImageView iamge_iv;
+    private String compressImageFilePath;
 
     @Override
     protected void initData() {
@@ -54,7 +60,11 @@ public class ZhuTuXQNewActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        compressImageFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/WorksComing/Compress/";
+        File folder = new File(compressImageFilePath);
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
     }
 
     @Event(value = {R.id.rl_close, R.id.tv_fbShopping, R.id.rl_title_right}, type = View.OnClickListener.class)
@@ -85,8 +95,12 @@ public class ZhuTuXQNewActivity extends BaseActivity {
             if (data != null) {
                 String picturePath = data.getStringExtra(PictureSelector.PICTURE_PATH);
                 iamge_iv.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                String targetPath = compressImageFilePath + Confirg.df.
+                        format(new Date()) + ".jpg";
+                final String compressImage = BitnapUtils.compressImage(picturePath, targetPath, 60);
+
                 Map<String, Object> map = new HashMap<>();
-                map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(BitmapFactory.decodeFile(picturePath)));
+                map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(BitmapFactory.decodeFile(compressImage)));
                 upMessageData(map);
             }
         }

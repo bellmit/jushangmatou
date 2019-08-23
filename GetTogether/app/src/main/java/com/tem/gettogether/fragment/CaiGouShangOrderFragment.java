@@ -59,7 +59,6 @@ public class CaiGouShangOrderFragment extends BaseFragment {
     private int mTab = 0;
 
     public static CaiGouShangOrderFragment getInstance(int tab) {
-        Log.d("chenshichun", "===========");
         CaiGouShangOrderFragment fragment = new CaiGouShangOrderFragment();
         fragment.setArguments(setArguments(tab));
         return fragment;
@@ -74,7 +73,6 @@ public class CaiGouShangOrderFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("chenshichun", "===========");
 
         return x.view().inject(this, inflater, container);
 
@@ -82,19 +80,16 @@ public class CaiGouShangOrderFragment extends BaseFragment {
 
     @Override
     public void onResume() {
-        Log.d("chenshichun", "===========");
         super.onResume();
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
-        Log.d("chenshichun", "=====hidden======" + hidden);
         super.onHiddenChanged(hidden);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        Log.d("chenshichun", "===========");
 
         baseActivity = (BaseActivity) getActivity();
         loadData();
