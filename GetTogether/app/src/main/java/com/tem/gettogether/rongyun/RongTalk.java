@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -36,8 +38,6 @@ public class RongTalk {
             public void onSuccess(String arg0) {
                 Log.e(TAG, arg0.toString());
                 isRongCloudConnected = true;
-                BaseApplication.getInstance().userBean.setStore_id(store_id);
-                BaseApplication.getInstance().userBean.setTargetId(targetId);
 
                 if (null != RongIM.getInstance()) {
 
@@ -45,13 +45,13 @@ public class RongTalk {
                      * 设置用户头像信息等
                      */
                     RongIM.getInstance().setCurrentUserInfo(
-                            new UserInfo(BaseApplication.getInstance().userBean.getChat_id(),
-                                    BaseApplication.getInstance().userBean.getUserName(),
-                                    Uri.parse(BaseApplication.getInstance().userBean.getHeadImg()+"")));
+                            new UserInfo(SharedPreferencesUtils.getString(BaseApplication.getContext(), BaseConstant.SPConstant.CHAT_ID, "0"),
+                                    SharedPreferencesUtils.getString(BaseApplication.getContext(), BaseConstant.SPConstant.NAME, "0"),
+                                    Uri.parse(SharedPreferencesUtils.getString(BaseApplication.getContext(), BaseConstant.SPConstant.head_pic, "0")+"")));
                     if(targetImage!=null&&!targetImage.equals("")){
                         RongIM.getInstance().setCurrentUserInfo(new UserInfo(targetId, targetName, Uri.parse(targetImage)));
                     }else {
-                        RongIM.getInstance().setCurrentUserInfo(new UserInfo(targetId, targetName, Uri.parse(BaseApplication.getInstance().userBean.getHeadImg()+"")));
+                        RongIM.getInstance().setCurrentUserInfo(new UserInfo(targetId, targetName, Uri.parse(SharedPreferencesUtils.getString(BaseApplication.getContext(), BaseConstant.SPConstant.head_pic, "0")+"")));
                     }
 
                     RongFriends friend = new RongFriends(targetId, targetName, targetImage);
@@ -76,6 +76,7 @@ public class RongTalk {
 
                 System.out.println("------onTokenIncorrect-------");
             }
+
         });
 
     }

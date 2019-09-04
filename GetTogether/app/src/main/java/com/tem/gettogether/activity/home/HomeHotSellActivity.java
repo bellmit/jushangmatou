@@ -34,6 +34,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cc.duduhuo.custoast.CusToast;
+
 @ContentView(R.layout.activity_hot_sell)
 public class HomeHotSellActivity extends BaseActivity {
 
@@ -101,8 +103,12 @@ public class HomeHotSellActivity extends BaseActivity {
                                 setData();
                             }
                         } else {
-                            homeDataBean.addAll(gson.fromJson(result, HomeHotSellBean.class).getResult());
-                            mHomeHotSellSecondAdapter.notifyDataSetChanged();
+                            if(gson.fromJson(result, HomeHotSellBean.class).getResult().size()>0) {
+                                homeDataBean.addAll(gson.fromJson(result, HomeHotSellBean.class).getResult());
+                                mHomeHotSellSecondAdapter.notifyDataSetChanged();
+                            }else{
+                                CusToast.showToast("没有更多数据!");
+                            }
                         }
                     }
 
@@ -115,6 +121,8 @@ public class HomeHotSellActivity extends BaseActivity {
             public void onFinished() {
                 super.onFinished();
                 closeDialog();
+                refreshLayout.finishRefreshing();
+                refreshLayout.finishLoadmore();
             }
 
             @Override
@@ -144,7 +152,7 @@ public class HomeHotSellActivity extends BaseActivity {
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
                 initDatas(1, false);
-                refreshLayout.finishRefreshing();
+                currentPage = 1;
             }
 
             @Override
@@ -152,7 +160,6 @@ public class HomeHotSellActivity extends BaseActivity {
                 super.onLoadMore(refreshLayout);
                 currentPage++;
                 initDatas(currentPage, true);
-                refreshLayout.finishLoadmore();
             }
 
             @Override

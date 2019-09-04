@@ -7,8 +7,8 @@ android {
         multiDexEnabled true
         minSdkVersion 17
         targetSdkVersion 26
-        versionCode 4
-        versionName "1.1.1"
+        versionCode 5
+        versionName "1.2.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
@@ -108,4 +108,9 @@ dependencies {
     compile project(":groupedadapter")
     compile 'com.github.anzaizai:EasySwipeMenuLayout:1.1.4'
     compile 'com.bugtags.library:bugtags-lib:latest.integration'
+    api 'com.squareup.retrofit2:retrofit:2.4.0'
+    api 'com.squareup.retrofit2:converter-gson:2.4.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.3.1'
+    compile project(':magicindicator')
 }

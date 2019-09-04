@@ -10,7 +10,6 @@
         android:background="@color/colorPrimary"/>
 
     <include
-        android:visibility="gone"
         layout="@layout/title_layout" />
     <LinearLayout
         android:id="@+id/ll_xtMessage"

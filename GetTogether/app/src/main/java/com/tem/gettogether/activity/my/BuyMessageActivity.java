@@ -221,12 +221,9 @@ public class BuyMessageActivity extends BaseActivity {
                 @Override
                 public void onClick(View view) {
                     try {
-                        if(BaseApplication.getInstance().userBean!=null){
-                            if (BaseApplication.getInstance().userBean.getChat_id()!=null&&!BaseApplication.getInstance().userBean.getChat_id().equals("")) {
-                                Log.e("====进入聊天界面  IMG===", BaseApplication.getInstance().userBean.getChat_id()+"");
-
+                            if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
                                 if(resultBeans!=null&&resultBeans.get(baseViewHolder.getAdapterPosition()).getUser_id()!=null){
-                                    RongTalk.doConnection(BuyMessageActivity.this, BaseApplication.getInstance().userBean.getChat_id()
+                                    RongTalk.doConnection(BuyMessageActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                                             ,resultBeans.get(baseViewHolder.getAdapterPosition()).getUser_id(),"",
                                             "","");
                                 }else{
@@ -234,11 +231,6 @@ public class BuyMessageActivity extends BaseActivity {
                                 }
 
                             }
-                        }else{
-                            CusToast.showToast("请先登录");
-                        }
-
-
                     }catch (Exception e){
                         e.printStackTrace();
                         CusToast.showToast("该店铺无效");

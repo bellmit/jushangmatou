@@ -40,6 +40,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cc.duduhuo.custoast.CusToast;
+
 @ContentView(R.layout.fragment_product_managment)
 public class ProductManagmentFragment extends BaseFragment {
     @ViewInject(R.id.recyclerView)
@@ -62,7 +64,6 @@ public class ProductManagmentFragment extends BaseFragment {
 
     @Override
     public void onResume() {
-        Log.d("chenshichun", "===========onResume");
         super.onResume();
     }
 
@@ -115,8 +116,12 @@ public class ProductManagmentFragment extends BaseFragment {
                                 setData();
                             }
                         } else {
-                            mProductManagementBeans = gson.fromJson(result, ProductManagementBean.class).getResult();
-                            mProductManagmentAdapter.notifyDataSetChanged();
+                            if(gson.fromJson(result, ProductManagementBean.class).getResult().size()>0) {
+                                mProductManagementBeans = gson.fromJson(result, ProductManagementBean.class).getResult();
+                                mProductManagmentAdapter.notifyDataSetChanged();
+                            }else{
+                                CusToast.showToast("没有更多数据!");
+                            }
                         }
                     }
 
@@ -128,6 +133,8 @@ public class ProductManagmentFragment extends BaseFragment {
             @Override
             public void onFinished() {
                 super.onFinished();
+                refreshLayout.finishRefreshing();
+                refreshLayout.finishLoadmore();
             }
 
             @Override
@@ -208,8 +215,8 @@ public class ProductManagmentFragment extends BaseFragment {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
-                initDatas(1, false);
-                refreshLayout.finishRefreshing();
+                currentPage = 1;
+                initDatas(currentPage, false);
             }
 
             @Override
@@ -217,7 +224,6 @@ public class ProductManagmentFragment extends BaseFragment {
                 super.onLoadMore(refreshLayout);
                 currentPage++;
                 initDatas(currentPage, true);
-                refreshLayout.finishLoadmore();
             }
 
             @Override

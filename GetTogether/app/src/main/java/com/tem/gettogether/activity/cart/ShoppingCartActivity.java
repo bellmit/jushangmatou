@@ -253,7 +253,7 @@ public class ShoppingCartActivity extends BaseActivity {
             while (iterator.hasNext()) {
                 Object key = iterator.next();
                 Object value = map.get(key);
-                Log.e("--g购物车结算打印--" + key, "" + value + "\n");
+                Log.e("--购物车结算打印--" + key, "" + value + "\n");
             }
         }
         showDialog();
@@ -511,22 +511,16 @@ public class ShoppingCartActivity extends BaseActivity {
                                                 public void onClick(View view) {
                                                     if (tv_shopping_price.getText().toString().equals("立即询价")) {
                                                         try {
-                                                            if (BaseApplication.getInstance().userBean != null) {
-                                                                //发消息
-                                                                if (BaseApplication.getInstance().userBean.getChat_id() != null && !BaseApplication.getInstance().userBean.getChat_id().equals("")) {
-                                                                    Log.e("====进入聊天界面  IMG===", BaseApplication.getInstance().userBean.getChat_id() + "");
 
+                                                                //发消息
+                                                                if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
                                                                     if (storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList() != null && storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_user_id() != null) {
-                                                                        RongTalk.doConnection(getContext(), BaseApplication.getInstance().userBean.getChat_id()
+                                                                        RongTalk.doConnection(getContext(), SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                                                                                 , storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_user_id(), storeListBeans.get(baseViewHolder.getAdapterPosition()).getStore_name(),
                                                                                 storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_logo(), storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_id());
                                                                     } else {
                                                                         CusToast.showToast("该店铺无效");
                                                                     }
-
-                                                                }
-                                                            } else {
-                                                                CusToast.showToast("请先登录");
                                                             }
 
                                                         } catch (Exception e) {
@@ -611,7 +605,6 @@ public class ShoppingCartActivity extends BaseActivity {
 
     private void upCartData() {
         Map<String, Object> map = new HashMap<>();
-        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));

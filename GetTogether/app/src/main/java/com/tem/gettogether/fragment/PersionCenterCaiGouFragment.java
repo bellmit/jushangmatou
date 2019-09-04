@@ -35,6 +35,7 @@ import com.tem.gettogether.activity.my.GYWeActivity;
 import com.tem.gettogether.activity.my.SettingActivity;
 import com.tem.gettogether.activity.my.ShopRzFailedActivity;
 import com.tem.gettogether.activity.my.TAdviseActivity;
+import com.tem.gettogether.activity.order.CaiGouShangNewOrderActivity;
 import com.tem.gettogether.activity.order.CaiGouShangOrderActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
@@ -99,8 +100,9 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
     private CircularImage iv_head;
     private BaseActivity baseActivity;
     @ViewInject(R.id.refreshLayout)
-
     private TwinklingRefreshLayout refreshLayout;
+    @ViewInject(R.id.rz_status_tv)
+    private TextView rz_status_tv;
     private MyMessageBean.ResultBean resultBean = new MyMessageBean.ResultBean();
     private String is_verify;// 采购商认证状态
 
@@ -123,7 +125,6 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
      * */
     private void upGetMessageData() {
         Map<String, Object> map = new HashMap<>();
-        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         baseActivity.showDialog();
@@ -143,10 +144,17 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
                         Glide.with(getActivity()).load(myMessageBean.getResult().getHead_pic() + "").asBitmap().error(R.mipmap.myy322x).centerCrop().into(new BitmapImageViewTarget(iv_head));
                         tv_name.setText(myMessageBean.getResult().getNickname());
                         SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.NAME, myMessageBean.getResult().getNickname());
+                        SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.IS_VERIFY, myMessageBean.getResult().getIs_verify());
                         is_verify = myMessageBean.getResult().getIs_verify();
-                    }else{
-                        CusToast.showToast("登录失效");
-                        startActivity(new Intent(getContext(), LoginActivity.class));
+                        if (is_verify.equals("0")) {
+                            rz_status_tv.setText("待认证");
+                        } else if (is_verify.equals("1")) {
+                            rz_status_tv.setText("已认证");
+                        } else if (is_verify.equals("2")) {
+                            rz_status_tv.setText("认证失败");
+                        } else if (is_verify.equals("3")) {
+                            rz_status_tv.setText("审核中");
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -157,7 +165,7 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
             public void onFinished() {
                 super.onFinished();
                 baseActivity.closeDialog();
-
+                refreshLayout.finishRefreshing();
             }
 
             @Override
@@ -169,7 +177,7 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
         });
     }
 
-    @Event(value = {R.id.iv_head,R.id.tv_setting, R.id.rl_sprz, R.id.tv_name, R.id.ll_scj, R.id.ll_zj, R.id.ll_qb,
+    @Event(value = {R.id.iv_head, R.id.tv_setting, R.id.rl_sprz, R.id.tv_name, R.id.ll_scj, R.id.ll_zj, R.id.ll_qb,
             R.id.tv_all, R.id.tv_dfk, R.id.tv_dfh, R.id.tv_dsh, R.id.rl_my_message, R.id.rl_dzgl, R.id.rl_ksbh, R.id.rl_zxkf, R.id.rl_tdyj, R.id.rl_gywm}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
@@ -189,23 +197,27 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
             case R.id.ll_qb:// 我的采购
                 break;
             case R.id.tv_all:// 全部
-                startActivity(new Intent(getActivity(), CaiGouShangOrderActivity.class)
+                startActivity(new Intent(getActivity(), CaiGouShangNewOrderActivity.class)
                         .putExtra("tabType", "0"));
                 break;
             case R.id.tv_dfk:// 待收货
-                startActivity(new Intent(getActivity(), CaiGouShangOrderActivity.class)
+                startActivity(new Intent(getActivity(), CaiGouShangNewOrderActivity.class)
+                        .putExtra("tabType", "1"));
+                break;
+            case R.id.tv_dfh:// 待发货
+                startActivity(new Intent(getActivity(), CaiGouShangNewOrderActivity.class)
                         .putExtra("tabType", "2"));
                 break;
-            case R.id.tv_dfh:// 待结款
-                startActivity(new Intent(getActivity(), CaiGouShangOrderActivity.class)
+            case R.id.tv_dsh:// 待结款
+                startActivity(new Intent(getActivity(), CaiGouShangNewOrderActivity.class)
                         .putExtra("tabType", "3"));
                 break;
-            case R.id.tv_dsh:// 待完成
-                startActivity(new Intent(getActivity(), CaiGouShangOrderActivity.class)
-                        .putExtra("tabType", "4"));
-                break;
             case R.id.rl_my_message:// 个人信息
-                startActivity(new Intent(getActivity(), CorporateInformationActivity.class).putExtra(Contacts.PERSION_ENTERPRISE_INFORMATION, 1));
+                if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("1")) {
+                    startActivity(new Intent(getActivity(), CorporateInformationActivity.class).putExtra(Contacts.PERSION_ENTERPRISE_INFORMATION, 1));
+                } else {
+                    CusToast.showToast("请先进行采购商认证");
+                }
                 break;
             case R.id.rl_ksbh:// 求购管理
                 startActivity(new Intent(getActivity(), BuyingManagementActivity.class));
@@ -248,7 +260,6 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
                 upGetMessageData();
-                refreshLayout.finishRefreshing();
             }
 
             @Override
@@ -292,7 +303,7 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
             public void onClick(View view) {
                 if (!et_Name.getText().toString().equals("")) {
                     tv_name.setText(et_Name.getText().toString());
-                    Map<String,Object> map=new HashMap<>();
+                    Map<String, Object> map = new HashMap<>();
                     map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                     map.put("nickname", et_Name.getText().toString());

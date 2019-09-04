@@ -164,7 +164,6 @@ public class UploadQYActivity extends BaseActivity {
                 break;
             case R.id.tv_nextStep:
                 Map<String,Object> map=new HashMap<>();
-                if(BaseApplication.getInstance().userBean==null)return;
                 map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                 if(Image_1!=null){
                     map.put("business_licence_cert",Image_1);

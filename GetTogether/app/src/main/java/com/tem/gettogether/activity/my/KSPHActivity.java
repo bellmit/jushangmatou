@@ -66,7 +66,6 @@ public class KSPHActivity extends BaseActivity {
         tv_title.setText("快速补货");
         Map<String, Object> map3 = new HashMap<>();
         map3.put("page", PAGE_NUM);
-        if (BaseApplication.getInstance().userBean == null) return;
         map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         upKSBHData(map3);
     }

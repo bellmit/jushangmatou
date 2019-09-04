@@ -79,13 +79,15 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
     private TextView goods_desc;
 
     private List<WaiMaoQiuGouBean.ResultEntity> waiMaoQiuGouBeans = new ArrayList<>();
-    private int isHomeList=0;
+    private int isHomeList = 0;
+    private int page;
     @Override
     protected void initData() {
         x.view().inject(this);
         trade_id = getIntent().getStringExtra("trade_id");
-        isHomeList = getIntent().getIntExtra("witch_page",0);
-        initDatas();
+        isHomeList = getIntent().getIntExtra("witch_page", 0);
+        page = getIntent().getIntExtra("page",0);
+        initDatas(page);
         initRefresh();
     }
 
@@ -94,7 +96,7 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
 
     }
 
-    private void initDatas() {
+    private void initDatas(int page) {
         Map<String, Object> map = new HashMap<>();
         String yuyan = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "");
         if (yuyan != null) {
@@ -102,7 +104,13 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
         }
         map.put("trade_id", trade_id);
         showDialog();
-        XUtil.Post(URLConstant.HOMEQIUGOUDETAIL, map, new MyCallBack<String>() {
+        String url = "";
+        if(page==0){
+            url = URLConstant.HOMEQIUGOUDETAIL1;
+        }else{
+            url = URLConstant.HOMEQIUGOUDETAIL;
+        }
+        XUtil.Post(url, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -110,7 +118,7 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
-                    Log.d("chenshichun","=======外贸求购详情===="+result);
+                    Log.d("chenshichun", "=======外贸求购详情====" + result);
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         WaiMaoQiuGouBean waiMaoQiuGouBean = gson.fromJson(result, WaiMaoQiuGouBean.class);
@@ -127,6 +135,7 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
             public void onFinished() {
                 super.onFinished();
                 closeDialog();
+                refreshLayout.finishRefreshing();
             }
 
             @Override
@@ -156,9 +165,8 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                Log.d("chenshichun","===========position  "+position);
                 Intent intent2 = new Intent(HomeBuyDetailNewActivity.this, ShowImageDetail.class);
-                intent2.putStringArrayListExtra("paths",waiMaoQiuGouBeans.get(0).getGoods_logo());
+                intent2.putStringArrayListExtra("paths", waiMaoQiuGouBeans.get(0).getGoods_logo());
                 intent2.putExtra("index", position);
                 startActivity(intent2);
             }
@@ -168,23 +176,34 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
         online_communication_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+                if(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, "").equals("0")) {
+                    CusToast.showToast("采购商暂无此功能");
+                    return;
+                }
+
+                if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "").equals("1")) {
+                    CusToast.showToast("商铺未认证，请先认证商铺!");
+                    return;
+                }
+
+                if(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "").equals("7")) {
+                    CusToast.showToast("请先升级");
+                    return;
+                }
+
                 try {
-                    if (BaseApplication.getInstance().userBean != null) {
-                        if (BaseApplication.getInstance().userBean.getChat_id() != null && !BaseApplication.getInstance().userBean.getChat_id().equals("")) {
+                        if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
 
                             if (waiMaoQiuGouBeans != null && waiMaoQiuGouBeans.get(0).getUser_id() != null) {
-                                RongTalk.doConnection(HomeBuyDetailNewActivity.this, BaseApplication.getInstance().userBean.getChat_id()
-                                        , waiMaoQiuGouBeans.get(0).getUser_id(), "",
+                                RongTalk.doConnection(HomeBuyDetailNewActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
+                                        , waiMaoQiuGouBeans.get(0).getUser_id(), waiMaoQiuGouBeans.get(0).getNickname(),
                                         "", "");
                             } else {
                                 CusToast.showToast("该店铺无效");
                             }
                         }
-                    } else {
-                        CusToast.showToast("请先登录");
-                        startActivity(new Intent(HomeBuyDetailNewActivity.this, LoginActivity.class));
-
-                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                     CusToast.showToast("该店铺无效");
@@ -211,8 +230,7 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
-                initDatas();
-                refreshLayout.finishRefreshing();
+                initDatas(page);
             }
 
             @Override
@@ -237,9 +255,9 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         switch (view.getId()) {
             case R.id.view_other_tv:
-                if(isHomeList==0){// 首页跳进来的
+                if (isHomeList == 0) {// 首页跳进来的
                     startActivity(new Intent(this, WaiMaoQiuGouActivity.class));
-                }else if(isHomeList==1){// 列表跳进来的
+                } else if (isHomeList == 1) {// 列表跳进来的
                     finish();
                 }
                 break;

@@ -436,13 +436,8 @@ public class HotFenLeiActivity extends BaseActivity {
             baseViewHolder.getView(R.id.ll_item_all).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (BaseApplication.getInstance().userBean == null) {
-                        startActivity(new Intent(HotFenLeiActivity.this, LoginActivity.class));
-                    } else {
                         startActivity(new Intent(HotFenLeiActivity.this, ShoppingParticularsActivity.class)
                                 .putExtra("goods_id", resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_id()));
-                    }
-
                 }
             });
         }

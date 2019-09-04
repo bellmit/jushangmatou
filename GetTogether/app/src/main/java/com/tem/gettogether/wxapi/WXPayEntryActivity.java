@@ -5,9 +5,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.utils.AppManager;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.openapi.IWXAPI;
@@ -25,8 +27,8 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pay_result);
-
-        api = WXAPIFactory.createWXAPI(this, "wx93eea65ba215f901");
+        AppManager.getAppManager().addActivity(this);
+        api = WXAPIFactory.createWXAPI(this, "wxa6f24ff3369c8d21");
         api.handleIntent(getIntent(), this);
     }
 
@@ -49,16 +51,14 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
         if (resp.errCode==0) {
             BaseApplication.getInstance().isWXPay = resp.errCode;
-//            Toast.makeText(WXPayEntryActivity.this, "微信支付成功啦", Toast.LENGTH_SHORT).show();
+            Toast.makeText(WXPayEntryActivity.this, "支付成功!", Toast.LENGTH_SHORT).show();
+            AppManager.getAppManager().finishAllActivity();
+        }else if(resp.errCode == -1){
+            Toast.makeText(WXPayEntryActivity.this, "支付取消!", Toast.LENGTH_SHORT).show();
             finish();
-        }else{
+        }else if(resp.errCode == -2){
+            Toast.makeText(WXPayEntryActivity.this, "请求失败!", Toast.LENGTH_SHORT).show();
             finish();
         }
-
-//        if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-//            MyApplication.getInstance().isWXPay = resp.errCode;
-//            System.out.println("MainApplication.getInstance().isWXPay" + MyApplication.getInstance().isWXPay);
-//            finish();
-//        }
     }
 }

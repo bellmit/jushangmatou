@@ -40,6 +40,7 @@ import com.tem.gettogether.activity.my.VisitorActivity;
 import com.tem.gettogether.activity.my.XunPanTuiSongActivity;
 import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActivity;
 import com.tem.gettogether.activity.order.GongYingOrderActivity;
+import com.tem.gettogether.activity.order.GongYingShangNewOrderActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
@@ -135,7 +136,6 @@ public class PersionCenterGongYingFragment extends BaseFragment {
      * */
     private void upGetMessageData() {
         Map<String, Object> map = new HashMap<>();
-        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         baseActivity.showDialog();
@@ -159,7 +159,8 @@ public class PersionCenterGongYingFragment extends BaseFragment {
 
                         userLever = myMessageBean.getResult().getLevel();
                         SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.LEVER, userLever);
-
+                        SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, resultBean.getStore_status());
+                        SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.head_pic, resultBean.getHead_pic());
                         if (userLever.equals("7")) {
                             huiyuan_iv.setBackground(null);
                         } else if (userLever.equals("1")) {
@@ -175,9 +176,6 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                         } else {
                             rz_status_tv.setText("待认证");
                         }
-                    } else {
-                        CusToast.showToast("登录失效");
-                        startActivity(new Intent(getContext(), LoginActivity.class));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -188,7 +186,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
             public void onFinished() {
                 super.onFinished();
                 baseActivity.closeDialog();
-
+                refreshLayout.finishRefreshing();
             }
 
             @Override
@@ -222,27 +220,37 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), VisitorActivity.class));
                 break;
             case R.id.tv_all:// 全部
-                startActivity(new Intent(getActivity(), GongYingOrderActivity.class)
+                startActivity(new Intent(getActivity(), GongYingShangNewOrderActivity.class)
                         .putExtra("tabType", "0"));
                 break;
             case R.id.tv_dfk:// 待收货
-                startActivity(new Intent(getActivity(), GongYingOrderActivity.class)
+                startActivity(new Intent(getActivity(), GongYingShangNewOrderActivity.class)
                         .putExtra("tabType", "1"));
                 break;
-            case R.id.tv_dfh:// 待结款
-                startActivity(new Intent(getActivity(), GongYingOrderActivity.class)
+            case R.id.tv_dfh:// 待发货
+                startActivity(new Intent(getActivity(), GongYingShangNewOrderActivity.class)
+                        .putExtra("tabType", "2"));
+                break;
+            case R.id.tv_dsh:// 结款
+                startActivity(new Intent(getActivity(), GongYingShangNewOrderActivity.class)
                         .putExtra("tabType", "3"));
                 break;
-            case R.id.tv_dsh:// 已完成
-                startActivity(new Intent(getActivity(), GongYingOrderActivity.class)
-                        .putExtra("tabType", "4"));
-                break;
             case R.id.rl_my_message:// 企业信息
+                if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("1")) {
+                    CusToast.showToast("商铺未认证，请先认证商铺!");
+                    return;
+                }
                 startActivity(new Intent(getActivity(), CorporateInformationActivity.class).putExtra(Contacts.PERSION_ENTERPRISE_INFORMATION, 0));
                 break;
             case R.id.rl_ksbh:// 会员信息
+                if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("1")) {
+                    CusToast.showToast("商铺未认证，请先认证商铺!");
+                    return;
+                }
                 if (myMessageBean != null) {
-                    startActivity(new Intent(getActivity(), VipCenterActivity.class).putExtra("head_pic", myMessageBean.getResult().getHead_pic()));
+                    startActivity(new Intent(getActivity(), VipCenterActivity.class)
+                            .putExtra("head_pic", myMessageBean.getResult().getHead_pic())
+                            .putExtra("shop_status", resultBean.getStore_status()));
                 }
                 break;
             case R.id.rl_dzgl:// 推送轮盘
@@ -286,7 +294,6 @@ public class PersionCenterGongYingFragment extends BaseFragment {
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
                 upGetMessageData();
-                refreshLayout.finishRefreshing();
             }
 
             @Override

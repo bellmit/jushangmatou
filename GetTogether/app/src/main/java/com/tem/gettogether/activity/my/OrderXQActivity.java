@@ -131,10 +131,9 @@ public class OrderXQActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void initView() {
-        tv_ddzt_ts.setText(resultBeans.getOrder_status_code());
-        tv_ddzt_time.setText(resultBeans.getShipping_status());
+    private void initViews(){
+        tv_ddzt_ts.setText(resultBeans.getOrder_status_desc());
+        tv_ddzt_time.setText(resultBeans.getPay_time());
 
         tv_name_phone.setText(resultBeans.getConsignee()+"   "+resultBeans.getMobile());
         tv_address_sh.setText("地址："+resultBeans.getProvince()+resultBeans.getCity()+resultBeans.getDeleted()+resultBeans.getTwon()+resultBeans.getAddress());
@@ -206,6 +205,11 @@ public class OrderXQActivity extends BaseActivity {
         }
 
     }
+
+    @Override
+    protected void initView() {
+
+    }
     @Event(value = {R.id.rl_close,R.id.tv_text1,R.id.tv_red_right,R.id.ll_bd_phone,R.id.ll_lx_kf,R.id.tv_text2,R.id.tv_red_rightpj,R.id.tv_red_qrsh,R.id.tv_text_remove}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
@@ -239,23 +243,16 @@ public class OrderXQActivity extends BaseActivity {
                 break;
             case R.id.ll_lx_kf:
                 try {
-                    if(BaseApplication.getInstance().userBean!=null){
-                        if (BaseApplication.getInstance().userBean.getChat_id()!=null&&!BaseApplication.getInstance().userBean.getChat_id().equals("")) {
-                            Log.e("====进入聊天界面  IMG===", BaseApplication.getInstance().userBean.getChat_id()+"");
-
-                            if(resultBeans!=null&&resultBeans.getStore_qq()!=null){
-                                RongTalk.doConnection(OrderXQActivity.this, BaseApplication.getInstance().userBean.getChat_id()
-                                        ,resultBeans.getStore_qq(), resultBeans.getStore_name(),
+                        if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
+                            if(resultBeans!=null&&resultBeans.getUser_id()!=null){
+                                RongTalk.doConnection(OrderXQActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
+                                        ,resultBeans.getUser_id(), resultBeans.getStore_name(),
                                         "",resultBeans.getStore_id());
                             }else{
                                 CusToast.showToast("该店铺无效");
                             }
 
                         }
-                    }else{
-                        CusToast.showToast("请先登录");
-                    }
-
 
                 }catch (Exception e){
                     e.printStackTrace();
@@ -312,7 +309,7 @@ public class OrderXQActivity extends BaseActivity {
         cancle = view.findViewById(R.id.cancle);
         tv_iteam1=view.findViewById(R.id.tv_iteam1);
         tv_iteam1.setText(R.string.kefudian);
-        photo.setText("呼叫："+resultBeans.getStore_phone());
+        photo.setText("呼叫："+resultBeans.getMobile());
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -372,6 +369,10 @@ public class OrderXQActivity extends BaseActivity {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("order_id",order_id);
+        Log.d("chenshichun","=====order_id======"+order_id);
+        map.put("user_id",SharedPreferencesUtils.getString(getContext(),BaseConstant.SPConstant.USERID,""));
+        Log.d("chenshichun","======user_id====="+SharedPreferencesUtils.getString(getContext(),BaseConstant.SPConstant.USERID,""));
+        map.put("role_type",SharedPreferencesUtils.getString(getContext(),BaseConstant.SPConstant.ROLE_TYPE,""));
         showDialog();
         XUtil.Post(URLConstant.QUERENSH_XIANGQING, map, new MyCallBack<String>() {
             @Override
@@ -387,6 +388,7 @@ public class OrderXQActivity extends BaseActivity {
                         OrderDataBean orderDataBean=gson.fromJson(result,OrderDataBean.class);
                         resultBeans=orderDataBean.getResult();
                         goodsListBeans=orderDataBean.getResult().getGoods_list();
+                        initViews();
                     }
 
                 } catch (JSONException e) {
@@ -443,7 +445,6 @@ public class OrderXQActivity extends BaseActivity {
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
-                ex.printStackTrace();
                 closeDialog();
             }
         });

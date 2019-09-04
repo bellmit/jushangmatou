@@ -43,6 +43,8 @@ public class URLConstant {
 
     //外贸求购详情
     public final static String HOMEQIUGOUDETAIL = SERVER + "/Api/Goods/ftrade_buyDetail";
+    //外贸求购详情1
+    public final static String HOMEQIUGOUDETAIL1 = SERVER + "/Api/Goods/ftrade_buyDetail1";
 
     //首页地区分类--市场分类数据
     public final static String HONESHICHANGDATA = SERVER + "/Api/Index/goodsSecAndThirdCategoryList";
@@ -317,4 +319,9 @@ public class URLConstant {
     // 确认结款
     public final static String CONFIRM_GET_MONEY = SERVER + "/Api/User/seller_getMoneyConfirm";
 
+    // 求购管理
+    public final static String BUY_MANAGER = SERVER + "/Api/Goods/buyer_tradeList";
+
+    // 上传图片接口
+    public final static String UPLOAD_PICTURE = SERVER +"/Api/Index/upload_binary";
 }

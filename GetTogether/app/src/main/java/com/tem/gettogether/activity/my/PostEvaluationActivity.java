@@ -1549,7 +1549,7 @@ public class PostEvaluationActivity extends BaseActivity   {
     private void upOrderXQData() {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-
+        map.put("user_id",SharedPreferencesUtils.getString(getContext(),BaseConstant.SPConstant.USERID,""));
         map.put("order_id",order_id);
         showDialog();
         XUtil.Post(URLConstant.QUERENSH_XIANGQING, map, new MyCallBack<String>() {

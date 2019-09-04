@@ -251,12 +251,12 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawableTop="@drawable/xiadan_icon"
+                            android:drawableTop="@drawable/fahuo_icon"
                             android:drawablePadding="10dp"
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="待收货"
+                            android:text="待发货"
                             android:textColor="@color/text6"
                             android:textSize="12dp" />
 
@@ -270,7 +270,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="待结款"
+                            android:text="待收货"
                             android:textColor="@color/text6"
                             android:textSize="12dp" />
 
@@ -284,7 +284,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="已完成"
+                            android:text="待结款"
                             android:textColor="@color/text6"
                             android:textSize="12dp" />
                     </LinearLayout>

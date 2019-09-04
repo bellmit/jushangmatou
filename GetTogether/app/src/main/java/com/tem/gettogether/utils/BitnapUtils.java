@@ -5,29 +5,32 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 
 public class BitnapUtils {
-    public static String compressImage(String filePath, String targetPath, int quality)  {
-        Bitmap bm = getSmallBitmap(filePath);//获取一定尺寸的图片
+    public static String compressImage(String filePath, String targetPath, int quality) {
+        Bitmap bm = getImage(filePath);//获取一定尺寸的图片
         int degree = readPictureDegree(filePath);//获取相片拍摄角度
-        if(degree!=0){//旋转照片角度，防止头像横着显示
-            bm=rotateBitmap(bm,degree);
+        if (degree != 0) {//旋转照片角度，防止头像横着显示
+            bm = rotateBitmap(bm, degree);
         }
-        File outputFile=new File(targetPath);
+        File outputFile = new File(targetPath);
         try {
             if (!outputFile.exists()) {
                 outputFile.getParentFile().mkdirs();
                 //outputFile.createNewFile();
-            }else{
+            } else {
                 outputFile.delete();
             }
             FileOutputStream out = new FileOutputStream(outputFile);
-            bm.compress(Bitmap.CompressFormat.JPEG, quality, out);
-        }catch (Exception e){}
+            bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
+        } catch (Exception e) {
+        }
         return outputFile.getPath();
     }
 
@@ -39,7 +42,7 @@ public class BitnapUtils {
         options.inJustDecodeBounds = true;//只解析图片边沿，获取宽高
         BitmapFactory.decodeFile(filePath, options);
         // 计算缩放比
-        options.inSampleSize = calculateInSampleSize(options, 400, 400);
+        options.inSampleSize = calculateInSampleSize(options, 480, 800);
         // 完整解析图片返回bitmap
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeFile(filePath, options);
@@ -48,6 +51,7 @@ public class BitnapUtils {
 
     /**
      * 获取照片角度
+     *
      * @param path
      * @return
      */
@@ -77,6 +81,7 @@ public class BitnapUtils {
 
     /**
      * 旋转照片
+     *
      * @param bitmap
      * @param degress
      * @return
@@ -91,6 +96,7 @@ public class BitnapUtils {
         }
         return bitmap;
     }
+
     public static int calculateInSampleSize(BitmapFactory.Options options,
                                             int reqWidth, int reqHeight) {
         final int height = options.outHeight;
@@ -102,5 +108,55 @@ public class BitnapUtils {
             inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
         }
         return inSampleSize;
+    }
+
+
+    //根据路径获取用户选择的图片
+    public static Bitmap getImage(String imgPath) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 1;//直接设置它的压缩率，表示1/2
+        Bitmap b = null;
+        try {
+            b = BitmapFactory.decodeFile(imgPath, options);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return b;
+    }
+
+    /**
+     * 照片转byte二进制
+     *
+     * @param imagepath 需要转byte的照片路径
+     * @return 已经转成的byte
+     * @throws Exception
+     */
+    public static byte[] readStream(String imagepath) throws Exception {
+        FileInputStream fs = new FileInputStream(imagepath);
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[fs.available()];
+        int len = 0;
+        while (-1 != (len = fs.read(buffer))) {
+            outStream.write(buffer, 0, len);
+        }
+        outStream.close();
+        fs.close();
+        return outStream.toByteArray();
+    }
+
+    public static String byte2hex(byte[] b)
+    {
+        StringBuffer sb = new StringBuffer();
+        String tmp = "";
+        for (int i = 0; i < b.length; i++) {
+            tmp = Integer.toHexString(b[i] & 0XFF);
+            if (tmp.length() == 1){
+                sb.append("0" + tmp);
+            }else{
+                sb.append(tmp);
+            }
+
+        }
+        return sb.toString();
     }
 }

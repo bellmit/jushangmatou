@@ -128,6 +128,7 @@ public class RegisterActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_goLogin2:
+                startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
                 finish();
                 break;
             case R.id.denglu_zt_5:
@@ -209,7 +210,7 @@ public class RegisterActivity extends BaseActivity {
         map.put("code", code);
         map.put("role_type",quyers_rb.isChecked()?0:1);
         map.put("companyId",companyId);
-        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
+        map.put("user_id", BaseApplication.getInstance().userBean.getUser_id()/*SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,"")*/);
         showDialog();
         XUtil.Post(URLConstant.BIND_PHONE, map, new MyCallBack<String>() {
             @Override

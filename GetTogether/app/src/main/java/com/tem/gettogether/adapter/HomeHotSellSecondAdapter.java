@@ -44,8 +44,7 @@ public class HomeHotSellSecondAdapter extends RecyclerView.Adapter<HomeHotSellSe
         Glide.with(context).load(mDatas.get(position).getcover_image()).asBitmap().placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x)
                 .override(imageSize, imageSize).into(holder.pic_iv);
         holder.product_title.setText(mDatas.get(position).getGoods_name());
-        Log.d("chenshichun","====getIs_enquiry=======  "+mDatas.get(position).getIs_enquiry());
-        if(mDatas.get(position).getIs_enquiry().equals("1")){
+        if(mDatas.get(position).getIs_enquiry()!=null && mDatas.get(position).getIs_enquiry().equals("1")){
             holder.buy_price_tv.setText("面议");
         }else{
             holder.buy_price_tv.setText("￥" + mDatas.get(position).getMember_goods_price());
@@ -54,12 +53,8 @@ public class HomeHotSellSecondAdapter extends RecyclerView.Adapter<HomeHotSellSe
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (BaseApplication.getInstance().userBean == null) {
-                    context.startActivity(new Intent(context, LoginActivity.class));
-                } else {
                     context.startActivity(new Intent(context, ShoppingParticularsActivity.class)
                             .putExtra("goods_id", mDatas.get(position).getGoods_id()));
-                }
             }
         });
     }

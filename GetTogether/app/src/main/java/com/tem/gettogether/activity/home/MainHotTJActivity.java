@@ -190,15 +190,9 @@ public class MainHotTJActivity extends BaseActivity {
                     @Override
                     public void onClick(View view) {
                         if(hotBannerBean.getAd_link()!=null&&!hotBannerBean.getAd_link().equals("")){
-                            if(BaseApplication.getInstance().userBean==null){
-                                startActivity(new Intent(MainHotTJActivity.this,LoginActivity.class));
-                            }else {
                                 startActivityForResult(new Intent(MainHotTJActivity.this, ShopActivity.class)
                                         .putExtra("store_id",hotBannerBean.getAd_link())
                                         .putExtra("type", ShopActivity.SHOPNHOME_TYPE), ShopActivity.SHOPNHOME_TYPE);
-                            }
-
-
                         }else {
                             CusToast.showToast("暂无店铺ID");
                         }
@@ -234,13 +228,8 @@ public class MainHotTJActivity extends BaseActivity {
             baseViewHolder.getView(R.id.ll_item_all2).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(BaseApplication.getInstance().userBean==null){
-                        startActivity(new Intent(MainHotTJActivity.this,LoginActivity.class));
-                    }else {
                         startActivity(new Intent(MainHotTJActivity.this,ShoppingParticularsActivity.class)
                                 .putExtra("goods_id",houtResultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_id()));
-                    }
-
                 }
             });
 

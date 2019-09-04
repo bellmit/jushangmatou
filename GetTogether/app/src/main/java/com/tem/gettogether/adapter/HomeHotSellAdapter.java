@@ -51,12 +51,8 @@ public class HomeHotSellAdapter extends RecyclerView.Adapter<HomeHotSellAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(BaseApplication.getInstance().userBean==null){
-                    context.startActivity(new Intent(context,LoginActivity.class));
-                }else {
                     context.startActivity(new Intent(context, ShoppingParticularsActivity.class)
                             .putExtra("goods_id", mDatas.get(position).getGoods_id()));
-                }
             }
         });
     }

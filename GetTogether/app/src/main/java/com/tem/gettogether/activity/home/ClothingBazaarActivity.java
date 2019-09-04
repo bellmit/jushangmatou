@@ -75,14 +75,9 @@ public class ClothingBazaarActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if(resultGFLBean.getPavilion().getApp_link()!=null&&!resultGFLBean.getPavilion().getApp_link().equals("")){
-                    if(BaseApplication.getInstance().userBean==null){
-                        startActivity(new Intent(ClothingBazaarActivity.this,LoginActivity.class));
-                    }else {
                         startActivityForResult(new Intent(ClothingBazaarActivity.this, ShopActivity.class)
                                 .putExtra("store_id",resultGFLBean.getPavilion().getApp_link())
                                 .putExtra("type", ShopActivity.SHOPNHOME_TYPE), ShopActivity.SHOPNHOME_TYPE);
-                    }
-
                 }else{
                     CusToast.showToast("暂无店铺Id");
                 }

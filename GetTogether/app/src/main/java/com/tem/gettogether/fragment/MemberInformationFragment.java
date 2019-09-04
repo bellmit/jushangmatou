@@ -72,13 +72,12 @@ public class MemberInformationFragment extends BaseFragment {
             yajin_ll.setVisibility(View.GONE);
         }
 
-        userName.setText(BaseApplication.getInstance().userBean.getUserName());
+        userName.setText(SharedPreferencesUtils.getString(getContext(),BaseConstant.SPConstant.NAME,""));
         getMemberInformationData();
     }
 
     private void getMemberInformationData() {
         Map<String, Object> map = new HashMap<>();
-        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));

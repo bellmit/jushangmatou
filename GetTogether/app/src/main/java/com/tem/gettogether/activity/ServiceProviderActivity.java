@@ -100,10 +100,13 @@ public class ServiceProviderActivity extends BaseActivity {
                             serviceProviderBeans.addAll(serviceProviderBean.getResult());
                             mServiceProviderAdapter.notifyDataSetChanged();
                         } else {
-                            serviceProviderBeans.addAll(serviceProviderBean.getResult());
-                            mServiceProviderAdapter.notifyDataSetChanged();
+                            if(serviceProviderBean.getResult().size()>0) {
+                                serviceProviderBeans.addAll(serviceProviderBean.getResult());
+                                mServiceProviderAdapter.notifyDataSetChanged();
+                            }else{
+                                CusToast.showToast("没有更多数据!");
+                            }
                         }
-
                     } else {
                         CusToast.showToast(msg);
                     }
@@ -121,6 +124,8 @@ public class ServiceProviderActivity extends BaseActivity {
             @Override
             public void onFinished() {
                 closeDialog();
+                refreshLayout.finishRefreshing();
+                refreshLayout.finishLoadmore();
                 super.onFinished();
             }
 
@@ -155,9 +160,8 @@ public class ServiceProviderActivity extends BaseActivity {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
-                getData(1,false);
-                refreshLayout.finishRefreshing();
                 currentPage = 1;
+                getData(currentPage,false);
             }
 
             @Override
@@ -165,7 +169,6 @@ public class ServiceProviderActivity extends BaseActivity {
                 super.onLoadMore(refreshLayout);
                 currentPage++;
                 getData(currentPage,true);
-                refreshLayout.finishLoadmore();
             }
 
             @Override

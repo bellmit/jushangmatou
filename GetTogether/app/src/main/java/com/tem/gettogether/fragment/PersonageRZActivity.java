@@ -189,7 +189,6 @@ public class PersonageRZActivity extends BaseActivity {
                 String yhzh=et_yhzh.getText().toString();
                 String khyhName=et_khyhzh.getText().toString();
                 Map<String,Object> map=new HashMap<>();
-                if(BaseApplication.getInstance().userBean==null)return;
                 map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                 map.put("store_name",dpname);
                 map.put("sc_id",DPDL);

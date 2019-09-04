@@ -1,5 +1,6 @@
 package com.tem.gettogether.activity.home;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -47,7 +48,6 @@ import com.tem.gettogether.bean.JieSuanBean;
 import com.tem.gettogether.bean.OrderDetailBean;
 import com.tem.gettogether.bean.ShoppingXQBean;
 import com.tem.gettogether.rongyun.RongTalk;
-import com.tem.gettogether.utils.GlideImageLoader;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -56,7 +56,6 @@ import com.tem.gettogether.view.Marquee;
 import com.tem.gettogether.view.MarqueeView;
 import com.tem.gettogether.view.RollTextItem;
 import com.tem.gettogether.view.RoundImageView;
-import com.tem.gettogether.view.TextViewSwitcher;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
@@ -69,6 +68,8 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
+import com.youth.banner.loader.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
@@ -155,6 +156,11 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private RecyclerView order_detail_RecyclerView;
     @ViewInject(R.id.marqueeView)
     private MarqueeView marqueeView;
+    @ViewInject(R.id.hot_iv)
+    private ImageView hot_iv;
+    @ViewInject(R.id.new_iv)
+    private ImageView new_iv;
+    
     private List<RollTextItem> data = new ArrayList<>();
 
     private String goods_id;
@@ -169,7 +175,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private ShareAction mShareAction;
     private UMShareListener mShareListener;
     private IWXAPI wxAPI;
-    private String APP_ID = "wx93eea65ba215f901";
+    private String APP_ID = "wxa6f24ff3369c8d21";
     private int allNum;
     private OrderDetailAdapter mOrderDetailAdapter;
 
@@ -238,7 +244,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
         tv_shop_spnum.setText(storeBean.getGoods_num());
         tv_shop_fs.setText(storeBean.getCollect_num());
         tv_shop_dt.setText("0");
-        Glide.with(ShoppingParticularsActivity.this).load(storeBean.getStore_logo()).error(R.mipmap.myy322x).into(iv_shop_image);
+        Glide.with(ShoppingParticularsActivity.this).load(storeBean.getStore_logo()).error(R.drawable.head_bg).into(iv_shop_image);
 
         recyclerView_pj.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView_pj.setAdapter(new BaseRVAdapter(this, commentBeans) {
@@ -391,12 +397,10 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 break;
             case R.id.tv_ljxj:
                 try {
-                    if (BaseApplication.getInstance().userBean != null) {
                         //发消息
-                        if (BaseApplication.getInstance().userBean.getChat_id() != null && !BaseApplication.getInstance().userBean.getChat_id().equals("")) {
-                            Log.e("====进入聊天界面  IMG===", BaseApplication.getInstance().userBean.getChat_id() + "");
+                        if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
                             if (storeBean != null && storeBean.getStore_user_id() != null) {
-                                RongTalk.doConnection(ShoppingParticularsActivity.this, BaseApplication.getInstance().userBean.getChat_id()
+                                RongTalk.doConnection(ShoppingParticularsActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                                         , storeBean.getStore_user_id(), storeBean.getStore_name(),
                                         storeBean.getStore_logo(), storeBean.getStore_id());
                             } else {
@@ -404,11 +408,6 @@ public class ShoppingParticularsActivity extends BaseActivity {
                             }
 
                         }
-                    } else {
-                        startActivity(new Intent(this, LoginActivity.class));
-                        CusToast.showToast("请先登录");
-                    }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                     CusToast.showToast("客服无效");
@@ -417,28 +416,26 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 break;
             case R.id.rl_kf:
                 try {
-                    if (BaseApplication.getInstance().userBean != null) {
-                        //发消息
-                        if (BaseApplication.getInstance().userBean.getChat_id() != null && !BaseApplication.getInstance().userBean.getChat_id().equals("")) {
-                            Log.e("====进入聊天界面  IMG===", BaseApplication.getInstance().userBean.getChat_id() + "");
-                            if (storeBean != null && storeBean.getStore_user_id() != null) {
-                                RongTalk.doConnection(ShoppingParticularsActivity.this, BaseApplication.getInstance().userBean.getChat_id()
-                                        , storeBean.getStore_user_id(), storeBean.getStore_name(),
-                                        storeBean.getStore_logo(), storeBean.getStore_id());
-                            } else {
-                                CusToast.showToast("该店铺无效");
-                            }
-
-                        }
+                    if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
+                        CusToast.showToast("供应商暂无此功能");
                     } else {
-                        CusToast.showToast("请先登录");
+                            //发消息
+                            if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
+                                if (storeBean != null && storeBean.getStore_user_id() != null) {
+                                    RongTalk.doConnection(ShoppingParticularsActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
+                                            , storeBean.getStore_user_id(), storeBean.getStore_name(),
+                                            storeBean.getStore_logo(), storeBean.getStore_id());
+                                } else {
+                                    CusToast.showToast("该店铺无效");
+                                }
+
+                            }
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
                     CusToast.showToast("客服无效");
                 }
-
                 break;
         }
     }
@@ -506,7 +503,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
             TextView tv_shopping_name = view.findViewById(R.id.tv_shopping_name);
             TextView tv_shopping_price = view.findViewById(R.id.tv_shopping_price);
             TextView tv_shopping_content = view.findViewById(R.id.tv_shopping_content);
-            Glide.with(ShoppingParticularsActivity.this).load(goodsBean.getOriginal_img()).error(R.mipmap.myy322x).into(iv_shopping_image);
+            Glide.with(ShoppingParticularsActivity.this).load(goodsBean.getCover_image()).error(R.mipmap.myy322x).into(iv_shopping_image);
             tv_shopping_content.setText(goodsBean.getGoods_name());
             tv_shopping_price.setText(goodsBean.getShop_price());
 
@@ -893,7 +890,6 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private void upShopXQData() {
         Log.d("chenshichun", "-----goods_id  " + goods_id);
         Map<String, Object> map = new HashMap<>();
-        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("goods_id", goods_id);
 
@@ -919,6 +915,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         commentBeans = shoppingXQBean.getResult().getComment();
                         mVpBeans = shoppingXQBean.getResult().getVp();
                         mOrderBeans = shoppingXQBean.getResult().getOrder();
+                        hot_iv.setVisibility(shoppingXQBean.getResult().getGoods().getIs_hot().equals("1")?View.VISIBLE:View.GONE);
+                        new_iv.setVisibility(shoppingXQBean.getResult().getGoods().getIs_new().equals("1")?View.VISIBLE:View.GONE);
+
                         initLiuLangData();
                         if (shoppingXQBean.getResult().getOrder() != null) {
                             initOrderData();
@@ -930,6 +929,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
 //                            Log.i("===商品详情--", "" + skudata);
 //                            object = new JSONObject(skudata);
 //                        }
+                    }else{
+                        CusToast.showToast(jsonObject.optString("msg"));
+                        finish();
                     }
 
                 } catch (JSONException e) {
@@ -948,7 +950,17 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 }
                 banner.setImageLoader(new GlideImageLoader());
                 banner.setImages(img);
-                banner.isAutoPlay(false);
+                banner.isAutoPlay(true);
+
+                banner.setOnBannerListener(new OnBannerListener() {
+                    @Override
+                    public void OnBannerClick(int position) {
+                        Intent intent2 = new Intent(ShoppingParticularsActivity.this, ShowImageDetail.class);
+                        intent2.putStringArrayListExtra("paths", (ArrayList<String>) img);
+                        intent2.putExtra("index", bannerNum);
+                        startActivity(intent2);
+                    }
+                });
 
                 banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
@@ -1010,6 +1022,15 @@ public class ShoppingParticularsActivity extends BaseActivity {
         });
     }
 
+    private class GlideImageLoader extends ImageLoader {
+
+        @Override
+        public void displayImage(Context context, Object path, ImageView imageView) {
+            //具体方法内容自己去选择，次方法是为了减少banner过多的依赖第三方包，所以将这个权限开放给使用者去选择
+            Glide.with(context).load((String) path).centerCrop().into(imageView);
+        }
+
+    }
     private void upAddCart(final String goods_num, String key) {
         Map<String, Object> map = new HashMap<>();
         map.put("goods_id", goods_id);
@@ -1229,7 +1250,6 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private void upisGZData(String store_id) {
         Map<String, Object> map = new HashMap<>();
         map.put("store_id", store_id);
-        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         showDialog();
         XUtil.Post(URLConstant.SHOPISGUANZHU, map, new MyCallBack<String>() {

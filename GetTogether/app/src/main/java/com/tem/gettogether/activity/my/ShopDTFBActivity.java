@@ -130,7 +130,6 @@ public class ShopDTFBActivity extends BaseActivity {
             case R.id.rl_title_right:
                 Map<String,Object> map=new HashMap<>();
 
-                if(BaseApplication.getInstance().userBean==null)return;
                 map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                 if(Image_1!=null){

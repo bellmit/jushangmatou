@@ -74,14 +74,14 @@ public class NewShopRenZhengActivity extends BaseActivity {
                 break;
             case R.id.iv_qglx1:
                 RZType=1;
-                iv_qglx1.setImageResource(R.drawable.xuanzhongf);
-                iv_qglx2.setImageResource(R.drawable.weixuanz);
+                iv_qglx1.setImageResource(R.drawable.radiobuttom_unselect);
+                iv_qglx2.setImageResource(R.drawable.radiobuttom_select);
 
                 break;
             case R.id.iv_qglx2:
                 RZType=2;
-                iv_qglx2.setImageResource(R.drawable.xuanzhongf);
-                iv_qglx1.setImageResource(R.drawable.weixuanz);
+                iv_qglx2.setImageResource(R.drawable.radiobuttom_unselect);
+                iv_qglx1.setImageResource(R.drawable.radiobuttom_select);
 
                 break;
             case R.id.tv_tjsh:

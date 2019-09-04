@@ -87,7 +87,6 @@ public class MyShopActivity extends BaseActivity {
 
     private void upGetMessageData() {
         Map<String, Object> map = new HashMap<>();
-        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         map.put("store_status", 1);
@@ -114,24 +113,44 @@ public class MyShopActivity extends BaseActivity {
                         apply_type = mShopInformationBean.getResult().get(0).getApply_type();
                         if (apply_type.equals("1")) {// 个人
                             except_persion_ll.setVisibility(View.GONE);
+                            if (mShopInformationBean.getResult().get(0).getStore_person_cert().get(0) != null) {
+                                Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getStore_person_cert().get(0) + "").error(R.mipmap.myy322x).centerCrop().into(iv_image_1);
+                            }
+                            if (mShopInformationBean.getResult().get(0).getStore_person_cert().get(1) != null) {
+                                Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getStore_person_cert().get(1) + "").error(R.mipmap.myy322x).centerCrop().into(iv_image_2);
+                            }
                         } else if (apply_type.equals("0")) {//公司
                             except_company_ll.setVisibility(View.GONE);
+                            if (mShopInformationBean.getResult().get(0).getLegal_identity_cert().get(0) != null) {
+                                Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getLegal_identity_cert().get(0) + "").error(R.mipmap.myy322x).centerCrop().into(iv_image_1);
+                            }
+
+                            if (mShopInformationBean.getResult().get(0).getLegal_identity_cert().get(1) != null) {
+                                Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getLegal_identity_cert().get(1) + "").error(R.mipmap.myy322x).centerCrop().into(iv_image_2);
+                            }
+
+                            if (mShopInformationBean.getResult().get(0).getBusiness_licence_cert().get(0) != null) {
+                                Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getBusiness_licence_cert().get(0) + "").error(R.mipmap.myy322x).centerCrop().into(iv_image_3);
+                            }
+
                         } else if (apply_type.equals("2")) {// 工厂
-                        }
-                        if (mShopInformationBean.getResult().get(0).getLegal_identity_cert().get(0) != null) {
-                            Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getLegal_identity_cert().get(0) + "").asBitmap().error(R.mipmap.myy322x).centerCrop().into(new BitmapImageViewTarget(iv_image_1));
-                        }
-                        if (mShopInformationBean.getResult().get(0).getLegal_identity_cert().get(1) != null) {
-                            Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getLegal_identity_cert().get(1) + "").asBitmap().error(R.mipmap.myy322x).centerCrop().into(new BitmapImageViewTarget(iv_image_2));
-                        }
-                        if (mShopInformationBean.getResult().get(0).getBusiness_licence_cert().get(0) != null) {
-                            Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getBusiness_licence_cert().get(0) + "").asBitmap().error(R.mipmap.myy322x).centerCrop().into(new BitmapImageViewTarget(iv_image_3));
-                        }
-                        if (mShopInformationBean.getResult().get(0).getFactory_scene().get(0) != null) {
-                            Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getFactory_scene().get(0) + "").asBitmap().error(R.mipmap.myy322x).centerCrop().into(new BitmapImageViewTarget(iv_image_4));
-                        }
-                        if (mShopInformationBean.getResult().get(0).getFactory_scene().get(1) != null) {
-                            Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getFactory_scene().get(1) + "").asBitmap().error(R.mipmap.myy322x).centerCrop().into(new BitmapImageViewTarget(iv_image_5));
+                            if (mShopInformationBean.getResult().get(0).getLegal_identity_cert().get(0) != null) {
+                                Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getLegal_identity_cert().get(0) + "").error(R.mipmap.myy322x).centerCrop().into(iv_image_1);
+                            }
+                            if (mShopInformationBean.getResult().get(0).getLegal_identity_cert().get(1) != null) {
+                                Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getLegal_identity_cert().get(1) + "").error(R.mipmap.myy322x).centerCrop().into(iv_image_2);
+                            }
+
+                            if (mShopInformationBean.getResult().get(0).getBusiness_licence_cert().get(0) != null) {
+                                Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getBusiness_licence_cert().get(0) + "").error(R.mipmap.myy322x).centerCrop().into(iv_image_3);
+                            }
+
+                            if (mShopInformationBean.getResult().get(0).getFactory_scene().get(0) != null) {
+                                Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getFactory_scene().get(0) + "").error(R.mipmap.myy322x).centerCrop().into(iv_image_4);
+                            }
+                            if (mShopInformationBean.getResult().get(0).getFactory_scene().get(1) != null) {
+                                Glide.with(getContext()).load(mShopInformationBean.getResult().get(0).getFactory_scene().get(1) + "").error(R.mipmap.myy322x).centerCrop().into(iv_image_5);
+                            }
                         }
                     }
                 } catch (JSONException e) {

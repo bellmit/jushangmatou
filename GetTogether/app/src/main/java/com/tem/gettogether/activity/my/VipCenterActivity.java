@@ -24,6 +24,7 @@ import com.tem.gettogether.entity.TabEntity;
 import com.tem.gettogether.fragment.MemberClassificationFragment;
 import com.tem.gettogether.fragment.MemberInformationFragment;
 import com.tem.gettogether.fragment.RefundFragment;
+import com.tem.gettogether.utils.AppManager;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.view.CircularImage;
 
@@ -33,6 +34,8 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.ArrayList;
+
+import cc.duduhuo.custoast.CusToast;
 
 @ContentView(R.layout.activity_vip_center)
 public class VipCenterActivity extends BaseActivity {
@@ -62,14 +65,14 @@ public class VipCenterActivity extends BaseActivity {
             R.drawable.member_information_icon, R.drawable.refund_icon};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     private ArrayList<Fragment> mFragments = new ArrayList<>();
-
+    private String shopStatus;
     @Override
     protected void initData() {
         x.view().inject(this);
+        AppManager.getAppManager().addActivity(this);
 
-        mTitles = new String[]{getResources().getString(R.string.membership_classification)/*, "开通会员"*/,
-                getResources().getString(R.string.membership_information), getResources().getString(R.string.application_refund)};
         headPic = getIntent().getStringExtra("head_pic");
+        shopStatus = SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0");
         tv_title.setText(getResources().getString(R.string.membership_center));
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setText(getResources().getString(R.string.upgrade_membership));
@@ -79,10 +82,20 @@ public class VipCenterActivity extends BaseActivity {
 
         Glide.with(getContext()).load(/*headPic*/SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.head_pic, headPic)).error(R.mipmap.myy322x).centerCrop().into(head_pic);
         nick_name.setText(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.NAME, ""));
-        account.setText(BaseApplication.getInstance().userBean.getPhone());
-        mFragments.add(new MemberClassificationFragment());
-        mFragments.add(new MemberInformationFragment());
-        mFragments.add(new RefundFragment());
+        account.setText(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.MOBILEPHONE, ""));
+        if(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7").equals("1")){// 普通会员
+            mTitles = new String[]{getResources().getString(R.string.membership_classification),
+                    getResources().getString(R.string.membership_information), getResources().getString(R.string.application_refund)};
+            mFragments.add(new MemberClassificationFragment());
+            mFragments.add(new MemberInformationFragment());
+            mFragments.add(new RefundFragment());
+        }else{
+            mTitles = new String[]{getResources().getString(R.string.membership_classification),
+                    getResources().getString(R.string.membership_information)};
+            mFragments.add(new MemberClassificationFragment());
+            mFragments.add(new MemberInformationFragment());
+        }
+
 
         for (int i = 0; i < mTitles.length; i++) {
             mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
@@ -161,14 +174,14 @@ public class VipCenterActivity extends BaseActivity {
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
-                Log.d("chenshichun","======rl_close=====");
-
                 finish();
                 break;
             case R.id.tv_title_right:
-                Log.d("chenshichun","======tv_title_right=====");
-
-                startActivity(new Intent(this, BuyMemberActivity.class));
+                if(shopStatus.equals("1")) {
+                    startActivity(new Intent(this, BuyMemberActivity.class));
+                }else{
+                    CusToast.showToast("无店铺数据，无法升级会员");
+                }
                 break;
         }
     }

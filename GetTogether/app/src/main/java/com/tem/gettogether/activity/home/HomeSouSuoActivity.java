@@ -112,7 +112,6 @@ public class HomeSouSuoActivity extends BaseActivity {
     }
     private void upSouSuoLSData(){
         Map<String,Object> map=new HashMap<>();
-        if(BaseApplication.getInstance().userBean==null)return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("store_id",store_id);
 

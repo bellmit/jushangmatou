@@ -100,12 +100,8 @@ public class SplashActivity extends BaseActivity {
         String time=simpleDateFormat.format(date);
         int am_star_stau= getTimeCompareSize("2019年06月15日",time);
         Log.e("===软件限制===","=="+am_star_stau);
-//        if(am_star_stau==3){
-//            CusToast.showToast("版本失效，请重新下载新版本");
-//            return;
-//        }
 
-        if(type!=null&&!type.equals("")){
+        /*if(type!=null&&!type.equals("")){
             if(type.equals("0")){
                 if(!phone.equals("")&&!pass.equals("")&&!type.equals("")){
                     upLogin(phone,pass,type);
@@ -119,10 +115,8 @@ public class SplashActivity extends BaseActivity {
                 String head_pic=SharedPreferencesUtils.getString(SplashActivity.this, BaseConstant.SPConstant.head_pic ,"");
                 if(openid!=null&&!openid.equals("")){
                     upSANfangLogin(openid,nickname,head_pic,type);
-                }else{
-//                    startActivity(new Intent(this,LoginActivity.class));
+                } else{
                     startActivity(new Intent(SplashActivity.this,MainActivity.class));
-
                     finish();
                 }
             }else  if(type.equals("3")){//微信登录
@@ -132,24 +126,20 @@ public class SplashActivity extends BaseActivity {
                if(openid!=null&&!openid.equals("")){
                    upSANfangLogin(openid,nickname,head_pic,type);
                }else{
-//                   startActivity(new Intent(this,LoginActivity.class));
                    startActivity(new Intent(SplashActivity.this,MainActivity.class));
-
                    finish();
                }
             }else{
-//                startActivity(new Intent(this,LoginActivity.class));
                 startActivity(new Intent(SplashActivity.this,MainActivity.class));
-
                 finish();
             }
         }else{
-//            startActivity(new Intent(this,LoginActivity.class));
             startActivity(new Intent(SplashActivity.this,MainActivity.class));
-
             finish();
-        }
+        }*/
 
+        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        finish();
     }
     private void upLogin(final String phone, final String pass, final String type){
         Map<String,Object> map=new HashMap<>();
@@ -178,7 +168,9 @@ public class SplashActivity extends BaseActivity {
                         SharedPreferencesUtils.saveString(SplashActivity.this, BaseConstant.SPConstant.TYPE, type);
                         SharedPreferencesUtils.saveString(SplashActivity.this,BaseConstant.SPConstant.USERID,loginBean.getResult().getUser_id());
                         SharedPreferencesUtils.saveString(SplashActivity.this,BaseConstant.SPConstant.LEVER,loginBean.getResult().getLevel());
-
+                        SharedPreferencesUtils.saveString(SplashActivity.this,BaseConstant.SPConstant.ROLE_TYPE,loginBean.getResult().getRole_type());
+                        SharedPreferencesUtils.saveString(SplashActivity.this,BaseConstant.SPConstant.MOBILEPHONE,loginBean.getResult().getMobile());
+                        SharedPreferencesUtils.saveString(SplashActivity.this,BaseConstant.SPConstant.CHAT_ID,loginBean.getResult().getChat_id());
                         UserBean userBean = new UserBean();
                         userBean.setToken(loginBean.getResult().getToken());
                         userBean.setUserName(loginBean.getResult().getNickname());
@@ -251,6 +243,9 @@ public class SplashActivity extends BaseActivity {
                         SharedPreferencesUtils.saveString(SplashActivity.this, BaseConstant.SPConstant.NAME, nickname);
                         SharedPreferencesUtils.saveString(SplashActivity.this,BaseConstant.SPConstant.USERID,loginBean.getResult().getUser_id());
                         SharedPreferencesUtils.saveString(SplashActivity.this,BaseConstant.SPConstant.LEVER,loginBean.getResult().getLevel());
+                        SharedPreferencesUtils.saveString(SplashActivity.this,BaseConstant.SPConstant.ROLE_TYPE,loginBean.getResult().getRole_type());
+                        SharedPreferencesUtils.saveString(SplashActivity.this,BaseConstant.SPConstant.MOBILEPHONE,loginBean.getResult().getMobile());
+                        SharedPreferencesUtils.saveString(SplashActivity.this,BaseConstant.SPConstant.CHAT_ID,loginBean.getResult().getChat_id());
 
                         if(type.equals("2")){
                             SharedPreferencesUtils.saveString(SplashActivity.this, BaseConstant.SPConstant.TYPE, "2");//QQ
@@ -321,10 +316,10 @@ public class SplashActivity extends BaseActivity {
      */
     private void doConnection() {
 
-        /**
+        /**qdongy
          * 链接自己的token值
          */
-        RongIM.connect(BaseApplication.getInstance().userBean.getChat_id(), new RongIMClient.ConnectCallback() {
+        RongIM.connect(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0"), new RongIMClient.ConnectCallback() {
 
             @Override
             public void onSuccess(String arg0) {

@@ -1,10 +1,12 @@
 package com.tem.gettogether.activity.order;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
@@ -16,6 +18,7 @@ import com.tem.gettogether.fragment.caigou.CaiGouOrderShouHuoFragment;
 import com.tem.gettogether.fragment.caigou.CaiGouOrderWangChengFragment;
 
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
@@ -50,10 +53,54 @@ public class CaiGouShangNewOrderActivity extends BaseActivity {
         list_fragment.add(new CaiGouOrderWangChengFragment());
         //ViewPager的适配器，获得Fragment管理器
         adapter = new MyAdapter(getSupportFragmentManager());
-        viewPager.setOffscreenPageLimit(0);
+        viewPager.setOffscreenPageLimit(5);
         viewPager.setAdapter(adapter);
         //将TabLayout和ViewPager绑定在一起，一个动另一个也会跟着动
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                switch (tab.getPosition()) {
+
+                    case 0:
+                        Intent intent = new Intent("ALL_ORDER_REFRESH_DATA");
+                        sendBroadcast(intent);
+                        break;
+                    case 1:
+                        Intent intent1 = new Intent("FAHUO_ORDER_REFRESH_DATA");
+                        sendBroadcast(intent1);
+                        break;
+                    case 2:
+                        Intent intent2 = new Intent("SHOUHUO_ORDER_REFRESH_DATA");
+                        sendBroadcast(intent2);
+                        break;
+                    case 3:
+                        Intent intent3 = new Intent("JIEKUAN_ORDER_REFRESH_DATA");
+                        sendBroadcast(intent3);
+                        break;
+                    case 4:
+                        Intent intent4 = new Intent("WANGCHENG_ORDER_REFRESH_DATA");
+                        sendBroadcast(intent4);
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        String tabType = getIntent().getStringExtra("tabType");
+
+        if (tabType != null && !tabType.equals("")) {
+            viewPager.setCurrentItem(Integer.parseInt(tabType));
+        }
     }
 
     @Override
@@ -84,6 +131,15 @@ public class CaiGouShangNewOrderActivity extends BaseActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             return titles[position];
+        }
+    }
+
+    @Event(value = {R.id.rl_close}, type = View.OnClickListener.class)
+    private void getEvent(View view) {
+        switch (view.getId()) {
+            case R.id.rl_close:
+                finish();
+                break;
         }
     }
 }

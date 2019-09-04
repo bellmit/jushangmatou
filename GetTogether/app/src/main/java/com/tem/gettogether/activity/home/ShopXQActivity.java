@@ -19,9 +19,11 @@ import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.ShopXQBean;
 import com.tem.gettogether.rongyun.RongTalk;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 
@@ -136,14 +138,12 @@ public class ShopXQActivity extends BaseActivity {
                 break;
             case R.id.rl_zhaq:
                 try {
-                    if(BaseApplication.getInstance().userBean!=null){
 
                         //发消息
-                        if (BaseApplication.getInstance().userBean.getChat_id()!=null&&!BaseApplication.getInstance().userBean.getChat_id().equals("")) {
-                            Log.e("====进入聊天界面  IMG===", BaseApplication.getInstance().userBean.getChat_id()+"");
+                        if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
 
                             if(resultBean!=null&&store_id!=null){
-                                RongTalk.doConnection(ShopXQActivity.this, BaseApplication.getInstance().userBean.getChat_id()
+                                RongTalk.doConnection(ShopXQActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                                         ,store_id, resultBean.getStore_name(),
                                         resultBean.getStore_logo(),resultBean.getStore_id());
                             }else{
@@ -151,9 +151,6 @@ public class ShopXQActivity extends BaseActivity {
                             }
 
                         }
-                    }else{
-                        CusToast.showToast("请先登录");
-                    }
 
                 }catch (Exception e){
                     e.printStackTrace();

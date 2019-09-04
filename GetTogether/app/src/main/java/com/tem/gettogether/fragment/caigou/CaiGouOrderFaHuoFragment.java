@@ -42,6 +42,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cc.duduhuo.custoast.CusToast;
+
 
 @ContentView(R.layout.fragment_new_my_order)
 public class CaiGouOrderFaHuoFragment extends BaseFragment {
@@ -91,7 +93,7 @@ public class CaiGouOrderFaHuoFragment extends BaseFragment {
         initDatas(1, true, false);
         initRefresh();
         IntentFilter filter = new IntentFilter();
-        filter.addAction("ORDER_REFRESH_DATA");
+        filter.addAction("FAHUO_ORDER_REFRESH_DATA");
         //注册广播接收
         getContext().registerReceiver(new MyReceiver01(), filter);
         ll_empty.setVisibility(View.VISIBLE);
@@ -100,7 +102,6 @@ public class CaiGouOrderFaHuoFragment extends BaseFragment {
 
     private void initDatas(final int currentPage, final boolean isNormal, final boolean isLoadMore) {
         Map<String, Object> map = new HashMap<>();
-        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
@@ -150,6 +151,8 @@ public class CaiGouOrderFaHuoFragment extends BaseFragment {
                                 if (gson.fromJson(result, MyOrderdataBean.class).getResult().size() > 0) {
                                     resultBeans.addAll(gson.fromJson(result, MyOrderdataBean.class).getResult());
                                     mOrderAdapter.notifyDataSetChanged();
+                                }else{
+                                    CusToast.showToast("没有更多数据!");
                                 }
                             } else {
                                 if (jsonObject.optString("result").equals("")) {// 刷新没数据
@@ -178,6 +181,8 @@ public class CaiGouOrderFaHuoFragment extends BaseFragment {
             public void onFinished() {
                 super.onFinished();
                 baseActivity.closeDialog();
+                refreshLayout.finishLoadmore();
+                refreshLayout.finishRefreshing();
             }
 
             @Override
@@ -191,7 +196,6 @@ public class CaiGouOrderFaHuoFragment extends BaseFragment {
 
     private void confirmReceipt(String orderId) {// 确认收货
         Map<String, Object> map = new HashMap<>();
-        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
@@ -252,8 +256,8 @@ public class CaiGouOrderFaHuoFragment extends BaseFragment {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
-                initDatas(1, false, false);
-                refreshLayout.finishRefreshing();
+                currentPage = 1;
+                initDatas(currentPage, false, false);
             }
 
             @Override
@@ -261,7 +265,6 @@ public class CaiGouOrderFaHuoFragment extends BaseFragment {
                 super.onLoadMore(refreshLayout);
                 currentPage++;
                 initDatas(currentPage, false, true);
-                refreshLayout.finishLoadmore();
             }
 
             @Override
@@ -283,14 +286,9 @@ public class CaiGouOrderFaHuoFragment extends BaseFragment {
         public void onReceive(Context context, Intent intent) {
             //获取广播的名字
             String action = intent.getAction();
-            if ("ORDER_REFRESH_DATA".equals(action)) {
-                mTab = intent.getIntExtra("page", 0);
-                int random = intent.getIntExtra("random", 0);
-                Log.d("chenshichun", "=======mTab====" + mTab + "  random  " + random + "currentRandom " + currentRandom);
-                if (currentRandom != random) {
+            if ("FAHUO_ORDER_REFRESH_DATA".equals(action)) {
+                Log.d("chenshichun","====FAHUO_ORDER_REFRESH_DATA=======");
                     initDatas(1, false, false);
-                    currentRandom = random;
-                }
             }
         }
     }

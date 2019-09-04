@@ -24,6 +24,7 @@ import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.MyMessageBean;
+import com.tem.gettogether.utils.AppManager;
 import com.tem.gettogether.utils.CacheUtil;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
@@ -47,7 +48,7 @@ public class SettingActivity extends BaseActivity {
     @ViewInject(R.id.tv_title)
     private TextView tv_title;
     @ViewInject(R.id.tv_getOut)
-    private  TextView tv_getOut;
+    private TextView tv_getOut;
     @ViewInject(R.id.iv_head)
     private CircularImage iv_head;
     @ViewInject(R.id.tv_name)
@@ -56,12 +57,35 @@ public class SettingActivity extends BaseActivity {
     private TextView tv_qchc;
     @ViewInject(R.id.qchc_rl)
     private RelativeLayout qchc_rl;
+    @ViewInject(R.id.rl_address_gl)
+    private RelativeLayout rl_address_gl;
+    @ViewInject(R.id.huiyuandengji_rl)
+    private RelativeLayout huiyuandengji_rl;
+    @ViewInject(R.id.huiyuan_tv)
+    private TextView huiyuan_tv;
 
     private String phone;
+    private String lever;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        lever = SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7");
+
+        if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {// 供应商
+            rl_address_gl.setVisibility(View.GONE);
+            if (lever.equals("7")) {
+                huiyuan_tv.setText("游客");
+            } else if (lever.equals("1")) {
+                huiyuan_tv.setText("普通会员");
+            } else {
+                huiyuan_tv.setText("高级会员");
+            }
+        } else {
+            huiyuandengji_rl.setVisibility(View.GONE);
+        }
+
         initData();
         initView();
         try {
@@ -74,34 +98,35 @@ public class SettingActivity extends BaseActivity {
     @Override
     protected void initData() {
         tv_title.setText(R.string.settings);
-
+        AppManager.getAppManager().addActivity(this);
     }
 
     @Override
     protected void initView() {
 
     }
-    @Event(value = {R.id.rl_close,R.id.rl_zhaq,R.id.rl_address_gl,R.id.ll_grxx,R.id.rl_gl_account,R.id.tv_getOut,R.id.rl_smrz,R.id.qchc_rl}, type = View.OnClickListener.class)
+
+    @Event(value = {R.id.rl_close, R.id.rl_zhaq, R.id.rl_address_gl, R.id.ll_grxx, R.id.rl_gl_account, R.id.tv_getOut, R.id.rl_smrz, R.id.qchc_rl}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
                 finish();
                 break;
             case R.id.rl_zhaq://账户安全
-               startActivity(new Intent(this,ZHAQActivity.class)
-               .putExtra("phone",phone));
+                startActivity(new Intent(this, ZHAQActivity.class)
+                        .putExtra("phone", phone));
                 break;
             case R.id.rl_address_gl://地址管理
-                startActivity(new Intent(this,AddressGLActivity.class));
+                startActivity(new Intent(this, AddressGLActivity.class));
                 break;
             case R.id.ll_grxx://个人信息
-                startActivity(new Intent(this,GRMeassageActivity.class));
+                startActivity(new Intent(this, GRMeassageActivity.class));
                 break;
             case R.id.rl_gl_account://关联账号
-                startActivity(new Intent(this,GLAccountActivity.class));
+                startActivity(new Intent(this, GLAccountActivity.class));
                 break;
             case R.id.rl_smrz://实名认证
-                startActivity(new Intent(this,AutonymRZActivity.class));
+                startActivity(new Intent(this, AutonymRZActivity.class));
 
                 break;
             case R.id.tv_getOut:
@@ -125,8 +150,7 @@ public class SettingActivity extends BaseActivity {
     }
 
     private void upGetMessageData() {
-        Map<String,Object> map=new HashMap<>();
-        if(BaseApplication.getInstance().userBean==null)return;
+        Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         showDialog();
         XUtil.Post(URLConstant.GET_MESSAGE, map, new MyCallBack<String>() {
@@ -140,10 +164,10 @@ public class SettingActivity extends BaseActivity {
 
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        MyMessageBean myMessageBean=gson.fromJson(result,MyMessageBean.class);
-                        Glide.with(SettingActivity.this).load(myMessageBean.getResult().getHead_pic()+"").asBitmap().error( R.mipmap.myy322x).centerCrop().into(new BitmapImageViewTarget(iv_head));
+                        MyMessageBean myMessageBean = gson.fromJson(result, MyMessageBean.class);
+                        Glide.with(SettingActivity.this).load(myMessageBean.getResult().getHead_pic() + "").error(R.mipmap.myy322x).centerCrop().into(iv_head);
                         tv_name.setText(myMessageBean.getResult().getNickname());
-                        phone=myMessageBean.getResult().getMobile();
+                        phone = myMessageBean.getResult().getMobile();
                     }
 
 
@@ -169,6 +193,7 @@ public class SettingActivity extends BaseActivity {
     }
 
     private PopupWindow mPop;
+
     //初始化弹窗
     private void initPop() {
         if (mPop == null) {
@@ -227,12 +252,12 @@ public class SettingActivity extends BaseActivity {
             }
         });
     }
-    private void upLogout(){
-        Map<String,Object> map=new HashMap<>();
-        if(BaseApplication.getInstance().userBean==null)return;
+
+    private void upLogout() {
+        Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         showDialog();
-        XUtil.Post(URLConstant.LOGOUT_TC,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.LOGOUT_TC, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -243,16 +268,14 @@ public class SettingActivity extends BaseActivity {
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
                     CusToast.showToast(msg);
-                    if(res.equals("1")){
+                    if (res.equals("1")) {
                         BaseApplication.getInstance().removerUser();
                         startActivity(new Intent(SettingActivity.this, LoginActivity.class));
-                        BaseApplication.destoryActivity("login");
-                        finish();
-                    }else{
+                        AppManager.getAppManager().finishAllActivity();
+                    } else {
                         BaseApplication.getInstance().removerUser();
                         startActivity(new Intent(SettingActivity.this, LoginActivity.class));
-                        BaseApplication.destoryActivity("login");
-                        finish();
+                        AppManager.getAppManager().finishAllActivity();
                     }
 
                 } catch (JSONException e) {

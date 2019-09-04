@@ -26,18 +26,22 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bugtags.library.Bugtags;
 import com.tem.gettogether.R;
 import com.tem.gettogether.dialog.CommonDialogLayout;
 import com.tem.gettogether.dialog.ShowAlertDialog;
+import com.tem.gettogether.utils.AppManager;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.language.LanguageUtil;
+import com.ybm.app.common.WindowToast.ToastTips;
 
 import org.xutils.x;
 
 import java.util.Locale;
 
+import io.rong.imlib.RongIMClient;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 
@@ -69,6 +73,7 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
         mContext = this;
         initData();
         initView();
+
     }
 
     public BaseActivity getContext() {
@@ -426,4 +431,5 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
             getResources().updateConfiguration(config, dm);
         }
     }
+
 }

@@ -44,7 +44,7 @@ public class BaseApplication extends Application {
     public static BaseApplication mInstance;
     public UserBean userBean;
     public int isWXPay = 100;
-    public final String WXAPP_ID = "wx93eea65ba215f901";
+    public final String WXAPP_ID = "wxa6f24ff3369c8d21";
     public IWXAPI api;
     public WeiXinBean1 wxbean;
     public WeiXinMessageBean bean;
@@ -71,7 +71,7 @@ public class BaseApplication extends Application {
         setInputProvider();
         UMShareAPI.get(this);
         initAppLanguage();
-        Bugtags.start("42c655de1b4f612f3e488385c64f3e81", this, Bugtags.BTGInvocationEventBubble);
+        Bugtags.start("42c655de1b4f612f3e488385c64f3e81", this, Bugtags.BTGInvocationEventBubble/*BTGInvocationEventNone*/);
     }
     {
         PlatformConfig.setQQZone("101557245", "2fe9d31228f7ccb88ffd26beb709d31e");

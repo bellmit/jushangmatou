@@ -41,8 +41,8 @@ public class CheckBoxSample  extends View implements Checkable {
     private boolean isChecked;
 
     private int size = 22;
-    private int bitmapColor = 0xFFffaa01;
-    private int borderColor = 0xFFFFFFFF;
+    private int bitmapColor = 0x00ffaa01;
+    private int borderColor = 0x00FFFFFF;
 
     public CheckBoxSample(Context context) {
         this(context, null);
@@ -74,7 +74,7 @@ public class CheckBoxSample  extends View implements Checkable {
         borderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         borderPaint.setStyle(Paint.Style.STROKE);
         borderPaint.setStrokeWidth(dp(2));
-        checkDrawable = context.getResources().getDrawable(R.drawable.xuanzhongf);
+        checkDrawable = context.getResources().getDrawable(R.drawable.radiobuttom_unselect);
         setVisibility(VISIBLE);
         ta.recycle();
     }

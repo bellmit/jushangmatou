@@ -8,6 +8,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +20,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -26,39 +30,51 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.Footer.LoadingView;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.home.HomeGongGaoActivity;
 import com.tem.gettogether.activity.home.HomeHotSellActivity;
 import com.tem.gettogether.activity.home.HomeLianMengActivity;
 import com.tem.gettogether.activity.home.HomeSouSuoActivity;
-import com.tem.gettogether.activity.my.BuyMessageActivity;
+import com.tem.gettogether.activity.home.ShopActivity;
 import com.tem.gettogether.activity.my.WaiMaoQiuGouActivity;
+import com.tem.gettogether.activity.my.XeiYiH5Activity;
+import com.tem.gettogether.adapter.HomeBottomCateAdapter;
 import com.tem.gettogether.adapter.HomeBuyAdapter;
 import com.tem.gettogether.adapter.HomeHotSellAdapter;
 import com.tem.gettogether.adapter.HomeLianMengAdapter;
 import com.tem.gettogether.adapter.HomeXinPinAdapter;
-import com.tem.gettogether.bean.HomeDataNewBean;
-import com.tem.gettogether.view.BaseScrollView;
-import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
-import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.tem.gettogether.activity.LoginActivity;
-import com.tem.gettogether.activity.home.ShopActivity;
-import com.tem.gettogether.activity.my.XeiYiH5Activity;
-import com.tem.gettogether.adapter.HomeBottomCateAdapter;
+import com.tem.gettogether.adapter.MainMenuAdapter;
+import com.tem.gettogether.adapter.MenuViewPagerAdapter;
 import com.tem.gettogether.base.BaseActivity;
-import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseFragment;
 import com.tem.gettogether.base.URLConstant;
+import com.tem.gettogether.bean.HomeDataNewBean;
 import com.tem.gettogether.bean.ServiceProviderBean;
+import com.tem.gettogether.retrofit.RetrofitHelper;
+import com.tem.gettogether.retrofit.RetrofitService;
+import com.tem.gettogether.utils.DpPxUtils;
 import com.tem.gettogether.utils.GlideImageLoader;
 import com.tem.gettogether.utils.ListUtils;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
+import com.tem.gettogether.view.BaseScrollView;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
+
+import net.lucode.hackware.magicindicator.MagicIndicator;
+import net.lucode.hackware.magicindicator.ViewPagerHelper;
+import net.lucode.hackware.magicindicator.buildins.UIUtil;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.DummyPagerTitleView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -74,6 +90,10 @@ import java.util.Locale;
 import java.util.Map;
 
 import cc.duduhuo.custoast.CusToast;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 @ContentView(R.layout.fragment_new_home)
 public class HomeNewFragment extends BaseFragment implements View.OnClickListener {
@@ -112,8 +132,13 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
     private TwinklingRefreshLayout refreshLayout;
     @ViewInject(R.id.mScrollView)
     private BaseScrollView mScrollView;
-    private BaseActivity baseActivity;
 
+    @ViewInject(R.id.view_pager)
+    private ViewPager view_pager;
+    @ViewInject(R.id.magicIndicator)
+    private MagicIndicator magicIndicator;
+
+    private BaseActivity baseActivity;
     private List<HomeDataNewBean.ResultEntity.AdEntity> adBeans = new ArrayList<>();
     private List<HomeDataNewBean.ResultEntity.Bottom_cateEntity> bottomCateBeans = new ArrayList<>();
     private List<HomeDataNewBean.ResultEntity.Ftrade_buyEntity> homeBuyBeans = new ArrayList<>();
@@ -153,10 +178,38 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
         });
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        if (!hidden) {
+            initRefreshData(1, true);
+        }
+        super.onHiddenChanged(hidden);
+    }
+
     private void initView() {
         initRefresh();
     }
 
+    private void test(int currentPage) {
+        Map<String, Object> map = new HashMap<>();
+        String yuyan = SharedPreferencesUtils.getString(getActivity(), BaseConstant.SPConstant.language, "");
+        if (yuyan != null) {
+            map.put("language", yuyan);
+            map.put("page", currentPage);
+        }
+        RetrofitHelper.get(RetrofitService.class).getHomeData(map).enqueue(new Callback<HomeDataNewBean>() {
+            @Override
+            public void onResponse(Call<HomeDataNewBean> call, Response<HomeDataNewBean> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<HomeDataNewBean> call, Throwable t) {
+
+            }
+        });
+
+    }
 
     private void initData(int currentPage) {
         Map<String, Object> map = new HashMap<>();
@@ -185,6 +238,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                         xinpinBeans = homeDataBean.getResult().getFtrade_new();
                         noticeBeans = homeDataBean.getResult().getNotice();
                         setAllData();
+                        initViewPager(bottomCateBeans, 2, 5);
                     }
 
                 } catch (JSONException e) {
@@ -210,6 +264,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void initRefreshData(int currentPage, final boolean isRefresh) {
+        test(currentPage);
         Map<String, Object> map = new HashMap<>();
         String yuyan = SharedPreferencesUtils.getString(getActivity(), BaseConstant.SPConstant.language, "");
         if (yuyan != null) {
@@ -249,8 +304,12 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                             mHomeLianMengAdapter.notifyDataSetChanged();
                             mHomeXinPinAdapter.notifyDataSetChanged();
                         } else {
-                            xinpinBeans.addAll(homeDataBean.getResult().getFtrade_new());
-                            mHomeXinPinAdapter.notifyDataSetChanged();
+                            if (homeDataBean.getResult().getFtrade_new().size() > 0) {
+                                xinpinBeans.addAll(homeDataBean.getResult().getFtrade_new());
+                                mHomeXinPinAdapter.notifyDataSetChanged();
+                            } else {
+                                CusToast.showToast("没有更多数据!");
+                            }
                         }
                     }
 
@@ -263,7 +322,8 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
             public void onFinished() {
                 super.onFinished();
                 baseActivity.closeDialog();
-
+                refreshLayout.finishRefreshing();
+                refreshLayout.finishLoadmore();
             }
 
             @Override
@@ -300,11 +360,30 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
 
     }
 
+    /**
+     * 获得屏幕高度
+     */
+    public static int getScreenWidth(Context context) {
+        WindowManager wm = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(outMetrics);
+        return outMetrics.widthPixels;
+    }
+
     private void setBanner() {
         List<String> img = new ArrayList<>();
+
+
         for (int i = 0; i < adBeans.size(); i++) {
+
             img.add(adBeans.get(i).getAd_code());
+//            img.add(R.drawable.banner_test_bg);
         }
+        int screenwidth = getScreenWidth(getContext()); //获取屏幕的宽度
+        ViewGroup.LayoutParams layoutParams = banner.getLayoutParams();//获取banner组件的参数
+        layoutParams.height = (int) (screenwidth / 2.95); //这里设置轮播图的长度等于宽度
+        banner.setLayoutParams(layoutParams); //设置参数
         banner.setImageLoader(new GlideImageLoader());
         banner.setImages(img);
         banner.start();
@@ -314,26 +393,17 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
             public void OnBannerClick(int position) {
                 if (adBeans.get(position).getType() == 1) {
                     if (adBeans.get(position).getAd_link() != null && !adBeans.get(position).getAd_link().equals("")) {
-                        if (BaseApplication.getInstance().userBean == null) {
-                            startActivity(new Intent(getActivity(), LoginActivity.class));
-                        } else {
-                            startActivityForResult(new Intent(getActivity(), ShopActivity.class)
-                                    .putExtra("store_id", adBeans.get(position).getAd_link())
-                                    .putExtra("type", ShopActivity.SHOPNHOME_TYPE), ShopActivity.SHOPNHOME_TYPE);
-                        }
-
+                        startActivityForResult(new Intent(getActivity(), ShopActivity.class)
+                                .putExtra("store_id", adBeans.get(position).getAd_link())
+                                .putExtra("type", ShopActivity.SHOPNHOME_TYPE), ShopActivity.SHOPNHOME_TYPE);
                     } else {
                         CusToast.showToast("暂无店铺ID");
                     }
                 } else if (adBeans.get(position).getType() == 2) {
                     if (adBeans.get(position).getAd_link() != null && !adBeans.get(position).getAd_link().equals("")) {
-                        if (BaseApplication.getInstance().userBean == null) {
-                            startActivity(new Intent(getActivity(), LoginActivity.class));
-                        } else {
-                            startActivity(new Intent(getActivity(), XeiYiH5Activity.class)
-                                    .putExtra("typeMain", "1")
-                                    .putExtra("h5url", adBeans.get(position).getAd_link()));
-                        }
+                        startActivity(new Intent(getActivity(), XeiYiH5Activity.class)
+                                .putExtra("typeMain", "1")
+                                .putExtra("h5url", adBeans.get(position).getAd_link()));
 
                     } else {
                         CusToast.showToast("暂无链接");
@@ -354,18 +424,17 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
         refreshLayout.setBottomView(loadingView);
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
-            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+            public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
                 initRefreshData(1, true);
-                refreshLayout.finishRefreshing();
+                currentPage = 1;
             }
 
             @Override
-            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+            public void onLoadMore(final TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
                 currentPage++;
                 initRefreshData(currentPage, false);
-                refreshLayout.finishLoadmore();
             }
 
             @Override
@@ -508,6 +577,69 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         android.os.Process.killProcess(android.os.Process.myPid());
+    }
+
+
+    private void initViewPager(List<HomeDataNewBean.ResultEntity.Bottom_cateEntity> datas, int rowNum, int spanNum) {
+        //1.根据数据的多少来分页，每页的数据为rw
+        int singlePageDatasNum = rowNum * spanNum;//每个单页包含的数据量：2*4=8；
+        int pageNum = datas.size() / singlePageDatasNum;//算出有几页菜单：20%8 = 3;
+        if (bottomCateBeans.size() % singlePageDatasNum > 0) pageNum++;//如果取模大于0，就还要多一页出来，放剩下的不满项
+        ArrayList<RecyclerView> mList = new ArrayList<>();
+        for (int i = 0; i < pageNum; i++) {
+            RecyclerView recyclerView = new RecyclerView(getContext());
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), spanNum);
+            recyclerView.setLayoutManager(gridLayoutManager);
+            int fromIndex = i * singlePageDatasNum;
+            int toIndex = (i + 1) * singlePageDatasNum;
+            if (toIndex > datas.size()) toIndex = datas.size();
+            //a.截取每个页面包含数据
+            List<HomeDataNewBean.ResultEntity.Bottom_cateEntity> menuItems = new ArrayList<>(datas.subList(fromIndex, toIndex));
+            //b.设置每个页面的适配器数据
+            MainMenuAdapter menuAdapter = new MainMenuAdapter(getContext(), menuItems);
+            //c.绑定适配器，并添加到list
+            recyclerView.setAdapter(menuAdapter);
+            mList.add(recyclerView);
+        }
+        //2.ViewPager的适配器
+        MenuViewPagerAdapter menuViewPagerAdapter = new MenuViewPagerAdapter(mList);
+        view_pager.setAdapter(menuViewPagerAdapter);
+        //3.动态设置ViewPager的高度，并加载所有页面
+        int height = DpPxUtils.dp2Px(getContext(), 70);//这里的80为MainMenuAdapter中布局文件高度
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, datas.size() <= spanNum ? height : height * rowNum);
+        view_pager.setLayoutParams(layoutParams);
+        view_pager.setOffscreenPageLimit(pageNum - 1);
+        //4.创建指示器
+        CommonNavigator commonNavigator = new CommonNavigator(getContext());
+        commonNavigator.setAdjustMode(true);
+        final int finalPageNum = pageNum;
+        commonNavigator.setAdapter(new CommonNavigatorAdapter() {
+            @Override
+            public int getCount() {
+                return finalPageNum;
+            }
+
+            @Override
+            public IPagerTitleView getTitleView(Context context, int index) {
+                return new DummyPagerTitleView(context);
+            }
+
+            @Override
+            public IPagerIndicator getIndicator(Context context) {
+                LinePagerIndicator indicator = new LinePagerIndicator(context);
+                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
+                indicator.setLineHeight(UIUtil.dip2px(context, 4));//就是指示器的高
+                indicator.setLineWidth(UIUtil.dip2px(context, 20 / finalPageNum));//就是指示器的宽度，然后通过页数来评分
+                indicator.setRoundRadius(UIUtil.dip2px(context, 4));
+                indicator.setStartInterpolator(new AccelerateInterpolator());
+                indicator.setEndInterpolator(new DecelerateInterpolator(3));
+                indicator.setColors(ContextCompat.getColor(context, R.color.home_red));
+                return indicator;
+            }
+        });
+        //5.配置指示器，并和ViewPager产生绑定
+        magicIndicator.setNavigator(commonNavigator);
+        ViewPagerHelper.bind(magicIndicator, view_pager);
     }
 
 }

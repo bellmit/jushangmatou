@@ -3,17 +3,21 @@ package com.tem.gettogether.activity.my;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.ImageDataBean;
+import com.tem.gettogether.retrofit.UploadUtil;
 import com.tem.gettogether.utils.Base64BitmapUtil;
 import com.tem.gettogether.utils.BitnapUtils;
 import com.tem.gettogether.utils.Confirg;
@@ -49,13 +53,15 @@ public class ZhuTuXQNewActivity extends BaseActivity {
     @ViewInject(R.id.iamge_iv)
     private ImageView iamge_iv;
     private String compressImageFilePath;
-
+    private String cover_image="";
     @Override
     protected void initData() {
         x.view().inject(this);
         tv_title.setText("商品主图");
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setText("保存");
+        cover_image=getIntent().getStringExtra("cover_image");
+        Glide.with(ZhuTuXQNewActivity.this).load(cover_image).error(R.mipmap.myy322x).into(iamge_iv);
     }
 
     @Override
@@ -76,10 +82,9 @@ public class ZhuTuXQNewActivity extends BaseActivity {
             case R.id.tv_fbShopping:
                 PictureSelector
                         .create(ZhuTuXQNewActivity.this, PictureSelector.SELECT_REQUEST_CODE)
-                        .selectPicture(true, 200, 200, 1, 1);
+                        .selectPicture(true, 500, 500, 1, 1);
                 break;
             case R.id.rl_title_right:
-                Log.d("chenshichun","==========cartImage=  "+cartImage);
                 setResult(RESULT_OK,new Intent().putStringArrayListExtra("listImage2", cartImage));
                 finish();
                 break;
@@ -93,15 +98,31 @@ public class ZhuTuXQNewActivity extends BaseActivity {
         /*结果回调*/
         if (requestCode == PictureSelector.SELECT_REQUEST_CODE) {
             if (data != null) {
-                String picturePath = data.getStringExtra(PictureSelector.PICTURE_PATH);
+                final String picturePath = data.getStringExtra(PictureSelector.PICTURE_PATH);
                 iamge_iv.setImageBitmap(BitmapFactory.decodeFile(picturePath));
                 String targetPath = compressImageFilePath + Confirg.df.
                         format(new Date()) + ".jpg";
-                final String compressImage = BitnapUtils.compressImage(picturePath, targetPath, 60);
+                final String compressImage = BitnapUtils.compressImage(picturePath, targetPath, 40);
 
-                Map<String, Object> map = new HashMap<>();
+                new Thread(new Runnable(){
+                    @Override
+                    public void run() {
+                        try {
+                            ImageDataBean imageDataBean = null;
+                            imageDataBean = UploadUtil.uploadFile(BitnapUtils.readStream(picturePath),new File(picturePath),URLConstant.UPLOAD_PICTURE);
+                            if(imageDataBean!=null){
+                                cartImage.removeAll(cartImage);
+                                cartImage.add(imageDataBean.getResult().getImage_show().get(0));
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+
+                /*Map<String, Object> map = new HashMap<>();
                 map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(BitmapFactory.decodeFile(compressImage)));
-                upMessageData(map);
+                upMessageData(map);*/
             }
         }
     }

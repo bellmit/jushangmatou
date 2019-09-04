@@ -128,12 +128,12 @@ public class ZhuTuXQActivity extends BaseActivity  implements View.OnClickListen
             public void onBind(BaseViewHolder holder, int position) {
                 ImageView iv_image=holder.getImageView(R.id.iv_image);
                 Glide.with(ZhuTuXQActivity.this).load(cartImage.get(position)).error(R.mipmap.myy322x).into(iv_image);
-                if(position==imagePaths.size()-1){
+                /*if(position==imagePaths.size()-1){
                     holder.getTextView(R.id.tv_shanchu).setVisibility(View.VISIBLE);
                 }else {
                     holder.getTextView(R.id.tv_shanchu).setVisibility(View.GONE);
-                }
-                holder.getTextView(R.id.tv_shanchu).setOnClickListener(new View.OnClickListener() {
+                }*/
+               /* holder.getTextView(R.id.tv_shanchu).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 //                        if(imagePaths.size()>0){
@@ -146,7 +146,7 @@ public class ZhuTuXQActivity extends BaseActivity  implements View.OnClickListen
 
                         mTaskImgAdapter.notifyDataSetChanged();
                     }
-                });
+                });*/
             }
 
         };

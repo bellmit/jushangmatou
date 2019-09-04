@@ -229,12 +229,8 @@ public class BKRecommecdActivity extends BaseActivity {
             baseViewHolder.getView(R.id.ll_item_all2).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(BaseApplication.getInstance().userBean==null){
-                        startActivity(new Intent(BKRecommecdActivity.this,LoginActivity.class));
-                    }else {
                         startActivity(new Intent(BKRecommecdActivity.this,ShoppingParticularsActivity.class)
                                 .putExtra("goods_id",resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_id()));
-                    }
 
                 }
             });

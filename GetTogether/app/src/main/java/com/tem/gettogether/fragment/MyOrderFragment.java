@@ -337,11 +337,9 @@ public class MyOrderFragment extends BaseFragment {
     }
     private void upJieSCartData(int page) {
         Map<String, Object> map = new HashMap<>();
-        if(BaseApplication.getInstance().userBean==null)return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         map.put("role_type",0/*SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, "7")*/);
-        Log.d("chenshichun","===========mTab  "+mTab);
         if(mTab==0){
             map.put("type", "");
         }else  if(mTab==1){

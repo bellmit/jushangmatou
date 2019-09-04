@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
@@ -13,6 +14,7 @@ import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.fragment.ProductManagmentFragment;
 
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
@@ -99,5 +101,14 @@ public class ProductManagmentActivity extends BaseActivity {
         };
         myView.setAdapter(fragmentPagerAdapter);
         myTab.setupWithViewPager(myView);
+    }
+
+    @Event(value = {R.id.rl_close}, type = View.OnClickListener.class)
+    private void getEvent(View view) {
+        switch (view.getId()) {
+            case R.id.rl_close:
+                finish();
+                break;
+        }
     }
 }

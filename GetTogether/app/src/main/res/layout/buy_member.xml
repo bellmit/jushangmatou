@@ -203,7 +203,7 @@
                     android:id="@+id/rad_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/start_select" />
+                    android:src="@drawable/radiobuttom_unselect" />
             </LinearLayout>
 
             <View
@@ -240,7 +240,7 @@
                     android:id="@+id/rad_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/start_noselect" />
+                    android:src="@drawable/radiobuttom_select" />
             </LinearLayout>
 
             <View
@@ -293,7 +293,7 @@
             android:layout_marginLeft="50dp"
             android:layout_marginTop="80dp"
             android:layout_marginRight="50dp"
-            android:background="@drawable/bg_fabu"
+            android:background="@drawable/main_fbqg15"
             android:gravity="center"
             android:text="@string/pay_immediately"
             android:textColor="@color/white"

@@ -70,9 +70,9 @@ public class UserBean {
         this.targetId = targetId;
     }
 
-    public String getStore_id() {
-        return store_id;
-    }
+//    public String getStore_id() {
+//        return store_id;
+//    }
 
     public void setStore_id(String store_id) {
         this.store_id = store_id;

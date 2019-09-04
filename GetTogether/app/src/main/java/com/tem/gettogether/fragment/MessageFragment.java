@@ -1,6 +1,7 @@
 package com.tem.gettogether.fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import java.util.List;
 import io.rong.common.RLog;
 import io.rong.imkit.RongContext;
 import io.rong.imkit.fragment.ConversationListFragment;
+import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 
 
@@ -55,6 +57,18 @@ public class MessageFragment extends BaseFragment {
     private LinearLayout ll_xtMessage;
     long firstClick = 0;
     long secondClick = 0;
+    private OnMessageListener listener;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            listener = (OnMessageListener) context;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,7 +84,7 @@ public class MessageFragment extends BaseFragment {
 
     }
     private void initData(){
-        rl_close.setVisibility(View.VISIBLE);
+        rl_close.setVisibility(View.GONE);
         tv_title.setTextColor(getResources().getColor(R.color.bottom_text));
         tv_title.setText(R.string.message);
 
@@ -83,7 +97,7 @@ public class MessageFragment extends BaseFragment {
         ll_xtMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), XTMessageActivity.class));
+                startActivityForResult(new Intent(getActivity(), XTMessageActivity.class),10000);
             }
         });
         Fragment conversationList = initConversationList();
@@ -119,7 +133,6 @@ public class MessageFragment extends BaseFragment {
             }
 
         }
-
     }
     private ConversationListFragment mConversationListFragment = null;
     private boolean isDebug;
@@ -178,4 +191,18 @@ public class MessageFragment extends BaseFragment {
         super.onDestroyView();
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(requestCode==10000){
+            listener.refreshMessage();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+    public interface OnMessageListener {
+        void refreshMessage();
+    }
 }

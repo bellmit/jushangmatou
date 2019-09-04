@@ -133,20 +133,17 @@ public class HomeBuyDetailActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    if (BaseApplication.getInstance().userBean != null) {
-                        if (BaseApplication.getInstance().userBean.getChat_id() != null && !BaseApplication.getInstance().userBean.getChat_id().equals("")) {
+                        if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
 
                             if (waiMaoQiuGouBeans != null && waiMaoQiuGouBeans.get(0).getUser_id() != null) {
-                                RongTalk.doConnection(HomeBuyDetailActivity.this, BaseApplication.getInstance().userBean.getChat_id()
+                                RongTalk.doConnection(HomeBuyDetailActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                                         , waiMaoQiuGouBeans.get(0).getUser_id(), "",
                                         "", "");
                             } else {
                                 CusToast.showToast("该店铺无效");
                             }
                         }
-                    } else {
-                        CusToast.showToast("请先登录");
-                    }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                     CusToast.showToast("该店铺无效");

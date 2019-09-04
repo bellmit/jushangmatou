@@ -36,6 +36,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cc.duduhuo.custoast.CusToast;
+
 @ContentView(R.layout.activity_home_lianmeng)
 public class HomeLianMengActivity extends BaseActivity {
     @ViewInject(R.id.sell_RecyclerView)
@@ -106,6 +108,8 @@ public class HomeLianMengActivity extends BaseActivity {
                                 if (gson.fromJson(result, HomeLianMengBean.class).getResult().size() > 0) {
                                     homeDataBean.addAll(gson.fromJson(result, HomeLianMengBean.class).getResult());
                                     mHomeLianMengSecondAdapter.notifyDataSetChanged();
+                                }else{
+                                    CusToast.showToast("没有更多数据!");
                                 }
                             } else {
                                 if (gson.fromJson(result, HomeLianMengBean.class).getResult().size() == 0) {
@@ -129,6 +133,8 @@ public class HomeLianMengActivity extends BaseActivity {
             public void onFinished() {
                 super.onFinished();
                 closeDialog();
+                refreshLayout.finishRefreshing();
+                refreshLayout.finishLoadmore();
             }
 
             @Override
@@ -158,7 +164,7 @@ public class HomeLianMengActivity extends BaseActivity {
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
                 initDatas(1, false, false);
-                refreshLayout.finishRefreshing();
+                currentPage = 1;
             }
 
             @Override
@@ -166,7 +172,6 @@ public class HomeLianMengActivity extends BaseActivity {
                 super.onLoadMore(refreshLayout);
                 currentPage++;
                 initDatas(currentPage, false, true);
-                refreshLayout.finishLoadmore();
             }
 
             @Override

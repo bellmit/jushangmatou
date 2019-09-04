@@ -46,8 +46,8 @@ import cc.duduhuo.custoast.CusToast;
 
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     private static final String TAG = "WXEntryActivity";
-    private static final String SECRET = "e0032941280de56565b3512804f0df67";
-    private static final String WXAPP_ID = "wx93eea65ba215f901";
+    private static final String SECRET = "4fa6ae161bbec6eb8cd5e14dbd982a5d";
+    private static final String WXAPP_ID = "wxa6f24ff3369c8d21";
     private String url_access_token = "https://api.weixin.qq.com/sns/oauth2/access_token?";
     private String url_refresh_token = "https://api.weixin.qq.com/sns/oauth2/refresh_token?";
     private String userinfo_url = "https://api.weixin.qq.com/sns/userinfo?";
@@ -269,14 +269,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                         CusToast.showToast(msg);
                         Gson gson = new Gson();
                         LoginBean loginBean = gson.fromJson(result, LoginBean.class);
-                        SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.TOKEN, loginBean.getResult().getToken());
-                        SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.head_pic, BaseApplication.getInstance().bean.getHeadimgurl());
-                        SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.openid, BaseApplication.getInstance().bean.getOpenid());
-                        SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.NAME, BaseApplication.getInstance().bean.getNickname());
-                        SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.TYPE, "3");//微信
-                        SharedPreferencesUtils.saveString(WXEntryActivity.this,BaseConstant.SPConstant.USERID,loginBean.getResult().getUser_id());
-                        SharedPreferencesUtils.saveString(WXEntryActivity.this,BaseConstant.SPConstant.LEVER,loginBean.getResult().getLevel());
-
                         UserBean userBean = new UserBean();
                         userBean.setToken(loginBean.getResult().getToken());
                         userBean.setUserName(loginBean.getResult().getNickname());
@@ -286,15 +278,23 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                         userBean.setHead_pic(loginBean.getResult().getHead_pic());
                         userBean.setLever(loginBean.getResult().getLevel());
                         BaseApplication.getInstance().userBean = userBean;
-//                        startActivity(new Intent(WXEntryActivity.this,MainActivity.class));
-
-                        if (loginBean.getResult().getMobile_validated().equals("0")) {
-                            startActivity(new Intent(WXEntryActivity.this, RegisterActivity.class).putExtra(Contacts.REGISTER_TYPE, 1).putExtra(Contacts.REGISTER_OPEN_ID, BaseApplication.getInstance().bean.getOpenid()));
-                        } else {
+                        if (loginBean.getResult().getMobile_validated().equals("1")) {// 已绑定
+                            SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.TOKEN, loginBean.getResult().getToken());
+                            SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.head_pic, BaseApplication.getInstance().bean.getHeadimgurl());
+                            SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.openid, BaseApplication.getInstance().bean.getOpenid());
+                            SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.NAME, BaseApplication.getInstance().bean.getNickname());
+                            SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.TYPE, "3");//微信
+                            SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.USERID, loginBean.getResult().getUser_id());
+                            SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.LEVER, loginBean.getResult().getLevel());
+                            SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.ROLE_TYPE, loginBean.getResult().getRole_type());
+                            SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.CHAT_ID, loginBean.getResult().getChat_id());
+                            SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.MOBILE_AVLIDATED, loginBean.getResult().getMobile_validated());
                             startActivity(new Intent(WXEntryActivity.this, MainActivity.class));
+                            finish();
+                        } else {// 未绑定
+                            startActivity(new Intent(WXEntryActivity.this, RegisterActivity.class).putExtra(Contacts.REGISTER_TYPE, 1).putExtra(Contacts.REGISTER_OPEN_ID, BaseApplication.getInstance().bean.getOpenid()));
+                            finish();
                         }
-
-                        finish();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

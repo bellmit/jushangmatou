@@ -45,6 +45,7 @@ import com.tem.gettogether.utils.permissions.PermissionsActivity;
 import com.tem.gettogether.utils.permissions.PictureUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
+import com.tem.gettogether.view.CircularImage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,7 +71,7 @@ public class CorporateInformationActivity extends BaseActivity {
     @ViewInject(R.id.card2_ll)
     private LinearLayout card2_ll;
     @ViewInject(R.id.head_iv)
-    private ImageView head_iv;
+    private CircularImage head_iv;
     @ViewInject(R.id.change_head_tv)
     private TextView change_head_tv;
     @ViewInject(R.id.name_tv)
@@ -211,10 +212,15 @@ public class CorporateInformationActivity extends BaseActivity {
                         country_tv.setText(mCompanyPersionInformationBean.getResult().getCountry_name());
                         phone_num_tv.setText(mCompanyPersionInformationBean.getResult().getMobile());
                         company_profile_tv.setText(mCompanyPersionInformationBean.getResult().getCompany_content());
-                        company_address.setText(mCompanyPersionInformationBean.getResult().getCompany_province()
-                                + mCompanyPersionInformationBean.getResult().getCompany_district()
-                                + mCompanyPersionInformationBean.getResult().getCompany_city()
-                                + mCompanyPersionInformationBean.getResult().getCompany_address());
+
+                        if(mCompanyPersionInformationBean.getResult().getCompany_province().equals("null")){
+                            company_address.setText("");
+                        }else {
+                            company_address.setText(mCompanyPersionInformationBean.getResult().getCompany_province()
+                                    + mCompanyPersionInformationBean.getResult().getCompany_district()
+                                    + mCompanyPersionInformationBean.getResult().getCompany_city()
+                                    + mCompanyPersionInformationBean.getResult().getCompany_address());
+                        }
                         if (mCompanyPersionInformationBean.getResult().getSex().equals("0")) {
                             man_rb.setChecked(true);
                             lady_rb.setChecked(false);
@@ -416,7 +422,6 @@ public class CorporateInformationActivity extends BaseActivity {
                     @Override
                     public void onClick(View view) {
                         countryId = countryBeanBeans.get(position).getId();
-                        Log.d("chenshichun", "===========countryId  " + countryId);
                         country_tv.setText(countryBeanBeans.get(position).getCountry_name());
                         mCountryPop.dismiss();
                     }

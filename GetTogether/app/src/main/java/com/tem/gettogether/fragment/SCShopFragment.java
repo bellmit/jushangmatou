@@ -226,7 +226,6 @@ public class SCShopFragment extends BaseFragment {
     private void upisGZData(String store_id) {
         Map<String, Object> map = new HashMap<>();
         map.put("store_id", store_id);
-        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         XUtil.Post(URLConstant.SHOPISGUANZHU, map, new MyCallBack<String>() {

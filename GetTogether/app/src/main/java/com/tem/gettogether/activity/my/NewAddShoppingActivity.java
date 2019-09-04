@@ -11,11 +11,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -42,6 +45,9 @@ import com.tem.gettogether.bean.AddShopFLBean;
 import com.tem.gettogether.bean.AddShopGFLBean;
 import com.tem.gettogether.bean.CategoriesBean;
 import com.tem.gettogether.bean.ImageDataBean;
+import com.tem.gettogether.retrofit.RetrofitPictureHelper;
+import com.tem.gettogether.retrofit.RetrofitService;
+import com.tem.gettogether.retrofit.UploadUtil;
 import com.tem.gettogether.utils.Base64BitmapUtil;
 import com.tem.gettogether.utils.BitnapUtils;
 import com.tem.gettogether.utils.Confirg;
@@ -57,7 +63,6 @@ import com.tem.gettogether.view.CheckBoxSample;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.xutils.common.util.LogUtil;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
@@ -65,7 +70,16 @@ import org.xutils.x;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.RandomAccessFile;
+import java.net.HttpURLConnection;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -75,6 +89,13 @@ import java.util.Map;
 import cc.duduhuo.custoast.CusToast;
 import me.nereo.multi_image_selector.MultiImageSelector;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.adapter.rxjava2.Result;
 
 @ContentView(R.layout.activity_new_add_shopping)
 public class NewAddShoppingActivity extends BaseActivity implements View.OnClickListener, View.OnLongClickListener {
@@ -115,7 +136,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
     @ViewInject(R.id.et_ShoppingJJ)
     private EditText et_ShoppingJJ;
     @ViewInject(R.id.text_description_tv)
-    private EditText text_description_tv;
+    private TextView text_description_tv;
     @ViewInject(R.id.publish_task_recyclerView)
     private RecyclerView publish_recy;
     @ViewInject(R.id.recyclerView)
@@ -132,6 +153,8 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
     private LinearLayout ll_xuanZG;
     @ViewInject(R.id.ll_shop_FL)
     private LinearLayout ll_shop_FL;
+    @ViewInject(R.id.text_description_ll)
+    private LinearLayout text_description_ll;
     @ViewInject(R.id.ll_bd_FL)
     private LinearLayout ll_bd_FL;
     @ViewInject(R.id.ll_shop_SJ)
@@ -194,12 +217,12 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
     private String goods_content = "";
     private int recycleType;
     private String cover_image = "";
+    private String textDescription="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         checker = new PermissionsChecker(this);
-
         initData();
         initView();
     }
@@ -272,7 +295,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
         recyclerView.setAdapter(mTaskImgAdapter1);
     }
 
-    @Event(value = {R.id.ll_fengmian,R.id.rl_close, R.id.tv_fbShopping, R.id.ll_XQ_ms, R.id.ll_xuanZG, R.id.ll_shop_phone, R.id.ll_shop_FL, R.id.ll_bd_FL, R.id.ll_shop_GG}, type = View.OnClickListener.class)
+    @Event(value = {R.id.ll_fengmian,R.id.rl_close, R.id.tv_fbShopping,R.id.text_description_ll, R.id.ll_XQ_ms, R.id.ll_xuanZG, R.id.ll_shop_phone, R.id.ll_shop_FL, R.id.ll_bd_FL, R.id.ll_shop_GG}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
@@ -293,7 +316,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.ll_fengmian:
                 startActivityForResult(new Intent(NewAddShoppingActivity.this, ZhuTuXQNewActivity.class)
-                        .putStringArrayListExtra("listImage2", listImage2), 7777);
+                        .putExtra("cover_image", cover_image), 7777);
                 break;
             case R.id.ll_bd_FL://本店分类
                 type = 3;
@@ -303,10 +326,15 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
             case R.id.ll_shop_GG://商品规格
 //                upShoppingGGData();
                 break;
+            case R.id.text_description_ll:
+                Log.d("chenshichun","========click===");
+
+                startActivityForResult(new Intent(NewAddShoppingActivity.this, TextDescriptionActivity.class)
+                        .putExtra("text_description", textDescription), 8888);
+                break;
             case R.id.tv_fbShopping:
 
                 Map<String, Object> map = new HashMap<>();
-                if (BaseApplication.getInstance().userBean == null) return;
                 map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                 map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
 
@@ -324,6 +352,15 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                     return;
                 }
 
+                if(et_GuanJC.getText().toString().equals("")){
+                    CusToast.showToast("请填写关键词");
+                    return;
+                }
+                if(cover_image.equals("")){
+                    CusToast.showToast("请上传商品主图");
+                    return;
+                }
+
                 map.put("goods_name", et_cpName.getText().toString());
                 Log.d("chenshichun", "======goods_name=====  " + et_cpName.getText().toString());
 
@@ -333,18 +370,12 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                 map.put("batch_number", et_QPNum.getText().toString());
                 Log.d("chenshichun", "======batch_number=====  " + et_QPNum.getText().toString());
 
-//                map.put("pavilion_id", addGID);
-//                map.put("pavilion_cate_id", addGFLID);
-//                map.put("cat_id1", addFL1ID);
                 map.put("cat_id2", addGID);
                 Log.d("chenshichun", "======cat_id2=====  " + addGID);
 
                 map.put("cat_id3", addGFLID);
                 Log.d("chenshichun", "======cat_id3=====  " + addGFLID);
 
-//                map.put("store_cat_id1", BDFL1ID);
-//                map.put("store_cat_id2", BDFL2ID);
-//                map.put("store_cat_id3", BDL3ID);
                 map.put("shop_price", et_ShopingSJ.getText().toString());
                 Log.d("chenshichun", "======shop_price=====  " + et_ShopingSJ.getText().toString());
 
@@ -352,7 +383,6 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                 map.put("is_enquiry", isxunjia);
                 Log.d("chenshichun", "======is_enquiry=====  " + isxunjia);
 
-//                map.put("is_free_shipping", isbaoyou);
                 map.put("store_count", et_KuCNum.getText().toString());
                 Log.d("chenshichun", "======store_count=====  " + et_KuCNum.getText().toString());
 
@@ -362,9 +392,9 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                 map.put("goods_remark", et_ShoppingJJ.getText().toString());
                 Log.d("chenshichun", "======goods_remark=====  " + et_ShoppingJJ.getText().toString());
 
-                if (text_description_tv.getText().toString() != null && !text_description_tv.getText().toString().equals("")) {
-                    Log.d("chenshichun", "======goods_content=====  " + text_description_tv.getText().toString());
-                    map.put("goods_content", text_description_tv.getText().toString());
+                if (!textDescription.equals("")) {
+                    Log.d("chenshichun", "======goods_content=====  " + textDescription);
+                    map.put("goods_content", textDescription);
                 }
                 map.put("sku_str", tv_ShoppingGG.getText().toString());// 规格
                 Log.d("chenshichun", "=====goods_content======" + goods_content);
@@ -378,6 +408,11 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                             strTwoImage += cartImage.get(i);
                         }
                     }
+                }
+
+                if(strTwoImage.equals("")){
+                    CusToast.showToast("请上传商品轮播图");
+                    return;
                 }
                 Log.d("chenshichun", "======original_img=====  " + strTwoImage);
                 map.put("goods_images", strTwoImage);
@@ -586,10 +621,6 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
 
     private void upCategories() {
         Map<String, Object> map = new HashMap<>();
-        if (BaseApplication.getInstance().userBean == null) {
-            CusToast.showToast("登录失效，请重新登录");
-            return;
-        }
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
 
@@ -631,10 +662,6 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
     //本店分类
     private void upBDFLData() {
         Map<String, Object> map = new HashMap<>();
-        if (BaseApplication.getInstance().userBean == null) {
-            CusToast.showToast("登录失效，请重新登录");
-            return;
-        }
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         showDialog();
         XUtil.Post(URLConstant.BENDIANFENLEI, map, new MyCallBack<String>() {
@@ -674,7 +701,6 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
     //商品规格选项
     private void upShoppingGGData() {
         Map<String, Object> map = new HashMap<>();
-        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("cat_id3", addFL3ID);
         if (resultBeansGFL.size() > 0) {
@@ -783,7 +809,6 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Log.d("chenshichun", "===========recycleType " + recycleType);
                         if (recycleType == 0) {
                             if (imagePaths.size() > 0) {
                                 imagePaths.remove(imagePaths.get(index1));
@@ -953,11 +978,11 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                             Confirg.compressFile.mkdirs();
                         }
 
-                        List<String> list = data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT);
+                        final List<String> list = data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT);
                         if (recycleType == 0) {
                             if (imagePaths.size() < 10) {
                                 for (int i = 0; i < list.size(); i++) {
-                                    String pic_path = list.get(i);
+                                    final String pic_path = list.get(i);
                                     String targetPath = compressImageFilePath + Confirg.df.
                                             format(new Date()) + ".jpg";
                                     //调用压缩图片的方法，返回压缩后的图片path
@@ -965,11 +990,24 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                                     if (isshanpinImage == 0) {
                                         compressPaths.add(compressImage);
                                     }
-                                    Bitmap bitmap = BitmapFactory.decodeFile(compressImage.toString());
-
-                                    Map<String, Object> map = new HashMap<>();
-                                    map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
-                                    upMessageData(map, list.get(i));
+//                                    imagePaths.add(imagePaths.size() - 1, pic_path);
+//                                    mTaskImgAdapter.notifyDataSetChanged();
+                                    new Thread(new Runnable(){
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                ImageDataBean imageDataBean = null;
+                                                imageDataBean = UploadUtil.uploadFile(BitnapUtils.readStream(pic_path),new File(pic_path),URLConstant.UPLOAD_PICTURE);
+                                                if(imageDataBean!=null){
+                                                    imagePaths.add(imagePaths.size() - 1, pic_path);
+                                                    cartImage.add(imageDataBean.getResult().getImage_show().get(0));
+                                                        mHandle.sendEmptyMessage(0);
+                                                }
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }).start();
                                 }
 
                             } else {
@@ -978,7 +1016,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                         } else {
                             if (imageTwoPaths.size() < 10) {
                                 for (int i = 0; i < list.size(); i++) {
-                                    String pic_path = list.get(i);
+                                    final String pic_path = list.get(i);
                                     String targetPath = compressImageFilePath + Confirg.df.
                                             format(new Date()) + ".jpg";
                                     //调用压缩图片的方法，返回压缩后的图片path
@@ -988,10 +1026,22 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                                     }
                                     Bitmap bitmap = BitmapFactory.decodeFile(compressImage.toString());
 
-                                    Map<String, Object> map = new HashMap<>();
-                                    map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
-                                    upMessageData(map, list.get(i));
-
+                                    new Thread(new Runnable(){
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                ImageDataBean imageDataBean = null;
+                                                imageDataBean = UploadUtil.uploadFile(BitnapUtils.readStream(pic_path),new File(pic_path),URLConstant.UPLOAD_PICTURE);
+                                                if(imageDataBean!=null){
+                                                    imageTwoPaths.add(imageTwoPaths.size() - 1, pic_path);
+                                                    cartTwoImage.add(imageDataBean.getResult().getImage_show().get(0));
+                                                    mHandle.sendEmptyMessage(1);
+                                                }
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }).start();
                                 }
 
                             } else {
@@ -1034,19 +1084,21 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                 rt_tuwen.setText("已填写");
                 Log.i("===返回图片22--", goods_content);
             }
-
-
         }
 
         if (requestCode == 7777) {
             if (resultCode == RESULT_OK) {
                 fengmian_tv.setText("已填写");
+                if(data.getStringArrayListExtra("listImage2").size()>0)
                 cover_image = data.getStringArrayListExtra("listImage2").get(0);
-                Log.d("chenshichun","==========qiancartImage=  "+listImage);
-
             }
+        }
 
-
+        if( requestCode == 8888){
+            if(resultCode ==RESULT_OK) {
+                textDescription = data.getStringExtra("text_description");
+                text_description_tv.setText(textDescription);
+            }
         }
     }
 
@@ -1187,5 +1239,71 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
             }
         });
     }
+    String filePath = "/sdcard/Test/";
+    String fileName = "log.txt";
+    // 将字符串写入到文本文件中
+    public void writeTxtToFile(String strcontent) {
+        //生成文件夹之后，再生成文件，不然会出错
+        makeFilePath(filePath, fileName);
 
+        String strFilePath = filePath+fileName;
+        // 每次写入时，都换行写
+        String strContent = strcontent + "\r\n";
+        try {
+            File file = new File(strFilePath);
+            if (!file.exists()) {
+                Log.d("TestFile", "Create the file:" + strFilePath);
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            RandomAccessFile raf = new RandomAccessFile(file, "rwd");
+            raf.seek(file.length());
+            raf.write(strContent.getBytes());
+            raf.close();
+        } catch (Exception e) {
+            Log.e("TestFile", "Error on write File:" + e);
+        }
+    }
+
+    // 生成文件
+    public File makeFilePath(String filePath, String fileName) {
+        File file = null;
+        makeRootDirectory(filePath);
+        try {
+            file = new File(filePath + fileName);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return file;
+    }
+
+    // 生成文件夹
+    public static void makeRootDirectory(String filePath) {
+        File file = null;
+        try {
+            file = new File(filePath);
+            if (!file.exists()) {
+                file.mkdir();
+            }
+        } catch (Exception e) {
+            Log.i("error:", e + "");
+        }
+    }
+
+    private Handler mHandle = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 0:
+                    mTaskImgAdapter.notifyDataSetChanged();
+                    break;
+                case 1:
+                    mTaskImgAdapter1.notifyDataSetChanged();
+                    break;
+            }
+        }
+    };
 }

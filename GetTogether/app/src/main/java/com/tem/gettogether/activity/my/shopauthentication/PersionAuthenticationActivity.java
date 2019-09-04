@@ -229,7 +229,6 @@ public class PersionAuthenticationActivity extends BaseActivity {
                 }
 
                 Map<String, Object> map = new HashMap<>();
-                if (BaseApplication.getInstance().userBean == null) return;
                 map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                 /*------工厂区域和店铺区域处理----*/

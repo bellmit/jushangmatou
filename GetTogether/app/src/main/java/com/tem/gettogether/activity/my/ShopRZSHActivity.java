@@ -170,7 +170,6 @@ public class ShopRZSHActivity extends BaseActivity {
                     return;
                 }
                 Map<String,Object> map=new HashMap<>();
-                if(BaseApplication.getInstance().userBean==null)return;
 
                 map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                 map.put("store_person_name",name);

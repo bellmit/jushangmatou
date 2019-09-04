@@ -44,6 +44,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cc.duduhuo.custoast.CusToast;
+
 @ContentView(R.layout.fragment_new_my_order)
 public class GongYingShangOrderFragment extends BaseFragment {
     @ViewInject(R.id.recyclerView)
@@ -110,12 +112,10 @@ public class GongYingShangOrderFragment extends BaseFragment {
 
     private void initDatas(final int currentPage, final boolean isNormal, final boolean isLoadMore) {
         Map<String, Object> map = new HashMap<>();
-        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         map.put("role_type", 1);
-        Log.d("chenshichun","===========mTab  "+mTab);
         if (mTab == 0) {// 全部
             map.put("type", "1");
         } else if (mTab == 1) {// 待发货
@@ -153,6 +153,8 @@ public class GongYingShangOrderFragment extends BaseFragment {
                                 if (gson.fromJson(result, MyOrderdataBean.class).getResult().size() > 0) {
                                     resultBeans.addAll(gson.fromJson(result, MyOrderdataBean.class).getResult());
                                     mOrderAdapter.notifyDataSetChanged();
+                                }else{
+                                    CusToast.showToast("没有更多数据!");
                                 }
 
                             } else {
@@ -186,6 +188,8 @@ public class GongYingShangOrderFragment extends BaseFragment {
             public void onFinished() {
                 super.onFinished();
                 baseActivity.closeDialog();
+                refreshLayout.finishLoadmore();
+                refreshLayout.finishRefreshing();
             }
 
             @Override
@@ -199,7 +203,6 @@ public class GongYingShangOrderFragment extends BaseFragment {
 
     private void confirmSend(String Url, String orderId) {// 确认发货
         Map<String, Object> map = new HashMap<>();
-        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
@@ -265,7 +268,7 @@ public class GongYingShangOrderFragment extends BaseFragment {
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
                 initDatas(1, false, false);
-                refreshLayout.finishRefreshing();
+                currentPage = 1;
             }
 
             @Override
@@ -273,7 +276,6 @@ public class GongYingShangOrderFragment extends BaseFragment {
                 super.onLoadMore(refreshLayout);
                 currentPage++;
                 initDatas(currentPage, false, true);
-                refreshLayout.finishLoadmore();
             }
 
             @Override

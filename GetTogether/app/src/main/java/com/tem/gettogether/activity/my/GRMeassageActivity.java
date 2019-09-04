@@ -33,7 +33,9 @@ import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.ImageDataBean;
 import com.tem.gettogether.bean.MyMessageBean;
 import com.tem.gettogether.dialog.CheckUpDialog;
+import com.tem.gettogether.retrofit.UploadUtil;
 import com.tem.gettogether.utils.Base64BitmapUtil;
+import com.tem.gettogether.utils.BitnapUtils;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.permissions.AppUtils;
 import com.tem.gettogether.utils.permissions.FileUtils;
@@ -106,9 +108,9 @@ public class GRMeassageActivity extends BaseActivity {
     protected void initView() {
         upGetMessageData();
     }
+
     private void upGetMessageData() {
         Map<String,Object> map=new HashMap<>();
-        if(BaseApplication.getInstance().userBean==null)return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         showDialog();
@@ -124,11 +126,10 @@ public class GRMeassageActivity extends BaseActivity {
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         MyMessageBean myMessageBean=gson.fromJson(result,MyMessageBean.class);
-                        Glide.with(GRMeassageActivity.this).load(myMessageBean.getResult().getHead_pic()+"").asBitmap().error(R.mipmap.myy322x).centerCrop().into(new BitmapImageViewTarget(iv_head));
+                        Glide.with(GRMeassageActivity.this).load(myMessageBean.getResult().getHead_pic()+"").error(R.mipmap.myy322x).centerCrop().into(iv_head);
                         tv_name.setText(myMessageBean.getResult().getNickname());
                         tv_zhanghao.setText(myMessageBean.getResult().getMobile());
                         tv_sfzh.setText(myMessageBean.getResult().getTruename()+"");
-
                     }
 
 
@@ -253,6 +254,7 @@ public class GRMeassageActivity extends BaseActivity {
                     CusToast.showToast(msg);
                     if (res.equals("1")) {
                         Gson gson = new Gson();
+                        upGetMessageData();
                     }
 
 
@@ -313,14 +315,35 @@ public class GRMeassageActivity extends BaseActivity {
 
     public void setPicToView() {
         if (mCropImageFile != null) {
-            String path = mCropImageFile.getAbsolutePath();
+            final String path = mCropImageFile.getAbsolutePath();
             Bitmap bitmap = BitmapFactory.decodeFile(mCropImageFile.toString());
-            iv_head.setImageBitmap(bitmap);
             Map<String,Object> map=new HashMap<>();
             map.put("image_base_64_arr", "data:image/jpeg;base64,"+Base64BitmapUtil.bitmapToBase64(bitmap));
             upMessageData(map);
-//            GlideLoadUtils.getInstance().glideAvatarLoad(this, path, iv_head, R.drawable.img12x);
 
+            /*new Thread(new Runnable(){
+                @Override
+                public void run() {
+                    try {
+                        ImageDataBean imageDataBean = null;
+                        imageDataBean = UploadUtil.uploadFile(BitnapUtils.readStream(path),new File(path),URLConstant.UPLOAD_PICTURE);
+                        if(imageDataBean!=null){
+                            Map<String,Object> map=new HashMap<>();
+                            map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+                            if(imageDataBean.getResult().getImage_show().size()>=0){
+                                map.put("head_pic", imageDataBean.getResult().getImage_show().get(0));
+                                Log.d("chenshichun","=====getImage_show======"+imageDataBean.getResult().getImage_show().get(0));
+                                upXGMessageData(map);
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();*/
+
+
+//            GlideLoadUtils.getInstance().glideAvatarLoad(this, path, iv_head, R.drawable.img12x);
         }
     }
 
@@ -381,6 +404,9 @@ public class GRMeassageActivity extends BaseActivity {
                         if(imageDataBean.getResult().getImage_show().size()>=0){
                             map.put("head_pic", imageDataBean.getResult().getImage_show().get(0));
                         }
+
+
+
                         upXGMessageData(map);
                     }
 

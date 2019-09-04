@@ -21,6 +21,7 @@ public class HomeBuyListAdapter extends RecyclerView.Adapter<HomeBuyListAdapter.
 
     private Context context;
     private List<QiuGouListBean.ResultBean> mDatas;
+    private onClickView onClickView;
 
     public HomeBuyListAdapter(Context context, List<QiuGouListBean.ResultBean> mDatas) {
         this.context = context;
@@ -45,9 +46,10 @@ public class HomeBuyListAdapter extends RecyclerView.Adapter<HomeBuyListAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, HomeBuyDetailNewActivity.class)
+                /*context.startActivity(new Intent(context, HomeBuyDetailNewActivity.class)
                         .putExtra("trade_id", mDatas.get(position).getTrade_id())
-                        .putExtra("witch_page",1));
+                        .putExtra("witch_page",1));*/
+                onClickView.onClick(position);
             }
         });
     }
@@ -72,5 +74,12 @@ public class HomeBuyListAdapter extends RecyclerView.Adapter<HomeBuyListAdapter.
             buy_style_tv = itemView.findViewById(R.id.buy_style_tv);
             chukou_tv = itemView.findViewById(R.id.chukou_tv);
         }
+    }
+    public interface onClickView {
+        public void onClick(int position);
+    }
+
+    public void setOnClickView(onClickView onClickView) {
+        this.onClickView = onClickView;
     }
 }

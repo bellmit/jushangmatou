@@ -30,6 +30,19 @@
             </RelativeLayout>
         </LinearLayout>
     </com.tem.gettogether.view.BaseScrollView>
+
+    <TextView
+        android:id="@+id/tv_shanchu"
+        android:layout_width="260dp"
+        android:layout_height="40dp"
+        android:textSize="16dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        android:background="@drawable/main_shanc19"
+        android:text="删除最后一张"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:gravity="center"

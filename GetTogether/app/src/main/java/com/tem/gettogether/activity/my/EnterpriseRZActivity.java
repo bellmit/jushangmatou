@@ -192,7 +192,6 @@ public class EnterpriseRZActivity extends BaseActivity {
             case R.id.tv_nextStep:
                 String company_name=et_name.getText().toString();
                 Map<String,Object> map=new HashMap<>();
-                if(BaseApplication.getInstance().userBean==null)return;
                 map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                 map.put("company_name",company_name);
                 map.put("company_type",GSXZ);

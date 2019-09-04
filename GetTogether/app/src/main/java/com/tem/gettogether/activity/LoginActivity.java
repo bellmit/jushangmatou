@@ -76,7 +76,7 @@ public class LoginActivity extends BaseActivity {
     @ViewInject(R.id.ll_wechat_login)
     private LinearLayout ll_wechat_login;
     private IWXAPI api;
-    private String APP_ID = "wx93eea65ba215f901";
+    private String APP_ID = "wxa6f24ff3369c8d21";
     public ArrayList<SnsPlatform> platforms = new ArrayList<SnsPlatform>();
     private SHARE_MEDIA[] list = {SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN};
 
@@ -256,7 +256,11 @@ public class LoginActivity extends BaseActivity {
                         SharedPreferencesUtils.saveString(LoginActivity.this,BaseConstant.SPConstant.USERID,loginBean.getResult().getUser_id());
                         SharedPreferencesUtils.saveString(LoginActivity.this,BaseConstant.SPConstant.LEVER,loginBean.getResult().getLevel());
                         SharedPreferencesUtils.saveString(LoginActivity.this,BaseConstant.SPConstant.head_pic,loginBean.getResult().getHead_pic());
+                        SharedPreferencesUtils.saveString(LoginActivity.this,BaseConstant.SPConstant.MOBILEPHONE,loginBean.getResult().getMobile());
+                        SharedPreferencesUtils.saveString(LoginActivity.this,BaseConstant.SPConstant.CHAT_ID,loginBean.getResult().getChat_id());
 
+                        String role_type = SharedPreferencesUtils.getString(LoginActivity.this, BaseConstant.SPConstant.ROLE_TYPE, "1");
+                        Log.e("chenshichun","=======role_type==== "+role_type);
                         UserBean userBean = new UserBean();
                         userBean.setToken(loginBean.getResult().getToken());
                         userBean.setUserName(loginBean.getResult().getNickname());
@@ -267,7 +271,10 @@ public class LoginActivity extends BaseActivity {
                         userBean.setHead_pic(loginBean.getResult().getHead_pic());
                         userBean.setLever(loginBean.getResult().getLevel());
                         BaseApplication.getInstance().userBean = userBean;
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class).putExtra("LOGIN_TO_MIAN",1));
+                        Intent intent = new Intent();
+                        intent.setAction("LOGIN_TO_MIAN");
+                        sendBroadcast(intent);
                         finish();
                     }
 
@@ -438,14 +445,7 @@ public class LoginActivity extends BaseActivity {
                         CusToast.showToast(msg);
                         Gson gson = new Gson();
                         LoginBean loginBean = gson.fromJson(result, LoginBean.class);
-                        SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.TOKEN, loginBean.getResult().getToken());
-                        SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.head_pic, QQhead);
-                        SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.openid, QQopenid);
-                        SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.NAME, QQname);
-                        SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.TYPE, "2");//QQ
-                        SharedPreferencesUtils.saveString(LoginActivity.this,BaseConstant.SPConstant.USERID,loginBean.getResult().getUser_id());
-                        SharedPreferencesUtils.saveString(LoginActivity.this,BaseConstant.SPConstant.LEVER,loginBean.getResult().getLevel());
-                        Log.d("chenshichun", "---getRole_type  " + loginBean.getResult().getRole_type());
+
                         UserBean userBean = new UserBean();
                         userBean.setToken(loginBean.getResult().getToken());
                         userBean.setUserName(loginBean.getResult().getNickname());
@@ -454,16 +454,27 @@ public class LoginActivity extends BaseActivity {
                         userBean.setUser_id(loginBean.getResult().getUser_id());
                         userBean.setHead_pic(loginBean.getResult().getHead_pic());
                         userBean.setLever(loginBean.getResult().getLevel());
-//                        userBean.setRole_type(loginBean.getResult().getRole_type());
                         BaseApplication.getInstance().userBean = userBean;
-//                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                        if (loginBean.getResult().getMobile_validated().equals("0")) {
-                            startActivity(new Intent(LoginActivity.this, RegisterActivity.class).putExtra(Contacts.REGISTER_TYPE, 1).putExtra(Contacts.REGISTER_OPEN_ID, QQopenid));
-                        } else {
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        }
 
-                        finish();
+                        if(loginBean.getResult().getMobile_validated().equals("1")) {// 绑定
+                            SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.TOKEN, loginBean.getResult().getToken());
+                            SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.head_pic, QQhead);
+                            SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.openid, QQopenid);
+                            SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.NAME, QQname);
+                            SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.TYPE, "2");//QQ
+                            SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.USERID, loginBean.getResult().getUser_id());
+                            SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.LEVER, loginBean.getResult().getLevel());
+                            SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.ROLE_TYPE, loginBean.getResult().getRole_type());
+                            SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.MOBILEPHONE, loginBean.getResult().getMobile());
+                            SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.CHAT_ID, loginBean.getResult().getChat_id());
+                            SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.MOBILE_AVLIDATED, loginBean.getResult().getMobile_validated());
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class).putExtra("LOGIN_TO_MIAN",1));
+                            finish();
+
+                        }else{// 未绑定
+                            startActivity(new Intent(LoginActivity.this, RegisterActivity.class).putExtra(Contacts.REGISTER_TYPE, 1).putExtra(Contacts.REGISTER_OPEN_ID, QQopenid));
+                            finish();
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

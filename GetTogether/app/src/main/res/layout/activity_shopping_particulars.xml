@@ -45,6 +45,7 @@
                         android:id="@+id/iv_banner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:visibility="gone"
                         android:layout_marginTop="50dp" />
 
                     <TextView
@@ -92,10 +93,18 @@
                             android:textSize="16dp" />
 
                         <ImageView
+                            android:id="@+id/hot_iv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp_10"
                             android:background="@drawable/hot_icon" />
+
+                        <ImageView
+                            android:id="@+id/new_iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/new_icon" />
+
                     </LinearLayout>
 
                     <RelativeLayout
@@ -198,6 +207,7 @@
                     android:layout_height="41dp"
                     android:gravity="center"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     android:paddingEnd="16dp"
                     android:paddingStart="16dp">
 

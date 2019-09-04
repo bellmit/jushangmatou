@@ -3,6 +3,7 @@ package com.tem.gettogether.fragment;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,6 +14,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -42,6 +45,7 @@ import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.ShowImageDetail;
 import com.tem.gettogether.activity.LoginActivity;
+import com.tem.gettogether.activity.MainActivity;
 import com.tem.gettogether.adapter.MyPublicTaskRecycleAdapter;
 import com.tem.gettogether.base.Base2Fragment;
 import com.tem.gettogether.base.BaseActivity;
@@ -52,6 +56,7 @@ import com.tem.gettogether.base.BaseViewHolder;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.ImageDataBean;
 import com.tem.gettogether.bean.QiuGouXXBean;
+import com.tem.gettogether.retrofit.UploadUtil;
 import com.tem.gettogether.utils.Base64BitmapUtil;
 import com.tem.gettogether.utils.BitnapUtils;
 import com.tem.gettogether.utils.Confirg;
@@ -95,7 +100,8 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
     private ImageView iv_qglx1;
     @ViewInject(R.id.iv_qglx2)
     private ImageView iv_qglx2;
-
+  /*  @ViewInject(R.id.keywords_tv)
+    private EditText keywords_tv;*/
     @ViewInject(R.id.et_cpName)
     private EditText et_cpName;
     @ViewInject(R.id.et_cpms)
@@ -141,7 +147,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
     private TextView tv_jhTime;
     @ViewInject(R.id.tv_ckgj)
     private TextView tv_ckgj;
-    private int qgNum = 0;
+    private int qgNum = 1;
     private String goods_cate = "";
     private String release_type = "";
     private String attach_time = "";
@@ -153,6 +159,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
     private TextView tv_title;
     @ViewInject(R.id.item_publishTask_image)
     private ImageView item_publishTask_image;
+    private OnSwitchListener listener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -169,6 +176,16 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         initData();
         initView();
         upMainQGXXData();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            listener = (OnSwitchListener) context;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initData() {
@@ -196,14 +213,14 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         switch (view.getId()) {
             case R.id.iv_qglx1:
                 qgNum = 1;
-                iv_qglx1.setImageResource(R.drawable.xuanzhongf);
-                iv_qglx2.setImageResource(R.drawable.weixuanz);
+                iv_qglx1.setImageResource(R.drawable.radiobuttom_unselect);
+                iv_qglx2.setImageResource(R.drawable.radiobuttom_select);
                 et_qgNum.setEnabled(true);
                 break;
             case R.id.iv_qglx2:
                 qgNum = 2;
-                iv_qglx2.setImageResource(R.drawable.xuanzhongf);
-                iv_qglx1.setImageResource(R.drawable.weixuanz);
+                iv_qglx2.setImageResource(R.drawable.radiobuttom_unselect);
+                iv_qglx1.setImageResource(R.drawable.radiobuttom_select);
                 et_qgNum.setEnabled(false);
 
                 break;
@@ -228,10 +245,6 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                 showPop(ll_ckgj);
                 break;
             case R.id.tv_fbqg:
-                if (BaseApplication.getInstance().userBean == null) {
-                    startActivity(new Intent(getActivity(), LoginActivity.class));
-                } else {
-
                     String name = et_cpName.getText().toString();
                     String cpms = et_cpms.getText().toString();
                     if (name.equals("")) {
@@ -242,10 +255,14 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                         CusToast.showToast("请填写产品描述");
                         return;
                     }
-                   /* if(goods_cate.equals("")){
-                        CusToast.showToast("请选择采购商品类型");
+                    /*if (keywords_tv.getText().toString().equals("")) {
+                        CusToast.showToast("请填写产品关键词");
                         return;
                     }*/
+                    if (country_name.equals("")) {
+                        CusToast.showToast("请选择出口国家");
+                        return;
+                    }
                     if (release_type.equals("")) {
                         CusToast.showToast("请选择求购类型");
                         return;
@@ -254,10 +271,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                         CusToast.showToast("请选择交货时间");
                         return;
                     }
-                    if (country_name.equals("")) {
-                        CusToast.showToast("请选择出口国家");
-                        return;
-                    }
+
                     if (qgNum == 0) {
                         CusToast.showToast("请选择求购数量");
                         return;
@@ -268,10 +282,9 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                             return;
                         }
                     }
-                    Log.i("===图片22--", strImage + "");
 
+                    Log.i("===图片22--", strImage + "");
                     upSCQGXXData();
-                }
                 break;
         }
     }
@@ -290,16 +303,6 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                         return;
                     }
 
-                    /*intent = new Intent(getActivity(), MultiImageSelectorActivity.class);
-                    // 是否显示调用相机拍照
-                    intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, false);
-                    // 最大图片选择数量
-                    intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 10-imagePaths.size());
-
-                    // 设置模式 (支持 单选/MultiImageSelectorActivity.MODE_SINGLE 或者 多选/MultiImageSelectorActivity.MODE_MULTI)
-                    intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_MULTI);
-
-                    startActivityForResult(intent, FROM_ALBUM_CODE);*/
                     showCameraPop(v);
                 } else {
                     ArrayList<String> paths = new ArrayList<>();
@@ -352,9 +355,6 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
 
     private void upSCQGXXData() {
         Map<String, Object> map = new HashMap<>();
-        if (BaseApplication.getInstance().userBean == null) {
-            return;
-        }
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         map.put("goods_name", et_cpName.getText().toString());
@@ -362,6 +362,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
 //      map.put("goods_cate",goods_cate);
         map.put("release_type", release_type);
         map.put("attach_time", attach_time);
+//        map.put("keywords", keywords_tv.getText().toString());
         map.put("country_id", country_id);
         if (qgNum == 1) {
             map.put("release", 1);
@@ -399,19 +400,23 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         et_cpName.setText("");
+//                        keywords_tv.setText("");
                         et_cpms.setText("");
                         tv_cpfl.setText("");
                         tv_qglx.setText("");
                         tv_jhTime.setText("");
+                        et_qgNum.setText("");
+                        tv_ckgj.setText("");
                         qgNum = 0;
-                        iv_qglx1.setImageResource(R.drawable.weixuanz);
-                        iv_qglx2.setImageResource(R.drawable.weixuanz);
+                        iv_qglx1.setImageResource(R.drawable.radiobuttom_select);
+                        iv_qglx2.setImageResource(R.drawable.radiobuttom_select);
                         imagePaths.clear();
                         cartImage.clear();
                         strImage = "";
                         imagePaths.add(R.drawable.addtupian + "");
                         mTaskImgAdapter.notifyDataSetChanged();
                         CusToast.showToast(msg);
+                        listener.switchHome();
                     } else if (res.equals("-1")) {
                         CusToast.showToast(msg);
                     }
@@ -618,7 +623,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("chenshichun", "========="+requestCode);
+        Log.d("chenshichun", "=========" + requestCode);
 
         super.onActivityResult(requestCode, resultCode, data);
         //系统相机权限
@@ -635,13 +640,29 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
             if (resultCode == Activity.RESULT_OK) {
                 if (imagePaths.size() < 10) {
                     Uri cropUri = Uri.fromFile(mCropImageFile);
-                    String cropPath = "" + cropUri;
+                    final String cropPath = "" + cropUri;
 //                    imagePaths.add(imagePaths.size() - 1, cropPath.substring(cropPath.indexOf("/storage")));
 
-                    Map<String, Object> map = new HashMap<>();
-                    Bitmap bitmap = BitmapFactory.decodeFile(mCropImageFile.toString());
-                    map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
-                    upMessageData(map, cropPath.substring(cropPath.indexOf("/storage")));
+//                    Map<String, Object> map = new HashMap<>();
+//                    Bitmap bitmap = BitmapFactory.decodeFile(mCropImageFile.toString());
+//                    map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+//                    upMessageData(map, cropPath.substring(cropPath.indexOf("/storage")));
+                    new Thread(new Runnable(){
+                        @Override
+                        public void run() {
+                            try {
+                                ImageDataBean imageDataBean = null;
+                                imageDataBean = UploadUtil.uploadFile(BitnapUtils.readStream(cropPath.substring(cropPath.indexOf("/storage"))),new File(cropPath.substring(cropPath.indexOf("/storage"))),URLConstant.UPLOAD_PICTURE);
+                                if(imageDataBean!=null){
+                                    cartImage.add(imageDataBean.getResult().getImage_show().get(0));
+                                    imagePaths.add(imagePaths.size() - 1, cropPath.substring(cropPath.indexOf("/storage")));
+                                    mHandle.sendEmptyMessage(0);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
                 } else {
                     CusToast.showToast("无法添加更多图片！");
                 }
@@ -668,7 +689,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                         if (imagePaths.size() < 10) {
                             for (int i = 0; i < list.size(); i++) {
                                 System.out.println("选中的路径：" + list.get(i));
-                                String pic_path = list.get(i);
+                                final String pic_path = list.get(i);
                                 String targetPath = compressImageFilePath + Confirg.df.
                                         format(new Date()) + ".jpg";
                                 //调用压缩图片的方法，返回压缩后的图片path
@@ -676,11 +697,26 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                                 Log.i("==f3imgcc==", "onActivityResult: ===compressImage==压缩图片路径==" + compressImage);
                                 compressPaths.add(compressImage);
 //                                imagePaths.add(imagePaths.size() - 1, list.get(i));
-                                Log.d("chenshichun", "==========list.get(i)=  " + list.get(i));
-                                Bitmap bitmap = BitmapFactory.decodeFile(compressImage.toString());
+                                /*Bitmap bitmap = BitmapFactory.decodeFile(compressImage.toString());
                                 Map<String, Object> map = new HashMap<>();
                                 map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
-                                upMessageData(map, list.get(i));
+                                upMessageData(map, list.get(i));*/
+                                new Thread(new Runnable(){
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            ImageDataBean imageDataBean = null;
+                                            imageDataBean = UploadUtil.uploadFile(BitnapUtils.readStream(pic_path),new File(pic_path),URLConstant.UPLOAD_PICTURE);
+                                            if(imageDataBean!=null){
+                                                cartImage.add(imageDataBean.getResult().getImage_show().get(0));
+                                                imagePaths.add(imagePaths.size() - 1, pic_path);
+                                                mHandle.sendEmptyMessage(0);
+                                            }
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }).start();
                             }
                         } else {
                             CusToast.showToast("无法添加更多图片！");
@@ -717,23 +753,6 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                         }
                         imagePaths.add(imagePaths.size() - 1, path);
                         mTaskImgAdapter.notifyDataSetChanged();
-//                        String str ="";
-//                        if(storeListBeans!=null&&sStringtoreListBeans.size()>0){
-//                            for(int shopAll=0;shopAll<storeListBeans.size();shopAll++){
-//                                for (int all=0;all<storeListBeans.get(shopAll).getCartList().size();all++){
-//                                    if(storeListBeans.get(shopAll).getCartList().get(all).getItemXZ().equals("1")){
-//                                        cartId.add(Integer.parseInt(storeListBeans.get(shopAll).getCartList().get(all).getCart_id()));
-//                                    }
-//                                }
-//                            }
-//                            Collections.sort(cartId);
-//                            for (int i = 0; i < cartId.size(); i++) {
-//                                str +=cartId.get(i)+"," ;
-//                            }
-//                        }
-//                        if(!str.equals("")){
-//                            String cartid=str.substring(0,str.length()-1);
-//                        upXGMessageData(map);
                     } else {
                         CusToast.showToast(msg);
                     }
@@ -935,7 +954,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
 
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 1);
 
-                }else{
+                } else {
                     imageCapture();//系统相机拍照
                 }
 
@@ -1002,12 +1021,12 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        Log.d("chenshichun","====requestCode======="+requestCode);
-        if(requestCode == 1) {
-            if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        Log.d("chenshichun", "====requestCode=======" + requestCode);
+        if (requestCode == 1) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 imageCapture();
                 //权限获取成功
-            }else{
+            } else {
                 CusToast.showToast("请先打开相机权限");
                 //权限被拒绝
             }
@@ -1065,5 +1084,22 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         }
 
     }
+
+    public interface OnSwitchListener {
+        void switchHome();
+    }
+
+    private Handler mHandle = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 0:
+                    mTaskImgAdapter.notifyDataSetChanged();
+                    break;
+                case 1:
+                    break;
+            }
+        }
+    };
 
 }

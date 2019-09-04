@@ -227,24 +227,21 @@ public class ShopActivity extends BaseActivity {
                 break;
             case R.id.ll_lianxikefu:
                 try {
-                    if(BaseApplication.getInstance().userBean!=null){
-                        if (BaseApplication.getInstance().userBean.getChat_id()!=null&&!BaseApplication.getInstance().userBean.getChat_id().equals("")) {
-                            Log.e("====进入聊天界面  IMG===", BaseApplication.getInstance().userBean.getChat_id()+"");
+                    if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
+                        CusToast.showToast("供应商暂无此功能");
+                    } else {
+                            if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
 
-                            if(resultBean!=null&&resultBean.getStore_user_id()!=null){
-                                RongTalk.doConnection(ShopActivity.this, BaseApplication.getInstance().userBean.getChat_id()
-                                        ,resultBean.getStore_user_id(), resultBean.getStore_name(),
-                                        resultBean.getStore_logo(),resultBean.getStore_id());
-                            }else{
-                                CusToast.showToast("该店铺无效");
+                                if (resultBean != null && resultBean.getStore_user_id() != null) {
+                                    RongTalk.doConnection(ShopActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
+                                            , resultBean.getStore_user_id(), resultBean.getStore_name(),
+                                            resultBean.getStore_logo(), resultBean.getStore_id());
+                                } else {
+                                    CusToast.showToast("该店铺无效");
+                                }
+
                             }
-
-                        }
-                    }else{
-                        CusToast.showToast("请先登录");
                     }
-
-
                 }catch (Exception e){
                     e.printStackTrace();
                     CusToast.showToast("该店铺无效");
@@ -426,7 +423,6 @@ public class ShopActivity extends BaseActivity {
     }
     private void upShopData(String store_id){
         Map<String,Object> map=new HashMap<>();
-        if(BaseApplication.getInstance().userBean==null)return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         map.put("store_id",store_id);
@@ -519,13 +515,9 @@ public class ShopActivity extends BaseActivity {
     }
     private void upisGZData(String store_id){
         Map<String,Object> map=new HashMap<>();
-        if(BaseApplication.getInstance().userBean==null){
-            startActivity(new Intent(this,LoginActivity.class));
-        }else {
             map.put("store_id",store_id);
             map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
-        }
         showDialog();
         XUtil.Post(URLConstant.SHOPISGUANZHU,map,new MyCallBack<String>(){
             @Override

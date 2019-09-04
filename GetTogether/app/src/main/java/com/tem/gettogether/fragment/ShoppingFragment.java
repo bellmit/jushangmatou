@@ -290,14 +290,8 @@ public class ShoppingFragment extends BaseFragment {
             baseViewHolder.getView(R.id.ll_All_item).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(BaseApplication.getInstance().userBean==null){
-                        startActivity(new Intent(getActivity(),LoginActivity.class));
-                    }else {
                         startActivity(new Intent(getActivity(),ShoppingParticularsActivity.class)
                                 .putExtra("goods_id",resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_id()));
-                    }
-
-
                 }
             });
         }

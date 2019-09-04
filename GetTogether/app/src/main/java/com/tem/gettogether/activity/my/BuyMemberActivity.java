@@ -25,6 +25,7 @@ import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.MemberAmountBean;
 import com.tem.gettogether.bean.ShoppingKuBean;
+import com.tem.gettogether.utils.AppManager;
 import com.tem.gettogether.utils.MessageEvent;
 import com.tem.gettogether.utils.PayResult;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
@@ -95,6 +96,8 @@ public class BuyMemberActivity extends BaseActivity {
         x.view().inject(this);
         // 注册订阅者
         EventBus.getDefault().register(this);
+        AppManager.getAppManager().addActivity(this);
+
         initData();
         initView();
         rb_senior_member.setChecked(true);
@@ -164,27 +167,27 @@ public class BuyMemberActivity extends BaseActivity {
         choose_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                rad_1.setImageResource(R.drawable.start_select);
-                rad_2.setImageResource(R.drawable.start_noselect);
-                rad_3.setImageResource(R.drawable.start_noselect);
+                rad_1.setImageResource(R.drawable.radiobuttom_unselect);
+                rad_2.setImageResource(R.drawable.radiobuttom_select);
+                rad_3.setImageResource(R.drawable.radiobuttom_select);
                 payWay = "zfb";
             }
         });
         choose_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                rad_1.setImageResource(R.drawable.start_noselect);
-                rad_2.setImageResource(R.drawable.start_select);
-                rad_3.setImageResource(R.drawable.start_noselect);
+                rad_1.setImageResource(R.drawable.radiobuttom_select);
+                rad_2.setImageResource(R.drawable.radiobuttom_unselect);
+                rad_3.setImageResource(R.drawable.radiobuttom_select);
                 payWay = "wx";
             }
         });
         choose_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                rad_1.setImageResource(R.drawable.start_noselect);
-                rad_2.setImageResource(R.drawable.start_noselect);
-                rad_3.setImageResource(R.drawable.start_select);
+                rad_1.setImageResource(R.drawable.radiobuttom_select);
+                rad_2.setImageResource(R.drawable.radiobuttom_select);
+                rad_3.setImageResource(R.drawable.radiobuttom_unselect);
                 payWay = "yhk";
             }
         });
@@ -216,7 +219,6 @@ public class BuyMemberActivity extends BaseActivity {
     //微信
     private void wx() {
         Map<String, Object> map = new HashMap<>();
-        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         map.put("level_id", rb_ordinary_member.isChecked() ? 1 : 2);
@@ -278,7 +280,6 @@ public class BuyMemberActivity extends BaseActivity {
     //支付宝
     private void pay_zfb() {
         Map<String, Object> map = new HashMap<>();
-        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         map.put("level_id", rb_ordinary_member.isChecked() ? 1 : 2);
@@ -320,7 +321,6 @@ public class BuyMemberActivity extends BaseActivity {
 
     private void getMemberFee() {
         Map<String, Object> map = new HashMap<>();
-        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
@@ -369,7 +369,6 @@ public class BuyMemberActivity extends BaseActivity {
     //店铺服务费
     private void getStoreServiceFee() {
         Map<String, Object> map = new HashMap<>();
-        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         XUtil.Post(URLConstant.DIANPU_FUWUFEI, map, new MyCallBack<String>() {
@@ -433,7 +432,7 @@ public class BuyMemberActivity extends BaseActivity {
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                         CusToast.showToast("支付成功");
-                        finish();
+                        AppManager.getAppManager().finishAllActivity();
 //                        setStart(f2ZhiFuBaoBean.getInfo().getPartner(), f2ZhiFuBaoBean.getInfo().getTotal_fee());
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。

@@ -276,6 +276,33 @@ public class ShoppingXQBean {
             private List<?> goods_attr_list;
             private List<List<GoodsSpecListBean>> goods_spec_list;
             private String detail;
+            private String cover_image;
+            private String is_hot;
+            private String is_new;
+
+            public String getIs_new() {
+                return is_new;
+            }
+
+            public void setIs_new(String is_new) {
+                this.is_new = is_new;
+            }
+
+            public String getIs_hot() {
+                return is_hot;
+            }
+
+            public void setIs_hot(String is_hot) {
+                this.is_hot = is_hot;
+            }
+
+            public String getCover_image() {
+                return cover_image;
+            }
+
+            public void setCover_image(String cover_image) {
+                this.cover_image = cover_image;
+            }
 
             public String getDetail() {
                 return detail;

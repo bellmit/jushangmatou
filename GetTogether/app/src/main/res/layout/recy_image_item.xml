@@ -10,15 +10,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"/>
-    <TextView
-        android:id="@+id/tv_shanchu"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:textSize="16dp"
-        android:visibility="gone"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:background="@drawable/main_shanc19"
-        android:text="删除最后一张"/>
 </LinearLayout>

@@ -449,7 +449,8 @@
         <activity android:name="com.tem.gettogether.activity.order.CaiGouShangOrderActivity"/>
         <activity android:name="com.tem.gettogether.activity.order.GongYingOrderActivity"/>
         <activity android:name="com.tem.gettogether.activity.order.CaiGouShangNewOrderActivity"/>
-
+        <activity android:name="com.tem.gettogether.activity.order.GongYingShangNewOrderActivity"/>
+        <activity android:name="com.tem.gettogether.activity.my.TextDescriptionActivity"/>
     </application>
 
 </manifest>

@@ -1,6 +1,11 @@
 package com.tem.gettogether.activity;
 
+import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,6 +20,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
@@ -32,6 +38,7 @@ import com.tem.gettogether.fragment.PublishBuyFragment;
 import com.tem.gettogether.fragment.SearchFragment;
 import com.tem.gettogether.fragment.XunPanFragment;
 import com.tem.gettogether.fragment.XunPanTuiSongFragment;
+import com.tem.gettogether.utils.AppManager;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.language.LanguageBean;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
@@ -55,10 +62,11 @@ import java.util.Map;
 import cc.duduhuo.custoast.CusToast;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.manager.IUnReadMessageObserver;
+import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 
 @ContentView(R.layout.activity_main)
-public class MainActivity extends BaseActivity implements IUnReadMessageObserver, DragPointView.OnDragListencer {
+public class MainActivity extends BaseActivity implements IUnReadMessageObserver, DragPointView.OnDragListencer, PublishBuyFragment.OnSwitchListener, XunPanTuiSongFragment.OnMyListener, MessageFragment.OnMessageListener {
 
     private static MainActivity mainActivity;
 
@@ -117,6 +125,10 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     @ViewInject(R.id.seal_num)
     private DragPointView mUnreadNumView;
     String role_type;
+
+    private Myreceiver recevier;
+    private IntentFilter intentFilter;
+
     private Handler mHandler = new Handler(Looper.getMainLooper()) {
 
         @Override
@@ -152,10 +164,20 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
 
     @Override
     protected void initData() {
+//        AppManager.getAppManager().addActivity(this);
+        initViews();
+        recevier = new Myreceiver();
+        intentFilter = new IntentFilter();
+        intentFilter.addAction("LOGIN_TO_MIAN");
+        //当网络发生变化的时候，系统广播会发出值为android.net.conn.CONNECTIVITY_CHANGE这样的一条广播
+        registerReceiver(recevier,intentFilter);
+    }
+
+    private void initViews() {
+        Log.d("chenshichun", "=======role_type 身份====" + role_type);
         Intent dataIntent = getIntent();
         EventBus.getDefault().register(this);
         BaseApplication.addDestoryActivity(this, "login");
-
         openTab(true, dataIntent);
         getSwipeBackLayout().setEnableGesture(false);//禁止右滑退出
 
@@ -202,6 +224,13 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
 
         transaction.commit();
 
+        initViewss();
+    }
+
+    private void initViewss() {
+        role_type = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1");
+        Log.d("chenshichun", "======role_type=====" + role_type);
+
         tv_home.setTextColor(getResources().getColor(R.color.bottom_text));
         tv_fenl.setTextColor(getResources().getColor(R.color.text));
         tv_fbqg.setTextColor(getResources().getColor(R.color.text));
@@ -212,15 +241,13 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         iv_fl.setImageResource(R.drawable.fenlei);
         if (role_type != null && role_type.equals("1")) {
             iv_fbqg.setImageResource(R.drawable.xunpan_gray);
-        }else{
+        } else {
             iv_fbqg.setImageResource(R.drawable.fbqg_main);
         }
         iv_cart.setImageResource(R.drawable.jinhuoche1);
         iv_message.setImageResource(R.drawable.liaotian);
         iv_my.setImageResource(R.drawable.wode);
         openTab(0);
-
-        role_type = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1");
 
         if (role_type != null && role_type.equals("1")) {
             tv_fbqg.setText("询盘推送");
@@ -230,32 +257,65 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
             iv_fbqg.setImageResource(R.drawable.fbqg_main);
         }
 
+        RongIM.connect(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0"), new RongIMClient.ConnectCallback() {
+
+            @Override
+            public void onSuccess(String s) {
+
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+
+            }
+
+            @Override
+            public void onTokenIncorrect() {
+
+            }
+        });
+
+        RongIMClient.setConnectionStatusListener(new RongIMClient.ConnectionStatusListener() {
+            @Override
+            public void onChanged(ConnectionStatus connectionStatus) {
+                switch (connectionStatus) {
+                    case CONNECTED:
+                        Log.d("chenshichun", "====CONNECTED=======");
+                        break;
+                    case DISCONNECTED:
+                        Log.d("chenshichun", "====DISCONNECTED=======");
+                        break;
+                    case KICKED_OFFLINE_BY_OTHER_CLIENT://用户账户在其他设备登录，本机会被踢掉线
+                        showDialogs();
+                        break;
+                }
+            }
+        });
     }
 
+    /**
+     * 两个按钮的 dialog
+     */
+    private AlertDialog.Builder builder;
+
+    private void showDialogs() {
+
+        builder = new AlertDialog.Builder(this).setIcon(R.mipmap.ic_launcher).setTitle("提示")
+                .setMessage("当前用户在其他设备登录，请确保设备安全").setPositiveButton("重新登录", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    }
+                });
+        builder.create().show();
+    }
 
     @Event(value = {R.id.ll_home, R.id.ll_Fl, R.id.ll_fbqg, R.id.ll_card, R.id.ll_My, R.id.ll_message}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         String token = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.TOKEN, "");
         switch (view.getId()) {
             case R.id.ll_home:
-                tv_home.setTextColor(getResources().getColor(R.color.bottom_text));
-                tv_fenl.setTextColor(getResources().getColor(R.color.text));
-                tv_fbqg.setTextColor(getResources().getColor(R.color.text));
-                tv_card.setTextColor(getResources().getColor(R.color.text));
-                tv_message.setTextColor(getResources().getColor(R.color.text));
-                tv_my.setTextColor(getResources().getColor(R.color.text));
-                iv_home.setImageResource(R.drawable.shouye2);
-                iv_fl.setImageResource(R.drawable.fenlei);
-                if (role_type != null && role_type.equals("1")) {
-                    iv_fbqg.setImageResource(R.drawable.xunpan_gray);
-                }else{
-                    iv_fbqg.setImageResource(R.drawable.fbqg_main);
-                }
-                iv_cart.setImageResource(R.drawable.jinhuoche1);
-                iv_message.setImageResource(R.drawable.liaotian);
-                iv_my.setImageResource(R.drawable.wode);
-                hideFragment(0);
-
+                initHome();
                 break;
             case R.id.ll_Fl:
                 tv_home.setTextColor(getResources().getColor(R.color.text));
@@ -268,16 +328,31 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 iv_fl.setImageResource(R.drawable.fenlei2);
                 if (role_type != null && role_type.equals("1")) {
                     iv_fbqg.setImageResource(R.drawable.xunpan_gray);
-                }else{
+                } else {
                     iv_fbqg.setImageResource(R.drawable.fbqg_main);
                 }
                 iv_cart.setImageResource(R.drawable.jinhuoche1);
                 iv_message.setImageResource(R.drawable.liaotian);
                 iv_my.setImageResource(R.drawable.wode);
                 hideFragment(1);
-
                 break;
             case R.id.ll_fbqg:
+                if (token != null && !token.equals("")) {// 登录成功
+                    if (role_type != null && role_type.equals("1")) {
+                        hideFragment(8);
+                    } else {
+                        if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("1")) {
+                            hideFragment(2);
+                        } else {
+                            CusToast.showToast("请先进行采购商认证");
+                            return;
+                        }
+                    }
+
+                } else {
+                    startActivity(new Intent(this, LoginActivity.class));
+                    finish();
+                }
                 tv_home.setTextColor(getResources().getColor(R.color.text));
                 tv_fenl.setTextColor(getResources().getColor(R.color.text));
                 tv_fbqg.setTextColor(getResources().getColor(R.color.bottom_text));
@@ -288,21 +363,12 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 iv_fl.setImageResource(R.drawable.fenlei);
                 if (role_type != null && role_type.equals("1")) {
                     iv_fbqg.setImageResource(R.drawable.xunpan);
-                }else{
+                } else {
                     iv_fbqg.setImageResource(R.drawable.fbqh_2main);
                 }
                 iv_cart.setImageResource(R.drawable.jinhuoche1);
                 iv_message.setImageResource(R.drawable.liaotian);
                 iv_my.setImageResource(R.drawable.wode);
-                if (token != null && !token.equals("")) {
-                    if (role_type != null && role_type.equals("1")) {
-                        hideFragment(8);
-                    } else {
-                        hideFragment(2);
-                    }
-                } else {
-                    startActivity(new Intent(this, LoginActivity.class));
-                }
                 break;
             case R.id.ll_card:
                 tv_home.setTextColor(getResources().getColor(R.color.text));
@@ -313,20 +379,22 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 tv_my.setTextColor(getResources().getColor(R.color.text));
                 iv_home.setImageResource(R.drawable.shouye);
                 iv_fl.setImageResource(R.drawable.fenlei);
+
                 if (role_type != null && role_type.equals("1")) {
                     iv_fbqg.setImageResource(R.drawable.xunpan_gray);
-                }else{
+                } else {
                     iv_fbqg.setImageResource(R.drawable.fbqg_main);
                 }
                 iv_cart.setImageResource(R.drawable.jinhuoche2);
                 iv_message.setImageResource(R.drawable.liaotian);
                 iv_my.setImageResource(R.drawable.wode);
+
                 if (token != null && !token.equals("")) {
                     hideFragment(3);
                 } else {
                     startActivity(new Intent(this, LoginActivity.class));
+                    finish();
                 }
-
                 break;
             case R.id.ll_message:
                 tv_home.setTextColor(getResources().getColor(R.color.text));
@@ -339,44 +407,24 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 iv_fl.setImageResource(R.drawable.fenlei);
                 if (role_type != null && role_type.equals("1")) {
                     iv_fbqg.setImageResource(R.drawable.xunpan_gray);
-                }else{
+                } else {
                     iv_fbqg.setImageResource(R.drawable.fbqg_main);
                 }
                 iv_cart.setImageResource(R.drawable.jinhuoche1);
                 iv_message.setImageResource(R.drawable.liaotian2);
                 iv_my.setImageResource(R.drawable.wode);
+
                 if (token != null && !token.equals("")) {
                     hideFragment(4);
                 } else {
                     startActivity(new Intent(this, LoginActivity.class));
+                    finish();
                 }
+
+
                 break;
             case R.id.ll_My:
-                if (token != null && !token.equals("")) {
-                    tv_home.setTextColor(getResources().getColor(R.color.text));
-                    tv_fenl.setTextColor(getResources().getColor(R.color.text));
-                    tv_fbqg.setTextColor(getResources().getColor(R.color.text));
-                    tv_card.setTextColor(getResources().getColor(R.color.text));
-                    tv_message.setTextColor(getResources().getColor(R.color.text));
-                    tv_my.setTextColor(getResources().getColor(R.color.bottom_text));
-                    iv_home.setImageResource(R.drawable.shouye);
-                    iv_fl.setImageResource(R.drawable.fenlei);
-                    if (role_type != null && role_type.equals("1")) {
-                        iv_fbqg.setImageResource(R.drawable.xunpan_gray);
-                    }else{
-                        iv_fbqg.setImageResource(R.drawable.fbqg_main);
-                    }
-                    iv_cart.setImageResource(R.drawable.jinhuoche1);
-                    iv_message.setImageResource(R.drawable.liaotian);
-                    iv_my.setImageResource(R.drawable.wode2);
-                    if (role_type != null && role_type.equals("1")) {
-                        hideFragment(6);
-                    } else {
-                        hideFragment(7);//7
-                    }
-                } else {
-                    startActivity(new Intent(this, LoginActivity.class));
-                }
+                initMyCenter();
                 break;
         }
     }
@@ -423,7 +471,6 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 } else {
                     transaction.hide(fragmentList.get(i));
                 }
-
             }
             transaction.commit();
         } catch (Exception e) {
@@ -449,11 +496,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     @Override
     protected void onResume() {
         super.onResume();
-
-
-
         upGetMessageData();
-
     }
 
     private void exit() {
@@ -472,6 +515,8 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        Log.e("chenshichun","=======onNewIntent====LOGIN_TO_MIAN  "+getIntent().getIntExtra("LOGIN_TO_MIAN",0));
+
         openTab(false, intent);
 
     }
@@ -528,7 +573,6 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
 
     private void upGetMessageData() {
         Map<String, Object> map = new HashMap<>();
-        if (BaseApplication.getInstance().userBean == null) return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         XUtil.Post(URLConstant.XITONGXIAO_WEIDU, map, new MyCallBack<String>() {
             @Override
@@ -549,6 +593,8 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                         if (messageNum > 0) {
                             mUnreadNumView.setVisibility(View.VISIBLE);
                             mUnreadNumView.setText(String.valueOf(messageNum));
+                        } else {
+                            mUnreadNumView.setVisibility(View.GONE);
                         }
                     }
 
@@ -570,5 +616,79 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 ex.printStackTrace();
             }
         });
+    }
+
+    private void initHome() {
+        tv_home.setTextColor(getResources().getColor(R.color.bottom_text));
+        tv_fenl.setTextColor(getResources().getColor(R.color.text));
+        tv_fbqg.setTextColor(getResources().getColor(R.color.text));
+        tv_card.setTextColor(getResources().getColor(R.color.text));
+        tv_message.setTextColor(getResources().getColor(R.color.text));
+        tv_my.setTextColor(getResources().getColor(R.color.text));
+        iv_home.setImageResource(R.drawable.shouye2);
+        iv_fl.setImageResource(R.drawable.fenlei);
+        if (role_type != null && role_type.equals("1")) {
+            iv_fbqg.setImageResource(R.drawable.xunpan_gray);
+        } else {
+            iv_fbqg.setImageResource(R.drawable.fbqg_main);
+        }
+        iv_cart.setImageResource(R.drawable.jinhuoche1);
+        iv_message.setImageResource(R.drawable.liaotian);
+        iv_my.setImageResource(R.drawable.wode);
+        hideFragment(0);
+    }
+
+    private void initMyCenter() {
+        String token = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.TOKEN, "");
+        Log.d("chenshichun", "===========" + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.MOBILE_AVLIDATED, "").equals("1"));
+        if (token != null && !token.equals("")) {
+            tv_home.setTextColor(getResources().getColor(R.color.text));
+            tv_fenl.setTextColor(getResources().getColor(R.color.text));
+            tv_fbqg.setTextColor(getResources().getColor(R.color.text));
+            tv_card.setTextColor(getResources().getColor(R.color.text));
+            tv_message.setTextColor(getResources().getColor(R.color.text));
+            tv_my.setTextColor(getResources().getColor(R.color.bottom_text));
+            iv_home.setImageResource(R.drawable.shouye);
+            iv_fl.setImageResource(R.drawable.fenlei);
+            if (role_type != null && role_type.equals("1")) {
+                iv_fbqg.setImageResource(R.drawable.xunpan_gray);
+            } else {
+                iv_fbqg.setImageResource(R.drawable.fbqg_main);
+            }
+            iv_cart.setImageResource(R.drawable.jinhuoche1);
+            iv_message.setImageResource(R.drawable.liaotian);
+            iv_my.setImageResource(R.drawable.wode2);
+            if (role_type != null && role_type.equals("1")) {
+                hideFragment(6);
+            } else {
+                hideFragment(7);//7
+            }
+        } else {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        }
+    }
+
+    @Override
+    public void switchHome() {
+        initHome();
+    }
+
+    @Override
+    public void switchMy() {
+        initMyCenter();
+    }
+
+
+    @Override
+    public void refreshMessage() {
+        upGetMessageData();
+    }
+    public class Myreceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("chenshichun","=====登录返回刷新======");
+            initViewss();
+        }
     }
 }

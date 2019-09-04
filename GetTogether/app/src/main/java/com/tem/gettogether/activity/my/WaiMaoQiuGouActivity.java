@@ -1,5 +1,6 @@
 package com.tem.gettogether.activity.my;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.home.HomeBuyDetailNewActivity;
 import com.tem.gettogether.adapter.HomeBuyAdapter;
 import com.tem.gettogether.adapter.HomeBuyListAdapter;
 import com.tem.gettogether.base.BaseActivity;
@@ -33,6 +35,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import cc.duduhuo.custoast.CusToast;
 
 @ContentView(R.layout.activity_waimaoqiugou)
 public class WaiMaoQiuGouActivity extends BaseActivity {
@@ -93,15 +97,19 @@ public class WaiMaoQiuGouActivity extends BaseActivity {
                         Gson gson = new Gson();
                         if (!isLoadMore) {
                             homeDataBean = gson.fromJson(result, QiuGouListBean.class).getResult();
-                            if(homeDataBean.size()==0){
+                            if (homeDataBean.size() == 0) {
                                 ll_empty.setVisibility(View.VISIBLE);
-                            }else {
+                            } else {
                                 ll_empty.setVisibility(View.GONE);
                                 setData();
                             }
                         } else {
-                            homeDataBean.addAll(gson.fromJson(result, QiuGouListBean.class).getResult());
-                            mHomeBuyAdapter.notifyDataSetChanged();
+                            if (gson.fromJson(result, QiuGouListBean.class).getResult().size() > 0) {
+                                homeDataBean.addAll(gson.fromJson(result, QiuGouListBean.class).getResult());
+                                mHomeBuyAdapter.notifyDataSetChanged();
+                            } else {
+                                CusToast.showToast("没有更多数据!");
+                            }
                         }
                     }
 
@@ -114,6 +122,8 @@ public class WaiMaoQiuGouActivity extends BaseActivity {
             public void onFinished() {
                 super.onFinished();
                 closeDialog();
+                refreshLayout.finishRefreshing();
+                refreshLayout.finishLoadmore();
             }
 
             @Override
@@ -130,6 +140,15 @@ public class WaiMaoQiuGouActivity extends BaseActivity {
         mHomeBuyAdapter = new HomeBuyListAdapter(getContext(), homeDataBean);
         sell_RecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         sell_RecyclerView.setAdapter(mHomeBuyAdapter);
+        mHomeBuyAdapter.setOnClickView(new HomeBuyListAdapter.onClickView() {
+            @Override
+            public void onClick(int position) {
+                getContext().startActivity(new Intent(getContext(), HomeBuyDetailNewActivity.class)
+                        .putExtra("trade_id", homeDataBean.get(position).getTrade_id())
+                        .putExtra("witch_page", 1)
+                        .putExtra("page", 0));
+            }
+        });
     }
 
     private void initRefresh() {
@@ -143,7 +162,7 @@ public class WaiMaoQiuGouActivity extends BaseActivity {
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
                 initDatas(1, false);
-                refreshLayout.finishRefreshing();
+                currentPage = 1;
             }
 
             @Override
@@ -151,7 +170,6 @@ public class WaiMaoQiuGouActivity extends BaseActivity {
                 super.onLoadMore(refreshLayout);
                 currentPage++;
                 initDatas(currentPage, true);
-                refreshLayout.finishLoadmore();
             }
 
             @Override

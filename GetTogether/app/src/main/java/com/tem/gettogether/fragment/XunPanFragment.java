@@ -1,9 +1,11 @@
 package com.tem.gettogether.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,9 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.home.HomeBuyDetailNewActivity;
 import com.tem.gettogether.adapter.HomeBuyListAdapter;
+import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseFragment;
 import com.tem.gettogether.base.URLConstant;
@@ -36,6 +40,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cc.duduhuo.custoast.CusToast;
+
 @ContentView(R.layout.fragment_xunpan)
 public class XunPanFragment extends BaseFragment {
     @ViewInject(R.id.sell_RecyclerView)
@@ -52,6 +58,8 @@ public class XunPanFragment extends BaseFragment {
     private List<QiuGouListBean.ResultBean> homeDataBean = new ArrayList<>();
 
     private int currentPage = 1;
+    private BaseActivity baseActivity;
+    private int typePage;
 
     @Nullable
     @Override
@@ -62,6 +70,8 @@ public class XunPanFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        baseActivity = (BaseActivity) getActivity();
+        typePage = getArguments().getInt("page");
         initDatas(1, false);
         initRefresh();
     }
@@ -74,6 +84,11 @@ public class XunPanFragment extends BaseFragment {
             map.put("language", yuyan);
             map.put("page", currentPage);
         }
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
+        map.put("type", (typePage + 1));
+        map.put("list_row", 10);
+
+        baseActivity.showDialog();
         XUtil.Post(URLConstant.HONEBUYDATA, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
@@ -81,6 +96,7 @@ public class XunPanFragment extends BaseFragment {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
+                    Log.d("chenshichun", "======推送===typePage==" + typePage + " result:: " + jsonObject.optString("result"));
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         if (!isLoadMore) {
@@ -92,8 +108,12 @@ public class XunPanFragment extends BaseFragment {
                                 setData();
                             }
                         } else {
-                            homeDataBean = gson.fromJson(result, QiuGouListBean.class).getResult();
-                            mHomeBuyAdapter.notifyDataSetChanged();
+                            if(gson.fromJson(result, QiuGouListBean.class).getResult().size()>0) {
+                                homeDataBean = gson.fromJson(result, QiuGouListBean.class).getResult();
+                                mHomeBuyAdapter.notifyDataSetChanged();
+                            }else{
+                                CusToast.showToast("没有更多数据!");
+                            }
                         }
                     }
 
@@ -104,12 +124,16 @@ public class XunPanFragment extends BaseFragment {
 
             @Override
             public void onFinished() {
+                baseActivity.closeDialog();
+                refreshLayout.finishRefreshing();
+                refreshLayout.finishLoadmore();
                 super.onFinished();
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
+                baseActivity.closeDialog();
                 ex.printStackTrace();
             }
         });
@@ -120,6 +144,15 @@ public class XunPanFragment extends BaseFragment {
         mHomeBuyAdapter = new HomeBuyListAdapter(getContext(), homeDataBean);
         sell_RecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         sell_RecyclerView.setAdapter(mHomeBuyAdapter);
+        mHomeBuyAdapter.setOnClickView(new HomeBuyListAdapter.onClickView() {
+            @Override
+            public void onClick(int position) {
+                getContext().startActivity(new Intent(getContext(), HomeBuyDetailNewActivity.class)
+                        .putExtra("trade_id", homeDataBean.get(position).getTrade_id())
+                        .putExtra("witch_page", 1)
+                        .putExtra("page", typePage));
+            }
+        });
     }
 
     private void initRefresh() {
@@ -132,8 +165,8 @@ public class XunPanFragment extends BaseFragment {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
-                initDatas(1, false);
-                refreshLayout.finishRefreshing();
+                currentPage = 1;
+                initDatas(currentPage, false);
             }
 
             @Override
@@ -141,7 +174,6 @@ public class XunPanFragment extends BaseFragment {
                 super.onLoadMore(refreshLayout);
                 currentPage++;
                 initDatas(currentPage, true);
-                refreshLayout.finishLoadmore();
             }
 
             @Override

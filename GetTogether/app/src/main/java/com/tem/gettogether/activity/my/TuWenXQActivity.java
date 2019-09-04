@@ -8,6 +8,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -32,6 +34,7 @@ import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.ImageDataBean;
+import com.tem.gettogether.retrofit.UploadUtil;
 import com.tem.gettogether.utils.Base64BitmapUtil;
 import com.tem.gettogether.utils.BitnapUtils;
 import com.tem.gettogether.utils.Confirg;
@@ -68,6 +71,8 @@ public class TuWenXQActivity extends BaseActivity  implements View.OnClickListen
     private final int FROM_ALBUM_CODE = 102;// 调用相册更改背景图片的请求code
     @ViewInject(R.id.tv_title_right)
     private TextView tv_title_right;
+    @ViewInject(R.id.tv_shanchu)
+    private TextView tv_shanchu;
     private PermissionsChecker checker;
 
     private String compressImageFilePath;
@@ -119,7 +124,7 @@ public class TuWenXQActivity extends BaseActivity  implements View.OnClickListen
             public void onBind(BaseViewHolder holder, int position) {
                 ImageView iv_image=holder.getImageView(R.id.iv_image);
                 Glide.with(TuWenXQActivity.this).load(cartImage.get(position)).error(R.mipmap.myy322x).into(iv_image);
-                if(position==imagePaths.size()-1){
+                /*if(position==imagePaths.size()-1){
                     holder.getTextView(R.id.tv_shanchu).setVisibility(View.VISIBLE);
                 }else {
                     holder.getTextView(R.id.tv_shanchu).setVisibility(View.GONE);
@@ -137,13 +142,13 @@ public class TuWenXQActivity extends BaseActivity  implements View.OnClickListen
 
                         mTaskImgAdapter.notifyDataSetChanged();
                     }
-                });
+                });*/
             }
 
         };
         recyclerView.setAdapter(mTaskImgAdapter);
     }
-    @Event(value = {R.id.rl_close,R.id.tv_fbShopping,R.id.rl_title_right}, type = View.OnClickListener.class)
+    @Event(value = {R.id.rl_close,R.id.tv_fbShopping,R.id.rl_title_right,R.id.tv_shanchu}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
@@ -168,6 +173,15 @@ public class TuWenXQActivity extends BaseActivity  implements View.OnClickListen
                 }else {
                     CusToast.showToast("请添加图片");
                     return;
+                }
+                break;
+            case R.id.tv_shanchu:
+                cartImage.remove(cartImage.size()-1);
+                mTaskImgAdapter.notifyDataSetChanged();
+                if(cartImage.size()>0){
+                    tv_shanchu.setVisibility(View.VISIBLE);
+                }else{
+                    tv_shanchu.setVisibility(View.GONE);
                 }
                 break;
         }
@@ -275,21 +289,37 @@ public class TuWenXQActivity extends BaseActivity  implements View.OnClickListen
                         if (imagePaths.size() < 9) {
                             for (int i = 0; i < list.size(); i++) {
                                 System.out.println("选中的路径：" + list.get(i));
-                                String pic_path = list.get(i);
+                                final String pic_path = list.get(i);
                                 String targetPath = compressImageFilePath + Confirg.df.
                                         format(new Date()) + ".jpg";
                                 //调用压缩图片的方法，返回压缩后的图片path
-                                final String compressImage = BitnapUtils.compressImage(pic_path, targetPath, 40);
+                                final String compressImage = BitnapUtils.compressImage(pic_path, targetPath, 90);
                                 imagePaths.add(list.get(i));
                                 Bitmap bitmap = BitmapFactory.decodeFile(compressImage.toString());
-                                Map<String,Object> map=new HashMap<>();
+
+                                new Thread(new Runnable(){
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            ImageDataBean imageDataBean = null;
+                                            imageDataBean = UploadUtil.uploadFile(BitnapUtils.readStream(pic_path),new File(pic_path),URLConstant.UPLOAD_PICTURE);
+                                            if(imageDataBean!=null){
+                                                cartImage.add(imageDataBean.getResult().getImage_show().get(0));
+                                             mHandle.sendEmptyMessage(0);
+                                            }
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }).start();
+
+                               /* Map<String,Object> map=new HashMap<>();
                                 map.put("image_base_64_arr", "data:image/jpeg;base64,"+ Base64BitmapUtil.bitmapToBase64(bitmap));
-                                upMessageData(map);
+                                upMessageData(map);*/
                             }
                         } else {
                             CusToast.showToast("无法添加更多图片！");
                         }
-                        mTaskImgAdapter.notifyDataSetChanged();
 
                     }
                     break;
@@ -365,5 +395,21 @@ public class TuWenXQActivity extends BaseActivity  implements View.OnClickListen
 
         return super.onOptionsItemSelected(item);
     }
-
+    private Handler mHandle = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 0:
+                    mTaskImgAdapter.notifyDataSetChanged();
+                    if(cartImage.size()>0){
+                        tv_shanchu.setVisibility(View.VISIBLE);
+                    }else{
+                        tv_shanchu.setVisibility(View.GONE);
+                    }
+                    break;
+                case 1:
+                    break;
+            }
+        }
+    };
 }

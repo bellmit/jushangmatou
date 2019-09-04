@@ -194,27 +194,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             public void OnBannerClick(int position) {
                 if(adBeans.get(position).getType()==1){
                     if(adBeans.get(position).getAd_link()!=null&&!adBeans.get(position).getAd_link().equals("")){
-                        if(BaseApplication.getInstance().userBean==null){
-                            startActivity(new Intent(getActivity(),LoginActivity.class));
-                        }else {
                             startActivityForResult(new Intent(getActivity(), ShopActivity.class)
                                     .putExtra("store_id",adBeans.get(position).getAd_link())
                                     .putExtra("type", ShopActivity.SHOPNHOME_TYPE), ShopActivity.SHOPNHOME_TYPE);
-                        }
-
                     }else {
                         CusToast.showToast("暂无店铺ID");
                     }
                 }else if(adBeans.get(position).getType()==2){
                     if(adBeans.get(position).getAd_link()!=null&&!adBeans.get(position).getAd_link().equals("")){
-                        if(BaseApplication.getInstance().userBean==null){
-                            startActivity(new Intent(getActivity(),LoginActivity.class));
-                        }else {
                             startActivity(new Intent(getActivity(),XeiYiH5Activity.class)
                                     .putExtra("typeMain","1")
                                     .putExtra("h5url",adBeans.get(position).getAd_link()));
-                        }
-
                     }else {
                         CusToast.showToast("暂无链接");
                     }
@@ -348,14 +338,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 holder.getView(R.id.ll_shop_tj).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(BaseApplication.getInstance().userBean==null){
-                            startActivity(new Intent(getActivity(),LoginActivity.class));
-                        }else {
                             startActivityForResult(new Intent(getActivity(), ShopActivity.class)
                                     .putExtra("store_id",storeBeans.get(position).getStore_id())
                                     .putExtra("type", ShopActivity.SHOPNHOME_TYPE), ShopActivity.SHOPNHOME_TYPE);
-                        }
-
                     }
                 });
             }
@@ -483,14 +468,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             @Override
             public void onClick(View view) {
                 if(hotBannerBean.getAd_link()!=null&&!hotBannerBean.getAd_link().equals("")){
-                    if(BaseApplication.getInstance().userBean==null){
-                        startActivity(new Intent(getActivity(),LoginActivity.class));
-                    }else {
                         startActivityForResult(new Intent(getActivity(), ShopActivity.class)
                                 .putExtra("store_id",hotBannerBean.getAd_link())
                                 .putExtra("type", ShopActivity.SHOPNHOME_TYPE), ShopActivity.SHOPNHOME_TYPE);
-                    }
-
                 }else {
                     CusToast.showToast("暂无店铺ID");
                 }
@@ -512,13 +492,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 holder.getView(R.id.ll_item_all2).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(BaseApplication.getInstance().userBean==null){
-                            startActivity(new Intent(getActivity(),LoginActivity.class));
-                        }else {
                             startActivity(new Intent(getActivity(),ShoppingParticularsActivity.class)
                                     .putExtra("goods_id",houtResultBeans.get(position).getGoods_id()));
-                        }
-
                     }
                 });
 
@@ -615,13 +590,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 holder.getView(R.id.ll_item_all2).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(BaseApplication.getInstance().userBean==null){
-                            startActivity(new Intent(getActivity(),LoginActivity.class));
-                        }else {
                             startActivity(new Intent(getActivity(),ShoppingParticularsActivity.class)
                                     .putExtra("goods_id",houtResultBeans.get(position).getGoods_id()));
-                        }
-
                     }
                 });
             }
@@ -645,13 +615,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 holder.getView(R.id.ll_item_all2).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(BaseApplication.getInstance().userBean==null){
-                            startActivity(new Intent(getActivity(),LoginActivity.class));
-                        }else {
                             startActivity(new Intent(getActivity(),ShoppingParticularsActivity.class)
                                     .putExtra("goods_id",houtResultBeans2.get(position).getGoods_id()));
-                        }
-
                     }
                 });
             }
@@ -759,14 +724,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                                     @Override
                                     public void onClick(View view) {
                                         if(resultGFLBean.getApp_link()!=null&&!resultGFLBean.getApp_link().equals("")){
-                                            if(BaseApplication.getInstance().userBean==null){
-                                                startActivity(new Intent(getActivity(),LoginActivity.class));
-                                            }else {
                                                 startActivityForResult(new Intent(getActivity(), ShopActivity.class)
                                                         .putExtra("store_id",resultGFLBean.getApp_link())
                                                         .putExtra("type", ShopActivity.SHOPNHOME_TYPE), ShopActivity.SHOPNHOME_TYPE);
-                                            }
-
                                         }else{
                                             CusToast.showToast("暂无店铺Id");
                                         }

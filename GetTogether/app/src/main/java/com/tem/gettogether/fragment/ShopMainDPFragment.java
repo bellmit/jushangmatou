@@ -167,14 +167,9 @@ public class ShopMainDPFragment extends BaseFragment {
             baseViewHolder.getView(R.id.tv_in_Shop).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(BaseApplication.getInstance().userBean==null){
-                        startActivity(new Intent(getActivity(),LoginActivity.class));
-                    }else {
                         startActivityForResult(new Intent(getActivity(), ShopActivity.class)
                                 .putExtra("store_id",resultBeans.get(baseViewHolder.getAdapterPosition()).getStore_id())
                                 .putExtra("type", ShopActivity.SHOPNHOME_TYPE), ShopActivity.SHOPNHOME_TYPE);
-                    }
-
                 }
             });
 

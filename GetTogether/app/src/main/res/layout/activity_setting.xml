@@ -95,6 +95,36 @@
                 android:background="@color/line" />
 
             <RelativeLayout
+                android:id="@+id/huiyuandengji_rl"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:paddingEnd="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="会员等级"
+                    android:textColor="@color/text3"
+                    android:textDirection="locale"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/huiyuan_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:text="游客"
+                     />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line" />
+
+            <RelativeLayout
                 android:id="@+id/qchc_rl"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"

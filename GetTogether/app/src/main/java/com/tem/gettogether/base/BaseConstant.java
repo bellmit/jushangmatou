@@ -25,10 +25,14 @@ public class BaseConstant {
         public static final String openid = "head_pic";
         public static final String language = "language";
         public static final String ROLE_TYPE = "role_type";
+        public static final String CHAT_ID = "CHAT_ID";
+        public static final String MOBILE_AVLIDATED = "Mobile_validated";
 
         public static final String Shop_goods_id = "goods_id";
         public static final String Shop_store_id = "store_id";
         public static final String LEVER = "lever";
+        public static final String SHOP_STATUS = "shop_status";
+        public static final String IS_VERIFY = "IS_VERIFY";
     }
     public static class ReceiverAction {
         public static final String REFRESHFEE = "com.call.beeper";

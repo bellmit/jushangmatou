@@ -70,6 +70,15 @@ public class ShopInformationBean {
         private List<String> legal_identity_cert;
         private List<String> factory_scene;
         private List<String> business_licence_cert;
+        private List<String> store_person_cert;
+
+        public List<String> getStore_person_cert() {
+            return store_person_cert;
+        }
+
+        public void setStore_person_cert(List<String> store_person_cert) {
+            this.store_person_cert = store_person_cert;
+        }
 
         public String getStore_province() {
             return store_province;

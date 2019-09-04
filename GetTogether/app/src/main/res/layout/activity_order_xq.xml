@@ -16,117 +16,132 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@drawable/jianbian_color"
                 android:orientation="horizontal">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="16dp"
                     android:layout_marginTop="24dp"
+                    android:paddingStart="16dp"
                     android:paddingEnd="16dp">
+
                     <TextView
                         android:id="@+id/tv_ddzt_ts"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:drawablePadding="12dp"
                         android:drawableLeft="@drawable/dengdai_time"
+                        android:drawablePadding="12dp"
                         android:text="等待买家付款"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/white"
+                        android:textSize="16dp" />
+
                     <TextView
                         android:id="@+id/tv_ddzt_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:visibility="visible"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
                         android:drawablePadding="12dp"
                         android:text="剩0小时00分自动关闭"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/white"
+                        android:textSize="12dp"
+                        android:visibility="visible" />
                 </RelativeLayout>
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="63dp"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="95dp"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
-                    android:paddingTop="19dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/my_white_10_bg"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingTop="19dp">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/address_icon"
-                        android:layout_marginStart="10dp"/>
+                        android:layout_marginStart="10dp"
+                        android:src="@drawable/address_icon" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:layout_marginEnd="22dp"
                         android:layout_marginStart="15dp"
+                        android:layout_marginEnd="22dp"
+                        android:gravity="center_vertical"
                         android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/tv_name_phone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Name  176****0000"
-                            android:textSize="14dp"
                             android:textColor="@color/black"
-                            android:textStyle="bold"/>
+                            android:textSize="14dp"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/tv_address_sh"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="地址："
                             android:layout_marginTop="12dp"
-                            android:maxLines="2"
                             android:ellipsize="end"
-                            android:textSize="12dp"
+                            android:maxLines="2"
+                            android:text="地址："
                             android:textColor="@color/text3"
-                            />
+                            android:textSize="12dp" />
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/ll_shop"
                     android:layout_width="match_parent"
+                    android:layout_height="39dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:layout_height="39dp">
+                    android:paddingEnd="16dp">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/shop_icon"/>
+                        android:src="@drawable/shop_icon" />
+
                     <TextView
                         android:id="@+id/tv_shopName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
-                        android:maxLines="1"
-                        android:ellipsize="end"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="ShopName"
                         android:textColor="@color/text3"
-                        android:text="ShopName"/>
+                        android:textSize="14dp" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/right_jt_icon"/>
+                        android:src="@drawable/right_jt_icon" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler_shopping"
                         android:layout_width="match_parent"
@@ -135,288 +150,324 @@
 
                     </android.support.v7.widget.RecyclerView>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
                     <TextView
                         android:id="@+id/tv_ddbh"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="订单编号：71854143640"
-                        android:maxLines="1"
                         android:ellipsize="end"
-                        android:textSize="13dp"
+                        android:maxLines="1"
+                        android:text="订单编号：71854143640"
                         android:textColor="@color/text3"
-                        />
+                        android:textSize="13dp" />
+
                     <TextView
                         android:id="@+id/tv_xdTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="下单时间：2018-03-07 11:36:08"
-                        android:maxLines="1"
-                        android:ellipsize="end"
                         android:layout_marginTop="14dp"
                         android:layout_marginBottom="14dp"
-                        android:textSize="13dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="下单时间：2018-03-07 11:36:08"
                         android:textColor="@color/text3"
-                        />
+                        android:textSize="13dp" />
+
                     <TextView
                         android:id="@+id/tv_psfs"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="配送方式：普通快递"
-                        android:maxLines="1"
                         android:ellipsize="end"
-                        android:textSize="13dp"
+                        android:maxLines="1"
+                        android:text="配送方式：普通快递"
                         android:textColor="@color/text3"
-                        />
+                        android:textSize="13dp"
+                        android:visibility="gone" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line"
+                    android:visibility="gone" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:padding="16dp"
-                    android:orientation="vertical">
+                    android:visibility="gone">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="商品总计"
-                            android:textSize="13dp"
                             android:textColor="@color/text3"
-                            />
+                            android:textSize="13dp" />
+
                         <TextView
                             android:id="@+id/tv_spAll_Price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="+￥0.00"
                             android:layout_alignParentEnd="true"
-                            android:textSize="13dp"
-                            android:textColor="@color/text3" />
+                            android:text="+￥0.00"
+                            android:textColor="@color/text3"
+                            android:textSize="13dp" />
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="运费总计"
-                            android:textSize="13dp"
                             android:textColor="@color/text3"
-                            />
+                            android:textSize="13dp" />
+
                         <TextView
                             android:id="@+id/tv_yf_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="+￥0.00"
                             android:layout_alignParentEnd="true"
-                            android:textSize="13dp"
-                            android:textColor="@color/text3" />
+                            android:text="+￥0.00"
+                            android:textColor="@color/text3"
+                            android:textSize="13dp" />
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="优惠总计"
-                            android:textSize="13dp"
                             android:textColor="@color/text3"
-                            />
+                            android:textSize="13dp" />
+
                         <TextView
                             android:id="@+id/tv_yhzk"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="-￥0.00"
                             android:layout_alignParentEnd="true"
-                            android:textSize="13dp"
-                            android:textColor="@color/text3" />
+                            android:text="-￥0.00"
+                            android:textColor="@color/text3"
+                            android:textSize="13dp" />
                     </RelativeLayout>
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:paddingEnd="16dp"
                     android:gravity="center_vertical|right"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingEnd="16dp">
+
                     <TextView
                         android:id="@+id/tv_shopping_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="共 30 件商品 合计:"
                         android:layout_alignParentEnd="true"
-                        android:textSize="12dp"
-                        android:textColor="@color/text3" />
+                        android:text="共 30 件商品 合计:"
+                        android:textColor="@color/text3"
+                        android:textSize="12dp" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="￥"
                         android:layout_alignParentEnd="true"
-                        android:textSize="12dp"
-                        android:textColor="@color/my_red" />
+                        android:text="￥"
+                        android:textColor="@color/my_red"
+                        android:textSize="12dp" />
+
                     <TextView
                         android:id="@+id/tv_all_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0.00"
                         android:layout_alignParentEnd="true"
-                        android:textSize="15dp"
-                        android:textColor="@color/my_red" />
+                        android:text="0.00"
+                        android:textColor="@color/my_red"
+                        android:textSize="15dp" />
+
                     <TextView
                         android:id="@+id/tv_yunwei"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="（含运费¥0.00）"
                         android:layout_alignParentEnd="true"
-                        android:textSize="12dp"
-                        android:textColor="@color/text3" />
+                        android:text="（含运费¥0.00）"
+                        android:textColor="@color/text3"
+                        android:textSize="12dp" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:background="@color/line"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:orientation="horizontal">
-                    <LinearLayout
-                        android:id="@+id/ll_lx_kf"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                       android:orientation="horizontal" >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="联系卖家"
-                            android:textSize="14dp"
-                            android:gravity="center"
-                            android:drawablePadding="14dp"
-                            android:layout_centerInParent="true"
-                            android:drawableLeft="@drawable/red_kefu_icon"
-                            android:textColor="@color/black"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/ll_bd_phone"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="horizontal" >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="拨打电话"
-                            android:textSize="14dp"
-                            android:gravity="center"
-                            android:drawablePadding="14dp"
-                            android:layout_centerInParent="true"
-                            android:drawableLeft="@drawable/red_bdphone_icon"
-                            android:textColor="@color/black"/>
-                    </LinearLayout>
-                </LinearLayout>
+                    android:layout_height="150dp"
+                    android:background="@color/line" />
             </LinearLayout>
 
         </RelativeLayout>
     </com.tem.gettogether.view.BaseScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_lx_kf"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@drawable/red_kefu_icon"
+                android:drawablePadding="14dp"
+                android:gravity="center"
+                android:text="联系卖家"
+                android:textColor="@color/black"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_bd_phone"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@drawable/red_bdphone_icon"
+                android:drawablePadding="14dp"
+                android:gravity="center"
+                android:text="拨打电话"
+                android:textColor="@color/black"
+                android:textSize="14dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
     <View
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:background="@color/line"/>
+        android:background="@color/line"
+        android:visibility="gone" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:paddingEnd="16dp"
         android:gravity="center_vertical|right"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingEnd="16dp"
+        android:visibility="gone">
+
         <TextView
             android:id="@+id/tv_text1"
             android:layout_width="75dp"
             android:layout_height="28dp"
-            android:gravity="center"
-            android:background="@drawable/my_order_stroke1"
-            android:textColor="@color/order_text"
             android:layout_marginEnd="10dp"
+            android:background="@drawable/my_order_stroke1"
+            android:gravity="center"
             android:text="取消订单"
-            android:textSize="13dp"/>
+            android:textColor="@color/order_text"
+            android:textSize="13dp" />
+
         <TextView
             android:id="@+id/tv_text_remove"
             android:layout_width="75dp"
             android:layout_height="28dp"
-            android:gravity="center"
-            android:background="@drawable/my_order_stroke1"
-            android:textColor="@color/order_text"
             android:layout_marginEnd="10dp"
+            android:background="@drawable/my_order_stroke1"
+            android:gravity="center"
             android:text="删除订单"
-            android:textSize="13dp"/>
+            android:textColor="@color/order_text"
+            android:textSize="13dp" />
+
         <TextView
             android:id="@+id/tv_text2"
             android:layout_width="75dp"
             android:layout_height="28dp"
-            android:gravity="center"
-            android:visibility="gone"
             android:layout_marginEnd="10dp"
             android:background="@drawable/my_order_stroke1"
-            android:textColor="@color/order_text"
+            android:gravity="center"
             android:text="查看物流"
-            android:textSize="13dp"/>
+            android:textColor="@color/order_text"
+            android:textSize="13dp"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/tv_text3"
             android:layout_width="75dp"
             android:layout_height="28dp"
-            android:gravity="center"
-            android:visibility="gone"
             android:background="@drawable/my_order_stroke1"
-            android:textColor="@color/order_text"
+            android:gravity="center"
             android:text="提醒发货"
-            android:textSize="13dp"/>
+            android:textColor="@color/order_text"
+            android:textSize="13dp"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/tv_red_right"
             android:layout_width="75dp"
             android:layout_height="28dp"
-            android:gravity="center"
-            android:visibility="gone"
             android:layout_marginStart="10dp"
             android:background="@drawable/my_order_stroke_red1"
-            android:textColor="@color/my_red2"
+            android:gravity="center"
             android:text="申请发货"
-            android:textSize="13dp"/>
+            android:textColor="@color/my_red2"
+            android:textSize="13dp"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/tv_red_rightpj"
             android:layout_width="75dp"
             android:layout_height="28dp"
-            android:gravity="center"
-            android:visibility="gone"
             android:layout_marginStart="10dp"
             android:background="@drawable/my_order_stroke_red1"
-            android:textColor="@color/my_red2"
+            android:gravity="center"
             android:text="评价"
-            android:textSize="13dp"/>
+            android:textColor="@color/my_red2"
+            android:textSize="13dp"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/tv_red_qrsh"
             android:layout_width="75dp"
             android:layout_height="28dp"
-            android:gravity="center"
-            android:visibility="gone"
             android:layout_marginStart="10dp"
             android:background="@drawable/my_order_stroke_red1"
-            android:textColor="@color/my_red2"
+            android:gravity="center"
             android:text="确认收获"
-            android:textSize="13dp"/>
+            android:textColor="@color/my_red2"
+            android:textSize="13dp"
+            android:visibility="gone" />
     </LinearLayout>
 
 </LinearLayout>

@@ -11,6 +11,7 @@ import com.tem.gettogether.activity.MyShopActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.fragment.ShopXinXActivity;
+import com.tem.gettogether.utils.AppManager;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 
 import org.xutils.view.annotation.ContentView;
@@ -24,11 +25,11 @@ public class StoreManagementActivity extends BaseActivity {
     private TextView tv_title;
     @ViewInject(R.id.rl_title_right)
     private RelativeLayout rl_title_right;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        AppManager.getAppManager().addActivity(this);
         initData();
         initView();
     }

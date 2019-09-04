@@ -33,6 +33,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cc.duduhuo.custoast.CusToast;
+
 @ContentView(R.layout.activity_buying_managerment)
 public class BuyingManagementActivity extends BaseActivity implements BuyingManagementAdapter.ItemClickListener {
     @ViewInject(R.id.sell_RecyclerView)
@@ -74,13 +76,11 @@ public class BuyingManagementActivity extends BaseActivity implements BuyingMana
 
     private void initDatas(final int currentPage, final boolean isLoadMore) {
         Map<String, Object> map = new HashMap<>();
-        String yuyan = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "");
-        if (yuyan != null) {
-            map.put("language", yuyan);
-            map.put("page", currentPage);
-        }
+        map.put("page", currentPage);
+        map.put("user_id",SharedPreferencesUtils.getString(this,BaseConstant.SPConstant.USERID,""));
+        map.put("list_row",10);
         showDialog();
-        XUtil.Post(URLConstant.HONEBUYDATA, map, new MyCallBack<String>() {
+        XUtil.Post(URLConstant.BUY_MANAGER, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -88,15 +88,27 @@ public class BuyingManagementActivity extends BaseActivity implements BuyingMana
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
+                    Log.d("chenshichun","======求购管理====="+jsonObject.optString("result"));
+
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         if (!isLoadMore) {
-                            homeDataBean.removeAll(homeDataBean);
-                            homeDataBean.addAll(gson.fromJson(result, QiuGouListBean.class).getResult());
-                            mHomeBuyAdapter.notifyDataSetChanged();
+                            if(jsonObject.optString("result").equals("null")){
+                                homeDataBean.removeAll(homeDataBean);
+                                mHomeBuyAdapter.notifyDataSetChanged();
+                            }else {
+                                homeDataBean.removeAll(homeDataBean);
+                                homeDataBean.addAll(gson.fromJson(result, QiuGouListBean.class).getResult());
+                                mHomeBuyAdapter.notifyDataSetChanged();
+                            }
+
                         } else {
-                            homeDataBean.addAll(gson.fromJson(result, QiuGouListBean.class).getResult());
-                            mHomeBuyAdapter.notifyDataSetChanged();
+                            if(gson.fromJson(result, QiuGouListBean.class).getResult().size()>0) {
+                                homeDataBean.addAll(gson.fromJson(result, QiuGouListBean.class).getResult());
+                                mHomeBuyAdapter.notifyDataSetChanged();
+                            }else{
+                                CusToast.showToast("没有更多数据!");
+                            }
                         }
                     }
 
@@ -109,6 +121,8 @@ public class BuyingManagementActivity extends BaseActivity implements BuyingMana
             public void onFinished() {
                 super.onFinished();
                 closeDialog();
+                refreshLayout.finishRefreshing();
+                refreshLayout.finishLoadmore();
             }
 
             @Override
@@ -134,7 +148,8 @@ public class BuyingManagementActivity extends BaseActivity implements BuyingMana
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     if (res.equals("1")) {
-
+                        initDatas(1, false);
+                        mHomeBuyAdapter.notifyDataSetChanged();
                     }
 
                 } catch (JSONException e) {
@@ -173,8 +188,8 @@ public class BuyingManagementActivity extends BaseActivity implements BuyingMana
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
-                initDatas(1, false);
-                refreshLayout.finishRefreshing();
+                currentPage = 1;
+                initDatas(currentPage, false);
             }
 
             @Override
@@ -182,7 +197,6 @@ public class BuyingManagementActivity extends BaseActivity implements BuyingMana
                 super.onLoadMore(refreshLayout);
                 currentPage++;
                 initDatas(currentPage, true);
-                refreshLayout.finishLoadmore();
             }
 
             @Override
@@ -205,6 +219,5 @@ public class BuyingManagementActivity extends BaseActivity implements BuyingMana
     @Override
     public void ItemDeleteClickListener(View view, int position) {
         deleteData(homeDataBean.get(position).getTrade_id());
-        initDatas(1, false);
     }
 }

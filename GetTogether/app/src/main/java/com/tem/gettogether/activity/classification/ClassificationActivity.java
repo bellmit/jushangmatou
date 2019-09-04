@@ -36,6 +36,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cc.duduhuo.custoast.CusToast;
+
 @ContentView(R.layout.activity_classification_list)
 public class ClassificationActivity extends BaseActivity {
     @ViewInject(R.id.rl_close)
@@ -60,13 +62,13 @@ public class ClassificationActivity extends BaseActivity {
     private String classificationId;
     private ClassificationListAdapter mClassifcationListAdapter;
     List<ClassificationListBean.ResultBean> mClassificationListBeans = new ArrayList<>();
-    private int currentPage=1;
+    private int currentPage = 1;
     private String keyValue = "is_new";
     private String sort = "desc";
-    private boolean isZongheSort = false;
-    private boolean isChengJiaoCiShuSort = false;
-    private boolean isHuiFuLvSort = false;
-    private boolean isJiaGeSort = false;
+    private boolean isZongheSort = true;
+    private boolean isChengJiaoCiShuSort = true;
+    private boolean isHuiFuLvSort = true;
+    private boolean isJiaGeSort = true;
     private int type;
 
     @Override
@@ -101,8 +103,8 @@ public class ClassificationActivity extends BaseActivity {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
-                initDatas(1, classificationId, false, false);
-                refreshLayout.finishRefreshing();
+                currentPage = 1;
+                initDatas(currentPage, classificationId, false, false);
             }
 
             @Override
@@ -110,7 +112,6 @@ public class ClassificationActivity extends BaseActivity {
                 super.onLoadMore(refreshLayout);
                 currentPage++;
                 initDatas(currentPage, classificationId, false, true);
-                refreshLayout.finishLoadmore();
             }
 
             @Override
@@ -129,7 +130,6 @@ public class ClassificationActivity extends BaseActivity {
         Map<String, Object> map = new HashMap<>();
         String yuyan = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "");
         if (yuyan != null) {
-            Log.d("chenshichun","===========currentPage  "+currentPage);
             map.put("language", yuyan);
             map.put("id", classificationId);
             map.put("key", keyValue);
@@ -151,9 +151,9 @@ public class ClassificationActivity extends BaseActivity {
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         if (isNormal) {
-                            if(gson.fromJson(result, ClassificationListBean.class).getResult()==null) {
+                            if (gson.fromJson(result, ClassificationListBean.class).getResult() == null) {
                                 ll_empty.setVisibility(View.VISIBLE);
-                            }else {
+                            } else {
                                 ll_empty.setVisibility(View.GONE);
                                 mClassificationListBeans.removeAll(mClassificationListBeans);
                                 mClassificationListBeans.addAll(gson.fromJson(result, ClassificationListBean.class).getResult());
@@ -164,11 +164,13 @@ public class ClassificationActivity extends BaseActivity {
                                 if (gson.fromJson(result, ClassificationListBean.class).getResult().size() > 0) {// 加载更多
                                     mClassificationListBeans.addAll(gson.fromJson(result, ClassificationListBean.class).getResult());
                                     mClassifcationListAdapter.notifyDataSetChanged();
+                                }else{
+                                    CusToast.showToast("没有更多数据!");
                                 }
                             } else {// 刷新
-                                if(gson.fromJson(result, ClassificationListBean.class).getResult()==null) {
+                                if (gson.fromJson(result, ClassificationListBean.class).getResult() == null) {
                                     ll_empty.setVisibility(View.VISIBLE);
-                                }else {
+                                } else {
                                     ll_empty.setVisibility(View.GONE);
                                     mClassificationListBeans.removeAll(mClassificationListBeans);
                                     mClassificationListBeans.addAll(gson.fromJson(result, ClassificationListBean.class).getResult());
@@ -187,6 +189,8 @@ public class ClassificationActivity extends BaseActivity {
             public void onFinished() {
                 super.onFinished();
                 closeDialog();
+                refreshLayout.finishRefreshing();
+                refreshLayout.finishLoadmore();
             }
 
             @Override
@@ -198,14 +202,20 @@ public class ClassificationActivity extends BaseActivity {
         });
     }
 
-    private void setDrawableRight(TextView view, boolean isDown) {
-        Drawable img_on, img_off;
+    private void setDrawableRight(TextView view, boolean isDefault, boolean isDown) {
+        Drawable img_on, img_off, img_moren;
         Resources res = getResources();
         img_off = res.getDrawable(R.drawable.jiangxu);
         img_on = res.getDrawable(R.drawable.shengxu);
+        img_moren = res.getDrawable(R.drawable.paixu);
         img_off.setBounds(0, 0, img_off.getMinimumWidth(), img_off.getMinimumHeight());
         img_on.setBounds(0, 0, img_on.getMinimumWidth(), img_on.getMinimumHeight());
-        view.setCompoundDrawables(null, null, isDown ? img_off : img_on, null); //设置左图标
+        img_moren.setBounds(0, 0, img_moren.getMinimumWidth(), img_on.getMinimumHeight());
+        if (isDefault) {
+            view.setCompoundDrawables(null, null, img_moren, null); //设置左图标
+        } else {
+            view.setCompoundDrawables(null, null, isDown ? img_off : img_on, null); //设置左图标
+        }
     }
 
     @Event(value = {R.id.rl_close, R.id.tv_zonghe, R.id.chengjiaocishu, R.id.huifulv, R.id.price_tv}, type = View.OnClickListener.class)
@@ -218,18 +228,22 @@ public class ClassificationActivity extends BaseActivity {
                 keyValue = "is_new";
                 if (isZongheSort) {
                     sort = "asc";
-                    setDrawableRight(tv_zonghe, true);
                 } else {
-                    setDrawableRight(tv_zonghe, false);
                     sort = "desc";
                 }
+                setDrawableRight(chengjiaocishu, true,true);
+                setDrawableRight(huifulv, true,true);
+                setDrawableRight(price_tv, true,true);
+
                 isZongheSort = !isZongheSort;
                 tv_zonghe.setTextColor(getResources().getColor(R.color.home_red));
                 chengjiaocishu.setTextColor(getResources().getColor(R.color.black));
                 huifulv.setTextColor(getResources().getColor(R.color.black));
                 price_tv.setTextColor(getResources().getColor(R.color.black));
                 initDatas(1, classificationId, true, false);
-
+                isChengJiaoCiShuSort = true;
+                isJiaGeSort =true;
+                isHuiFuLvSort =true;
                 break;
             case R.id.chengjiaocishu:
                 tv_zonghe.setTextColor(getResources().getColor(R.color.black));
@@ -238,15 +252,19 @@ public class ClassificationActivity extends BaseActivity {
                 price_tv.setTextColor(getResources().getColor(R.color.black));
 
                 keyValue = "sales_sum";
-                if (isChengJiaoCiShuSort) {
+                if (!isChengJiaoCiShuSort) {
                     sort = "asc";
-                    setDrawableRight(chengjiaocishu, true);
+                    setDrawableRight(chengjiaocishu, false,true);
                 } else {
                     sort = "desc";
-                    setDrawableRight(chengjiaocishu, false);
+                    setDrawableRight(chengjiaocishu, false,false);
                 }
-                isChengJiaoCiShuSort = !isChengJiaoCiShuSort;
+                setDrawableRight(huifulv, true,true);
+                setDrawableRight(price_tv, true,true);
                 initDatas(1, classificationId, true, false);
+                isChengJiaoCiShuSort = !isChengJiaoCiShuSort;
+                isJiaGeSort =true;
+                isHuiFuLvSort =true;
                 break;
             case R.id.huifulv:
                 tv_zonghe.setTextColor(getResources().getColor(R.color.black));
@@ -254,15 +272,19 @@ public class ClassificationActivity extends BaseActivity {
                 huifulv.setTextColor(getResources().getColor(R.color.home_red));
                 price_tv.setTextColor(getResources().getColor(R.color.black));
                 keyValue = "is_recommend";
-                if (isHuiFuLvSort) {
+                if (!isHuiFuLvSort) {
                     sort = "asc";
-                    setDrawableRight(huifulv, true);
+                    setDrawableRight(huifulv, false,true);
                 } else {
                     sort = "desc";
-                    setDrawableRight(huifulv, false);
+                    setDrawableRight(huifulv, false,false);
                 }
-                isHuiFuLvSort = !isHuiFuLvSort;
+                setDrawableRight(chengjiaocishu, true,true);
+                setDrawableRight(price_tv, true,true);
                 initDatas(1, classificationId, true, false);
+                isHuiFuLvSort = !isHuiFuLvSort;
+                isChengJiaoCiShuSort = true;
+                isJiaGeSort =true;
                 break;
             case R.id.price_tv:
                 tv_zonghe.setTextColor(getResources().getColor(R.color.black));
@@ -270,15 +292,19 @@ public class ClassificationActivity extends BaseActivity {
                 huifulv.setTextColor(getResources().getColor(R.color.black));
                 price_tv.setTextColor(getResources().getColor(R.color.home_red));
                 keyValue = "shop_price";
-                if (isJiaGeSort) {
+                if (!isJiaGeSort) {
                     sort = "asc";
-                    setDrawableRight(price_tv, true);
+                    setDrawableRight(price_tv, false,true);
                 } else {
                     sort = "desc";
-                    setDrawableRight(price_tv, false);
+                    setDrawableRight(price_tv, false,false);
                 }
-                isJiaGeSort = !isJiaGeSort;
+                setDrawableRight(chengjiaocishu, true,true);
+                setDrawableRight(huifulv, true,true);
                 initDatas(1, classificationId, true, false);
+                isJiaGeSort = !isJiaGeSort;
+                isChengJiaoCiShuSort = true;
+                isHuiFuLvSort =true;
                 break;
         }
     }

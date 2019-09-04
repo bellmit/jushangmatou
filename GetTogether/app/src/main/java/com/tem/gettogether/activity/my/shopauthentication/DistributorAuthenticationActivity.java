@@ -8,6 +8,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
@@ -22,6 +24,8 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.my.UploadQYActivity;
@@ -30,7 +34,9 @@ import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.ImageDataBean;
+import com.tem.gettogether.retrofit.UploadUtil;
 import com.tem.gettogether.utils.Base64BitmapUtil;
+import com.tem.gettogether.utils.BitnapUtils;
 import com.tem.gettogether.utils.Contacts;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.permissions.AppUtils;
@@ -193,7 +199,7 @@ public class DistributorAuthenticationActivity extends BaseActivity {
                 showPop(rl_card_image5);
                 break;
             case R.id.tv_save:
-                if (et_card_num.getText().toString().equals(getResources().getString(R.string.please_input))||et_card_num.getText().toString().equals("")) {
+                if (et_card_num.getText().toString().equals(getResources().getString(R.string.please_input)) || et_card_num.getText().toString().equals("")) {
                     CusToast.showToast("请输入身份证号");
                     return;
                 }
@@ -222,7 +228,6 @@ public class DistributorAuthenticationActivity extends BaseActivity {
                     }
 
                     Map<String, Object> map = new HashMap<>();
-                    if (BaseApplication.getInstance().userBean == null) return;
                     map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                     map.put("legal_identity", et_card_num.getText().toString());
                     map.put("apply_type", apply_type);
@@ -240,7 +245,6 @@ public class DistributorAuthenticationActivity extends BaseActivity {
                     upTJSHData(map);
                 } else {
                     Map<String, Object> map = new HashMap<>();
-                    if (BaseApplication.getInstance().userBean == null) return;
                     map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                     map.put("store_person_identity", et_card_num.getText().toString());
@@ -422,15 +426,68 @@ public class DistributorAuthenticationActivity extends BaseActivity {
     /**
      * 设置图片
      */
+    ImageDataBean imageDataBean = null;
     public void setPicToView() {
         if (mCropImageFile != null) {
-            String path = mCropImageFile.getAbsolutePath();
-            Bitmap bitmap = BitmapFactory.decodeFile(mCropImageFile.toString());
-            Map<String, Object> map = new HashMap<>();
-            map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
-            upInputImageData(map, bitmap);
+            final String path = mCropImageFile.getAbsolutePath();
+//            Bitmap bitmap = BitmapFactory.decodeFile(mCropImageFile.toString());
+//            Map<String, Object> map = new HashMap<>();
+//            map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+//            upInputImageData(map, bitmap);
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        imageDataBean = UploadUtil.uploadFile(BitnapUtils.readStream(path), new File(path), URLConstant.UPLOAD_PICTURE);
+                        if (imageDataBean != null) {
+                            mHandle.sendEmptyMessage(0);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
         }
     }
+    private Handler mHandle = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    if (imageType == 1) {
+                        Glide.with(getContext()).load(imageDataBean.getResult().getImage_show().get(0)+"").error( R.mipmap.myy322x).centerCrop().into(iv_image_1);
+                        iv_image_1.setVisibility(View.VISIBLE);
+                        iv_close1.setVisibility(View.VISIBLE);
+                        Image_1 = imageDataBean.getResult().getImage_show().get(0);
+                    } else if (imageType == 2) {
+                        Glide.with(getContext()).load(imageDataBean.getResult().getImage_show().get(0)+"").error( R.mipmap.myy322x).centerCrop().into(iv_image_2);
+                        iv_image_2.setVisibility(View.VISIBLE);
+                        iv_close2.setVisibility(View.VISIBLE);
+                        Image_2 = imageDataBean.getResult().getImage_show().get(0);
+                    } else if (imageType == 3) {
+                        Glide.with(getContext()).load(imageDataBean.getResult().getImage_show().get(0)+"").error( R.mipmap.myy322x).centerCrop().into(iv_image_3);
+                        iv_image_3.setVisibility(View.VISIBLE);
+                        iv_close3.setVisibility(View.VISIBLE);
+                        Image_3 = imageDataBean.getResult().getImage_show().get(0);
+                    } else if (imageType == 4) {
+                        Glide.with(getContext()).load(imageDataBean.getResult().getImage_show().get(0)+"").error( R.mipmap.myy322x).centerCrop().into(iv_image_4);
+                        iv_image_4.setVisibility(View.VISIBLE);
+                        iv_close4.setVisibility(View.VISIBLE);
+                        Image_4 = imageDataBean.getResult().getImage_show().get(0);
+                    } else if (imageType == 5) {
+                        Glide.with(getContext()).load(imageDataBean.getResult().getImage_show().get(0)+"").error( R.mipmap.myy322x).centerCrop().into(iv_image_5);
+                        iv_image_5.setVisibility(View.VISIBLE);
+                        iv_close5.setVisibility(View.VISIBLE);
+                        Image_5 = imageDataBean.getResult().getImage_show().get(0);
+                    }
+                    break;
+                case 1:
+                    break;
+            }
+        }
+    };
 
     private void upInputImageData(Map<String, Object> map, final Bitmap bitmap) {
         showDialog();

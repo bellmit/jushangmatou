@@ -356,7 +356,6 @@ public class MeFragment extends TabFragment implements IUnReadMessageObserver, D
     }
     private void upGetMessageData() {
         Map<String,Object> map=new HashMap<>();
-        if(BaseApplication.getInstance().userBean==null)return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         baseActivity.showDialog();
@@ -491,7 +490,6 @@ public class MeFragment extends TabFragment implements IUnReadMessageObserver, D
     private int messageNum=0;
     private void upMessageNumData() {
         Map<String,Object> map=new HashMap<>();
-        if(BaseApplication.getInstance().userBean==null)return;
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         XUtil.Post(URLConstant.XITONGXIAO_WEIDU, map, new MyCallBack<String>() {

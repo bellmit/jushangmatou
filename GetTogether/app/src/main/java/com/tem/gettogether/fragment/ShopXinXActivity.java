@@ -171,7 +171,6 @@ public class ShopXinXActivity extends BaseActivity {
                 break;
             case R.id.tv_fbcp:
                 Map<String,Object> map=new HashMap<>();
-                if(BaseApplication.getInstance().userBean==null)return;
                 map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                 if(et_ShopName.getText().toString().equals("")){
@@ -244,11 +243,6 @@ public class ShopXinXActivity extends BaseActivity {
     }
     private void upMyTJSHData(){
         Map<String, Object> map=new HashMap<>();
-        if(BaseApplication.getInstance().userBean==null){
-            CusToast.showToast("登录失效");
-            startActivity(new Intent(this, LoginActivity.class));
-            return;
-        }
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         showDialog();
