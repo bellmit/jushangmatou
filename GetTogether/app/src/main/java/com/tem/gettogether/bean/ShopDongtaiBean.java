@@ -58,6 +58,15 @@ public class ShopDongtaiBean {
         private String goods_name;
         private String batch_number;
         private List<String> images;
+        private List<String> cover_image;
+
+        public List<String> getCover_image() {
+            return cover_image;
+        }
+
+        public void setCover_image(List<String> cover_image) {
+            this.cover_image = cover_image;
+        }
 
         public String getTitle() {
             return title;

@@ -99,11 +99,11 @@ public class ZhuTuXQNewActivity extends BaseActivity {
         if (requestCode == PictureSelector.SELECT_REQUEST_CODE) {
             if (data != null) {
                 final String picturePath = data.getStringExtra(PictureSelector.PICTURE_PATH);
-                iamge_iv.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
                 String targetPath = compressImageFilePath + Confirg.df.
                         format(new Date()) + ".jpg";
                 final String compressImage = BitnapUtils.compressImage(picturePath, targetPath, 40);
-
+                showDialog();
                 new Thread(new Runnable(){
                     @Override
                     public void run() {
@@ -113,61 +113,30 @@ public class ZhuTuXQNewActivity extends BaseActivity {
                             if(imageDataBean!=null){
                                 cartImage.removeAll(cartImage);
                                 cartImage.add(imageDataBean.getResult().getImage_show().get(0));
+                                mHandle.sendEmptyMessage(0);
                             }
                         } catch (Exception e) {
+                            mHandle.sendEmptyMessage(1);
                             e.printStackTrace();
                         }
                     }
                 }).start();
-
-                /*Map<String, Object> map = new HashMap<>();
-                map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(BitmapFactory.decodeFile(compressImage)));
-                upMessageData(map);*/
             }
         }
     }
 
-    private void upMessageData(Map<String, Object> map) {
-        XUtil.Post(URLConstant.SHANGCHUAN_IMAGE, map, new MyCallBack<String>() {
-            @Override
-            public void onSuccess(String result) {
-                super.onSuccess(result);
-                Log.i("====上传图片===", result);
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    String res = jsonObject.optString("status");
-                    String msg = jsonObject.optString("msg");
-                    if (res.equals("1")) {
-                        Gson gson = new Gson();
-                        ImageDataBean imageDataBean = gson.fromJson(result, ImageDataBean.class);
-                        Map<String, Object> map = new HashMap<>();
-                        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-
-                        if (imageDataBean.getResult().getImage_show().size() >= 0) {
-                            map.put("head_pic", imageDataBean.getResult().getImage_show().get(0));
-                            cartImage.add(imageDataBean.getResult().getImage_show().get(0));
-                        }
-                    } else {
-                        CusToast.showToast(msg);
-                    }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+    private Handler mHandle = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 0:
+                    closeDialog();
+                    Glide.with(ZhuTuXQNewActivity.this).load(cartImage.get(0)).error(R.mipmap.myy322x).into(iamge_iv);
+                    break;
+                case 1:
+                    closeDialog();
+                    break;
             }
-
-            @Override
-            public void onFinished() {
-                super.onFinished();
-
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                super.onError(ex, isOnCallback);
-                ex.printStackTrace();
-            }
-        });
-    }
+        }
+    };
 }

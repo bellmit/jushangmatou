@@ -137,6 +137,15 @@ public class ShoppingXQBean {
             private String collect_num;
             private String is_collect;
             private String store_logo;
+            private String is_linyi;
+
+            public String getIs_linyi() {
+                return is_linyi;
+            }
+
+            public void setIs_linyi(String is_linyi) {
+                this.is_linyi = is_linyi;
+            }
 
             public String getStore_logo() {
                 return store_logo;

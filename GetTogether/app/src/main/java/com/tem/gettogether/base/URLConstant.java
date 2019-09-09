@@ -324,4 +324,7 @@ public class URLConstant {
 
     // 上传图片接口
     public final static String UPLOAD_PICTURE = SERVER +"/Api/Index/upload_binary";
+
+    //临沂店铺商品分类接口
+    public final static String LINYI_SHOP_CLASSIFICATION = SERVER + "/Api/User/linyiget_goods_category";
 }

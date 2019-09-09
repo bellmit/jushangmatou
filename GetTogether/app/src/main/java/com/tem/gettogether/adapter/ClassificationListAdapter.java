@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -38,17 +39,21 @@ public class ClassificationListAdapter extends RecyclerView.Adapter<Classificati
     public void onBindViewHolder(ClassificationListAdapter.ViewHolder holder, final int position) {
         Glide.with(context).load(mDatas.get(position).getcover_image()).error(R.mipmap.myy322x).into(holder.iv_image);
         holder.tv_name.setText(mDatas.get(position).getGoods_name());
-        holder.tv_price.setText("￥" + mDatas.get(position).getShop_price());
+        if(mDatas.get(position).getIs_enquiry().equals("1")){
+            holder.tv_price.setText("面议");
+        }else{
+            holder.tv_price.setText("￥" + mDatas.get(position).getShop_price());
+        }
         holder.tv_numbear.setText(mDatas.get(position).getBatch_number()+"个起购");
         if(mDatas.get(position).getLevel_id()!=null) {
             if (mDatas.get(position).getLevel_id().equals("7")) {
                 holder.tv_member.setVisibility(View.GONE);
             } else if (mDatas.get(position).getLevel_id().equals("1")) {
                 holder.tv_member.setVisibility(View.VISIBLE);
-                holder.tv_member.setText("普通会员");
+                holder.tv_member.setBackgroundResource(R.drawable.putong_icon);
             } else if (mDatas.get(position).getLevel_id().equals("2")) {
                 holder.tv_member.setVisibility(View.VISIBLE);
-                holder.tv_member.setText("高级会员");
+                holder.tv_member.setBackgroundResource(R.drawable.haoji_icon);
             }
         }
 
@@ -71,7 +76,7 @@ public class ClassificationListAdapter extends RecyclerView.Adapter<Classificati
         public TextView tv_name;
         public TextView tv_price;
         public TextView tv_numbear;
-        public TextView tv_member;
+        public ImageView tv_member;
 
         public ViewHolder(View itemView) {
             super(itemView);

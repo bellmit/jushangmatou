@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.MyShopActivity;
+import com.tem.gettogether.activity.my.publishgoods.PublishGoodsActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.fragment.ShopXinXActivity;
@@ -56,14 +57,12 @@ public class StoreManagementActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_cpgl:
-//                startActivity(new Intent(this, ChanPinGLActivity.class));
                 startActivity(new Intent(this, ProductManagmentActivity.class));
                 break;
             case R.id.tv_fbcp:
-                startActivity(new Intent(this, NewAddShoppingActivity.class));
+                startActivity(new Intent(this, PublishGoodsActivity.class/*NewAddShoppingActivity.class*/));
                 break;
             case R.id.tv_dpxx:
-//                startActivity(new Intent(this, ShopXinXActivity.class));
                 startActivity(new Intent(this, MyShopActivity.class));
                 break;
             case R.id.rl_title_right:

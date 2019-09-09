@@ -3,6 +3,7 @@ package com.tem.gettogether.activity.my.shopauthentication;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,6 +52,8 @@ public class ShopAuthenticationActivity extends BaseActivity {
     private EditText et_youxiang;
     @ViewInject(R.id.et_moble)
     private EditText et_moble;
+    @ViewInject(R.id.linyi_cb)
+    private CheckBox linyi_cb;
 
     @Override
     protected void initData() {
@@ -111,33 +114,32 @@ public class ShopAuthenticationActivity extends BaseActivity {
             CusToast.showToast("请输入您身的电子邮箱");
             return;
         }
-        if(!isEmail(youxiang)){
+        if (!isEmail(youxiang)) {
             CusToast.showToast("请输入正确电子邮箱格式");
             return;
         }
 
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-
         map.put("contacts_name", name);
         map.put("contacts_mobile", phone);
         map.put("contacts_email", youxiang);
         map.put("apply_type", RZType);
-        map.put("mobile",mobile);
+        map.put("mobile", mobile);
+        map.put("is_linyi", linyi_cb.isChecked() ? "1" : "0");
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         showDialog();
-        Log.d("chenshichun","=====cscscscscscsc======");
         XUtil.Post(URLConstant.JINBENXINXI_UPLOADING, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
-                Log.d("chenshichun","=====认证======"+result);
+                Log.d("chenshichun", "=====认证======" + result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
                     if (res.equals("1")) {
                         startActivity(new Intent(ShopAuthenticationActivity.this, PersionAuthenticationActivity.class)
-                                .putExtra(Contacts.AUTHENTICATION_TYPE,RZType));
+                                .putExtra(Contacts.AUTHENTICATION_TYPE, RZType));
                     } else {
                         CusToast.showToast(msg);
                     }
@@ -161,10 +163,10 @@ public class ShopAuthenticationActivity extends BaseActivity {
         });
     }
 
-    public static boolean isEmail(String email){
-        if (null==email || "".equals(email)) return false;
+    public static boolean isEmail(String email) {
+        if (null == email || "".equals(email)) return false;
         //Pattern p = Pattern.compile("\\w+@(\\w+.)+[a-z]{2,3}"); //简单匹配
-        Pattern p =  Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");//复杂匹配
+        Pattern p = Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");//复杂匹配
         Matcher m = p.matcher(email);
         return m.matches();
     }

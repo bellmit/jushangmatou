@@ -71,8 +71,7 @@ public class HomeSouSuoActivity extends BaseActivity {
     protected void initData() {
         recy_hot.setLayoutManager(new GridLayoutManager(this,3,LinearLayoutManager.VERTICAL,false));
         recy_sous_ls.setLayoutManager(new GridLayoutManager(this,3,LinearLayoutManager.VERTICAL,false));
-        store_id=getIntent().getStringExtra("store_id");
-
+        store_id = SharedPreferencesUtils.getString(getContext(),BaseConstant.SPConstant.Shop_store_id,"0");
     }
 
     @Override
@@ -113,7 +112,9 @@ public class HomeSouSuoActivity extends BaseActivity {
     private void upSouSuoLSData(){
         Map<String,Object> map=new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-        map.put("store_id",store_id);
+        Log.d("chenshichun","==========="+store_id);
+        //map.put("store_id",store_id);
+        map.put("user_id",SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
 
         showDialog();
         XUtil.Post(URLConstant.SOUSUOLISHI,map,new MyCallBack<String>(){
@@ -172,7 +173,7 @@ public class HomeSouSuoActivity extends BaseActivity {
     }
     private void upSouSuoHotData(){
         Map<String,Object> map=new HashMap<>();
-        map.put("store_id",store_id);
+        map.put("store_id","0");
         showDialog();
         XUtil.Post(URLConstant.RESHOULIEBIAO,map,new MyCallBack<String>(){
             @Override

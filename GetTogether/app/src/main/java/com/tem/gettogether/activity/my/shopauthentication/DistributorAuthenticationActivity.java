@@ -649,13 +649,13 @@ public class DistributorAuthenticationActivity extends BaseActivity {
                 }
                 intent.setDataAndType(uri, "image/*");
                 intent.putExtra("crop", "true");
-                if (Build.MANUFACTURER.equals("HUAWEI")) {//解决华为手机调用裁剪出现圆形裁剪框
+                /*if (Build.MANUFACTURER.equals("HUAWEI")) {//解决华为手机调用裁剪出现圆形裁剪框
                     intent.putExtra("aspectX", 9998);
                     intent.putExtra("aspectY", 9999);
                 } else {
                     intent.putExtra("aspectX", 1); // 裁剪框比例
                     intent.putExtra("aspectY", 1);
-                }
+                }*/
                 intent.putExtra("outputX", 300); // 输出图片大小
                 intent.putExtra("outputY", 300);
                 intent.putExtra("scale", true);

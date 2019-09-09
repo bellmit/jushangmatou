@@ -60,6 +60,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
+            android:visibility="gone"
             android:text="价格"
             android:textColor="@color/black"
             android:textSize="10sp" />

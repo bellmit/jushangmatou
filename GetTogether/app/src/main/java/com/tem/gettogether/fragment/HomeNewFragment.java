@@ -39,6 +39,7 @@ import com.tem.gettogether.activity.home.HomeHotSellActivity;
 import com.tem.gettogether.activity.home.HomeLianMengActivity;
 import com.tem.gettogether.activity.home.HomeSouSuoActivity;
 import com.tem.gettogether.activity.home.ShopActivity;
+import com.tem.gettogether.activity.linyi.LinYiClassificationActivity;
 import com.tem.gettogether.activity.my.WaiMaoQiuGouActivity;
 import com.tem.gettogether.activity.my.XeiYiH5Activity;
 import com.tem.gettogether.adapter.HomeBottomCateAdapter;
@@ -280,10 +281,10 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
+                    Log.d("chenshichun","======首页====="+jsonObject.optString("result"));
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         HomeDataNewBean homeDataBean = gson.fromJson(result, HomeDataNewBean.class);
-                        Log.d("chenshichun", "----------isRefresh  " + isRefresh);
                         if (isRefresh) {
                             adBeans = homeDataBean.getResult().getAd();
                             bottomCateBeans.clear();
@@ -391,6 +392,12 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
+
+                if(adBeans.get(position).getAd_name().equals("临沂")) {
+                    startActivity(new Intent(getActivity(), LinYiClassificationActivity.class));
+                    return;
+                }
+
                 if (adBeans.get(position).getType() == 1) {
                     if (adBeans.get(position).getAd_link() != null && !adBeans.get(position).getAd_link().equals("")) {
                         startActivityForResult(new Intent(getActivity(), ShopActivity.class)
@@ -404,7 +411,6 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                         startActivity(new Intent(getActivity(), XeiYiH5Activity.class)
                                 .putExtra("typeMain", "1")
                                 .putExtra("h5url", adBeans.get(position).getAd_link()));
-
                     } else {
                         CusToast.showToast("暂无链接");
                     }

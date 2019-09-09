@@ -53,6 +53,7 @@ import org.json.JSONObject;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -165,6 +166,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     @Override
     protected void initData() {
 //        AppManager.getAppManager().addActivity(this);
+        x.view().inject(this);
         initViews();
         recevier = new Myreceiver();
         intentFilter = new IntentFilter();
@@ -481,6 +483,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unregisterReceiver(recevier);
         RongIM.getInstance().removeUnReadMessageCountChangedObserver(this);
     }
 

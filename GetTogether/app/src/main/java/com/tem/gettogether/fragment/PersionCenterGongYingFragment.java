@@ -38,6 +38,7 @@ import com.tem.gettogether.activity.my.TAdviseActivity;
 import com.tem.gettogether.activity.my.VipCenterActivity;
 import com.tem.gettogether.activity.my.VisitorActivity;
 import com.tem.gettogether.activity.my.XunPanTuiSongActivity;
+import com.tem.gettogether.activity.my.shopauthentication.DistributorAuthenticationActivity;
 import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActivity;
 import com.tem.gettogether.activity.order.GongYingOrderActivity;
 import com.tem.gettogether.activity.order.GongYingShangNewOrderActivity;
@@ -161,6 +162,8 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                         SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.LEVER, userLever);
                         SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, resultBean.getStore_status());
                         SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.head_pic, resultBean.getHead_pic());
+                        SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.Shop_store_id,resultBean.getStore_id());
+
                         if (userLever.equals("7")) {
                             huiyuan_iv.setBackground(null);
                         } else if (userLever.equals("1")) {

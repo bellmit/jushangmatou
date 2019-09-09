@@ -435,22 +435,27 @@
         <activity android:name=".activity.my.shopauthentication.ShopAuthenticationActivity" />
         <activity android:name=".activity.my.shopauthentication.PersionAuthenticationActivity" />
         <activity android:name=".activity.my.shopauthentication.DistributorAuthenticationActivity" />
-        <activity android:name="com.tem.gettogether.activity.my.CorporateInformationActivity"/>
-        <activity android:name="com.tem.gettogether.activity.my.CgsAuthenticationActivity"/>
-        <activity android:name="com.tem.gettogether.activity.my.FansActivity"/>
-        <activity android:name="com.tem.gettogether.activity.my.XunPanTuiSongActivity"/>
-        <activity android:name="com.tem.gettogether.activity.MyShopActivity"/>
-        <activity android:name="com.tem.gettogether.activity.my.VipCenterActivity"/>
-        <activity android:name="com.tem.gettogether.activity.my.ProductManagmentActivity"/>
-        <activity android:name="com.tem.gettogether.activity.my.VisitorActivity"/>
-        <activity android:name="com.tem.gettogether.activity.my.ShopRzFailedActivity"/>
-        <activity android:name="com.tem.gettogether.activity.my.BuyingManagementActivity"/>
-        <activity android:name="com.tem.gettogether.activity.cart.ShoppingCartActivity"/>
-        <activity android:name="com.tem.gettogether.activity.order.CaiGouShangOrderActivity"/>
-        <activity android:name="com.tem.gettogether.activity.order.GongYingOrderActivity"/>
-        <activity android:name="com.tem.gettogether.activity.order.CaiGouShangNewOrderActivity"/>
-        <activity android:name="com.tem.gettogether.activity.order.GongYingShangNewOrderActivity"/>
-        <activity android:name="com.tem.gettogether.activity.my.TextDescriptionActivity"/>
+        <activity android:name="com.tem.gettogether.activity.my.CorporateInformationActivity" />
+        <activity android:name="com.tem.gettogether.activity.my.CgsAuthenticationActivity" />
+        <activity android:name="com.tem.gettogether.activity.my.FansActivity" />
+        <activity android:name="com.tem.gettogether.activity.my.XunPanTuiSongActivity" />
+        <activity android:name="com.tem.gettogether.activity.MyShopActivity" />
+        <activity android:name="com.tem.gettogether.activity.my.VipCenterActivity" />
+        <activity android:name="com.tem.gettogether.activity.my.ProductManagmentActivity" />
+        <activity android:name="com.tem.gettogether.activity.my.VisitorActivity" />
+        <activity android:name="com.tem.gettogether.activity.my.ShopRzFailedActivity" />
+        <activity android:name="com.tem.gettogether.activity.my.BuyingManagementActivity" />
+        <activity android:name="com.tem.gettogether.activity.cart.ShoppingCartActivity" />
+        <activity android:name="com.tem.gettogether.activity.order.CaiGouShangOrderActivity" />
+        <activity android:name="com.tem.gettogether.activity.order.GongYingOrderActivity" />
+        <activity android:name="com.tem.gettogether.activity.order.CaiGouShangNewOrderActivity" />
+        <activity android:name="com.tem.gettogether.activity.order.GongYingShangNewOrderActivity" />
+        <activity android:name="com.tem.gettogether.activity.my.TextDescriptionActivity" />
+        <activity android:name="com.tem.gettogether.activity.linyi.LinYiClassificationActivity" />
+        <activity android:name="com.tem.gettogether.activity.my.publishgoods.PublishGoodsActivity" />
+        <activity android:name="com.tem.gettogether.activity.my.specifications.SpecificationsActivity" />
+        <activity android:name="com.tem.gettogether.activity.my.specificationsdetail.SpecificationsDetailActivity" />
+
     </application>
 
 </manifest>

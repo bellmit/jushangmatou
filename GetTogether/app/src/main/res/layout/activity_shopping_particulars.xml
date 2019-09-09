@@ -105,6 +105,11 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/new_icon" />
 
+                        <ImageView
+                            android:id="@+id/linyi_iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/linyi_icon" />
                     </LinearLayout>
 
                     <RelativeLayout
@@ -434,6 +439,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="价格"
+                        android:visibility="gone"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 

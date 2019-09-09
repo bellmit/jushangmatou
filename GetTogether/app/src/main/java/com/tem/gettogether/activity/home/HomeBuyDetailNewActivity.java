@@ -189,7 +189,7 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
                 }
 
                 if(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "").equals("7")) {
-                    CusToast.showToast("请先升级");
+                    CusToast.showToast("请先升级高级会员!");
                     return;
                 }
 

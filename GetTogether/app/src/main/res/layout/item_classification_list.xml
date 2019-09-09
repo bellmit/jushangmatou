@@ -48,19 +48,15 @@
                 android:textColor="@color/home_red"
                 android:textSize="14dp" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/tv_member"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
-                android:drawableStart="@drawable/home_xz"
-                android:drawablePadding="3dp"
-                android:gravity="center_horizontal"
-                android:text="高级会员"
-                android:textColor="@color/text3"
-                android:textSize="12dp" />
+                android:background="@drawable/haoji_icon"
+                />
         </RelativeLayout>
 
         <TextView

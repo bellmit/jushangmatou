@@ -29,7 +29,7 @@ public class RetrofitPictureHelper {
                     public Response intercept(Interceptor.Chain chain) throws IOException {
                         Request request = chain.request()
                                 .newBuilder()
-                                .addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+                                .addHeader("Content-Type", "multipart/form-data")
                                 .addHeader("Accept-Encoding", "gzip, deflate")
                                 .addHeader("Connection", "keep-alive")
                                 .addHeader("Accept", "*/*")

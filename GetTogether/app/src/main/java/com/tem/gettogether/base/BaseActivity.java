@@ -73,7 +73,6 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
         mContext = this;
         initData();
         initView();
-
     }
 
     public BaseActivity getContext() {

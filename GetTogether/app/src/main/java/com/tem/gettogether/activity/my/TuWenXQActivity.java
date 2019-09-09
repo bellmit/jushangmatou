@@ -242,7 +242,7 @@ public class TuWenXQActivity extends BaseActivity  implements View.OnClickListen
                 // 是否显示调用相机拍照
                 intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, false);
                 // 最大图片选择数量
-                intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 1);
+                intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 9);
 
                 // 设置模式 (支持 单选/MultiImageSelectorActivity.MODE_SINGLE 或者 多选/MultiImageSelectorActivity.MODE_MULTI)
                 intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_MULTI);

@@ -162,6 +162,7 @@ public class ShopDongTFragment extends BaseFragment {
     private void  upShopPJData(final String store_id, final int page){
         Map<String,Object> map=new HashMap<>();
         map.put("store_id",store_id);
+        Log.d("chenshichun","======store_id====="+store_id);
         map.put("page",page);
         XUtil.Post(URLConstant.SHOPPINGJIA_DONGTAI,map,new MyCallBack<String>(){
             @Override

@@ -103,6 +103,15 @@ public class MyMessageBean {
         private String service_qq;
         private String expire_time;
         private String is_verify;
+        private String store_id;
+
+        public String getStore_id() {
+            return store_id;
+        }
+
+        public void setStore_id(String store_id) {
+            this.store_id = store_id;
+        }
 
         public String getIs_verify() {
             return is_verify;

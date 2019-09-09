@@ -52,6 +52,24 @@ public class ClassificationListBean {
         private String goods_name;
         private String shop_price;
         private String batch_number;
+        private String is_enquiry;
+
+        public String getIs_enquiry() {
+
+            return is_enquiry;
+        }
+
+        public void setIs_enquiry(String is_enquiry) {
+            this.is_enquiry = is_enquiry;
+        }
+
+        public String getCover_image() {
+            return cover_image;
+        }
+
+        public void setCover_image(String cover_image) {
+            this.cover_image = cover_image;
+        }
 
         public String getGoods_id() {
             return goods_id;

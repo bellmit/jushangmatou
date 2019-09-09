@@ -160,7 +160,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private ImageView hot_iv;
     @ViewInject(R.id.new_iv)
     private ImageView new_iv;
-    
+    @ViewInject(R.id.linyi_iv)
+    private ImageView linyi_iv;
+
     private List<RollTextItem> data = new ArrayList<>();
 
     private String goods_id;
@@ -397,17 +399,17 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 break;
             case R.id.tv_ljxj:
                 try {
-                        //发消息
-                        if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
-                            if (storeBean != null && storeBean.getStore_user_id() != null) {
-                                RongTalk.doConnection(ShoppingParticularsActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
-                                        , storeBean.getStore_user_id(), storeBean.getStore_name(),
-                                        storeBean.getStore_logo(), storeBean.getStore_id());
-                            } else {
-                                CusToast.showToast("该店铺无效");
-                            }
-
+                    //发消息
+                    if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
+                        if (storeBean != null && storeBean.getStore_user_id() != null) {
+                            RongTalk.doConnection(ShoppingParticularsActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
+                                    , storeBean.getStore_user_id(), storeBean.getStore_name(),
+                                    storeBean.getStore_logo(), storeBean.getStore_id());
+                        } else {
+                            CusToast.showToast("该店铺无效");
                         }
+
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                     CusToast.showToast("客服无效");
@@ -419,17 +421,17 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
                         CusToast.showToast("供应商暂无此功能");
                     } else {
-                            //发消息
-                            if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
-                                if (storeBean != null && storeBean.getStore_user_id() != null) {
-                                    RongTalk.doConnection(ShoppingParticularsActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
-                                            , storeBean.getStore_user_id(), storeBean.getStore_name(),
-                                            storeBean.getStore_logo(), storeBean.getStore_id());
-                                } else {
-                                    CusToast.showToast("该店铺无效");
-                                }
-
+                        //发消息
+                        if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
+                            if (storeBean != null && storeBean.getStore_user_id() != null) {
+                                RongTalk.doConnection(ShoppingParticularsActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
+                                        , storeBean.getStore_user_id(), storeBean.getStore_name(),
+                                        storeBean.getStore_logo(), storeBean.getStore_id());
+                            } else {
+                                CusToast.showToast("该店铺无效");
                             }
+
+                        }
                     }
 
                 } catch (Exception e) {
@@ -915,9 +917,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         commentBeans = shoppingXQBean.getResult().getComment();
                         mVpBeans = shoppingXQBean.getResult().getVp();
                         mOrderBeans = shoppingXQBean.getResult().getOrder();
-                        hot_iv.setVisibility(shoppingXQBean.getResult().getGoods().getIs_hot().equals("1")?View.VISIBLE:View.GONE);
-                        new_iv.setVisibility(shoppingXQBean.getResult().getGoods().getIs_new().equals("1")?View.VISIBLE:View.GONE);
-
+                        hot_iv.setVisibility(shoppingXQBean.getResult().getGoods().getIs_hot().equals("1") ? View.VISIBLE : View.GONE);
+                        new_iv.setVisibility(shoppingXQBean.getResult().getGoods().getIs_new().equals("1") ? View.VISIBLE : View.GONE);
+                        linyi_iv.setVisibility(shoppingXQBean.getResult().getStore().getIs_linyi().equals("1") ? View.VISIBLE : View.GONE);
                         initLiuLangData();
                         if (shoppingXQBean.getResult().getOrder() != null) {
                             initOrderData();
@@ -929,7 +931,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
 //                            Log.i("===商品详情--", "" + skudata);
 //                            object = new JSONObject(skudata);
 //                        }
-                    }else{
+                    } else {
                         CusToast.showToast(jsonObject.optString("msg"));
                         finish();
                     }
@@ -1031,6 +1033,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
         }
 
     }
+
     private void upAddCart(final String goods_num, String key) {
         Map<String, Object> map = new HashMap<>();
         map.put("goods_id", goods_id);

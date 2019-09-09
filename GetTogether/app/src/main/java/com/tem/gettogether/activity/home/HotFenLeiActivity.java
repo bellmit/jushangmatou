@@ -19,10 +19,12 @@ import com.tem.gettogether.R;
 import com.tem.gettogether.activity.LoginActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.SouSuoDataBean;
 import com.tem.gettogether.utils.ListUtils;
 import com.tem.gettogether.utils.NetWorkUtils;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.UiUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -355,6 +357,8 @@ public class HotFenLeiActivity extends BaseActivity {
     }
 
     private void upShopData(Map<String, Object> map) {
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID,""));
+        //map.put("store_id",SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id,""));
         Set keys = map.keySet();
         if (keys != null) {
             Iterator iterator = keys.iterator();

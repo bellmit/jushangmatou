@@ -260,10 +260,6 @@ public class PersionAuthenticationActivity extends BaseActivity {
                 map.put("store_province", store_province);
                 map.put("store_city", store_city);
                 map.put("store_district", store_district);
-                Log.d("chenshichun", "=======store_province====" + store_province);
-                Log.d("chenshichun", "=====store_city======" + store_city);
-                Log.d("chenshichun", "=======store_district====" + store_district);
-
                 map.put("store_address", et_dpAddress.getText().toString());
                 map.put("apply_type", authenticationType);
                 if (authenticationType == 1) {
@@ -391,7 +387,6 @@ public class PersionAuthenticationActivity extends BaseActivity {
                 super.onFinished();
                 closeDialog();
                 if (isOne == false) {
-                    Log.i("======选择内容000--", "==");
                     addressSetData();
                 }
 

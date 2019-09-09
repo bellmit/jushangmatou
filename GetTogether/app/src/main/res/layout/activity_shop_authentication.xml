@@ -173,8 +173,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
                         android:layout_marginStart="5dp"
+                        android:layout_marginEnd="16dp"
                         android:text="@string/distributor"
                         android:textColor="@color/text3"
                         android:textSize="14dp" />
@@ -189,8 +189,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
                         android:layout_marginStart="5dp"
+                        android:layout_marginEnd="16dp"
                         android:text="@string/factory"
                         android:textColor="@color/text3"
                         android:textSize="14dp" />
@@ -235,9 +235,42 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:visibility="invisible"
                     android:text="*"
-                    android:textColor="@color/my_red" />
+                    android:textColor="@color/my_red"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="临沂"
+                    android:textColor="@color/my_sprz_text"
+                    android:textSize="14dp" />
+
+                <CheckBox
+                    android:id="@+id/linyi_cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="*"
+                    android:textColor="@color/my_red"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:layout_width="100dp"

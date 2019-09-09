@@ -9,8 +9,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -18,7 +18,6 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -35,7 +34,6 @@ import com.tem.gettogether.R;
 import com.tem.gettogether.ShowImageDetail;
 import com.tem.gettogether.adapter.MyPublicTaskRecycleAdapter;
 import com.tem.gettogether.base.BaseActivity;
-import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
@@ -45,8 +43,6 @@ import com.tem.gettogether.bean.AddShopFLBean;
 import com.tem.gettogether.bean.AddShopGFLBean;
 import com.tem.gettogether.bean.CategoriesBean;
 import com.tem.gettogether.bean.ImageDataBean;
-import com.tem.gettogether.retrofit.RetrofitPictureHelper;
-import com.tem.gettogether.retrofit.RetrofitService;
 import com.tem.gettogether.retrofit.UploadUtil;
 import com.tem.gettogether.utils.Base64BitmapUtil;
 import com.tem.gettogether.utils.BitnapUtils;
@@ -70,16 +66,8 @@ import org.xutils.x;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.RandomAccessFile;
-import java.net.HttpURLConnection;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -89,13 +77,6 @@ import java.util.Map;
 import cc.duduhuo.custoast.CusToast;
 import me.nereo.multi_image_selector.MultiImageSelector;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.adapter.rxjava2.Result;
 
 @ContentView(R.layout.activity_new_add_shopping)
 public class NewAddShoppingActivity extends BaseActivity implements View.OnClickListener, View.OnLongClickListener {
@@ -378,7 +359,6 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
 
                 map.put("shop_price", et_ShopingSJ.getText().toString());
                 Log.d("chenshichun", "======shop_price=====  " + et_ShopingSJ.getText().toString());
-
 
                 map.put("is_enquiry", isxunjia);
                 Log.d("chenshichun", "======is_enquiry=====  " + isxunjia);

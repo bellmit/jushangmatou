@@ -58,7 +58,6 @@ public class CaiGouOrderShouHuoFragment extends BaseFragment {
     private int currentPage = 1;
     private BaseActivity baseActivity;
     private int mTab = 2;
-
     public static CaiGouOrderShouHuoFragment getInstance(int tab) {
         CaiGouOrderShouHuoFragment fragment = new CaiGouOrderShouHuoFragment();
         fragment.setArguments(setArguments(tab));
@@ -302,4 +301,5 @@ public class CaiGouOrderShouHuoFragment extends BaseFragment {
             }
         }
     }
+
 }
