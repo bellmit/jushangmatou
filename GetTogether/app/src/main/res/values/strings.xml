@@ -304,4 +304,5 @@
     <string name="join_membership">开通会员</string>
     <string name="my_shop">我的店铺</string>
     <string name="restart_rz">重新认证</string>
+    <string name="specification_description">已选%1$d个商品规格，最多可选%2$d个</string>
 </resources>

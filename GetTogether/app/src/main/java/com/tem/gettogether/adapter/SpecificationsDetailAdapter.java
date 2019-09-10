@@ -1,18 +1,17 @@
 package com.tem.gettogether.adapter;
 
 import android.content.Context;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
-import com.tem.gettogether.bean.ServiceProviderBean;
-
-import org.xutils.view.annotation.ViewInject;
+import com.tem.gettogether.bean.StoreManagerListEntity;
 
 import java.util.List;
 
@@ -27,12 +26,11 @@ import java.util.List;
 public class SpecificationsDetailAdapter extends RecyclerView.Adapter<SpecificationsDetailAdapter.ViewHolder> {
 
     private Context context;
-    private List<ServiceProviderBean.ResultEntity> mDatas;
-    private SpecificationsDetailAdapter.OnItemClickListener mOnItemClickListener;
+    List<StoreManagerListEntity.GuigesEntity> mDatas;
+    private OnCallListener mOnCallListener;
     SpecificationsDetailAddAdapter mSpecificationsDetailAddAdapter;
-    LinearLayoutManager layoutManager;
 
-    public SpecificationsDetailAdapter(Context context, List<ServiceProviderBean.ResultEntity> mDatas) {
+    public SpecificationsDetailAdapter(Context context, List<StoreManagerListEntity.GuigesEntity> mDatas) {
         this.context = context;
         this.mDatas = mDatas;
     }
@@ -45,22 +43,23 @@ public class SpecificationsDetailAdapter extends RecyclerView.Adapter<Specificat
 
     @Override
     public void onBindViewHolder(final SpecificationsDetailAdapter.ViewHolder holder, final int position) {
+        mSpecificationsDetailAddAdapter = new SpecificationsDetailAddAdapter(context, position, mDatas);
+        holder.recyclerView.setAdapter(mSpecificationsDetailAddAdapter);
 
-        holder.add_cl.setOnClickListener(new View.OnClickListener() {
+        mSpecificationsDetailAddAdapter.setOnDataItem(new SpecificationsDetailAddAdapter.OnDataListener() {
             @Override
-            public void onClick(View v) {
-                mSpecificationsDetailAddAdapter = new SpecificationsDetailAddAdapter(context, 2);
-                layoutManager = new LinearLayoutManager(context);
-                layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-                holder.recyclerView.setLayoutManager(layoutManager);
-                holder.recyclerView.setAdapter(mSpecificationsDetailAddAdapter);
+            public void onSaveData(int currentCount, List<String> mDatas) {
+                Log.d("chenshichun","---mSpecificationsDetailAddAdapter------"+mDatas);
+                mOnCallListener.onCallData(position,mDatas);
             }
         });
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.specifications_tv.setText(mDatas.get(position).title);
+
+        holder.delete_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnItemClickListener.onItemClick(position);
+                mDatas.remove(position);
                 notifyDataSetChanged();
             }
         });
@@ -68,30 +67,32 @@ public class SpecificationsDetailAdapter extends RecyclerView.Adapter<Specificat
 
     @Override
     public int getItemCount() {
-        return /*mDatas.size()*/2;
+        return mDatas.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView specifications_tv;
         public TextView delete_tv;
         public RecyclerView recyclerView;
-        private ConstraintLayout add_cl;
 
         public ViewHolder(View itemView) {
             super(itemView);
             specifications_tv = itemView.findViewById(R.id.specifications_tv);
             delete_tv = itemView.findViewById(R.id.delete_tv);
             recyclerView = itemView.findViewById(R.id.recyclerView);
-            add_cl = itemView.findViewById(R.id.add_cl);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3);
+            gridLayoutManager.setOrientation(LinearLayout.VERTICAL);
+            recyclerView.setLayoutManager(gridLayoutManager);
+            recyclerView.setHasFixedSize(true);
         }
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(int position);
+    public interface OnCallListener {
+        void onCallData(int position,List<String> mDatas);
     }
 
-    public void setOnClickItem(SpecificationsDetailAdapter.OnItemClickListener onItemClickListener) {
-        this.mOnItemClickListener = onItemClickListener;
+    public void setCallItem(OnCallListener onCallListener) {
+        this.mOnCallListener = onCallListener;
     }
 
 }

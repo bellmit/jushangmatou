@@ -18,7 +18,7 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/detele_tv"
+        android:id="@+id/delete_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_10"
@@ -33,7 +33,7 @@
     <LinearLayout
         android:id="@+id/recycle_ll"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/specifications_tv"
@@ -44,7 +44,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
-        <include layout="@layout/item_add_add" />
+        <include layout="@layout/item_add_add"
+            android:visibility="gone"
+            />
+
     </LinearLayout>
 
     <View

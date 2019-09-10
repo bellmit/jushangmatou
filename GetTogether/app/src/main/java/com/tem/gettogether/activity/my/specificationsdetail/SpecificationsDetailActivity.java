@@ -1,20 +1,25 @@
 package com.tem.gettogether.activity.my.specificationsdetail;
 
-import android.content.Intent;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
+import com.tem.gettogether.adapter.GoodsSpecTypeNumberAdapter;
 import com.tem.gettogether.adapter.SpecificationsDetailAdapter;
 import com.tem.gettogether.base.BaseMvpActivity;
+import com.tem.gettogether.bean.StoreManagerListEntity;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * @ProjectName: GetTogether
@@ -30,16 +35,67 @@ public class SpecificationsDetailActivity extends BaseMvpActivity<Specifications
     private TextView tv_title;
     @ViewInject(R.id.recyclerView)
     private RecyclerView recyclerView;
+    @ViewInject(R.id.goods_spec_recycleview)
+    private RecyclerView goods_spec_recycleview;
+
     private SpecificationsDetailAdapter mSpecificationsDetailAdapter;
+    private GoodsSpecTypeNumberAdapter mNumberAdapter;
+
+    private List<StoreManagerListEntity.GuigesEntity> mSpecNameList = new ArrayList<>();
+    private List<StoreManagerListEntity.SkuListEntity> mSpecPriceList = new ArrayList<>();
 
     @Override
     protected void initData() {
         x.view().inject(this);
         tv_title.setText("产品规格");
 
-        mSpecificationsDetailAdapter = new SpecificationsDetailAdapter(getContext(), null);
+        StoreManagerListEntity.GuigesEntity entity = new StoreManagerListEntity.GuigesEntity();
+        entity.title="颜色";
+        entity.guigeArray.add("");
+        StoreManagerListEntity.GuigesEntity entity1 = new StoreManagerListEntity.GuigesEntity();
+        entity1.title="尺寸";
+        entity1.guigeArray.add("");
+        StoreManagerListEntity.GuigesEntity entity2 = new StoreManagerListEntity.GuigesEntity();
+        entity2.title="形状";
+        entity2.guigeArray.add("");
+        mSpecNameList.add(entity);
+        mSpecNameList.add(entity1);
+        mSpecNameList.add(entity2);
+
+        mSpecificationsDetailAdapter = new SpecificationsDetailAdapter(getContext(), mSpecNameList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mSpecificationsDetailAdapter);
+
+        mNumberAdapter = new GoodsSpecTypeNumberAdapter(this, mSpecPriceList);
+        goods_spec_recycleview.setLayoutManager(new LinearLayoutManager(getContext()));
+        goods_spec_recycleview.setAdapter(mNumberAdapter);
+        goods_spec_recycleview.setNestedScrollingEnabled(false);
+
+        mSpecificationsDetailAdapter.setCallItem(new SpecificationsDetailAdapter.OnCallListener() {
+            @Override
+            public void onCallData(int position, List<String> mDatas) {
+                Log.d("chenshichun","---------"+mDatas);
+                mSpecPriceList.clear();
+                String sku_name = "";
+                for (int i = 0; i < mSpecNameList.size(); i++) {
+                    if (i < mSpecNameList.size() - 1) {
+                        sku_name = sku_name + mSpecNameList.get(i).title + ",";
+                    } else {
+                        sku_name = sku_name + mSpecNameList.get(i).title;
+                    }
+                }
+                if (mDatas != null) {
+                    for (int i = 0; i < mDatas.size(); i++) {
+                        StoreManagerListEntity.SkuListEntity serverEntity = new StoreManagerListEntity.SkuListEntity();
+                        serverEntity.spec = mDatas.get(i);
+                        serverEntity.sku_name = sku_name;
+                        mSpecPriceList.add(serverEntity);
+                    }
+                }
+                mNumberAdapter.notifyDataSetChanged();
+            }
+        });
+
     }
 
     @Override

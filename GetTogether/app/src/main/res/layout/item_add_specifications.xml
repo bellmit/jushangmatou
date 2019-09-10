@@ -9,17 +9,22 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="100dp"
         android:layout_height="30dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:background="@drawable/cart_add_jj_line"
         tools:ignore="MissingConstraints">
 
         <EditText
-            android:id="@+id/text_tv"
+            android:id="@+id/text_et"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
-            android:hint="材质"
+            android:hint="自定义"
             android:textSize="16sp"
             android:gravity="center"
+            android:singleLine="true"
+            android:inputType="text"
+            android:imeOptions="actionDone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

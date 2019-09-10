@@ -74,7 +74,7 @@ public class ClassificationRightAdapter extends RecyclerView.Adapter<Classificat
             public void onClick(View v) {
                 /*choosePos = position;
                 notifyDataSetChanged();
-                mOnItemClickListener.onItemClick(position);*/
+                mOnItemClickListener.onItemDelete(position);*/
             }
         });
     }

@@ -13,11 +13,12 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/description_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="@dimen/dp_10"
-            android:text="已选0个商品规格，最多可选0个"
+            android:text="@string/specification_description"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
