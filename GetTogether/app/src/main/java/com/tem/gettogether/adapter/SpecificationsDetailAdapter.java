@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.bean.StoreManagerListEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,6 +62,8 @@ public class SpecificationsDetailAdapter extends RecyclerView.Adapter<Specificat
             public void onClick(View v) {
                 mDatas.remove(position);
                 notifyDataSetChanged();
+                List<String> list = bindAnotherRecyler();
+                mOnCallListener.onCallData(position,list);
             }
         });
     }
@@ -95,4 +98,39 @@ public class SpecificationsDetailAdapter extends RecyclerView.Adapter<Specificat
         this.mOnCallListener = onCallListener;
     }
 
+    private List<String> bindAnotherRecyler() {
+        int b = 0;
+        if (mDatas.size() > 0) {
+            List<String> copylist = new ArrayList<>();
+            for (int a = 0; a < mDatas.size(); a++) {
+                if (mDatas.get(a).guigeArray.size() != 0) {
+                    copylist.addAll(mDatas.get(a).guigeArray);
+                    b = a;
+                    break;
+                }
+            }
+            copylist.remove(copylist.size()-1);
+            Log.d("chenshichun","copylist:: "+copylist);
+            if (copylist.size() > 0) {
+                List<String> L0 = new ArrayList<>();
+                L0.addAll(copylist);
+                for (int i = b + 1; i < mDatas.size(); i++) {
+                    List<String> L1 = mDatas.get(i).guigeArray;
+
+                    List<String> list = new ArrayList<>();
+                    for (int j = 0; j < L0.size(); j++) {
+                        for (int z = 0; z < L1.size()-1; z++) {
+                            String s = L0.get(j) + ":" + L1.get(z);
+                            list.add(s);
+                        }
+                    }
+                    if (list.size() != 0) {
+                        L0 = list;
+                    }
+                }
+                return L0;
+            }
+        }
+        return null;
+    }
 }
