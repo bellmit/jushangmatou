@@ -65,6 +65,7 @@ import io.rong.imkit.RongIM;
 import io.rong.imkit.manager.IUnReadMessageObserver;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import io.rong.message.RecallNotificationMessage;
 
 @ContentView(R.layout.activity_main)
 public class MainActivity extends BaseActivity implements IUnReadMessageObserver, DragPointView.OnDragListencer, PublishBuyFragment.OnSwitchListener, XunPanTuiSongFragment.OnMyListener, MessageFragment.OnMessageListener {
@@ -258,6 +259,20 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
             tv_fbqg.setText("发布求购");
             iv_fbqg.setImageResource(R.drawable.fbqg_main);
         }
+
+        RongIM.getInstance().setSendMessageListener(new RongIM.OnSendMessageListener() {
+            @Override
+            public io.rong.imlib.model.Message onSend(io.rong.imlib.model.Message message) {
+                Log.d("chenshichun","=======message.getContent()===="+message.getContent());
+                Log.d("chenshichun","======message.getSentStatus()====="+message.getSentStatus());
+                return message;
+            }
+
+            @Override
+            public boolean onSent(io.rong.imlib.model.Message message, RongIM.SentMessageErrorCode sentMessageErrorCode) {
+                return false;
+            }
+        });
 
         RongIM.connect(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0"), new RongIMClient.ConnectCallback() {
 

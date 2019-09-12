@@ -57,14 +57,13 @@ public class SpecificationsDetailAddAdapter extends RecyclerView.Adapter<Specifi
                     if (actionId == EditorInfo.IME_ACTION_DONE) {
                         String name = holder.text_et.getText().toString().trim();
                         if (!TextUtils.isEmpty(name)) {
-//                            mDatas.remove(mDatas.size()-1);
                             mDatas.get(currentCount).guigeArray.remove(mDatas.get(currentCount).guigeArray.size()-1);
                             mDatas.get(currentCount).guigeArray.add(name);
                             mDatas.get(currentCount).guigeArray.add("");
 //                            holder.text_et.setFocusable(false);
                             notifyDataSetChanged();
                             List<String> list = bindAnotherRecyler();
-                            onDataListener.onSaveData(position,list);
+                            onDataListener.onAddData(holder.text_et.getText().toString(),position,list);
                         }
                     } else {
 
@@ -83,7 +82,7 @@ public class SpecificationsDetailAddAdapter extends RecyclerView.Adapter<Specifi
 //                holder.text_et.setFocusable(true);
                 notifyDataSetChanged();
                 List<String> list = bindAnotherRecyler();
-                onDataListener.onSaveData(position,list);
+                onDataListener.onDeleteData(holder.text_et.getText().toString(),position,list);
             }
         });
     }
@@ -107,7 +106,8 @@ public class SpecificationsDetailAddAdapter extends RecyclerView.Adapter<Specifi
     }
 
     public interface OnDataListener {
-        void onSaveData(int currentCount,List<String> mDatas);
+        void onAddData(String name , int currentCount, List<String> mDatas);
+        void onDeleteData(String name , int currentCount, List<String> mDatas);
     }
 
     public void setOnDataItem(OnDataListener onDataListener) {

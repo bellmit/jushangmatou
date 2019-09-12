@@ -7,11 +7,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.my.specifications.SpecificationsActivity;
+import com.tem.gettogether.activity.my.specifications.SpecificationsPresenter;
 import com.tem.gettogether.adapter.GoodsSpecTypeNumberAdapter;
 import com.tem.gettogether.adapter.SpecificationsDetailAdapter;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseMvpActivity;
 import com.tem.gettogether.bean.SpecificationsBean;
 import com.tem.gettogether.bean.StoreManagerListEntity;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -19,7 +23,9 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -46,17 +52,22 @@ public class SpecificationsDetailActivity extends BaseMvpActivity<Specifications
     private List<StoreManagerListEntity.SkuListEntity> mSpecPriceList = new ArrayList<>();
     ArrayList<SpecificationsBean.ResultBean.SpecListBean> mLastSpecListBeanData;
 
+    List<String> mLastDatas = new ArrayList<>();
+
     @Override
     protected void initData() {
         x.view().inject(this);
         tv_title.setText("产品规格");
-
+        mPresenter = new SpecificationsDetailPresenter(getContext(), SpecificationsDetailActivity.this);
+        mPresenter.attachView(this);
         mLastSpecListBeanData = (ArrayList<SpecificationsBean.ResultBean.SpecListBean>) getIntent().getSerializableExtra("SPECIFICATION_CHOSE");
         for (int i = 0; i < mLastSpecListBeanData.size(); i++) {
             if (mLastSpecListBeanData.get(i).getIsChoose() != null && mLastSpecListBeanData.get(i).getIsChoose().equals("true")) {
 
                 StoreManagerListEntity.GuigesEntity entity = new StoreManagerListEntity.GuigesEntity();
                 entity.title = mLastSpecListBeanData.get(i).getName();
+                entity.titleID = mLastSpecListBeanData.get(i).getId();
+                Log.d("chenshichun", "=====entity.titleID ======" + entity.titleID);
                 entity.guigeArray.add("");
                 mSpecNameList.add(entity);
             }
@@ -73,26 +84,30 @@ public class SpecificationsDetailActivity extends BaseMvpActivity<Specifications
 
         mSpecificationsDetailAdapter.setCallItem(new SpecificationsDetailAdapter.OnCallListener() {
             @Override
-            public void onCallData(int position, List<String> mDatas) {
-                Log.d("chenshichun", "---------" + mDatas);
-                mSpecPriceList.clear();
-                String sku_name = "";
-                for (int i = 0; i < mSpecNameList.size(); i++) {
-                    if (i < mSpecNameList.size() - 1) {
-                        sku_name = sku_name + mSpecNameList.get(i).title + ",";
-                    } else {
-                        sku_name = sku_name + mSpecNameList.get(i).title;
-                    }
-                }
-                if (mDatas != null) {
-                    for (int i = 0; i < mDatas.size(); i++) {
-                        StoreManagerListEntity.SkuListEntity serverEntity = new StoreManagerListEntity.SkuListEntity();
-                        serverEntity.spec = mDatas.get(i);
-                        serverEntity.sku_name = sku_name;
-                        mSpecPriceList.add(serverEntity);
-                    }
-                }
-                mNumberAdapter.notifyDataSetChanged();
+            public void onCallAddData(String name, int position, List<String> mDatas) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("spec_id", mSpecNameList.get(position).titleID);
+                map.put("spec_item", name);
+                map.put("store_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, ""));
+                mPresenter.addSpecifications(map);
+
+                mLastDatas.removeAll(mLastDatas);
+                if (mDatas != null && mDatas.size() > 0)
+                    mLastDatas.addAll(mDatas);
+
+            }
+
+            @Override
+            public void onCallDeleteData(String name, int position, List<String> mDatas) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("spec_id", mSpecNameList.get(position).titleID);
+                map.put("spec_item", name);
+                map.put("store_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, ""));
+                mPresenter.deleteSpecifications(map);
+
+                mLastDatas.removeAll(mLastDatas);
+                if (mDatas != null && mDatas.size() > 0)
+                    mLastDatas.addAll(mDatas);
             }
         });
 
@@ -129,4 +144,25 @@ public class SpecificationsDetailActivity extends BaseMvpActivity<Specifications
         }
     }
 
+    @Override
+    public void specificationsListView() {
+        mSpecPriceList.clear();
+        String sku_name = "";
+        for (int i = 0; i < mSpecNameList.size(); i++) {
+            if (i < mSpecNameList.size() - 1) {
+                sku_name = sku_name + mSpecNameList.get(i).title + ",";
+            } else {
+                sku_name = sku_name + mSpecNameList.get(i).title;
+            }
+        }
+        if (mLastDatas != null) {
+            for (int i = 0; i < mLastDatas.size(); i++) {
+                StoreManagerListEntity.SkuListEntity serverEntity = new StoreManagerListEntity.SkuListEntity();
+                serverEntity.spec = mLastDatas.get(i);
+                serverEntity.sku_name = sku_name;
+                mSpecPriceList.add(serverEntity);
+            }
+        }
+        mNumberAdapter.notifyDataSetChanged();
+    }
 }

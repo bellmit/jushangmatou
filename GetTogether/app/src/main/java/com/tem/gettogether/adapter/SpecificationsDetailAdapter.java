@@ -49,9 +49,13 @@ public class SpecificationsDetailAdapter extends RecyclerView.Adapter<Specificat
 
         mSpecificationsDetailAddAdapter.setOnDataItem(new SpecificationsDetailAddAdapter.OnDataListener() {
             @Override
-            public void onSaveData(int currentCount, List<String> mDatas) {
-                Log.d("chenshichun","---mSpecificationsDetailAddAdapter------"+mDatas);
-                mOnCallListener.onCallData(position,mDatas);
+            public void onAddData(String name, int currentCount, List<String> mDatas) {
+                mOnCallListener.onCallAddData(name,position,mDatas);
+            }
+
+            @Override
+            public void onDeleteData(String name, int currentCount, List<String> mDatas) {
+                mOnCallListener.onCallDeleteData(name,position,mDatas);
             }
         });
 
@@ -63,7 +67,6 @@ public class SpecificationsDetailAdapter extends RecyclerView.Adapter<Specificat
                 mDatas.remove(position);
                 notifyDataSetChanged();
                 List<String> list = bindAnotherRecyler();
-                mOnCallListener.onCallData(position,list);
             }
         });
     }
@@ -91,7 +94,8 @@ public class SpecificationsDetailAdapter extends RecyclerView.Adapter<Specificat
     }
 
     public interface OnCallListener {
-        void onCallData(int position,List<String> mDatas);
+        void onCallAddData(String name, int position, List<String> mDatas);
+        void onCallDeleteData(String name, int position, List<String> mDatas);
     }
 
     public void setCallItem(OnCallListener onCallListener) {

@@ -68,6 +68,7 @@ public class SpecificationsActivity extends BaseMvpActivity<SpecificationsPresen
         specification_description = String.format(format, 0, 4);
         description_tv.setText(specification_description);
         Map<String, Object> map = new HashMap<>();
+        map.put("store_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, ""));
         map.put("cat_id3", cat_id3);
         mPresenter.getSpecificationsData(map);
     }

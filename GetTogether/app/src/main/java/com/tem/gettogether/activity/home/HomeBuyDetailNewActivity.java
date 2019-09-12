@@ -46,6 +46,12 @@ import java.util.List;
 import java.util.Map;
 
 import cc.duduhuo.custoast.CusToast;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.IRongCallback;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
+import io.rong.message.TextMessage;
 
 
 @ContentView(R.layout.activity_home_buy_detail)
@@ -81,12 +87,13 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
     private List<WaiMaoQiuGouBean.ResultEntity> waiMaoQiuGouBeans = new ArrayList<>();
     private int isHomeList = 0;
     private int page;
+
     @Override
     protected void initData() {
         x.view().inject(this);
         trade_id = getIntent().getStringExtra("trade_id");
         isHomeList = getIntent().getIntExtra("witch_page", 0);
-        page = getIntent().getIntExtra("page",0);
+        page = getIntent().getIntExtra("page", 0);
         initDatas(page);
         initRefresh();
     }
@@ -105,9 +112,9 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
         map.put("trade_id", trade_id);
         showDialog();
         String url = "";
-        if(page==0){
+        if (page == 0) {
             url = URLConstant.HOMEQIUGOUDETAIL1;
-        }else{
+        } else {
             url = URLConstant.HOMEQIUGOUDETAIL;
         }
         XUtil.Post(url, map, new MyCallBack<String>() {
@@ -178,7 +185,7 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
             public void onClick(View view) {
 
 
-                if(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, "").equals("0")) {
+                if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, "").equals("0")) {
                     CusToast.showToast("采购商暂无此功能");
                     return;
                 }
@@ -188,22 +195,57 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
                     return;
                 }
 
-                if(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "").equals("7")) {
+                if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "").equals("7")) {
                     CusToast.showToast("请先升级高级会员!");
                     return;
                 }
 
                 try {
-                        if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
+                    if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
 
-                            if (waiMaoQiuGouBeans != null && waiMaoQiuGouBeans.get(0).getUser_id() != null) {
-                                RongTalk.doConnection(HomeBuyDetailNewActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
-                                        , waiMaoQiuGouBeans.get(0).getUser_id(), waiMaoQiuGouBeans.get(0).getNickname(),
-                                        "", "");
-                            } else {
-                                CusToast.showToast("该店铺无效");
-                            }
+                        if (waiMaoQiuGouBeans != null && waiMaoQiuGouBeans.get(0).getUser_id() != null) {
+                            RongTalk.doConnection(HomeBuyDetailNewActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
+                                    , waiMaoQiuGouBeans.get(0).getUser_id(), waiMaoQiuGouBeans.get(0).getNickname(),
+                                    "", "");
+                        } else {
+                            CusToast.showToast("该店铺无效");
                         }
+                    }
+
+                    RongIM.getInstance().setSendMessageListener(new RongIM.OnSendMessageListener() {
+                        @Override
+                        public io.rong.imlib.model.Message onSend(io.rong.imlib.model.Message message) {
+                            return message;
+                        }
+
+                        @Override
+                        public boolean onSent(io.rong.imlib.model.Message message, RongIM.SentMessageErrorCode sentMessageErrorCode) {
+                            Log.d("chenshichun", "=======1message.getContent()====" + message.getContent());
+                            Log.d("chenshichun", "======1message.getSentStatus()=====" + message.getSentStatus());
+                            /*if(!message.getContent().equals("我是消息内容")) {
+                                TextMessage myTextMessage = TextMessage.obtain("我是消息内容");
+                                Message myMessage = Message.obtain(waiMaoQiuGouBeans.get(0).getUser_id(), Conversation.ConversationType.PRIVATE, myTextMessage);
+                                RongIM.getInstance().sendMessage(myMessage, null, null, new IRongCallback.ISendMessageCallback() {
+                                    @Override
+                                    public void onAttached(Message message) {
+                                        //消息本地数据库存储成功的回调
+                                    }
+
+                                    @Override
+                                    public void onSuccess(Message message) {
+                                        //消息通过网络发送成功的回调
+                                    }
+
+                                    @Override
+                                    public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+
+                                    }
+                                });
+                            }*/
+                            return false;
+                        }
+                    });
+
                 } catch (Exception e) {
                     e.printStackTrace();
                     CusToast.showToast("该店铺无效");

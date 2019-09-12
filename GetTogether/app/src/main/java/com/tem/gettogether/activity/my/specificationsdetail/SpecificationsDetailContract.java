@@ -13,9 +13,13 @@ import java.util.Map;
  * @Description:
  */
 public class SpecificationsDetailContract {
+
     interface SpecificationsDetailView extends BaseView {
+        void specificationsListView();
     }
 
     interface Presenter {
+        void addSpecifications(Map<String, Object> map);
+        void deleteSpecifications(Map<String, Object> map);
     }
 }

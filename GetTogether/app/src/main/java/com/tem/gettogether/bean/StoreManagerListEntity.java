@@ -27,6 +27,7 @@ public class StoreManagerListEntity implements Serializable {
 		"guigeArray": ["绿色", "红色"]
          */
         public String title;
+        public String titleID;
         public List<String> guigeArray= new ArrayList<>();
     }
 

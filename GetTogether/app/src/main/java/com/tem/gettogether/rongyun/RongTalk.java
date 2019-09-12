@@ -61,6 +61,7 @@ public class RongTalk {
                         System.out.println("----启动会话----");
                         RongIM.getInstance().startPrivateChat(activity, targetId, targetName);
                     }
+
                 } else {
                 }
             }

@@ -330,4 +330,14 @@ public class URLConstant {
 
     // 规格接口
     public final static String SPECIFICARIONS_DATA = SERVER + "/Api/User/get_spec_select";
+
+    // 规格添加
+    public final static String SPECIFICARIONS_ADD = SERVER + "/Api/User/add_spec_item";
+
+    // 规格删除
+    public final static String SPECIFICARIONS_DELETE = SERVER + "/Api/User/del_spec_item";
+
+    // 商家发布商品时添加规格后返回的item拼接接口
+    public final static String SPECIFICARIONS_INPUT = SERVER + "/Api/User/get_spec_input";
+
 }
