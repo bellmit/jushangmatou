@@ -10,6 +10,7 @@ import com.tem.gettogether.R;
 import com.tem.gettogether.adapter.GoodsSpecTypeNumberAdapter;
 import com.tem.gettogether.adapter.SpecificationsDetailAdapter;
 import com.tem.gettogether.base.BaseMvpActivity;
+import com.tem.gettogether.bean.SpecificationsBean;
 import com.tem.gettogether.bean.StoreManagerListEntity;
 
 import org.xutils.view.annotation.ContentView;
@@ -43,25 +44,24 @@ public class SpecificationsDetailActivity extends BaseMvpActivity<Specifications
 
     private List<StoreManagerListEntity.GuigesEntity> mSpecNameList = new ArrayList<>();
     private List<StoreManagerListEntity.SkuListEntity> mSpecPriceList = new ArrayList<>();
+    ArrayList<SpecificationsBean.ResultBean.SpecListBean> mLastSpecListBeanData;
 
     @Override
     protected void initData() {
         x.view().inject(this);
         tv_title.setText("产品规格");
 
-        StoreManagerListEntity.GuigesEntity entity = new StoreManagerListEntity.GuigesEntity();
-        entity.title="颜色";
-        entity.guigeArray.add("");
-        StoreManagerListEntity.GuigesEntity entity1 = new StoreManagerListEntity.GuigesEntity();
-        entity1.title="尺寸";
-        entity1.guigeArray.add("");
-        StoreManagerListEntity.GuigesEntity entity2 = new StoreManagerListEntity.GuigesEntity();
-        entity2.title="形状";
-        entity2.guigeArray.add("");
-        mSpecNameList.add(entity);
-        mSpecNameList.add(entity1);
-        mSpecNameList.add(entity2);
+        mLastSpecListBeanData = (ArrayList<SpecificationsBean.ResultBean.SpecListBean>) getIntent().getSerializableExtra("SPECIFICATION_CHOSE");
+        for (int i = 0; i < mLastSpecListBeanData.size(); i++) {
+            if (mLastSpecListBeanData.get(i).getIsChoose() != null && mLastSpecListBeanData.get(i).getIsChoose().equals("true")) {
 
+                StoreManagerListEntity.GuigesEntity entity = new StoreManagerListEntity.GuigesEntity();
+                entity.title = mLastSpecListBeanData.get(i).getName();
+                entity.guigeArray.add("");
+                mSpecNameList.add(entity);
+            }
+
+        }
         mSpecificationsDetailAdapter = new SpecificationsDetailAdapter(getContext(), mSpecNameList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mSpecificationsDetailAdapter);
@@ -74,7 +74,7 @@ public class SpecificationsDetailActivity extends BaseMvpActivity<Specifications
         mSpecificationsDetailAdapter.setCallItem(new SpecificationsDetailAdapter.OnCallListener() {
             @Override
             public void onCallData(int position, List<String> mDatas) {
-                Log.d("chenshichun","---------"+mDatas);
+                Log.d("chenshichun", "---------" + mDatas);
                 mSpecPriceList.clear();
                 String sku_name = "";
                 for (int i = 0; i < mSpecNameList.size(); i++) {

@@ -327,4 +327,7 @@ public class URLConstant {
 
     //临沂店铺商品分类接口
     public final static String LINYI_SHOP_CLASSIFICATION = SERVER + "/Api/User/linyiget_goods_category";
+
+    // 规格接口
+    public final static String SPECIFICARIONS_DATA = SERVER + "/Api/User/get_spec_select";
 }

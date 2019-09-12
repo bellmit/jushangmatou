@@ -126,7 +126,6 @@ public class SpecificationsDetailAddAdapter extends RecyclerView.Adapter<Specifi
                 }
             }
             copylist.remove(copylist.size()-1);
-            Log.d("chenshichun","copylist:: "+copylist);
             if (copylist.size() > 0) {
                 List<String> L0 = new ArrayList<>();
                 L0.addAll(copylist);
@@ -136,7 +135,7 @@ public class SpecificationsDetailAddAdapter extends RecyclerView.Adapter<Specifi
                     List<String> list = new ArrayList<>();
                     for (int j = 0; j < L0.size(); j++) {
                         for (int z = 0; z < L1.size()-1; z++) {
-                            String s = L0.get(j) + ":" + L1.get(z);
+                            String s = L0.get(j) + "," + L1.get(z);
                             list.add(s);
                         }
                     }

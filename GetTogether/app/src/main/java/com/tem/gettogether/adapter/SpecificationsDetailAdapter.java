@@ -120,7 +120,7 @@ public class SpecificationsDetailAdapter extends RecyclerView.Adapter<Specificat
                     List<String> list = new ArrayList<>();
                     for (int j = 0; j < L0.size(); j++) {
                         for (int z = 0; z < L1.size()-1; z++) {
-                            String s = L0.get(j) + ":" + L1.get(z);
+                            String s = L0.get(j) + "," + L1.get(z);
                             list.add(s);
                         }
                     }

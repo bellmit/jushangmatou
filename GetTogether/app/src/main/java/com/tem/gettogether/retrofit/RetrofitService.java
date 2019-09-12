@@ -3,6 +3,7 @@ package com.tem.gettogether.retrofit;
 import com.tem.gettogether.bean.CategoriesBean;
 import com.tem.gettogether.bean.HomeDataNewBean;
 import com.tem.gettogether.bean.ReasultBean;
+import com.tem.gettogether.bean.SpecificationsBean;
 
 import java.util.Map;
 
@@ -28,4 +29,7 @@ public interface RetrofitService {
     * */
     @POST("Api/User/new_add_goods")
     Call<ReasultBean> uploadProduct(@Body RequestBody body);
+
+    @POST("Api/User/get_spec_select")
+    Call<SpecificationsBean> getSpecificationsData(@QueryMap Map<String, Object> map);
 }

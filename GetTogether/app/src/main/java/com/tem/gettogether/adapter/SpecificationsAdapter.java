@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.tem.gettogether.R;
 import com.tem.gettogether.bean.ServiceProviderBean;
+import com.tem.gettogether.bean.SpecificationsBean;
 
 import java.util.List;
 
@@ -24,11 +25,12 @@ import java.util.List;
 public class SpecificationsAdapter extends RecyclerView.Adapter<SpecificationsAdapter.ViewHolder> {
 
     private Context context;
-    private List<ServiceProviderBean.ResultEntity> mDatas;
     private SpecificationsAdapter.OnItemClickListener mOnItemClickListener;
     private SparseBooleanArray selectLists = new SparseBooleanArray();
+    private int selectCount = 0;
+    List<SpecificationsBean.ResultBean.SpecListBean> mDatas;
 
-    public SpecificationsAdapter(Context context, List<ServiceProviderBean.ResultEntity> mDatas) {
+    public SpecificationsAdapter(Context context, List<SpecificationsBean.ResultBean.SpecListBean> mDatas) {
         this.context = context;
         this.mDatas = mDatas;
     }
@@ -42,19 +44,29 @@ public class SpecificationsAdapter extends RecyclerView.Adapter<SpecificationsAd
     @Override
     public void onBindViewHolder(final SpecificationsAdapter.ViewHolder holder, final int position) {
         if (!selectLists.get(position)) {
-            holder.text_tv.setBackgroundColor(context.getResources().getColor(R.color.line));
+            holder.text_tv.setBackgroundResource(R.drawable.specifications_unselect);
         } else {
-            holder.text_tv.setBackgroundColor(context.getResources().getColor(R.color.home_red));
+            holder.text_tv.setBackgroundResource(R.drawable.specifications_select);
         }
+        holder.text_tv.setText(mDatas.get(position).getName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(selectLists.get(position)){
+                if (selectLists.get(position)) {
                     selectLists.put(position, false);
-                }else{
+                    selectCount--;
+                } else {
                     selectLists.put(position, true);
+                    selectCount++;
                 }
-                mOnItemClickListener.onItemClick(position);
+
+                if(mDatas.get(position).getIsChoose()==null||!mDatas.get(position).getIsChoose().equals("true")){
+                    mDatas.get(position).setIsChoose("true");
+                }else{
+                    mDatas.get(position).setIsChoose("false");
+                }
+
+                mOnItemClickListener.onItemClick(position, selectCount,mDatas);
                 notifyDataSetChanged();
             }
         });
@@ -62,7 +74,7 @@ public class SpecificationsAdapter extends RecyclerView.Adapter<SpecificationsAd
 
     @Override
     public int getItemCount() {
-        return 21/*mDatas.size()*/;
+        return mDatas.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -75,7 +87,7 @@ public class SpecificationsAdapter extends RecyclerView.Adapter<SpecificationsAd
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position);
+        void onItemClick(int position, int selectCount,List<SpecificationsBean.ResultBean.SpecListBean> mDatas);
     }
 
     public void setOnClickItem(SpecificationsAdapter.OnItemClickListener onItemClickListener) {

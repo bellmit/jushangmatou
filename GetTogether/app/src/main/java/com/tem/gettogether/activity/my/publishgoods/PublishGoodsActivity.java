@@ -13,12 +13,14 @@ import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
+
 import com.tem.gettogether.R;
 import com.tem.gettogether.ShowImageDetail;
 import com.tem.gettogether.activity.my.TextDescriptionActivity;
@@ -168,7 +170,8 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                     mPresenter.showStoreCatePop(ll_shop_FL, mCategoriesBeans);
                 break;
             case R.id.ll_shop_GG://商品规格
-                startActivity(new Intent(this, SpecificationsActivity.class));
+                startActivity(new Intent(this, SpecificationsActivity.class)
+                        .putExtra("cat_id3", "" + smallClassId));
                 break;
             case R.id.text_description_ll://详情介绍
                 startActivityForResult(new Intent(this, TextDescriptionActivity.class)
@@ -191,12 +194,12 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
 
     @Override
     public void showLoading() {
-
+        showDialog();
     }
 
     @Override
     public void hideLoading() {
-
+        closeDialog();
     }
 
     @Override
