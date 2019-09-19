@@ -268,11 +268,11 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
             }
         });
         publish_recy.setLayoutManager(new GridLayoutManager(this, 3, LinearLayoutManager.VERTICAL, false));
-        mTaskImgAdapter = new MyPublicTaskRecycleAdapter(this, imageRes, imagePaths, this, this, 0);
+        mTaskImgAdapter = new MyPublicTaskRecycleAdapter(this, imagePaths, this, this, 0);
         publish_recy.setAdapter(mTaskImgAdapter);
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3, LinearLayoutManager.VERTICAL, false));
-        mTaskImgAdapter1 = new MyPublicTaskRecycleAdapter(this, imageRes, imageTwoPaths, this, this, 1);
+        mTaskImgAdapter1 = new MyPublicTaskRecycleAdapter(this, imageTwoPaths, this, this, 1);
         recyclerView.setAdapter(mTaskImgAdapter1);
     }
 

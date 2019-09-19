@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/line"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <include layout="@layout/title_layout" />
@@ -25,9 +25,10 @@
                 android:text="全部粉丝" />
 
             <TextView
+                android:id="@+id/fans_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="116" />
+                android:text="" />
         </LinearLayout>
 
         <ImageView
@@ -41,15 +42,31 @@
             android:text="全部粉丝" />
 
         <RelativeLayout
+            android:id="@+id/ll_empty"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableTop="@drawable/wu_shuj"
+                android:gravity="center"
+                android:text="没有数据"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+        <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/mRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </android.support.v7.widget.RecyclerView>
-        </RelativeLayout>
+                android:layout_height="match_parent" />
+        </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
     </LinearLayout>
 </LinearLayout>

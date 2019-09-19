@@ -203,7 +203,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
     public void initView() {
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3, LinearLayoutManager.VERTICAL, false));
-        mTaskImgAdapter = new MyPublicTaskRecycleAdapter(getActivity(), imageRes, imagePaths, this, this, 0);
+        mTaskImgAdapter = new MyPublicTaskRecycleAdapter(getActivity(), imagePaths, this, this, 0);
         recyclerView.setAdapter(mTaskImgAdapter);
 
     }

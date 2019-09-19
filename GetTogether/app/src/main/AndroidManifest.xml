@@ -57,6 +57,10 @@
 
     <!-- 如果是安卓8.0，应用编译配置的targetSdkVersion>=26，请务必添加以下权限 -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+
     <!-- 华为 配置结束 < -->
     <application
         android:name="com.tem.gettogether.base.BaseApplication"
@@ -455,6 +459,11 @@
         <activity android:name="com.tem.gettogether.activity.my.publishgoods.PublishGoodsActivity" />
         <activity android:name="com.tem.gettogether.activity.my.specifications.SpecificationsActivity" />
         <activity android:name="com.tem.gettogether.activity.my.specificationsdetail.SpecificationsDetailActivity" />
+        <activity android:name="com.tem.gettogether.activity.my.decoration.ShopDecorationActivity"/>
+        <activity android:name="com.tem.gettogether.activity.my.ShopLogoActivity"/>
+        <activity android:name="com.tem.gettogether.activity.my.ShopBgActivity"/>
+        <activity android:name="com.tem.gettogether.activity.translation.TranslationActivity"/>
+        <activity android:name="com.tem.gettogether.activity.speechtranslation.SpeechTranslationActivity"/>
 
     </application>
 

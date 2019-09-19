@@ -100,7 +100,7 @@ public class ZhuTuXQNewActivity extends BaseActivity {
             if (data != null) {
                 final String picturePath = data.getStringExtra(PictureSelector.PICTURE_PATH);
 
-                String targetPath = compressImageFilePath + Confirg.df.
+                final String targetPath = compressImageFilePath + Confirg.df.
                         format(new Date()) + ".jpg";
                 final String compressImage = BitnapUtils.compressImage(picturePath, targetPath, 40);
                 showDialog();
@@ -109,7 +109,7 @@ public class ZhuTuXQNewActivity extends BaseActivity {
                     public void run() {
                         try {
                             ImageDataBean imageDataBean = null;
-                            imageDataBean = UploadUtil.uploadFile(BitnapUtils.readStream(picturePath),new File(picturePath),URLConstant.UPLOAD_PICTURE);
+                            imageDataBean = UploadUtil.uploadFile(BitnapUtils.readStream(targetPath),new File(targetPath),URLConstant.UPLOAD_PICTURE);
                             if(imageDataBean!=null){
                                 cartImage.removeAll(cartImage);
                                 cartImage.add(imageDataBean.getResult().getImage_show().get(0));

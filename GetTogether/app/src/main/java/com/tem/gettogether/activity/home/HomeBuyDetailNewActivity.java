@@ -3,7 +3,6 @@ package com.tem.gettogether.activity.home;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,10 +16,8 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.ShowImageDetail;
-import com.tem.gettogether.activity.LoginActivity;
 import com.tem.gettogether.activity.my.WaiMaoQiuGouActivity;
 import com.tem.gettogether.base.BaseActivity;
-import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.WaiMaoQiuGouBean;
@@ -47,11 +44,6 @@ import java.util.Map;
 
 import cc.duduhuo.custoast.CusToast;
 import io.rong.imkit.RongIM;
-import io.rong.imlib.IRongCallback;
-import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.Conversation;
-import io.rong.imlib.model.Message;
-import io.rong.message.TextMessage;
 
 
 @ContentView(R.layout.activity_home_buy_detail)

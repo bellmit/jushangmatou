@@ -45,10 +45,12 @@ import com.tem.gettogether.fragment.ShopHomeFragment;
 import com.tem.gettogether.fragment.ShopPingJFragment;
 import com.tem.gettogether.fragment.ShopShoppingFragment;
 import com.tem.gettogether.rongyun.RongTalk;
+import com.tem.gettogether.utils.GlideImageLoader;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.RoundImageView;
+import com.youth.banner.Banner;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
@@ -121,6 +123,8 @@ public class ShopActivity extends BaseActivity {
     private EditText et_sousuo;
     @ViewInject(R.id.rl_sousuo)
     private RelativeLayout rl_sousuo;
+    @ViewInject(R.id.banner)
+    private Banner banner;
     @TargetApi(19)
     public void setTranslucentStatus(boolean on) {
         Window win = this.getWindow();
@@ -217,6 +221,19 @@ public class ShopActivity extends BaseActivity {
 
 
     }
+
+    public void onMessage(List<ShopTopBean.ResultBean.StoreBannerBean> storeBannerBean) {
+        if (storeBannerBean == null) return;
+        List<String> img = new ArrayList<>();
+        for (int i=0;i<storeBannerBean.size();i++){
+            img.add(storeBannerBean.get(i).getAd_code());
+        }
+        banner.setImageLoader(new GlideImageLoader());
+        banner.setImages(img);
+        banner.start();
+
+    }
+
     @Event(value = {R.id.rl_close,R.id.ll_shopping_fenl,R.id.ll_shop_xq,R.id.ll_lianxikefu,R.id.ll_shop_go,R.id.rl_right_more,R.id.ll_shop_home,R.id.rl_sousuo,R.id.ll_shop_shopping,R.id.ll_shop_pingj,R.id.ll_shop_dongt,R.id.ll_is_gz},type = View.OnClickListener.class)
     private void getEvent(View view) {
         Bundle bundle=new Bundle();
@@ -450,11 +467,15 @@ public class ShopActivity extends BaseActivity {
                         Glide.with(ShopActivity.this).load(resultBean.getStore_background()).error(R.drawable.shop_bg).into(iv_image_top);
                         if(resultBean.getIs_collect().equals("0")){
                             tv_isgz.setText("关注");
+                            iv_isgz_icon.setVisibility(View.VISIBLE);
                             iv_isgz_icon.setImageResource(R.drawable.add_icon_b);
                         }else{
                             tv_isgz.setText("已关注");
+                            iv_isgz_icon.setVisibility(View.GONE);
                             iv_isgz_icon.setImageResource(R.drawable.yi_guanzhu);
                         }
+
+                        onMessage(resultBean.getStore_banner());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -533,9 +554,11 @@ public class ShopActivity extends BaseActivity {
                         Gson gson=new Gson();
                         if(msg.equals("收藏成功")){
                             tv_isgz.setText("已关注");
+                            iv_isgz_icon.setVisibility(View.GONE);
                             iv_isgz_icon.setImageResource(R.drawable.yi_guanzhu);
                         }else if(msg.equals("取消成功")){
                             tv_isgz.setText("关注");
+                            iv_isgz_icon.setVisibility(View.VISIBLE);
                             iv_isgz_icon.setImageResource(R.drawable.add_icon_b);
                         }
                     }

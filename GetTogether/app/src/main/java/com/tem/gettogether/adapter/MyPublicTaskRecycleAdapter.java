@@ -26,16 +26,14 @@ public class MyPublicTaskRecycleAdapter extends RecyclerView.Adapter<MyPublicTas
      * @author LT
      */
     private LayoutInflater mInflater;
-    private List<Integer> mDatas;
     private List<String> mPaths;
     private Context context;
     private OnClickListener onClickListener;
     private OnLongClickListener longClickListener;
     private int witchRecycleType;// 区分一个界面两个recycleview共用一个adapter的情况
-    public MyPublicTaskRecycleAdapter(Context context, List<Integer> datas, List<String> mPaths,
+    public MyPublicTaskRecycleAdapter(Context context, List<String> mPaths,
                                       OnClickListener onClickListener, OnLongClickListener longClickListener , int witchRecycleType) {
         mInflater = LayoutInflater.from(context);
-        this.mDatas = datas;
         this.context = context;
         this.mPaths = mPaths;
         this.onClickListener = onClickListener;
@@ -71,9 +69,6 @@ public class MyPublicTaskRecycleAdapter extends RecyclerView.Adapter<MyPublicTas
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
-
-        // viewHolder.mImg.setImageResource(mDatas.get(position));
-
         System.out.println("onBindViewHolder:" + mPaths.size());
 
         DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true)
@@ -84,9 +79,13 @@ public class MyPublicTaskRecycleAdapter extends RecyclerView.Adapter<MyPublicTas
             drawableUrl = ImageDownloader.Scheme.DRAWABLE.wrap(mPaths.get(position));
             viewHolder.deleteIv.setVisibility(View.GONE);
         } else {
-            drawableUrl = ImageDownloader.Scheme.FILE.wrap(mPaths.get(position));
-            viewHolder.deleteIv.setVisibility(View.VISIBLE);
+            if(mPaths.get(position).startsWith("http")) {
+                drawableUrl = mPaths.get(position);
+            }else{
+                drawableUrl = ImageDownloader.Scheme.FILE.wrap(mPaths.get(position));
 
+            }
+            viewHolder.deleteIv.setVisibility(View.VISIBLE);
         }
 
         System.out.println("onBindViewHolder:" + drawableUrl);

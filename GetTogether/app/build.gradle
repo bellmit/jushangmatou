@@ -7,8 +7,8 @@ android {
         multiDexEnabled true
         minSdkVersion 17
         targetSdkVersion 26
-        versionCode 6
-        versionName "1.2.1"
+        versionCode 7
+        versionName "1.2.2"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
@@ -117,4 +117,8 @@ dependencies {
     implementation 'com.uber.autodispose:autodispose:0.7.0'
     implementation 'com.uber.autodispose:autodispose-android:0.7.0'
     implementation 'com.uber.autodispose:autodispose-android-archcomponents:0.7.0'
+    compile files('libs/YoudaoBase.jar')
+    compile files('libs/YoudaoCnDictOffline.jar')
+    compile files('libs/YoudaoTranslateOnline.jar')
+    compile files('libs/YoudaoTranslateOffline.jar')
 }

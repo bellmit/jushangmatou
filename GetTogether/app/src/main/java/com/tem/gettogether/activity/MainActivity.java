@@ -263,8 +263,6 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         RongIM.getInstance().setSendMessageListener(new RongIM.OnSendMessageListener() {
             @Override
             public io.rong.imlib.model.Message onSend(io.rong.imlib.model.Message message) {
-                Log.d("chenshichun","=======message.getContent()===="+message.getContent());
-                Log.d("chenshichun","======message.getSentStatus()====="+message.getSentStatus());
                 return message;
             }
 

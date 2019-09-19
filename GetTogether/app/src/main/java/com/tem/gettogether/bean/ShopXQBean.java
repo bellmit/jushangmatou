@@ -78,6 +78,60 @@ public class ShopXQBean {
         private String location;
         private String store_new_count;
         private String store_comment_count;
+        private String fcount;
+        private String ocount;
+        private String seo_description;
+        private String contacts_name;
+        private String contacts_mobile;
+        private String level;
+
+        public String getLevel() {
+            return level;
+        }
+
+        public void setLevel(String level) {
+            this.level = level;
+        }
+
+        public String getContacts_mobile() {
+            return contacts_mobile;
+        }
+
+        public void setContacts_mobile(String contacts_mobile) {
+            this.contacts_mobile = contacts_mobile;
+        }
+
+        public String getContacts_name() {
+            return contacts_name;
+        }
+
+        public void setContacts_name(String contacts_name) {
+            this.contacts_name = contacts_name;
+        }
+
+        public String getSeo_description() {
+            return seo_description;
+        }
+
+        public void setSeo_description(String seo_description) {
+            this.seo_description = seo_description;
+        }
+
+        public String getOcount() {
+            return ocount;
+        }
+
+        public void setOcount(String ocount) {
+            this.ocount = ocount;
+        }
+
+        public String getFcount() {
+            return fcount;
+        }
+
+        public void setFcount(String fcount) {
+            this.fcount = fcount;
+        }
 
         public String getStore_comment_count() {
             return store_comment_count;

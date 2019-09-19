@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/line"
@@ -58,7 +56,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="10dp"
-                        android:text="9.82"
+                        android:text="10"
                         android:textColor="@color/text9"
                         android:textSize="11dp" />
 
@@ -80,13 +78,14 @@
                             android:id="@+id/iv_gz"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/shop_xq_add_gz"/>
+                            android:src="@drawable/shop_xq_add_gz" />
+
                         <TextView
                             android:id="@+id/tv_isgz"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="关注"
                             android:layout_marginStart="3dp"
+                            android:text="关注"
                             android:textColor="@color/white"
                             android:textSize="14dp" />
                     </LinearLayout>
@@ -97,7 +96,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/shop_gz_4dp_"
                         android:gravity="center"
-                        android:text="10.2万人"
+                        android:text="0人"
                         android:textSize="11dp" />
                 </LinearLayout>
             </LinearLayout>
@@ -108,8 +107,8 @@
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingBottom="10dp"
-                android:paddingTop="5dp">
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -174,7 +173,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_pj_num"
@@ -217,7 +217,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="店铺动态"
+                        android:text="店铺成交"
                         android:textColor="@color/bg_59"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -233,7 +233,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="96dp"
+                android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
@@ -243,7 +243,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp">
+                    android:paddingEnd="16dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="86dp"
@@ -267,8 +268,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="13dp"
-                    android:layout_marginTop="13dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal"
                     android:paddingEnd="16dp">
 
@@ -285,16 +286,23 @@
                         android:id="@+id/tv_jyz"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="朱莉敏"
+                        android:text="null"
                         android:textColor="@color/text_hs"
                         android:textSize="13dp" />
 
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
                 <LinearLayout
                     android:id="@+id/ll_lxdh"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal"
                     android:paddingEnd="16dp">
 
@@ -311,26 +319,23 @@
                         android:id="@+id/tv_bq"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="优质"
+                        android:text="null"
                         android:textColor="@color/text_hs"
                         android:textSize="13dp" />
 
                 </LinearLayout>
-            </LinearLayout>
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingStart="16dp">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
 
                 <RelativeLayout
                     android:id="@+id/rl_zhaq"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@color/white"
                     android:paddingEnd="16dp">
 
@@ -349,6 +354,19 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/shop_liebiao_kefu" />
                 </RelativeLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingStart="16dp"
+                android:visibility="gone">
+
 
                 <View
                     android:layout_width="match_parent"
@@ -410,7 +428,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:gravity="center_vertical"
@@ -420,6 +438,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
@@ -446,9 +466,16 @@
 
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingEnd="16dp">
@@ -477,7 +504,8 @@
                     android:layout_height="44dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp">
+                    android:paddingEnd="16dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"

@@ -95,6 +95,7 @@ public class ProductManagmentFragment extends BaseFragment {
         }
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         map.put("page", currentPage);
+        Log.d("chenshichun","=====currentPage======"+currentPage);
         map.put("list_row", 10);
         map.put("tap", tap);
         XUtil.Post(URLConstant.PRODUCT_MANAGEMENT, map, new MyCallBack<String>() {
@@ -116,8 +117,8 @@ public class ProductManagmentFragment extends BaseFragment {
                                 setData();
                             }
                         } else {
-                            if(gson.fromJson(result, ProductManagementBean.class).getResult().size()>0) {
-                                mProductManagementBeans = gson.fromJson(result, ProductManagementBean.class).getResult();
+                            if(gson.fromJson(result, ProductManagementBean.class).getResult()!=null&&gson.fromJson(result, ProductManagementBean.class).getResult().size()>0) {
+                                mProductManagementBeans.addAll(gson.fromJson(result, ProductManagementBean.class).getResult());
                                 mProductManagmentAdapter.notifyDataSetChanged();
                             }else{
                                 CusToast.showToast("没有更多数据!");
@@ -211,6 +212,7 @@ public class ProductManagmentFragment extends BaseFragment {
         refreshLayout.setHeaderView(headerView);
         LoadingView loadingView = new LoadingView(getContext());
         refreshLayout.setBottomView(loadingView);
+        refreshLayout.setEnableOverScroll(false);
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {

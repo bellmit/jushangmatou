@@ -21,6 +21,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,9 +31,9 @@
                     android:id="@+id/iv_image_top"
                     android:layout_width="match_parent"
                     android:layout_height="175dp"
-                    android:scaleType="centerCrop"
                     android:layout_alignParentTop="true"
-                    android:background="@color/black" />
+                    android:background="@color/black"
+                    android:scaleType="centerCrop" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -60,24 +61,27 @@
                                 android:layout_marginStart="16dp"
                                 android:src="@drawable/shop_close_icon" />
                         </RelativeLayout>
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:layout_marginStart="16dp"
+                            android:layout_weight="1"
                             android:background="@drawable/shop_sousuo"
                             android:orientation="horizontal">
+
                             <RelativeLayout
                                 android:id="@+id/rl_sousuo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent">
+
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
                                     android:layout_marginStart="16dp"
                                     android:layout_marginEnd="16dp"
-                                    android:layout_centerVertical="true"
-                                    android:src="@drawable/shop_sousuo_icon"/>
+                                    android:src="@drawable/shop_sousuo_icon" />
                             </RelativeLayout>
 
                             <EditText
@@ -85,12 +89,12 @@
                                 android:layout_width="0dp"
                                 android:layout_height="33dp"
                                 android:layout_weight="1"
+                                android:background="@null"
+                                android:ellipsize="end"
                                 android:hint="请输入关键词"
                                 android:maxLines="1"
-                                android:ellipsize="end"
-                                android:textColorHint="@color/white"
                                 android:textColor="@color/white"
-                                android:background="@null"
+                                android:textColorHint="@color/white"
                                 android:textSize="13dp" />
 
                         </LinearLayout>
@@ -99,23 +103,24 @@
                         <RelativeLayout
                             android:id="@+id/rl_right_more"
                             android:layout_width="60dp"
-                            android:visibility="visible"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:visibility="visible">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:textColor="@color/white"
-                                android:text="搜索"/>
+                                android:text="搜索"
+                                android:textColor="@color/white" />
+
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
-                                android:visibility="gone"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="16dp"
-                                android:src="@drawable/shop_more_icon" />
+                                android:src="@drawable/shop_more_icon"
+                                android:visibility="gone" />
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -220,7 +225,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="invisible">
 
                         <LinearLayout
                             android:id="@+id/ll_shop_home"
@@ -333,81 +339,103 @@
                                 android:background="@color/white"
                                 android:visibility="invisible" />
                         </LinearLayout>
+
                     </LinearLayout>
+
+                    <com.youth.banner.Banner
+                        android:id="@+id/banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        app:image_scale_type="center_crop"
+                        app:indicator_drawable_selected="@drawable/banner_bg2"
+                        app:indicator_drawable_unselected="@drawable/banner_bg"
+                        app:indicator_height="1dp"
+                        app:indicator_width="10dp" />
                 </LinearLayout>
+
             </RelativeLayout>
 
             <FrameLayout
                 android:id="@+id/fragment_item_shop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/bg_touming"/>
+                android:background="@color/bg_touming" />
+
 
         </LinearLayout>
 
     </com.tem.gettogether.view.BaseScrollView>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/line"/>
+        android:background="@color/line" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
         android:background="@color/white"
         android:gravity="center_vertical"
-        android:layout_alignParentBottom="true"
         android:orientation="horizontal">
+
         <LinearLayout
             android:id="@+id/ll_shopping_fenl"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="1.5">
+            android:layout_weight="1.5"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:text="商品分类"
-                android:drawablePadding="5dp"
                 android:drawableLeft="@drawable/shop_fenlei_icon"
-                android:textColor="@color/black"/>
+                android:drawablePadding="5dp"
+                android:text="商品分类"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
         </LinearLayout>
+
         <View
             android:layout_width="1dp"
             android:layout_height="20dp"
-            android:background="@color/line"/>
+            android:background="@color/line" />
+
         <LinearLayout
             android:id="@+id/ll_shop_xq"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="1.5">
+            android:layout_weight="1.5"
+            android:gravity="center">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
                 android:text="店铺详情"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textSize="15dp" />
         </LinearLayout>
+
         <View
             android:layout_width="1dp"
             android:layout_height="20dp"
-            android:background="@color/line"/>
+            android:background="@color/line" />
+
         <LinearLayout
             android:id="@+id/ll_lianxikefu"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="9dp"
-                android:text="联系客服"
-                android:drawablePadding="3dp"
                 android:drawableTop="@drawable/shop_liebiao_kefu"
-                android:textColor="@color/black"/>
+                android:drawablePadding="3dp"
+                android:text="联系客服"
+                android:textColor="@color/black"
+                android:textSize="9dp" />
         </LinearLayout>
     </LinearLayout>
 

@@ -427,6 +427,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
         headerView.setTextColor(0xff745D5C);
         refreshLayout.setHeaderView(headerView);
         LoadingView loadingView = new LoadingView(getContext());
+        refreshLayout.setAutoLoadMore(true);
         refreshLayout.setBottomView(loadingView);
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override

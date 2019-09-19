@@ -13,13 +13,17 @@ import io.rong.imlib.model.Conversation;
 
 public class ShopExtensionModule extends DefaultExtensionModule {
     private ShopPlugin myPlugin;
-
+    private TranslationPlugin mTranslationPlugin;
+    private SpeechTranslationPlugin mSpeechTranslationPlugin;
     @Override
     public List<IPluginModule> getPluginModules(Conversation.ConversationType conversationType) {
         List<IPluginModule> pluginModuleList =  super.getPluginModules(conversationType);
         myPlugin=new ShopPlugin();
+        mTranslationPlugin = new TranslationPlugin();
+        mSpeechTranslationPlugin = new SpeechTranslationPlugin();
         pluginModuleList.add(myPlugin);
-
+        pluginModuleList.add(mTranslationPlugin);
+        pluginModuleList.add(mSpeechTranslationPlugin);
         return pluginModuleList;
     }
     @Override

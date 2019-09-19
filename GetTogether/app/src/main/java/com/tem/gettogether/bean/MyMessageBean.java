@@ -104,6 +104,60 @@ public class MyMessageBean {
         private String expire_time;
         private String is_verify;
         private String store_id;
+        private String store_count;
+        private String fans_count;
+        private String visiters_count;
+        private String fprint_count;
+        private String my_orders;
+        private String store_collect_count;
+
+        public String getStore_count() {
+            return store_count;
+        }
+
+        public void setStore_count(String store_count) {
+            this.store_count = store_count;
+        }
+
+        public String getFans_count() {
+            return fans_count;
+        }
+
+        public void setFans_count(String fans_count) {
+            this.fans_count = fans_count;
+        }
+
+        public String getVisiters_count() {
+            return visiters_count;
+        }
+
+        public void setVisiters_count(String visiters_count) {
+            this.visiters_count = visiters_count;
+        }
+
+        public String getFprint_count() {
+            return fprint_count;
+        }
+
+        public void setFprint_count(String fprint_count) {
+            this.fprint_count = fprint_count;
+        }
+
+        public String getMy_orders() {
+            return my_orders;
+        }
+
+        public void setMy_orders(String my_orders) {
+            this.my_orders = my_orders;
+        }
+
+        public String getStore_collect_count() {
+            return store_collect_count;
+        }
+
+        public void setStore_collect_count(String store_collect_count) {
+            this.store_collect_count = store_collect_count;
+        }
 
         public String getStore_id() {
             return store_id;

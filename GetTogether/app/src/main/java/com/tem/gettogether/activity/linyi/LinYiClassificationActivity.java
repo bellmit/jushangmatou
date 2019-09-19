@@ -88,9 +88,12 @@ public class LinYiClassificationActivity extends BaseActivity {
 
     }
 
-    @Event(value = {R.id.rl_saoyisao, R.id.tv_sousuo_fl}, type = View.OnClickListener.class)
+    @Event(value = {R.id.rl_close,R.id.rl_saoyisao, R.id.tv_sousuo_fl}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
+            case R.id.rl_close:
+                finish();
+                break;
             case R.id.rl_saoyisao:
                 Toast.makeText(getContext(),"相机功能暂未开放",Toast.LENGTH_SHORT).show();
                 break;

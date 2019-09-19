@@ -14,12 +14,15 @@ import com.tem.gettogether.bean.WeiXinBean1;
 import com.tem.gettogether.bean.WeiXinMessageBean;
 import com.tem.gettogether.rongyun.CustomizeMessage;
 import com.tem.gettogether.rongyun.CustomizeMessageItemProvider;
+import com.tem.gettogether.rongyun.CustomizeMessageTranslationItemProvider;
+import com.tem.gettogether.rongyun.CustomizeTranslationMessage;
 import com.tem.gettogether.rongyun.ShopExtensionModule;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
+import com.youdao.sdk.app.YouDaoApplication;
 
 import org.xutils.x;
 
@@ -55,9 +58,11 @@ public class BaseApplication extends Application {
         }
         return mInstance;
     }
+
     public static Context getContext() {
         return context;
     }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -72,10 +77,17 @@ public class BaseApplication extends Application {
         UMShareAPI.get(this);
         initAppLanguage();
         Bugtags.start("42c655de1b4f612f3e488385c64f3e81", this, Bugtags.BTGInvocationEventBubble/*BTGInvocationEventNone*/);
+
+
+        /*有道翻译初始化*/
+        if (YouDaoApplication.getApplicationContext() == null)
+            YouDaoApplication.init(this, "086f7d9c1f5d5f84");
     }
+
     {
         PlatformConfig.setQQZone("101557245", "2fe9d31228f7ccb88ffd26beb709d31e");
     }
+
     private void setInputProvider() {
         List<IExtensionModule> moduleList = RongExtensionManager.getInstance().getExtensionModules();
         IExtensionModule defaultModule = null;
@@ -92,7 +104,9 @@ public class BaseApplication extends Application {
             }
         }
         RongIM.registerMessageType(CustomizeMessage.class);
+        RongIM.registerMessageType(CustomizeTranslationMessage.class);
         RongIM.getInstance().registerMessageTemplate(new CustomizeMessageItemProvider());
+        RongIM.getInstance().registerMessageTemplate(new CustomizeMessageTranslationItemProvider());
 
     }
 
@@ -106,12 +120,14 @@ public class BaseApplication extends Application {
     public static void addDestoryActivity(Activity activity, String activityName) {
         destoryMap.put(activityName, activity);
     }
+
     public void removerUser() {
         SharedPreferences sp = getSharedPreferences("config", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();
         editor.commit();
     }
+
     /**
      * 销毁指定Activity
      */
@@ -125,25 +141,25 @@ public class BaseApplication extends Application {
         }
     }
 
-    public void initAppLanguage(){
-        if (SharedPreferencesUtils.getString(this,BaseConstant.SPConstant.language,"").equals("zh")){
+    public void initAppLanguage() {
+        if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "").equals("zh")) {
             DisplayMetrics dm = getResources().getDisplayMetrics();
             Configuration config = getResources().getConfiguration();
             // 应用用户选择语言
             config.locale = Locale.CHINESE;
-            getResources().updateConfiguration(config,dm);
-        }else if (SharedPreferencesUtils.getString(this,BaseConstant.SPConstant.language,"").equals("en")){
+            getResources().updateConfiguration(config, dm);
+        } else if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "").equals("en")) {
             DisplayMetrics dm = getResources().getDisplayMetrics();
             Configuration config = getResources().getConfiguration();
             // 应用用户选择语言
             config.locale = Locale.ENGLISH;
-            getResources().updateConfiguration(config,dm);
-        }else if (SharedPreferencesUtils.getString(this,BaseConstant.SPConstant.language,"").equals("ara")){
+            getResources().updateConfiguration(config, dm);
+        } else if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "").equals("ara")) {
             DisplayMetrics dm = getResources().getDisplayMetrics();
             Configuration config = getResources().getConfiguration();
             // 应用用户选择语言
             config.locale = new Locale("ar");
-            getResources().updateConfiguration(config,dm);
+            getResources().updateConfiguration(config, dm);
         }
     }
 }

@@ -27,7 +27,8 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
-import com.tem.gettogether.activity.LoginActivity;
+import com.tem.gettogether.activity.home.ShopActivity;
+import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
 import com.tem.gettogether.activity.my.CorporateInformationActivity;
 import com.tem.gettogether.activity.my.FansActivity;
 import com.tem.gettogether.activity.my.GYWeActivity;
@@ -38,12 +39,9 @@ import com.tem.gettogether.activity.my.TAdviseActivity;
 import com.tem.gettogether.activity.my.VipCenterActivity;
 import com.tem.gettogether.activity.my.VisitorActivity;
 import com.tem.gettogether.activity.my.XunPanTuiSongActivity;
-import com.tem.gettogether.activity.my.shopauthentication.DistributorAuthenticationActivity;
 import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActivity;
-import com.tem.gettogether.activity.order.GongYingOrderActivity;
 import com.tem.gettogether.activity.order.GongYingShangNewOrderActivity;
 import com.tem.gettogether.base.BaseActivity;
-import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseFragment;
 import com.tem.gettogether.base.URLConstant;
@@ -54,7 +52,6 @@ import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.CircularImage;
-import com.tem.gettogether.wxapi.WXEntryActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -113,6 +110,12 @@ public class PersionCenterGongYingFragment extends BaseFragment {
     private TwinklingRefreshLayout refreshLayout;
     @ViewInject(R.id.huiyuan_iv)
     private ImageView huiyuan_iv;
+    @ViewInject(R.id.tv_scNum)
+    private TextView tv_scNum;
+    @ViewInject(R.id.tv_zjNum)
+    private TextView tv_zjNum;
+    @ViewInject(R.id.tv_qb_num)
+    private TextView tv_qb_num;
     private BaseActivity baseActivity;
     private MyMessageBean.ResultBean resultBean = new MyMessageBean.ResultBean();
     private String userLever;
@@ -162,8 +165,18 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                         SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.LEVER, userLever);
                         SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, resultBean.getStore_status());
                         SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.head_pic, resultBean.getHead_pic());
-                        SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.Shop_store_id,resultBean.getStore_id());
+                        SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.Shop_store_id, resultBean.getStore_id());
+                        if(myMessageBean.getResult().getStore_count()!=null) {
+                            tv_scNum.setText(myMessageBean.getResult().getStore_count());
+                        }
 
+                        if(myMessageBean.getResult().getFans_count()!=null) {
+                            tv_zjNum.setText(myMessageBean.getResult().getFans_count());
+                        }
+
+                        if(myMessageBean.getResult().getVisiters_count()!=null) {
+                            tv_qb_num.setText(myMessageBean.getResult().getVisiters_count());
+                        }
                         if (userLever.equals("7")) {
                             huiyuan_iv.setBackground(null);
                         } else if (userLever.equals("1")) {
@@ -173,7 +186,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                         }
                         if (resultBean.getStore_status().equals("1")) {
                             tv_shop_RZ.setText("店铺管理");
-                            rz_status_tv.setText("已认证");
+                            rz_status_tv.setText("");//已认证
                         } else if (resultBean.getStore_status().equals("2")) {
                             rz_status_tv.setText("认证审核中");
                         } else {
@@ -256,8 +269,14 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                             .putExtra("shop_status", resultBean.getStore_status()));
                 }
                 break;
-            case R.id.rl_dzgl:// 推送轮盘
-                startActivity(new Intent(getActivity(), XunPanTuiSongActivity.class));
+            case R.id.rl_dzgl:// 我的店铺
+                if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("1")) {
+                    CusToast.showToast("商铺未认证，请先认证商铺!");
+                    return;
+                }
+                startActivityForResult(new Intent(getActivity(), ShopActivity.class)
+                        .putExtra("store_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, "0"))
+                        .putExtra("type", ShopActivity.SHOPNHOME_TYPE), ShopActivity.SHOPNHOME_TYPE);
                 break;
             case R.id.rl_sprz: // 商铺认证
                 if (resultBean.getStore_status().equals("1")) {//店铺管理

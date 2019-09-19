@@ -103,6 +103,12 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
     private TwinklingRefreshLayout refreshLayout;
     @ViewInject(R.id.rz_status_tv)
     private TextView rz_status_tv;
+    @ViewInject(R.id.tv_scNum)
+    private TextView tv_scNum;
+    @ViewInject(R.id.tv_zjNum)
+    private TextView tv_zjNum;
+    @ViewInject(R.id.tv_qb_num)
+    private TextView tv_qb_num;
     private MyMessageBean.ResultBean resultBean = new MyMessageBean.ResultBean();
     private String is_verify;// 采购商认证状态
 
@@ -146,6 +152,17 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
                         SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.NAME, myMessageBean.getResult().getNickname());
                         SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.IS_VERIFY, myMessageBean.getResult().getIs_verify());
                         is_verify = myMessageBean.getResult().getIs_verify();
+                        if(myMessageBean.getResult().getStore_collect_count()!=null) {
+                            tv_scNum.setText(myMessageBean.getResult().getStore_collect_count());
+                        }
+
+                        if(myMessageBean.getResult().getFprint_count()!=null) {
+                            tv_zjNum.setText(myMessageBean.getResult().getFprint_count());
+                        }
+
+                        if(myMessageBean.getResult().getMy_orders()!=null) {
+                            tv_qb_num.setText(myMessageBean.getResult().getMy_orders());
+                        }
                         if (is_verify.equals("0")) {
                             rz_status_tv.setText("待认证");
                         } else if (is_verify.equals("1")) {

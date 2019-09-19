@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.MyShopActivity;
+import com.tem.gettogether.activity.my.decoration.ShopDecorationActivity;
 import com.tem.gettogether.activity.my.publishgoods.PublishGoodsActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
@@ -50,7 +51,7 @@ public class StoreManagementActivity extends BaseActivity {
 
     }
 
-    @Event(value = {R.id.rl_close, R.id.tv_cpgl, R.id.tv_dpxx, R.id.tv_fbcp, R.id.rl_title_right}, type = View.OnClickListener.class)
+    @Event(value = {R.id.rl_close, R.id.tv_cpgl,R.id.tv_decoration, R.id.tv_dpxx, R.id.tv_fbcp, R.id.rl_title_right}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
@@ -68,7 +69,9 @@ public class StoreManagementActivity extends BaseActivity {
             case R.id.rl_title_right:
                 startActivity(new Intent(this, BuyMemberActivity.class));
                 break;
-
+            case R.id.tv_decoration:
+                startActivity(new Intent(this, ShopDecorationActivity.class));
+                break;
         }
     }
 }

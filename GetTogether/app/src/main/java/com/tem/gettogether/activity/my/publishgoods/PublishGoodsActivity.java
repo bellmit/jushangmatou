@@ -139,7 +139,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
         mPresenter.getStoreCate(map);
 
         publish_recy.setLayoutManager(new GridLayoutManager(this, 3, LinearLayoutManager.VERTICAL, false));
-        mTaskImgAdapter = new MyPublicTaskRecycleAdapter(this, imageRes, imagePaths, this, this, 0);
+        mTaskImgAdapter = new MyPublicTaskRecycleAdapter(this, imagePaths, this, this, 0);
         publish_recy.setAdapter(mTaskImgAdapter);
 
         yes_rb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -345,22 +345,27 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                         if (imagePaths.size() < 10) {
                             for (int i = 0; i < list.size(); i++) {
                                 final String pic_path = list.get(i);
-                                String targetPath = compressImageFilePath + Confirg.df.
+                                final String targetPath = compressImageFilePath + Confirg.df.
                                         format(new Date()) + ".jpg";
                                 //调用压缩图片的方法，返回压缩后的图片path
                                 final String compressImage = BitnapUtils.compressImage(pic_path, targetPath, 60);
                                 compressPaths.add(compressImage);
+                                Log.d("chenshichun","=====targetPath======"+targetPath);
+                                showDialog();
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
                                         try {
                                             ImageDataBean imageDataBean = null;
-                                            imageDataBean = UploadUtil.uploadFile(BitnapUtils.readStream(pic_path), new File(pic_path), URLConstant.UPLOAD_PICTURE);
+                                            imageDataBean = UploadUtil.uploadFile(BitnapUtils.readStream(targetPath), new File(targetPath), URLConstant.UPLOAD_PICTURE);
                                             if (imageDataBean != null) {
                                                 imagePaths.add(imagePaths.size() - 1, pic_path);
                                                 cartImage.add(imageDataBean.getResult().getImage_show().get(0));
                                                 mHandle.sendEmptyMessage(0);
+                                            }else{
+                                                mHandle.sendEmptyMessage(1);
                                             }
+                                            showDialog();
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
@@ -403,6 +408,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
         if (mCropImageFile != null) {
             final String path = mCropImageFile.getAbsolutePath();
             Bitmap bitmap = BitmapFactory.decodeFile(mCropImageFile.toString());
+            showDialog();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -413,6 +419,8 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                             imagePaths.add(imagePaths.size() - 1, path);
                             cartImage.add(imageDataBean.getResult().getImage_show().get(0));
                             mHandle.sendEmptyMessage(0);
+                        }else{
+                            mHandle.sendEmptyMessage(1);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -500,6 +508,10 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
             switch (msg.what) {
                 case 0:
                     mTaskImgAdapter.notifyDataSetChanged();
+                    closeDialog();
+                    break;
+                case 1:
+                    closeDialog();
                     break;
             }
         }

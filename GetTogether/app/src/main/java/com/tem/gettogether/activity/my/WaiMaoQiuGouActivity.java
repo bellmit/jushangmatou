@@ -157,6 +157,7 @@ public class WaiMaoQiuGouActivity extends BaseActivity {
         refreshLayout.setHeaderView(headerView);
         LoadingView loadingView = new LoadingView(getContext());
         refreshLayout.setBottomView(loadingView);
+        refreshLayout.setAutoLoadMore(true);
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
@@ -180,6 +181,7 @@ public class WaiMaoQiuGouActivity extends BaseActivity {
             @Override
             public void onFinishLoadMore() {
                 super.onFinishLoadMore();
+                refreshLayout.setAutoLoadMore(true);
             }
         });
     }

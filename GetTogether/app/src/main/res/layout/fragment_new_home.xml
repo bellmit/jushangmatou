@@ -37,7 +37,7 @@
                 android:text="@string/language"
                 android:textColor="@color/text3"
                 android:textSize="14dp"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_sousuo"

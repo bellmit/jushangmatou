@@ -12,7 +12,7 @@
         <item>@string/permission_white_external_hint</item>
     </string-array>
     <declare-styleable name="Life_CropImage">
-        <attr name="life_Crop_ratio" format="float"/>
+        <attr name="life_Crop_ratio" format="float" />
     </declare-styleable>
     <declare-styleable name="CheckBox_Sample">
         <attr name="size" format="dimension" />
@@ -31,5 +31,16 @@
         <item>草稿箱</item>
     </string-array>
 
+    <string-array name="spingarr">
+        <item>中文</item>
+        <item>English</item>
+        <item>العربية</item>
+    </string-array>
+
+    <string-array name="user_spingarr">
+        <item>中文</item>
+        <item>英文</item>
+        <item>阿拉伯文</item>
+    </string-array>
 
 </resources>

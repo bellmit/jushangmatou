@@ -308,24 +308,6 @@ public class ShopHomeFragment extends BaseFragment {
         EventBus.getDefault().unregister(this);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessage(List<ShopTopBean.ResultBean.StoreBannerBean> storeBannerBean) {
-        if (storeBannerBean == null) return;
-        List<String> img = new ArrayList<>();
-//        img.add("http://img5.duitang.com/uploads/item/201411/07/20141107164412_v284V.jpeg");
-//        img.add("http://pic33.photophoto.cn/20141022/0019032438899352_b.jpg");
-//        img.add("http://pic38.nipic.com/20140212/17942401_101320663138_2.jpg");
-//        img.add("http://img5.duitang.com/uploads/item/201206/15/20120615031447_R5EcS.jpeg");
-        for (int i=0;i<storeBannerBean.size();i++){
-            img.add(storeBannerBean.get(i).getAd_code());
-        }
-        banner.setImageLoader(new GlideImageLoader());
-        banner.setImages(img);
-        banner.start();
-
-
-    }
-
     /**
      * 根据搜索、商品分类刷新数据
      * @param shopKeyBean

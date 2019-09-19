@@ -81,7 +81,8 @@ public class ShopXQActivity extends BaseActivity {
     private String store_user_id;
     private String store_id;
     private String is_collect;
-    private ShopXQBean.ResultBean resultBean=new ShopXQBean.ResultBean();
+    private ShopXQBean.ResultBean resultBean = new ShopXQBean.ResultBean();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,15 +94,17 @@ public class ShopXQActivity extends BaseActivity {
     @Override
     protected void initData() {
         tv_title.setText("店铺详情");
-        store_id=getIntent().getStringExtra("store_id");
-        is_collect=getIntent().getStringExtra("is_collect");
-        store_user_id=getIntent().getStringExtra("store_user_id");
-        if(is_collect!=null){
-            if(is_collect.equals("0")){
+        store_id = getIntent().getStringExtra("store_id");
+        is_collect = getIntent().getStringExtra("is_collect");
+        store_user_id = getIntent().getStringExtra("store_user_id");
+        if (is_collect != null) {
+            if (is_collect.equals("0")) {
                 tv_isgz.setText("关注");
+                iv_gz.setVisibility(View.VISIBLE);
                 iv_gz.setImageResource(R.drawable.add_icon_b);
-            }else {
+            } else {
                 tv_isgz.setText("已关注");
+                iv_gz.setVisibility(View.GONE);
                 iv_gz.setImageResource(R.drawable.yi_guanzhu);
             }
         }
@@ -109,24 +112,36 @@ public class ShopXQActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+
+    }
+
+    private void initviews() {
+
         tv_shop_name.setText(resultBean.getStore_name());
-        tv_shop_pf.setText(resultBean.getBest_number()+"分");
-        tv_gz_num.setText(resultBean.getStore_collect()+"人");
+        tv_gz_num.setText(resultBean.getFcount() + "人");
         tv_shopping_num.setText(resultBean.getStore_count());
         tv_xp_num.setText(resultBean.getStore_new_count());
         tv_pj_num.setText(resultBean.getStore_comment_count());
-        tv_dt_num.setText("");
+        tv_dt_num.setText(resultBean.getOcount());
+
+        if (resultBean.getLevel().equals("7")) {
+            tv_shop_pf.setText("游客");
+        } else if (resultBean.getLevel().equals("1")) {
+            tv_shop_pf.setText("普通会员");
+        } else if (resultBean.getLevel().equals("2")) {
+            tv_shop_pf.setText("高级会员");
+        }
+
         tv_swh.setText("");
-        tv_jyz.setText(resultBean.getStore_contact_name());
+        tv_jyz.setText(resultBean.getContacts_name());
         Glide.with(this).load(resultBean.getStore_logo()).error(R.mipmap.myy322x).into(iv_shop_head);
-        tv_bq.setText(resultBean.getStore_phone());
-        tv_shop_jj.setText(resultBean.getStore_des());
+        tv_bq.setText(resultBean.getContacts_mobile());
+        tv_shop_jj.setText(resultBean.getSeo_description());
         tv_shop_address.setText(resultBean.getLocation());
-        tv_shop_time.setText("");
-
-
     }
-    @Event(value = {R.id.rl_close,R.id.rl_zhaq,R.id.ll_lxdh}, type = View.OnClickListener.class)
+
+
+    @Event(value = {R.id.rl_close, R.id.rl_zhaq, R.id.ll_lxdh}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
@@ -139,27 +154,29 @@ public class ShopXQActivity extends BaseActivity {
             case R.id.rl_zhaq:
                 try {
 
-                        //发消息
-                        if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
+                    //发消息
+                    if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
 
-                            if(resultBean!=null&&store_id!=null){
-                                RongTalk.doConnection(ShopXQActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
-                                        ,store_id, resultBean.getStore_name(),
-                                        resultBean.getStore_logo(),resultBean.getStore_id());
-                            }else{
-                                CusToast.showToast("该店铺无效");
-                            }
-
+                        if (resultBean != null && store_id != null) {
+                            RongTalk.doConnection(ShopXQActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
+                                    , store_id, resultBean.getStore_name(),
+                                    resultBean.getStore_logo(), resultBean.getStore_id());
+                        } else {
+                            CusToast.showToast("该店铺无效");
                         }
 
-                }catch (Exception e){
+                    }
+
+                } catch (Exception e) {
                     e.printStackTrace();
                     CusToast.showToast("该店铺无效");
                 }
                 break;
         }
     }
+
     private PopupWindow mPop;
+
     //初始化弹窗
     private void initPop() {
         if (mPop == null) {
@@ -202,9 +219,9 @@ public class ShopXQActivity extends BaseActivity {
         TextView tv_iteam1, photo, cancle;
         photo = view.findViewById(R.id.photo);
         cancle = view.findViewById(R.id.cancle);
-        tv_iteam1=view.findViewById(R.id.tv_iteam1);
+        tv_iteam1 = view.findViewById(R.id.tv_iteam1);
         tv_iteam1.setText(R.string.kefudian);
-        photo.setText("呼叫："+resultBean.getStore_phone());
+        photo.setText("呼叫：" + resultBean.getStore_phone());
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -223,11 +240,12 @@ public class ShopXQActivity extends BaseActivity {
             }
         });
     }
-    private void upShopXQData(){
-        Map<String,Object> map=new HashMap<>();
-        map.put("store_id",store_id);
+
+    private void upShopXQData() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("store_id", store_id);
         showDialog();
-        XUtil.Post(URLConstant.SHOPXIANGQINGDATA,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.SHOPXIANGQINGDATA, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -236,10 +254,11 @@ public class ShopXQActivity extends BaseActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        ShopXQBean shopTopBean=gson.fromJson(result,ShopXQBean.class);
-                        resultBean=shopTopBean.getResult();
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        ShopXQBean shopTopBean = gson.fromJson(result, ShopXQBean.class);
+                        resultBean = shopTopBean.getResult();
+                        initviews();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

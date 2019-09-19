@@ -340,4 +340,21 @@ public class URLConstant {
     // 商家发布商品时添加规格后返回的item拼接接口
     public final static String SPECIFICARIONS_INPUT = SERVER + "/Api/User/get_spec_input";
 
+    // 粉丝接口
+    public final static String FANS_DATA = SERVER + "/Api/Store/store_fans_list";
+
+    // 访客接口
+    public final static String VISITOR_DATA = SERVER + "/Api/Store/store_visiter_list";
+
+    // 店铺装修
+    public final static String SHOP_DECORATION = SERVER +"/Api/Store/store_interface_mod";
+
+    // 店铺logo和背景图片上传接口
+    public final static String UPLOAD_SHOP_PICTURE = SERVER +"/Api/Store/upload_binary_logobanner";
+
+    // 店铺banner
+    public final static String UPLOAD_SHOP_BANNER_PICTURE = SERVER +"/Api/Store/upload_binary_adcode";
+
+    // 店铺装修修改
+    public final static String SHOP_DECORATION_MODIFY = SERVER +"/Api/Store/store_interface_save";
 }
