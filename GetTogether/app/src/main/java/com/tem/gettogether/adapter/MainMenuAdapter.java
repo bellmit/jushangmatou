@@ -47,6 +47,7 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.ViewHo
                 context.startActivity(new Intent(context, ClassificationActivity.class)
                         .putExtra("classification_id", menuItems.get(position).getCategory_id())
                         .putExtra("classification_type", 2)
+                        .putExtra("is_yilian",false)
                         .putExtra("classification_name", menuItems.get(position).getName()));
             }
         });

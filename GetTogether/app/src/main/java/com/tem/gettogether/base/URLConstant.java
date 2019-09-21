@@ -357,4 +357,10 @@ public class URLConstant {
 
     // 店铺装修修改
     public final static String SHOP_DECORATION_MODIFY = SERVER +"/Api/Store/store_interface_save";
+
+    //临沂搜索
+    public final static String YILIAN_SEARCH = SERVER+"/Api/Goods/linyigoodsList";
+
+    // 临沂新分类接口列表
+    public final static String LIANYI_SEARCH_LIST_URL = SERVER + "/Api/Goods/linyicategory3_goodsList";
 }

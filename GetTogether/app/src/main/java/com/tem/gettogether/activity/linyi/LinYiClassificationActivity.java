@@ -99,7 +99,7 @@ public class LinYiClassificationActivity extends BaseActivity {
                 break;
             case R.id.tv_sousuo_fl:
                 startActivity(new Intent(getContext(), HomeSouSuoActivity.class)
-                        .putExtra("store_id", "0"));
+                        .putExtra("store_id", "0").putExtra("is_yilian",true));
                 break;
 
         }
@@ -117,7 +117,6 @@ public class LinYiClassificationActivity extends BaseActivity {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
-                closeDialog();
                 Log.i("====分类数据===", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);

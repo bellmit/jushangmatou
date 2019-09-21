@@ -8,7 +8,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 26
         versionCode 7
-        versionName "1.2.2"
+        versionName "1.2.3"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
@@ -17,7 +17,7 @@ android {
             }
         }
         ndk {
-            abiFilters "armeabi-v7a", "x86"
+            abiFilters "armeabi","armeabi-v7a", "x86"
         }
         multiDexEnabled true
 
@@ -27,6 +27,17 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+
+    signingConfigs {
+        signConfig {
+            storeFile file("../GetTogether.jks")
+            storePassword "2019jsmt"
+            keyAlias "聚商码头"
+            keyPassword "2019jsmt"
+        }
+
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -121,4 +132,6 @@ dependencies {
     compile files('libs/YoudaoCnDictOffline.jar')
     compile files('libs/YoudaoTranslateOnline.jar')
     compile files('libs/YoudaoTranslateOffline.jar')
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
+    compile 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
 }

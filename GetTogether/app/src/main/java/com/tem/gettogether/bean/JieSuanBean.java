@@ -338,6 +338,15 @@ public class JieSuanBean {
                 private String selected;
                 private String batch_number;
                 private String goods_logo;
+                private String is_enquiry;
+
+                public String getIs_enquiry() {
+                    return is_enquiry;
+                }
+
+                public void setIs_enquiry(String is_enquiry) {
+                    this.is_enquiry = is_enquiry;
+                }
 
                 public String getCart_id() {
                     return cart_id;

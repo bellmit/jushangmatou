@@ -30,6 +30,7 @@ import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.CircularImage;
+import com.tencent.bugly.beta.Beta;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,6 +64,8 @@ public class SettingActivity extends BaseActivity {
     private RelativeLayout huiyuandengji_rl;
     @ViewInject(R.id.huiyuan_tv)
     private TextView huiyuan_tv;
+    @ViewInject(R.id.update_ll)
+    private TextView update_ll;
 
     private String phone;
     private String lever;
@@ -106,7 +109,7 @@ public class SettingActivity extends BaseActivity {
 
     }
 
-    @Event(value = {R.id.rl_close, R.id.rl_zhaq, R.id.rl_address_gl, R.id.ll_grxx, R.id.rl_gl_account, R.id.tv_getOut, R.id.rl_smrz, R.id.qchc_rl}, type = View.OnClickListener.class)
+    @Event(value = {R.id.update_ll, R.id.rl_close, R.id.rl_zhaq, R.id.rl_address_gl, R.id.ll_grxx, R.id.rl_gl_account, R.id.tv_getOut, R.id.rl_smrz, R.id.qchc_rl}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
@@ -139,6 +142,9 @@ public class SettingActivity extends BaseActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                break;
+            case R.id.update_ll:
+                Beta.checkUpgrade();//检查版本号
                 break;
         }
     }

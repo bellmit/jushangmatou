@@ -109,7 +109,7 @@ public class XunPanFragment extends BaseFragment {
                             }
                         } else {
                             if(gson.fromJson(result, QiuGouListBean.class).getResult().size()>0) {
-                                homeDataBean = gson.fromJson(result, QiuGouListBean.class).getResult();
+                                homeDataBean.addAll(gson.fromJson(result, QiuGouListBean.class).getResult());
                                 mHomeBuyAdapter.notifyDataSetChanged();
                             }else{
                                 CusToast.showToast("没有更多数据!");

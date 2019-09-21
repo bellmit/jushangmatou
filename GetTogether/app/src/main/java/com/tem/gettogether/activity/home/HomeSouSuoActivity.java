@@ -57,10 +57,12 @@ public class HomeSouSuoActivity extends BaseActivity {
     private EditText et_sousuo;
     @ViewInject(R.id.rl_close)
     private RelativeLayout rl_close;
+    private boolean is_yilian;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        is_yilian = getIntent().getBooleanExtra("is_yilian",false);
         initData();
         initView();
         upSouSuoLSData();
@@ -90,7 +92,8 @@ public class HomeSouSuoActivity extends BaseActivity {
                     return;
                 }
                 startActivity(new Intent(this, HotFenLeiActivity.class)
-                        .putExtra("keywords",et_sousuo.getText().toString().trim()));
+                        .putExtra("keywords",et_sousuo.getText().toString().trim())
+                        .putExtra("is_yilian",is_yilian));
                 break;
             case R.id.iv_remove:
                 upRemoveData();

@@ -151,10 +151,11 @@
 
 
                     <TextView
+                        android:id="@+id/clinch_count_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="已成交8700件" />
+                        android:text="已成交0件" />
                 </LinearLayout>
 
                 <View

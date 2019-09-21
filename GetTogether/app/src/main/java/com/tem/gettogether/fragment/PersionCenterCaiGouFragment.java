@@ -154,15 +154,22 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
                         is_verify = myMessageBean.getResult().getIs_verify();
                         if(myMessageBean.getResult().getStore_collect_count()!=null) {
                             tv_scNum.setText(myMessageBean.getResult().getStore_collect_count());
+                        }else{
+                            tv_scNum.setText("0");
                         }
 
                         if(myMessageBean.getResult().getFprint_count()!=null) {
                             tv_zjNum.setText(myMessageBean.getResult().getFprint_count());
+                        }else{
+                            tv_zjNum.setText("0");
                         }
 
                         if(myMessageBean.getResult().getMy_orders()!=null) {
                             tv_qb_num.setText(myMessageBean.getResult().getMy_orders());
+                        }else{
+                            tv_qb_num.setText("0");
                         }
+
                         if (is_verify.equals("0")) {
                             rz_status_tv.setText("待认证");
                         } else if (is_verify.equals("1")) {

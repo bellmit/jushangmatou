@@ -63,6 +63,7 @@ public class ClassificationRightAdapter extends RecyclerView.Adapter<Classificat
                        context.startActivity(new Intent(context, ClassificationActivity.class)
                                .putExtra("classification_id",mDatas.get(position).getSon().get(position2).getId())
                                .putExtra("classification_type",3)
+                               .putExtra("is_yilian",true)
                                .putExtra("classification_name",mDatas.get(position).getSon().get(position2).getName()));
 
                     }

@@ -18,6 +18,8 @@ import com.tem.gettogether.rongyun.CustomizeMessageTranslationItemProvider;
 import com.tem.gettogether.rongyun.CustomizeTranslationMessage;
 import com.tem.gettogether.rongyun.ShopExtensionModule;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.umeng.socialize.PlatformConfig;
@@ -76,7 +78,12 @@ public class BaseApplication extends Application {
         setInputProvider();
         UMShareAPI.get(this);
         initAppLanguage();
-        Bugtags.start("42c655de1b4f612f3e488385c64f3e81", this, Bugtags.BTGInvocationEventBubble/*BTGInvocationEventNone*/);
+        Bugtags.start("42c655de1b4f612f3e488385c64f3e81", this, Bugtags./*BTGInvocationEventBubble*/BTGInvocationEventNone);
+
+
+        Beta.autoCheckUpgrade = false;//设置不自动检查
+
+        Bugly.init(getApplicationContext(), "d3faa6cafc", false);// bugly
 
 
         /*有道翻译初始化*/

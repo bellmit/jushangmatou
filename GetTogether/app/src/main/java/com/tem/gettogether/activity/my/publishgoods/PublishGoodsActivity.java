@@ -10,10 +10,12 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -131,6 +133,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
     protected void initView() {
         mPresenter = new PublishGoodsPresenter(getContext(), PublishGoodsActivity.this);
         mPresenter.attachView(this);
+        getSwipeBackLayout().setEnableGesture(false);//禁止右滑退出
 
         // 请求商品分类数据
         Map<String, Object> map = new HashMap<>();
@@ -162,7 +165,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
-                finish();
+                dialog();
                 break;
             case R.id.ll_shop_FL://商品分类
 
@@ -191,6 +194,36 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            dialog();
+            return false;
+        }
+        return false;
+    }
+
+    protected void dialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(PublishGoodsActivity.this);
+        builder.setMessage("确定要退出吗?");
+        builder.setTitle("提示");
+        builder.setPositiveButton("确认",
+                new android.content.DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+        builder.setNegativeButton("取消",
+                new android.content.DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.create().show();
+    }
 
     @Override
     public void showLoading() {
@@ -350,7 +383,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                                 //调用压缩图片的方法，返回压缩后的图片path
                                 final String compressImage = BitnapUtils.compressImage(pic_path, targetPath, 60);
                                 compressPaths.add(compressImage);
-                                Log.d("chenshichun","=====targetPath======"+targetPath);
+                                Log.d("chenshichun", "=====targetPath======" + targetPath);
                                 showDialog();
                                 new Thread(new Runnable() {
                                     @Override
@@ -362,7 +395,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                                                 imagePaths.add(imagePaths.size() - 1, pic_path);
                                                 cartImage.add(imageDataBean.getResult().getImage_show().get(0));
                                                 mHandle.sendEmptyMessage(0);
-                                            }else{
+                                            } else {
                                                 mHandle.sendEmptyMessage(1);
                                             }
                                             showDialog();
@@ -419,7 +452,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                             imagePaths.add(imagePaths.size() - 1, path);
                             cartImage.add(imageDataBean.getResult().getImage_show().get(0));
                             mHandle.sendEmptyMessage(0);
-                        }else{
+                        } else {
                             mHandle.sendEmptyMessage(1);
                         }
                     } catch (Exception e) {

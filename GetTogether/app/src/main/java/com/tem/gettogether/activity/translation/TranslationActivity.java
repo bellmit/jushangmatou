@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -43,15 +44,18 @@ public class TranslationActivity extends BaseMvpActivity<TranslationPresenter> i
     private Spinner spinner;
     @ViewInject(R.id.spinner_aims)
     private Spinner spinner_aims;
+    @ViewInject(R.id.translation_btn)
+    private Button translation_btn;
     @ViewInject(R.id.translation_conversion_ll)
     private LinearLayout translation_conversion_ll;
     private String targetId;
-    private String fromType="中文";
-    private String toType="英文";
+    private String fromType = "中文";
+    private String toType = "英文";
     private String[] languages;
     private int spinnerPostion = 0;
     private int spinnerAimsPostion = 0;
-    private int postitionA,postitionB;
+    private int postitionA, postitionB;
+
     @Override
     protected void initData() {
         x.view().inject(this);
@@ -61,8 +65,8 @@ public class TranslationActivity extends BaseMvpActivity<TranslationPresenter> i
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setText("发送");
         targetId = getIntent().getStringExtra("targetId");
-        spinner.setSelection(0,true);
-        spinner_aims.setSelection(1,true);
+        spinner.setSelection(0, true);
+        spinner_aims.setSelection(1, true);
         languages = getResources().getStringArray(R.array.user_spingarr);
     }
 
@@ -73,7 +77,7 @@ public class TranslationActivity extends BaseMvpActivity<TranslationPresenter> i
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 //回车键
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    mPresenter.goToTranslation(fromType,toType,text_et.getText().toString());
+                    mPresenter.goToTranslation(fromType, toType, text_et.getText().toString());
                 }
                 return true;
             }
@@ -107,7 +111,7 @@ public class TranslationActivity extends BaseMvpActivity<TranslationPresenter> i
 
     }
 
-    @Event(value = {R.id.rl_close, R.id.delete_iv, R.id.tv_title_right,R.id.translation_conversion_ll})
+    @Event(value = {R.id.rl_close, R.id.delete_iv, R.id.tv_title_right, R.id.translation_conversion_ll, R.id.translation_btn})
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
@@ -119,13 +123,16 @@ public class TranslationActivity extends BaseMvpActivity<TranslationPresenter> i
                 result_tv.setText("");
                 break;
             case R.id.tv_title_right:
-                mPresenter.goSendTranslationMsg(text_et.getText().toString(),result_tv.getText().toString(),targetId);
+                mPresenter.goSendTranslationMsg(text_et.getText().toString(), result_tv.getText().toString(), targetId);
                 break;
             case R.id.translation_conversion_ll:
                 spinner.setSelection(postitionB);
                 spinner_aims.setSelection(postitionA);
                 postitionA = spinnerPostion;
                 postitionB = spinnerAimsPostion;
+                break;
+            case R.id.translation_btn:
+                mPresenter.goToTranslation(fromType, toType, text_et.getText().toString());
                 break;
         }
     }
@@ -152,6 +159,7 @@ public class TranslationActivity extends BaseMvpActivity<TranslationPresenter> i
         msg.obj = txt;
         mHandle.sendMessage(msg);
     }
+
     private Handler mHandle = new Handler() {
         @Override
         public void handleMessage(Message msg) {

@@ -162,6 +162,8 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private ImageView new_iv;
     @ViewInject(R.id.linyi_iv)
     private ImageView linyi_iv;
+    @ViewInject(R.id.clinch_count_tv)
+    private TextView clinch_count_tv;
 
     private List<RollTextItem> data = new ArrayList<>();
 
@@ -174,7 +176,6 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private List<ShoppingXQBean.ResultBean.VpBean> mVpBeans = new ArrayList<>();
     private List<ShoppingXQBean.ResultBean.OrderBean> mOrderBeans = new ArrayList<>();
     private String sctype;
-    private ShareAction mShareAction;
     private UMShareListener mShareListener;
     private IWXAPI wxAPI;
     private String APP_ID = "wxa6f24ff3369c8d21";
@@ -455,7 +456,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mShareAction.close();
+//        mShareAction.close();
     }
 
     private PopupWindow mPop;
@@ -507,7 +508,12 @@ public class ShoppingParticularsActivity extends BaseActivity {
             TextView tv_shopping_content = view.findViewById(R.id.tv_shopping_content);
             Glide.with(ShoppingParticularsActivity.this).load(goodsBean.getCover_image()).error(R.mipmap.myy322x).into(iv_shopping_image);
             tv_shopping_content.setText(goodsBean.getGoods_name());
-            tv_shopping_price.setText(goodsBean.getShop_price());
+
+            if(goodsBean.getIs_enquiry().equals("1")){
+                tv_shopping_price.setText("面议");
+            }else{
+                tv_shopping_price.setText(goodsBean.getShop_price());
+            }
 
             tv_shopping_name.setText(goodsBean.getBatch_number() + "件起批");
             final TextView tv_queding = view.findViewById(R.id.tv_queding);
@@ -919,6 +925,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         mOrderBeans = shoppingXQBean.getResult().getOrder();
                         hot_iv.setVisibility(shoppingXQBean.getResult().getGoods().getIs_hot().equals("1") ? View.VISIBLE : View.GONE);
                         new_iv.setVisibility(shoppingXQBean.getResult().getGoods().getIs_new().equals("1") ? View.VISIBLE : View.GONE);
+                        clinch_count_tv.setText("已成交"+goodsBean.getSales_sum()+"件");
                         linyi_iv.setVisibility(shoppingXQBean.getResult().getStore().getIs_linyi().equals("1") ? View.VISIBLE : View.GONE);
                         initLiuLangData();
                         if (shoppingXQBean.getResult().getOrder() != null) {

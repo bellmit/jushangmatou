@@ -166,6 +166,7 @@ public class ShopDecorationActivity extends BaseMvpActivity<ShopDecorationPresen
     public void getShopDecorationData(ShopDecorationBean.ResultBean mResultBean) {
         this.mResultBean = mResultBean;
         et_cpName.setText(mResultBean.getStore_name());
+        jianjie_tv.setText(mResultBean.getSeo_description());
         int imageSize = SizeUtil.dp2px(getContext(), 40);
         Glide.with(getContext()).load(mResultBean.getApp_store_logo()).placeholder(R.drawable.head_bg)
                 .error(R.drawable.head_bg).override(imageSize, imageSize).into(logo_pic_iv);

@@ -3,6 +3,7 @@ package com.tem.gettogether.activity.speechtranslation;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,8 @@ import com.tem.gettogether.rongyun.CustomizeTranslationMessage;
 import com.tem.gettogether.utils.AuditRecorderConfiguration;
 import com.tem.gettogether.utils.ExtAudioRecorder;
 import com.tem.gettogether.utils.FileUtils;
+import com.tem.gettogether.view.AudioManager;
+import com.tem.gettogether.view.DialogManager;
 import com.youdao.sdk.app.EncryptHelper;
 import com.youdao.sdk.app.Language;
 import com.youdao.sdk.app.LanguageUtils;
@@ -50,14 +53,19 @@ public class SpeechTranslationPresenter extends BasePresenter<SpeechTranslationC
     Handler handler = new Handler();
     ExtAudioRecorder recorder;
     SpeechTranslateParameters tps;
+    private boolean isRecording = false;
+    private float mTime;
+    private DialogManager mDialogManager;
 
     public SpeechTranslationPresenter(Context context, Activity mActivity) {
         this.mContext = context;
         this.mActivity = mActivity;
+        mDialogManager = new DialogManager(context);
     }
 
     @Override
     public void startRecord() {
+        mHandler.sendEmptyMessage(MSG_AUDIO_PREPARED);
         try {
             audioFile = File.createTempFile("record_", ".wav");
             AuditRecorderConfiguration configuration = new AuditRecorderConfiguration.Builder()
@@ -76,14 +84,25 @@ public class SpeechTranslationPresenter extends BasePresenter<SpeechTranslationC
         }
     }
 
+    public int getVoiceLevel(int maxLevel) {
+        //获得最大的振幅getMaxAmplitude() 1-32767
+        try {
+            return maxLevel * recorder.getMaxAmplitude() / 32768 + 1;
+        } catch (Exception e) {
+
+        }
+        return 1;
+    }
+
     @Override
     public void stopRecord(final String fromType, final String toType) {
+        mHandler.sendEmptyMessage(MSG_DIALOG_DIMISS);
         try {
             int time = recorder.stop();
             if (time > 0) {
                 if (audioFile != null) {// 后面做翻译处理
                     Log.d("chenshichun", "=====audioFile======" + audioFile.getAbsolutePath());
-                    recognize(audioFile.getAbsolutePath(),fromType,toType);
+                    recognize(audioFile.getAbsolutePath(), fromType, toType);
                 }
             }
             recorder.release();
@@ -124,19 +143,18 @@ public class SpeechTranslationPresenter extends BasePresenter<SpeechTranslationC
     /*
      * 语音识别
      * */
-    public void recognize(final String path,final String fromType, final String toType) {
+    public void recognize(final String path, final String fromType, final String toType) {
         if (TextUtils.isEmpty(path)) {
             Toast.makeText(mContext, "请录音或选择音频文件", Toast.LENGTH_LONG)
                     .show();
             return;
         }
         try {
-//            resultText.setText("正在识别，请稍等....");
             mView.showLoading();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    startRecognize(path,fromType,toType);
+                    startRecognize(path, fromType, toType);
                 }
             }).start();
         } catch (Exception e) {
@@ -195,8 +213,6 @@ public class SpeechTranslationPresenter extends BasePresenter<SpeechTranslationC
 
                     }
                 });
-
-
     }
 
     @Override
@@ -211,19 +227,20 @@ public class SpeechTranslationPresenter extends BasePresenter<SpeechTranslationC
         Translator.getInstance(tps).lookup(txt, "requestId", new TranslateListener() {
             @Override
             public void onError(TranslateErrorCode translateErrorCode, String s) {
-
+                mView.hideLoading();
             }
 
             @Override
             public void onResult(Translate translate, String s, String s1) {
                 if (translate.getTranslations() != null) {
+                    mView.hideLoading();
                     mView.getTranslationToResult(translate.getTranslations().get(0));
                 }
             }
 
             @Override
             public void onResult(List<Translate> list, List<String> list1, List<TranslateErrorCode> list2, String s) {
-
+                mView.hideLoading();
             }
 
         });
@@ -240,6 +257,47 @@ public class SpeechTranslationPresenter extends BasePresenter<SpeechTranslationC
                 Toast.makeText(mContext, "录音失败，可能是没有给权限", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(mContext, "发生了未知错误", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
+
+    //获取音量大小的Runnable
+    private Runnable mGetVoiceLevelRunnable = new Runnable() {
+        @Override
+        public void run() {
+            while (isRecording) {
+                try {
+                    Thread.sleep(100);
+                    mTime += 0.1;
+                    mHandler.sendEmptyMessage(MSG_VOICE_CHANGED);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
+
+    private static final int MSG_AUDIO_PREPARED = 0X110;
+    private static final int MSG_VOICE_CHANGED = 0X111;
+    private static final int MSG_DIALOG_DIMISS = 0X112;
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MSG_AUDIO_PREPARED:
+                    //TODO 真正现实应该在audio end prepared以后
+                    mDialogManager.showRecordingDialog();
+                    isRecording = true;
+                    new Thread(mGetVoiceLevelRunnable).start();
+                    break;
+                case MSG_VOICE_CHANGED:
+                    mDialogManager.updateVoiceLevel(getVoiceLevel(7));
+                    break;
+                case MSG_DIALOG_DIMISS:
+                    mDialogManager.dimissDialog();
+                    break;
             }
         }
     };

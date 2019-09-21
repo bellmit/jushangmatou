@@ -480,7 +480,8 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.tv_sousuo:
                 startActivity(new Intent(getActivity(), HomeSouSuoActivity.class)
-                        .putExtra("store_id", "0"));
+                        .putExtra("store_id", "0")
+                        .putExtra("is_yilian",false));
                 break;
             case R.id.waimaoqiugou_tv:
                 startActivity(new Intent(getActivity(), WaiMaoQiuGouActivity.class));

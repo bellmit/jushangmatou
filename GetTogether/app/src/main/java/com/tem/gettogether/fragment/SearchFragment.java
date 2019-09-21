@@ -106,7 +106,8 @@ public class SearchFragment extends BaseFragment {
                 break;
             case R.id.tv_sousuo_fl:
                 startActivity(new Intent(getActivity(), HomeSouSuoActivity.class)
-                        .putExtra("store_id", "0"));
+                        .putExtra("store_id", "0")
+                        .putExtra("is_yilian",false));
                 break;
 
         }

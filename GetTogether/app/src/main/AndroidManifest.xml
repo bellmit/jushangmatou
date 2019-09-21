@@ -464,7 +464,10 @@
         <activity android:name="com.tem.gettogether.activity.my.ShopBgActivity"/>
         <activity android:name="com.tem.gettogether.activity.translation.TranslationActivity"/>
         <activity android:name="com.tem.gettogether.activity.speechtranslation.SpeechTranslationActivity"/>
-
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale"
+            android:theme="@android:style/Theme.Translucent" />
     </application>
 
 </manifest>

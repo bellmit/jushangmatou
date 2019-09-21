@@ -118,7 +118,7 @@ public class CorporateInformationActivity extends BaseActivity {
     private final int CROP_FROM_CAMERA = 333;
     private File mCropImageFile;
     private int type;
-    private String countryId;
+    private String countryId = "-1";
 
     @Override
     protected void initData() {
@@ -137,6 +137,7 @@ public class CorporateInformationActivity extends BaseActivity {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
+        showDialog();
         XUtil.Post(URLConstant.PERSION_INFO, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
@@ -145,7 +146,6 @@ public class CorporateInformationActivity extends BaseActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
-
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         CompanyPersionInformationBean mCompanyPersionInformationBean = gson.fromJson(result, CompanyPersionInformationBean.class);
@@ -153,6 +153,7 @@ public class CorporateInformationActivity extends BaseActivity {
                         name_tv.setText(mCompanyPersionInformationBean.getResult().getNickname());
                         country_tv.setText(mCompanyPersionInformationBean.getResult().getCountry_name());
                         phone_num_tv.setText(mCompanyPersionInformationBean.getResult().getMobile());
+                        countryId = mCompanyPersionInformationBean.getResult().getCountry_id();
                         if (mCompanyPersionInformationBean.getResult().getSex().equals("0")) {
                             man_rb.setChecked(true);
                             lady_rb.setChecked(false);
@@ -174,12 +175,14 @@ public class CorporateInformationActivity extends BaseActivity {
 
             @Override
             public void onFinished() {
+                closeDialog();
                 super.onFinished();
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
+                closeDialog();
                 ex.printStackTrace();
 
             }
@@ -195,6 +198,7 @@ public class CorporateInformationActivity extends BaseActivity {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
+        showDialog();
         XUtil.Post(URLConstant.ENTERPISE_INFO, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
@@ -212,10 +216,11 @@ public class CorporateInformationActivity extends BaseActivity {
                         country_tv.setText(mCompanyPersionInformationBean.getResult().getCountry_name());
                         phone_num_tv.setText(mCompanyPersionInformationBean.getResult().getMobile());
                         company_profile_tv.setText(mCompanyPersionInformationBean.getResult().getCompany_content());
+                        countryId = mCompanyPersionInformationBean.getResult().getCountry_id();
 
-                        if(mCompanyPersionInformationBean.getResult().getCompany_province().equals("null")){
+                        if (mCompanyPersionInformationBean.getResult().getCompany_province().equals("null")) {
                             company_address.setText("");
-                        }else {
+                        } else {
                             company_address.setText(mCompanyPersionInformationBean.getResult().getCompany_province()
                                     + mCompanyPersionInformationBean.getResult().getCompany_district()
                                     + mCompanyPersionInformationBean.getResult().getCompany_city()
@@ -243,6 +248,7 @@ public class CorporateInformationActivity extends BaseActivity {
 
             @Override
             public void onFinished() {
+                closeDialog();
                 super.onFinished();
             }
 
@@ -250,7 +256,7 @@ public class CorporateInformationActivity extends BaseActivity {
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
                 ex.printStackTrace();
-
+                closeDialog();
             }
         });
     }
@@ -270,7 +276,11 @@ public class CorporateInformationActivity extends BaseActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String msg = jsonObject.optString("msg");
+                    String res = jsonObject.optString("status");
                     CusToast.showToast(msg);
+                    if (res.equals("1")) {
+                        finish();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

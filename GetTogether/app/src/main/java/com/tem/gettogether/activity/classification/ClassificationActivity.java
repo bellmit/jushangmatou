@@ -70,12 +70,14 @@ public class ClassificationActivity extends BaseActivity {
     private boolean isHuiFuLvSort = true;
     private boolean isJiaGeSort = true;
     private int type;
+    private boolean is_yilian;
 
     @Override
     protected void initData() {
         x.view().inject(this);
         tv_title.setText(getIntent().getStringExtra("classification_name"));
         classificationId = getIntent().getStringExtra("classification_id");
+        is_yilian = getIntent().getBooleanExtra("is_yilian", false);
         type = getIntent().getIntExtra("classification_type", 3);
         initViews();
         initDatas(1, classificationId, true, false);
@@ -138,11 +140,16 @@ public class ClassificationActivity extends BaseActivity {
             map.put("type", type);
         }
         showDialog();
-        XUtil.Post(URLConstant.SEARCH_LIST_URL, map, new MyCallBack<String>() {
+        String url = "";
+        if (is_yilian) {
+            url = URLConstant.LIANYI_SEARCH_LIST_URL;
+        } else {
+            url = URLConstant.SEARCH_LIST_URL;
+        }
+        XUtil.Post(url, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
-                closeDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
@@ -164,7 +171,7 @@ public class ClassificationActivity extends BaseActivity {
                                 if (gson.fromJson(result, ClassificationListBean.class).getResult().size() > 0) {// 加载更多
                                     mClassificationListBeans.addAll(gson.fromJson(result, ClassificationListBean.class).getResult());
                                     mClassifcationListAdapter.notifyDataSetChanged();
-                                }else{
+                                } else {
                                     CusToast.showToast("没有更多数据!");
                                 }
                             } else {// 刷新
@@ -231,9 +238,9 @@ public class ClassificationActivity extends BaseActivity {
                 } else {
                     sort = "desc";
                 }
-                setDrawableRight(chengjiaocishu, true,true);
-                setDrawableRight(huifulv, true,true);
-                setDrawableRight(price_tv, true,true);
+                setDrawableRight(chengjiaocishu, true, true);
+                setDrawableRight(huifulv, true, true);
+                setDrawableRight(price_tv, true, true);
 
                 isZongheSort = !isZongheSort;
                 tv_zonghe.setTextColor(getResources().getColor(R.color.home_red));
@@ -242,8 +249,8 @@ public class ClassificationActivity extends BaseActivity {
                 price_tv.setTextColor(getResources().getColor(R.color.black));
                 initDatas(1, classificationId, true, false);
                 isChengJiaoCiShuSort = true;
-                isJiaGeSort =true;
-                isHuiFuLvSort =true;
+                isJiaGeSort = true;
+                isHuiFuLvSort = true;
                 break;
             case R.id.chengjiaocishu:
                 tv_zonghe.setTextColor(getResources().getColor(R.color.black));
@@ -254,17 +261,17 @@ public class ClassificationActivity extends BaseActivity {
                 keyValue = "sales_sum";
                 if (!isChengJiaoCiShuSort) {
                     sort = "asc";
-                    setDrawableRight(chengjiaocishu, false,true);
+                    setDrawableRight(chengjiaocishu, false, true);
                 } else {
                     sort = "desc";
-                    setDrawableRight(chengjiaocishu, false,false);
+                    setDrawableRight(chengjiaocishu, false, false);
                 }
-                setDrawableRight(huifulv, true,true);
-                setDrawableRight(price_tv, true,true);
+                setDrawableRight(huifulv, true, true);
+                setDrawableRight(price_tv, true, true);
                 initDatas(1, classificationId, true, false);
                 isChengJiaoCiShuSort = !isChengJiaoCiShuSort;
-                isJiaGeSort =true;
-                isHuiFuLvSort =true;
+                isJiaGeSort = true;
+                isHuiFuLvSort = true;
                 break;
             case R.id.huifulv:
                 tv_zonghe.setTextColor(getResources().getColor(R.color.black));
@@ -274,17 +281,17 @@ public class ClassificationActivity extends BaseActivity {
                 keyValue = "is_recommend";
                 if (!isHuiFuLvSort) {
                     sort = "asc";
-                    setDrawableRight(huifulv, false,true);
+                    setDrawableRight(huifulv, false, true);
                 } else {
                     sort = "desc";
-                    setDrawableRight(huifulv, false,false);
+                    setDrawableRight(huifulv, false, false);
                 }
-                setDrawableRight(chengjiaocishu, true,true);
-                setDrawableRight(price_tv, true,true);
+                setDrawableRight(chengjiaocishu, true, true);
+                setDrawableRight(price_tv, true, true);
                 initDatas(1, classificationId, true, false);
                 isHuiFuLvSort = !isHuiFuLvSort;
                 isChengJiaoCiShuSort = true;
-                isJiaGeSort =true;
+                isJiaGeSort = true;
                 break;
             case R.id.price_tv:
                 tv_zonghe.setTextColor(getResources().getColor(R.color.black));
@@ -294,17 +301,17 @@ public class ClassificationActivity extends BaseActivity {
                 keyValue = "shop_price";
                 if (!isJiaGeSort) {
                     sort = "asc";
-                    setDrawableRight(price_tv, false,true);
+                    setDrawableRight(price_tv, false, true);
                 } else {
                     sort = "desc";
-                    setDrawableRight(price_tv, false,false);
+                    setDrawableRight(price_tv, false, false);
                 }
-                setDrawableRight(chengjiaocishu, true,true);
-                setDrawableRight(huifulv, true,true);
+                setDrawableRight(chengjiaocishu, true, true);
+                setDrawableRight(huifulv, true, true);
                 initDatas(1, classificationId, true, false);
                 isJiaGeSort = !isJiaGeSort;
                 isChengJiaoCiShuSort = true;
-                isHuiFuLvSort =true;
+                isHuiFuLvSort = true;
                 break;
         }
     }

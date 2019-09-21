@@ -77,7 +77,8 @@ public class RegisterActivity extends BaseActivity {
             tv_title.setText(R.string.bind_mobile_number);
         }
         checkbox.setChecked(true);
-        quyers_rb.setChecked(true);
+        supplier_rb.setChecked(true);
+        denglu_zt_5.setVisibility(View.GONE);
     }
 
     @Override

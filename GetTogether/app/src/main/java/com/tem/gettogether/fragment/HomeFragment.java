@@ -256,6 +256,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                         startActivity(new Intent(getContext(), ClassificationActivity.class)
                                 .putExtra("classification_id",bottomCateBeans.get(position).getCategory_id())
                                 .putExtra("classification_type",2)
+                                .putExtra("is_yilian",false)
                                 .putExtra("classification_name",bottomCateBeans.get(position).getName()));
                     }
                 });

@@ -66,6 +66,7 @@ public class HomeBottomCateAdapter extends RecyclerView.Adapter<HomeBottomCateAd
                 context.startActivity(new Intent(context, ClassificationActivity.class)
                         .putExtra("classification_id",mDatas.get(position).getCategory_id())
                         .putExtra("classification_type",2)
+                        .putExtra("is_yilian",false)
                         .putExtra("classification_name",mDatas.get(position).getName()));
             }
         });

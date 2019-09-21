@@ -168,15 +168,22 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                         SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.Shop_store_id, resultBean.getStore_id());
                         if(myMessageBean.getResult().getStore_count()!=null) {
                             tv_scNum.setText(myMessageBean.getResult().getStore_count());
+                        }else{
+                            tv_scNum.setText("0");
                         }
 
                         if(myMessageBean.getResult().getFans_count()!=null) {
                             tv_zjNum.setText(myMessageBean.getResult().getFans_count());
+                        }else{
+                            tv_zjNum.setText("0");
                         }
 
                         if(myMessageBean.getResult().getVisiters_count()!=null) {
                             tv_qb_num.setText(myMessageBean.getResult().getVisiters_count());
+                        }else{
+                            tv_qb_num.setText("0");
                         }
+
                         if (userLever.equals("7")) {
                             huiyuan_iv.setBackground(null);
                         } else if (userLever.equals("1")) {

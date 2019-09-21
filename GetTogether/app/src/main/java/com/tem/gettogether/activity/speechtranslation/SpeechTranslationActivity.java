@@ -46,8 +46,8 @@ public class SpeechTranslationActivity extends BaseMvpActivity<SpeechTranslation
     @ViewInject(R.id.spinner_aims)
     private Spinner spinner_aims;
     private String targetId;
-    private String fromType="中文";
-    private String toType="英文";
+    private String fromType = "中文";
+    private String toType = "英文";
     private String[] languages;
 
     @Override
@@ -59,8 +59,8 @@ public class SpeechTranslationActivity extends BaseMvpActivity<SpeechTranslation
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setText("发送");
         targetId = getIntent().getStringExtra("targetId");
-        spinner.setSelection(0,true);
-        spinner_aims.setSelection(1,true);
+        spinner.setSelection(0, true);
+        spinner_aims.setSelection(1, true);
         languages = getResources().getStringArray(R.array.user_spingarr);
     }
 
@@ -72,8 +72,8 @@ public class SpeechTranslationActivity extends BaseMvpActivity<SpeechTranslation
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 //回车键
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    Log.d("chenshichun","=======IME_ACTION_DONE====");
-                    mPresenter.goToTranslation(fromType,toType,from_result_tv.getText().toString());
+                    Log.d("chenshichun", "=======IME_ACTION_DONE====");
+                    mPresenter.goToTranslation(fromType, toType, from_result_tv.getText().toString());
                 }
                 return true;
             }
@@ -87,7 +87,7 @@ public class SpeechTranslationActivity extends BaseMvpActivity<SpeechTranslation
                         mPresenter.startRecord();
                         break;
                     case MotionEvent.ACTION_UP:
-                        mPresenter.stopRecord(fromType,toType);
+                        mPresenter.stopRecord(fromType, toType);
                         break;
                 }
 
@@ -123,12 +123,12 @@ public class SpeechTranslationActivity extends BaseMvpActivity<SpeechTranslation
 
     @Override
     public void showLoading() {
-
+        showDialog();
     }
 
     @Override
     public void hideLoading() {
-
+        closeDialog();
     }
 
     @Override
@@ -136,14 +136,14 @@ public class SpeechTranslationActivity extends BaseMvpActivity<SpeechTranslation
 
     }
 
-    @Event(value = {R.id.rl_close, R.id.delete_iv, R.id.tv_title_right,R.id.translation_conversion_ll})
+    @Event(value = {R.id.rl_close, R.id.delete_iv, R.id.tv_title_right, R.id.translation_conversion_ll})
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
                 finish();
                 break;
             case R.id.tv_title_right:
-                mPresenter.goSendTranslationMsg(from_result_tv.getText().toString(),to_result_tv.getText().toString(),targetId);
+                mPresenter.goSendTranslationMsg(from_result_tv.getText().toString(), to_result_tv.getText().toString(), targetId);
                 break;
             case R.id.translation_conversion_ll:
 
@@ -154,7 +154,7 @@ public class SpeechTranslationActivity extends BaseMvpActivity<SpeechTranslation
     @Override
     public void getTranslationFromResult(String txt) {
         Message msg = Message.obtain();
-        msg.what =0;
+        msg.what = 0;
         msg.obj = txt;
         mHandle.sendMessage(msg);
     }

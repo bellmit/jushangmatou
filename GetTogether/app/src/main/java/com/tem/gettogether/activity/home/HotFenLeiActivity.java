@@ -75,11 +75,13 @@ public class HotFenLeiActivity extends BaseActivity {
     private List<SouSuoDataBean.ResultBean> list;
     private List<SouSuoDataBean.ResultBean> resultBeans = new ArrayList<>();
     private boolean zonghepaixu, chengjiapaixu, huifupaixu, jiagepaixu;
-
+    private boolean isYiLain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        isYiLain = getIntent().getBooleanExtra("is_yilian",false);
+
         initData();
         initView();
     }
@@ -303,7 +305,7 @@ public class HotFenLeiActivity extends BaseActivity {
                 tv_pfl.setTextColor(getResources().getColor(R.color.text3));
                 tv_xl.setTextColor(getResources().getColor(R.color.home_red));
                 huifulv.setTextColor(getResources().getColor(R.color.text3));
-                sort = "sales_sum";
+                sort = "shop_price";
                 if (!jiagepaixu) {
                     paixu = "desc";
                     setDrawableRight(tv_xl,false);
@@ -368,11 +370,16 @@ public class HotFenLeiActivity extends BaseActivity {
                 Log.e("--搜索参数打印--" + key, "" + value + "\n");
             }
         }
-        XUtil.Post(URLConstant.SHANGPINLIEBIAO, map, new MyCallBack<String>() {
+        String url;
+        if(isYiLain){
+            url = URLConstant.YILIAN_SEARCH;
+        }else{
+            url = URLConstant.SHANGPINLIEBIAO;
+        }
+        XUtil.Post(url, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
-//                closeDialog();
                 order_refresh_fragment.endRefreshing();
                 order_refresh_fragment.endLoadingMore();
                 Log.i("====商品列表或商品搜索===", result);

@@ -24,6 +24,7 @@ import com.alipay.sdk.app.PayTask;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
 import com.tem.gettogether.activity.my.AddressGLActivity;
 import com.tem.gettogether.activity.order.CaiGouShangOrderActivity;
 import com.tem.gettogether.base.BaseActivity;
@@ -67,11 +68,11 @@ public class CloseAccountActivity extends BaseActivity {
     @ViewInject(R.id.tv_title)
     private TextView tv_title;
     @ViewInject(R.id.tv_cart_jian)
-    private  TextView tv_cart_jian;
+    private TextView tv_cart_jian;
     @ViewInject(R.id.tv_connectNum)
-    private  TextView tv_connectNum;
+    private TextView tv_connectNum;
     @ViewInject(R.id.tv_cart_add)
-    private  TextView tv_cart_add;
+    private TextView tv_cart_add;
     @ViewInject(R.id.tv_tijiao)
     private TextView tv_tijiao;
     @ViewInject(R.id.recyclerView)
@@ -87,7 +88,7 @@ public class CloseAccountActivity extends BaseActivity {
     @ViewInject(R.id.tv_zongjia)
     private TextView tv_zongjia;
     @ViewInject(R.id.tv_address)
-    private  TextView tv_address;
+    private TextView tv_address;
     @ViewInject(R.id.rl_psfs)
     private RelativeLayout rl_psfs;
     @ViewInject(R.id.rl_title_right)
@@ -95,13 +96,14 @@ public class CloseAccountActivity extends BaseActivity {
     @ViewInject(R.id.tv_title_right)
     private TextView tv_title_right;
     private String cartid;
-    private JieSuanBean.ResultBean.AddressListBean addressListBeans=new JieSuanBean.ResultBean.AddressListBean();
-    private JieSuanBean.ResultBean.TotalPriceBean totalPriceBean=new JieSuanBean.ResultBean.TotalPriceBean();
-    private List<JieSuanBean.ResultBean.StoreListBean> storeListBeans=new ArrayList<>();
-    private JieSPriceBean.ResultBean resultBean=new JieSPriceBean.ResultBean();
+    private JieSuanBean.ResultBean.AddressListBean addressListBeans = new JieSuanBean.ResultBean.AddressListBean();
+    private JieSuanBean.ResultBean.TotalPriceBean totalPriceBean = new JieSuanBean.ResultBean.TotalPriceBean();
+    private List<JieSuanBean.ResultBean.StoreListBean> storeListBeans = new ArrayList<>();
+    private JieSPriceBean.ResultBean resultBean = new JieSPriceBean.ResultBean();
     private String cart_ids;
-    private String goods_id,unique_id,goods_num,key;
-    private int ADDRESS=100;
+    private String goods_id, unique_id, goods_num, key;
+    private int ADDRESS = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,11 +115,11 @@ public class CloseAccountActivity extends BaseActivity {
     @Override
     protected void initData() {
         tv_title.setText("结算单");
-        cartid=getIntent().getStringExtra("cartid");
-        goods_id=getIntent().getStringExtra("goods_id");
-        unique_id=getIntent().getStringExtra("unique_id");
-        goods_num=getIntent().getStringExtra("goods_num");
-        key=getIntent().getStringExtra("key");
+        cartid = getIntent().getStringExtra("cartid");
+        goods_id = getIntent().getStringExtra("goods_id");
+        unique_id = getIntent().getStringExtra("unique_id");
+        goods_num = getIntent().getStringExtra("goods_num");
+        key = getIntent().getStringExtra("key");
         rl_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setText("修改地址");
@@ -126,15 +128,15 @@ public class CloseAccountActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        tv_lxr.setText("联系人："+addressListBeans.getConsignee());
-        tv_lx_phone.setText("联系电话："+addressListBeans.getMobile());
-        tv_shopping_price.setText("¥"+resultBean.getGoodsFee());
-        tv_yunfei.setText("¥"+resultBean.getPostFee());
-        tv_zongjia.setText("合计金额：￥"+resultBean.getPayables());
-        tv_address.setText("配送地址："+addressListBeans.getProvince()+addressListBeans.getCity()+addressListBeans.getDistrict()+addressListBeans.getTwon()+addressListBeans.getAddress());
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        if (storeListBeans.size()>=1){
-            recyclerView.setAdapter(new BaseRVAdapter(this,storeListBeans) {
+        tv_lxr.setText("联系人：" + addressListBeans.getConsignee());
+        tv_lx_phone.setText("联系电话：" + addressListBeans.getMobile());
+        tv_shopping_price.setText("¥" + resultBean.getGoodsFee());
+        tv_yunfei.setText("¥" + resultBean.getPostFee());
+        tv_zongjia.setText("合计金额：￥" + resultBean.getPayables());
+        tv_address.setText("配送地址：" + addressListBeans.getProvince() + addressListBeans.getCity() + addressListBeans.getDistrict() + addressListBeans.getTwon() + addressListBeans.getAddress());
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        if (storeListBeans.size() >= 1) {
+            recyclerView.setAdapter(new BaseRVAdapter(this, storeListBeans) {
                 @Override
                 public int getLayoutId(int viewType) {
                     return R.layout.jiesuandan_item;
@@ -144,23 +146,36 @@ public class CloseAccountActivity extends BaseActivity {
                 public void onBind(BaseViewHolder holder, final int position) {
                     holder.getTextView(R.id.tv_shop_name).setText(storeListBeans.get(position).getStore_name());
 
-                    RecyclerView recyclerView_item=holder.getView(R.id.recyclerView_item);
-                    recyclerView_item.setLayoutManager(new LinearLayoutManager(CloseAccountActivity.this,LinearLayoutManager.VERTICAL,false));
-                    recyclerView_item.setAdapter(new BaseRVAdapter(CloseAccountActivity.this,storeListBeans.get(position).getCartList()) {
+                    RecyclerView recyclerView_item = holder.getView(R.id.recyclerView_item);
+                    recyclerView_item.setLayoutManager(new LinearLayoutManager(CloseAccountActivity.this, LinearLayoutManager.VERTICAL, false));
+                    recyclerView_item.setAdapter(new BaseRVAdapter(CloseAccountActivity.this, storeListBeans.get(position).getCartList()) {
                         @Override
                         public int getLayoutId(int viewType) {
                             return R.layout.shopping_item_recy;
                         }
 
                         @Override
-                        public void onBind(BaseViewHolder holder, int position2) {
-                            ImageView iv_image=holder.getImageView(R.id.iv_image);
+                        public void onBind(BaseViewHolder holder, final int position2) {
+                            ImageView iv_image = holder.getImageView(R.id.iv_image);
                             Glide.with(CloseAccountActivity.this).load(storeListBeans.get(position).getCartList().get(position2).getGoods_logo()).error(R.mipmap.myy322x).into(iv_image);
 
                             holder.getTextView(R.id.tv_shop_ms).setText(storeListBeans.get(position).getCartList().get(position2).getGoods_name());
                             holder.getTextView(R.id.tv_shuxing).setText(storeListBeans.get(position).getCartList().get(position2).getSpec_key_name());
-                            holder.getTextView(R.id.tv_price).setText("￥"+storeListBeans.get(position).getCartList().get(position2).getGoods_price());
-                            holder.getTextView(R.id.tv_num).setText("x"+storeListBeans.get(position).getCartList().get(position2).getGoods_num());
+                            if (storeListBeans.get(position).getCartList().get(position2).getIs_enquiry() != null &&
+                                    storeListBeans.get(position).getCartList().get(position2).getIs_enquiry().equals("1")) {
+                                holder.getTextView(R.id.tv_price).setText("面议");
+                            } else {
+                                holder.getTextView(R.id.tv_price).setText("￥" + storeListBeans.get(position).getCartList().get(position2).getGoods_price());
+                            }
+                            holder.getTextView(R.id.tv_num).setText("x" + storeListBeans.get(position).getCartList().get(position2).getGoods_num());
+                            LinearLayout item_view = holder.getView(R.id.item_view);
+                            item_view.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    startActivity(new Intent(getContext(), ShoppingParticularsActivity.class)
+                                            .putExtra("goods_id", storeListBeans.get(position).getCartList().get(position2).getGoods_id()));
+                                }
+                            });
                         }
 
                     });
@@ -171,25 +186,26 @@ public class CloseAccountActivity extends BaseActivity {
         }
 
     }
-    @Event(value = {R.id.rl_close,R.id.tv_cart_add,R.id.tv_cart_jian,R.id.tv_tijiao,R.id.rl_psfs,R.id.rl_title_right}, type = View.OnClickListener.class)
+
+    @Event(value = {R.id.rl_close, R.id.tv_cart_add, R.id.tv_cart_jian, R.id.tv_tijiao, R.id.rl_psfs, R.id.rl_title_right}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
                 finish();
                 break;
             case R.id.tv_cart_add:
-                int numadd=Integer.parseInt(tv_connectNum.getText().toString().trim());
+                int numadd = Integer.parseInt(tv_connectNum.getText().toString().trim());
                 numadd++;
-                tv_connectNum.setText(numadd+"");
+                tv_connectNum.setText(numadd + "");
                 break;
             case R.id.tv_cart_jian:
-                int numJian=Integer.parseInt(tv_connectNum.getText().toString().trim());
-                if(numJian<=1){
+                int numJian = Integer.parseInt(tv_connectNum.getText().toString().trim());
+                if (numJian <= 1) {
                     CusToast.showToast("数量不能少于1");
                     return;
                 }
                 numJian--;
-                tv_connectNum.setText(numJian+"");
+                tv_connectNum.setText(numJian + "");
                 break;
             case R.id.rl_psfs:
 //                showPopPSFS(rl_psfs);
@@ -198,42 +214,44 @@ public class CloseAccountActivity extends BaseActivity {
                 upTJDDData();
                 break;
             case R.id.rl_title_right:
-                if(unique_id!=null&&unique_id.equals("1")){
-                    startActivityForResult(new Intent(this,AddressGLActivity.class)
-                            .putExtra("unique_id",unique_id)
-                            .putExtra("goods_id",goods_id)
-                            .putExtra("goods_num",goods_num)
-                            .putExtra("key",key),ADDRESS);
-                }else{
-                    startActivityForResult(new Intent(this,AddressGLActivity.class)
-                            .putExtra("unique_id","2")
-                            .putExtra("cart_ids",cart_ids),ADDRESS);
+                if (unique_id != null && unique_id.equals("1")) {
+                    startActivityForResult(new Intent(this, AddressGLActivity.class)
+                            .putExtra("unique_id", unique_id)
+                            .putExtra("goods_id", goods_id)
+                            .putExtra("goods_num", goods_num)
+                            .putExtra("key", key), ADDRESS);
+                } else {
+                    startActivityForResult(new Intent(this, AddressGLActivity.class)
+                            .putExtra("unique_id", "2")
+                            .putExtra("cart_ids", cart_ids), ADDRESS);
                 }
 
                 break;
         }
     }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == ADDRESS&&resultCode == 101) {
-            unique_id=data.getStringExtra("unique_id");
-            if(unique_id.equals("2")){
-                cart_ids=data.getStringExtra("cart_ids");
-            }else {
-                goods_id=data.getStringExtra("goods_id");
-                goods_num=data.getStringExtra("goods_num");
-                key=getIntent().getStringExtra("key");
+        if (requestCode == ADDRESS && resultCode == 101) {
+            unique_id = data.getStringExtra("unique_id");
+            if (unique_id.equals("2")) {
+                cart_ids = data.getStringExtra("cart_ids");
+            } else {
+                goods_id = data.getStringExtra("goods_id");
+                goods_num = data.getStringExtra("goods_num");
+                key = getIntent().getStringExtra("key");
             }
             upJieSCartData();
         }
     }
 
     private String orderNum;
+
     private void upTJDDData() {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
-        Log.d("chenshichun","======addressListBeans.getAddress_id()=====  "+addressListBeans.getAddress_id());
+        Log.d("chenshichun", "======addressListBeans.getAddress_id()=====  " + addressListBeans.getAddress_id());
         map.put("address_id", addressListBeans.getAddress_id());
         map.put("act", "submit_order");
 //        map.put("shipping_code["+ storeListBeans.get(0).getStore_id()+"]","shentong");
@@ -282,15 +300,15 @@ public class CloseAccountActivity extends BaseActivity {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
-        if(unique_id!=null&&unique_id.equals("1")){
+        if (unique_id != null && unique_id.equals("1")) {
             map.put("goods_id", goods_id);
             map.put("goods_num", goods_num);
             map.put("unique_id", unique_id);
-            if(key!=null&&!key.equals("")){
+            if (key != null && !key.equals("")) {
                 map.put("key", key);
             }
-        }else{
-            if(cartid!=null&&!cartid.equals("")){
+        } else {
+            if (cartid != null && !cartid.equals("")) {
                 map.put("ids", cartid);
             }
 //                map.put("goods_num", goods_num);
@@ -319,12 +337,12 @@ public class CloseAccountActivity extends BaseActivity {
                     String msg = jsonObject.optString("msg");
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        JieSuanBean jieSuanBean=gson.fromJson(result,JieSuanBean.class);
-                        addressListBeans=jieSuanBean.getResult().getAddressList();
-                        totalPriceBean=jieSuanBean.getResult().getTotalPrice();
-                        storeListBeans=jieSuanBean.getResult().getStoreList();
-                        cart_ids=jieSuanBean.getResult().getCart_ids();
-                    }else if(res.equals("-1")){
+                        JieSuanBean jieSuanBean = gson.fromJson(result, JieSuanBean.class);
+                        addressListBeans = jieSuanBean.getResult().getAddressList();
+                        totalPriceBean = jieSuanBean.getResult().getTotalPrice();
+                        storeListBeans = jieSuanBean.getResult().getStoreList();
+                        cart_ids = jieSuanBean.getResult().getCart_ids();
+                    } else if (res.equals("-1")) {
                         CusToast.showToast(msg);
                     }
 
@@ -348,12 +366,13 @@ public class CloseAccountActivity extends BaseActivity {
             }
         });
     }
+
     private void upHQpriceData() {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
-        if(addressListBeans.getAddress_id()!=null){
-            map.put("address_id", addressListBeans.getAddress_id()+"");
+        if (addressListBeans.getAddress_id() != null) {
+            map.put("address_id", addressListBeans.getAddress_id() + "");
         }
 //        map.put("act", "");
         map.put("ids", cart_ids);
@@ -371,9 +390,9 @@ public class CloseAccountActivity extends BaseActivity {
 //                    CusToast.showToast(msg);
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        JieSPriceBean jieSPriceBean=gson.fromJson(result,JieSPriceBean.class);
-                        resultBean=jieSPriceBean.getResult();
-                    }else  if (res.equals("-1")){
+                        JieSPriceBean jieSPriceBean = gson.fromJson(result, JieSPriceBean.class);
+                        resultBean = jieSPriceBean.getResult();
+                    } else if (res.equals("-1")) {
                         CusToast.showToast(msg);
                     }
 
@@ -462,6 +481,7 @@ public class CloseAccountActivity extends BaseActivity {
         lp.alpha = 0.6f;
         getWindow().setAttributes(lp);
     }
+
     //初始化弹窗
     private void initPop() {
         if (mPop == null) {
@@ -487,22 +507,24 @@ public class CloseAccountActivity extends BaseActivity {
             setPopClickListener(view);
         }
     }
-    private int PayType=0;
+
+    private int PayType = 0;
     private TextView tv_sure;
+
     private void setPopClickListener(View view) {
-        final ImageView iv_cancle,iv_ye_pay,iv_wecat_pay,iv_zfb_pay;
+        final ImageView iv_cancle, iv_ye_pay, iv_wecat_pay, iv_zfb_pay;
         iv_cancle = view.findViewById(R.id.iv_cancle);
         iv_ye_pay = view.findViewById(R.id.iv_ye_pay);
         iv_wecat_pay = view.findViewById(R.id.iv_wecat_pay);
         iv_zfb_pay = view.findViewById(R.id.iv_zfb_pay);
 
 
-        TextView tv_payPrice=view.findViewById(R.id.tv_payPrice);
-        LinearLayout ll_ye_pay=view.findViewById(R.id.ll_ye_pay);
-        LinearLayout ll_wecat_pay=view.findViewById(R.id.ll_wecat_pay);
-        LinearLayout ll_zfb_pay=view.findViewById(R.id.ll_zfb_pay);
+        TextView tv_payPrice = view.findViewById(R.id.tv_payPrice);
+        LinearLayout ll_ye_pay = view.findViewById(R.id.ll_ye_pay);
+        LinearLayout ll_wecat_pay = view.findViewById(R.id.ll_wecat_pay);
+        LinearLayout ll_zfb_pay = view.findViewById(R.id.ll_zfb_pay);
 
-        tv_payPrice.setText("¥"+resultBean.getPayables());
+        tv_payPrice.setText("¥" + resultBean.getPayables());
 
         iv_cancle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -514,7 +536,7 @@ public class CloseAccountActivity extends BaseActivity {
         ll_ye_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PayType=1;
+                PayType = 1;
                 iv_ye_pay.setImageResource(R.drawable.xuanzhongf);
                 iv_wecat_pay.setImageResource(R.drawable.weixuanzhong);
                 iv_zfb_pay.setImageResource(R.drawable.weixuanzhong);
@@ -523,7 +545,7 @@ public class CloseAccountActivity extends BaseActivity {
         ll_zfb_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PayType=2;
+                PayType = 2;
                 iv_zfb_pay.setImageResource(R.drawable.xuanzhongf);
                 iv_ye_pay.setImageResource(R.drawable.weixuanzhong);
                 iv_wecat_pay.setImageResource(R.drawable.weixuanzhong);
@@ -533,7 +555,7 @@ public class CloseAccountActivity extends BaseActivity {
         ll_wecat_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PayType=3;
+                PayType = 3;
                 iv_wecat_pay.setImageResource(R.drawable.xuanzhongf);
                 iv_ye_pay.setImageResource(R.drawable.weixuanzhong);
                 iv_zfb_pay.setImageResource(R.drawable.weixuanzhong);
@@ -541,27 +563,27 @@ public class CloseAccountActivity extends BaseActivity {
             }
         });
 
-        tv_sure=view.findViewById(R.id.tv_sure);
+        tv_sure = view.findViewById(R.id.tv_sure);
         tv_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(PayType==0){
+                if (PayType == 0) {
                     CusToast.showToast("请选择支付方式");
                     return;
-                }else if(PayType==1){//余额
+                } else if (PayType == 1) {//余额
                     mPop.dismiss();
                     showPop2(tv_sure);
 
-                }else if(PayType==2){//支付宝
-                    Map<String,Object> map3=new HashMap<>();
-                    map3.put("master_order_sn",orderNum);
+                } else if (PayType == 2) {//支付宝
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("master_order_sn", orderNum);
                     map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                     upYETXData(map3);
-                }else if(PayType==3){//微信
-                    Map<String,Object> map3=new HashMap<>();
-                    map3.put("master_order_sn",orderNum);
+                } else if (PayType == 3) {//微信
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("master_order_sn", orderNum);
                     map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                     upYETXData(map3);
                 }
@@ -571,6 +593,7 @@ public class CloseAccountActivity extends BaseActivity {
             }
         });
     }
+
     private String paypass;
     private PopupWindow mPopPay;
 
@@ -585,6 +608,7 @@ public class CloseAccountActivity extends BaseActivity {
         lp.alpha = 0.6f;
         getWindow().setAttributes(lp);
     }
+
     //初始化弹窗
     private void initPop2() {
         if (mPopPay == null) {
@@ -606,10 +630,10 @@ public class CloseAccountActivity extends BaseActivity {
                     getWindow().setAttributes(lp);
                 }
             });
-           ImageView iv_cancle = view.findViewById(R.id.iv_cancle);
+            ImageView iv_cancle = view.findViewById(R.id.iv_cancle);
 
-            TextView tv_payPrice=view.findViewById(R.id.tv_payPrice);
-            tv_payPrice.setText("¥"+resultBean.getPayables());
+            TextView tv_payPrice = view.findViewById(R.id.tv_payPrice);
+            tv_payPrice.setText("¥" + resultBean.getPayables());
 
             iv_cancle.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -618,13 +642,13 @@ public class CloseAccountActivity extends BaseActivity {
                 }
             });
             //设置弹窗内的点击事件
-            final PasswordView2 passView=view.findViewById(R.id.passView);
+            final PasswordView2 passView = view.findViewById(R.id.passView);
             passView.setOnFinishInput2(new OnPasswordInputFinish2() {
                 @Override
                 public void inputFinish() {
                     // 输入完成后我们简单显示一下输入的密码
                     // 也就是说——>实现你的交易逻辑什么的在这里写
-                    paypass=passView.getStrPassword();
+                    paypass = passView.getStrPassword();
 
                 }
 
@@ -632,8 +656,8 @@ public class CloseAccountActivity extends BaseActivity {
             view.findViewById(R.id.tv_sure_pay).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Map<String,Object> map3=new HashMap<>();
-                    map3.put("master_order_sn",orderNum);
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("master_order_sn", orderNum);
                     map3.put("pay_password", paypass);
                     map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
@@ -644,17 +668,18 @@ public class CloseAccountActivity extends BaseActivity {
 
         }
     }
-    private void  upYETXData(Map<String,Object> map){
+
+    private void upYETXData(Map<String, Object> map) {
         String url = null;
-         if(PayType==1){//余额
-            url=URLConstant.ORDER_YUE_PAY;
-        }else if(PayType==2){//支付宝
-            url=URLConstant.ORDER_ALI_PAY;
-        }else if(PayType==3){//微信
-            url=URLConstant.ORDER_WECHAT_PAY;
+        if (PayType == 1) {//余额
+            url = URLConstant.ORDER_YUE_PAY;
+        } else if (PayType == 2) {//支付宝
+            url = URLConstant.ORDER_ALI_PAY;
+        } else if (PayType == 3) {//微信
+            url = URLConstant.ORDER_WECHAT_PAY;
         }
         showDialog();
-        XUtil.Post(url,map,new MyCallBack<String>(){
+        XUtil.Post(url, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -663,19 +688,19 @@ public class CloseAccountActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        if(PayType==1){//余额
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        if (PayType == 1) {//余额
                             finish();
                             CusToast.showToast(msg);
-                        }else if(PayType==2){//支付宝
+                        } else if (PayType == 2) {//支付宝
                             AliPayBean aliPayBean = gson.fromJson(result, AliPayBean.class);
                             Message msg2 = Message.obtain();
                             msg2.what = TOALIPAY;
                             msg2.obj = aliPayBean.getResult();
                             mHandler.sendMessage(msg2);
-                        }else if(PayType==3){//微信
-                            WechatDataBean wechatDataBean=gson.fromJson(result,WechatDataBean.class);
+                        } else if (PayType == 3) {//微信
+                            WechatDataBean wechatDataBean = gson.fromJson(result, WechatDataBean.class);
                             final IWXAPI msgApi = WXAPIFactory.createWXAPI(CloseAccountActivity.this, null);
                             msgApi.registerApp(BaseApplication.getInstance().WXAPP_ID);
                             PayReq req = new PayReq();
@@ -712,6 +737,7 @@ public class CloseAccountActivity extends BaseActivity {
             }
         });
     }
+
     //------------------------------------------------------------支付宝----------------
     private static final int TOALIPAY = 3;
     private static final int SDK_PAY_FLAG = 1;
@@ -757,7 +783,7 @@ public class CloseAccountActivity extends BaseActivity {
     /**
      * 支付宝支付业务
      * 支付
-     //     * @param v
+     * //     * @param v
      */
     public void payV2(final String info) {
         /**

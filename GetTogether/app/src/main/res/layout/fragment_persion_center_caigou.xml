@@ -44,12 +44,6 @@
                                 android:layout_height="59dp"
                                 android:src="@mipmap/myy322x" />
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentBottom="true"
-                                android:src="@drawable/my_huiyuan" />
                         </RelativeLayout>
 
                         <LinearLayout

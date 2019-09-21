@@ -321,7 +321,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                     public void onClick(DialogInterface dialogInterface, int i) {
                         startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     }
-                });
+                }).setCancelable(false);
         builder.create().show();
     }
 
@@ -539,6 +539,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
 
     @Override
     public void onDragOut() {
+        Log.d("chenshichun","======GONE=====");
         mUnreadNumView.setVisibility(View.GONE);
     }
 
@@ -549,6 +550,8 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 mUnreadNumView.setVisibility(View.VISIBLE);
                 mUnreadNumView.setText(String.valueOf(count + messageNum));
             } else {
+                Log.d("chenshichun","======GONE1=====");
+
                 mUnreadNumView.setVisibility(View.GONE);
             }
         } else if (count > 0 && count < 100) {
@@ -562,6 +565,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     }
 
     private int messageNum = 0;
+    private int rongyunmessageNum = 0;
     /**
      * 接收未读消息的监听器。
      */
@@ -569,17 +573,20 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         @Override
         public void onMessageIncreased(int count) {
             System.out.println("main---onMessageIncreased---未读消息条数：" + count);
-            if (count == 0) {
+            rongyunmessageNum = count;
+            if (rongyunmessageNum == 0) {
                 if (messageNum > 0) {
                     mUnreadNumView.setVisibility(View.VISIBLE);
-                    mUnreadNumView.setText(String.valueOf(count + messageNum));
+                    mUnreadNumView.setText(String.valueOf(rongyunmessageNum + messageNum));
                 } else {
+                    Log.d("chenshichun","======GONE2=====");
+
                     mUnreadNumView.setVisibility(View.GONE);
                 }
-            } else if (count > 0 && count < 100) {
+            } else if (rongyunmessageNum > 0 && rongyunmessageNum < 100) {
                 mUnreadNumView.setVisibility(View.VISIBLE);
                 upGetMessageData();
-                mUnreadNumView.setText(String.valueOf(count + messageNum));
+                mUnreadNumView.setText(String.valueOf(rongyunmessageNum + messageNum));
             } else {
                 mUnreadNumView.setVisibility(View.VISIBLE);
                 mUnreadNumView.setText(R.string.no_read_message);
@@ -606,10 +613,11 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                         JSONObject jsonObject2 = new JSONObject(result2);
                         String count = jsonObject2.optString("count");
                         messageNum = Integer.parseInt(count);
-                        if (messageNum > 0) {
+                        if ((rongyunmessageNum+messageNum) > 0) {
                             mUnreadNumView.setVisibility(View.VISIBLE);
-                            mUnreadNumView.setText(String.valueOf(messageNum));
+                            mUnreadNumView.setText(String.valueOf((rongyunmessageNum+messageNum)));
                         } else {
+                            Log.d("chenshichun","=====GONE4======");
                             mUnreadNumView.setVisibility(View.GONE);
                         }
                     }
