@@ -45,7 +45,7 @@ public class HomeHotSellSecondAdapter extends RecyclerView.Adapter<HomeHotSellSe
                 .override(imageSize, imageSize).into(holder.pic_iv);
         holder.product_title.setText(mDatas.get(position).getGoods_name());
         if(mDatas.get(position).getIs_enquiry()!=null && mDatas.get(position).getIs_enquiry().equals("1")){
-            holder.buy_price_tv.setText("面议");
+            holder.buy_price_tv.setText(context.getText(R.string.negotiable_tv));
         }else{
             holder.buy_price_tv.setText("￥" + mDatas.get(position).getMember_goods_price());
         }

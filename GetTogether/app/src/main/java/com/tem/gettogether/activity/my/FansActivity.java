@@ -99,7 +99,8 @@ public class FansActivity extends BaseActivity {
                                 mFansBean.addAll(gson.fromJson(result, FansDataBean.class).getResult().getFans());
                                 mFansAdapter.notifyDataSetChanged();
                             }else{
-                                CusToast.showToast("没有更多数据!");
+                                CusToast.showToast(getResources().getText(R.string.no_more_data));
+
                             }
                         }
 

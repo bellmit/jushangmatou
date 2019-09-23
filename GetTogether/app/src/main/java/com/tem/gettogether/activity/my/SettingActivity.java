@@ -79,11 +79,11 @@ public class SettingActivity extends BaseActivity {
         if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {// 供应商
             rl_address_gl.setVisibility(View.GONE);
             if (lever.equals("7")) {
-                huiyuan_tv.setText("游客");
+                huiyuan_tv.setText(getText(R.string.tourist));
             } else if (lever.equals("1")) {
-                huiyuan_tv.setText("普通会员");
+                huiyuan_tv.setText(getText(R.string.ordinary_member));
             } else {
-                huiyuan_tv.setText("高级会员");
+                huiyuan_tv.setText(getText(R.string.senior_member));
             }
         } else {
             huiyuandengji_rl.setVisibility(View.GONE);

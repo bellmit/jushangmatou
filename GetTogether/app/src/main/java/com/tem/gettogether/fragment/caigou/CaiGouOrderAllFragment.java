@@ -152,7 +152,7 @@ public class CaiGouOrderAllFragment extends BaseFragment {
                                     resultBeans.addAll(gson.fromJson(result, MyOrderdataBean.class).getResult());
                                     mOrderAdapter.notifyDataSetChanged();
                                 }else{
-                                    CusToast.showToast("没有更多数据!");
+                                    CusToast.showToast(getResources().getText(R.string.no_more_data));
                                 }
                             } else {
                                 if (jsonObject.optString("result").equals("")) {// 刷新没数据

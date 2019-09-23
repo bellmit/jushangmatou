@@ -114,7 +114,7 @@ public class CloseAccountActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tv_title.setText("结算单");
+        tv_title.setText(getResources().getText(R.string.bill_tv));
         cartid = getIntent().getStringExtra("cartid");
         goods_id = getIntent().getStringExtra("goods_id");
         unique_id = getIntent().getStringExtra("unique_id");
@@ -122,18 +122,18 @@ public class CloseAccountActivity extends BaseActivity {
         key = getIntent().getStringExtra("key");
         rl_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setVisibility(View.VISIBLE);
-        tv_title_right.setText("修改地址");
+        tv_title_right.setText(getResources().getText(R.string.change_address));
         upJieSCartData();
     }
 
     @Override
     protected void initView() {
-        tv_lxr.setText("联系人：" + addressListBeans.getConsignee());
-        tv_lx_phone.setText("联系电话：" + addressListBeans.getMobile());
-        tv_shopping_price.setText("¥" + resultBean.getGoodsFee());
-        tv_yunfei.setText("¥" + resultBean.getPostFee());
-        tv_zongjia.setText("合计金额：￥" + resultBean.getPayables());
-        tv_address.setText("配送地址：" + addressListBeans.getProvince() + addressListBeans.getCity() + addressListBeans.getDistrict() + addressListBeans.getTwon() + addressListBeans.getAddress());
+        tv_lxr.setText(getResources().getText(R.string.contact_tv)+ addressListBeans.getConsignee());
+        tv_lx_phone.setText(getResources().getText(R.string.contact_number) + addressListBeans.getMobile());
+        tv_shopping_price.setText(""+getResources().getText(R.string.renminbi_symbol) + resultBean.getGoodsFee());
+        tv_yunfei.setText(""+getResources().getText(R.string.renminbi_symbol) + resultBean.getPostFee());
+        tv_zongjia.setText(getResources().getText(R.string.total_amount) +""+ resultBean.getPayables());
+        tv_address.setText(getResources().getText(R.string.delivery_address) + addressListBeans.getProvince() + addressListBeans.getCity() + addressListBeans.getDistrict() + addressListBeans.getTwon() + addressListBeans.getAddress());
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         if (storeListBeans.size() >= 1) {
             recyclerView.setAdapter(new BaseRVAdapter(this, storeListBeans) {
@@ -163,11 +163,11 @@ public class CloseAccountActivity extends BaseActivity {
                             holder.getTextView(R.id.tv_shuxing).setText(storeListBeans.get(position).getCartList().get(position2).getSpec_key_name());
                             if (storeListBeans.get(position).getCartList().get(position2).getIs_enquiry() != null &&
                                     storeListBeans.get(position).getCartList().get(position2).getIs_enquiry().equals("1")) {
-                                holder.getTextView(R.id.tv_price).setText("面议");
+                                holder.getTextView(R.id.tv_price).setText(getResources().getText(R.string.negotiable_tv));
                             } else {
-                                holder.getTextView(R.id.tv_price).setText("￥" + storeListBeans.get(position).getCartList().get(position2).getGoods_price());
+                                holder.getTextView(R.id.tv_price).setText(getResources().getText(R.string.renminbi_symbol) + storeListBeans.get(position).getCartList().get(position2).getGoods_price());
                             }
-                            holder.getTextView(R.id.tv_num).setText("x" + storeListBeans.get(position).getCartList().get(position2).getGoods_num());
+                            holder.getTextView(R.id.tv_num).setText(getResources().getText(R.string.multiplication_sign) + storeListBeans.get(position).getCartList().get(position2).getGoods_num());
                             LinearLayout item_view = holder.getView(R.id.item_view);
                             item_view.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -201,7 +201,7 @@ public class CloseAccountActivity extends BaseActivity {
             case R.id.tv_cart_jian:
                 int numJian = Integer.parseInt(tv_connectNum.getText().toString().trim());
                 if (numJian <= 1) {
-                    CusToast.showToast("数量不能少于1");
+                    CusToast.showToast(getResources().getText(R.string.the_number_cannot_be_less_than_one));
                     return;
                 }
                 numJian--;
@@ -251,7 +251,6 @@ public class CloseAccountActivity extends BaseActivity {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
-        Log.d("chenshichun", "======addressListBeans.getAddress_id()=====  " + addressListBeans.getAddress_id());
         map.put("address_id", addressListBeans.getAddress_id());
         map.put("act", "submit_order");
 //        map.put("shipping_code["+ storeListBeans.get(0).getStore_id()+"]","shentong");
@@ -415,58 +414,6 @@ public class CloseAccountActivity extends BaseActivity {
             }
         });
     }
-//    private PopupWindow mPopPSFS;
-//
-//    //显示弹窗
-//    private void showPopPSFS(View v) {
-//        if (mPopPSFS == null) {
-//            View view = LayoutInflater.from(this).inflate(R.layout.jiesuan_psfs_layout, null);
-//            mPopPSFS = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//            //点击弹窗外消失mPop
-//            mPopPSFS.setFocusable(true);
-//            mPopPSFS.setOutsideTouchable(true);
-//            //设置背景，才能使用动画效果
-//            mPopPSFS.setBackgroundDrawable(new BitmapDrawable());
-//            //设置动画
-//            mPopPSFS.setAnimationStyle(R.style.PopWindowAnim);
-//            //设置弹窗消失监听
-//            mPopPSFS.setOnDismissListener(new PopupWindow.OnDismissListener() {
-//                @Override
-//                public void onDismiss() {
-//                    WindowManager.LayoutParams lp = getWindow().getAttributes();
-//                    lp.alpha = 1f;
-//                    getWindow().setAttributes(lp);
-//                }
-//            });
-//            view.findViewById(R.id.iv_cancle).setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    mPop.dismiss();
-//                }
-//            });
-//           RecyclerView recycler_psfs=view.findViewById(R.id.recycler_psfs);
-//            recycler_psfs.setLayoutManager(new LinearLayoutManager(CloseAccountActivity.this,LinearLayoutManager.VERTICAL,false));
-//            recycler_psfs.setAdapter(new BaseRVAdapter(this) {
-//                @Override
-//                public int getLayoutId(int viewType) {
-//                    return R.layout.peisongfan;
-//                }
-//
-//                @Override
-//                public void onBind(BaseViewHolder holder, int position) {
-//
-//                }
-//
-//            });
-//        }
-//        if (mPopPSFS.isShowing())
-//            return;
-//        //设置弹窗底部位置
-//        mPopPSFS.showAtLocation(v, Gravity.BOTTOM, 0, 0);
-//        WindowManager.LayoutParams lp = getWindow().getAttributes();
-//        lp.alpha = 0.6f;
-//        getWindow().setAttributes(lp);
-//    }
 
     private PopupWindow mPop;
 
@@ -569,7 +516,7 @@ public class CloseAccountActivity extends BaseActivity {
             public void onClick(View view) {
 
                 if (PayType == 0) {
-                    CusToast.showToast("请选择支付方式");
+                    CusToast.showToast(getResources().getText(R.string.select_payment_method));
                     return;
                 } else if (PayType == 1) {//余额
                     mPop.dismiss();
@@ -759,12 +706,12 @@ public class CloseAccountActivity extends BaseActivity {
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-                        CusToast.showToast("支付成功");
+                        CusToast.showToast(getResources().getText(R.string.payment_successful));
                         finish();
 //                        setStart(f2ZhiFuBaoBean.getInfo().getPartner(), f2ZhiFuBaoBean.getInfo().getTotal_fee());
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-                        CusToast.showToast("支付失败");
+                        CusToast.showToast(getResources().getText(R.string.payment_failed));
                     }
                     break;
                 }

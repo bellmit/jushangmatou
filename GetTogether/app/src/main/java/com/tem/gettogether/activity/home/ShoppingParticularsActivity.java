@@ -213,11 +213,11 @@ public class ShoppingParticularsActivity extends BaseActivity {
         }
 
         tv_shopping_jj.setText(goodsBean.getGoods_name() + "");
-        tv_kd_price.setText("快递费：0.00");
-        tv_xl_num.setText("销量：" + goodsBean.getSales_sum());
+        tv_kd_price.setText(getText(R.string.courier_fee));
+        tv_xl_num.setText(getText(R.string.sales) + goodsBean.getSales_sum());
         tv_address.setText(storeBean.getProvince() + storeBean.getCity() + "");
-        tv_pj_num.setText("评价(" + goodsBean.getComment_count() + ")");
-        tv_hpd_num.setText("好评度" + goodsBean.getBest_percent());
+        tv_pj_num.setText(getText(R.string.evaluation)+"(" + goodsBean.getComment_count() + ")");
+        tv_hpd_num.setText(getText(R.string.praise_of) + goodsBean.getBest_percent());
         if (goodsBean.getIs_collect() != null) {
             if (goodsBean.getIs_collect().equals("0")) {
                 sctype = "0";
@@ -228,17 +228,17 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 sctype = "1";
                 iv_is_sc.setVisibility(View.VISIBLE);
                 iv_is_sc.setImageResource(R.drawable.shopping_icon_sc);
-                tv_shopping_sc.setText("已收藏");
+                tv_shopping_sc.setText(getText(R.string.collected));
             }
         }
         if (storeBean.getIs_collect() != null) {
             if (storeBean.getIs_collect().equals("0")) {
                 iv_shop_isgz.setVisibility(View.GONE);
-                tv_sjgz.setText("关注商家");
+                tv_sjgz.setText(getText(R.string.follow_the_business));
             } else {
                 iv_shop_isgz.setVisibility(View.VISIBLE);
                 iv_shop_isgz.setImageResource(R.drawable.guanzhu_xx);
-                tv_sjgz.setText("已关注");
+                tv_sjgz.setText(getText(R.string.has_been_concerned));
             }
         }
 
@@ -345,7 +345,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 if (allNum > 1) {
                     allNum--;
                 } else {
-                    CusToast.showToast("数量不能少于1");
+                    CusToast.showToast(getText(R.string.the_number_cannot_be_less_than_one));
                     return;
                 }
 
@@ -368,7 +368,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 break;
             case R.id.tv_jrgwc:
                 if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
-                    CusToast.showToast("供应商暂无此功能");
+                    CusToast.showToast(getResources().getText(R.string.supplier_does_not_have_this_feature));
                 } else {
                     showPop(tv_jrgwc);
                 }
@@ -407,20 +407,20 @@ public class ShoppingParticularsActivity extends BaseActivity {
                                     , storeBean.getStore_user_id(), storeBean.getStore_name(),
                                     storeBean.getStore_logo(), storeBean.getStore_id());
                         } else {
-                            CusToast.showToast("该店铺无效");
+                            CusToast.showToast(getText(R.string.the_store_is_invalid));
                         }
 
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    CusToast.showToast("客服无效");
+                    CusToast.showToast(getText(R.string.customer_service_is_invalid));
                 }
 
                 break;
             case R.id.rl_kf:
                 try {
                     if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
-                        CusToast.showToast("供应商暂无此功能");
+                        CusToast.showToast(getText(R.string.supplier_does_not_have_this_feature));
                     } else {
                         //发消息
                         if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
@@ -429,7 +429,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                                         , storeBean.getStore_user_id(), storeBean.getStore_name(),
                                         storeBean.getStore_logo(), storeBean.getStore_id());
                             } else {
-                                CusToast.showToast("该店铺无效");
+                                CusToast.showToast(getText(R.string.the_store_is_invalid));
                             }
 
                         }
@@ -437,7 +437,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    CusToast.showToast("客服无效");
+                    CusToast.showToast(getText(R.string.customer_service_is_invalid));
                 }
                 break;
         }
@@ -510,17 +510,17 @@ public class ShoppingParticularsActivity extends BaseActivity {
             tv_shopping_content.setText(goodsBean.getGoods_name());
 
             if(goodsBean.getIs_enquiry().equals("1")){
-                tv_shopping_price.setText("面议");
+                tv_shopping_price.setText(getText(R.string.negotiable_tv));
             }else{
                 tv_shopping_price.setText(goodsBean.getShop_price());
             }
 
-            tv_shopping_name.setText(goodsBean.getBatch_number() + "件起批");
+            tv_shopping_name.setText(goodsBean.getBatch_number() + getResources().getText(R.string.from_batch));
             final TextView tv_queding = view.findViewById(R.id.tv_queding);
             TextView tv_add_num = view.findViewById(R.id.tv_add_num);
             final EditText tv_num_all = view.findViewById(R.id.tv_num_all);
             tv_num_all.setText(String.valueOf(tv_num.getText().toString()));
-            tv_queding.setText("确定(" + tv_num.getText().toString() + ")");
+            tv_queding.setText(getText(R.string.queding)+"(" + tv_num.getText().toString() + ")");
             TextView tv_jian_num = view.findViewById(R.id.tv_jian_num);
             final TextView tv_shuxing2 = view.findViewById(R.id.tv_shuxing2);
             final TextView tv_shuxing1 = view.findViewById(R.id.tv_shuxing1);
@@ -531,10 +531,10 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     if (allNum > 1) {
                         allNum--;
                     } else {
-                        CusToast.showToast("数量不能少于1");
+                        CusToast.showToast(getText(R.string.the_number_cannot_be_less_than_one));
                         return;
                     }
-                    tv_queding.setText("确定(" + allNum + ")");
+                    tv_queding.setText(getText(R.string.queding)+"(" + allNum + ")");
                     tv_num_all.setText(allNum + "");
 
                 }
@@ -546,7 +546,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         allNum = Integer.parseInt(tv_num_all.getText().toString());
                         allNum++;
                         tv_num_all.setText(allNum + "");
-                        tv_queding.setText("确定(" + allNum + ")");
+                        tv_queding.setText(getText(R.string.queding)+"(" + allNum + ")");
                     } else {
                         allNum = 0;
                     }
@@ -570,7 +570,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     if (!tv_num_all.getText().toString().equals("")) {
                         allNum = Integer.parseInt(tv_num_all.getText().toString());
                         tv_num.setText(tv_num_all.getText().toString());
-                        tv_queding.setText("确定(" + allNum + ")");
+                        tv_queding.setText(getText(R.string.queding)+"(" + allNum + ")");
                     }
                 }
             });
@@ -925,7 +925,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         mOrderBeans = shoppingXQBean.getResult().getOrder();
                         hot_iv.setVisibility(shoppingXQBean.getResult().getGoods().getIs_hot().equals("1") ? View.VISIBLE : View.GONE);
                         new_iv.setVisibility(shoppingXQBean.getResult().getGoods().getIs_new().equals("1") ? View.VISIBLE : View.GONE);
-                        clinch_count_tv.setText("已成交"+goodsBean.getSales_sum()+"件");
+                        clinch_count_tv.setText(getText(R.string.deal_done)+goodsBean.getSales_sum()+getResources().getText(R.string.piece_tv));
                         linyi_iv.setVisibility(shoppingXQBean.getResult().getStore().getIs_linyi().equals("1") ? View.VISIBLE : View.GONE);
                         initLiuLangData();
                         if (shoppingXQBean.getResult().getOrder() != null) {
@@ -1224,13 +1224,13 @@ public class ShoppingParticularsActivity extends BaseActivity {
                             iv_is_sc.setVisibility(View.VISIBLE);
                             iv_is_sc.setImageResource(R.drawable.shopping_icon_sc);
                             sctype = "1";
-                            tv_shopping_sc.setText("已收藏");
+                            tv_shopping_sc.setText(getText(R.string.collected));
                         } else {
                             sctype = "0";
                             iv_is_sc.setVisibility(View.VISIBLE);
                             iv_is_sc.setImageResource(R.drawable.shopping_icon_wsc);
 
-                            tv_shopping_sc.setText("收藏");
+                            tv_shopping_sc.setText(getText(R.string.collect));
 
                         }
                     }
@@ -1274,10 +1274,10 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     Log.i("====店铺关注===", result + msg);
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        if (msg.equals("收藏成功")) {
-                            tv_sjgz.setText("已关注");
-                        } else if (msg.equals("取消成功")) {
-                            tv_sjgz.setText("关注商家");
+                        if (msg.equals(getText(R.string.successful_collection))) {
+                            tv_sjgz.setText(getText(R.string.has_been_concerned));
+                        } else if (msg.equals(getText(R.string.cancel_success))) {
+                            tv_sjgz.setText(getText(R.string.follow_the_business));
                         }
                     }
 
@@ -1346,7 +1346,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     WXWebpageObject webpage = new WXWebpageObject();
                     webpage.webpageUrl = goodsBean.getDetail();//分享url
                     WXMediaMessage msg = new WXMediaMessage(webpage);
-                    msg.title = "来自聚商码头";
+                    msg.title = getString(R.string.from_Jushang_Pier);
                     msg.description = goodsBean.getGoods_name();
                     Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
                     msg.thumbData = bmpToByteArray(thumb);
@@ -1364,7 +1364,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     WXWebpageObject webpage = new WXWebpageObject();
                     webpage.webpageUrl = goodsBean.getDetail();//分享url
                     WXMediaMessage msg = new WXMediaMessage(webpage);
-                    msg.title = "来自聚商码头";
+                    msg.title =getString(R.string.from_Jushang_Pier);
                     msg.description = goodsBean.getGoods_name();
                     Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
                     msg.thumbData = bmpToByteArray(thumb);//封面图片byte数组
@@ -1380,7 +1380,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 @Override
                 public void onClick(View view) {
                     UMWeb web = new UMWeb(goodsBean.getDetail() + "");
-                    web.setTitle("来自聚商码头");
+                    web.setTitle(getString(R.string.from_Jushang_Pier));
                     web.setDescription(goodsBean.getGoods_name());
                     web.setThumb(new UMImage(ShoppingParticularsActivity.this, R.mipmap.ic_launcher));
                     new ShareAction(ShoppingParticularsActivity.this).withMedia(web)
@@ -1395,7 +1395,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 public void onClick(View view) {
 
                     UMWeb web = new UMWeb(goodsBean.getDetail() + "");
-                    web.setTitle("来自聚商码头");
+                    web.setTitle(getString(R.string.from_Jushang_Pier));
                     web.setDescription(goodsBean.getGoods_name());
                     web.setThumb(new UMImage(ShoppingParticularsActivity.this, R.mipmap.ic_launcher));
                     new ShareAction(ShoppingParticularsActivity.this).withMedia(web)
@@ -1441,7 +1441,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
             Marquee marquee = new Marquee();
             marquee.setImgUrl(mVpBeans.get(i).getHead_pic());
             marquee.setTitle(mVpBeans.get(i).getNickname());
-            marquee.setDetail("来自" + mVpBeans.get(i).getCountry_name() + "的" + mVpBeans.get(i).getNickname() + "正在查看该商品");
+            marquee.setDetail(getText(R.string.from) + mVpBeans.get(i).getCountry_name() + getText(R.string.de) + mVpBeans.get(i).getNickname() + getText(R.string.viewing_this_item));
             marquees.add(marquee);
         }
         marqueeView.setImage(true);

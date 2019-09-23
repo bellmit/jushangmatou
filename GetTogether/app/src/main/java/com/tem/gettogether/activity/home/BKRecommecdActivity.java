@@ -112,7 +112,7 @@ public class BKRecommecdActivity extends BaseActivity {
             @Override
             public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
                 if (!NetWorkUtils.isNetworkAvailable(BKRecommecdActivity.this)) {
-                    CusToast.showToast( "请检查网络");
+                    CusToast.showToast(getResources().getText(R.string.please_check_the_network));
                     return false;
                 }
                 PAGE_NUM++;
@@ -135,9 +135,9 @@ public class BKRecommecdActivity extends BaseActivity {
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, true);
         // 设置下拉刷新
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.white);//背景色
-        refreshViewHolder.setPullDownRefreshText("下拉加载");//下拉的提示文字
-        refreshViewHolder.setReleaseRefreshText("松开加载");//松开的提示文字
-        refreshViewHolder.setRefreshingText("加载中");//刷新中的提示文字
+        refreshViewHolder.setPullDownRefreshText(""+getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
+        refreshViewHolder.setReleaseRefreshText(""+getResources().getText(R.string.refresh_release_text));//松开的提示文字
+        refreshViewHolder.setRefreshingText(""+getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
         // 设置下拉刷新和上拉加载更多的风格
         order_refresh_fragment.setRefreshViewHolder(refreshViewHolder);
         order_refresh_fragment.shouldHandleRecyclerViewLoadingMore(order_rl);
@@ -186,7 +186,7 @@ public class BKRecommecdActivity extends BaseActivity {
                         }else{
                             list=souSuoDataBean.getResult();
                             if (ListUtils.isEmpty(list)){
-                                UiUtils.toast("没有更新的数据");
+                                CusToast.showToast(getResources().getText(R.string.no_more_data));
                                 return;
                             }
                             resultBeans.addAll(list);
@@ -224,7 +224,7 @@ public class BKRecommecdActivity extends BaseActivity {
             ImageView iv_image=baseViewHolder.getView(R.id.iv_image);
             Glide.with(BKRecommecdActivity.this).load(resultBeans.get(baseViewHolder.getAdapterPosition()).getcover_image()).error(R.mipmap.myy322x).into(iv_image);
             baseViewHolder.setText(R.id.tv_name,resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
-            baseViewHolder.setText(R.id.tv_qigou,resultBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number()+"件起批");
+            baseViewHolder.setText(R.id.tv_qigou,resultBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number()+getResources().getText(R.string.from_batch));
             baseViewHolder.setText(R.id.tv_price,resultBeans.get(baseViewHolder.getAdapterPosition()).getShop_price());
             baseViewHolder.getView(R.id.ll_item_all2).setOnClickListener(new View.OnClickListener() {
                 @Override

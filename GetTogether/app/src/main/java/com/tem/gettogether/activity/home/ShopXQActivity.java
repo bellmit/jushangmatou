@@ -93,17 +93,17 @@ public class ShopXQActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tv_title.setText("店铺详情");
+        tv_title.setText(getText(R.string.store_details));
         store_id = getIntent().getStringExtra("store_id");
         is_collect = getIntent().getStringExtra("is_collect");
         store_user_id = getIntent().getStringExtra("store_user_id");
         if (is_collect != null) {
             if (is_collect.equals("0")) {
-                tv_isgz.setText("关注");
+                tv_isgz.setText(getText(R.string.attention));
                 iv_gz.setVisibility(View.VISIBLE);
                 iv_gz.setImageResource(R.drawable.add_icon_b);
             } else {
-                tv_isgz.setText("已关注");
+                tv_isgz.setText(getText(R.string.has_been_concerned));
                 iv_gz.setVisibility(View.GONE);
                 iv_gz.setImageResource(R.drawable.yi_guanzhu);
             }
@@ -118,18 +118,18 @@ public class ShopXQActivity extends BaseActivity {
     private void initviews() {
 
         tv_shop_name.setText(resultBean.getStore_name());
-        tv_gz_num.setText(resultBean.getFcount() + "人");
+        tv_gz_num.setText(resultBean.getFcount() +getText(R.string.people));
         tv_shopping_num.setText(resultBean.getStore_count());
         tv_xp_num.setText(resultBean.getStore_new_count());
         tv_pj_num.setText(resultBean.getStore_comment_count());
         tv_dt_num.setText(resultBean.getOcount());
 
         if (resultBean.getLevel().equals("7")) {
-            tv_shop_pf.setText("游客");
+            tv_shop_pf.setText(getText(R.string.tourist));
         } else if (resultBean.getLevel().equals("1")) {
-            tv_shop_pf.setText("普通会员");
+            tv_shop_pf.setText(getText(R.string.ordinary_member));
         } else if (resultBean.getLevel().equals("2")) {
-            tv_shop_pf.setText("高级会员");
+            tv_shop_pf.setText(getText(R.string.senior_member));
         }
 
         tv_swh.setText("");
@@ -162,14 +162,14 @@ public class ShopXQActivity extends BaseActivity {
                                     , store_id, resultBean.getStore_name(),
                                     resultBean.getStore_logo(), resultBean.getStore_id());
                         } else {
-                            CusToast.showToast("该店铺无效");
+                            CusToast.showToast(getText(R.string.the_store_is_invalid));
                         }
 
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    CusToast.showToast("该店铺无效");
+                    CusToast.showToast(getText(R.string.the_store_is_invalid));
                 }
                 break;
         }
@@ -221,12 +221,12 @@ public class ShopXQActivity extends BaseActivity {
         cancle = view.findViewById(R.id.cancle);
         tv_iteam1 = view.findViewById(R.id.tv_iteam1);
         tv_iteam1.setText(R.string.kefudian);
-        photo.setText("呼叫：" + resultBean.getStore_phone());
+        photo.setText(getText(R.string.call) + resultBean.getStore_phone());
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                Uri datav = Uri.parse("tel:" + resultBean.getStore_phone());
+                Uri datav = Uri.parse(getText(R.string.tel_tv) + resultBean.getStore_phone());
                 intent.setData(datav);
                 startActivity(intent);
                 mPop.dismiss();

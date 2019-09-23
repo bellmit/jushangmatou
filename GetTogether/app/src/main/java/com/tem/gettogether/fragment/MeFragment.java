@@ -226,12 +226,10 @@ public class MeFragment extends TabFragment implements IUnReadMessageObserver, D
             case R.id.ll_qb://钱包
                 startActivity(new Intent(getActivity(),MyPocketActivity.class)
                 .putExtra("money",tv_qb_num.getText().toString()));
-
                 break;
             case R.id.tv_all://全部
                 startActivity(new Intent(getActivity(),MyOrderActivity.class)
                         .putExtra("tabType","0"));
-
                 break;
             case R.id.tv_dfh://待发货
                 startActivity(new Intent(getActivity(),MyOrderActivity.class)

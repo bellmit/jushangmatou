@@ -299,7 +299,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                 if (index == imagePaths.size() - 1) {
 
                     if (imagePaths.size() >= 10) {
-                        CusToast.showToast("最多选择9张图片");
+                        CusToast.showToast(getText(R.string.select_up_to_9_images));
                         return;
                     }
 
@@ -324,9 +324,9 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                  那么下面就可以写成 AlertDialog.Builder
                  */
                 android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getActivity());
-                builder.setMessage("是否确认删除？");
-                builder.setNegativeButton("取消", null);
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                builder.setMessage(getText(R.string.whether_to_confirm_the_deletion));
+                builder.setNegativeButton(getText(R.string.quxiao), null);
+                builder.setPositiveButton(getText(R.string.queding), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (imagePaths.size() > 0) {
@@ -810,9 +810,9 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
          那么下面就可以写成 AlertDialog.Builder
          */
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getActivity());
-        builder.setMessage("是否确认删除？");
-        builder.setNegativeButton("取消", null);
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        builder.setMessage(getText(R.string.whether_to_confirm_the_deletion));
+        builder.setNegativeButton(getText(R.string.quxiao), null);
+        builder.setPositiveButton(getText(R.string.queding), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (imagePaths.size() > 0) {

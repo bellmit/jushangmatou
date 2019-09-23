@@ -309,7 +309,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                                 xinpinBeans.addAll(homeDataBean.getResult().getFtrade_new());
                                 mHomeXinPinAdapter.notifyDataSetChanged();
                             } else {
-                                CusToast.showToast("没有更多数据!");
+                                CusToast.showToast(getResources().getText(R.string.no_more_data));
                             }
                         }
                     }
@@ -404,7 +404,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                                 .putExtra("store_id", adBeans.get(position).getAd_link())
                                 .putExtra("type", ShopActivity.SHOPNHOME_TYPE), ShopActivity.SHOPNHOME_TYPE);
                     } else {
-                        CusToast.showToast("暂无店铺ID");
+                        CusToast.showToast(getResources().getText(R.string.no_store_id));
                     }
                 } else if (adBeans.get(position).getType() == 2) {
                     if (adBeans.get(position).getAd_link() != null && !adBeans.get(position).getAd_link().equals("")) {

@@ -122,12 +122,12 @@ public class HomeBuyDetailActivity extends BaseActivity {
 
     private void initViews() {
         tv_name.setText(getResources().getText(R.string.user_name)+""+waiMaoQiuGouBeans.get(0).getMobile());
-        tv_shopName.setText("商品名称：" + waiMaoQiuGouBeans.get(0).getGoods_name());
-        tv_shop_ms.setText("出口国家：" + waiMaoQiuGouBeans.get(0).getCountry_name());
-        tv_qglx.setText("求购类型：" + waiMaoQiuGouBeans.get(0).getRelease_type());
-        tv_jhTime.setText("交货时间：" + waiMaoQiuGouBeans.get(0).getAttach_time());
-        tv_qgNum.setText("求购数量：" + waiMaoQiuGouBeans.get(0).getGoods_num());
-        tv_fbTime.setText("发布时间：" + waiMaoQiuGouBeans.get(0).getAdd_time());
+        tv_shopName.setText(getText(R.string.product_name) + waiMaoQiuGouBeans.get(0).getGoods_name());
+        tv_shop_ms.setText(getText(R.string.chugouguojia) + waiMaoQiuGouBeans.get(0).getCountry_name());
+        tv_qglx.setText(getText(R.string.buy_style) + waiMaoQiuGouBeans.get(0).getRelease_type());
+        tv_jhTime.setText(getText(R.string.buy_time) + waiMaoQiuGouBeans.get(0).getAttach_time());
+        tv_qgNum.setText(getText(R.string.purchase_quantity) + waiMaoQiuGouBeans.get(0).getGoods_num());
+        tv_fbTime.setText(getText(R.string.release_time) + waiMaoQiuGouBeans.get(0).getAdd_time());
 
         tv_zxgt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,13 +140,13 @@ public class HomeBuyDetailActivity extends BaseActivity {
                                         , waiMaoQiuGouBeans.get(0).getUser_id(), "",
                                         "", "");
                             } else {
-                                CusToast.showToast("该店铺无效");
+                                CusToast.showToast(getText(R.string.the_store_is_invalid));
                             }
                         }
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    CusToast.showToast("该店铺无效");
+                    CusToast.showToast(getText(R.string.the_store_is_invalid));
                 }
             }
         });

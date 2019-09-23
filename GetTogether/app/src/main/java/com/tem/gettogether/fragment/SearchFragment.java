@@ -102,7 +102,7 @@ public class SearchFragment extends BaseFragment {
 //                Intent mipcaIntent = new Intent();
 //                mipcaIntent.setClass(getActivity(), MipcaActivityCapture.class);
 //                startActivityForResult(mipcaIntent, 900);
-                Toast.makeText(getContext(),"相机功能暂未开放",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),R.string.camera_function_not_open_yet,Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tv_sousuo_fl:
                 startActivity(new Intent(getActivity(), HomeSouSuoActivity.class)

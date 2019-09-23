@@ -79,7 +79,7 @@ public class ClothingBazaarActivity extends BaseActivity {
                                 .putExtra("store_id",resultGFLBean.getPavilion().getApp_link())
                                 .putExtra("type", ShopActivity.SHOPNHOME_TYPE), ShopActivity.SHOPNHOME_TYPE);
                 }else{
-                    CusToast.showToast("暂无店铺Id");
+                    CusToast.showToast(getResources().getText(R.string.no_store_id));
                 }
 
             }

@@ -95,7 +95,7 @@ public class ZuJiActivity extends BaseActivity {
             @Override
             public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
                 if (!NetWorkUtils.isNetworkAvailable(ZuJiActivity.this)) {
-                    CusToast.showToast( "请检查网络");
+                    CusToast.showToast(getResources().getText(R.string.please_check_the_network));
                     return false;
                 }
                 PAGE_NUM++;
@@ -112,9 +112,9 @@ public class ZuJiActivity extends BaseActivity {
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, true);
         // 设置下拉刷新
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.color_F3F5F4);//背景色
-        refreshViewHolder.setPullDownRefreshText("下拉加载");//下拉的提示文字
-        refreshViewHolder.setReleaseRefreshText("松开加载");//松开的提示文字
-        refreshViewHolder.setRefreshingText("加载中");//刷新中的提示文字
+        refreshViewHolder.setPullDownRefreshText(""+getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
+        refreshViewHolder.setReleaseRefreshText(""+getResources().getText(R.string.refresh_release_text));//松开的提示文字
+        refreshViewHolder.setRefreshingText(""+getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
 
         // 设置下拉刷新和上拉加载更多的风格
         order_refresh_fragment.setRefreshViewHolder(refreshViewHolder);
@@ -342,8 +342,8 @@ public class ZuJiActivity extends BaseActivity {
                             .isCancelableOnTouchOutside(true)                           //def    | isCancelable(true)
                             .withDuration(0)                                          //def    数值约大动画越明显
                             .withEffect(effect)                                         //def Effectstype.Slidetop
-                            .withButton1Text("取消")
-                            .withButton2Text("确定")
+                            .withButton1Text(getText(R.string.quxiao))
+                            .withButton2Text(getText(R.string.queding))
                             .setButton1Click(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {

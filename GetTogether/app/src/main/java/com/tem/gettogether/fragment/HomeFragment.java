@@ -198,7 +198,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                                     .putExtra("store_id",adBeans.get(position).getAd_link())
                                     .putExtra("type", ShopActivity.SHOPNHOME_TYPE), ShopActivity.SHOPNHOME_TYPE);
                     }else {
-                        CusToast.showToast("暂无店铺ID");
+                        CusToast.showToast(getResources().getText(R.string.no_store_id));
                     }
                 }else if(adBeans.get(position).getType()==2){
                     if(adBeans.get(position).getAd_link()!=null&&!adBeans.get(position).getAd_link().equals("")){
@@ -473,7 +473,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                                 .putExtra("store_id",hotBannerBean.getAd_link())
                                 .putExtra("type", ShopActivity.SHOPNHOME_TYPE), ShopActivity.SHOPNHOME_TYPE);
                 }else {
-                    CusToast.showToast("暂无店铺ID");
+                    CusToast.showToast(getResources().getText(R.string.no_store_id));
                 }
             }
         });
@@ -536,7 +536,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                             hotBannerBean=homeSCFLDataBean.getResult().getBanner();
                             list=homeSCFLDataBean.getResult().getList();
                             if (ListUtils.isEmpty(list)){
-                                UiUtils.toast("没有更新的数据");
+                                CusToast.showToast(getResources().getText(R.string.no_more_data));
                                 return;
                             }
                             houtResultBeans.addAll(list);
@@ -545,7 +545,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                             hotBannerBean=homeSCFLDataBean.getResult().getBanner();
                             list=homeSCFLDataBean.getResult().getList();
                             if (ListUtils.isEmpty(list)){
-                                UiUtils.toast("没有更新的数据");
+                                CusToast.showToast(getResources().getText(R.string.no_more_data));
                                 return;
                             }
                             houtResultBeans2.addAll(list);
@@ -729,7 +729,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                                                         .putExtra("store_id",resultGFLBean.getApp_link())
                                                         .putExtra("type", ShopActivity.SHOPNHOME_TYPE), ShopActivity.SHOPNHOME_TYPE);
                                         }else{
-                                            CusToast.showToast("暂无店铺Id");
+                                            CusToast.showToast(getResources().getText(R.string.no_store_id));
                                         }
                                     }
                                 });

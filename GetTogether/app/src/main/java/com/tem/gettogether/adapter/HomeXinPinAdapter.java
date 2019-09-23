@@ -42,7 +42,7 @@ public class HomeXinPinAdapter extends RecyclerView.Adapter<HomeXinPinAdapter.Vi
         Glide.with(context).load(mDatas.get(position).getcover_image()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(imageSize, imageSize).into(holder.iv_image);
         holder.title_tv.setText(mDatas.get(position).getGoods_name());
         if (mDatas.get(position).getIs_enquiry().equals("1")) {
-            holder.price_tv.setText("面议");
+            holder.price_tv.setText(context.getText(R.string.negotiable_tv));
         } else {
             holder.price_tv.setText("￥"+mDatas.get(position).getShop_price());
         }

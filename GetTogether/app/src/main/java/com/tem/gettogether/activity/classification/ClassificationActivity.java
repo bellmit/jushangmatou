@@ -172,7 +172,7 @@ public class ClassificationActivity extends BaseActivity {
                                     mClassificationListBeans.addAll(gson.fromJson(result, ClassificationListBean.class).getResult());
                                     mClassifcationListAdapter.notifyDataSetChanged();
                                 } else {
-                                    CusToast.showToast("没有更多数据!");
+                                    CusToast.showToast(getResources().getText(R.string.no_more_data));
                                 }
                             } else {// 刷新
                                 if (gson.fromJson(result, ClassificationListBean.class).getResult() == null) {

@@ -29,7 +29,7 @@
                 android:layout_height="44dp"
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
-                android:text="联系人："
+                android:text="@string/contact_tv"
                 android:textColor="@color/black"
                 android:textSize="14dp" />
 
@@ -46,7 +46,7 @@
                 android:layout_height="44dp"
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
-                android:text="联系电话："
+                android:text="@string/contact_number"
                 android:textColor="@color/black"
                 android:textSize="14dp" />
 

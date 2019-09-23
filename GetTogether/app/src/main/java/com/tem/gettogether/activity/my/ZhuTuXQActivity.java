@@ -229,7 +229,7 @@ public class ZhuTuXQActivity extends BaseActivity  implements View.OnClickListen
             @Override
             public void onClick(View v) {
                 if (imagePaths.size() >= 9) {
-                    CusToast.showToast("最多选择9张图片");
+                    CusToast.showToast(getText(R.string.select_up_to_9_images));
                     return;
                 }
 

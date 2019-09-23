@@ -28,8 +28,8 @@ public class DetailPictureActivity extends BaseMvpActivity<DetailPicturePresente
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText("产品图文详情");
-        tv_title_right.setText("保存");
+        tv_title.setText(getText(R.string.product_graphic_details));
+        tv_title_right.setText(getText(R.string.save));
     }
 
     @Override

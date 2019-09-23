@@ -123,7 +123,7 @@ public class ShoppingCartActivity extends BaseActivity {
             @Override
             public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
                 if (!NetWorkUtils.isNetworkAvailable(getContext())) {
-                    CusToast.showToast("请检查网络");
+                    CusToast.showToast(getResources().getText(R.string.please_check_the_network));
                     return false;
                 }
                 PAGE_NUM++;
@@ -136,9 +136,9 @@ public class ShoppingCartActivity extends BaseActivity {
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(getContext(), true);
         // 设置下拉刷新
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.color_F3F5F4);//背景色
-        refreshViewHolder.setPullDownRefreshText("下拉加载");//下拉的提示文字
-        refreshViewHolder.setReleaseRefreshText("松开加载");//松开的提示文字
-        refreshViewHolder.setRefreshingText("加载中");//刷新中的提示文字
+        refreshViewHolder.setPullDownRefreshText(""+getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
+        refreshViewHolder.setReleaseRefreshText(""+getResources().getText(R.string.refresh_release_text));//松开的提示文字
+        refreshViewHolder.setRefreshingText(""+getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
 
         // 设置下拉刷新和上拉加载更多的风格
 //        order_refresh_fragment.setRefreshViewHolder(refreshViewHolder);
@@ -212,7 +212,7 @@ public class ShoppingCartActivity extends BaseActivity {
                     }
                 } else {
 
-                    CusToast.showToast("请选择商品");
+                    CusToast.showToast(getResources().getText(R.string.please_select_a_product));
                     return;
                 }
 
@@ -237,7 +237,7 @@ public class ShoppingCartActivity extends BaseActivity {
                     }
                     adapter.notifyDataSetChanged();
                 } else {
-                    CusToast.showToast("请添加商品");
+                    CusToast.showToast(getResources().getText(R.string.please_add_item));
                 }
 
                 break;
@@ -449,10 +449,10 @@ public class ShoppingCartActivity extends BaseActivity {
                                             tv_connectNum.setText(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_num());
                                             holder.getTextView(R.id.tv_connect).setText(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_name());
                                             if (storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getIs_enquiry().equals("1")) {//立即询价
-                                                holder.getTextView(R.id.tv_red_num).setText(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getBatch_number() + "件起批");
+                                                holder.getTextView(R.id.tv_red_num).setText(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getBatch_number() + getResources().getText(R.string.from_batch));
                                                 tv_shopping_qpl.setVisibility(View.GONE);
                                                 tv_red_num.setVisibility(View.VISIBLE);
-                                                tv_shopping_price.setText("立即询价");
+                                                tv_shopping_price.setText(getResources().getText(R.string.ask));
 //                            holder.getTextView(R.id.tv_cart_jian).setEnabled(false);
 //                            holder.getTextView(R.id.tv_cart_add).setEnabled(false);
 
@@ -460,8 +460,8 @@ public class ShoppingCartActivity extends BaseActivity {
                                             } else {
                                                 tv_shopping_qpl.setVisibility(View.VISIBLE);
                                                 tv_red_num.setVisibility(View.GONE);
-                                                holder.getTextView(R.id.tv_shopping_qpl).setText(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getBatch_number() + "件起批");
-                                                holder.getTextView(R.id.tv_shopping_price).setText("¥" + storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_price() + "/件");
+                                                holder.getTextView(R.id.tv_shopping_qpl).setText(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getBatch_number() + getResources().getText(R.string.from_batch));
+                                                holder.getTextView(R.id.tv_shopping_price).setText(getResources().getText(R.string.renminbi_symbol)+ storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_price() +"/"+ getResources().getText(R.string.piece_tv));
                                                 tv_shopping_price.setTextColor(getResources().getColor(R.color.my_red));
                                             }
 
@@ -509,7 +509,7 @@ public class ShoppingCartActivity extends BaseActivity {
                                             tv_shopping_price.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
-                                                    if (tv_shopping_price.getText().toString().equals("立即询价")) {
+                                                    if (tv_shopping_price.getText().toString().equals(getResources().getText(R.string.ask))) {
                                                         try {
 
                                                                 //发消息
@@ -519,13 +519,13 @@ public class ShoppingCartActivity extends BaseActivity {
                                                                                 , storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_user_id(), storeListBeans.get(baseViewHolder.getAdapterPosition()).getStore_name(),
                                                                                 storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_logo(), storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_id());
                                                                     } else {
-                                                                        CusToast.showToast("该店铺无效");
+                                                                        CusToast.showToast(getResources().getText(R.string.the_store_is_invalid));
                                                                     }
                                                             }
 
                                                         } catch (Exception e) {
                                                             e.printStackTrace();
-                                                            CusToast.showToast("客服无效");
+                                                            CusToast.showToast(getResources().getText(R.string.customer_service_is_invalid));
                                                         }
                                                     }
                                                 }
@@ -535,7 +535,7 @@ public class ShoppingCartActivity extends BaseActivity {
                                                 public void onClick(View view) {
                                                     int numJian = Integer.parseInt(tv_connectNum.getText().toString().trim());
                                                     if (numJian <= 1) {
-                                                        CusToast.showToast("数量不能少于1");
+                                                        CusToast.showToast(getResources().getText(R.string.the_number_cannot_be_less_than_one));
                                                         return;
                                                     }
                                                     numJian--;

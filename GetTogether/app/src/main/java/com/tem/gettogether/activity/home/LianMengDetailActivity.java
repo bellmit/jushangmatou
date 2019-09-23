@@ -135,13 +135,13 @@ public class LianMengDetailActivity extends BaseActivity {
 
     private void setData() {
         tv_title.setText(detailDataBean.get(0).getCompany_name());
-        name_tv.setText("负责人：" + detailDataBean.get(0).getContact_person());
-        phone_tv.setText("联系方式：" + detailDataBean.get(0).getCellphone());
-        address_tv.setText("地址：" + detailDataBean.get(0).getAddress());
-        whatsApp_tv.setText("WhatsApp：" + detailDataBean.get(0).getWhatsapp());
-        facebook_tv.setText("Facebook：" + detailDataBean.get(0).getFacebook());
-        weChat_tv.setText("WeChat ID：" + detailDataBean.get(0).getWechat());
-        official_website_tv.setText("官网：" + detailDataBean.get(0).getWebsite());
+        name_tv.setText(getText(R.string.principal) + detailDataBean.get(0).getContact_person());
+        phone_tv.setText(getText(R.string.contact_information) + detailDataBean.get(0).getCellphone());
+        address_tv.setText(getText(R.string.address_tv) + detailDataBean.get(0).getAddress());
+        whatsApp_tv.setText(getText(R.string.whatsApp) + detailDataBean.get(0).getWhatsapp());
+        facebook_tv.setText(getText(R.string.facebook) + detailDataBean.get(0).getFacebook());
+        weChat_tv.setText(getText(R.string.weChat_ID) + detailDataBean.get(0).getWechat());
+        official_website_tv.setText(getText(R.string.official_website) + detailDataBean.get(0).getWebsite());
         business_tv.setText(detailDataBean.get(0).getMaindeal());
         introduction_tv.setText(detailDataBean.get(0).getDescription());
 

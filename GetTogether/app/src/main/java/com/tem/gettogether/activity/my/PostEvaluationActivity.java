@@ -781,7 +781,7 @@ public class PostEvaluationActivity extends BaseActivity   {
     private void imageOnClick(int position,int position2, ArrayList<String> imagePathsAll){
         if(position2== imagePathsAll.size()-1){
             if (imagePathsAll.size() >= 10) {
-                CusToast.showToast("最多选择9张图片");
+                CusToast.showToast(getText(R.string.select_up_to_9_images));
                 return;
             }
             Log.e("====第几个商品11---",String.valueOf(ShoppingType)+"");
@@ -814,9 +814,9 @@ public class PostEvaluationActivity extends BaseActivity   {
          那么下面就可以写成 AlertDialog.Builder
          */
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(PostEvaluationActivity.this);
-        builder.setMessage("是否确认删除？");
-        builder.setNegativeButton("取消", null);
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        builder.setMessage(getText(R.string.whether_to_confirm_the_deletion));
+        builder.setNegativeButton(getText(R.string.quxiao), null);
+        builder.setPositiveButton(getText(R.string.queding), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if(imagePathsAll.size()>0){

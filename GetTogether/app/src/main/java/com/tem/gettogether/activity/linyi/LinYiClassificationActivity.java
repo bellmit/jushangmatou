@@ -52,7 +52,7 @@ public class LinYiClassificationActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText("临沂商城");
+        tv_title.setText(getText(R.string.linyi_mall));
         initViews();
         initData(0);
     }
@@ -95,7 +95,7 @@ public class LinYiClassificationActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.rl_saoyisao:
-                Toast.makeText(getContext(),"相机功能暂未开放",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getText(R.string.camera_function_not_open_yet),Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tv_sousuo_fl:
                 startActivity(new Intent(getContext(), HomeSouSuoActivity.class)

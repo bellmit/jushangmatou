@@ -50,12 +50,12 @@ public class VisitorActivity extends BaseActivity {
     private RelativeLayout ll_empty;
     private VisitorAdapter mVisitorAdapter;
     List<VisitorBean.ResultBean.VsBean> mVisitorBean = new ArrayList<>();
-    private int currentPage;
+    private int currentPage=1;
 
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText("访客");
+        tv_title.setText(getResources().getText(R.string.visitor));
         getVisiterData(1, false);
         initRefresh();
     }
@@ -72,6 +72,7 @@ public class VisitorActivity extends BaseActivity {
         map.put("store_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, ""));
         map.put("page", currentPage);
         map.put("list_row", 10);
+        Log.d("chenshichun","======currentPage====="+currentPage);
         showDialog();
         XUtil.Post(URLConstant.VISITOR_DATA, map, new MyCallBack<String>() {
             @Override
@@ -101,7 +102,7 @@ public class VisitorActivity extends BaseActivity {
                                 mVisitorBean.addAll(gson.fromJson(result, VisitorBean.class).getResult().getVs());
                                 mVisitorAdapter.notifyDataSetChanged();
                             } else {
-                                CusToast.showToast("没有更多数据!");
+                                CusToast.showToast(getResources().getText(R.string.no_more_data));
                             }
                         }
                     }

@@ -152,11 +152,11 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
         Glide.with(getContext()).load(waiMaoQiuGouBeans.get(0).getHead_pic()).asBitmap().placeholder(R.mipmap.myy322x)
                 .error(R.mipmap.myy322x).override(imageSize, imageSize).into(head_iv);
         user_name_tv.setText(getResources().getText(R.string.user_name) + "" + waiMaoQiuGouBeans.get(0).getNickname());
-        country_tv.setText("出口国家：" + waiMaoQiuGouBeans.get(0).getCountry_name());
+        country_tv.setText(getText(R.string.chugouguojia) + waiMaoQiuGouBeans.get(0).getCountry_name());
         product_title.setText("" + waiMaoQiuGouBeans.get(0).getGoods_name());
-        delivery_time_tv.setText("交货时间：" + waiMaoQiuGouBeans.get(0).getAttach_time());
-        num_tv.setText("求购数量：" + waiMaoQiuGouBeans.get(0).getGoods_num());
-        release_time_tv.setText("发布时间：" + waiMaoQiuGouBeans.get(0).getAdd_time());
+        delivery_time_tv.setText(getText(R.string.buy_time) + waiMaoQiuGouBeans.get(0).getAttach_time());
+        num_tv.setText(getText(R.string.purchase_quantity) + waiMaoQiuGouBeans.get(0).getGoods_num());
+        release_time_tv.setText(getText(R.string.release_time) + waiMaoQiuGouBeans.get(0).getAdd_time());
         goods_desc.setText(waiMaoQiuGouBeans.get(0).getGoods_desc());
 
         banner.setImageLoader(new GlideImageLoader());
@@ -178,17 +178,17 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
 
 
                 if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, "").equals("0")) {
-                    CusToast.showToast("采购商暂无此功能");
+                    CusToast.showToast(getText(R.string.buyer_does_not_have_this_feature));
                     return;
                 }
 
                 if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "").equals("1")) {
-                    CusToast.showToast("商铺未认证，请先认证商铺!");
+                    CusToast.showToast(getText(R.string.please_certify_shops_first));
                     return;
                 }
 
                 if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "").equals("7")) {
-                    CusToast.showToast("请先升级高级会员!");
+                    CusToast.showToast(getText(R.string.please_upgrade_the_premium_member_first));
                     return;
                 }
 
@@ -200,7 +200,7 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
                                     , waiMaoQiuGouBeans.get(0).getUser_id(), waiMaoQiuGouBeans.get(0).getNickname(),
                                     "", "");
                         } else {
-                            CusToast.showToast("该店铺无效");
+                            CusToast.showToast(R.string.the_store_is_invalid);
                         }
                     }
 
@@ -240,7 +240,7 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    CusToast.showToast("该店铺无效");
+                    CusToast.showToast(getText(R.string.the_store_is_invalid));
                 }
             }
         });

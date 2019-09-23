@@ -46,7 +46,7 @@ public class HomeGongGaoActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tv_title.setText("公告详情");
+        tv_title.setText(getText(R.string.announcement_details));
         article_id=getIntent().getStringExtra("article_id");
     }
 

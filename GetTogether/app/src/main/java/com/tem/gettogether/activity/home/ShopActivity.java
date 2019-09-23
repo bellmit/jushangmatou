@@ -245,7 +245,7 @@ public class ShopActivity extends BaseActivity {
             case R.id.ll_lianxikefu:
                 try {
                     if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
-                        CusToast.showToast("供应商暂无此功能");
+                        CusToast.showToast(getText(R.string.supplier_does_not_have_this_feature));
                     } else {
                             if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
 
@@ -254,21 +254,21 @@ public class ShopActivity extends BaseActivity {
                                             , resultBean.getStore_user_id(), resultBean.getStore_name(),
                                             resultBean.getStore_logo(), resultBean.getStore_id());
                                 } else {
-                                    CusToast.showToast("该店铺无效");
+                                    CusToast.showToast(getText(R.string.the_store_is_invalid));
                                 }
 
                             }
                     }
                 }catch (Exception e){
                     e.printStackTrace();
-                    CusToast.showToast("该店铺无效");
+                    CusToast.showToast(getText(R.string.the_store_is_invalid));
                 }
 
                 break;
             case R.id.rl_right_more:
                 String sousuo2=et_sousuo.getText().toString().trim();
                 if(sousuo2.equals("")){
-                    CusToast.showToast("请输入关键词");
+                    CusToast.showToast(getText(R.string.please_enter_a_keyword));
                     return;
                 }
                 InputMethodManager imm2 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -356,7 +356,7 @@ public class ShopActivity extends BaseActivity {
             case R.id.rl_sousuo:
                 String sousuo=et_sousuo.getText().toString().trim();
                 if(sousuo.equals("")){
-                    CusToast.showToast("请输入关键词");
+                    CusToast.showToast(getText(R.string.please_enter_a_keyword));
                     return;
                 }
                 InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -466,11 +466,11 @@ public class ShopActivity extends BaseActivity {
 
                         Glide.with(ShopActivity.this).load(resultBean.getStore_background()).error(R.drawable.shop_bg).into(iv_image_top);
                         if(resultBean.getIs_collect().equals("0")){
-                            tv_isgz.setText("关注");
+                            tv_isgz.setText(getText(R.string.attention));
                             iv_isgz_icon.setVisibility(View.VISIBLE);
                             iv_isgz_icon.setImageResource(R.drawable.add_icon_b);
                         }else{
-                            tv_isgz.setText("已关注");
+                            tv_isgz.setText(getText(R.string.has_been_concerned));
                             iv_isgz_icon.setVisibility(View.GONE);
                             iv_isgz_icon.setImageResource(R.drawable.yi_guanzhu);
                         }
@@ -552,12 +552,12 @@ public class ShopActivity extends BaseActivity {
                     Log.i("====店铺关注===", result+msg);
                     if(res.equals("1")){
                         Gson gson=new Gson();
-                        if(msg.equals("收藏成功")){
-                            tv_isgz.setText("已关注");
+                        if(msg.equals(getText(R.string.successful_collection))){
+                            tv_isgz.setText(getText(R.string.has_been_concerned));
                             iv_isgz_icon.setVisibility(View.GONE);
                             iv_isgz_icon.setImageResource(R.drawable.yi_guanzhu);
-                        }else if(msg.equals("取消成功")){
-                            tv_isgz.setText("关注");
+                        }else if(msg.equals(getText(R.string.cancel_success))){
+                            tv_isgz.setText(getText(R.string.attention));
                             iv_isgz_icon.setVisibility(View.VISIBLE);
                             iv_isgz_icon.setImageResource(R.drawable.add_icon_b);
                         }

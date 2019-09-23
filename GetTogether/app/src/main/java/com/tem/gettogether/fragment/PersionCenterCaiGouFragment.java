@@ -27,14 +27,17 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.LoginActivity;
+import com.tem.gettogether.activity.cart.ShoppingCartActivity;
 import com.tem.gettogether.activity.my.AddressGLActivity;
 import com.tem.gettogether.activity.my.BuyingManagementActivity;
 import com.tem.gettogether.activity.my.CgsAuthenticationActivity;
 import com.tem.gettogether.activity.my.CorporateInformationActivity;
 import com.tem.gettogether.activity.my.GYWeActivity;
+import com.tem.gettogether.activity.my.SCconnectActivity;
 import com.tem.gettogether.activity.my.SettingActivity;
 import com.tem.gettogether.activity.my.ShopRzFailedActivity;
 import com.tem.gettogether.activity.my.TAdviseActivity;
+import com.tem.gettogether.activity.my.ZuJiActivity;
 import com.tem.gettogether.activity.order.CaiGouShangNewOrderActivity;
 import com.tem.gettogether.activity.order.CaiGouShangOrderActivity;
 import com.tem.gettogether.base.BaseActivity;
@@ -215,10 +218,14 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
                 upName();
                 break;
             case R.id.ll_scj:// 收藏夹
+                startActivityForResult(new Intent(getActivity(), SCconnectActivity.class)
+                        .putExtra("type", SCconnectActivity.NICKNAME_TYPE), SCconnectActivity.NICKNAME_TYPE);
                 break;
             case R.id.ll_zj:// 足迹
+                startActivity(new Intent(getActivity(), ZuJiActivity.class));
                 break;
             case R.id.ll_qb:// 我的采购
+                startActivity(new Intent(getActivity(), ShoppingCartActivity.class));
                 break;
             case R.id.tv_all:// 全部
                 startActivity(new Intent(getActivity(), CaiGouShangNewOrderActivity.class)

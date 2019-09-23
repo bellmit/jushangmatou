@@ -116,9 +116,9 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText("店铺上新");
+        tv_title.setText(getText(R.string.new_on_the_store));
         yes_rb.setChecked(true);
-        et_ShopingSJ.setText("面议");
+        et_ShopingSJ.setText(getText(R.string.negotiable_tv));
         et_ShopingSJ.setEnabled(false);
         imagePaths.clear();
         imagePaths.add(R.drawable.addtupian + "");
@@ -149,7 +149,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    et_ShopingSJ.setText("面议");
+                    et_ShopingSJ.setText(getText(R.string.negotiable_tv));
                     et_ShopingSJ.setEnabled(false);
                     closeKeybord(et_ShopingSJ, getContext());
                 } else {
@@ -205,9 +205,9 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
 
     protected void dialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(PublishGoodsActivity.this);
-        builder.setMessage("确定要退出吗?");
-        builder.setTitle("提示");
-        builder.setPositiveButton("确认",
+        builder.setMessage(getText(R.string.are_you_sure_you_want_to_quit));
+        builder.setTitle(getText(R.string.prompt));
+        builder.setPositiveButton(getText(R.string.sure_tv),
                 new android.content.DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -215,7 +215,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                         finish();
                     }
                 });
-        builder.setNegativeButton("取消",
+        builder.setNegativeButton(getText(R.string.quxiao),
                 new android.content.DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -474,7 +474,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                 if (index == imagePaths.size() - 1) {
 
                     if (imagePaths.size() >= 10) {
-                        CusToast.showToast("最多选择9张图片");
+                        CusToast.showToast(getText(R.string.select_up_to_9_images));
                         return;
                     }
 
@@ -506,9 +506,9 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                  那么下面就可以写成 AlertDialog.Builder
                  */
                 android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
-                builder.setMessage("是否确认删除？");
-                builder.setNegativeButton("取消", null);
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                builder.setMessage(getText(R.string.whether_to_confirm_the_deletion));
+                builder.setNegativeButton(getText(R.string.quxiao), null);
+                builder.setPositiveButton(getText(R.string.queding), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 

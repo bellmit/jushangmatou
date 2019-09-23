@@ -102,7 +102,7 @@ public class XTMessageActivity extends BaseActivity {
             @Override
             public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
                 if (!NetWorkUtils.isNetworkAvailable(XTMessageActivity.this)) {
-                    CusToast.showToast( "请检查网络");
+                    CusToast.showToast(getResources().getText(R.string.please_check_the_network));
                     return false;
                 }
                 PAGE_NUM++;
@@ -119,9 +119,9 @@ public class XTMessageActivity extends BaseActivity {
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, true);
         // 设置下拉刷新
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.color_F3F5F4);//背景色
-        refreshViewHolder.setPullDownRefreshText("下拉加载");//下拉的提示文字
-        refreshViewHolder.setReleaseRefreshText("松开加载");//松开的提示文字
-        refreshViewHolder.setRefreshingText("加载中");//刷新中的提示文字
+        refreshViewHolder.setPullDownRefreshText(""+getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
+        refreshViewHolder.setReleaseRefreshText(""+getResources().getText(R.string.refresh_release_text));//松开的提示文字
+        refreshViewHolder.setRefreshingText(""+getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
 
         // 设置下拉刷新和上拉加载更多的风格
         order_refresh_fragment.setRefreshViewHolder(refreshViewHolder);
@@ -224,9 +224,9 @@ public class XTMessageActivity extends BaseActivity {
                 @Override
                 public boolean onLongClick(View view) {
                     android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(XTMessageActivity.this);
-                    builder.setMessage("是否确认删除？");
-                    builder.setNegativeButton("取消", null);
-                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    builder.setMessage(getText(R.string.whether_to_confirm_the_deletion));
+                    builder.setNegativeButton(getText(R.string.quxiao), null);
+                    builder.setPositiveButton(getText(R.string.queding), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Map<String,Object> map3=new HashMap<>();

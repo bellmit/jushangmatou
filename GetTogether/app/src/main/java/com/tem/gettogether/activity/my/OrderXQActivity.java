@@ -249,14 +249,14 @@ public class OrderXQActivity extends BaseActivity {
                                         ,resultBeans.getUser_id(), resultBeans.getStore_name(),
                                         "",resultBeans.getStore_id());
                             }else{
-                                CusToast.showToast("该店铺无效");
+                                CusToast.showToast(getText(R.string.the_store_is_invalid));
                             }
 
                         }
 
                 }catch (Exception e){
                     e.printStackTrace();
-                    CusToast.showToast("该店铺无效");
+                    CusToast.showToast(getText(R.string.the_store_is_invalid));
                 }
                 break;
             case R.id.ll_bd_phone:

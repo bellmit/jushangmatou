@@ -82,7 +82,7 @@ public class ShopDecorationActivity extends BaseMvpActivity<ShopDecorationPresen
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText("店铺装修");
+        tv_title.setText(getText(R.string.store_construction));
         imagePaths.clear();
         imagePaths.add(R.drawable.addtupian + "");
         compressImageFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/WorksComing/Compress2/";
@@ -197,7 +197,7 @@ public class ShopDecorationActivity extends BaseMvpActivity<ShopDecorationPresen
                 if (index == imagePaths.size() - 1) {
 
                     if (imagePaths.size() >= 10) {
-                        CusToast.showToast("最多选择9张图片");
+                        CusToast.showToast(getText(R.string.select_up_to_9_images));
                         return;
                     }
 
@@ -229,9 +229,9 @@ public class ShopDecorationActivity extends BaseMvpActivity<ShopDecorationPresen
                  那么下面就可以写成 AlertDialog.Builder
                  */
                 android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
-                builder.setMessage("是否确认删除？");
-                builder.setNegativeButton("取消", null);
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                builder.setMessage(getText(R.string.whether_to_confirm_the_deletion));
+                builder.setNegativeButton(getText(R.string.quxiao), null);
+                builder.setPositiveButton(getText(R.string.queding), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -308,7 +308,7 @@ public class ShopDecorationActivity extends BaseMvpActivity<ShopDecorationPresen
                                 }).start();
                             }
                         } else {
-                            CusToast.showToast("无法添加更多图片！");
+                            CusToast.showToast(getText(R.string.unable_to_add_more_images));
                         }
                         mTaskImgAdapter.notifyDataSetChanged();
                     }

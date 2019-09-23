@@ -109,7 +109,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     @ViewInject(R.id.tv_home)
     private TextView tv_home;
     private CartFragment cartFragment;
-    private MeFragment meFragment;
+    //private MeFragment meFragment;
     private MessageFragment messageFragment;
     private SearchFragment fenLeiFragment;
     private HomeNewFragment homeFragment;
@@ -173,7 +173,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         intentFilter = new IntentFilter();
         intentFilter.addAction("LOGIN_TO_MIAN");
         //当网络发生变化的时候，系统广播会发出值为android.net.conn.CONNECTIVITY_CHANGE这样的一条广播
-        registerReceiver(recevier,intentFilter);
+        registerReceiver(recevier, intentFilter);
     }
 
     private void initViews() {
@@ -194,13 +194,13 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         persionCenterCaiGouFragment = new PersionCenterCaiGouFragment();
         xunPanFragment = new XunPanTuiSongFragment();
         cartFragment = new CartFragment();
-        meFragment = new MeFragment();
+        //meFragment = new MeFragment();
         fragmentList.add(homeFragment);
         fragmentList.add(fenLeiFragment);
         fragmentList.add(publishBuyFragment);
         fragmentList.add(cartFragment);
         fragmentList.add(messageFragment);
-        fragmentList.add(meFragment);
+        //fragmentList.add(meFragment);
         fragmentList.add(persionCenterGongYingFragment);
         fragmentList.add(persionCenterCaiGouFragment);
         fragmentList.add(xunPanFragment);
@@ -211,7 +211,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         transaction.add(R.id.fl_container, publishBuyFragment);
         transaction.add(R.id.fl_container, cartFragment);
         transaction.add(R.id.fl_container, messageFragment);
-        transaction.add(R.id.fl_container, meFragment);
+        //transaction.add(R.id.fl_container, meFragment);
         transaction.add(R.id.fl_container, persionCenterGongYingFragment);
         transaction.add(R.id.fl_container, persionCenterCaiGouFragment);
         transaction.add(R.id.fl_container, xunPanFragment);
@@ -220,7 +220,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         transaction.hide(publishBuyFragment);
         transaction.hide(cartFragment);
         transaction.hide(messageFragment);
-        transaction.hide(meFragment);
+        //transaction.hide(meFragment);
         transaction.hide(persionCenterGongYingFragment);
         transaction.hide(persionCenterCaiGouFragment);
         transaction.hide(xunPanFragment);
@@ -354,7 +354,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
             case R.id.ll_fbqg:
                 if (token != null && !token.equals("")) {// 登录成功
                     if (role_type != null && role_type.equals("1")) {
-                        hideFragment(8);
+                        hideFragment(7);
                     } else {
                         if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("1")) {
                             hideFragment(2);
@@ -531,7 +531,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        Log.e("chenshichun","=======onNewIntent====LOGIN_TO_MIAN  "+getIntent().getIntExtra("LOGIN_TO_MIAN",0));
+        Log.e("chenshichun", "=======onNewIntent====LOGIN_TO_MIAN  " + getIntent().getIntExtra("LOGIN_TO_MIAN", 0));
 
         openTab(false, intent);
 
@@ -539,7 +539,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
 
     @Override
     public void onDragOut() {
-        Log.d("chenshichun","======GONE=====");
+        Log.d("chenshichun", "======GONE=====");
         mUnreadNumView.setVisibility(View.GONE);
     }
 
@@ -550,7 +550,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 mUnreadNumView.setVisibility(View.VISIBLE);
                 mUnreadNumView.setText(String.valueOf(count + messageNum));
             } else {
-                Log.d("chenshichun","======GONE1=====");
+                Log.d("chenshichun", "======GONE1=====");
 
                 mUnreadNumView.setVisibility(View.GONE);
             }
@@ -579,7 +579,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                     mUnreadNumView.setVisibility(View.VISIBLE);
                     mUnreadNumView.setText(String.valueOf(rongyunmessageNum + messageNum));
                 } else {
-                    Log.d("chenshichun","======GONE2=====");
+                    Log.d("chenshichun", "======GONE2=====");
 
                     mUnreadNumView.setVisibility(View.GONE);
                 }
@@ -613,11 +613,11 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                         JSONObject jsonObject2 = new JSONObject(result2);
                         String count = jsonObject2.optString("count");
                         messageNum = Integer.parseInt(count);
-                        if ((rongyunmessageNum+messageNum) > 0) {
+                        if ((rongyunmessageNum + messageNum) > 0) {
                             mUnreadNumView.setVisibility(View.VISIBLE);
-                            mUnreadNumView.setText(String.valueOf((rongyunmessageNum+messageNum)));
+                            mUnreadNumView.setText(String.valueOf((rongyunmessageNum + messageNum)));
                         } else {
-                            Log.d("chenshichun","=====GONE4======");
+                            Log.d("chenshichun", "=====GONE4======");
                             mUnreadNumView.setVisibility(View.GONE);
                         }
                     }
@@ -683,9 +683,9 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
             iv_message.setImageResource(R.drawable.liaotian);
             iv_my.setImageResource(R.drawable.wode2);
             if (role_type != null && role_type.equals("1")) {
-                hideFragment(6);
+                hideFragment(5);
             } else {
-                hideFragment(7);//7
+                hideFragment(6);//7
             }
         } else {
             startActivity(new Intent(this, LoginActivity.class));
@@ -708,10 +708,11 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     public void refreshMessage() {
         upGetMessageData();
     }
+
     public class Myreceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("chenshichun","=====登录返回刷新======");
+            Log.d("chenshichun", "=====登录返回刷新======");
             initViewss();
         }
     }

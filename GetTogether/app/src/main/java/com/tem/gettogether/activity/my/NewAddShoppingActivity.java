@@ -237,7 +237,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                 isxunjia = 1;
                 checkbox1.toggle();
                 checkbox2.setChecked(false);
-                et_ShopingSJ.setText("面议");
+                et_ShopingSJ.setText(getText(R.string.negotiable_tv));
                 et_ShopingSJ.setClickable(false);
             }
         });
@@ -740,11 +740,11 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                 if (index == imagePaths.size() - 1 || index == imageTwoPaths.size() - 1) {
                     isshanpinImage = 0;
                     if (imagePaths.size() >= 10) {
-                        CusToast.showToast("最多选择9张图片");
+                        CusToast.showToast(getText(R.string.select_up_to_9_images));
                         return;
                     }
                     if (imageTwoPaths.size() >= 10) {
-                        CusToast.showToast("最多选择9张图片");
+                        CusToast.showToast(getText(R.string.select_up_to_9_images));
                         return;
                     }
                     intent = new Intent(this, MultiImageSelectorActivity.class);
@@ -784,9 +784,9 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                  那么下面就可以写成 AlertDialog.Builder
                  */
                 android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
-                builder.setMessage("是否确认删除？");
-                builder.setNegativeButton("取消", null);
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                builder.setMessage(getText(R.string.whether_to_confirm_the_deletion));
+                builder.setNegativeButton(getText(R.string.quxiao), null);
+                builder.setPositiveButton(getText(R.string.queding), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (recycleType == 0) {

@@ -99,7 +99,7 @@ public class MainHotTJActivity extends BaseActivity {
             @Override
             public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
                 if (!NetWorkUtils.isNetworkAvailable(MainHotTJActivity.this)) {
-                    CusToast.showToast( "请检查网络");
+                    CusToast.showToast(getResources().getText(R.string.please_check_the_network));
                     return false;
                 }
                 PAGENUM++;
@@ -112,9 +112,9 @@ public class MainHotTJActivity extends BaseActivity {
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, true);
         // 设置下拉刷新
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.white);//背景色
-        refreshViewHolder.setPullDownRefreshText("下拉加载");//下拉的提示文字
-        refreshViewHolder.setReleaseRefreshText("松开加载");//松开的提示文字
-        refreshViewHolder.setRefreshingText("加载中");//刷新中的提示文字
+        refreshViewHolder.setPullDownRefreshText(""+getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
+        refreshViewHolder.setReleaseRefreshText(""+getResources().getText(R.string.refresh_release_text));//松开的提示文字
+        refreshViewHolder.setRefreshingText(""+getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
         // 设置下拉刷新和上拉加载更多的风格
         order_refresh_fragment.setRefreshViewHolder(refreshViewHolder);
         order_refresh_fragment.shouldHandleRecyclerViewLoadingMore(order_rl);
@@ -169,7 +169,7 @@ public class MainHotTJActivity extends BaseActivity {
                             hotBannerBean=homeSCFLDataBean.getResult().getBanner();
                             list=homeSCFLDataBean.getResult().getList();
                             if (list.size()==0){
-                                CusToast.showToast("没有更新的数据");
+                                CusToast.showToast(getResources().getText(R.string.no_more_data));
                                 return;
                             }
                             houtResultBeans.addAll(list);
@@ -194,7 +194,7 @@ public class MainHotTJActivity extends BaseActivity {
                                         .putExtra("store_id",hotBannerBean.getAd_link())
                                         .putExtra("type", ShopActivity.SHOPNHOME_TYPE), ShopActivity.SHOPNHOME_TYPE);
                         }else {
-                            CusToast.showToast("暂无店铺ID");
+                            CusToast.showToast(getResources().getText(R.string.no_store_id));
                         }
                     }
                 });

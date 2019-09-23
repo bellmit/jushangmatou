@@ -40,7 +40,7 @@ public class ClassificationListAdapter extends RecyclerView.Adapter<Classificati
         Glide.with(context).load(mDatas.get(position).getcover_image()).error(R.mipmap.myy322x).into(holder.iv_image);
         holder.tv_name.setText(mDatas.get(position).getGoods_name());
         if(mDatas.get(position).getIs_enquiry().equals("1")){
-            holder.tv_price.setText("面议");
+            holder.tv_price.setText(context.getText(R.string.negotiable_tv));
         }else{
             holder.tv_price.setText("￥" + mDatas.get(position).getShop_price());
         }

@@ -88,7 +88,7 @@ public class HomeSouSuoActivity extends BaseActivity {
                 break;
             case R.id.rl_cancle:
                 if(et_sousuo.getText().toString().trim().equals("")){
-                    CusToast.showToast("请输入搜索内容");
+                    CusToast.showToast(getText(R.string.qsrssnr));
                     return;
                 }
                 startActivity(new Intent(this, HotFenLeiActivity.class)
@@ -103,7 +103,7 @@ public class HomeSouSuoActivity extends BaseActivity {
                 break;
             case R.id.rl_sousuo:
                 if(et_sousuo.getText().toString().trim().equals("")){
-                    CusToast.showToast("请输入搜索内容");
+                    CusToast.showToast(getText(R.string.qsrssnr));
                     return;
                 }
                 startActivity(new Intent(this, HotFenLeiActivity.class)
@@ -193,7 +193,7 @@ public class HomeSouSuoActivity extends BaseActivity {
 //                        hotresultBeans=hotSouSuoBean.getResult();
                         list=hotSouSuoBean.getResult();
                         if (ListUtils.isEmpty(list)){
-                            UiUtils.toast("没有更新的数据");
+                            CusToast.showToast(getResources().getText(R.string.no_more_data));
                             return;
                         }
                         hotresultBeans.removeAll(hotresultBeans);

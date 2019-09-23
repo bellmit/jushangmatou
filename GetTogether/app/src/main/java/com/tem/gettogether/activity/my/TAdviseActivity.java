@@ -1,6 +1,9 @@
 package com.tem.gettogether.activity.my;
 
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -8,6 +11,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
+import com.tem.gettogether.adapter.MyPublicTaskRecycleAdapter;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
@@ -23,23 +27,31 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import cc.duduhuo.custoast.CusToast;
 
 @ContentView(R.layout.activity_tadvise)
-public class TAdviseActivity extends BaseActivity {
+public class TAdviseActivity extends BaseActivity implements  View.OnClickListener, View.OnLongClickListener{
     @ViewInject(R.id.tv_title)
     private TextView tv_title;
     @ViewInject(R.id.et_yijian)
     private EditText et_yijian;
+    @ViewInject(R.id.mRecyclerView)
+    private RecyclerView mRecyclerView;
+    private ArrayList<String> imagePaths = new ArrayList<>();
+    private MyPublicTaskRecycleAdapter mTaskImgAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         initData();
         initView();
+        imagePaths.clear();
+        imagePaths.add(R.drawable.addtupian + "");
     }
 
     @Override
@@ -50,7 +62,9 @@ public class TAdviseActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3, LinearLayoutManager.VERTICAL, false));
+        mTaskImgAdapter = new MyPublicTaskRecycleAdapter(this, imagePaths, this, this, 0);
+        mRecyclerView.setAdapter(mTaskImgAdapter);
     }
     @Event(value = {R.id.rl_close,R.id.tv_yjtj}, type = View.OnClickListener.class)
     private void getEvent(View view) {
@@ -110,4 +124,8 @@ public class TAdviseActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public boolean onLongClick(View v) {
+        return false;
+    }
 }

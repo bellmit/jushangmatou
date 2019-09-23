@@ -63,12 +63,12 @@ public class MemberInformationFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         userLever = SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7");
         if (userLever.equals("7")) {
-            user_lever.setText("游客");
+            user_lever.setText(getText(R.string.tourist));
             detail_ll.setVisibility(View.GONE);
         } else if (userLever.equals("1")) {
-            user_lever.setText("普通会员");
+            user_lever.setText(getText(R.string.ordinary_member));
         } else if (userLever.equals("2")) {
-            user_lever.setText("高级会员");
+            user_lever.setText(getText(R.string.senior_member));
             yajin_ll.setVisibility(View.GONE);
         }
 

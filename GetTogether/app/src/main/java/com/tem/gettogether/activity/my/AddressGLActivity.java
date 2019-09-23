@@ -122,8 +122,8 @@ public class AddressGLActivity extends BaseActivity {
                                 .isCancelableOnTouchOutside(true)                           //def    | isCancelable(true)
                                 .withDuration(0)                                          //def    数值约大动画越明显
                                 .withEffect(effect)                                         //def Effectstype.Slidetop
-                                .withButton1Text("取消")
-                                .withButton2Text("确定")
+                                .withButton1Text(getText(R.string.quxiao))
+                                .withButton2Text(getText(R.string.queding))
                                 .setButton1Click(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {

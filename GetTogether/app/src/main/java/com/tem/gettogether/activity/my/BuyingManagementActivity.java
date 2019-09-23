@@ -107,7 +107,7 @@ public class BuyingManagementActivity extends BaseActivity implements BuyingMana
                                 homeDataBean.addAll(gson.fromJson(result, QiuGouListBean.class).getResult());
                                 mHomeBuyAdapter.notifyDataSetChanged();
                             }else{
-                                CusToast.showToast("没有更多数据!");
+                                CusToast.showToast(getResources().getText(R.string.no_more_data));
                             }
                         }
                     }
