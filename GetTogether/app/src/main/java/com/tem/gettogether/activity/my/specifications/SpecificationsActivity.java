@@ -62,7 +62,7 @@ public class SpecificationsActivity extends BaseMvpActivity<SpecificationsPresen
         x.view().inject(this);
         mPresenter = new SpecificationsPresenter(getContext(), SpecificationsActivity.this);
         mPresenter.attachView(this);
-        tv_title.setText("产品规格");
+        tv_title.setText(getText(R.string.product_specifications));
         cat_id3 = getIntent().getStringExtra("cat_id3");
         format = getResources().getString(R.string.specification_description);
         specification_description = String.format(format, 0, 4);
@@ -103,13 +103,13 @@ public class SpecificationsActivity extends BaseMvpActivity<SpecificationsPresen
                 break;
             case R.id.tv_sure:
                 if(selectCount<1){
-                    CusToast.showToast("请选择至少1个规格");
+                    CusToast.showToast(getText(R.string.select_least_one_specification));
                 }else if (selectCount <= 4) {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("SPECIFICATION_CHOSE",mLastSpecListBeanData);
                     startActivity(new Intent(this, SpecificationsDetailActivity.class).putExtras(bundle));
                 } else {
-                    CusToast.showToast("最多可选4个规格");
+                    CusToast.showToast(getText(R.string.select_least_four_specification));
                 }
                 break;
         }

@@ -139,7 +139,7 @@ public class ShopDongTFragment extends BaseFragment {
                 Glide.with(getActivity()).load(resultBeans.get(baseViewHolder.getAdapterPosition()).getImages().get(0)).error(R.mipmap.myy322x).into(iv_image);
             }
             baseViewHolder.setText(R.id.tv_miaos,resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
-            baseViewHolder.setText(R.id.tv_qipiNum,resultBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number()+"件起批");
+            baseViewHolder.setText(R.id.tv_qipiNum,resultBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number()+getText(R.string.from_batch));
             iv_image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -183,7 +183,7 @@ public class ShopDongTFragment extends BaseFragment {
 
                         }else{
                             if(list.size()==0){
-                                CusToast.showToast("没有数据了~~");
+                                CusToast.showToast(getText(R.string.no_more_data));
                                 return;
                             }
                             resultBeans.addAll(list);

@@ -89,7 +89,8 @@ public class BuyMemberActivity extends BaseActivity {
     public String result2;
     String money;
     String expire_time;
-    private String ordinaryMember , seniorMember ,lever;// lever:7 游客，lever:1 普通会员 ，lever:2 高级会员
+    private String ordinaryMember, seniorMember, lever;// lever:7 游客，lever:1 普通会员 ，lever:2 高级会员
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,11 +104,12 @@ public class BuyMemberActivity extends BaseActivity {
         rb_senior_member.setChecked(true);
         rb_ordinary_member.setChecked(false);
         rb_ordinary_member.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     rb_senior_member.setChecked(false);
-                    moneyText.setText(ordinaryMember+"元/押金");
+                    moneyText.setText(ordinaryMember + getText(R.string.yuan_deposit));
                 }
             }
         });
@@ -116,7 +118,7 @@ public class BuyMemberActivity extends BaseActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     rb_ordinary_member.setChecked(false);
-                    moneyText.setText(seniorMember+"元/年");
+                    moneyText.setText(seniorMember + getText(R.string.yuan_year));
                 }
             }
         });
@@ -323,7 +325,7 @@ public class BuyMemberActivity extends BaseActivity {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
-        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID ,""));
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
 
         XUtil.Post(URLConstant.JOIN_USER_LEVER, map, new MyCallBack<String>() {
             @Override
@@ -335,16 +337,16 @@ public class BuyMemberActivity extends BaseActivity {
                     String status = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
                     if (status.equals("1")) {
-                        Gson gson=new Gson();
-                        MemberAmountBean memberAmountBean =gson.fromJson(result,MemberAmountBean.class);
+                        Gson gson = new Gson();
+                        MemberAmountBean memberAmountBean = gson.fromJson(result, MemberAmountBean.class);
                         ordinaryMember = memberAmountBean.getResult().getRegularmdeposit();
                         seniorMember = memberAmountBean.getResult().getSeniormfee();
                         lever = memberAmountBean.getResult().getLevel();
-                        if(lever.equals("7")){
-                            moneyText.setText(seniorMember+"元/年");
-                        }else if(lever.equals("1")){
+                        if (lever.equals("7")) {
+                            moneyText.setText(seniorMember + getText(R.string.yuan_year));
+                        } else if (lever.equals("1")) {
                             rl_ordinary_member.setVisibility(View.GONE);
-                            moneyText.setText(seniorMember+"元/押金");
+                            moneyText.setText(seniorMember + getText(R.string.yuan_deposit));
                         }
                     }
                 } catch (JSONException e) {
@@ -431,12 +433,12 @@ public class BuyMemberActivity extends BaseActivity {
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-                        CusToast.showToast("支付成功");
+                        CusToast.showToast(R.string.payment_successful);
                         AppManager.getAppManager().finishAllActivity();
 //                        setStart(f2ZhiFuBaoBean.getInfo().getPartner(), f2ZhiFuBaoBean.getInfo().getTotal_fee());
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-                        CusToast.showToast("支付失败");
+                        CusToast.showToast(R.string.payment_failed);
                     }
                     break;
                 }

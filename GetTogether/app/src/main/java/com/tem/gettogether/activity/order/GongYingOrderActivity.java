@@ -45,7 +45,7 @@ public class GongYingOrderActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText("我的订单");
+        tv_title.setText(getText(R.string.my_order));
         initFragmentTitle();
         initView();
     }
@@ -87,12 +87,12 @@ public class GongYingOrderActivity extends BaseActivity {
     }
 
     private void initFragmentTitle() {
-        titles = new String[]{getResources().getString(R.string.all), "待发货", "待收货", getResources().getString(R.string.yijiekuan), getResources().getString(R.string.complete)};
+        titles = new String[]{getResources().getString(R.string.all), getString(R.string.daifahuo), getString(R.string.wait_s), getResources().getString(R.string.yijiekuan), getResources().getString(R.string.complete)};
         mList_title = new ArrayList<>();
         list_fragment = new ArrayList<>();
         mList_title.add(getResources().getString(R.string.all));
-        mList_title.add("待发货");
-        mList_title.add("待收货");
+        mList_title.add(getString(R.string.daifahuo));
+        mList_title.add(getString(R.string.wait_s));
         mList_title.add(getResources().getString(R.string.yijiekuan));
         mList_title.add(getResources().getString(R.string.complete));
 

@@ -80,16 +80,16 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 @ContentView(R.layout.fragment_my_order)
 public class MyOrderFragment extends BaseFragment {
     @ViewInject(R.id.order_rl)
-    private  HomeListFreshRecyclerView order_rl;
+    private HomeListFreshRecyclerView order_rl;
     @ViewInject(R.id.order_refresh_fragment)
     private BGARefreshLayout order_refresh_fragment;
     @ViewInject(R.id.ll_empty)
     private LinearLayout llEmpty;
-    private int mTab=0;
+    private int mTab = 0;
     private int PAGE_NUM = 1;
     private int state = -1;
     private List<MyOrderdataBean.ResultBean> list;
-    private List<MyOrderdataBean.ResultBean> resultBeans=new ArrayList<>();
+    private List<MyOrderdataBean.ResultBean> resultBeans = new ArrayList<>();
     private BaseActivity baseActivity;
 
     public static MyOrderFragment getInstance(int tab) {
@@ -97,20 +97,23 @@ public class MyOrderFragment extends BaseFragment {
         fragment.setArguments(setArguments(tab));
         return fragment;
     }
+
     public static Bundle setArguments(int tab) {
         Bundle bundle = new Bundle();
         bundle.putInt("tab", tab);
         return bundle;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         loadData();
         return x.view().inject(this, inflater, container);
     }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        baseActivity= (BaseActivity) getActivity();
+        baseActivity = (BaseActivity) getActivity();
 
         initView();
         upJieSCartData(1);
@@ -127,7 +130,7 @@ public class MyOrderFragment extends BaseFragment {
                     }
                     return;
                 }
-                PAGE_NUM=1;
+                PAGE_NUM = 1;
                 clearList(resultBeans);
                 upJieSCartData(PAGE_NUM);
             }
@@ -148,26 +151,28 @@ public class MyOrderFragment extends BaseFragment {
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(getContext(), true);
         // 设置下拉刷新
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.color_F3F5F4);//背景色
-        refreshViewHolder.setPullDownRefreshText(""+getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
-        refreshViewHolder.setReleaseRefreshText(""+getResources().getText(R.string.refresh_release_text));//松开的提示文字
-        refreshViewHolder.setRefreshingText(""+getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
+        refreshViewHolder.setPullDownRefreshText("" + getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
+        refreshViewHolder.setReleaseRefreshText("" + getResources().getText(R.string.refresh_release_text));//松开的提示文字
+        refreshViewHolder.setRefreshingText("" + getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
 
         // 设置下拉刷新和上拉加载更多的风格
         order_refresh_fragment.setRefreshViewHolder(refreshViewHolder);
         order_refresh_fragment.shouldHandleRecyclerViewLoadingMore(order_rl);
 
 
-
     }
+
     public void clearList(List<MyOrderdataBean.ResultBean> list) {
         if (!ListUtils.isEmpty(list)) {
             list.clear();
         }
     }
-    private   TextView tv_red_right;
+
+    private TextView tv_red_right;
     private String master_order_sn;
     private String allPrice;
-    public class OrderfragmentAdapter extends BaseQuickAdapter{
+
+    public class OrderfragmentAdapter extends BaseQuickAdapter {
 
         public OrderfragmentAdapter(List<MyOrderdataBean.ResultBean> data) {
             super(R.layout.item_order_fragment, data);
@@ -175,66 +180,66 @@ public class MyOrderFragment extends BaseFragment {
 
         @Override
         protected void convert(final com.chad.library.adapter.base.BaseViewHolder baseViewHolder, Object o) {
-            baseViewHolder.setText(R.id.tv_shopName,resultBeans.get(baseViewHolder.getAdapterPosition()).getStore_name());
-            baseViewHolder.setText(R.id.tv_right_top,resultBeans.get(baseViewHolder.getAdapterPosition()).getOrder_status_desc());
-            baseViewHolder.setText(R.id.tv_shopping_num,"共"+resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_all_num()+" 件商品 合计:￥");
-            baseViewHolder.setText(R.id.tv_all_peice,resultBeans.get(baseViewHolder.getAdapterPosition()).getTotal_amount()+"（含运费¥"+
-                    resultBeans.get(baseViewHolder.getAdapterPosition()).getShipping_price()+"）");
-            TextView tv_red_rightpj=baseViewHolder.getView(R.id.tv_red_rightpj);
-            TextView tv_red_right_fk=baseViewHolder.getView(R.id.tv_red_right_fk);
-            TextView tv_textRemov=baseViewHolder.getView(R.id.tv_textRemov);
+            baseViewHolder.setText(R.id.tv_shopName, resultBeans.get(baseViewHolder.getAdapterPosition()).getStore_name());
+            baseViewHolder.setText(R.id.tv_right_top, resultBeans.get(baseViewHolder.getAdapterPosition()).getOrder_status_desc());
+            baseViewHolder.setText(R.id.tv_shopping_num, "共" + resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_all_num() + " 件商品 合计:￥");
+            baseViewHolder.setText(R.id.tv_all_peice, resultBeans.get(baseViewHolder.getAdapterPosition()).getTotal_amount() + "（含运费¥" +
+                    resultBeans.get(baseViewHolder.getAdapterPosition()).getShipping_price() + "）");
+            TextView tv_red_rightpj = baseViewHolder.getView(R.id.tv_red_rightpj);
+            TextView tv_red_right_fk = baseViewHolder.getView(R.id.tv_red_right_fk);
+            TextView tv_textRemov = baseViewHolder.getView(R.id.tv_textRemov);
 
             //所有按钮 1-显示 0 不显示
-            if(resultBeans.get(baseViewHolder.getAdapterPosition()).getPay_btn()==1){//支付按钮 付款
+            if (resultBeans.get(baseViewHolder.getAdapterPosition()).getPay_btn() == 1) {//支付按钮 付款
                 tv_red_right_fk.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 tv_red_right_fk.setVisibility(View.GONE);
             }
-            if(resultBeans.get(baseViewHolder.getAdapterPosition()).getCancel_btn()==1){//取消订单
-                baseViewHolder.setText(R.id.tv_text1,"取消订单");
-                baseViewHolder.setVisible(R.id.tv_text1,true);
-            }else{
-                baseViewHolder.setVisible(R.id.tv_text1,false);
+            if (resultBeans.get(baseViewHolder.getAdapterPosition()).getCancel_btn() == 1) {//取消订单
+                baseViewHolder.setText(R.id.tv_text1, getText(R.string.cancel_order));
+                baseViewHolder.setVisible(R.id.tv_text1, true);
+            } else {
+                baseViewHolder.setVisible(R.id.tv_text1, false);
 
             }
-            if(resultBeans.get(baseViewHolder.getAdapterPosition()).getReceive_btn()==1){//确认收获
-                baseViewHolder.setText(R.id.tv_red_right,"确认收获");
-                baseViewHolder.setVisible(R.id.tv_red_right,true);
-            }else{
-                baseViewHolder.setVisible(R.id.tv_red_right,false);
+            if (resultBeans.get(baseViewHolder.getAdapterPosition()).getReceive_btn() == 1) {//确认收获
+                baseViewHolder.setText(R.id.tv_red_right, getText(R.string.confirm_receipt));
+                baseViewHolder.setVisible(R.id.tv_red_right, true);
+            } else {
+                baseViewHolder.setVisible(R.id.tv_red_right, false);
 
             }
-            if(resultBeans.get(baseViewHolder.getAdapterPosition()).getComment_btn()==1){//评价
+            if (resultBeans.get(baseViewHolder.getAdapterPosition()).getComment_btn() == 1) {//评价
                 tv_red_rightpj.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 tv_red_rightpj.setVisibility(View.GONE);
             }
-            if(resultBeans.get(baseViewHolder.getAdapterPosition()).getShipping_btn()==1){//查看物流
-                baseViewHolder.setText(R.id.tv_text2,"查看物流");
-                baseViewHolder.setVisible(R.id.tv_text2,true);
-            }else{
-                baseViewHolder.setVisible(R.id.tv_text2,false);
+            if (resultBeans.get(baseViewHolder.getAdapterPosition()).getShipping_btn() == 1) {//查看物流
+                baseViewHolder.setText(R.id.tv_text2, getText(R.string.view_logistics));
+                baseViewHolder.setVisible(R.id.tv_text2, true);
+            } else {
+                baseViewHolder.setVisible(R.id.tv_text2, false);
 
             }
-            if(resultBeans.get(baseViewHolder.getAdapterPosition()).getDel_btn()==1){//删除订单
+            if (resultBeans.get(baseViewHolder.getAdapterPosition()).getDel_btn() == 1) {//删除订单
 
                 tv_textRemov.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 tv_textRemov.setVisibility(View.GONE);
             }
-            if(resultBeans.get(baseViewHolder.getAdapterPosition()).getRemind_btn()==1){//提醒发货
-                baseViewHolder.setText(R.id.tv_text3,"提醒发货");
-                baseViewHolder.setVisible(R.id.tv_text3,true);
-            }else{
-                baseViewHolder.setVisible(R.id.tv_text3,false);
+            if (resultBeans.get(baseViewHolder.getAdapterPosition()).getRemind_btn() == 1) {//提醒发货
+                baseViewHolder.setText(R.id.tv_text3, getText(R.string.remind_the_shipment));
+                baseViewHolder.setVisible(R.id.tv_text3, true);
+            } else {
+                baseViewHolder.setVisible(R.id.tv_text3, false);
 
             }
-             tv_red_right= baseViewHolder.getView(R.id.tv_red_right);
+            tv_red_right = baseViewHolder.getView(R.id.tv_red_right);
             tv_red_right_fk.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {//立即付款
-                    allPrice=resultBeans.get(baseViewHolder.getAdapterPosition()).getTotal_amount();
-                    master_order_sn=resultBeans.get(baseViewHolder.getAdapterPosition()).getMaster_order_sn();
+                    allPrice = resultBeans.get(baseViewHolder.getAdapterPosition()).getTotal_amount();
+                    master_order_sn = resultBeans.get(baseViewHolder.getAdapterPosition()).getMaster_order_sn();
 
                     showPop(tv_red_right);
                 }
@@ -243,7 +248,7 @@ public class MyOrderFragment extends BaseFragment {
                 @Override
                 public void onClick(View view) {//评价
                     startActivity(new Intent(getActivity(), PostEvaluationActivity.class)
-                            .putExtra("order_id",resultBeans.get(baseViewHolder.getAdapterPosition()).getOrder_id()));
+                            .putExtra("order_id", resultBeans.get(baseViewHolder.getAdapterPosition()).getOrder_id()));
                 }
             });
             tv_red_right.setOnClickListener(new View.OnClickListener() {
@@ -259,38 +264,32 @@ public class MyOrderFragment extends BaseFragment {
 
                 }
             });
-            final TextView tv_text1= baseViewHolder.getView(R.id.tv_text1);
+            final TextView tv_text1 = baseViewHolder.getView(R.id.tv_text1);
             tv_text1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {//取消订单
-                    String text1= tv_text1.getText().toString();
+                    String text1 = tv_text1.getText().toString();
                     upCancleCartData(resultBeans.get(baseViewHolder.getAdapterPosition()).getOrder_id());
                 }
             });
-            final TextView tv_text3= baseViewHolder.getView(R.id.tv_text3);
+            final TextView tv_text3 = baseViewHolder.getView(R.id.tv_text3);
             tv_text3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String text3= tv_text3.getText().toString();
-                    switch (text3){
-                        case "提醒发货":
-                            upTXCartData(resultBeans.get(baseViewHolder.getAdapterPosition()).getOrder_id());
-                            break;
-
+                    String text3 = tv_text3.getText().toString();
+                    if (text3.equals(getString(R.string.remind_the_shipment))) {
+                        upTXCartData(resultBeans.get(baseViewHolder.getAdapterPosition()).getOrder_id());
                     }
                 }
             });
-            final TextView tv_text2= baseViewHolder.getView(R.id.tv_text2);
+            final TextView tv_text2 = baseViewHolder.getView(R.id.tv_text2);
             tv_text2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String text2= tv_text2.getText().toString();
-                    switch (text2){
-                        case "查看物流":
-                            startActivity(new Intent(getActivity(), LookWuLiuActivity.class)
-                            .putExtra("order_id",resultBeans.get(baseViewHolder.getAdapterPosition()).getOrder_id()));
-                            break;
-
+                    String text2 = tv_text2.getText().toString();
+                    if (text2.equals(getString(R.string.view_logistics))) {
+                        startActivity(new Intent(getActivity(), LookWuLiuActivity.class)
+                                .putExtra("order_id", resultBeans.get(baseViewHolder.getAdapterPosition()).getOrder_id()));
                     }
                 }
             });
@@ -298,14 +297,14 @@ public class MyOrderFragment extends BaseFragment {
                 @Override
                 public void onClick(View view) {
                     startActivityForResult(new Intent(getActivity(), ShopActivity.class)
-                            .putExtra("store_id",resultBeans.get(baseViewHolder.getAdapterPosition()).getStore_id())
+                            .putExtra("store_id", resultBeans.get(baseViewHolder.getAdapterPosition()).getStore_id())
                             .putExtra("type", ShopActivity.SHOPNHOME_TYPE), ShopActivity.SHOPNHOME_TYPE);
                 }
             });
-           RecyclerView recyclerView_item= baseViewHolder.getView(R.id.recyclerView_item);
-            recyclerView_item.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+            RecyclerView recyclerView_item = baseViewHolder.getView(R.id.recyclerView_item);
+            recyclerView_item.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
-            recyclerView_item.setAdapter(new BaseRVAdapter(getActivity(),resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_list()) {
+            recyclerView_item.setAdapter(new BaseRVAdapter(getActivity(), resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_list()) {
                 @Override
                 public int getLayoutId(int viewType) {
                     return R.layout.recy_order_fragment_item;
@@ -313,49 +312,48 @@ public class MyOrderFragment extends BaseFragment {
 
                 @Override
                 public void onBind(com.tem.gettogether.base.BaseViewHolder holder, int position) {
-                    RoundImageView iv_image_shopping=holder.getView(R.id.iv_image_shopping);
+                    RoundImageView iv_image_shopping = holder.getView(R.id.iv_image_shopping);
                     Glide.with(getActivity()).load(resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_list().get(position).getImage()).error(R.mipmap.myy322x).into(iv_image_shopping);
 
                     holder.getTextView(R.id.tv_shopping_name).setText(resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_list().get(position).getGoods_name());
                     holder.getTextView(R.id.tv_shopping_qpl).setText(resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_list().get(position).getSpec_key_name());
-                    holder.getTextView(R.id.tv_shopping_price).setText("¥"+resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_list().get(position).getGoods_price()+"/件");
-                    holder.getTextView(R.id.tv_shoping_Num).setText("共"+resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_list().get(position).getGoods_num()+"件");
+                    holder.getTextView(R.id.tv_shopping_price).setText("¥" + resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_list().get(position).getGoods_price() + "/" + getText(R.string.piece_tv));
+                    holder.getTextView(R.id.tv_shoping_Num).setText(getText(R.string.total) + resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_list().get(position).getGoods_num() + getText(R.string.piece_tv));
                     holder.getTextView(R.id.tv_shopping_zt).setText(resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_list().get(position).getGoods_sn());
                     holder.getView(R.id.ll_item_dd).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             startActivity(new Intent(getActivity(), OrderXQActivity.class)
-                            .putExtra("order_id",resultBeans.get(baseViewHolder.getAdapterPosition()).getOrder_id()));
+                                    .putExtra("order_id", resultBeans.get(baseViewHolder.getAdapterPosition()).getOrder_id()));
                         }
                     });
                 }
-
-
             });
         }
 
     }
+
     private void upJieSCartData(int page) {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
-        map.put("role_type",0/*SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, "7")*/);
-        if(mTab==0){
+        map.put("role_type", 0/*SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, "7")*/);
+        if (mTab == 0) {
             map.put("type", "");
-        }else  if(mTab==1){
+        } else if (mTab == 1) {
             map.put("type", "WAITPAY");
 
-        }else  if(mTab==2){
+        } else if (mTab == 2) {
             map.put("type", "WAITSEND");
 
-        }else  if(mTab==3){
+        } else if (mTab == 3) {
             map.put("type", "WAITRECEIVE");
 
-        }else  if(mTab==4){
+        } else if (mTab == 4) {
             map.put("type", "FINISH");
         }
 
-        map.put("page",page);
+        map.put("page", page);
         XUtil.Post(URLConstant.DINGDAN_LIEBIAO, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
@@ -369,12 +367,12 @@ public class MyOrderFragment extends BaseFragment {
                     String msg = jsonObject.optString("msg");
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        MyOrderdataBean myOrderdataBean=gson.fromJson(result,MyOrderdataBean.class);
-                        if(PAGE_NUM==1){
-                            resultBeans=myOrderdataBean.getResult();
-                        }else {
-                            list=myOrderdataBean.getResult();
-                            if (ListUtils.isEmpty(list)){
+                        MyOrderdataBean myOrderdataBean = gson.fromJson(result, MyOrderdataBean.class);
+                        if (PAGE_NUM == 1) {
+                            resultBeans = myOrderdataBean.getResult();
+                        } else {
+                            list = myOrderdataBean.getResult();
+                            if (ListUtils.isEmpty(list)) {
                                 CusToast.showToast(getResources().getText(R.string.no_more_data));
                                 return;
                             }
@@ -390,7 +388,7 @@ public class MyOrderFragment extends BaseFragment {
             @Override
             public void onFinished() {
                 super.onFinished();
-                OrderfragmentAdapter adapter=new OrderfragmentAdapter(resultBeans);
+                OrderfragmentAdapter adapter = new OrderfragmentAdapter(resultBeans);
                 order_rl.setAdapter(adapter);
             }
 
@@ -401,10 +399,11 @@ public class MyOrderFragment extends BaseFragment {
             }
         });
     }
+
     private void upCancleCartData(String order_id) {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-        map.put("order_id",order_id);
+        map.put("order_id", order_id);
         baseActivity.showDialog();
         XUtil.Post(URLConstant.CANCLE_LIEBIAO, map, new MyCallBack<String>() {
             @Override
@@ -441,11 +440,12 @@ public class MyOrderFragment extends BaseFragment {
             }
         });
     }
+
     private void upTXCartData(String order_id) {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
-        map.put("order_id",order_id);
+        map.put("order_id", order_id);
         baseActivity.showDialog();
         XUtil.Post(URLConstant.TIXINGFAHUO, map, new MyCallBack<String>() {
             @Override
@@ -482,11 +482,12 @@ public class MyOrderFragment extends BaseFragment {
             }
         });
     }
+
     private void upremoveCartData(String order_id) {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
-        map.put("order_id",order_id);
+        map.put("order_id", order_id);
         baseActivity.showDialog();
         XUtil.Post(URLConstant.SHANCHUDINGDAN, map, new MyCallBack<String>() {
             @Override
@@ -522,11 +523,12 @@ public class MyOrderFragment extends BaseFragment {
             }
         });
     }
+
     private void upQRSHData(String order_id) {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
-        map.put("order_id",order_id);
+        map.put("order_id", order_id);
         baseActivity.showDialog();
         XUtil.Post(URLConstant.QUERENSH_LIEBIAO, map, new MyCallBack<String>() {
             @Override
@@ -563,6 +565,7 @@ public class MyOrderFragment extends BaseFragment {
             }
         });
     }
+
     protected void loadData() {
         mTab = getArguments().getInt("tab");
         if (mTab == 0) {
@@ -573,11 +576,11 @@ public class MyOrderFragment extends BaseFragment {
             state = 101;
         } else if (mTab == 3) {
             state = 2;
-        }
-        else if (mTab == 4) {
+        } else if (mTab == 4) {
             state = 2;
         }
     }
+
     private PopupWindow mPop;
 
     //显示弹窗
@@ -591,6 +594,7 @@ public class MyOrderFragment extends BaseFragment {
         lp.alpha = 0.6f;
         getActivity().getWindow().setAttributes(lp);
     }
+
     //初始化弹窗
     private void initPop() {
         if (mPop == null) {
@@ -616,22 +620,24 @@ public class MyOrderFragment extends BaseFragment {
             setPopClickListener(view);
         }
     }
-    private int PayType=0;
+
+    private int PayType = 0;
     private TextView tv_sure;
+
     private void setPopClickListener(View view) {
-        final ImageView iv_cancle,iv_ye_pay,iv_wecat_pay,iv_zfb_pay;
+        final ImageView iv_cancle, iv_ye_pay, iv_wecat_pay, iv_zfb_pay;
         iv_cancle = view.findViewById(R.id.iv_cancle);
         iv_ye_pay = view.findViewById(R.id.iv_ye_pay);
         iv_wecat_pay = view.findViewById(R.id.iv_wecat_pay);
         iv_zfb_pay = view.findViewById(R.id.iv_zfb_pay);
 
 
-        TextView tv_payPrice=view.findViewById(R.id.tv_payPrice);
-        LinearLayout ll_ye_pay=view.findViewById(R.id.ll_ye_pay);
-        LinearLayout ll_wecat_pay=view.findViewById(R.id.ll_wecat_pay);
-        LinearLayout ll_zfb_pay=view.findViewById(R.id.ll_zfb_pay);
+        TextView tv_payPrice = view.findViewById(R.id.tv_payPrice);
+        LinearLayout ll_ye_pay = view.findViewById(R.id.ll_ye_pay);
+        LinearLayout ll_wecat_pay = view.findViewById(R.id.ll_wecat_pay);
+        LinearLayout ll_zfb_pay = view.findViewById(R.id.ll_zfb_pay);
 
-        tv_payPrice.setText("¥"+allPrice);
+        tv_payPrice.setText("¥" + allPrice);
 
         iv_cancle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -642,7 +648,7 @@ public class MyOrderFragment extends BaseFragment {
         ll_ye_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PayType=1;
+                PayType = 1;
                 iv_ye_pay.setImageResource(R.drawable.xuanzhongf);
                 iv_wecat_pay.setImageResource(R.drawable.weixuanzhong);
                 iv_zfb_pay.setImageResource(R.drawable.weixuanzhong);
@@ -651,7 +657,7 @@ public class MyOrderFragment extends BaseFragment {
         ll_zfb_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PayType=2;
+                PayType = 2;
                 iv_zfb_pay.setImageResource(R.drawable.xuanzhongf);
                 iv_ye_pay.setImageResource(R.drawable.weixuanzhong);
                 iv_wecat_pay.setImageResource(R.drawable.weixuanzhong);
@@ -661,7 +667,7 @@ public class MyOrderFragment extends BaseFragment {
         ll_wecat_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PayType=3;
+                PayType = 3;
                 iv_wecat_pay.setImageResource(R.drawable.xuanzhongf);
                 iv_ye_pay.setImageResource(R.drawable.weixuanzhong);
                 iv_zfb_pay.setImageResource(R.drawable.weixuanzhong);
@@ -669,27 +675,27 @@ public class MyOrderFragment extends BaseFragment {
             }
         });
 
-        tv_sure=view.findViewById(R.id.tv_sure);
+        tv_sure = view.findViewById(R.id.tv_sure);
         tv_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(PayType==0){
-                    CusToast.showToast("请选择支付方式");
+                if (PayType == 0) {
+                    CusToast.showToast(R.string.please_select_the_payment_method);
                     return;
-                } else if(PayType==1){//余额
+                } else if (PayType == 1) {//余额
                     mPop.dismiss();
                     showPop2(tv_sure);
 
-                }else if(PayType==2){//支付宝
-                    Map<String,Object> map3=new HashMap<>();
-                    map3.put("master_order_sn",master_order_sn);
+                } else if (PayType == 2) {//支付宝
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("master_order_sn", master_order_sn);
                     map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                     upYETXData(map3);
-                }else if(PayType==3){//微信
-                    Map<String,Object> map3=new HashMap<>();
-                    map3.put("master_order_sn",master_order_sn);
+                } else if (PayType == 3) {//微信
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("master_order_sn", master_order_sn);
                     map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                     upYETXData(map3);
@@ -699,17 +705,18 @@ public class MyOrderFragment extends BaseFragment {
             }
         });
     }
-    private void  upYETXData(Map<String,Object> map){
+
+    private void upYETXData(Map<String, Object> map) {
         String url = null;
-        if(PayType==1){//余额
-            url=URLConstant.ORDER_YUE_PAY;
-        }else if(PayType==2){//支付宝
-            url=URLConstant.ORDER_ALI_PAY;
-        }else if(PayType==3){//微信
-            url=URLConstant.ORDER_WECHAT_PAY;
+        if (PayType == 1) {//余额
+            url = URLConstant.ORDER_YUE_PAY;
+        } else if (PayType == 2) {//支付宝
+            url = URLConstant.ORDER_ALI_PAY;
+        } else if (PayType == 3) {//微信
+            url = URLConstant.ORDER_WECHAT_PAY;
         }
         baseActivity.showDialog();
-        XUtil.Post(url,map,new MyCallBack<String>(){
+        XUtil.Post(url, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -718,19 +725,19 @@ public class MyOrderFragment extends BaseFragment {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        if(PayType==1){//余额
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        if (PayType == 1) {//余额
                             baseActivity.finish();
                             CusToast.showToast(msg);
-                        }else if(PayType==2){//支付宝
+                        } else if (PayType == 2) {//支付宝
                             AliPayBean aliPayBean = gson.fromJson(result, AliPayBean.class);
                             Message msg2 = Message.obtain();
                             msg2.what = TOALIPAY;
                             msg2.obj = aliPayBean.getResult();
                             mHandler.sendMessage(msg2);
-                        }else if(PayType==3){//微信
-                            WechatDataBean wechatDataBean=gson.fromJson(result,WechatDataBean.class);
+                        } else if (PayType == 3) {//微信
+                            WechatDataBean wechatDataBean = gson.fromJson(result, WechatDataBean.class);
                             final IWXAPI msgApi = WXAPIFactory.createWXAPI(getActivity(), null);
                             msgApi.registerApp(BaseApplication.getInstance().WXAPP_ID);
                             PayReq req = new PayReq();
@@ -744,7 +751,7 @@ public class MyOrderFragment extends BaseFragment {
                             BaseApplication.getInstance().api.sendReq(req);
                         }
 
-                    }else if(res.equals("-1")){
+                    } else if (res.equals("-1")) {
                         CusToast.showToast(msg);
                     }
 
@@ -769,6 +776,7 @@ public class MyOrderFragment extends BaseFragment {
             }
         });
     }
+
     private String paypass;
     private PopupWindow mPopPay;
 
@@ -783,6 +791,7 @@ public class MyOrderFragment extends BaseFragment {
         lp.alpha = 0.6f;
         getActivity().getWindow().setAttributes(lp);
     }
+
     //初始化弹窗
     private void initPop2() {
         if (mPopPay == null) {
@@ -806,8 +815,8 @@ public class MyOrderFragment extends BaseFragment {
             });
             ImageView iv_cancle = view.findViewById(R.id.iv_cancle);
 
-            TextView tv_payPrice=view.findViewById(R.id.tv_payPrice);
-            tv_payPrice.setText("¥"+allPrice);
+            TextView tv_payPrice = view.findViewById(R.id.tv_payPrice);
+            tv_payPrice.setText("¥" + allPrice);
 
             iv_cancle.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -816,13 +825,13 @@ public class MyOrderFragment extends BaseFragment {
                 }
             });
             //设置弹窗内的点击事件
-            final PasswordView2 passView=view.findViewById(R.id.passView);
+            final PasswordView2 passView = view.findViewById(R.id.passView);
             passView.setOnFinishInput2(new OnPasswordInputFinish2() {
                 @Override
                 public void inputFinish() {
                     // 输入完成后我们简单显示一下输入的密码
                     // 也就是说——>实现你的交易逻辑什么的在这里写
-                    paypass=passView.getStrPassword();
+                    paypass = passView.getStrPassword();
 
                 }
 
@@ -830,19 +839,20 @@ public class MyOrderFragment extends BaseFragment {
             view.findViewById(R.id.tv_sure_pay).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Map<String,Object> map3=new HashMap<>();
-                    map3.put("master_order_sn",master_order_sn);
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("master_order_sn", master_order_sn);
                     map3.put("pay_password", paypass);
                     map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
 
-                    Log.i("=====余额支付--",master_order_sn+"--"+paypass);
+                    Log.i("=====余额支付--", master_order_sn + "--" + paypass);
                     upYETXData(map3);
                     mPopPay.dismiss();
                 }
             });
         }
     }
+
     //------------------------------------------------------------支付宝----------------
     private static final int TOALIPAY = 3;
     private static final int SDK_PAY_FLAG = 1;
@@ -864,12 +874,12 @@ public class MyOrderFragment extends BaseFragment {
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-                        CusToast.showToast("支付成功");
+                        CusToast.showToast(getText(R.string.payment_successful));
                         getActivity().finish();
 //                        setStart(f2ZhiFuBaoBean.getInfo().getPartner(), f2ZhiFuBaoBean.getInfo().getTotal_fee());
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-                        CusToast.showToast("支付失败");
+                        CusToast.showToast(getText(R.string.payment_failed));
                     }
                     break;
                 }
@@ -888,7 +898,7 @@ public class MyOrderFragment extends BaseFragment {
     /**
      * 支付宝支付业务
      * 支付
-     //     * @param v
+     * //     * @param v
      */
     public void payV2(final String info) {
         /**

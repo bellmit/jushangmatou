@@ -57,7 +57,7 @@ public class SpecificationsDetailActivity extends BaseMvpActivity<Specifications
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText("产品规格");
+        tv_title.setText(R.string.product_specifications);
         mPresenter = new SpecificationsDetailPresenter(getContext(), SpecificationsDetailActivity.this);
         mPresenter.attachView(this);
         mLastSpecListBeanData = (ArrayList<SpecificationsBean.ResultBean.SpecListBean>) getIntent().getSerializableExtra("SPECIFICATION_CHOSE");

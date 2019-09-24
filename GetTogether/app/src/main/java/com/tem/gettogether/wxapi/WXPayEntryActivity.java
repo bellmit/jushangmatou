@@ -51,7 +51,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
         if (resp.errCode==0) {
             BaseApplication.getInstance().isWXPay = resp.errCode;
-            Toast.makeText(WXPayEntryActivity.this, "支付成功!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(WXPayEntryActivity.this, getText(R.string.payment_successful), Toast.LENGTH_SHORT).show();
             AppManager.getAppManager().finishAllActivity();
         }else if(resp.errCode == -1){
             Toast.makeText(WXPayEntryActivity.this, "支付取消!", Toast.LENGTH_SHORT).show();

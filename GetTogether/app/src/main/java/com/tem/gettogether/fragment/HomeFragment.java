@@ -206,11 +206,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                                     .putExtra("typeMain","1")
                                     .putExtra("h5url",adBeans.get(position).getAd_link()));
                     }else {
-                        CusToast.showToast("暂无链接");
+                        CusToast.showToast(getText(R.string.no_link_yet));
                     }
 
                 }else {
-                    CusToast.showToast("暂无操作");
+                    CusToast.showToast(getText(R.string.no_operation));
                 }
             }
         });
@@ -229,13 +229,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     holder.getTextView(R.id.tv_name).setText(bottomCateBeans.get(position).getMobile_name()+"");
 
                 }else{
-                    holder.getTextView(R.id.tv_name).setText("暂无数据");
+                    holder.getTextView(R.id.tv_name).setText(getText(R.string.no_data));
                 }
                 if(bottomCateBeans.get(position).getMobile_des()!=null&&!bottomCateBeans.get(position).getMobile_des().equals("")){
                     holder.getTextView(R.id.tv_name_dec).setText(bottomCateBeans.get(position).getMobile_des()+"");
 
                 }else{
-                    holder.getTextView(R.id.tv_name_dec).setText("暂无数据");
+                    holder.getTextView(R.id.tv_name_dec).setText(getText(R.string.no_data));
                 }
                 if(position==2||position==5){
                     holder.getView(R.id.view_line_right).setVisibility(View.GONE);
@@ -758,7 +758,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                                                             .putExtra("parent_id",resultGFLBean.getPavilion_cate().get(position2).getPavilion_cate_id()));
 
                                                 }else{
-                                                    CusToast.showToast("暂无数据");
+                                                    CusToast.showToast(getText(R.string.no_data));
                                                 }
 
                                             }

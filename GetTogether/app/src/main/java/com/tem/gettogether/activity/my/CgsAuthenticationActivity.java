@@ -90,7 +90,7 @@ public class CgsAuthenticationActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText("采购商认证");
+        tv_title.setText(getText(R.string.buyer_certification));
     }
 
     @Override
@@ -149,26 +149,26 @@ public class CgsAuthenticationActivity extends BaseActivity {
                 break;
             case R.id.tv_save:
                 if (et_name.getText().toString().equals("")) {
-                    CusToast.showToast("请输入您的真实姓名");
+                    CusToast.showToast(getText(R.string.enter_your_real_name));
                     return;
                 }
 
                 if (et_phone.getText().toString().equals("")) {
-                    CusToast.showToast("请输入您的电话");
+                    CusToast.showToast(getText(R.string.enter_your_phone_number));
                     return;
                 }
 
                 if (et_youxiang.getText().toString().equals("")) {
-                    CusToast.showToast("请输入您的邮箱");
+                    CusToast.showToast(getText(R.string.please_enter_your_email_address));
                     return;
                 }
 
                 if (et_card.getText().toString().equals("")) {
-                    CusToast.showToast("请输入您的身份证或护照");
+                    CusToast.showToast(getText(R.string.please_enter_your_ID_card_or_passport));
                     return;
                 }
                 if (iv_image_1.getDrawable() == null) {
-                    CusToast.showToast("请上传您的身份证或护照");
+                    CusToast.showToast(getText(R.string.please_upload_your_ID_or_passport));
                     return;
                 }
                 upRzData();
@@ -226,8 +226,8 @@ public class CgsAuthenticationActivity extends BaseActivity {
         cancle = view.findViewById(R.id.cancle);
         tv_iteam1 = view.findViewById(R.id.tv_iteam1);
         tv_iteam1.setTextSize(16);
-        tv_iteam1.setText("拍照");
-        photo.setText("相册");
+        tv_iteam1.setText(getText(R.string.take_photo));
+        photo.setText(getText(R.string.album));
         tv_iteam1.setTextColor(getResources().getColor(R.color.black));
         photo.setTextColor(getResources().getColor(R.color.black));
         tv_iteam1.setOnClickListener(new View.OnClickListener() {

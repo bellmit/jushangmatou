@@ -1,5 +1,6 @@
 package com.tem.gettogether.activity.my;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -30,6 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cc.duduhuo.custoast.CusToast;
+
 @ContentView(R.layout.activity_xgphone2)
 public class XGPhone2Activity extends BaseActivity {
     @ViewInject(R.id.tv_title)
@@ -45,6 +47,7 @@ public class XGPhone2Activity extends BaseActivity {
     @ViewInject(R.id.tv_phone_ts)
     private TextView tv_phone_ts;
     private String newphone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,10 +56,11 @@ public class XGPhone2Activity extends BaseActivity {
         initView();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void initData() {
-        newphone=getIntent().getStringExtra("newPhone");
-        tv_phone_ts.setText("短信验证码已发送至+86 "+newphone+"，请填写验证码");
+        newphone = getIntent().getStringExtra("newPhone");
+        tv_phone_ts.setText(getText(R.string.dxyzmyfs) + newphone + "，" + getText(R.string.qtxyzm));
         tv_title.setText(R.string.bangding_phone);
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setText(R.string.queding);
@@ -79,7 +83,7 @@ public class XGPhone2Activity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (et_cade.getText().toString().length()==4){
+                if (et_cade.getText().toString().length() == 4) {
                     tv_title_right.setTextColor(getResources().getColor(R.color.my_xyb));
                     rl_title_right.setEnabled(true);
                 }
@@ -87,14 +91,15 @@ public class XGPhone2Activity extends BaseActivity {
             }
         });
     }
-    @Event(value = {R.id.rl_close,R.id.rl_title_right,R.id.tv_gain_cade}, type = View.OnClickListener.class)
+
+    @Event(value = {R.id.rl_close, R.id.rl_title_right, R.id.tv_gain_cade}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
                 finish();
                 break;
             case R.id.rl_title_right://下一步
-                String cade=et_cade.getText().toString();
+                String cade = et_cade.getText().toString();
                 upBDPhone(cade);
 
                 break;
@@ -104,15 +109,16 @@ public class XGPhone2Activity extends BaseActivity {
 
         }
     }
-    private void upBDPhone(String cade){
-        Map<String,Object> map=new HashMap<>();
-        map.put("newphone",newphone);
-        map.put("newcode",cade);
+
+    private void upBDPhone(String cade) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("newphone", newphone);
+        map.put("newcode", cade);
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
 
         showDialog();
-        XUtil.Post(URLConstant.BANGDING_PHONE,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.BANGDING_PHONE, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -123,7 +129,7 @@ public class XGPhone2Activity extends BaseActivity {
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
                     CusToast.showToast(msg);
-                    if(res.equals("1")){
+                    if (res.equals("1")) {
                         finish();
                     }
                 } catch (JSONException e) {
@@ -145,12 +151,13 @@ public class XGPhone2Activity extends BaseActivity {
             }
         });
     }
-    private void upCode(String phone){
-        Map<String,Object> map=new HashMap<>();
-        map.put("mobile",phone);
-        map.put("unique_id","3");
+
+    private void upCode(String phone) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("mobile", phone);
+        map.put("unique_id", "3");
         showDialog();
-        XUtil.Post(URLConstant.HUOQU_CODE,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.HUOQU_CODE, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);

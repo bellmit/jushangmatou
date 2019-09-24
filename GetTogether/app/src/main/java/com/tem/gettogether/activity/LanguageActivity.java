@@ -49,7 +49,7 @@ public class LanguageActivity extends BaseActivity {
             }
         });
 //        tv_title=findViewById(R.id.tv_title);
-        tv_title.setText("语言切换");
+        tv_title.setText(getText(R.string.language_switching));
 
     }
 

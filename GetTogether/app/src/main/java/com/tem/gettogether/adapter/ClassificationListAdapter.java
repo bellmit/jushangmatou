@@ -39,13 +39,13 @@ public class ClassificationListAdapter extends RecyclerView.Adapter<Classificati
     public void onBindViewHolder(ClassificationListAdapter.ViewHolder holder, final int position) {
         Glide.with(context).load(mDatas.get(position).getcover_image()).error(R.mipmap.myy322x).into(holder.iv_image);
         holder.tv_name.setText(mDatas.get(position).getGoods_name());
-        if(mDatas.get(position).getIs_enquiry().equals("1")){
+        if (mDatas.get(position).getIs_enquiry().equals("1")) {
             holder.tv_price.setText(context.getText(R.string.negotiable_tv));
-        }else{
+        } else {
             holder.tv_price.setText("￥" + mDatas.get(position).getShop_price());
         }
-        holder.tv_numbear.setText(mDatas.get(position).getBatch_number()+"个起购");
-        if(mDatas.get(position).getLevel_id()!=null) {
+        holder.tv_numbear.setText(mDatas.get(position).getBatch_number() + context.getText(R.string.purchase));
+        if (mDatas.get(position).getLevel_id() != null) {
             if (mDatas.get(position).getLevel_id().equals("7")) {
                 holder.tv_member.setVisibility(View.GONE);
             } else if (mDatas.get(position).getLevel_id().equals("1")) {
@@ -61,7 +61,7 @@ public class ClassificationListAdapter extends RecyclerView.Adapter<Classificati
             @Override
             public void onClick(View v) {
                 context.startActivity(new Intent(context, ShoppingParticularsActivity.class)
-                        .putExtra("goods_id",mDatas.get(position).getGoods_id()));
+                        .putExtra("goods_id", mDatas.get(position).getGoods_id()));
             }
         });
     }

@@ -50,6 +50,9 @@ import java.util.Map;
 
 import cc.duduhuo.custoast.CusToast;
 
+/*
+* 不用的类
+* */
 @ContentView(R.layout.activity_enterprise_rz)
 public class EnterpriseRZActivity extends BaseActivity {
     @ViewInject(R.id.tv_title)
@@ -129,7 +132,7 @@ public class EnterpriseRZActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tv_title.setText("企业入驻");
+        tv_title.setText(getText(R.string.enterprise_settled));
         upRequest();
         upGetAddressData("0");
     }
@@ -606,7 +609,7 @@ public class EnterpriseRZActivity extends BaseActivity {
                     addressType = "1";
                     isOne = false;
                     upGetAddressData("0");
-                    tv_sheng.setText("请选择");
+                    tv_sheng.setText(getText(R.string.please_choose));
                     view_line.setVisibility(View.VISIBLE);
                     tv_sheng.setTextColor(getResources().getColor(R.color.my_red));
                     ll_sheng.setVisibility(View.VISIBLE);
@@ -625,7 +628,7 @@ public class EnterpriseRZActivity extends BaseActivity {
                     }
                     ll_sheng.setVisibility(View.VISIBLE);
                     ll_city.setVisibility(View.VISIBLE);
-                    tv_city.setText("请选择");
+                    tv_city.setText(getText(R.string.please_choose));
                     view_line2.setVisibility(View.VISIBLE);
 
                     tv_city.setTextColor(getResources().getColor(R.color.my_red));
@@ -641,7 +644,7 @@ public class EnterpriseRZActivity extends BaseActivity {
                     if (city != null) {
                         upGetAddressData(city);
                     }
-                    tv_qu.setText("请选择");
+                    tv_qu.setText(getText(R.string.please_choose));
                     view_line3.setVisibility(View.VISIBLE);
                     tv_qu.setTextColor(getResources().getColor(R.color.my_red));
                     ll_sheng.setVisibility(View.VISIBLE);

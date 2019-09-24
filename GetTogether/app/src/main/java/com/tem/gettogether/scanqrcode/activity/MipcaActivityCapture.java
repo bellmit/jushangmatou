@@ -125,7 +125,7 @@ public class MipcaActivityCapture extends BaseActivity implements SurfaceHolder.
         playBeepSoundAndVibrate();
         String resultString = result.getText();
         if (resultString.equals("")) {
-            BaseDialog.getDialog(this, "温馨提示", getString(R.string.SweepCodeFailure), "确定", new DialogInterface.OnClickListener() {
+            BaseDialog.getDialog(this, getText(R.string.tips), getString(R.string.SweepCodeFailure), getText(R.string.queding), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();

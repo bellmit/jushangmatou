@@ -64,7 +64,7 @@ public class ForgetPassActivity extends BaseActivity {
                 break;
             case R.id.tv_code:
                 if(et_phone.getText().toString().length()<11){
-                    CusToast.showToast("请输入完整的手机号");
+                    CusToast.showToast(getText(R.string.please_enter_the_full_mobile_number));
                     return;
                 }
                 upCode(et_phone.getText().toString());
@@ -76,16 +76,16 @@ public class ForgetPassActivity extends BaseActivity {
 
                 String code=et_code.getText().toString().trim();
                 if(phone.length()<11){
-                    CusToast.showToast("请输入完整的手机号");
+                    CusToast.showToast(getText(R.string.please_enter_the_full_mobile_number));
                     return;
                 }else if(code.length()<4){
-                    CusToast.showToast("请输入正确的验证码");
+                    CusToast.showToast(getText(R.string.please_enter_correct_verify_code));
                     return;
                 }else if(password.length()<6){
-                    CusToast.showToast("请输入新密码");
+                    CusToast.showToast(getText(R.string.please_enter_a_new_password));
                     return;
                 }else if(password2.length()<6){
-                    CusToast.showToast("请输入确认密码");
+                    CusToast.showToast(getText(R.string.please_enter_a_confirmation_password));
                     return;
                 }
                 upForGetPass(phone,password,password2,code);

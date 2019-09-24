@@ -41,13 +41,13 @@ public class HomeBottomCateAdapter extends RecyclerView.Adapter<HomeBottomCateAd
         if(mDatas.get(position).getMobile_name()!=null&&!mDatas.get(position).getMobile_name().equals("")){
             holder.tv_name.setText(mDatas.get(position).getMobile_name()+"");
         }else{
-            holder.tv_name.setText("暂无数据");
+            holder.tv_name.setText(context.getText(R.string.no_data));
         }
         if(mDatas.get(position).getMobile_des()!=null&&!mDatas.get(position).getMobile_des().equals("")){
             holder.tv_name_dec.setText(mDatas.get(position).getMobile_des()+"");
 
         }else{
-            holder.tv_name_dec.setText("暂无数据");
+            holder.tv_name_dec.setText(context.getText(R.string.no_data));
         }
         if(position==2||position==5){
             holder.view_line_right.setVisibility(View.GONE);

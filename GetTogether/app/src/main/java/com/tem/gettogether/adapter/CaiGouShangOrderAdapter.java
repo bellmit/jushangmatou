@@ -26,7 +26,7 @@ public class CaiGouShangOrderAdapter extends RecyclerView.Adapter<CaiGouShangOrd
     private CaiGouShangOrderAdapter.OnItemClickListener mOnItemClickListener;
     private int mTab;
 
-    public CaiGouShangOrderAdapter(Context context, List<MyOrderdataBean.ResultBean> mDatas,int mTab) {
+    public CaiGouShangOrderAdapter(Context context, List<MyOrderdataBean.ResultBean> mDatas, int mTab) {
         this.context = context;
         this.resultBeans = mDatas;
         this.mTab = mTab;
@@ -42,12 +42,14 @@ public class CaiGouShangOrderAdapter extends RecyclerView.Adapter<CaiGouShangOrd
     public void onBindViewHolder(CaiGouShangOrderAdapter.ViewHolder holder, final int position) {
         holder.tv_shopName.setText(resultBeans.get(position).getStore_name());
         holder.tv_right_top.setText(resultBeans.get(position).getOrder_status_desc());
-        holder.tv_shopping_num.setText("共" + resultBeans.get(position).getGoods_all_num() + " 件商品 合计:￥");
-        holder.tv_all_peice.setText(resultBeans.get(position).getTotal_amount() + "（含运费¥" +
+        holder.tv_shopping_num.setText(context.getString(R.string.total) +
+                resultBeans.get(position).getGoods_all_num()
+                + " "+context.getString(R.string.items)+" "+context.getString(R.string.total_tv)+"￥");
+        holder.tv_all_peice.setText(resultBeans.get(position).getTotal_amount() + "（"+context.getString(R.string.freight_included)+"¥" +
                 resultBeans.get(position).getShipping_price() + "）");
-        if(resultBeans.get(position).getOrder_status_code()!=null&&resultBeans.get(position).getOrder_status_code().equals("WAITRECEIVE")){
+        if (resultBeans.get(position).getOrder_status_code() != null && resultBeans.get(position).getOrder_status_code().equals("WAITRECEIVE")) {
             holder.tv_red_right.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             holder.tv_red_right.setVisibility(View.GONE);
         }
         holder.tv_red_right.setOnClickListener(new View.OnClickListener() {
@@ -71,8 +73,8 @@ public class CaiGouShangOrderAdapter extends RecyclerView.Adapter<CaiGouShangOrd
 
                 holder.getTextView(R.id.tv_shopping_name).setText(resultBeans.get(position).getGoods_list().get(position2).getGoods_name());
                 holder.getTextView(R.id.tv_shopping_qpl).setText(resultBeans.get(position).getGoods_list().get(position2).getSpec_key_name());
-                holder.getTextView(R.id.tv_shopping_price).setText("¥" + resultBeans.get(position).getGoods_list().get(position2).getGoods_price() + "/件");
-                holder.getTextView(R.id.tv_shoping_Num).setText("共" + resultBeans.get(position).getGoods_list().get(position2).getGoods_num() + "件");
+                holder.getTextView(R.id.tv_shopping_price).setText("¥" + resultBeans.get(position).getGoods_list().get(position2).getGoods_price() + "/"+context.getText(R.string.piece_tv));
+                holder.getTextView(R.id.tv_shoping_Num).setText(context.getText(R.string.total) + resultBeans.get(position).getGoods_list().get(position2).getGoods_num() + context.getText(R.string.piece_tv));
                 holder.getTextView(R.id.tv_shopping_zt).setText(resultBeans.get(position).getGoods_list().get(position2).getGoods_sn());
                 holder.getView(R.id.ll_item_dd).setOnClickListener(new View.OnClickListener() {
                     @Override

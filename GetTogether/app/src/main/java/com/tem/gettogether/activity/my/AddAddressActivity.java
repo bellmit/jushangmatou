@@ -93,11 +93,11 @@ public class AddAddressActivity extends BaseActivity {
     protected void initData() {
         address_id = getIntent().getStringExtra("address_id");
         if (address_id != null) {
-            tv_title.setText("修改收获地址");
+            tv_title.setText(getText(R.string.modify_shipping_address));
             upgetAddressData();
 
         } else {
-            tv_title.setText("新增收获地址");
+            tv_title.setText(getText(R.string.new_harvest_address));
             switchView.setOpened(true);
             tv_lx_xz.setVisibility(View.GONE);
             tv_lx_xz2.setVisibility(View.VISIBLE);
@@ -156,16 +156,16 @@ public class AddAddressActivity extends BaseActivity {
                 String phone = et_phone.getText().toString();
                 String xxdz = et_xxdz.getText().toString();
                 if (name.equals("")) {
-                    CusToast.showToast("请输入收货人姓名");
+                    CusToast.showToast(getText(R.string.enter_consignee_name));
                     return;
                 } else if (phone.equals("")) {
-                    CusToast.showToast("请输入收货人联系电话");
+                    CusToast.showToast(getText(R.string.enter_harvester_contact_number));
                     return;
                 } else if (Sheng == null || city == null || qu == null) {
-                    CusToast.showToast("请选择收获地址");
+                    CusToast.showToast(getText(R.string.select_shipping_address));
                     return;
                 } else if (xxdz.equals("")) {
-                    CusToast.showToast("请输入详细地址");
+                    CusToast.showToast(getText(R.string.enter_detail_address));
                     return;
                 } else {
                     Map<String, Object> map = new HashMap<>();
@@ -377,7 +377,7 @@ public class AddAddressActivity extends BaseActivity {
                     addressType = "1";
                     isOne = false;
                     upGetAddressData("0");
-                    tv_sheng.setText("请选择");
+                    tv_sheng.setText(getText(R.string.please_choose));
                     view_line.setVisibility(View.VISIBLE);
                     tv_sheng.setTextColor(getResources().getColor(R.color.my_red));
                     ll_sheng.setVisibility(View.VISIBLE);
@@ -396,7 +396,7 @@ public class AddAddressActivity extends BaseActivity {
                     }
                     ll_sheng.setVisibility(View.VISIBLE);
                     ll_city.setVisibility(View.VISIBLE);
-                    tv_city.setText("请选择");
+                    tv_city.setText(getText(R.string.please_choose));
                     view_line2.setVisibility(View.VISIBLE);
 
                     tv_city.setTextColor(getResources().getColor(R.color.my_red));
@@ -412,7 +412,7 @@ public class AddAddressActivity extends BaseActivity {
                     if (city != null) {
                         upGetAddressData(city);
                     }
-                    tv_qu.setText("请选择");
+                    tv_qu.setText(getText(R.string.please_choose));
                     view_line3.setVisibility(View.VISIBLE);
                     tv_qu.setTextColor(getResources().getColor(R.color.my_red));
                     ll_sheng.setVisibility(View.VISIBLE);

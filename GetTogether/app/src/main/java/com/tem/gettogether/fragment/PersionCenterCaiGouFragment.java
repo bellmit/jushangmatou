@@ -174,13 +174,13 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
                         }
 
                         if (is_verify.equals("0")) {
-                            rz_status_tv.setText("待认证");
+                            rz_status_tv.setText(getText(R.string.pending_certification));
                         } else if (is_verify.equals("1")) {
-                            rz_status_tv.setText("已认证");
+                            rz_status_tv.setText(getText(R.string.verified_tv));
                         } else if (is_verify.equals("2")) {
-                            rz_status_tv.setText("认证失败");
+                            rz_status_tv.setText(getText(R.string.rzsb));
                         } else if (is_verify.equals("3")) {
-                            rz_status_tv.setText("审核中");
+                            rz_status_tv.setText(getText(R.string.shz));
                         }
                     }
                 } catch (JSONException e) {
@@ -247,7 +247,7 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
                 if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("1")) {
                     startActivity(new Intent(getActivity(), CorporateInformationActivity.class).putExtra(Contacts.PERSION_ENTERPRISE_INFORMATION, 1));
                 } else {
-                    CusToast.showToast("请先进行采购商认证");
+                    CusToast.showToast(getText(R.string.please_first_purchase_the_buyer));
                 }
                 break;
             case R.id.rl_ksbh:// 求购管理
@@ -260,11 +260,11 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
                 if (is_verify.equals("0")) {
                     startActivity(new Intent(getActivity(), CgsAuthenticationActivity.class));
                 } else if (is_verify.equals("1")) {
-                    CusToast.showToast("认证通过");
+                    CusToast.showToast(getText(R.string.certification_passed));
                 } else if (is_verify.equals("2")) {
                     startActivity(new Intent(getActivity(), ShopRzFailedActivity.class).putExtra(Contacts.RZ_TYPE, 1));
                 } else if (is_verify.equals("3")) {
-                    CusToast.showToast("审核中");
+                    CusToast.showToast(getText(R.string.shz));
                 }
                 break;
             case R.id.rl_zxkf:// 在线客服
@@ -341,7 +341,7 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
                     upXGMessageData(map);
                     dialogSucceed.cancel();
                 } else {
-                    CusToast.showToast("请填写昵称");
+                    CusToast.showToast(getText(R.string.please_fill_nickname));
                     return;
                 }
             }

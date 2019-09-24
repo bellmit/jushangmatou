@@ -23,6 +23,7 @@ import io.rong.imkit.utilities.PermissionCheckUtil;
  */
 
 public class ShopPlugin  implements IPluginModule  {
+    private Context mContext;
     @Override
     public Drawable obtainDrawable(Context context) {
         return context.getResources().getDrawable(R.drawable.shoppingku);
@@ -30,6 +31,7 @@ public class ShopPlugin  implements IPluginModule  {
 
     @Override
     public String obtainTitle(Context context) {
+        this.mContext = context;
         return context.getString(R.string.shoppingku);
     }
 
@@ -44,7 +46,7 @@ public class ShopPlugin  implements IPluginModule  {
                             .putExtra("targetId",rongExtension.getTargetId())
                     .putExtra("store_id",store_id));
                 }else{
-                    CusToast.showToast("店铺商品库已失效");
+                    CusToast.showToast(mContext.getText(R.string.dpspkysx));
                 }
 
         } else {

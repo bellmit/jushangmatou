@@ -253,10 +253,10 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         openTab(0);
 
         if (role_type != null && role_type.equals("1")) {
-            tv_fbqg.setText("询盘推送");
+            tv_fbqg.setText(getText(R.string.inquiry_push));
             iv_fbqg.setImageResource(R.drawable.xunpan_gray);
         } else {
-            tv_fbqg.setText("发布求购");
+            tv_fbqg.setText(getText(R.string.item_bottom_message));
             iv_fbqg.setImageResource(R.drawable.fbqg_main);
         }
 
@@ -315,8 +315,8 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
 
     private void showDialogs() {
 
-        builder = new AlertDialog.Builder(this).setIcon(R.mipmap.ic_launcher).setTitle("提示")
-                .setMessage("当前用户在其他设备登录，请确保设备安全").setPositiveButton("重新登录", new DialogInterface.OnClickListener() {
+        builder = new AlertDialog.Builder(this).setIcon(R.mipmap.ic_launcher).setTitle(getText(R.string.prompt))
+                .setMessage(getText(R.string.please_ensure_the_device_is_secure)).setPositiveButton(getText(R.string.re_register), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         startActivity(new Intent(MainActivity.this, LoginActivity.class));
@@ -359,7 +359,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                         if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("1")) {
                             hideFragment(2);
                         } else {
-                            CusToast.showToast("请先进行采购商认证");
+                            CusToast.showToast(getText(R.string.please_first_purchase_the_buyer));
                             return;
                         }
                     }
@@ -518,7 +518,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     private void exit() {
         if (!isExit) {
             isExit = true;
-            CusToast.showToast("再按一次退出程序");
+            CusToast.showToast(getText(R.string.press_again_to_exit_the_program));
             // 利用handler延迟发送更改状态信息
             mHandler.sendEmptyMessageDelayed(0, 2000);
         } else {

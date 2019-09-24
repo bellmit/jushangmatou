@@ -161,7 +161,7 @@
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:text="身份证/护照"
+                        android:text="@string/sfzhz"
                         android:textColor="@color/my_sprz_text"
                         android:textSize="14dp" />
 
@@ -170,7 +170,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:hint="请输入您的身份证或护照"
+                        android:hint="@string/qsrndsfzhhz"
                         android:maxLength="18"
                         android:maxLines="1"
                         android:paddingStart="10dp"
@@ -201,7 +201,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="联系人身份证/护照上传"
+                        android:text="@string/lxrsfzhzsc"
                         android:textColor="@color/my_sprz_text"
                         android:textSize="14dp" />
 
@@ -239,7 +239,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:text="上传身份证或护照"
+                                android:text="@string/scsfzhhz"
                                 android:textColor="@color/text9"
                                 android:textSize="13dp" />
 
@@ -273,7 +273,7 @@
         android:layout_marginBottom="30dp"
         android:background="@color/home_red"
         android:gravity="center"
-        android:text="保存"
+        android:text="@string/save"
         android:textColor="@color/white"
         android:textSize="16dp" />
 

@@ -112,9 +112,10 @@ public class OrderXQActivity extends BaseActivity {
     private TextView tv_text_remove;
     @ViewInject(R.id.tv_red_qrsh)
     private TextView tv_red_qrsh;
-    private OrderDataBean.ResultBean resultBeans=new OrderDataBean.ResultBean();
-    private List<OrderDataBean.ResultBean.GoodsListBean> goodsListBeans=new ArrayList<>();
+    private OrderDataBean.ResultBean resultBeans = new OrderDataBean.ResultBean();
+    private List<OrderDataBean.ResultBean.GoodsListBean> goodsListBeans = new ArrayList<>();
     private String order_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,30 +126,30 @@ public class OrderXQActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tv_title.setText("订单详情");
-        order_id=getIntent().getStringExtra("order_id");
-        recycler_shopping.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        tv_title.setText(getText(R.string.order_details));
+        order_id = getIntent().getStringExtra("order_id");
+        recycler_shopping.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
     }
 
-    private void initViews(){
+    private void initViews() {
         tv_ddzt_ts.setText(resultBeans.getOrder_status_desc());
         tv_ddzt_time.setText(resultBeans.getPay_time());
 
-        tv_name_phone.setText(resultBeans.getConsignee()+"   "+resultBeans.getMobile());
-        tv_address_sh.setText("地址："+resultBeans.getProvince()+resultBeans.getCity()+resultBeans.getDeleted()+resultBeans.getTwon()+resultBeans.getAddress());
+        tv_name_phone.setText(resultBeans.getConsignee() + "   " + resultBeans.getMobile());
+        tv_address_sh.setText(getText(R.string.address_tv) + resultBeans.getProvince() + resultBeans.getCity() + resultBeans.getDeleted() + resultBeans.getTwon() + resultBeans.getAddress());
         tv_shopName.setText(resultBeans.getStore_name());
-        tv_ddbh.setText("订单编号："+resultBeans.getOrder_sn());
-        tv_xdTime.setText("下单时间："+resultBeans.getAdd_time());
-        tv_psfs.setText("配送方式：普通快递");
-        tv_spAll_Price.setText("+￥"+resultBeans.getGoods_price());
-        tv_yf_price.setText("+￥"+resultBeans.getShipping_price());
-        tv_yhzk.setText("-￥"+resultBeans.getShipping_price());
-        tv_shopping_num.setText("共 "+resultBeans.getGoods_nums()+" 件商品 合计:");
-        tv_yunwei.setText("（含运费"+resultBeans.getShipping_price()+"）");
+        tv_ddbh.setText(getText(R.string.order_number) + resultBeans.getOrder_sn());
+        tv_xdTime.setText(getText(R.string.order_time) + resultBeans.getAdd_time());
+        tv_psfs.setText(getText(R.string.delivery_method));
+        tv_spAll_Price.setText("+￥" + resultBeans.getGoods_price());
+        tv_yf_price.setText("+￥" + resultBeans.getShipping_price());
+        tv_yhzk.setText("-￥" + resultBeans.getShipping_price());
+        tv_shopping_num.setText(getText(R.string.total) + resultBeans.getGoods_nums() + " " + getText(R.string.items) + " " + getText(R.string.total_tv));
+        tv_yunwei.setText("（" + getText(R.string.freight_included) + resultBeans.getShipping_price() + "）");
 
         tv_all_price.setText(resultBeans.getOrder_amount());
-        recycler_shopping.setAdapter(new BaseRVAdapter(this,goodsListBeans) {
+        recycler_shopping.setAdapter(new BaseRVAdapter(this, goodsListBeans) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.order_xqshoppingg_item;
@@ -156,52 +157,52 @@ public class OrderXQActivity extends BaseActivity {
 
             @Override
             public void onBind(BaseViewHolder holder, int position) {
-                RoundImageView iv_image_shopping=holder.getView(R.id.iv_image_shopping);
+                RoundImageView iv_image_shopping = holder.getView(R.id.iv_image_shopping);
                 Glide.with(OrderXQActivity.this).load(goodsListBeans.get(position).getImage()).error(R.mipmap.myy322x).into(iv_image_shopping);
 
                 holder.getTextView(R.id.tv_shopping_name).setText(goodsListBeans.get(position).getGoods_name());
                 holder.getTextView(R.id.tv_shopping_qpl).setText(goodsListBeans.get(position).getSpec_key_name());
-                holder.getTextView(R.id.tv_shopping_price).setText("¥"+goodsListBeans.get(position).getGoods_price()+"/件");
-                holder.getTextView(R.id.tv_shoping_Num).setText("共"+goodsListBeans.get(position).getGoods_num()+"件");
+                holder.getTextView(R.id.tv_shopping_price).setText("¥" + goodsListBeans.get(position).getGoods_price() + "/" + getText(R.string.piece_tv));
+                holder.getTextView(R.id.tv_shoping_Num).setText(getText(R.string.total) + goodsListBeans.get(position).getGoods_num() + getText(R.string.piece_tv));
             }
 
         });
         //所有按钮 1-显示 0 不显示
-        if(resultBeans.getPay_btn()==1){//支付按钮
+        if (resultBeans.getPay_btn() == 1) {//支付按钮
             tv_red_right.setVisibility(View.VISIBLE);
-            tv_red_right.setText("立即付款");
+            tv_red_right.setText(getText(R.string.immediate_payment));
         }
-        if(resultBeans.getCancel_btn()==1){//取消订单
+        if (resultBeans.getCancel_btn() == 1) {//取消订单
             tv_text1.setVisibility(View.VISIBLE);
-            tv_text1.setText("取消订单");
+            tv_text1.setText(getText(R.string.cancel_order));
         }
-        if(resultBeans.getReceive_btn()==1){//确认收获
+        if (resultBeans.getReceive_btn() == 1) {//确认收获
             tv_red_qrsh.setVisibility(View.VISIBLE);
-            tv_red_qrsh.setText("确认收获");
-        }else{
+            tv_red_qrsh.setText(getText(R.string.confirm_receipt));
+        } else {
             tv_red_qrsh.setVisibility(View.GONE);
         }
-        if(resultBeans.getComment_btn()==1){//评价
+        if (resultBeans.getComment_btn() == 1) {//评价
             tv_red_rightpj.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             tv_red_rightpj.setVisibility(View.GONE);
         }
-        if(resultBeans.getShipping_btn()==1){//查看物流
+        if (resultBeans.getShipping_btn() == 1) {//查看物流
             tv_text2.setVisibility(View.VISIBLE);
-            tv_text2.setText("查看物流");
-        }else{
+            tv_text2.setText(R.string.view_logistics);
+        } else {
             tv_text2.setVisibility(View.GONE);
 
         }
-        if(resultBeans.getDel_btn()==1){//删除订单
+        if (resultBeans.getDel_btn() == 1) {//删除订单
             tv_text_remove.setVisibility(View.VISIBLE);
-            tv_text_remove.setText("删除订单");
-        }else{
+            tv_text_remove.setText(getText(R.string.delete_order));
+        } else {
             tv_text_remove.setVisibility(View.GONE);
         }
-        if(resultBeans.getReturn_btn()==1){//立即退货
+        if (resultBeans.getReturn_btn() == 1) {//立即退货
             tv_text3.setVisibility(View.VISIBLE);
-            tv_text3.setText("申请退货");
+            tv_text3.setText(getText(R.string.application_for_return));
         }
 
     }
@@ -210,7 +211,8 @@ public class OrderXQActivity extends BaseActivity {
     protected void initView() {
 
     }
-    @Event(value = {R.id.rl_close,R.id.tv_text1,R.id.tv_red_right,R.id.ll_bd_phone,R.id.ll_lx_kf,R.id.tv_text2,R.id.tv_red_rightpj,R.id.tv_red_qrsh,R.id.tv_text_remove}, type = View.OnClickListener.class)
+
+    @Event(value = {R.id.rl_close, R.id.tv_text1, R.id.tv_red_right, R.id.ll_bd_phone, R.id.ll_lx_kf, R.id.tv_text2, R.id.tv_red_rightpj, R.id.tv_red_qrsh, R.id.tv_text_remove}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
@@ -218,7 +220,7 @@ public class OrderXQActivity extends BaseActivity {
                 break;
             case R.id.tv_text2://查看物流
                 startActivity(new Intent(this, LookWuLiuActivity.class)
-                        .putExtra("order_id",resultBeans.getOrder_id()));
+                        .putExtra("order_id", resultBeans.getOrder_id()));
                 break;
             case R.id.tv_text1://取消订单
                 upCancleCartData();
@@ -229,7 +231,7 @@ public class OrderXQActivity extends BaseActivity {
                 break;
             case R.id.tv_red_rightpj://评价
                 startActivity(new Intent(this, PostEvaluationActivity.class)
-                        .putExtra("order_id",resultBeans.getOrder_id()));
+                        .putExtra("order_id", resultBeans.getOrder_id()));
 
                 break;
             case R.id.tv_red_right://立即付款
@@ -243,18 +245,18 @@ public class OrderXQActivity extends BaseActivity {
                 break;
             case R.id.ll_lx_kf:
                 try {
-                        if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
-                            if(resultBeans!=null&&resultBeans.getUser_id()!=null){
-                                RongTalk.doConnection(OrderXQActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
-                                        ,resultBeans.getUser_id(), resultBeans.getStore_name(),
-                                        "",resultBeans.getStore_id());
-                            }else{
-                                CusToast.showToast(getText(R.string.the_store_is_invalid));
-                            }
-
+                    if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
+                        if (resultBeans != null && resultBeans.getUser_id() != null) {
+                            RongTalk.doConnection(OrderXQActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
+                                    , resultBeans.getUser_id(), resultBeans.getStore_name(),
+                                    "", resultBeans.getStore_id());
+                        } else {
+                            CusToast.showToast(getText(R.string.the_store_is_invalid));
                         }
 
-                }catch (Exception e){
+                    }
+
+                } catch (Exception e) {
                     e.printStackTrace();
                     CusToast.showToast(getText(R.string.the_store_is_invalid));
                 }
@@ -264,7 +266,9 @@ public class OrderXQActivity extends BaseActivity {
                 break;
         }
     }
+
     private PopupWindow mPopPhone;
+
     //初始化弹窗
     private void initPopphone() {
         if (mPopPhone == null) {
@@ -307,9 +311,9 @@ public class OrderXQActivity extends BaseActivity {
         TextView tv_iteam1, photo, cancle;
         photo = view.findViewById(R.id.photo);
         cancle = view.findViewById(R.id.cancle);
-        tv_iteam1=view.findViewById(R.id.tv_iteam1);
+        tv_iteam1 = view.findViewById(R.id.tv_iteam1);
         tv_iteam1.setText(R.string.kefudian);
-        photo.setText("呼叫："+resultBeans.getMobile());
+        photo.setText(getText(R.string.call) + resultBeans.getMobile());
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -328,10 +332,11 @@ public class OrderXQActivity extends BaseActivity {
             }
         });
     }
+
     private void upQRSHData() {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-        map.put("order_id",resultBeans.getOrder_id());
+        map.put("order_id", resultBeans.getOrder_id());
         XUtil.Post(URLConstant.QUERENSH_LIEBIAO, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
@@ -355,7 +360,7 @@ public class OrderXQActivity extends BaseActivity {
             @Override
             public void onFinished() {
                 super.onFinished();
-               closeDialog();
+                closeDialog();
             }
 
             @Override
@@ -365,14 +370,15 @@ public class OrderXQActivity extends BaseActivity {
             }
         });
     }
+
     private void upOrderXQData() {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-        map.put("order_id",order_id);
-        Log.d("chenshichun","=====order_id======"+order_id);
-        map.put("user_id",SharedPreferencesUtils.getString(getContext(),BaseConstant.SPConstant.USERID,""));
-        Log.d("chenshichun","======user_id====="+SharedPreferencesUtils.getString(getContext(),BaseConstant.SPConstant.USERID,""));
-        map.put("role_type",SharedPreferencesUtils.getString(getContext(),BaseConstant.SPConstant.ROLE_TYPE,""));
+        map.put("order_id", order_id);
+        Log.d("chenshichun", "=====order_id======" + order_id);
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
+        Log.d("chenshichun", "======user_id=====" + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
+        map.put("role_type", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, ""));
         showDialog();
         XUtil.Post(URLConstant.QUERENSH_XIANGQING, map, new MyCallBack<String>() {
             @Override
@@ -385,9 +391,9 @@ public class OrderXQActivity extends BaseActivity {
                     String msg = jsonObject.optString("msg");
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        OrderDataBean orderDataBean=gson.fromJson(result,OrderDataBean.class);
-                        resultBeans=orderDataBean.getResult();
-                        goodsListBeans=orderDataBean.getResult().getGoods_list();
+                        OrderDataBean orderDataBean = gson.fromJson(result, OrderDataBean.class);
+                        resultBeans = orderDataBean.getResult();
+                        goodsListBeans = orderDataBean.getResult().getGoods_list();
                         initViews();
                     }
 
@@ -411,10 +417,11 @@ public class OrderXQActivity extends BaseActivity {
             }
         });
     }
+
     private void upCancleCartData() {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-        map.put("order_id",resultBeans.getOrder_id());
+        map.put("order_id", resultBeans.getOrder_id());
         showDialog();
         XUtil.Post(URLConstant.CANCLE_LIEBIAO, map, new MyCallBack<String>() {
             @Override
@@ -439,7 +446,7 @@ public class OrderXQActivity extends BaseActivity {
             @Override
             public void onFinished() {
                 super.onFinished();
-               closeDialog();
+                closeDialog();
             }
 
             @Override
@@ -449,11 +456,12 @@ public class OrderXQActivity extends BaseActivity {
             }
         });
     }
+
     private void upremoveCartData() {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
-        map.put("order_id",resultBeans.getOrder_id());
+        map.put("order_id", resultBeans.getOrder_id());
         showDialog();
         XUtil.Post(URLConstant.SHANCHUDINGDAN, map, new MyCallBack<String>() {
             @Override
@@ -489,6 +497,7 @@ public class OrderXQActivity extends BaseActivity {
             }
         });
     }
+
     private PopupWindow mPop;
 
     //显示弹窗
@@ -502,6 +511,7 @@ public class OrderXQActivity extends BaseActivity {
         lp.alpha = 0.6f;
         getWindow().setAttributes(lp);
     }
+
     //初始化弹窗
     private void initPop() {
         if (mPop == null) {
@@ -527,22 +537,24 @@ public class OrderXQActivity extends BaseActivity {
             setPopClickListener(view);
         }
     }
-    private int PayType=0;
+
+    private int PayType = 0;
     private TextView tv_sure;
+
     private void setPopClickListener(View view) {
-        final ImageView iv_cancle,iv_ye_pay,iv_wecat_pay,iv_zfb_pay;
+        final ImageView iv_cancle, iv_ye_pay, iv_wecat_pay, iv_zfb_pay;
         iv_cancle = view.findViewById(R.id.iv_cancle);
         iv_ye_pay = view.findViewById(R.id.iv_ye_pay);
         iv_wecat_pay = view.findViewById(R.id.iv_wecat_pay);
         iv_zfb_pay = view.findViewById(R.id.iv_zfb_pay);
 
 
-        TextView tv_payPrice=view.findViewById(R.id.tv_payPrice);
-        LinearLayout ll_ye_pay=view.findViewById(R.id.ll_ye_pay);
-        LinearLayout ll_wecat_pay=view.findViewById(R.id.ll_wecat_pay);
-        LinearLayout ll_zfb_pay=view.findViewById(R.id.ll_zfb_pay);
+        TextView tv_payPrice = view.findViewById(R.id.tv_payPrice);
+        LinearLayout ll_ye_pay = view.findViewById(R.id.ll_ye_pay);
+        LinearLayout ll_wecat_pay = view.findViewById(R.id.ll_wecat_pay);
+        LinearLayout ll_zfb_pay = view.findViewById(R.id.ll_zfb_pay);
 
-        tv_payPrice.setText("¥"+resultBeans.getOrder_amount());
+        tv_payPrice.setText("¥" + resultBeans.getOrder_amount());
 
         iv_cancle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -553,7 +565,7 @@ public class OrderXQActivity extends BaseActivity {
         ll_ye_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PayType=1;
+                PayType = 1;
                 iv_ye_pay.setImageResource(R.drawable.xuanzhongf);
                 iv_wecat_pay.setImageResource(R.drawable.weixuanzhong);
                 iv_zfb_pay.setImageResource(R.drawable.weixuanzhong);
@@ -562,7 +574,7 @@ public class OrderXQActivity extends BaseActivity {
         ll_zfb_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PayType=2;
+                PayType = 2;
                 iv_zfb_pay.setImageResource(R.drawable.xuanzhongf);
                 iv_ye_pay.setImageResource(R.drawable.weixuanzhong);
                 iv_wecat_pay.setImageResource(R.drawable.weixuanzhong);
@@ -572,7 +584,7 @@ public class OrderXQActivity extends BaseActivity {
         ll_wecat_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PayType=3;
+                PayType = 3;
                 iv_wecat_pay.setImageResource(R.drawable.xuanzhongf);
                 iv_ye_pay.setImageResource(R.drawable.weixuanzhong);
                 iv_zfb_pay.setImageResource(R.drawable.weixuanzhong);
@@ -580,27 +592,27 @@ public class OrderXQActivity extends BaseActivity {
             }
         });
 
-        tv_sure=view.findViewById(R.id.tv_sure);
+        tv_sure = view.findViewById(R.id.tv_sure);
         tv_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(PayType==0){
-                    CusToast.showToast("请选择支付方式");
+                if (PayType == 0) {
+                    CusToast.showToast(getText(R.string.please_select_the_payment_method));
                     return;
-                } else if(PayType==1){//余额
+                } else if (PayType == 1) {//余额
                     mPop.dismiss();
                     showPop2(tv_sure);
 
-                }else if(PayType==2){//支付宝
-                    Map<String,Object> map3=new HashMap<>();
-                    map3.put("master_order_sn",resultBeans.getMaster_order_sn());
+                } else if (PayType == 2) {//支付宝
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("master_order_sn", resultBeans.getMaster_order_sn());
                     map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                     upYETXData(map3);
-                }else if(PayType==3){//微信
-                    Map<String,Object> map3=new HashMap<>();
-                    map3.put("master_order_sn",resultBeans.getMaster_order_sn());
+                } else if (PayType == 3) {//微信
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("master_order_sn", resultBeans.getMaster_order_sn());
                     map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                     upYETXData(map3);
                 }
@@ -609,17 +621,18 @@ public class OrderXQActivity extends BaseActivity {
             }
         });
     }
-    private void  upYETXData(Map<String,Object> map){
+
+    private void upYETXData(Map<String, Object> map) {
         String url = null;
-        if(PayType==1){//余额
-            url=URLConstant.ORDER_YUE_PAY;
-        }else if(PayType==2){//支付宝
-            url=URLConstant.ORDER_ALI_PAY;
-        }else if(PayType==3){//微信
-            url=URLConstant.ORDER_WECHAT_PAY;
+        if (PayType == 1) {//余额
+            url = URLConstant.ORDER_YUE_PAY;
+        } else if (PayType == 2) {//支付宝
+            url = URLConstant.ORDER_ALI_PAY;
+        } else if (PayType == 3) {//微信
+            url = URLConstant.ORDER_WECHAT_PAY;
         }
         showDialog();
-        XUtil.Post(url,map,new MyCallBack<String>(){
+        XUtil.Post(url, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -628,19 +641,19 @@ public class OrderXQActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        if(PayType==1){//余额
-                           finish();
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        if (PayType == 1) {//余额
+                            finish();
                             CusToast.showToast(msg);
-                        }else if(PayType==2){//支付宝
+                        } else if (PayType == 2) {//支付宝
                             AliPayBean aliPayBean = gson.fromJson(result, AliPayBean.class);
                             Message msg2 = Message.obtain();
                             msg2.what = TOALIPAY;
                             msg2.obj = aliPayBean.getResult();
                             mHandler.sendMessage(msg2);
-                        }else if(PayType==3){//微信
-                            WechatDataBean wechatDataBean=gson.fromJson(result,WechatDataBean.class);
+                        } else if (PayType == 3) {//微信
+                            WechatDataBean wechatDataBean = gson.fromJson(result, WechatDataBean.class);
                             final IWXAPI msgApi = WXAPIFactory.createWXAPI(OrderXQActivity.this, null);
                             msgApi.registerApp(BaseApplication.getInstance().WXAPP_ID);
                             PayReq req = new PayReq();
@@ -654,7 +667,7 @@ public class OrderXQActivity extends BaseActivity {
                             BaseApplication.getInstance().api.sendReq(req);
                         }
 
-                    }else if(res.equals("-1")){
+                    } else if (res.equals("-1")) {
                         CusToast.showToast(msg);
                     }
 
@@ -679,6 +692,7 @@ public class OrderXQActivity extends BaseActivity {
             }
         });
     }
+
     private String paypass;
     private PopupWindow mPopPay;
 
@@ -693,6 +707,7 @@ public class OrderXQActivity extends BaseActivity {
         lp.alpha = 0.6f;
         getWindow().setAttributes(lp);
     }
+
     //初始化弹窗
     private void initPop2() {
         if (mPopPay == null) {
@@ -711,13 +726,13 @@ public class OrderXQActivity extends BaseActivity {
                 public void onDismiss() {
                     WindowManager.LayoutParams lp = getWindow().getAttributes();
                     lp.alpha = 1f;
-                   getWindow().setAttributes(lp);
+                    getWindow().setAttributes(lp);
                 }
             });
             ImageView iv_cancle = view.findViewById(R.id.iv_cancle);
 
-            TextView tv_payPrice=view.findViewById(R.id.tv_payPrice);
-            tv_payPrice.setText("¥"+resultBeans.getOrder_amount());
+            TextView tv_payPrice = view.findViewById(R.id.tv_payPrice);
+            tv_payPrice.setText("¥" + resultBeans.getOrder_amount());
 
             iv_cancle.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -726,13 +741,13 @@ public class OrderXQActivity extends BaseActivity {
                 }
             });
             //设置弹窗内的点击事件
-            final PasswordView2 passView=view.findViewById(R.id.passView);
+            final PasswordView2 passView = view.findViewById(R.id.passView);
             passView.setOnFinishInput2(new OnPasswordInputFinish2() {
                 @Override
                 public void inputFinish() {
                     // 输入完成后我们简单显示一下输入的密码
                     // 也就是说——>实现你的交易逻辑什么的在这里写
-                    paypass=passView.getStrPassword();
+                    paypass = passView.getStrPassword();
 
                 }
 
@@ -740,18 +755,19 @@ public class OrderXQActivity extends BaseActivity {
             view.findViewById(R.id.tv_sure_pay).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Map<String,Object> map3=new HashMap<>();
-                    map3.put("master_order_sn",resultBeans.getMaster_order_sn());
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("master_order_sn", resultBeans.getMaster_order_sn());
                     map3.put("pay_password", paypass);
                     map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
-                    Log.i("=====余额支付--",resultBeans.getMaster_order_sn()+"--"+paypass);
+                    Log.i("=====余额支付--", resultBeans.getMaster_order_sn() + "--" + paypass);
                     upYETXData(map3);
                     mPopPay.dismiss();
                 }
             });
         }
     }
+
     //------------------------------------------------------------支付宝----------------
     private static final int TOALIPAY = 3;
     private static final int SDK_PAY_FLAG = 1;
@@ -773,12 +789,12 @@ public class OrderXQActivity extends BaseActivity {
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-                        CusToast.showToast("支付成功");
+                        CusToast.showToast(getText(R.string.payment_successful));
                         finish();
 //                        setStart(f2ZhiFuBaoBean.getInfo().getPartner(), f2ZhiFuBaoBean.getInfo().getTotal_fee());
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-                        CusToast.showToast("支付失败");
+                        CusToast.showToast(getText(R.string.payment_failed));
                     }
                     break;
                 }
@@ -797,7 +813,7 @@ public class OrderXQActivity extends BaseActivity {
     /**
      * 支付宝支付业务
      * 支付
-     //     * @param v
+     * //     * @param v
      */
     public void payV2(final String info) {
         /**

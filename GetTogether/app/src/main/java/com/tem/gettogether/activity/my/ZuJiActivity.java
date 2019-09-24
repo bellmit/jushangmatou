@@ -177,7 +177,7 @@ public class ZuJiActivity extends BaseActivity {
                         }else{
                             list=myZJBean.getResult();
                             if (list.size()==0){
-                                CusToast.showToast("没有数据了");
+                                CusToast.showToast(getText(R.string.no_more_data));
                                 return;
                             }
                             listBeanXES.addAll(list);
@@ -311,7 +311,7 @@ public class ZuJiActivity extends BaseActivity {
                         Glide.with(ZuJiActivity.this).load(listBeanXES.get(baseViewHolder.getAdapterPosition()).getOriginal_img()).error(R.mipmap.myy322x).into(iv_image);
                         baseViewHolder.setText(R.id.tv_title,listBeanXES.get(baseViewHolder.getAdapterPosition()).getGoods_name());
                         baseViewHolder.setText(R.id.tv_price,"¥"+listBeanXES.get(baseViewHolder.getAdapterPosition()).getGoods_price());
-                        baseViewHolder.setText(R.id.tv_qg,listBeanXES.get(baseViewHolder.getAdapterPosition()).getBatch_number()+"个起购");
+                        baseViewHolder.setText(R.id.tv_qg,listBeanXES.get(baseViewHolder.getAdapterPosition()).getBatch_number()+getText(R.string.purchase));
 
                     }
 
@@ -336,7 +336,7 @@ public class ZuJiActivity extends BaseActivity {
                     dialogLogout
                             .withTitleColor("#333333")                                  //def
                             .withDividerColor("#333333")                              //def
-                            .withMessage("确定删除该足迹吗？")                     //.withMessage(null)  no Msg
+                            .withMessage(getText(R.string.qdscgzjm))                     //.withMessage(null)  no Msg
                             .withMessageColor("#333333")                                //def
                             //.withIcon(getResources().getDrawable(R.mipmap.ic_launcher))
                             .isCancelableOnTouchOutside(true)                           //def    | isCancelable(true)

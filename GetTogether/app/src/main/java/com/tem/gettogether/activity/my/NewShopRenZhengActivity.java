@@ -31,6 +31,9 @@ import java.util.Map;
 
 import cc.duduhuo.custoast.CusToast;
 
+/*
+* 不用的类
+* */
 @ContentView(R.layout.activity_new_shop_ren_zheng)
 public class NewShopRenZhengActivity extends BaseActivity {
     @ViewInject(R.id.tv_title)

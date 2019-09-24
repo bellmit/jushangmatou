@@ -69,7 +69,7 @@ public class ShoppingKUActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tv_title.setText("商品库");
+        tv_title.setText(getText(R.string.commodity_library));
         store_id=getIntent().getStringExtra("store_id");
         targetId=getIntent().getStringExtra("targetId");
         findViewById(R.id.rl_close).setOnClickListener(new View.OnClickListener() {
@@ -189,7 +189,7 @@ public class ShoppingKUActivity extends BaseActivity {
             ImageView iv_pic=baseViewHolder.getView(R.id.iv_pic);
             Glide.with(ShoppingKUActivity.this).load(goodsListBeans.get(baseViewHolder.getAdapterPosition()).getImage()).error(R.mipmap.myy322x).into(iv_pic);
             baseViewHolder.setText(R.id.tv_shoping_jj,goodsListBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
-            baseViewHolder.setText(R.id.tv_qpl,goodsListBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number()+"件起批");
+            baseViewHolder.setText(R.id.tv_qpl,goodsListBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number()+getText(R.string.from_batch));
             baseViewHolder.getView(R.id.tv_send).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -209,7 +209,7 @@ public class ShoppingKUActivity extends BaseActivity {
                         @Override
                         public void onSuccess(Message message) {
                             //消息通过网络发送成功的回调
-                            CusToast.showToast("发送成功");
+                            CusToast.showToast(getText(R.string.sent_successfully));
                             finish();
                         }
 

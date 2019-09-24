@@ -45,6 +45,7 @@ import java.util.Map;
 import cc.duduhuo.custoast.CusToast;
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
+
 @ContentView(R.layout.activity_buy_message)
 public class BuyMessageActivity extends BaseActivity {
     @ViewInject(R.id.tv_title)
@@ -54,8 +55,9 @@ public class BuyMessageActivity extends BaseActivity {
     @ViewInject(R.id.order_refresh_fragment)
     private BGARefreshLayout order_refresh_fragment;
     private int PAGE_NUM = 1;
-    private List<BuyLieBiaoBean.ResultBean> resultBeans=new ArrayList<>();
+    private List<BuyLieBiaoBean.ResultBean> resultBeans = new ArrayList<>();
     private List<BuyLieBiaoBean.ResultBean> list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,8 +65,8 @@ public class BuyMessageActivity extends BaseActivity {
         initData();
         initView();
         clearList(resultBeans);
-        Map<String,Object> map3=new HashMap<>();
-        map3.put("page","1");
+        Map<String, Object> map3 = new HashMap<>();
+        map3.put("page", "1");
         upShopData(map3);
         map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
@@ -87,10 +89,10 @@ public class BuyMessageActivity extends BaseActivity {
                     }
                     return;
                 }
-                PAGE_NUM=1;
+                PAGE_NUM = 1;
                 clearList(resultBeans);
-                Map<String,Object> map3=new HashMap<>();
-                map3.put("page",PAGE_NUM);
+                Map<String, Object> map3 = new HashMap<>();
+                map3.put("page", PAGE_NUM);
                 map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                 upShopData(map3);
 
@@ -104,8 +106,8 @@ public class BuyMessageActivity extends BaseActivity {
                     return false;
                 }
                 PAGE_NUM++;
-                Map<String,Object> map3=new HashMap<>();
-                map3.put("page",PAGE_NUM);
+                Map<String, Object> map3 = new HashMap<>();
+                map3.put("page", PAGE_NUM);
                 map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                 upShopData(map3);
@@ -117,19 +119,21 @@ public class BuyMessageActivity extends BaseActivity {
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, true);
         // 设置下拉刷新
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.color_F3F5F4);//背景色
-        refreshViewHolder.setPullDownRefreshText(""+getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
-        refreshViewHolder.setReleaseRefreshText(""+getResources().getText(R.string.refresh_release_text));//松开的提示文字
-        refreshViewHolder.setRefreshingText(""+getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
+        refreshViewHolder.setPullDownRefreshText("" + getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
+        refreshViewHolder.setReleaseRefreshText("" + getResources().getText(R.string.refresh_release_text));//松开的提示文字
+        refreshViewHolder.setRefreshingText("" + getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
 
         // 设置下拉刷新和上拉加载更多的风格
         order_refresh_fragment.setRefreshViewHolder(refreshViewHolder);
         order_refresh_fragment.shouldHandleRecyclerViewLoadingMore(order_rl);
     }
+
     public void clearList(List<BuyLieBiaoBean.ResultBean> list) {
         if (!ListUtils.isEmpty(list)) {
             list.clear();
         }
     }
+
     @Event(value = {R.id.rl_close}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
@@ -139,8 +143,9 @@ public class BuyMessageActivity extends BaseActivity {
 
         }
     }
-    private void  upShopData(Map<String,Object> map){
-        XUtil.Post(URLConstant.SHOPPING_QIUGOULIEBIAO,map,new MyCallBack<String>(){
+
+    private void upShopData(Map<String, Object> map) {
+        XUtil.Post(URLConstant.SHOPPING_QIUGOULIEBIAO, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -151,25 +156,24 @@ public class BuyMessageActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
 
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        BuyLieBiaoBean buyLieBiaoBean=gson.fromJson(result,BuyLieBiaoBean.class);
-                        if(PAGE_NUM==1){
-                            resultBeans=buyLieBiaoBean.getResult();
-                        }else{
-                            list=buyLieBiaoBean.getResult();
-                            if (list.size()==0){
-                                CusToast.showToast("没有数据了");
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        BuyLieBiaoBean buyLieBiaoBean = gson.fromJson(result, BuyLieBiaoBean.class);
+                        if (PAGE_NUM == 1) {
+                            resultBeans = buyLieBiaoBean.getResult();
+                        } else {
+                            list = buyLieBiaoBean.getResult();
+                            if (list.size() == 0) {
+                                CusToast.showToast(getText(R.string.no_more_data));
                                 return;
                             }
                             resultBeans.addAll(list);
                         }
 
-                    }else{
+                    } else {
                         String msg = jsonObject.optString("msg");
                         CusToast.showToast(msg);
                     }
-
 
 
                 } catch (JSONException e) {
@@ -180,7 +184,7 @@ public class BuyMessageActivity extends BaseActivity {
             @Override
             public void onFinished() {
                 super.onFinished();
-                ShoppingAdapter adapter=new ShoppingAdapter(resultBeans);
+                ShoppingAdapter adapter = new ShoppingAdapter(resultBeans);
                 order_rl.setAdapter(adapter);
 
             }
@@ -193,6 +197,7 @@ public class BuyMessageActivity extends BaseActivity {
             }
         });
     }
+
     public class ShoppingAdapter extends BaseQuickAdapter {
 
         public ShoppingAdapter(List<BuyLieBiaoBean.ResultBean> data) {//
@@ -201,46 +206,46 @@ public class BuyMessageActivity extends BaseActivity {
 
         @Override
         protected void convert(final com.chad.library.adapter.base.BaseViewHolder baseViewHolder, Object o) {
-            TextView tv_name=baseViewHolder.getView(R.id.tv_name);
-            TextView tv_shopName=baseViewHolder.getView(R.id.tv_shopName);
-            TextView tv_shop_ms=baseViewHolder.getView(R.id.tv_shop_ms);
-            TextView tv_qglx=baseViewHolder.getView(R.id.tv_qglx);
-            TextView tv_jhTime=baseViewHolder.getView(R.id.tv_jhTime);
-            TextView tv_qgNum=baseViewHolder.getView(R.id.tv_qgNum);
-            TextView tv_fbTime=baseViewHolder.getView(R.id.tv_fbTime);
-            RecyclerView recy_image=baseViewHolder.getView(R.id.recy_image);
-            tv_name.setText(getResources().getText(R.string.user_name)+""+resultBeans.get(baseViewHolder.getAdapterPosition()).getMobile());
-            tv_shopName.setText("商品名称："+resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
-            tv_shop_ms.setText("出口国家："+resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_desc());
-            tv_qglx.setText("求购类型："+resultBeans.get(baseViewHolder.getAdapterPosition()).getRelease_type());
-            tv_jhTime.setText("交货时间："+resultBeans.get(baseViewHolder.getAdapterPosition()).getAttach_time());
-            tv_qgNum.setText("求购数量："+resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_num());
-            tv_fbTime.setText("发布时间："+resultBeans.get(baseViewHolder.getAdapterPosition()).getAdd_time());
-            TextView tv_zxgt=baseViewHolder.getView(R.id.tv_zxgt);
+            TextView tv_name = baseViewHolder.getView(R.id.tv_name);
+            TextView tv_shopName = baseViewHolder.getView(R.id.tv_shopName);
+            TextView tv_shop_ms = baseViewHolder.getView(R.id.tv_shop_ms);
+            TextView tv_qglx = baseViewHolder.getView(R.id.tv_qglx);
+            TextView tv_jhTime = baseViewHolder.getView(R.id.tv_jhTime);
+            TextView tv_qgNum = baseViewHolder.getView(R.id.tv_qgNum);
+            TextView tv_fbTime = baseViewHolder.getView(R.id.tv_fbTime);
+            RecyclerView recy_image = baseViewHolder.getView(R.id.recy_image);
+            tv_name.setText(getResources().getText(R.string.user_name) + "" + resultBeans.get(baseViewHolder.getAdapterPosition()).getMobile());
+            tv_shopName.setText(getText(R.string.product_name) + resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
+            tv_shop_ms.setText(getText(R.string.chugouguojia) + resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_desc());
+            tv_qglx.setText(getText(R.string.buy_style) + resultBeans.get(baseViewHolder.getAdapterPosition()).getRelease_type());
+            tv_jhTime.setText(getText(R.string.buy_time) + resultBeans.get(baseViewHolder.getAdapterPosition()).getAttach_time());
+            tv_qgNum.setText(getText(R.string.purchase_quantity) + resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_num());
+            tv_fbTime.setText(getText(R.string.release_time) + resultBeans.get(baseViewHolder.getAdapterPosition()).getAdd_time());
+            TextView tv_zxgt = baseViewHolder.getView(R.id.tv_zxgt);
             tv_zxgt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     try {
-                            if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
-                                if(resultBeans!=null&&resultBeans.get(baseViewHolder.getAdapterPosition()).getUser_id()!=null){
-                                    RongTalk.doConnection(BuyMessageActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
-                                            ,resultBeans.get(baseViewHolder.getAdapterPosition()).getUser_id(),"",
-                                            "","");
-                                }else{
-                                    CusToast.showToast(getText(R.string.the_store_is_invalid));
-                                }
-
+                        if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
+                            if (resultBeans != null && resultBeans.get(baseViewHolder.getAdapterPosition()).getUser_id() != null) {
+                                RongTalk.doConnection(BuyMessageActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
+                                        , resultBeans.get(baseViewHolder.getAdapterPosition()).getUser_id(), "",
+                                        "", "");
+                            } else {
+                                CusToast.showToast(getText(R.string.the_store_is_invalid));
                             }
-                    }catch (Exception e){
+
+                        }
+                    } catch (Exception e) {
                         e.printStackTrace();
                         CusToast.showToast(getText(R.string.the_store_is_invalid));
                     }
                 }
             });
 
-            recy_image.setLayoutManager(new GridLayoutManager(BuyMessageActivity.this,3, LinearLayoutManager.VERTICAL,false));
-            if(resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_logo().size()>0){
-                recy_image.setAdapter(new BaseRVAdapter(BuyMessageActivity.this,resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_logo()) {
+            recy_image.setLayoutManager(new GridLayoutManager(BuyMessageActivity.this, 3, LinearLayoutManager.VERTICAL, false));
+            if (resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_logo().size() > 0) {
+                recy_image.setAdapter(new BaseRVAdapter(BuyMessageActivity.this, resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_logo()) {
                     @Override
                     public int getLayoutId(int viewType) {
                         return R.layout.recyqgxx_image_item;
@@ -248,14 +253,14 @@ public class BuyMessageActivity extends BaseActivity {
 
                     @Override
                     public void onBind(BaseViewHolder holder, int position) {
-                        ImageView iv_iamge_qg=holder.getImageView(R.id.iv_iamge_qg);
+                        ImageView iv_iamge_qg = holder.getImageView(R.id.iv_iamge_qg);
                         Glide.with(BuyMessageActivity.this).load(resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_logo().get(position)).error(R.mipmap.myy322x).into(iv_iamge_qg);
 
                         iv_iamge_qg.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
 
-                               Intent intent = new Intent(BuyMessageActivity.this, ShowImageDetail.class);
+                                Intent intent = new Intent(BuyMessageActivity.this, ShowImageDetail.class);
                                 intent.putStringArrayListExtra("paths", (ArrayList<String>) resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_logo());
                                 intent.putExtra("index", String.valueOf(resultBeans.get(baseViewHolder.getAdapterPosition())));
                                 startActivity(intent);
@@ -266,7 +271,6 @@ public class BuyMessageActivity extends BaseActivity {
                 });
 
             }
-
 
 
         }

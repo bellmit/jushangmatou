@@ -334,7 +334,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:gravity="center_vertical"
-                            android:text="工厂实景图上传"
+                            android:text="@string/gcsjtsc"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -349,7 +349,7 @@
                         android:layout_height="40dp"
                         android:gravity="center_vertical"
                         android:paddingStart="16dp"
-                        android:text="请上传2张真实的工厂实景图，让采购商更清楚您的实力！"
+                        android:text="@string/qsclzgcsjt"
                         android:textColor="@color/black" />
 
                     <View
@@ -539,7 +539,7 @@
             android:layout_marginEnd="10dp"
             android:background="@color/line"
             android:gravity="center"
-            android:text="上一步"
+            android:text="@string/up_step"
             android:textColor="@color/text3"
             android:textSize="16dp" />
 
@@ -550,7 +550,7 @@
             android:layout_marginEnd="10dp"
             android:background="@color/home_red"
             android:gravity="center"
-            android:text="保存"
+            android:text="@string/save"
             android:textColor="@color/white"
             android:textSize="16dp" />
     </LinearLayout>

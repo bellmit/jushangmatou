@@ -54,7 +54,7 @@ public class BuyingManagementActivity extends BaseActivity implements BuyingMana
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText("求购管理");
+        tv_title.setText(getText(R.string.buying_management));
         setData();
         initDatas(1, false);
         initRefresh();

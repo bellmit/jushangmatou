@@ -39,7 +39,8 @@ public class FansAdapter extends RecyclerView.Adapter<FansAdapter.ViewHolder> {
         Glide.with(context).load(mDatas.get(position).getHead_pic()).asBitmap().placeholder(R.mipmap.myy322x)
                 .error(R.mipmap.myy322x).override(imageSize, imageSize).into(holder.head_pic);
         holder.tv_name.setText(mDatas.get(position).getNickname());
-        holder.detail_tv.setText("用户"+mDatas.get(position).getNickname()+"关注了你的店铺");
+        holder.detail_tv.setText(context.getText(R.string.user_tv) + mDatas.get(position).getNickname()
+                + context.getText(R.string.followed_your_shop));
     }
 
     @Override

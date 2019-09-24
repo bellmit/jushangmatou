@@ -63,7 +63,7 @@ public class XTMessageActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tv_title.setText("系统消息");
+        tv_title.setText(R.string.system_message);
 
     }
 
@@ -162,7 +162,7 @@ public class XTMessageActivity extends BaseActivity {
                         }else{
                             list=xitMessageLBBean.getResult();
                             if (ListUtils.isEmpty(list)){
-                                CusToast.showToast("没有数据了");
+                                CusToast.showToast(getText(R.string.no_more_data));
                                 return;
                             }
                             resultBeans.addAll(list);

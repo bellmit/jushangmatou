@@ -75,7 +75,7 @@ public class TAdviseActivity extends BaseActivity implements  View.OnClickListen
             case R.id.tv_yjtj:
                 String content=et_yijian.getText().toString();
                 if(content.length()<6){
-                    CusToast.showToast("不能少于6个字");
+                    CusToast.showToast(getText(R.string.no_less_than_six_words));
                     return;
                 }
                 upYJData(content);

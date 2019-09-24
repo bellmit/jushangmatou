@@ -18,6 +18,7 @@ import io.rong.imkit.plugin.IPluginModule;
  * @Description:
  */
 public class SpeechTranslationPlugin implements IPluginModule {
+    private Context mContext;
     @Override
     public Drawable obtainDrawable(Context context) {
         return context.getResources().getDrawable(R.drawable.rc_ic_phone_selector);
@@ -25,7 +26,7 @@ public class SpeechTranslationPlugin implements IPluginModule {
 
     @Override
     public String obtainTitle(Context context) {
-        return "语音";
+        return context.getString(R.string.yuyin);
     }
 
     @Override

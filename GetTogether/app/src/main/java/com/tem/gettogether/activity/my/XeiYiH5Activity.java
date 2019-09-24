@@ -35,9 +35,9 @@ public class XeiYiH5Activity extends BaseActivity {
         typeMain=getIntent().getStringExtra("typeMain");
         h5url=getIntent().getStringExtra("h5url");
         if(typeMain.equals("1")){
-            tv_title.setText("轮播图详情");
+            tv_title.setText(getText(R.string.carousel_details));
         }else {
-            tv_title.setText("聚商码头服务协议");
+            tv_title.setText(getText(R.string.jushang_terminal_service_agreement));
 
         }
     }

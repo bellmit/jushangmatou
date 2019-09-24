@@ -47,7 +47,7 @@ public class VisitorAdapter extends RecyclerView.Adapter<VisitorAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(VisitorAdapter.ViewHolder holder, final int position) {
-        Log.d("chenshichun","==========="+mDatas.get(position).getTime());
+        Log.d("chenshichun", "===========" + mDatas.get(position).getTime());
         holder.time_tv.setText(mDatas.get(position).getTime());
         holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         holder.mRecyclerView.setAdapter(new BaseRVAdapter(context, mDatas.get(position).getVisiters()) {
@@ -58,13 +58,14 @@ public class VisitorAdapter extends RecyclerView.Adapter<VisitorAdapter.ViewHold
 
             @Override
             public void onBind(com.tem.gettogether.base.BaseViewHolder holder, final int position2) {
-                Log.d("chenshichun","====position2======="+position2);
+                Log.d("chenshichun", "====position2=======" + position2);
                 CircularImage head_pic = holder.getView(R.id.head_pic);
                 int imageSize = SizeUtil.dp2px(context, 60);
                 Glide.with(context).load(mDatas.get(position).getVisiters().get(position2).getHead_pic()).asBitmap().placeholder(R.mipmap.myy322x)
                         .error(R.mipmap.myy322x).override(imageSize, imageSize).into(head_pic);
                 holder.getTextView(R.id.tv_name).setText(mDatas.get(position).getVisiters().get(position2).getNickname());
-                holder.getTextView(R.id.detail_tv).setText("用户"+mDatas.get(position).getVisiters().get(position2).getNickname()+"关注了你的店铺");
+                holder.getTextView(R.id.detail_tv).setText(context.getText(R.string.user_tv) +
+                        mDatas.get(position).getVisiters().get(position2).getNickname() + mContext.getString(R.string.followed_your_shop));
             }
         });
     }
@@ -77,6 +78,7 @@ public class VisitorAdapter extends RecyclerView.Adapter<VisitorAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView time_tv;
         public RecyclerView mRecyclerView;
+
         public ViewHolder(View itemView) {
             super(itemView);
             time_tv = itemView.findViewById(R.id.time_tv);

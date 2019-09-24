@@ -70,11 +70,11 @@ public class XunPanTuiSongFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         rl_close.setVisibility(View.GONE);
-        tv_title.setText("询盘推送");
+        tv_title.setText(R.string.tuisongxunpan);
         if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7").equals("2")) {
             tv_title_right.setVisibility(View.VISIBLE);
             tv_title_right.setTextSize(14);
-            tv_title_right.setText("查看会员权限");
+            tv_title_right.setText(R.string.ckhyqx);
         }
         initDatas();
         initViews();
@@ -135,7 +135,7 @@ public class XunPanTuiSongFragment extends BaseFragment {
 
                 if (tab.getPosition() == 1 && !SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7").equals("2")) {
 //                    listener.switchMy();
-                    CusToast.showToast("请先升级高级会员!");
+                    CusToast.showToast(getText(R.string.please_upgrade_the_premium_member_first));
                     startActivityForResult(new Intent(getContext(), VipCenterActivity.class), 10000);
                 }
             }

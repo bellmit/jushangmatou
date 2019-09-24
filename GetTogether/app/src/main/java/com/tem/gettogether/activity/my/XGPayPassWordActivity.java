@@ -53,7 +53,7 @@ public class XGPayPassWordActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tv_title.setText("验证支付密码");
+        tv_title.setText(getText(R.string.yzzfmm));
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setText(R.string.xiayibu);
         tv_title_right.setTextColor(getResources().getColor(R.color.my_xg_9b));

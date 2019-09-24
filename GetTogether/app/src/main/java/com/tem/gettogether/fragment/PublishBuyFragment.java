@@ -248,11 +248,11 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                     String name = et_cpName.getText().toString();
                     String cpms = et_cpms.getText().toString();
                     if (name.equals("")) {
-                        CusToast.showToast("请填写产品名称");
+                        CusToast.showToast(getText(R.string.txcpmc));
                         return;
                     }
                     if (cpms.equals("")) {
-                        CusToast.showToast("请填写产品描述");
+                        CusToast.showToast(getText(R.string.qtxcpms));
                         return;
                     }
                     /*if (keywords_tv.getText().toString().equals("")) {
@@ -260,25 +260,25 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                         return;
                     }*/
                     if (country_name.equals("")) {
-                        CusToast.showToast("请选择出口国家");
+                        CusToast.showToast(getText(R.string.qxzckgj));
                         return;
                     }
                     if (release_type.equals("")) {
-                        CusToast.showToast("请选择求购类型");
+                        CusToast.showToast(getText(R.string.qxzqglx));
                         return;
                     }
                     if (attach_time.equals("")) {
-                        CusToast.showToast("请选择交货时间");
+                        CusToast.showToast(getText(R.string.qxzjhsj));
                         return;
                     }
 
                     if (qgNum == 0) {
-                        CusToast.showToast("请选择求购数量");
+                        CusToast.showToast(getText(R.string.qxzqgsl));
                         return;
                     }
                     if (qgNum == 1) {
                         if (et_qgNum.getText().toString().equals("")) {
-                            CusToast.showToast("请输入求购数量");
+                            CusToast.showToast(getText(R.string.qsrqgnum));
                             return;
                         }
                     }
@@ -369,7 +369,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
             map.put("goods_num", et_qgNum.getText().toString());
         } else if (qgNum == 2) {
             map.put("release", 2);
-            map.put("goods_num", "按商户起订量");
+            map.put("goods_num", getText(R.string.anshangphuqpl));
         }
         if (cartImage.size() > 0) {
             for (int i = 0; i < cartImage.size(); i++) {
@@ -664,7 +664,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                         }
                     }).start();
                 } else {
-                    CusToast.showToast("无法添加更多图片！");
+                    CusToast.showToast(getText(R.string.unable_to_add_more_images));
                 }
 
             }
@@ -719,7 +719,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                                 }).start();
                             }
                         } else {
-                            CusToast.showToast("无法添加更多图片！");
+                            CusToast.showToast(getText(R.string.unable_to_add_more_images));
                         }
                         mTaskImgAdapter.notifyDataSetChanged();
                     }
@@ -942,8 +942,8 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         cancle = view.findViewById(R.id.cancle);
         tv_iteam1 = view.findViewById(R.id.tv_iteam1);
         tv_iteam1.setTextSize(16);
-        tv_iteam1.setText("拍照");
-        photo.setText("相册");
+        tv_iteam1.setText(getText(R.string.take_photo));
+        photo.setText(getText(R.string.album));
         tv_iteam1.setTextColor(getResources().getColor(R.color.black));
         photo.setTextColor(getResources().getColor(R.color.black));
         tv_iteam1.setOnClickListener(new View.OnClickListener() {
@@ -1027,7 +1027,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                 imageCapture();
                 //权限获取成功
             } else {
-                CusToast.showToast("请先打开相机权限");
+                CusToast.showToast(getText(R.string.qxdkxjqx));
                 //权限被拒绝
             }
         }

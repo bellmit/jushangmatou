@@ -199,7 +199,7 @@ public class SCShopFragment extends BaseFragment {
         dialogLogout
                 .withTitleColor("#333333")                                  //def
                 .withDividerColor("#333333")                              //def
-                .withMessage("确定删除该店铺吗？")                     //.withMessage(null)  no Msg
+                .withMessage(getText(R.string.qdscgdpm))                     //.withMessage(null)  no Msg
                 .withMessageColor("#333333")                                //def
                 //.withIcon(getResources().getDrawable(R.mipmap.ic_launcher))
                 .isCancelableOnTouchOutside(true)                           //def    | isCancelable(true)
@@ -239,7 +239,7 @@ public class SCShopFragment extends BaseFragment {
                     Log.i("====店铺删除关注===", result + msg);
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        CusToast.showToast("删除成功");
+                        CusToast.showToast(getText(R.string.delete_seccuss));
                         upShopLBData(PAGE_NUM);
                     }else{
                         CusToast.showToast(msg);

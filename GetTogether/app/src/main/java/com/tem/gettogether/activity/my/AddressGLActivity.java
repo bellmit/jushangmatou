@@ -89,7 +89,7 @@ public class AddressGLActivity extends BaseActivity {
                 holder.getTextView(R.id.tv_address).setText(resultBeans.get(position).getProvince() + resultBeans.get(position).getCity() + resultBeans.get(position).getDistrict() + resultBeans.get(position).getTwon() + resultBeans.get(position).getAddress());
 
                 if (resultBeans.get(position).getIs_default().equals("1")) {
-                    tv_set_Address.setText("默认地址");
+                    tv_set_Address.setText(getText(R.string.default_address));
                     tv_set_Address.setTextColor(getResources().getColor(R.color.my_address_xz));
                     iv_address_xz.setVisibility(View.VISIBLE);
                     holder.getTextView(R.id.tv_address_xz).setVisibility(View.GONE);
@@ -116,7 +116,7 @@ public class AddressGLActivity extends BaseActivity {
                         dialogLogout
                                 .withTitleColor("#333333")                                  //def
                                 .withDividerColor("#333333")                              //def
-                                .withMessage("确定删除该地址吗？")                     //.withMessage(null)  no Msg
+                                .withMessage(getText(R.string.sure_delete_address))                     //.withMessage(null)  no Msg
                                 .withMessageColor("#333333")                                //def
                                 //.withIcon(getResources().getDrawable(R.mipmap.ic_launcher))
                                 .isCancelableOnTouchOutside(true)                           //def    | isCancelable(true)

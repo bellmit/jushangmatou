@@ -68,13 +68,13 @@ public class AmendLoginPassActivity extends BaseActivity {
                 String newpass=et_new_pass.getText().toString();
                 String newpass2=et_new_pass2.getText().toString();
                 if(oldpass.equals("")){
-                    CusToast.showToast("请输入原密码");
+                    CusToast.showToast(getText(R.string.enter_original_password));
                     return;
                 }else  if(oldpass.equals("")){
-                    CusToast.showToast("请输入新密码");
+                    CusToast.showToast(getText(R.string.enter_new_password));
                     return;
                 }else  if(oldpass.equals("")){
-                    CusToast.showToast("请确认新密码");
+                    CusToast.showToast(getText(R.string.confirm_new_password));
                     return;
                 }
                 Map<String,Object> map=new HashMap<>();
@@ -104,7 +104,7 @@ public class AmendLoginPassActivity extends BaseActivity {
                     if(res.equals("1")){
                         Gson gson=new Gson();
                         startActivity(new Intent(AmendLoginPassActivity.this, LoginActivity.class));
-                        CusToast.showToast("请重新登录");
+                        CusToast.showToast(getText(R.string.please_login_again));
                         finish();
                     }
 

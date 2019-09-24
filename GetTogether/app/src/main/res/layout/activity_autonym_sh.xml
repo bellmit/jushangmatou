@@ -26,7 +26,7 @@
             android:gravity="center"
             android:textSize="15dp"
             android:textColor="@color/black"
-            android:text="您的身份信息已成功提交待审核"
+            android:text="@string/ndsfycgtjsh"
             />
         <TextView
             android:id="@+id/tv_xiayibu"
@@ -38,7 +38,7 @@
             android:gravity="center"
             android:textSize="16dp"
             android:textColor="@color/white"
-            android:text="完成"
+            android:text="@string/wancheng"
             android:background="@drawable/my_pay_red_bg"/>
 
     </LinearLayout>

@@ -54,10 +54,10 @@ public class BankCardBDActivity extends BaseActivity {
                 String Name=et_name.getText().toString();
                 String Num=et_yhanka.getText().toString();
                 if(Name.equals("")){
-                    CusToast.showToast("请输入姓名");
+                    CusToast.showToast(getText(R.string.please_type_in_your_name));
                     return;
                 }else if(Num.equals("")){
-                    CusToast.showToast("请输入银行卡号");
+                    CusToast.showToast(getText(R.string.enter_bank_card_number));
                     return;
                 }else{
                     startActivity(new Intent(this,BankCardQRActivity.class)

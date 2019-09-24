@@ -47,11 +47,11 @@ public class ShopRzFailedActivity extends BaseActivity {
         message = getIntent().getStringExtra(Contacts.SHOP_RZ_FAILED);
         rz_type = getIntent().getIntExtra(Contacts.RZ_TYPE, 0);
         if (rz_type == 0) {
-            tv_title.setText("商铺认证");
+            tv_title.setText(getText(R.string.shop_certification));
             reason_detail_tv.setText(message);
             upGetRzFailedData();
         } else {
-            tv_title.setText("采购商认证");
+            tv_title.setText(R.string.buyer_certification);
             getData();
         }
     }

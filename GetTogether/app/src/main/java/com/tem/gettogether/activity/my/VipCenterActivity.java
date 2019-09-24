@@ -180,7 +180,7 @@ public class VipCenterActivity extends BaseActivity {
                 if(shopStatus.equals("1")) {
                     startActivity(new Intent(this, BuyMemberActivity.class));
                 }else{
-                    CusToast.showToast("无店铺数据，无法升级会员");
+                    CusToast.showToast(getText(R.string.no_store_data));
                 }
                 break;
         }

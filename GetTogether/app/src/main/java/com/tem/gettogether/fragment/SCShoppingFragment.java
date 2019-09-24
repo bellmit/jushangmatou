@@ -174,7 +174,7 @@ public class SCShoppingFragment extends BaseFragment {
             ImageView iv_pic=baseViewHolder.getView(R.id.iv_pic);
             Glide.with(getActivity()).load(resultBeans.get(baseViewHolder.getAdapterPosition()).getImage()).error(R.mipmap.myy322x).into(iv_pic);
             baseViewHolder.setText(R.id.tv_shoping_jj,resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
-            baseViewHolder.setText(R.id.tv_qpl,resultBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number()+"件起批");
+            baseViewHolder.setText(R.id.tv_qpl,resultBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number()+getText(R.string.from_batch));
 
             baseViewHolder.getView(R.id.ll_All_item).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -192,7 +192,7 @@ public class SCShoppingFragment extends BaseFragment {
                     dialogLogout
                             .withTitleColor("#333333")                                  //def
                             .withDividerColor("#333333")                              //def
-                            .withMessage("确定删除该商品吗？")                     //.withMessage(null)  no Msg
+                            .withMessage(getText(R.string.qdscgspm))                     //.withMessage(null)  no Msg
                             .withMessageColor("#333333")                                //def
                             //.withIcon(getResources().getDrawable(R.mipmap.ic_launcher))
                             .isCancelableOnTouchOutside(true)                           //def    | isCancelable(true)
@@ -241,7 +241,7 @@ public class SCShoppingFragment extends BaseFragment {
                     String msg = jsonObject.optString("msg");
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        CusToast.showToast("删除成功");
+                        CusToast.showToast(getText(R.string.delete_seccuss));
                         upShopLBData(PAGE_NUM);
                     }else{
                         CusToast.showToast(msg);

@@ -129,15 +129,15 @@ public class DistributorAuthenticationActivity extends BaseActivity {
         x.view().inject(this);
         apply_type = getIntent().getIntExtra(Contacts.DEALER_OR_FACTORY_AUTHENTICATION, 0);
         if (apply_type == 0) {
-            tv_title.setText("经销商");
+            tv_title.setText(getText(R.string.distributor));
             not_persion_ll.setVisibility(View.VISIBLE);
             factory_ll.setVisibility(View.GONE);
         } else if (apply_type == 2) {
-            tv_title.setText("工厂");
+            tv_title.setText(getText(R.string.factory));
             not_persion_ll.setVisibility(View.VISIBLE);
             factory_ll.setVisibility(View.VISIBLE);
         } else {
-            tv_title.setText("个人");
+            tv_title.setText(getText(R.string.personal));
             not_persion_ll.setVisibility(View.GONE);
         }
     }
@@ -200,15 +200,15 @@ public class DistributorAuthenticationActivity extends BaseActivity {
                 break;
             case R.id.tv_save:
                 if (et_card_num.getText().toString().equals(getResources().getString(R.string.please_input)) || et_card_num.getText().toString().equals("")) {
-                    CusToast.showToast("请输入身份证号");
+                    CusToast.showToast(getText(R.string.please_enter_the_ID_number));
                     return;
                 }
                 if (iv_image_1.getDrawable() == null) {
-                    CusToast.showToast("请上传身份证正面");
+                    CusToast.showToast(getText(R.string.please_upload_the_ID_card_front));
                     return;
                 }
                 if (iv_image_2.getDrawable() == null) {
-                    CusToast.showToast("请上传身份证反面");
+                    CusToast.showToast(getText(R.string.please_upload_the_reverse_side_of_the_ID_card));
                     return;
                 }
 
@@ -216,13 +216,13 @@ public class DistributorAuthenticationActivity extends BaseActivity {
                 if (apply_type != 1) {
 
                     if (iv_image_3.getDrawable() == null) {
-                        CusToast.showToast("请上传营业执照");
+                        CusToast.showToast(getText(R.string.please_upload_business_license));
                         return;
                     }
 
                     if (apply_type == 2) {
                         if (iv_image_4.getDrawable() == null && iv_image_5.getDrawable() == null) {
-                            CusToast.showToast("请上传至少一张工厂实景图");
+                            CusToast.showToast(getText(R.string.please_upload_factory_real_map));
                             return;
                         }
                     }
@@ -395,8 +395,8 @@ public class DistributorAuthenticationActivity extends BaseActivity {
         cancle = view.findViewById(R.id.cancle);
         tv_iteam1 = view.findViewById(R.id.tv_iteam1);
         tv_iteam1.setTextSize(16);
-        tv_iteam1.setText("拍照");
-        photo.setText("相册");
+        tv_iteam1.setText(getText(R.string.take_photo));
+        photo.setText(getText(R.string.album));
         tv_iteam1.setTextColor(getResources().getColor(R.color.black));
         photo.setTextColor(getResources().getColor(R.color.black));
         tv_iteam1.setOnClickListener(new View.OnClickListener() {

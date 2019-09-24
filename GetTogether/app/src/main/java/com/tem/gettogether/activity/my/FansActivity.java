@@ -54,7 +54,7 @@ public class FansActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText("粉丝");
+        tv_title.setText(R.string.fans);
         getFansData(1,false);
         initRefresh();
     }

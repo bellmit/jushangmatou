@@ -37,7 +37,7 @@ public class FuWuXieYiActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tv_title.setText("聚商码头服务协议");
+        tv_title.setText(getText(R.string.jushang_terminal_service_agreement));
 
     }
 

@@ -192,12 +192,12 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                             huiyuan_iv.setBackgroundResource(R.drawable.my_huiyuan);
                         }
                         if (resultBean.getStore_status().equals("1")) {
-                            tv_shop_RZ.setText("店铺管理");
+                            tv_shop_RZ.setText(getText(R.string.dianpuguanli));
                             rz_status_tv.setText("");//已认证
                         } else if (resultBean.getStore_status().equals("2")) {
-                            rz_status_tv.setText("认证审核中");
+                            rz_status_tv.setText(getText(R.string.certification_review));
                         } else {
-                            rz_status_tv.setText("待认证");
+                            rz_status_tv.setText(getText(R.string.pending_certification));
                         }
                     }
                 } catch (JSONException e) {
@@ -260,14 +260,14 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                 break;
             case R.id.rl_my_message:// 企业信息
                 if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("1")) {
-                    CusToast.showToast("商铺未认证，请先认证商铺!");
+                    CusToast.showToast(getText(R.string.please_certify_shops_first));
                     return;
                 }
                 startActivity(new Intent(getActivity(), CorporateInformationActivity.class).putExtra(Contacts.PERSION_ENTERPRISE_INFORMATION, 0));
                 break;
             case R.id.rl_ksbh:// 会员信息
                 if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("1")) {
-                    CusToast.showToast("商铺未认证，请先认证商铺!");
+                    CusToast.showToast(getText(R.string.please_certify_shops_first));
                     return;
                 }
                 if (myMessageBean != null) {
@@ -278,7 +278,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                 break;
             case R.id.rl_dzgl:// 我的店铺
                 if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("1")) {
-                    CusToast.showToast("商铺未认证，请先认证商铺!");
+                    CusToast.showToast(getText(R.string.please_certify_shops_first));
                     return;
                 }
                 startActivityForResult(new Intent(getActivity(), ShopActivity.class)
@@ -290,7 +290,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
 
                     startActivity(new Intent(getActivity(), StoreManagementActivity.class));
                 } else if (resultBean.getStore_status().equals("2")) {
-                    CusToast.showToast("店铺审核中");
+                    CusToast.showToast(getText(R.string.store_review));
                     return;
                 } else if (resultBean.getStore_status().equals("3")) {// 认证失败
                     startActivity(new Intent(getActivity(), ShopRzFailedActivity.class)
@@ -439,7 +439,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                     upXGMessageData(map);
                     dialogSucceed.cancel();
                 } else {
-                    CusToast.showToast("请填写昵称");
+                    CusToast.showToast(getText(R.string.please_fill_nickname));
                     return;
                 }
             }

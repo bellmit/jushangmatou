@@ -233,7 +233,7 @@ public class CartFragment extends TabFragment {
                     }
                 } else {
 
-                    CusToast.showToast("请选择商品");
+                    CusToast.showToast(getText(R.string.please_select_a_product));
                     return;
                 }
 
@@ -258,7 +258,7 @@ public class CartFragment extends TabFragment {
                     }
                     adapter.notifyDataSetChanged();
                 } else {
-                    CusToast.showToast("请添加商品");
+                    CusToast.showToast(getText(R.string.please_add_item));
                 }
 
                 break;
@@ -483,7 +483,7 @@ public class CartFragment extends TabFragment {
                                                 holder.getTextView(R.id.tv_red_num).setText(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getBatch_number() + "件起批");
                                                 tv_shopping_qpl.setVisibility(View.GONE);
                                                 tv_red_num.setVisibility(View.VISIBLE);
-                                                tv_shopping_price.setText("立即询价");
+                                                tv_shopping_price.setText(getText(R.string.ask));
 //                            holder.getTextView(R.id.tv_cart_jian).setEnabled(false);
 //                            holder.getTextView(R.id.tv_cart_add).setEnabled(false);
 
@@ -540,7 +540,7 @@ public class CartFragment extends TabFragment {
                                             tv_shopping_price.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
-                                                    if (tv_shopping_price.getText().toString().equals("立即询价")) {
+                                                    if (tv_shopping_price.getText().toString().equals(getText(R.string.ask))) {
                                                         try {
                                                                 //发消息
                                                                 if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
@@ -566,7 +566,7 @@ public class CartFragment extends TabFragment {
                                                 public void onClick(View view) {
                                                     int numJian = Integer.parseInt(tv_connectNum.getText().toString().trim());
                                                     if (numJian <= 1) {
-                                                        CusToast.showToast("数量不能少于1");
+                                                        CusToast.showToast(getText(R.string.the_number_cannot_be_less_than_one));
                                                         return;
                                                     }
                                                     numJian--;

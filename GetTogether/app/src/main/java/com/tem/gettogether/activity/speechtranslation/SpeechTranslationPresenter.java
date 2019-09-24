@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.tem.gettogether.R;
 import com.tem.gettogether.base.BasePresenter;
 import com.tem.gettogether.rongyun.CustomizeTranslationMessage;
 import com.tem.gettogether.utils.AuditRecorderConfiguration;
@@ -254,9 +255,9 @@ public class SpeechTranslationPresenter extends BasePresenter<SpeechTranslationC
         @Override
         public void recordFailed(int failRecorder) {
             if (failRecorder == 0) {
-                Toast.makeText(mContext, "录音失败，可能是没有给权限", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, mContext.getText(R.string.recording_failed), Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(mContext, "发生了未知错误", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, mContext.getText(R.string.an_unknown_error_has_occurred), Toast.LENGTH_SHORT).show();
             }
         }
     };

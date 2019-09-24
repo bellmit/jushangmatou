@@ -50,8 +50,8 @@ public class GongYingShangNewOrderActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText("我的订单");
-        titles = new String[]{getResources().getString(R.string.all), "待发货", "待收货", getResources().getString(R.string.yijiekuan), getResources().getString(R.string.complete)};
+        tv_title.setText(getText(R.string.my_order));
+        titles = new String[]{getResources().getString(R.string.all), getString(R.string.daifahuo), getString(R.string.wait_s), getResources().getString(R.string.yijiekuan), getResources().getString(R.string.complete)};
         list_fragment = new ArrayList<>();
         list_fragment.add(new GongYingOrderAllFragment());
         list_fragment.add(new GongYingOrderFaHuoFragment());

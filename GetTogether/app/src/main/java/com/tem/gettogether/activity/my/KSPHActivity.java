@@ -63,7 +63,7 @@ public class KSPHActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tv_title.setText("快速补货");
+        tv_title.setText(getText(R.string.quick_replenishment));
         Map<String, Object> map3 = new HashMap<>();
         map3.put("page", PAGE_NUM);
         map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
@@ -201,10 +201,8 @@ public class KSPHActivity extends BaseActivity {
             ImageView iv_image = baseViewHolder.getView(R.id.iv_image);
             Glide.with(KSPHActivity.this).load(resultBeans.get(baseViewHolder.getAdapterPosition()).getImage()).error(R.mipmap.myy322x).into(iv_image);
             baseViewHolder.setText(R.id.tv_title, resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
-            baseViewHolder.setText(R.id.tv_price, "¥" + resultBeans.get(baseViewHolder.getAdapterPosition()).getShop_price());
-            baseViewHolder.setText(R.id.tv_qg, resultBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number() + "个起购");
-
-
+            baseViewHolder.setText(R.id.tv_price, getText(R.string.renminbi_symbol) + resultBeans.get(baseViewHolder.getAdapterPosition()).getShop_price());
+            baseViewHolder.setText(R.id.tv_qg, resultBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number() + getText(R.string.purchase));
         }
     }
 }

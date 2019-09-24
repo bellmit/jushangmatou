@@ -110,7 +110,7 @@ public class TiXianActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tv_title.setText("提现记录");
+        tv_title.setText(getText(R.string.withdrawals_record));
         Map<String,Object> map3=new HashMap<>();
         map3.put("page",PAGE_NUM);
         map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
@@ -184,7 +184,7 @@ public class TiXianActivity extends BaseActivity {
         @Override
         protected void convert(com.chad.library.adapter.base.BaseViewHolder baseViewHolder, Object o) {
 
-            baseViewHolder.setText(R.id.tv_tixian,"余额提现");
+            baseViewHolder.setText(R.id.tv_tixian,getText(R.string.balance_withdrawal));
 
             baseViewHolder.setText(R.id.tv_time,txdataBean.get(baseViewHolder.getAdapterPosition()).getChange_time());
             baseViewHolder.setText(R.id.tv_czje,"+"+txdataBean.get(baseViewHolder.getAdapterPosition()).getPay_money());

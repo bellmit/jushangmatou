@@ -167,7 +167,7 @@ public class ChongZhiActivity extends BaseActivity {
     }
     @Override
     protected void initData() {
-        tv_title.setText("充值记录");
+        tv_title.setText(getText(R.string.recharge_record));
     }
     @Event(value = {R.id.rl_close}, type = View.OnClickListener.class)
     private void getEvent(View view) {

@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
                 android:textColor="@color/text9"
-                android:text="当前手机号"/>
+                android:text="@string/dqsjh"/>
             <TextView
                 android:id="@+id/tv_dq_phone"
                 android:layout_width="match_parent"
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
                     android:textColor="@color/my_xg_zg"
-                    android:text="中国+86"/>
+                    android:text="@string/china_86"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                 android:textSize="15dp"
                 android:background="@null"
                 android:textColor="@color/text9"
-                android:hint="请输入新手机号"/>
+                android:hint="@string/qsrxsjh"/>
         </LinearLayout>
 
 

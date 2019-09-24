@@ -27,7 +27,7 @@ public class AutonymRZActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tv_title.setText("实名认证");
+        tv_title.setText(getText(R.string.verified));
     }
 
     @Override

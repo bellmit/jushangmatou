@@ -66,14 +66,14 @@ public class BankCardQRActivity extends BaseActivity {
             case R.id.tv_xiayibu://下一步
                 String yinhang=et_yinhang.getText().toString();
                 if(yinhang.equals("")){
-                    CusToast.showToast("请填写所属银行");
+                    CusToast.showToast(getText(R.string.please_fill_in_the_bank));
                     return;
                 }else{
                     if(checkbox.isChecked()==true){
                         upyinhCode(yinhang);
 
                     }else {
-                        CusToast.showToast("请勾选用户协议");
+                        CusToast.showToast(getText(R.string.tick_the_user_agreement));
                         return;
                     }
                 }
@@ -100,7 +100,7 @@ public class BankCardQRActivity extends BaseActivity {
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
                     if(res.equals("1")){
-                        CusToast.showToast("绑定成功");
+                        CusToast.showToast(getText(R.string.binding_success));
                         BaseApplication.destoryActivity("bang");
 
                         finish();

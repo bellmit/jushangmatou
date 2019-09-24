@@ -358,8 +358,8 @@ public class ShopHomeFragment extends BaseFragment {
             RoundImageView iv_image=baseViewHolder.getView(R.id.iv_image);
             Glide.with(getActivity()).load(goodsListBeans.get(baseViewHolder.getAdapterPosition()).getImage()).error(R.mipmap.myy322x).into(iv_image);
             baseViewHolder.setText(R.id.tv_name,goodsListBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
-            baseViewHolder.setText(R.id.tv_numbear,goodsListBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number()+"件起批");
-            baseViewHolder.setText(R.id.tv_pingjia,goodsListBeans.get(baseViewHolder.getAdapterPosition()).getBest_percent()+"好评");
+            baseViewHolder.setText(R.id.tv_numbear,goodsListBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number()+getText(R.string.from_batch));
+            baseViewHolder.setText(R.id.tv_pingjia,goodsListBeans.get(baseViewHolder.getAdapterPosition()).getBest_percent()+getText(R.string.praise));
             baseViewHolder.getView(R.id.ll_item_all).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

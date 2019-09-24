@@ -38,6 +38,9 @@ import java.util.Map;
 
 import cc.duduhuo.custoast.CusToast;
 
+/*
+* no use
+* */
 @ContentView(R.layout.activity_yetixian)
 public class YETixianActivity extends BaseActivity {
 

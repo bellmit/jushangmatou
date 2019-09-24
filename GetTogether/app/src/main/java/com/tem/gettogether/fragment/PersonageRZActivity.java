@@ -156,7 +156,7 @@ public class PersonageRZActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tv_title.setText("个人入驻");
+        tv_title.setText(getText(R.string.individual_settlement));
         upGetAddressData("0");
 
     }
@@ -367,13 +367,13 @@ public class PersonageRZActivity extends BaseActivity {
             recyclerView_qg.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             tv_xz_title=view.findViewById(R.id.tv_xz_title);
             if(type==1){
-                tv_xz_title.setText("请选择店铺主营大类");
+                tv_xz_title.setText(getText(R.string.choose_main_store_category));
                 initSetdialog();
             }else if(type==2){
-                tv_xz_title.setText("请选择馆分类");
+                tv_xz_title.setText(getText(R.string.select_museum_classification));
                 initSetdialog2();
             }else if(type==3){
-                tv_xz_title.setText("请选择店铺性质");
+                tv_xz_title.setText(getText(R.string.please_select_nature_of_the_store));
                 initSetdialog3();
             }
             iv_dialog_close.setOnClickListener(new View.OnClickListener() {
@@ -429,8 +429,8 @@ public class PersonageRZActivity extends BaseActivity {
         cancle = view.findViewById(R.id.cancle);
         tv_iteam1 = view.findViewById(R.id.tv_iteam1);
         tv_iteam1.setTextSize(16);
-        tv_iteam1.setText("拍照");
-        photo.setText("相册");
+        tv_iteam1.setText(getText(R.string.take_photo));
+        photo.setText(getText(R.string.album));
         tv_iteam1.setTextColor(getResources().getColor(R.color.black));
         photo.setTextColor(getResources().getColor(R.color.black));
         tv_iteam1.setOnClickListener(new View.OnClickListener() {
@@ -788,7 +788,7 @@ public class PersonageRZActivity extends BaseActivity {
                     addressType = "1";
                     isOne = false;
                     upGetAddressData("0");
-                    tv_sheng.setText("请选择");
+                    tv_sheng.setText(getText(R.string.please_choose));
                     view_line.setVisibility(View.VISIBLE);
                     tv_sheng.setTextColor(getResources().getColor(R.color.my_red));
                     ll_sheng.setVisibility(View.VISIBLE);
@@ -807,7 +807,7 @@ public class PersonageRZActivity extends BaseActivity {
                     }
                     ll_sheng.setVisibility(View.VISIBLE);
                     ll_city.setVisibility(View.VISIBLE);
-                    tv_city.setText("请选择");
+                    tv_city.setText(getText(R.string.please_choose));
                     view_line2.setVisibility(View.VISIBLE);
 
                     tv_city.setTextColor(getResources().getColor(R.color.my_red));
@@ -823,7 +823,7 @@ public class PersonageRZActivity extends BaseActivity {
                     if (city != null) {
                         upGetAddressData(city);
                     }
-                    tv_qu.setText("请选择");
+                    tv_qu.setText(getText(R.string.please_choose));
                     view_line3.setVisibility(View.VISIBLE);
                     tv_qu.setTextColor(getResources().getColor(R.color.my_red));
                     ll_sheng.setVisibility(View.VISIBLE);

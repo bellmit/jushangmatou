@@ -35,7 +35,7 @@ public class ProductManagmentActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText("产品管理");
+        tv_title.setText(getText(R.string.product_management));
         initDatas();
         initViews();
     }

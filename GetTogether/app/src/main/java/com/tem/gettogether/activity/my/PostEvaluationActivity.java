@@ -61,6 +61,9 @@ import io.rong.imageloader.core.download.ImageDownloader;
 import me.nereo.multi_image_selector.MultiImageSelector;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
+/*
+* 不用的类
+* */
 @ContentView(R.layout.activity_post_evaluation)
 public class PostEvaluationActivity extends BaseActivity   {
     @ViewInject(R.id.tv_title)
@@ -1634,7 +1637,7 @@ public class PostEvaluationActivity extends BaseActivity   {
                                          upMessageData(map);
                                     }
                                 } else {
-                                    CusToast.showToast("无法添加更多图片！");
+                                    CusToast.showToast(getText(R.string.unable_to_add_more_images));
                                 }
                                 break;
                             case 1:
@@ -1654,7 +1657,7 @@ public class PostEvaluationActivity extends BaseActivity   {
                                 upMessageData(map);
                                     }
                                 } else {
-                                    CusToast.showToast("无法添加更多图片！");
+                                    CusToast.showToast(getText(R.string.unable_to_add_more_images));
                                 }
 
                                 break;
@@ -1675,7 +1678,7 @@ public class PostEvaluationActivity extends BaseActivity   {
                                 upMessageData(map);
                                     }
                                 } else {
-                                    CusToast.showToast("无法添加更多图片！");
+                                    CusToast.showToast(getText(R.string.unable_to_add_more_images));
                                 }
 
                                 break;
@@ -1696,7 +1699,7 @@ public class PostEvaluationActivity extends BaseActivity   {
                                 upMessageData(map);
                                     }
                                 } else {
-                                    CusToast.showToast("无法添加更多图片！");
+                                    CusToast.showToast(getText(R.string.unable_to_add_more_images));
                                 }
 
                                 break;
@@ -1719,7 +1722,7 @@ public class PostEvaluationActivity extends BaseActivity   {
                                 upMessageData(map);
                                     }
                                 } else {
-                                    CusToast.showToast("无法添加更多图片！");
+                                    CusToast.showToast(getText(R.string.unable_to_add_more_images));
                                 }
 
                                 break;
@@ -1742,7 +1745,7 @@ public class PostEvaluationActivity extends BaseActivity   {
                                 upMessageData(map);
                                     }
                                 } else {
-                                    CusToast.showToast("无法添加更多图片！");
+                                    CusToast.showToast(getText(R.string.unable_to_add_more_images));
                                 }
 
                                 break;
@@ -1765,7 +1768,7 @@ public class PostEvaluationActivity extends BaseActivity   {
                                 upMessageData(map);
                                     }
                                 } else {
-                                    CusToast.showToast("无法添加更多图片！");
+                                    CusToast.showToast(getText(R.string.unable_to_add_more_images));
                                 }
                                 break;
                             case 7:

@@ -13,6 +13,9 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+/*
+* 不用的类
+* */
 @ContentView(R.layout.activity_my_pocket)
 public class MyPocketActivity extends BaseActivity {
     @ViewInject(R.id.tv_title)

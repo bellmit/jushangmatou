@@ -393,7 +393,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
             @Override
             public void OnBannerClick(int position) {
 
-                if(adBeans.get(position).getAd_name().equals("临沂")) {
+                if(adBeans.get(position).getAd_name().equals(getText(R.string.lianyi))) {
                     startActivity(new Intent(getActivity(), LinYiClassificationActivity.class));
                     return;
                 }
@@ -412,11 +412,11 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                                 .putExtra("typeMain", "1")
                                 .putExtra("h5url", adBeans.get(position).getAd_link()));
                     } else {
-                        CusToast.showToast("暂无链接");
+                        CusToast.showToast(getText(R.string.no_link_yet));
                     }
 
                 } else {
-                    CusToast.showToast("暂无操作");
+                    CusToast.showToast(getText(R.string.no_operation));
                 }
             }
         });

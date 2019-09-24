@@ -27,7 +27,7 @@ public class TextDescriptionActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText("文字介绍");
+        tv_title.setText(getText(R.string.ignored_by_settings));
         textDescription = getIntent().getStringExtra("text_description");
         text_description_et.setText(textDescription);
     }
@@ -45,7 +45,7 @@ public class TextDescriptionActivity extends BaseActivity {
                 break;
             case R.id.tv_save:
                 if (text_description_et.getText().toString().equals("")) {
-                    CusToast.showToast("内容不能为空");
+                    CusToast.showToast(getText(R.string.the_content_can_not_be_blank));
                 } else {
                     setResult(RESULT_OK, new Intent().putExtra("text_description", text_description_et.getText().toString()));
                     finish();

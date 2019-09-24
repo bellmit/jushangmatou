@@ -380,7 +380,7 @@ public class CorporateInformationActivity extends BaseActivity {
             recyclerView_qg = view.findViewById(R.id.recyclerView_qg);
             recyclerView_qg.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             tv_xz_title = view.findViewById(R.id.tv_xz_title);
-            tv_xz_title.setText("选择国家");
+            tv_xz_title.setText(getText(R.string.select_country));
             initSetdialog();
             iv_dialog_close.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -488,8 +488,8 @@ public class CorporateInformationActivity extends BaseActivity {
         cancle = view.findViewById(R.id.cancle);
         tv_iteam1 = view.findViewById(R.id.tv_iteam1);
         tv_iteam1.setTextSize(16);
-        tv_iteam1.setText("拍照");
-        photo.setText("相册");
+        tv_iteam1.setText(getText(R.string.take_photo));
+        photo.setText(getText(R.string.album));
         tv_iteam1.setTextColor(getResources().getColor(R.color.black));
         photo.setTextColor(getResources().getColor(R.color.black));
         tv_iteam1.setOnClickListener(new View.OnClickListener() {

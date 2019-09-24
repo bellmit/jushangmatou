@@ -49,7 +49,7 @@ public class ConversationActivity extends BaseActivity implements OnClickListene
         if (null != getTitle) {
             tv_title.setText(getTitle);
         } else {
-            tv_title.setText("会话");
+            tv_title.setText(getText(R.string.rongyun_talk));
         }
         findViewById(R.id.rl_close).setOnClickListener(this);
 
@@ -107,7 +107,7 @@ public class ConversationActivity extends BaseActivity implements OnClickListene
                                 .putExtra("goods_id",goods_id));
                     }else{
 
-                        CusToast.showToast("商品已失效");
+                        CusToast.showToast(getText(R.string.spysx));
                     }
                     isimage=true;
                 }else{

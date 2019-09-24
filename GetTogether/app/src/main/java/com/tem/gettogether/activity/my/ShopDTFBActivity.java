@@ -110,8 +110,8 @@ public class ShopDTFBActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tv_title.setText("发布动态");
-        tv_title_right.setText("发布");
+        tv_title.setText(getText(R.string.release_dynamics));
+        tv_title_right.setText(getText(R.string.fabu));
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setTextColor(getResources().getColor(R.color.my_yellow));
     }
@@ -193,7 +193,7 @@ public class ShopDTFBActivity extends BaseActivity {
             recyclerView_qg = viewShop.findViewById(R.id.recyclerView_qg);
             recyclerView_qg.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             tv_xz_title=viewShop.findViewById(R.id.tv_xz_title);
-            tv_xz_title.setText("请选择关联产品");
+            tv_xz_title.setText(getText(R.string.please_select_related_products));
                 initSetdialog();
 
             iv_dialog_close.setOnClickListener(new View.OnClickListener() {
@@ -353,8 +353,8 @@ public class ShopDTFBActivity extends BaseActivity {
         cancle = view.findViewById(R.id.cancle);
         tv_iteam1 = view.findViewById(R.id.tv_iteam1);
         tv_iteam1.setTextSize(16);
-        tv_iteam1.setText("拍照");
-        photo.setText("相册");
+        tv_iteam1.setText(getText(R.string.take_photo));
+        photo.setText(getText(R.string.album));
         tv_iteam1.setTextColor(getResources().getColor(R.color.black));
         photo.setTextColor(getResources().getColor(R.color.black));
         tv_iteam1.setOnClickListener(new View.OnClickListener() {

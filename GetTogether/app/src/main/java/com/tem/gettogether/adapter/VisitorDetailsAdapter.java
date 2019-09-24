@@ -45,7 +45,7 @@ public class VisitorDetailsAdapter extends RecyclerView.Adapter<VisitorDetailsAd
         Glide.with(context).load(mDatas.get(position).getHead_pic()).asBitmap().placeholder(R.mipmap.myy322x)
                 .error(R.mipmap.myy322x).override(imageSize, imageSize).into(holder.head_pic);
         holder.tv_name.setText(mDatas.get(position).getNickname());
-        holder.detail_tv.setText("用户"+mDatas.get(position).getNickname()+"访问了你的店铺");
+        holder.detail_tv.setText(context.getText(R.string.user_tv)+mDatas.get(position).getNickname()+context.getText(R.string.visited_your_store));
     }
 
     @Override

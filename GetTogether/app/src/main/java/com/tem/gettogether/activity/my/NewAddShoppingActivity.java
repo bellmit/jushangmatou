@@ -78,6 +78,9 @@ import cc.duduhuo.custoast.CusToast;
 import me.nereo.multi_image_selector.MultiImageSelector;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
+/*
+* 不用的类
+* */
 @ContentView(R.layout.activity_new_add_shopping)
 public class NewAddShoppingActivity extends BaseActivity implements View.OnClickListener, View.OnLongClickListener {
     @ViewInject(R.id.tv_title)
@@ -210,7 +213,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
 
     @Override
     protected void initData() {
-        tv_title.setText("店铺上新");
+        tv_title.setText(getText(R.string.new_on_store));
         upBDFLData();
         upCategories();
         imagePaths.clear();
@@ -884,8 +887,8 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
         cancle = view.findViewById(R.id.cancle);
         tv_iteam1 = view.findViewById(R.id.tv_iteam1);
         tv_iteam1.setTextSize(16);
-        tv_iteam1.setText("拍照");
-        photo.setText("相册");
+        tv_iteam1.setText(getText(R.string.take_photo));
+        photo.setText(getText(R.string.album));
         tv_iteam1.setTextColor(getResources().getColor(R.color.black));
         photo.setTextColor(getResources().getColor(R.color.black));
         tv_iteam1.setOnClickListener(new View.OnClickListener() {
@@ -991,7 +994,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                                 }
 
                             } else {
-                                CusToast.showToast("无法添加更多图片！");
+                                CusToast.showToast(getText(R.string.unable_to_add_more_images));
                             }
                         } else {
                             if (imageTwoPaths.size() < 10) {
@@ -1025,7 +1028,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
                                 }
 
                             } else {
-                                CusToast.showToast("无法添加更多图片！");
+                                CusToast.showToast(getText(R.string.unable_to_add_more_images));
                             }
                         }
                         Log.d("chenshichun", "======imagePaths=====  " + imagePaths);
@@ -1061,14 +1064,14 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
             if (resultCode == RESULT_OK) {
                 goods_content = data.getExtras().getString("goods_content");
                 listImage = data.getStringArrayListExtra("listImage");
-                rt_tuwen.setText("已填写");
+                rt_tuwen.setText(getText(R.string.filled_in));
                 Log.i("===返回图片22--", goods_content);
             }
         }
 
         if (requestCode == 7777) {
             if (resultCode == RESULT_OK) {
-                fengmian_tv.setText("已填写");
+                fengmian_tv.setText(getText(R.string.filled_in));
                 if(data.getStringArrayListExtra("listImage2").size()>0)
                 cover_image = data.getStringArrayListExtra("listImage2").get(0);
             }

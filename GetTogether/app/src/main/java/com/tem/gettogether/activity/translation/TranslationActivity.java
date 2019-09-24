@@ -49,8 +49,8 @@ public class TranslationActivity extends BaseMvpActivity<TranslationPresenter> i
     @ViewInject(R.id.translation_conversion_ll)
     private LinearLayout translation_conversion_ll;
     private String targetId;
-    private String fromType = "中文";
-    private String toType = "英文";
+    private String fromType;
+    private String toType;
     private String[] languages;
     private int spinnerPostion = 0;
     private int spinnerAimsPostion = 0;
@@ -61,9 +61,11 @@ public class TranslationActivity extends BaseMvpActivity<TranslationPresenter> i
         x.view().inject(this);
         mPresenter = new TranslationPresenter(getContext(), TranslationActivity.this);
         mPresenter.attachView(this);
-        tv_title.setText("翻译助手");
+        fromType = getString(R.string.chinese);
+        toType  = getString(R.string.english_tv);
+        tv_title.setText(getText(R.string.text_translation));
         tv_title_right.setVisibility(View.VISIBLE);
-        tv_title_right.setText("发送");
+        tv_title_right.setText(getText(R.string.umeng_socialize_send_btn_str));
         targetId = getIntent().getStringExtra("targetId");
         spinner.setSelection(0, true);
         spinner_aims.setSelection(1, true);

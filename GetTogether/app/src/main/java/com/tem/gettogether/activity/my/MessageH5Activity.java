@@ -32,7 +32,7 @@ public class MessageH5Activity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tv_title.setText("系统消息");
+        tv_title.setText(getText(R.string.system_information));
         h5url=getIntent().getStringExtra("h5url");
     }
 

@@ -105,17 +105,17 @@ public class ShopAuthenticationActivity extends BaseActivity {
         String youxiang = et_youxiang.getText().toString();
         String mobile = et_moble.getText().toString();
         if (name.equals("")) {
-            CusToast.showToast("请输入您身份证上的姓名");
+            CusToast.showToast(getText(R.string.input_contacts_name));
             return;
         } else if (phone.equals("")) {
-            CusToast.showToast("请输入您的手机号");
+            CusToast.showToast(getText(R.string.input_contacts_phone_nun));
             return;
         } else if (youxiang.equals("")) {
-            CusToast.showToast("请输入您身的电子邮箱");
+            CusToast.showToast(getText(R.string.input_contacts_email));
             return;
         }
         if (!isEmail(youxiang)) {
-            CusToast.showToast("请输入正确电子邮箱格式");
+            CusToast.showToast(getText(R.string.please_select_the_museum_classification));
             return;
         }
 

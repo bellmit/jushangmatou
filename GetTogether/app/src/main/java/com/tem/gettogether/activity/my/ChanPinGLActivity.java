@@ -49,8 +49,9 @@ public class ChanPinGLActivity extends BaseActivity {
     @ViewInject(R.id.order_refresh_fragment)
     private BGARefreshLayout order_refresh_fragment;
     private int PAGE_NUM = 1;
-    private List<ChanPinLiebiaoBean.ResultBean> resultBeans=new ArrayList<>();
+    private List<ChanPinLiebiaoBean.ResultBean> resultBeans = new ArrayList<>();
     private List<ChanPinLiebiaoBean.ResultBean> list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,16 +62,16 @@ public class ChanPinGLActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tv_title.setText("产品管理");
+        tv_title.setText(getText(R.string.product_management));
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        PAGE_NUM=1;
-        Map<String,Object> map3=new HashMap<>();
-        map3.put("page",PAGE_NUM);
+        PAGE_NUM = 1;
+        Map<String, Object> map3 = new HashMap<>();
+        map3.put("page", PAGE_NUM);
         map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         upShopData(map3);
@@ -87,9 +88,9 @@ public class ChanPinGLActivity extends BaseActivity {
                     }
                     return;
                 }
-                PAGE_NUM=1;
-                Map<String,Object> map3=new HashMap<>();
-                map3.put("page",PAGE_NUM);
+                PAGE_NUM = 1;
+                Map<String, Object> map3 = new HashMap<>();
+                map3.put("page", PAGE_NUM);
                 map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                 upShopData(map3);
@@ -104,8 +105,8 @@ public class ChanPinGLActivity extends BaseActivity {
                     return false;
                 }
                 PAGE_NUM++;
-                Map<String,Object> map3=new HashMap<>();
-                map3.put("page",PAGE_NUM);
+                Map<String, Object> map3 = new HashMap<>();
+                map3.put("page", PAGE_NUM);
                 map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                 upShopData(map3);
@@ -117,15 +118,16 @@ public class ChanPinGLActivity extends BaseActivity {
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, true);
         // 设置下拉刷新
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.color_F3F5F4);//背景色
-        refreshViewHolder.setPullDownRefreshText(""+getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
-        refreshViewHolder.setReleaseRefreshText(""+getResources().getText(R.string.refresh_release_text));//松开的提示文字
-        refreshViewHolder.setRefreshingText(""+getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
+        refreshViewHolder.setPullDownRefreshText("" + getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
+        refreshViewHolder.setReleaseRefreshText("" + getResources().getText(R.string.refresh_release_text));//松开的提示文字
+        refreshViewHolder.setRefreshingText("" + getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
 
         // 设置下拉刷新和上拉加载更多的风格
         order_refresh_fragment.setRefreshViewHolder(refreshViewHolder);
         order_refresh_fragment.shouldHandleRecyclerViewLoadingMore(order_rl);
     }
-    @Event(value = {R.id.rl_close,R.id.ll_look_more}, type = View.OnClickListener.class)
+
+    @Event(value = {R.id.rl_close, R.id.ll_look_more}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
@@ -133,15 +135,16 @@ public class ChanPinGLActivity extends BaseActivity {
                 break;
             case R.id.ll_look_more:
                 PAGE_NUM++;
-                Map<String,Object> map3=new HashMap<>();
-                map3.put("page",PAGE_NUM);
+                Map<String, Object> map3 = new HashMap<>();
+                map3.put("page", PAGE_NUM);
                 map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                 break;
         }
     }
-    private void  upShopData(Map<String,Object> map){
-        XUtil.Post(URLConstant.SHOPPING_LIEBIAO,map,new MyCallBack<String>(){
+
+    private void upShopData(Map<String, Object> map) {
+        XUtil.Post(URLConstant.SHOPPING_LIEBIAO, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -152,25 +155,24 @@ public class ChanPinGLActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
 
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        ChanPinLiebiaoBean chanPinLiebiaoBean=gson.fromJson(result,ChanPinLiebiaoBean.class);
-                        if(PAGE_NUM==1){
-                            resultBeans=chanPinLiebiaoBean.getResult();
-                        }else{
-                            list=chanPinLiebiaoBean.getResult();
-                            if(list.size()==0){
-                                CusToast.showToast("没有数据了~~");
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        ChanPinLiebiaoBean chanPinLiebiaoBean = gson.fromJson(result, ChanPinLiebiaoBean.class);
+                        if (PAGE_NUM == 1) {
+                            resultBeans = chanPinLiebiaoBean.getResult();
+                        } else {
+                            list = chanPinLiebiaoBean.getResult();
+                            if (list.size() == 0) {
+                                CusToast.showToast(getText(R.string.no_more_data));
                                 return;
                             }
                             resultBeans.addAll(list);
                         }
 
-                    }else{
+                    } else {
                         String msg = jsonObject.optString("msg");
                         CusToast.showToast(msg);
                     }
-
 
 
                 } catch (JSONException e) {
@@ -181,7 +183,7 @@ public class ChanPinGLActivity extends BaseActivity {
             @Override
             public void onFinished() {
                 super.onFinished();
-                ChanpinLieBAdapter adapter=new ChanpinLieBAdapter(resultBeans);
+                ChanpinLieBAdapter adapter = new ChanpinLieBAdapter(resultBeans);
                 order_rl.setAdapter(adapter);
 
             }
@@ -194,6 +196,7 @@ public class ChanPinGLActivity extends BaseActivity {
             }
         });
     }
+
     public class ChanpinLieBAdapter extends BaseQuickAdapter {
 
         public ChanpinLieBAdapter(List<ChanPinLiebiaoBean.ResultBean> data) {//
@@ -202,19 +205,19 @@ public class ChanPinGLActivity extends BaseActivity {
 
         @Override
         protected void convert(final com.chad.library.adapter.base.BaseViewHolder baseViewHolder, Object o) {
-            ImageView iv_image=baseViewHolder.getView(R.id.iv_image);
-            TextView tv_title=baseViewHolder.getView(R.id.tv_title);
-            TextView tv_Shop_price=baseViewHolder.getView(R.id.tv_Shop_price);
-            TextView tv_shuoming=baseViewHolder.getView(R.id.tv_shuoming);
-            TextView tv_top_botton=baseViewHolder.getView(R.id.tv_top_botton);
+            ImageView iv_image = baseViewHolder.getView(R.id.iv_image);
+            TextView tv_title = baseViewHolder.getView(R.id.tv_title);
+            TextView tv_Shop_price = baseViewHolder.getView(R.id.tv_Shop_price);
+            TextView tv_shuoming = baseViewHolder.getView(R.id.tv_shuoming);
+            TextView tv_top_botton = baseViewHolder.getView(R.id.tv_top_botton);
             Glide.with(ChanPinGLActivity.this).load(resultBeans.get(baseViewHolder.getAdapterPosition()).getOriginal_img()).error(R.mipmap.myy322x).into(iv_image);
             tv_title.setText(resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
-            tv_Shop_price.setText("￥"+resultBeans.get(baseViewHolder.getAdapterPosition()).getShop_price());
-            tv_shuoming.setText(resultBeans.get(baseViewHolder.getAdapterPosition()).getStore_count()+"件");
-            if(resultBeans.get(baseViewHolder.getAdapterPosition()).getIs_on_sale().equals("1")){
-                tv_top_botton.setText("下架");
-            }else{
-                tv_top_botton.setText("上架");
+            tv_Shop_price.setText(getText(R.string.renminbi_symbol) + resultBeans.get(baseViewHolder.getAdapterPosition()).getShop_price());
+            tv_shuoming.setText(resultBeans.get(baseViewHolder.getAdapterPosition()).getStore_count() + getText(R.string.piece_tv));
+            if (resultBeans.get(baseViewHolder.getAdapterPosition()).getIs_on_sale().equals("1")) {
+                tv_top_botton.setText(getText(R.string.obtained));
+            } else {
+                tv_top_botton.setText(getText(R.string.shelf));
             }
             tv_top_botton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -226,17 +229,18 @@ public class ChanPinGLActivity extends BaseActivity {
                 @Override
                 public void onClick(View view) {
                     startActivity(new Intent(ChanPinGLActivity.this, ShoppingParticularsActivity.class)
-                            .putExtra("goods_id",resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_id()));
+                            .putExtra("goods_id", resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_id()));
                 }
             });
         }
     }
-    private void  upXJShopData(String goods_id){
-        Map<String,Object> map3=new HashMap<>();
-        map3.put("goods_id",goods_id);
+
+    private void upXJShopData(String goods_id) {
+        Map<String, Object> map3 = new HashMap<>();
+        map3.put("goods_id", goods_id);
         map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
-        XUtil.Post(URLConstant.SHOPPING_XIAJIALIEBIAO,map3,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.SHOPPING_XIAJIALIEBIAO, map3, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -246,20 +250,19 @@ public class ChanPinGLActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
 
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        PAGE_NUM=1;
-                        Map<String,Object> map3=new HashMap<>();
-                        map3.put("page",PAGE_NUM);
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        PAGE_NUM = 1;
+                        Map<String, Object> map3 = new HashMap<>();
+                        map3.put("page", PAGE_NUM);
                         map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                         upShopData(map3);
 
-                    }else{
+                    } else {
                         String msg = jsonObject.optString("msg");
                         CusToast.showToast(msg);
                     }
-
 
 
                 } catch (JSONException e) {
@@ -270,7 +273,7 @@ public class ChanPinGLActivity extends BaseActivity {
             @Override
             public void onFinished() {
                 super.onFinished();
-                ChanpinLieBAdapter adapter=new ChanpinLieBAdapter(resultBeans);
+                ChanpinLieBAdapter adapter = new ChanpinLieBAdapter(resultBeans);
                 order_rl.setAdapter(adapter);
 
             }

@@ -45,6 +45,9 @@ import java.util.Map;
 
 import cc.duduhuo.custoast.CusToast;
 
+/*
+ * 不用的类
+ * */
 @ContentView(R.layout.activity_enterprise_shop_rz)
 public class EnterpriseShopRZActivity extends BaseActivity {
     @ViewInject(R.id.tv_title)
@@ -499,7 +502,7 @@ public class EnterpriseShopRZActivity extends BaseActivity {
                     addressType = "1";
                     isOne = false;
                     upGetAddressData("0");
-                    tv_sheng.setText("请选择");
+                    tv_sheng.setText(getText(R.string.please_choose));
                     view_line.setVisibility(View.VISIBLE);
                     tv_sheng.setTextColor(getResources().getColor(R.color.my_red));
                     ll_sheng.setVisibility(View.VISIBLE);
@@ -518,7 +521,7 @@ public class EnterpriseShopRZActivity extends BaseActivity {
                     }
                     ll_sheng.setVisibility(View.VISIBLE);
                     ll_city.setVisibility(View.VISIBLE);
-                    tv_city.setText("请选择");
+                    tv_city.setText(getText(R.string.please_choose));
                     view_line2.setVisibility(View.VISIBLE);
 
                     tv_city.setTextColor(getResources().getColor(R.color.my_red));
@@ -534,7 +537,7 @@ public class EnterpriseShopRZActivity extends BaseActivity {
                     if (city != null) {
                         upGetAddressData(city);
                     }
-                    tv_qu.setText("请选择");
+                    tv_qu.setText(getText(R.string.please_choose));
                     view_line3.setVisibility(View.VISIBLE);
                     tv_qu.setTextColor(getResources().getColor(R.color.my_red));
                     ll_sheng.setVisibility(View.VISIBLE);

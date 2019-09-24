@@ -151,22 +151,22 @@ public class ShopRZSHActivity extends BaseActivity {
                 String zysp=et_zysp.getText().toString();
                 String shopName=et_shop_name.getText().toString();
                 if(name.equals("")){
-                    CusToast.showToast("请输入您的真实姓名");
+                    CusToast.showToast(getText(R.string.enter_your_real_name));
                     return;
                 }else if(cardNum.equals("")){
-                    CusToast.showToast("请输入正确的身份证号");
+                    CusToast.showToast(getText(R.string.please_enter_the_correct_ID_number));
                     return;
                 }else if(phone.equals("")){
-                    CusToast.showToast("请输入您的手机号");
+                    CusToast.showToast(getText(R.string.qsrsjh));
                     return;
                 }else if(zysp.equals("")){
-                    CusToast.showToast("请输入主营商品");
+                    CusToast.showToast(getText(R.string.please_enter_the_main_product));
                     return;
                 }else if(shopName.equals("")){
-                    CusToast.showToast("请输入商铺名称");
+                    CusToast.showToast(getText(R.string.please_enter_the_name_of_the_store));
                     return;
                 }else if(imageType==0){
-                    CusToast.showToast("请您上传相关证件照片");
+                    CusToast.showToast(getText(R.string.please_upload_the_relevant_ID_photo));
                     return;
                 }
                 Map<String,Object> map=new HashMap<>();
@@ -269,8 +269,8 @@ public class ShopRZSHActivity extends BaseActivity {
         cancle = view.findViewById(R.id.cancle);
         tv_iteam1 = view.findViewById(R.id.tv_iteam1);
         tv_iteam1.setTextSize(16);
-        tv_iteam1.setText("拍照");
-        photo.setText("相册");
+        tv_iteam1.setText(getText(R.string.take_photo));
+        photo.setText(getText(R.string.album));
         tv_iteam1.setTextColor(getResources().getColor(R.color.black));
         photo.setTextColor(getResources().getColor(R.color.black));
         tv_iteam1.setOnClickListener(new View.OnClickListener() {

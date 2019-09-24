@@ -44,7 +44,7 @@ public class CaiGouShangOrderActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText("我的订单");
+        tv_title.setText(getText(R.string.my_order));
         initFragmentTitle();
         initView();
     }
@@ -86,12 +86,12 @@ public class CaiGouShangOrderActivity extends BaseActivity {
     }
 
     private void initFragmentTitle() {
-        titles = new String[]{getResources().getString(R.string.all), "待发货", "待收货", getResources().getString(R.string.yijiekuan), getResources().getString(R.string.complete)};
+        titles = new String[]{getResources().getString(R.string.all), getString(R.string.daifahuo), getString(R.string.wait_s), getResources().getString(R.string.yijiekuan), getResources().getString(R.string.complete)};
         mList_title = new ArrayList<>();
         list_fragment = new ArrayList<>();
         mList_title.add(getResources().getString(R.string.all));
-        mList_title.add("待发货");
-        mList_title.add("待收货");
+        mList_title.add(getString(R.string.daifahuo));
+        mList_title.add(getString(R.string.wait_s));
         mList_title.add(getResources().getString(R.string.yijiekuan));
         mList_title.add(getResources().getString(R.string.complete));
 
@@ -101,14 +101,6 @@ public class CaiGouShangOrderActivity extends BaseActivity {
             CaiGouShangOrderFragment mFragment = CaiGouShangOrderFragment.getInstance(a);
             list_fragment.add(a, mFragment);
         }
-/*        if (pagerAdapter == null) {
-            pagerAdapter = new NoScrollViewPagerAdapter(getSupportFragmentManager());//继承FragmentPagerAdapter
-        }
-        vp_client.setAdapter(pagerAdapter);
-        vp_client.setOffscreenPageLimit(1);
-        ps_tab.setupWithViewPager(vp_client);
-        pagerAdapter.setNewFragments();//这是我在FragmentPagerAdapter中定义的刷新方法，*/
-
 
         ps_tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

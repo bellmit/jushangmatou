@@ -138,7 +138,7 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.tv_code:
                 if (et_phone.getText().toString().length() < 11) {
-                    CusToast.showToast("请输入完整的手机号");
+                    CusToast.showToast(getText(R.string.please_enter_the_full_mobile_number));
                     return;
                 }
                 upCode(et_phone.getText().toString());
@@ -171,12 +171,12 @@ public class LoginActivity extends BaseActivity {
                 String pass = et_passworld.getText().toString().trim();
                 String code = et_code.getText().toString().trim();
                 if (phone.length() < 11) {
-                    CusToast.showToast("请输入完整的手机号");
+                    CusToast.showToast(getText(R.string.please_enter_the_full_mobile_number));
                     return;
                 }
                 if (type.equals("0")) {
                     if (pass.length() < 6) {
-                        CusToast.showToast("请输入不少于6位的密码");
+                        CusToast.showToast(getText(R.string.password_no_less_than_six_digits));
                         return;
                     }
                 }
@@ -190,7 +190,7 @@ public class LoginActivity extends BaseActivity {
                 }
                 if (!api.isWXAppInstalled()) {
                     //提醒用户没有按照微信
-                    Toast.makeText(this, "没有安装微信,请先安装微信!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getText(R.string.uninstalled_weChat), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 WXTextObject textObject = new WXTextObject();
@@ -223,7 +223,7 @@ public class LoginActivity extends BaseActivity {
         map.put("type", type);
         if (type.equals("1")) {
             if (et_code.getText().toString().trim().length() < 4) {
-                CusToast.showToast("请输入正确的验证码");
+                CusToast.showToast(R.string.please_enter_correct_verify_code);
                 return;
             }
             map.put("code", et_code.getText().toString().trim());
@@ -404,13 +404,13 @@ public class LoginActivity extends BaseActivity {
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {
             SocializeUtils.safeCloseDialog(dialog2);
-            Toast.makeText(LoginActivity.this, "QQ登录失败" + t.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, getText(R.string.qq_login_failed) + t.getMessage(), Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform, int action) {
             SocializeUtils.safeCloseDialog(dialog2);
-            Toast.makeText(LoginActivity.this, "您取消了QQ登录", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, getText(R.string.qq_login_cancel), Toast.LENGTH_LONG).show();
         }
     };
 

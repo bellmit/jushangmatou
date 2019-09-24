@@ -134,26 +134,26 @@ public class PersionAuthenticationActivity extends BaseActivity {
     @Override
     protected void initView() {
         if (authenticationType == 1) {
-            tv_title.setText("个人入驻");
+            tv_title.setText(getText(R.string.individual_settlement));
             name_ll.setVisibility(View.GONE);
             address_ll.setVisibility(View.GONE);
             address_detail_ll.setVisibility(View.GONE);
         } else if (authenticationType == 0) {
-            tv_title.setText("经销商入驻");
+            tv_title.setText(getText(R.string.dealer_ettled));
             name_ll.setVisibility(View.VISIBLE);
             address_ll.setVisibility(View.VISIBLE);
             address_detail_ll.setVisibility(View.VISIBLE);
-            factory_name.setText("公司名称");
-            factory_address.setText("公司所在区域");
-            factory_detail_address.setText("公司详细地址");
+            factory_name.setText(getText(R.string.company_name));
+            factory_address.setText(getText(R.string.company_area));
+            factory_detail_address.setText(getText(R.string.company_address));
         } else if (authenticationType == 2) {
-            tv_title.setText("工厂入驻");
+            tv_title.setText(getText(R.string.factory_settled));
             name_ll.setVisibility(View.VISIBLE);
             address_ll.setVisibility(View.VISIBLE);
             address_detail_ll.setVisibility(View.VISIBLE);
-            factory_name.setText("工厂名称");
-            factory_address.setText("工厂所在区域");
-            factory_detail_address.setText("工厂详细地址");
+            factory_name.setText(getText(R.string.factory_name));
+            factory_address.setText(getText(R.string.factory_area));
+            factory_detail_address.setText(getText(R.string.factory_detailed_address));
         }
     }
 
@@ -188,43 +188,43 @@ public class PersionAuthenticationActivity extends BaseActivity {
                 if (authenticationType != 1) {
                     if (company_name_tv.getText().toString().equals("")) {
                         if (authenticationType == 0) {
-                            CusToast.showToast("请输入公司名称");
+                            CusToast.showToast(getText(R.string.please_enter_the_company_name));
                             return;
                         } else {
-                            CusToast.showToast("请输入工厂名称");
+                            CusToast.showToast(getText(R.string.please_enter_the_factory_name));
                             return;
                         }
                     }
                     if (tv_gongdizhi.getText().toString().equals("")) {
                         if (authenticationType == 0) {
-                            CusToast.showToast("请选择公司所在区域");
+                            CusToast.showToast(getText(R.string.please_select_region_company_located));
                             return;
                         } else {
-                            CusToast.showToast("请选择工厂所在区域");
+                            CusToast.showToast(getText(R.string.please_select_area_factory_located));
                             return;
                         }
                     }
                 }
                 if (et_name.getText().toString().equals("")) {
-                    CusToast.showToast("请输入店铺名称");
+                    CusToast.showToast(getText(R.string.enter_store_name));
                     return;
                 }
-                if (tv_dpzy.getText().toString().equals("请选择")) {
-                    CusToast.showToast("请选择店铺主营大类");
+                if (tv_dpzy.getText().toString().equals(getText(R.string.please_choose))) {
+                    CusToast.showToast(getText(R.string.choose_main_store_category));
                     return;
                 }
                 if (et_dpzzh.getText().toString().equals("")) {
-                    CusToast.showToast("请输入店铺登录主账号");
+                    CusToast.showToast(getText(R.string.enter_store_login_master_account));
                     return;
                 }
 
                 if (et_dl_pass.getText().toString().equals("")) {
-                    CusToast.showToast("请输入登录密码");
+                    CusToast.showToast(getText(R.string.please_enter_your_password));
                     return;
                 }
 
-                if (tv_shop_quyu.getText().toString().equals("请选择")) {
-                    CusToast.showToast("请选择店铺所在区域");
+                if (tv_shop_quyu.getText().toString().equals(getText(R.string.please_choose))) {
+                    CusToast.showToast(getText(R.string.please_select_the_area_where_the_store_is_located));
                     return;
                 }
 
@@ -483,7 +483,7 @@ public class PersionAuthenticationActivity extends BaseActivity {
                     addressType = "1";
                     isOne = false;
                     upGetAddressData("0");
-                    tv_sheng.setText("请选择");
+                    tv_sheng.setText(getText(R.string.please_choose));
                     view_line.setVisibility(View.VISIBLE);
                     tv_sheng.setTextColor(getResources().getColor(R.color.my_red));
                     ll_sheng.setVisibility(View.VISIBLE);
@@ -502,7 +502,7 @@ public class PersionAuthenticationActivity extends BaseActivity {
                     }
                     ll_sheng.setVisibility(View.VISIBLE);
                     ll_city.setVisibility(View.VISIBLE);
-                    tv_city.setText("请选择");
+                    tv_city.setText(getText(R.string.please_choose));
                     view_line2.setVisibility(View.VISIBLE);
 
                     tv_city.setTextColor(getResources().getColor(R.color.my_red));
@@ -518,7 +518,7 @@ public class PersionAuthenticationActivity extends BaseActivity {
                     if (city != null) {
                         upGetAddressData(city);
                     }
-                    tv_qu.setText("请选择");
+                    tv_qu.setText(getText(R.string.please_choose));
                     view_line3.setVisibility(View.VISIBLE);
                     tv_qu.setTextColor(getResources().getColor(R.color.my_red));
                     ll_sheng.setVisibility(View.VISIBLE);
@@ -700,10 +700,10 @@ public class PersionAuthenticationActivity extends BaseActivity {
             recyclerView_qg.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             tv_xz_title = view.findViewById(R.id.tv_xz_title);
             if (type == 1) {
-                tv_xz_title.setText("请选择店铺主营大类");
+                tv_xz_title.setText(getText(R.string.choose_main_store_category));
                 initSetdialog();
             } else if (type == 2) {
-                tv_xz_title.setText("请选择馆分类");
+                tv_xz_title.setText(getText(R.string.select_museum_classification));
                 initSetdialog2();
             }
             iv_dialog_close.setOnClickListener(new View.OnClickListener() {
@@ -762,8 +762,8 @@ public class PersionAuthenticationActivity extends BaseActivity {
         cancle = view.findViewById(R.id.cancle);
         tv_iteam1 = view.findViewById(R.id.tv_iteam1);
         tv_iteam1.setTextSize(16);
-        tv_iteam1.setText("拍照");
-        photo.setText("相册");
+        tv_iteam1.setText(getText(R.string.take_photo));
+        photo.setText(getText(R.string.album));
         tv_iteam1.setTextColor(getResources().getColor(R.color.black));
         photo.setTextColor(getResources().getColor(R.color.black));
         tv_iteam1.setOnClickListener(new View.OnClickListener() {

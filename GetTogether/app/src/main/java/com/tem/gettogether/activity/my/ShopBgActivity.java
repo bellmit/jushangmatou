@@ -51,9 +51,9 @@ public class ShopBgActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText("店铺背景");
+        tv_title.setText(getText(R.string.store_background));
         tv_title_right.setVisibility(View.VISIBLE);
-        tv_title_right.setText("保存");
+        tv_title_right.setText(getText(R.string.save));
         bg_image = getIntent().getStringExtra("bg_image");
         Glide.with(ShopBgActivity.this).load(bg_image).error(R.drawable.head_bg).into(iamge_iv);
     }

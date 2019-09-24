@@ -103,8 +103,8 @@ public class ZhuTuXQActivity extends BaseActivity  implements View.OnClickListen
 
     @Override
     protected void initData() {
-        tv_title.setText("商品主图");
-        tv_title_right.setText("保存");
+        tv_title.setText(getText(R.string.product_master_map));
+        tv_title_right.setText(getText(R.string.save));
         cartImage=getIntent().getStringArrayListExtra("listImage2");
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setTextColor(getResources().getColor(R.color.my_yellow));
@@ -175,7 +175,7 @@ public class ZhuTuXQActivity extends BaseActivity  implements View.OnClickListen
                             .putStringArrayListExtra("listImage2", cartImage));
                     finish();
                 }else {
-                    CusToast.showToast("请添加图片");
+                    CusToast.showToast(getText(R.string.please_add_an_image));
                     return;
                 }
                 break;
@@ -295,7 +295,7 @@ public class ZhuTuXQActivity extends BaseActivity  implements View.OnClickListen
                                 upMessageData(map);
                             }
                         } else {
-                            CusToast.showToast("无法添加更多图片！");
+                            CusToast.showToast(getText(R.string.unable_to_add_more_images));
                         }
                         mTaskImgAdapter.notifyDataSetChanged();
                     }

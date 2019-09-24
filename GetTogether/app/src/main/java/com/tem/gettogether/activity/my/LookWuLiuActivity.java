@@ -64,7 +64,7 @@ public class LookWuLiuActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tv_title.setText("查看物流");
+        tv_title.setText(getText(R.string.view_logistics));
         order_id=getIntent().getStringExtra("order_id");
     }
 

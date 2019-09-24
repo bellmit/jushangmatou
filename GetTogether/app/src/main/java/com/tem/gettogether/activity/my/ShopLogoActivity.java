@@ -54,9 +54,9 @@ public class ShopLogoActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText("店铺Logo");
+        tv_title.setText(getText(R.string.shop_logo));
         tv_title_right.setVisibility(View.VISIBLE);
-        tv_title_right.setText("保存");
+        tv_title_right.setText(getText(R.string.save));
         logo_image = getIntent().getStringExtra("logo_image");
         Glide.with(ShopLogoActivity.this).load(logo_image).error(R.drawable.head_bg).into(iamge_iv);
     }

@@ -46,8 +46,8 @@ public class SpeechTranslationActivity extends BaseMvpActivity<SpeechTranslation
     @ViewInject(R.id.spinner_aims)
     private Spinner spinner_aims;
     private String targetId;
-    private String fromType = "中文";
-    private String toType = "英文";
+    private String fromType;
+    private String toType;
     private String[] languages;
 
     @Override
@@ -55,9 +55,11 @@ public class SpeechTranslationActivity extends BaseMvpActivity<SpeechTranslation
         x.view().inject(this);
         mPresenter = new SpeechTranslationPresenter(getContext(), SpeechTranslationActivity.this);
         mPresenter.attachView(this);
-        tv_title.setText("语音翻译");
+        fromType = getString(R.string.chinese);
+        toType  = getString(R.string.english_tv);
+        tv_title.setText(getText(R.string.speech_translation));
         tv_title_right.setVisibility(View.VISIBLE);
-        tv_title_right.setText("发送");
+        tv_title_right.setText(getText(R.string.umeng_socialize_send_btn_str));
         targetId = getIntent().getStringExtra("targetId");
         spinner.setSelection(0, true);
         spinner_aims.setSelection(1, true);

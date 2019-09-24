@@ -174,7 +174,7 @@ public class ShopXinXActivity extends BaseActivity {
                 map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
                 if(et_ShopName.getText().toString().equals("")){
-                    CusToast.showToast("请输入店铺名称");
+                    CusToast.showToast(getText(R.string.enter_store_name));
                     return;
                 }
                 map.put("store_name",et_ShopName.getText().toString());
@@ -192,7 +192,7 @@ public class ShopXinXActivity extends BaseActivity {
                 map.put("store_qq",et_kfQQ.getText().toString());
                 map.put("store_phone",et_shopphone.getText().toString());
                 if(et_appJJ.getText().toString().equals("")){
-                    CusToast.showToast("请输入店铺简介");
+                    CusToast.showToast(getText(R.string.qsrdpjj));
                     return;
                 }
                 map.put("store_des",et_appJJ.getText().toString());
@@ -353,8 +353,8 @@ public class ShopXinXActivity extends BaseActivity {
         cancle = view.findViewById(R.id.cancle);
         tv_iteam1 = view.findViewById(R.id.tv_iteam1);
         tv_iteam1.setTextSize(16);
-        tv_iteam1.setText("拍照");
-        photo.setText("相册");
+        tv_iteam1.setText(getText(R.string.take_photo));
+        photo.setText(getText(R.string.album));
         tv_iteam1.setTextColor(getResources().getColor(R.color.black));
         photo.setTextColor(getResources().getColor(R.color.black));
         tv_iteam1.setOnClickListener(new View.OnClickListener() {

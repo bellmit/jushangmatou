@@ -39,10 +39,10 @@ public class ShopGGH5Activity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tv_title.setText("商品规格");
+        tv_title.setText(getText(R.string.product_specifications_tv));
         h5url=getIntent().getStringExtra("h5url");
         tv_title_right.setVisibility(View.VISIBLE);
-        tv_title_right.setText("保存");
+        tv_title_right.setText(getText(R.string.save));
         tv_title_right.setTextColor(getResources().getColor(R.color.my_yellow));
     }
 

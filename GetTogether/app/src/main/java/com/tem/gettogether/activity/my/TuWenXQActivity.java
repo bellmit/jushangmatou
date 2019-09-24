@@ -88,8 +88,8 @@ public class TuWenXQActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     protected void initData() {
-        tv_title.setText("产品图文详情");
-        tv_title_right.setText("保存");
+        tv_title.setText(R.string.product_graphic_details);
+        tv_title_right.setText(R.string.save);
         cartImage = getIntent().getStringArrayListExtra("listImage");
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setTextColor(getResources().getColor(R.color.my_yellow));
@@ -142,7 +142,7 @@ public class TuWenXQActivity extends BaseActivity implements View.OnClickListene
                             .putStringArrayListExtra("listImage", cartImage));
                     finish();
                 } else {
-                    CusToast.showToast("请添加图片");
+                    CusToast.showToast(getText(R.string.please_add_an_image));
                     return;
                 }
                 break;
@@ -264,7 +264,6 @@ public class TuWenXQActivity extends BaseActivity implements View.OnClickListene
                         System.out.println("========：" + list.size());
                         if (imagePaths.size() < 9) {
                             for (int i = 0; i < list.size(); i++) {
-                                System.out.println("选中的路径：" + list.get(i));
                                 final String pic_path = list.get(i);
                                 final String targetPath = compressImageFilePath + Confirg.df.
                                         format(new Date()) + ".jpg";
@@ -292,7 +291,7 @@ public class TuWenXQActivity extends BaseActivity implements View.OnClickListene
                                 }).start();
                             }
                         } else {
-                            CusToast.showToast("无法添加更多图片！");
+                            CusToast.showToast(getText(R.string.unable_to_add_more_images));
                         }
 
                     }
@@ -339,7 +338,7 @@ public class TuWenXQActivity extends BaseActivity implements View.OnClickListene
                     closeDialog();
                     break;
                 case 1:
-                    CusToast.showToast("上传失败，请重新上传");
+                    CusToast.showToast(getText(R.string.upload_failed));
                     closeDialog();
                     break;
             }

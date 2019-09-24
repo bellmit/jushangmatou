@@ -258,27 +258,27 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
 
         if (et_cpName.getText().toString().equals("")) {
-            CusToast.showToast("请填写商品名称");
+            CusToast.showToast(getText(R.string.please_fill_in_the_product_name));
             return;
         }
         if (et_GuanJC.getText().toString().equals("")) {
-            CusToast.showToast("请填写关键词");
+            CusToast.showToast(getText(R.string.please_fill_in_the_keywords));
             return;
         }
         if (et_QPNum.getText().toString().equals("")) {
-            CusToast.showToast("请填写起批个数");
+            CusToast.showToast(getText(R.string.please_fill_in_the_number_of_batches));
             return;
         }
         if (majorClassId.equals("") || smallClassId.equals("")) {
-            CusToast.showToast("请选择商品分类");
+            CusToast.showToast(getText(R.string.please_select_a_product_category));
             return;
         }
         if (et_ShopingSJ.getText().toString().equals("")) {
-            CusToast.showToast("请填写商品价格");
+            CusToast.showToast(getText(R.string.please_fill_in_the_price_of_the_product));
             return;
         }
         if (cover_image.equals("")) {
-            CusToast.showToast("请上传商品主图");
+            CusToast.showToast(getText(R.string.please_upload_the_main_product_map));
             return;
         }
         strTwoImage = "";
@@ -292,7 +292,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
             }
         }
         if (strTwoImage.equals("")) {
-            CusToast.showToast("请上传商品轮播图");
+            CusToast.showToast(getText(R.string.please_upload_the_product_carousel));
             return;
         }
 
@@ -361,10 +361,10 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                 case 6666:
                     goods_content = data.getExtras().getString("goods_content");
                     listImage = data.getStringArrayListExtra("listImage");
-                    rt_tuwen.setText("已填写");
+                    rt_tuwen.setText(getText(R.string.filled_in));
                     break;
                 case 7777:
-                    fengmian_tv.setText("已填写");
+                    fengmian_tv.setText(getText(R.string.filled_in));
                     if (data.getStringArrayListExtra("listImage2").size() > 0)
                         cover_image = data.getStringArrayListExtra("listImage2").get(0);
                     break;
@@ -406,7 +406,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                                 }).start();
                             }
                         } else {
-                            CusToast.showToast("无法添加更多图片！");
+                            CusToast.showToast(getText(R.string.unable_to_add_more_images));
                         }
                         mTaskImgAdapter.notifyDataSetChanged();
                     }

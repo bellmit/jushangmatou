@@ -28,7 +28,7 @@ public class TranslationPlugin implements IPluginModule {
 
     @Override
     public String obtainTitle(Context context) {
-        return "翻译";
+        return context.getString(R.string.fanyi);
     }
 
     @Override

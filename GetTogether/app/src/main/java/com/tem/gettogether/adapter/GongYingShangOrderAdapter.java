@@ -42,15 +42,16 @@ public class GongYingShangOrderAdapter extends RecyclerView.Adapter<GongYingShan
     public void onBindViewHolder(GongYingShangOrderAdapter.ViewHolder holder, final int position) {
         holder.tv_shopName.setText(resultBeans.get(position).getStore_name());
         holder.tv_right_top.setText(resultBeans.get(position).getOrder_status_desc());
-        holder.tv_shopping_num.setText("共" + resultBeans.get(position).getGoods_all_num() + " 件商品 合计:￥");
-        holder.tv_all_peice.setText(resultBeans.get(position).getTotal_amount() + "（含运费¥" +
+        holder.tv_shopping_num.setText(context.getString(R.string.total) + resultBeans.get(position).getGoods_all_num() + " " +
+                context.getText(R.string.items) + " "+context.getText(R.string.total_tv)+"￥");
+        holder.tv_all_peice.setText(resultBeans.get(position).getTotal_amount() + "（"+context.getText(R.string.freight_included)+"¥" +
                 resultBeans.get(position).getShipping_price() + "）");
 
         if (resultBeans.get(position).getOrder_status_code() != null && resultBeans.get(position).getOrder_status_code().equals("WAITSEND")) {
-            holder.tv_red_right.setText("确认发货");
+            holder.tv_red_right.setText(context.getText(R.string.confirm_delivery));
             holder.tv_red_right.setVisibility(View.VISIBLE);
         } else if (resultBeans.get(position).getOrder_status_code() != null && resultBeans.get(position).getOrder_status_code().equals("WAITCCOMMENT")) {
-            holder.tv_red_right.setText("确认结款");
+            holder.tv_red_right.setText(context.getText(R.string.confirm_payment));
             holder.tv_red_right.setVisibility(View.VISIBLE);
         } else {
             holder.tv_red_right.setVisibility(View.GONE);
@@ -76,8 +77,8 @@ public class GongYingShangOrderAdapter extends RecyclerView.Adapter<GongYingShan
 
                 holder.getTextView(R.id.tv_shopping_name).setText(resultBeans.get(position).getGoods_list().get(position2).getGoods_name());
                 holder.getTextView(R.id.tv_shopping_qpl).setText(resultBeans.get(position).getGoods_list().get(position2).getSpec_key_name());
-                holder.getTextView(R.id.tv_shopping_price).setText("¥" + resultBeans.get(position).getGoods_list().get(position2).getGoods_price() + "/件");
-                holder.getTextView(R.id.tv_shoping_Num).setText("共" + resultBeans.get(position).getGoods_list().get(position2).getGoods_num() + "件");
+                holder.getTextView(R.id.tv_shopping_price).setText("¥" + resultBeans.get(position).getGoods_list().get(position2).getGoods_price() + "/"+context.getText(R.string.piece_tv));
+                holder.getTextView(R.id.tv_shoping_Num).setText(context.getText(R.string.total) + resultBeans.get(position).getGoods_list().get(position2).getGoods_num() + context.getText(R.string.piece_tv));
                 holder.getTextView(R.id.tv_shopping_zt).setText(resultBeans.get(position).getGoods_list().get(position2).getGoods_sn());
                 holder.getView(R.id.ll_item_dd).setOnClickListener(new View.OnClickListener() {
                     @Override

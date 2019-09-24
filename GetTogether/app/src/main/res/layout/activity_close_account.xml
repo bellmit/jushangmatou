@@ -70,7 +70,7 @@
                     android:gravity="center_vertical"
                     android:maxLines="2"
                     android:paddingStart="16dp"
-                    android:text="收货地址："
+                    android:text="@string/shdz"
                     android:textColor="@color/black"
                     android:textSize="14dp" />
 
@@ -232,7 +232,7 @@
                 android:layout_height="44dp"
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
-                android:text="买家留言"
+                android:text="@string/mjly"
                 android:textColor="@color/text3"
                 android:textSize="14dp" />
 
@@ -252,7 +252,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:hint="选填，请输入您的留言"
+                    android:hint="@string/qsrndly"
                     android:textColorHint="@color/cart_text_cf"
                     android:textSize="13dp" />
             </LinearLayout>
@@ -348,7 +348,7 @@
             android:ellipsize="end"
             android:gravity="right"
             android:maxLength="9"
-            android:text="合计金额：￥0.00"
+            android:text="@string/hejijine"
             android:textColor="@color/black"
             android:textSize="15dp"
             android:visibility="invisible" />
@@ -359,7 +359,7 @@
             android:layout_height="match_parent"
             android:background="@color/my_red"
             android:gravity="center"
-            android:text="提交订单"
+            android:text="@string/tjdd"
             android:textColor="@color/white"
             android:textSize="15dp" />
     </LinearLayout>

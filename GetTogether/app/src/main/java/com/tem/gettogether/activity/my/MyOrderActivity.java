@@ -69,7 +69,7 @@ public class MyOrderActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tv_title.setText("我的订单");
+        tv_title.setText(getText(R.string.my_order));
 
     }
 

@@ -14,6 +14,9 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+/*
+* 不用的类
+* */
 @ContentView(R.layout.activity_glaccount)
 public class GLAccountActivity extends BaseActivity {
     @ViewInject(R.id.tv_title)
@@ -28,7 +31,7 @@ public class GLAccountActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tv_title.setText("关联账号");
+        tv_title.setText(getText(R.string.linked_account));
     }
 
     @Override
@@ -46,7 +49,7 @@ public class GLAccountActivity extends BaseActivity {
                 Effectstype effect = Effectstype.SHAKE;
                 dialogLogout.isvisibiliby();
                 dialogLogout
-                        .withTitle("确定解除关联")
+                        .withTitle(getText(R.string.determine_disassociation))
                         .withTitleColor("#000000")                                  //def
                         .withDividerColor("#000000")                              //def
                         .withMessage("解绑微信账号后将无法继续使用它登录\n" +

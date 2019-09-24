@@ -76,7 +76,7 @@ public class XGPayPass2Activity extends BaseActivity {
                 newPay=passView2.getStrPassword();
                 passView2.setVisibility(View.GONE);
                 passView3.setVisibility(View.VISIBLE);
-                tv_paytitle.setText("请再次输入支付密码");
+                tv_paytitle.setText(getText(R.string.qzcsrzfmm));
                 tv_title_right.setTextColor(getResources().getColor(R.color.my_xyb));
                 rl_title_right.setEnabled(true);
             }
