@@ -86,10 +86,11 @@ public class FansActivity extends BaseActivity {
                         Gson gson = new Gson();
                         if(!isLoadMore){
                             mFansBean.removeAll(mFansBean);
+                            if(gson.fromJson(result, FansDataBean.class).getResult().getFans()!=null)
                             mFansBean.addAll(gson.fromJson(result, FansDataBean.class).getResult().getFans());
                             mFansAdapter.notifyDataSetChanged();
                             fans_count.setText(gson.fromJson(result, FansDataBean.class).getResult().getCount());
-                            if (mFansBean.size() == 0) {
+                            if (gson.fromJson(result, FansDataBean.class).getResult().getCount().equals("0")) {
                                 ll_empty.setVisibility(View.VISIBLE);
                             } else {
                                 ll_empty.setVisibility(View.GONE);

@@ -94,7 +94,7 @@
             android:layout_height="40dp"
             android:layout_margin="10dp"
             android:background="@drawable/community_btn_chat_press_normal"
-            android:text="按住 说话"
+            android:text="@string/anzhushuohua"
             android:textColor="#7e7e7e" />
     </LinearLayout>
 

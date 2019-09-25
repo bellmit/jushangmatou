@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
-            android:hint="自定义"
+            android:hint="@string/zidingyi"
             android:textSize="16sp"
             android:gravity="center"
             android:singleLine="true"

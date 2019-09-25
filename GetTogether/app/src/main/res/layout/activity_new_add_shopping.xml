@@ -48,7 +48,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="商品名称："
+                        android:text="@string/shangpingmingcheng"
                         android:textSize="13dp" />
 
                     <EditText
@@ -58,7 +58,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:ellipsize="end"
-                        android:hint="请填写商品名称"
+                        android:hint="@string/qingtianxieshangpmc"
                         android:maxLines="1"
                         android:paddingStart="15dp"
                         android:textSize="13dp" />
@@ -125,7 +125,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="是否询价："
+                        android:text="@string/shifouxunjia"
                         android:textSize="13dp" />
 
                     <TextView
@@ -143,7 +143,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="是"
+                        android:text="@string/yes"
                         android:textSize="13dp" />
 
                     <com.tem.gettogether.view.CheckBoxSample
@@ -157,7 +157,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="否"
+                        android:text="@string/no"
                         android:textSize="13dp" />
 
                 </LinearLayout>
@@ -189,7 +189,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="商品价格："
+                        android:text="@string/shangpjiage"
                         android:textSize="13dp" />
 
                     <EditText
@@ -199,7 +199,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:ellipsize="end"
-                        android:hint="请填写商品售价"
+                        android:hint="@string/qtxspsjia"
                         android:inputType="numberDecimal"
                         android:maxLines="1"
                         android:paddingStart="15dp"
@@ -241,7 +241,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="商品货号："
+                        android:text="@string/sphh"
                         android:textSize="13dp" />
 
                     <EditText
@@ -251,7 +251,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:ellipsize="end"
-                        android:hint="请填写商品货号"
+                        android:hint="@string/qtxsphh"
                         android:inputType="number"
                         android:maxLines="1"
                         android:paddingStart="15dp"
@@ -291,7 +291,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="起批个数："
+                        android:text="@string/qipigeshu"
                         android:textSize="13dp" />
 
                     <EditText
@@ -301,7 +301,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:ellipsize="end"
-                        android:hint="请填写起批个数"
+                        android:hint="@string/qingtianxieqipigeshu"
                         android:inputType="number"
                         android:maxLines="1"
                         android:paddingStart="15dp"
@@ -342,7 +342,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="选择馆  ："
+                        android:text="@string/xuanzeguan"
                         android:textSize="13dp" />
 
                     <TextView
@@ -354,7 +354,7 @@
                         android:gravity="center_vertical"
                         android:maxLines="1"
                         android:paddingStart="15dp"
-                        android:text="请选择馆分类"
+                        android:text="@string/qingxuanzeguanfenlei"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -390,7 +390,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="商品分类："
+                        android:text="@string/shangpingfenlei"
                         android:textSize="13dp" />
 
                     <TextView
@@ -402,7 +402,7 @@
                         android:gravity="center_vertical"
                         android:maxLines="1"
                         android:paddingStart="15dp"
-                        android:text="请选择商品分类"
+                        android:text="@string/qingxuanzeshangpfenlei"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -440,7 +440,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="本店分类："
+                        android:text="@string/bendianfenlei"
                         android:textSize="13dp" />
 
                     <TextView
@@ -452,7 +452,7 @@
                         android:gravity="center_vertical"
                         android:maxLines="1"
                         android:paddingStart="15dp"
-                        android:text="请选择分店分类"
+                        android:text="@string/qingxuanzebendianfenlei"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -493,7 +493,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="商品图片："
+                        android:text="@string/shangpingtupian"
                         android:textSize="13dp" />
 
                     <TextView
@@ -505,7 +505,7 @@
                         android:gravity="center_vertical|right"
                         android:maxLines="1"
                         android:paddingEnd="10dp"
-                        android:text="上传"
+                        android:text="@string/upload"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -543,7 +543,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="商品规格："
+                        android:text="@string/shangpguige"
                         android:textSize="13dp" />
 
                     <EditText
@@ -554,7 +554,7 @@
                         android:background="@null"
                         android:ellipsize="end"
                         android:gravity="center_vertical"
-                        android:hint="请选择商品规格"
+                        android:hint="@string/qxzspgg"
                         android:maxLines="1"
                         android:paddingStart="15dp"
                         android:textSize="13dp" />
@@ -594,7 +594,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="是否包邮："
+                        android:text="@string/sfby"
                         android:textSize="13dp" />
 
                     <TextView
@@ -612,7 +612,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="是"
+                        android:text="@string/yes"
                         android:textSize="13dp" />
 
                     <com.tem.gettogether.view.CheckBoxSample
@@ -626,7 +626,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="否"
+                        android:text="@string/no"
                         android:textSize="13dp" />
 
                 </LinearLayout>
@@ -659,7 +659,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="库存数量："
+                        android:text="@string/kucunshuliang"
                         android:textSize="13dp" />
 
                     <EditText
@@ -669,7 +669,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:ellipsize="end"
-                        android:hint="请填写库存数量"
+                        android:hint="@string/qtxkcsl"
                         android:inputType="number"
                         android:maxLines="1"
                         android:paddingStart="15dp"
@@ -710,7 +710,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="关键词  ："
+                        android:text="@string/guanjianci"
                         android:textSize="13dp" />
 
                     <EditText
@@ -720,7 +720,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:ellipsize="end"
-                        android:hint="请填写关键词"
+                        android:hint="@string/qingtianxieguanjianci"
                         android:inputType="text"
                         android:maxLines="1"
                         android:paddingStart="15dp"
@@ -762,7 +762,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="商品简介："
+                        android:text="@string/shangpingjianli"
                         android:textSize="13dp" />
 
                     <EditText
@@ -772,7 +772,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:ellipsize="end"
-                        android:hint="请填写商品简介"
+                        android:hint="@string/qingtianxieshangpingjianjie"
                         android:inputType="text"
                         android:maxLines="2"
                         android:paddingStart="15dp"
@@ -813,7 +813,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="详情介绍："
+                        android:text="@string/xqjs"
                         android:textSize="13dp" />
 
                     <TextView
@@ -822,7 +822,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:ellipsize="end"
-                        android:hint="请输入详情介绍"
+                        android:hint="@string/qsrxqjs"
                         android:gravity="center_vertical"
                         android:maxLines="1"
                         android:paddingStart="15dp"
@@ -864,7 +864,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="详情图片："
+                        android:text="@string/xqtp"
                         android:textSize="13dp" />
 
                     <TextView
@@ -875,7 +875,7 @@
                         android:background="@null"
                         android:ellipsize="end"
                         android:gravity="center_vertical"
-                        android:hint="请上传商品详情图"
+                        android:hint="@string/qscspxqt"
                         android:maxLines="1"
                         android:paddingStart="15dp"
                         android:textSize="13dp" />
@@ -914,7 +914,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="商品主图："
+                        android:text="@string/spztu"
                         android:textSize="13dp" />
 
                     <TextView
@@ -925,7 +925,7 @@
                         android:background="@null"
                         android:ellipsize="end"
                         android:gravity="center_vertical"
-                        android:hint="请上传商品主图"
+                        android:hint="@string/qscspzt"
                         android:maxLines="1"
                         android:paddingStart="15dp"
                         android:textSize="13dp" />
@@ -962,7 +962,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="商品轮播："
+                        android:text="@string/splunbo"
                         android:textSize="13dp" />
 
                     <TextView
@@ -971,7 +971,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:gravity="center_vertical"
-                        android:hint="请上传商品图片(最多9张)"
+                        android:hint="@string/qingshangchuansptp"
                         android:paddingStart="15dp"
                         android:textSize="13dp" />
 
@@ -1056,7 +1056,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:text="最多添加9张图片"
+                    android:text="@string/zdtj9z"
                     android:textColor="@color/text6" />
 
             </LinearLayout>
@@ -1076,7 +1076,7 @@
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/main_fbqg15"
                     android:gravity="center"
-                    android:text="发布产品"
+                    android:text="@string/fabuchangping"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
             </LinearLayout>

@@ -76,7 +76,7 @@
                     android:layout_marginEnd="10dp"
                     android:gravity="center"
                     android:background="@drawable/my_ksbh_line"
-                    android:text="加入进货车"
+                    android:text="@string/jiarujinhuoche"
                     android:textColor="@color/my_red"
                     android:textSize="13dp" />
 

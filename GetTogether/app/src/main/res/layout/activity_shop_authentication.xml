@@ -163,52 +163,73 @@
                         android:textColor="@color/my_sprz_text"
                         android:textSize="14dp" />
 
-                    <ImageView
-                        android:id="@+id/iv_qglx3"
-                        android:layout_width="30dp"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="25dp"
-                        android:src="@drawable/weixuanz" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="16dp"
-                        android:text="@string/distributor"
-                        android:textColor="@color/text3"
-                        android:textSize="14dp" />
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/iv_qglx2"
-                        android:layout_width="30dp"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="5dp"
-                        android:src="@drawable/weixuanz" />
+                            <ImageView
+                                android:id="@+id/iv_qglx3"
+                                android:layout_width="30dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/weixuanz" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="16dp"
-                        android:text="@string/factory"
-                        android:textColor="@color/text3"
-                        android:textSize="14dp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/distributor"
+                                android:textColor="@color/text3"
+                                android:textSize="14dp" />
+                        </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/iv_qglx1"
-                        android:layout_width="30dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/weixuanz" />
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
+                            <ImageView
+                                android:id="@+id/iv_qglx2"
+                                android:layout_width="30dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/weixuanz" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:text="@string/personal"
-                        android:textColor="@color/text3"
-                        android:textSize="14dp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/factory"
+                                android:textColor="@color/text3"
+                                android:textSize="14dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/iv_qglx1"
+                                android:layout_width="30dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/weixuanz" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/personal"
+                                android:textColor="@color/text3"
+                                android:textSize="14dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
 
                 </LinearLayout>
 
@@ -242,7 +263,7 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="临沂"
+                    android:text="@string/lianyi"
                     android:textColor="@color/my_sprz_text"
                     android:textSize="14dp" />
 

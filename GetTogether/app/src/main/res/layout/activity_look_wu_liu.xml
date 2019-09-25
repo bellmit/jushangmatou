@@ -40,7 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
-                    android:text="已签收"
+                    android:text="@string/yiqianshou"
                     android:textColor="@color/my_red"/>
                 <TextView
                     android:id="@+id/tv_kdName"
@@ -59,7 +59,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="13dp"
-                        android:text="官方电话："
+                        android:text="@string/guanfangdianhua"
                         android:textColor="@color/text6"/>
                     <TextView
                         android:id="@+id/tv_lxdh"

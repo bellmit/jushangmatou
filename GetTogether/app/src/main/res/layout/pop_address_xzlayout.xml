@@ -17,7 +17,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
                 android:textColor="@color/text3"
-                android:text="所在地区"
+                android:text="@string/area"
                 android:layout_centerInParent="true"/>
             <ImageView
                 android:id="@+id/iv_dialog_close"
@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="12dp"
                     android:textColor="@color/my_red"
-                    android:text="请选择"
+                    android:text="@string/qingxuanze"
                     android:layout_centerInParent="true"/>
 
                 <View
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="12dp"
                     android:textColor="@color/my_red"
-                    android:text="请选择"
+                    android:text="@string/qingxuanze"
                     android:layout_centerInParent="true"/>
 
                 <View
@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="12dp"
                     android:textColor="@color/my_red"
-                    android:text="请选择"
+                    android:text="@string/qingxuanze"
                     android:layout_centerInParent="true"/>
 
                 <View
@@ -127,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="12dp"
                     android:textColor="@color/my_red"
-                    android:text="请选择"
+                    android:text="@string/qingxuanze"
                     android:layout_centerInParent="true"/>
 
                 <View

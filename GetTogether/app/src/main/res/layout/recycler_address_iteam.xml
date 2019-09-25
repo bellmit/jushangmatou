@@ -72,7 +72,7 @@
                 android:id="@+id/tv_set_Address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="设为默认"
+                android:text="@string/sheweimoren"
                 android:layout_marginStart="8dp"
                 android:textSize="14dp"
                 android:textColor="@color/text3"/>
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:drawablePadding="8dp"
             android:padding="10dp"
-            android:text="编辑"
+            android:text="@string/bianji"
             android:drawableLeft="@drawable/address_bj"
             android:textSize="13dp"
             android:textColor="@color/text3"/>
@@ -99,7 +99,7 @@
             android:layout_marginStart="16dp"
             android:drawablePadding="8dp"
             android:padding="10dp"
-            android:text="删除"
+            android:text="@string/delete"
             android:drawableLeft="@drawable/address_move"
             android:textSize="13dp"
             android:textColor="@color/text3"/>

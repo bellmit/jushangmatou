@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="全部粉丝" />
+                android:text="@string/quanbufensi" />
 
             <TextView
                 android:id="@+id/fans_count"
@@ -39,7 +39,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="全部粉丝" />
+            android:text="@string/quanbufensi" />
 
         <RelativeLayout
             android:id="@+id/ll_empty"
@@ -53,7 +53,7 @@
                 android:layout_centerInParent="true"
                 android:drawableTop="@drawable/wu_shuj"
                 android:gravity="center"
-                android:text="没有数据"
+                android:text="@string/mysj"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
         </RelativeLayout>

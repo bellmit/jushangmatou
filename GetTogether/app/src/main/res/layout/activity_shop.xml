@@ -91,7 +91,7 @@
                                 android:layout_weight="1"
                                 android:background="@null"
                                 android:ellipsize="end"
-                                android:hint="请输入关键词"
+                                android:hint="@string/please_enter_a_keyword"
                                 android:maxLines="1"
                                 android:textColor="@color/white"
                                 android:textColorHint="@color/white"
@@ -110,7 +110,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:text="搜索"
+                                android:text="@string/search"
                                 android:textColor="@color/white" />
 
                             <ImageView
@@ -214,7 +214,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="3dp"
-                                android:text="关注"
+                                android:text="@string/rc_pub_service_info_follow"
                                 android:textColor="@color/white"
                                 android:textSize="12dp" />
                         </LinearLayout>
@@ -391,7 +391,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/shop_fenlei_icon"
                 android:drawablePadding="5dp"
-                android:text="商品分类"
+                android:text="@string/shangpingfenlei_tv"
                 android:textColor="@color/black"
                 android:textSize="15dp" />
         </LinearLayout>
@@ -411,7 +411,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="店铺详情"
+                android:text="@string/store_details"
                 android:textColor="@color/black"
                 android:textSize="15dp" />
         </LinearLayout>
@@ -433,7 +433,7 @@
                 android:layout_height="wrap_content"
                 android:drawableTop="@drawable/shop_liebiao_kefu"
                 android:drawablePadding="3dp"
-                android:text="联系客服"
+                android:text="@string/lianxikefu"
                 android:textColor="@color/black"
                 android:textSize="9dp" />
         </LinearLayout>

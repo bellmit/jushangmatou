@@ -29,7 +29,7 @@
         android:textColor="#000000"
         android:textSize="16dp"
         android:gravity="center"
-        android:text="店铺管理"/>
+        android:text="@string/dianpuguanli"/>
     <TextView
         android:id="@+id/start_member"
         android:layout_width="100dp"
@@ -38,7 +38,7 @@
         android:textColor="#ffffff"
         android:textSize="16dp"
         android:gravity="center"
-        android:text="开通会员"
+        android:text="@string/open_huiyuan"
         android:layout_marginRight="16dp"/>
 </LinearLayout>
 <View
@@ -62,7 +62,7 @@
         android:textSize="16dp"
         android:textColor="#ffffff"
         android:gravity="center"
-        android:text="产品管理"
+        android:text="@string/cahngpgli"
         android:background="@drawable/bg_chanpin"
     />
     </LinearLayout>
@@ -77,7 +77,7 @@
             android:layout_height="40dp"
             android:textSize="16dp"
             android:textColor="#ffffff"
-            android:text="店铺信息"
+            android:text="@string/dianpuxinxo"
             android:gravity="center"
             android:background="@drawable/bg_shop"
             />
@@ -96,7 +96,7 @@
      android:layout_marginLeft="50dp"
      android:layout_marginRight="50dp"
      android:gravity="center"
-     android:text="发布产品"
+     android:text="@string/fabuchangping"
      android:textColor="#ffffff"
      android:background="@drawable/bg_fabu"/>
     </LinearLayout>

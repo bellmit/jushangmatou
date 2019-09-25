@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.my.CgsAuthenticationActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
@@ -63,8 +64,10 @@ import java.util.Map;
 import cc.duduhuo.custoast.CusToast;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.manager.IUnReadMessageObserver;
+import io.rong.imkit.model.UIConversation;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.UserInfo;
 import io.rong.message.RecallNotificationMessage;
 
 @ContentView(R.layout.activity_main)
@@ -307,7 +310,6 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
             }
         });
     }
-
     /**
      * 两个按钮的 dialog
      */
@@ -360,6 +362,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                             hideFragment(2);
                         } else {
                             CusToast.showToast(getText(R.string.please_first_purchase_the_buyer));
+                            startActivity(new Intent(getContext(), CgsAuthenticationActivity.class));
                             return;
                         }
                     }
@@ -539,7 +542,6 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
 
     @Override
     public void onDragOut() {
-        Log.d("chenshichun", "======GONE=====");
         mUnreadNumView.setVisibility(View.GONE);
     }
 
@@ -550,8 +552,6 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 mUnreadNumView.setVisibility(View.VISIBLE);
                 mUnreadNumView.setText(String.valueOf(count + messageNum));
             } else {
-                Log.d("chenshichun", "======GONE1=====");
-
                 mUnreadNumView.setVisibility(View.GONE);
             }
         } else if (count > 0 && count < 100) {
@@ -579,8 +579,6 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                     mUnreadNumView.setVisibility(View.VISIBLE);
                     mUnreadNumView.setText(String.valueOf(rongyunmessageNum + messageNum));
                 } else {
-                    Log.d("chenshichun", "======GONE2=====");
-
                     mUnreadNumView.setVisibility(View.GONE);
                 }
             } else if (rongyunmessageNum > 0 && rongyunmessageNum < 100) {
@@ -617,7 +615,6 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                             mUnreadNumView.setVisibility(View.VISIBLE);
                             mUnreadNumView.setText(String.valueOf((rongyunmessageNum + messageNum)));
                         } else {
-                            Log.d("chenshichun", "=====GONE4======");
                             mUnreadNumView.setVisibility(View.GONE);
                         }
                     }

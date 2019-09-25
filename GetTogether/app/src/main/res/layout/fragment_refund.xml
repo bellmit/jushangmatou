@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/dp_10"
-            android:text="退款要求：押金滞纳满一年的普通会员" />
+            android:text="@string/tuikuanyaoqiu" />
 
         <View
             android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/dp_10"
-            android:text="退款金额：押金全额退还" />
+            android:text="@string/tuikuanjine" />
 
         <View
             android:layout_width="match_parent"
@@ -45,7 +45,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="是否申请退款：" />
+                android:text="@string/shifoushenqingtuikuan" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
                 android:background="@color/home_red"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:text="申请"
+                android:text="@string/shenqing"
                 android:textColor="@color/white" />
 
         </LinearLayout>
@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/dp_10"
-            android:text="申请退款" />
+            android:text="@string/shengqingtuikuan" />
 
         <View
             android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="申请人:" />
+                    android:text="@string/shenqingren" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -110,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="申请退款" />
+                    android:text="@string/shengqingtuikuan" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
@@ -131,14 +131,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp_10"
-                android:text="退款进度" />
+                android:text="@string/tuikuanjindu" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
                 android:padding="@dimen/dp_10"
-                android:text="退款成功" />
+                android:text="@string/tuikuanchenggong" />
         </LinearLayout>
 
         <View
@@ -218,7 +218,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="提交申请"
+                    android:text="@string/tijiaoshenqing"
                     app:layout_constraintTop_toBottomOf="@id/first_yuandian" />
 
                 <TextView
@@ -239,7 +239,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="后台审核"
+                    android:text="@string/houtaishenhe"
                     app:layout_constraintTop_toBottomOf="@id/first_yuandian" />
 
                 <TextView
@@ -260,7 +260,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="退款成功"
+                    android:text="@string/tuikuanchenggong"
                     app:layout_constraintTop_toBottomOf="@id/first_yuandian" />
 
                 <TextView

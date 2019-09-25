@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="用户名：" />
+                android:text="@string/user_name" />
 
             <TextView
                 android:id="@+id/userName"
@@ -62,14 +62,14 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="会员等级：" />
+                    android:text="@string/huiyuandengji_tv" />
 
                 <TextView
                     android:id="@+id/user_lever"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="普通会员" />
+                    android:text="@string/ordinary_member" />
             </LinearLayout>
 
         </LinearLayout>
@@ -102,7 +102,7 @@
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:text="开通日期：" />
+                        android:text="@string/kaitongriji" />
 
                     <TextView
                         android:id="@+id/ustart_time"
@@ -129,7 +129,7 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="到期时间：" />
+                    android:text="@string/daoqiriqi" />
 
                 <TextView
                     android:id="@+id/uexpire_time"
@@ -162,7 +162,7 @@
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:text="缴纳押金：" />
+                        android:text="@string/jiaonayajin" />
 
                     <TextView
                         android:id="@+id/pay_fee"
@@ -188,7 +188,7 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="付款方式：" />
+                    android:text="@string/fukuanfangshi" />
 
                 <TextView
                     android:id="@+id/pay_type"

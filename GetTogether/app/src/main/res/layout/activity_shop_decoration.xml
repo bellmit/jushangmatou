@@ -26,7 +26,7 @@
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:drawablePadding="10dp"
-                android:text="店铺名称："
+                android:text="@string/dainpumingcheng"
                 android:textSize="13dp" />
 
             <EditText
@@ -36,7 +36,7 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:ellipsize="end"
-                android:hint="请填写商品名称"
+                android:hint="@string/please_fill_in_the_product_name"
                 android:maxLines="1"
                 android:paddingStart="15dp"
                 android:textSize="13dp" />
@@ -68,7 +68,7 @@
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:drawablePadding="10dp"
-                android:text="店铺Logo："
+                android:text="@string/dianpulogo"
                 android:textSize="13dp" />
             <View
                 android:layout_width="15dp"
@@ -111,7 +111,7 @@
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:drawablePadding="10dp"
-                android:text="店铺背景图："
+                android:text="@string/dainpubeijingtu"
                 android:textSize="13dp" />
 
 
@@ -119,7 +119,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:hint="点击可更换原有图片"
+                android:hint="@string/dianjikegenhuan"
                 android:gravity="center_vertical"
                 android:paddingStart="15dp"
                 android:textSize="13dp" />
@@ -151,7 +151,7 @@
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:drawablePadding="10dp"
-                android:text="店铺简介："
+                android:text="@string/dianpujianjie"
                 android:textSize="13dp" />
 
 
@@ -162,7 +162,7 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:ellipsize="end"
-                android:hint="请填写店铺简介"
+                android:hint="@string/tianxiedianpujianjie"
                 android:maxLines="1"
                 android:paddingStart="15dp"
                 android:textSize="13dp" />
@@ -193,7 +193,7 @@
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:drawablePadding="10dp"
-                android:text="店铺轮播图："
+                android:text="@string/dianpulunbo"
                 android:textSize="13dp" />
 
 
@@ -201,7 +201,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:hint="点击下方可更换原有图片"
+                android:hint="@string/dianjigenghuantupian"
                 android:gravity="center_vertical"
                 android:paddingStart="15dp"
                 android:textSize="13dp" />
@@ -248,7 +248,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/main_fbqg15"
                 android:gravity="center"
-                android:text="保存装修"
+                android:text="@string/baocunzhuangxiu"
                 android:textColor="@color/white"
                 android:textSize="16dp" />
         </LinearLayout>

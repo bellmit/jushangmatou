@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:drawableLeft="@drawable/close_icon_f"
             android:gravity="center"
-            android:text="添加"
+            android:text="@string/tianjia"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

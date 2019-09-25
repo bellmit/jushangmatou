@@ -217,7 +217,7 @@
                         android:id="@+id/tv_upStep"
                         android:layout_width="80dp"
                         android:layout_height="30dp"
-                        android:text="上一步"
+                        android:text="@string/up_step"
                         android:gravity="center"
                         android:textColor="@color/text3"
                         android:textSize="14dp"

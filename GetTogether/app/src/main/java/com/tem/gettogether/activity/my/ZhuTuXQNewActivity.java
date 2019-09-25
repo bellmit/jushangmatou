@@ -57,9 +57,9 @@ public class ZhuTuXQNewActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText("商品主图");
+        tv_title.setText(getText(R.string.spztu));
         tv_title_right.setVisibility(View.VISIBLE);
-        tv_title_right.setText("保存");
+        tv_title_right.setText(getText(R.string.save));
         cover_image=getIntent().getStringExtra("cover_image");
         Glide.with(ZhuTuXQNewActivity.this).load(cover_image).error(R.mipmap.myy322x).into(iamge_iv);
     }

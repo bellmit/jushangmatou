@@ -104,7 +104,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="会员等级"
+                    android:text="@string/huiyuandengji"
                     android:textColor="@color/text3"
                     android:textDirection="locale"
                     android:textSize="15dp" />
@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:text="游客" />
+                    android:text="@string/tourist" />
             </RelativeLayout>
 
             <View
@@ -134,7 +134,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="清除缓存"
+                    android:text="@string/qingchuhuangcun"
                     android:textColor="@color/text3"
                     android:textDirection="locale"
                     android:textSize="15dp" />
@@ -288,7 +288,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="更新"
+                    android:text="@string/gengxin"
                     android:textColor="@color/text3"
                     android:textDirection="locale"
                     android:textSize="15dp" />

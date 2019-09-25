@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="注册成功啦！"
+                android:text="@string/zhucechenggong"
                 android:textColor="@color/text6"
                 android:textSize="14dp" />
 
@@ -46,7 +46,7 @@
                 android:layout_marginTop="50dp"
                 android:background="@drawable/my_pay_red_bg"
                 android:gravity="center"
-                android:text="去登录"
+                android:text="@string/go_login"
                 android:textColor="@color/white"
                 android:textSize="16dp" />
 
@@ -285,7 +285,7 @@
                     android:id="@+id/checkbox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="我已同意"
+                    android:text="@string/woyitongyi"
                     android:textColor="@color/text6"
                     android:textSize="12dp" />
 
@@ -293,7 +293,7 @@
                     android:id="@+id/tv_xieyi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="《聚商码头服务协议》"
+                    android:text="@string/jsmtfyxy"
                     android:textColor="@color/my_red"
                     android:textSize="12dp" />
             </LinearLayout>
@@ -307,7 +307,7 @@
                 android:layout_marginTop="18dp"
                 android:background="@drawable/my_pay_red_bg"
                 android:gravity="center"
-                android:text="同意协议并注册"
+                android:text="@string/tyxybzc"
                 android:textColor="@color/white"
                 android:textSize="16dp" />
 

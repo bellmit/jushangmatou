@@ -59,17 +59,18 @@
             android:text="¥0.00/件"
             android:textColor="@color/text3"
             android:ellipsize="end"/>
+
         <TextView
             android:id="@+id/tv_shoping_Num"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="53dp"
             android:layout_weight="1"
-            android:maxLines="2"
+            android:ellipsize="end"
             android:gravity="center_vertical"
-            android:textSize="12dp"
+            android:maxLines="2"
             android:text="共0件"
             android:textColor="@color/text9"
-            android:ellipsize="end"/>
+            android:textSize="12dp" />
         <TextView
             android:id="@+id/tv_shopping_zt"
             android:layout_width="wrap_content"

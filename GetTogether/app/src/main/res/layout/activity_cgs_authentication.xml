@@ -161,7 +161,7 @@
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/sfzhz"
+                        android:text="@string/weixinhao"
                         android:textColor="@color/my_sprz_text"
                         android:textSize="14dp" />
 
@@ -170,8 +170,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:hint="@string/qsrndsfzhhz"
-                        android:maxLength="18"
+                        android:hint="@string/qsrndweixinhao"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:textColorHint="@color/my_sprz_hind"

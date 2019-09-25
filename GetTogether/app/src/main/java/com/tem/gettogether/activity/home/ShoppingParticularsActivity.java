@@ -47,6 +47,7 @@ import com.tem.gettogether.bean.CardCloaseBean;
 import com.tem.gettogether.bean.JieSuanBean;
 import com.tem.gettogether.bean.OrderDetailBean;
 import com.tem.gettogether.bean.ShoppingXQBean;
+import com.tem.gettogether.rongyun.CustomizeBuyMessage;
 import com.tem.gettogether.rongyun.RongTalk;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
@@ -89,6 +90,10 @@ import java.util.Map;
 import java.util.Set;
 
 import cc.duduhuo.custoast.CusToast;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.IRongCallback;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
 
 @ContentView(R.layout.activity_shopping_particulars)
 public class ShoppingParticularsActivity extends BaseActivity {
@@ -439,9 +444,39 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     e.printStackTrace();
                     CusToast.showToast(getText(R.string.customer_service_is_invalid));
                 }
+
+                sendCustomizeMessage(goods_id,storeBean.getStore_user_id(),galleryBeans.get(0).getImage_url(),goodsBean.getGoods_name(),goodsBean.getBatch_number()+"起批");
                 break;
         }
     }
+
+    private void sendCustomizeMessage(String goods_id,String targetId ,String image, String name, String count) {
+        CustomizeBuyMessage customizeMessage = new CustomizeBuyMessage(goods_id,image, name, count);
+        byte[] bvvv = customizeMessage.encode();
+        CustomizeBuyMessage richContentMessage = new CustomizeBuyMessage(bvvv);
+        io.rong.imlib.model.Message myMessage = io.rong.imlib.model.Message.obtain(targetId, Conversation.ConversationType.PRIVATE, richContentMessage);
+        RongIM.getInstance().sendMessage(myMessage, null, null, new IRongCallback.ISendMessageCallback() {
+            @Override
+            public void onAttached(io.rong.imlib.model.Message message) {
+                //消息本地数据库存储成功的回调
+            }
+
+            @Override
+            public void onSuccess(io.rong.imlib.model.Message message) {
+                Log.d("chenshichun", "======发送成功=====");
+
+                //消息通过网络发送成功的回调
+                CusToast.showToast("发送成功");
+            }
+
+            @Override
+            public void onError(io.rong.imlib.model.Message message, RongIMClient.ErrorCode errorCode) {
+                //消息发送失败的回调
+                Log.d("chenshichun", "======消息发送失败=====");
+            }
+        });
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

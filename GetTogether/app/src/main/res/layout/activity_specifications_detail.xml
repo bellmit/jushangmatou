@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_10"
                 android:padding="15dp"
-                android:text="价格及库存"
+                android:text="@string/jiagejikuchun"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
@@ -68,7 +68,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="属性"
+                        android:text="@string/shuxing"
                         android:textColor="@color/black" />
 
                     <View
@@ -81,7 +81,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="价格"
+                        android:text="@string/jiage"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
@@ -92,7 +92,7 @@
                         android:layout_toRightOf="@+id/et_number_price"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="库存"
+                        android:text="@string/kuchun"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -142,7 +142,7 @@
                     android:layout_marginBottom="60dp"
                     android:background="@drawable/main_fbqg15"
                     android:gravity="center"
-                    android:text="保存"
+                    android:text="@string/save"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
             </LinearLayout>

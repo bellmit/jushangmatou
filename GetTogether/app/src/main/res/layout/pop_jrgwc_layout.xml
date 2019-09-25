@@ -203,7 +203,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/text3"
                     android:textSize="15dp"
-                    android:text="购买数量"/>
+                    android:text="@string/goumaishuliang"/>
                 <TextView
                     android:id="@+id/tv_jian_num"
                     android:layout_width="41dp"
@@ -250,7 +250,7 @@
                 android:layout_weight="1"
                 android:visibility="gone"
                 android:background="@color/my_yellow"
-                android:text="立即购买"
+                android:text="@string/buy"
                 android:textSize="17dp"
                 android:textColor="@color/white" />
             <TextView

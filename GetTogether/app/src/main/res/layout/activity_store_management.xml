@@ -41,7 +41,7 @@
                 android:layout_centerVertical="true"
                 android:textColor="@color/my_yellow"
                 android:textSize="14dp"
-                android:text="开通会员"/>
+                android:text="@string/join_membership"/>
         </RelativeLayout>
 
         <View
@@ -62,7 +62,7 @@
             android:layout_width="85dp"
             android:layout_height="35dp"
             android:textColor="@color/white"
-            android:text="产品管理"
+            android:text="@string/product_management"
             android:textSize="14dp"
             android:gravity="center"
             android:layout_marginRight="@dimen/dp_10"
@@ -85,7 +85,7 @@
             android:layout_width="85dp"
             android:layout_height="35dp"
             android:textColor="@color/white"
-            android:text="店铺信息"
+            android:text="@string/dianpuxinxo"
             android:layout_marginLeft="@dimen/dp_10"
             android:textSize="14dp"
             android:gravity="center"
@@ -103,7 +103,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="40dp"
         android:textColor="@color/white"
-        android:text="发布产品"
+        android:text="@string/fabuchangping"
         android:gravity="center"
         android:background="@drawable/dpgl_save_20"/>
 

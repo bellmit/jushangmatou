@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="尺寸"
+            android:text="@string/chicun"
             android:textColor="#333" />
 
         <View
@@ -30,7 +30,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:gravity="center"
-            android:hint="请输入价格"
+            android:hint="@string/qsrjiage"
             android:inputType="numberDecimal"
             android:maxLines="1"
             android:minWidth="100dp"
@@ -48,7 +48,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:gravity="center"
-            android:hint="输入库存"
+            android:hint="@string/shurukucun"
             android:inputType="number"
             android:maxLines="1"
             android:minWidth="100dp"

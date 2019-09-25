@@ -90,7 +90,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="10dp"
-                        android:text="200以内"
+                        android:text="@string/erbaiyinei"
                         android:textSize="10dp" />
                 </RelativeLayout>
 

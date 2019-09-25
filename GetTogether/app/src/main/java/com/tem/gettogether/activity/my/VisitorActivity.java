@@ -90,9 +90,10 @@ public class VisitorActivity extends BaseActivity {
                         if (!isLoadMore) {
                             visitor_count.setText(gson.fromJson(result, VisitorBean.class).getResult().getCount());
                             mVisitorBean.removeAll(mVisitorBean);
+                            if(gson.fromJson(result, VisitorBean.class).getResult().getVs()!=null)
                             mVisitorBean.addAll(gson.fromJson(result, VisitorBean.class).getResult().getVs());
                             mVisitorAdapter.notifyDataSetChanged();
-                            if (mVisitorBean.size() == 0) {
+                            if (gson.fromJson(result, VisitorBean.class).getResult().getCount().equals("0")) {
                                 ll_empty.setVisibility(View.VISIBLE);
                             } else {
                                 ll_empty.setVisibility(View.GONE);

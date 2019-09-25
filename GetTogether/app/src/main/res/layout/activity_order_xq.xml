@@ -100,7 +100,7 @@
                             android:layout_marginTop="12dp"
                             android:ellipsize="end"
                             android:maxLines="2"
-                            android:text="地址："
+                            android:text="@string/address_tv"
                             android:textColor="@color/text3"
                             android:textSize="12dp" />
                     </LinearLayout>
@@ -347,7 +347,7 @@
                 android:drawableLeft="@drawable/red_kefu_icon"
                 android:drawablePadding="14dp"
                 android:gravity="center"
-                android:text="联系卖家"
+                android:text="@string/lianximaijia"
                 android:textColor="@color/black"
                 android:textSize="14dp" />
         </LinearLayout>
@@ -367,7 +367,7 @@
                 android:drawableLeft="@drawable/red_bdphone_icon"
                 android:drawablePadding="14dp"
                 android:gravity="center"
-                android:text="拨打电话"
+                android:text="@string/bodadianhua"
                 android:textColor="@color/black"
                 android:textSize="14dp" />
         </LinearLayout>

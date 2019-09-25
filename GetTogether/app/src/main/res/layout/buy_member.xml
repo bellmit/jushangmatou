@@ -19,7 +19,7 @@
             android:background="@color/white"
             android:gravity="center_vertical"
             android:paddingStart="13dp"
-            android:text="请选择会员类型" />
+            android:text="@string/qingxuanzehuiyuanleixing" />
 
         <View
             android:layout_width="match_parent"

@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_10"
         android:layout_marginEnd="@dimen/dp_10"
-        android:text="删除"
+        android:text="@string/delete"
         android:visibility="gone"
         android:textColor="@color/black"
         android:textSize="18sp"

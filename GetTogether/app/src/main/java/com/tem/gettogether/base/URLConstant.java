@@ -363,4 +363,7 @@ public class URLConstant {
 
     // 临沂新分类接口列表
     public final static String LIANYI_SEARCH_LIST_URL = SERVER + "/Api/Goods/linyicategory3_goodsList";
+
+    //App端聊天获取用户角色接口
+    public final static String MESSAGE_HEAD = SERVER +"/Api/User/user_info";
 }

@@ -92,7 +92,7 @@
             android:background="@drawable/my_order_stroke1"
             android:textColor="@color/order_text"
             android:layout_marginEnd="10dp"
-            android:text="取消订单"
+            android:text="@string/cancel_order"
             android:textSize="13dp"/>
         <TextView
             android:id="@+id/tv_textRemov"
@@ -102,7 +102,7 @@
             android:background="@drawable/my_order_stroke1"
             android:textColor="@color/order_text"
             android:layout_marginEnd="10dp"
-            android:text="删除订单"
+            android:text="@string/delete_order"
             android:textSize="13dp"/>
         <TextView
             android:id="@+id/tv_text2"

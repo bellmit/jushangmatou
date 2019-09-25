@@ -111,7 +111,7 @@
                 android:drawableRight="@drawable/jiangxu"
                 android:drawablePadding="4dp"
                 android:gravity="center"
-                android:text="成交次数"
+                android:text="@string/cjcs"
                 android:textColor="@color/text3"
                 android:textSize="14dp" />
         </LinearLayout>
@@ -131,7 +131,7 @@
                 android:drawableRight="@drawable/jiangxu"
                 android:drawablePadding="4dp"
                 android:gravity="center"
-                android:text="回复率"
+                android:text="@string/hfl"
                 android:textColor="@color/text3"
                 android:textSize="14dp" />
         </LinearLayout>
@@ -150,7 +150,7 @@
                 android:drawableRight="@drawable/jiangxu"
                 android:drawablePadding="4dp"
                 android:gravity="center"
-                android:text="价格"
+                android:text="@string/price_tv"
                 android:textColor="@color/text3"
                 android:textSize="14dp" />
         </LinearLayout>
@@ -174,7 +174,7 @@
             android:layout_centerInParent="true"
             android:drawableTop="@drawable/wu_shuj"
             android:gravity="center"
-            android:text="没有数据"
+            android:text="@string/mysj"
             android:textColor="@color/black"
             android:textSize="20sp" />
     </RelativeLayout>

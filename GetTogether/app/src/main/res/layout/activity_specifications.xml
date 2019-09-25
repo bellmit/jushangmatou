@@ -50,7 +50,7 @@
             android:layout_marginBottom="60dp"
             android:background="@drawable/main_fbqg15"
             android:gravity="center"
-            android:text="确认"
+            android:text="@string/sure_tv"
             android:textColor="@color/white"
             android:textSize="16dp" />
     </LinearLayout>

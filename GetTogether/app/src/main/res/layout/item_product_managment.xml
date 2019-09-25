@@ -98,7 +98,7 @@
                     android:layout_marginEnd="5dp"
                     android:background="@drawable/dpgl_add5"
                     android:gravity="center"
-                    android:text="上架"
+                    android:text="@string/shelf"
                     android:textColor="@color/white"
                     android:textSize="12dp" />
 
@@ -110,7 +110,7 @@
                     android:layout_marginStart="@dimen/dp_10"
                     android:background="@drawable/dpgl_add5"
                     android:gravity="center"
-                    android:text="下架"
+                    android:text="@string/obtained"
                     android:textColor="@color/white"
                     android:textSize="12dp" />
 
@@ -123,7 +123,7 @@
                     android:background="@drawable/dpgl_add5"
                     android:visibility="gone"
                     android:gravity="center"
-                    android:text="编辑"
+                    android:text="@string/bianji"
                     android:textColor="@color/white"
                     android:textSize="12dp" />
 
@@ -135,7 +135,7 @@
                     android:layout_marginStart="@dimen/dp_10"
                     android:background="@drawable/dpgl_add5"
                     android:gravity="center"
-                    android:text="删除"
+                    android:text="@string/delete"
                     android:textColor="@color/white"
                     android:textSize="12dp" />
             </LinearLayout>

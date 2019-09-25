@@ -10,7 +10,7 @@
         android:layout_gravity="center"
         android:background="#ffffff"
         android:gravity="center"
-        android:text="没有数据"
+        android:text="@string/mysj"
         android:textSize="18sp"
         android:textStyle="bold|italic" />
 </RelativeLayout>

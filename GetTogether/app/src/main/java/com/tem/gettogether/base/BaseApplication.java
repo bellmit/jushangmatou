@@ -6,12 +6,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.View;
 
 
 import com.bugtags.library.Bugtags;
 import com.tem.gettogether.bean.UserBean;
 import com.tem.gettogether.bean.WeiXinBean1;
 import com.tem.gettogether.bean.WeiXinMessageBean;
+import com.tem.gettogether.rongyun.BuyCustomizeMessageItemProvider;
+import com.tem.gettogether.rongyun.CustomizeBuyMessage;
 import com.tem.gettogether.rongyun.CustomizeMessage;
 import com.tem.gettogether.rongyun.CustomizeMessageItemProvider;
 import com.tem.gettogether.rongyun.CustomizeMessageTranslationItemProvider;
@@ -39,6 +43,9 @@ import io.rong.imkit.DefaultExtensionModule;
 import io.rong.imkit.IExtensionModule;
 import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
+import io.rong.imlib.model.UserInfo;
 
 /**
  * Created by pc on 2018/4/16.
@@ -112,9 +119,10 @@ public class BaseApplication extends Application {
         }
         RongIM.registerMessageType(CustomizeMessage.class);
         RongIM.registerMessageType(CustomizeTranslationMessage.class);
+        RongIM.registerMessageType(CustomizeBuyMessage.class);
         RongIM.getInstance().registerMessageTemplate(new CustomizeMessageItemProvider());
         RongIM.getInstance().registerMessageTemplate(new CustomizeMessageTranslationItemProvider());
-
+        RongIM.getInstance().registerMessageTemplate(new BuyCustomizeMessageItemProvider());
     }
 
     /**

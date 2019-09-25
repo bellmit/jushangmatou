@@ -8,6 +8,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
@@ -21,13 +23,16 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.ImageDataBean;
+import com.tem.gettogether.retrofit.UploadUtil;
 import com.tem.gettogether.utils.Base64BitmapUtil;
+import com.tem.gettogether.utils.BitnapUtils;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.permissions.AppUtils;
 import com.tem.gettogether.utils.permissions.FileUtils;
@@ -256,169 +261,200 @@ public class CgsAuthenticationActivity extends BaseActivity {
     /**
      * 设置图片
      */
+    ImageDataBean imageDataBean = null;
+
     public void setPicToView() {
         if (mCropImageFile != null) {
-            Bitmap bitmap = BitmapFactory.decodeFile(mCropImageFile.toString());
+            /*Bitmap bitmap = BitmapFactory.decodeFile(mCropImageFile.toString());
             Map<String, Object> map = new HashMap<>();
             map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
-            upInputImageData(map, bitmap);
-        }
-    }
+            upInputImageData(map, bitmap);*/
 
-    private void upInputImageData(Map<String, Object> map, final Bitmap bitmap) {
-        showDialog();
-        XUtil.Post(URLConstant.SHANGCHUAN_IMAGE, map, new MyCallBack<String>() {
-            @Override
-            public void onSuccess(String result) {
-                super.onSuccess(result);
-                Log.i("====上传图片===", result.toString());
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    String res = jsonObject.optString("status");
-                    String msg = jsonObject.optString("msg");
-                    CusToast.showToast(msg);
-                    if (res.equals("1")) {
-                        Gson gson = new Gson();
-                        ImageDataBean imageDataBean = gson.fromJson(result, ImageDataBean.class);
-                        cardImage_z = imageDataBean.getResult().getImage_show().get(0);
-                        iv_image_1.setImageBitmap(bitmap);
+            final String path = mCropImageFile.getAbsolutePath();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        imageDataBean = UploadUtil.uploadFile(BitnapUtils.readStream(path), new File(path), URLConstant.UPLOAD_PICTURE);
+                        if (imageDataBean != null) {
+                            mHandle.sendEmptyMessage(0);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
+                }
+            }).start();
 
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+        }
+    }
+
+    private Handler mHandle = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    Glide.with(getContext()).load(imageDataBean.getResult().getImage_show().get(0) + "").error(R.mipmap.myy322x).centerCrop().into(iv_image_1);
+                    cardImage_z = imageDataBean.getResult().getImage_show().get(0);
+                    break;
+            }
+        }
+    };
+
+        private void upInputImageData(Map<String, Object> map, final Bitmap bitmap) {
+            showDialog();
+            XUtil.Post(URLConstant.SHANGCHUAN_IMAGE, map, new MyCallBack<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    super.onSuccess(result);
+                    Log.i("====上传图片===", result.toString());
+                    try {
+                        JSONObject jsonObject = new JSONObject(result);
+                        String res = jsonObject.optString("status");
+                        String msg = jsonObject.optString("msg");
+                        CusToast.showToast(msg);
+                        if (res.equals("1")) {
+                            Gson gson = new Gson();
+                            ImageDataBean imageDataBean = gson.fromJson(result, ImageDataBean.class);
+                            cardImage_z = imageDataBean.getResult().getImage_show().get(0);
+                            iv_image_1.setImageBitmap(bitmap);
+                        }
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinished() {
+                    super.onFinished();
+                    closeDialog();
+
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    super.onError(ex, isOnCallback);
+                    ex.printStackTrace();
+                    closeDialog();
+                }
+            });
+        }
+
+        @Override
+        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+            //系统相机权限
+            if (requestCode == REQUEST_CODE_CAMERA_PERMISSION) {
+                if (resultCode == PermissionsActivity.PERMISSIONS_DENIED) {
+                } else {
+                    imageCapture();//系统相机拍照
                 }
             }
-
-            @Override
-            public void onFinished() {
-                super.onFinished();
-                closeDialog();
-
+            //拍照完成的回调
+            if (requestCode == PHOTO_PICKED_FROM_CAMERA && resultCode == Activity.RESULT_OK) {//Activity.RESULT_OK可以确保拍照后有回调结果，屏蔽了返回键的回调
+                startSystemCamera();
             }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                super.onError(ex, isOnCallback);
-                ex.printStackTrace();
-                closeDialog();
-            }
-        });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //系统相机权限
-        if (requestCode == REQUEST_CODE_CAMERA_PERMISSION) {
-            if (resultCode == PermissionsActivity.PERMISSIONS_DENIED) {
-            } else {
-                imageCapture();//系统相机拍照
-            }
-        }
-        //拍照完成的回调
-        if (requestCode == PHOTO_PICKED_FROM_CAMERA && resultCode == Activity.RESULT_OK) {//Activity.RESULT_OK可以确保拍照后有回调结果，屏蔽了返回键的回调
-            startSystemCamera();
-        }
-        //裁剪的图片的回调
-        if (requestCode == CROP_FROM_CAMERA) {
-            if (resultCode == Activity.RESULT_OK) {
-                Uri cropUri = Uri.fromFile(mCropImageFile);
-                setPicToView();
-            }
-        }
-        //系统相册
-        if (requestCode == REQUEST_CODE_PHOTO_PERMISSION) {
-            if (resultCode == PermissionsActivity.PERMISSIONS_DENIED) {
-            } else {
-                chooseImageSys();//打开系统相册
-            }
-        }
-        //从相册选择图片之后
-        if (requestCode == PHOTO_PICKED_FROM_FILE && resultCode == Activity.RESULT_OK) {
-            if (data != null) {
-                Uri uri = PictureUtil.getImageUri(this, data);
-                startPhotoZoom(uri);
-            }
-        }
-    }
-
-    //调用系统相册
-    private void chooseImageSys() {
-        Intent intent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, PHOTO_PICKED_FROM_FILE);
-    }
-
-    private void imageCapture() {
-        Intent intent;
-        Uri pictureUri;
-        //getMyPetRootDirectory()得到的是Environment.getExternalStorageDirectory() + File.separator+"."
-        //也就是我之前创建的存放头像的文件夹（目录）
-        File pictureFile = new File(PictureUtil.getMyPetRootDirectory(), IMAGE_FILE_NAME);
-        // 判断当前系统
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            //这一句非常重要
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            //""中的内容是随意的，但最好用package名.provider名的形式，清晰明了
-            pictureUri = FileProvider.getUriForFile(this,
-                    "com.seven.modifyavatarmaster.fileprovider", pictureFile);
-        } else {
-            intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            pictureUri = Uri.fromFile(pictureFile);
-        }
-        // 去拍照,拍照的结果存到pictureUri对应的路径中
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, pictureUri);
-        startActivityForResult(intent, PHOTO_PICKED_FROM_CAMERA);
-    }
-
-    /**
-     * 系统拍照后裁剪
-     */
-    public void startSystemCamera() {
-        File pictureFile = new File(PictureUtil.getMyPetRootDirectory(), IMAGE_FILE_NAME);
-        Uri pictureUri;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            pictureUri = FileProvider.getUriForFile(this,
-                    "com.seven.modifyavatarmaster.fileprovider", pictureFile);
-        } else {
-            pictureUri = Uri.fromFile(pictureFile);
-        }
-        startPhotoZoom(pictureUri);
-    }
-
-    public void startPhotoZoom(Uri uri) {
-        try {
-            if (AppUtils.existSDCard()) {
-                mCropImageFile = FileUtils.createTmpFile(this);
-                Intent intent = new Intent("com.android.camera.action.CROP");
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    //添加这一句表示对目标应用临时授权该Uri所代表的文件
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            //裁剪的图片的回调
+            if (requestCode == CROP_FROM_CAMERA) {
+                if (resultCode == Activity.RESULT_OK) {
+                    Uri cropUri = Uri.fromFile(mCropImageFile);
+                    setPicToView();
                 }
-                intent.setDataAndType(uri, "image/*");
-                intent.putExtra("crop", "true");
-                if (Build.MANUFACTURER.equals("HUAWEI")) {//解决华为手机调用裁剪出现圆形裁剪框
+            }
+            //系统相册
+            if (requestCode == REQUEST_CODE_PHOTO_PERMISSION) {
+                if (resultCode == PermissionsActivity.PERMISSIONS_DENIED) {
+                } else {
+                    chooseImageSys();//打开系统相册
+                }
+            }
+            //从相册选择图片之后
+            if (requestCode == PHOTO_PICKED_FROM_FILE && resultCode == Activity.RESULT_OK) {
+                if (data != null) {
+                    Uri uri = PictureUtil.getImageUri(this, data);
+                    startPhotoZoom(uri);
+                }
+            }
+        }
+
+        //调用系统相册
+        private void chooseImageSys() {
+            Intent intent = new Intent(Intent.ACTION_PICK,
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(intent, PHOTO_PICKED_FROM_FILE);
+        }
+
+        private void imageCapture() {
+            Intent intent;
+            Uri pictureUri;
+            //getMyPetRootDirectory()得到的是Environment.getExternalStorageDirectory() + File.separator+"."
+            //也就是我之前创建的存放头像的文件夹（目录）
+            File pictureFile = new File(PictureUtil.getMyPetRootDirectory(), IMAGE_FILE_NAME);
+            // 判断当前系统
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                //这一句非常重要
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                //""中的内容是随意的，但最好用package名.provider名的形式，清晰明了
+                pictureUri = FileProvider.getUriForFile(this,
+                        "com.seven.modifyavatarmaster.fileprovider", pictureFile);
+            } else {
+                intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                pictureUri = Uri.fromFile(pictureFile);
+            }
+            // 去拍照,拍照的结果存到pictureUri对应的路径中
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, pictureUri);
+            startActivityForResult(intent, PHOTO_PICKED_FROM_CAMERA);
+        }
+
+        /**
+         * 系统拍照后裁剪
+         */
+        public void startSystemCamera() {
+            File pictureFile = new File(PictureUtil.getMyPetRootDirectory(), IMAGE_FILE_NAME);
+            Uri pictureUri;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                pictureUri = FileProvider.getUriForFile(this,
+                        "com.seven.modifyavatarmaster.fileprovider", pictureFile);
+            } else {
+                pictureUri = Uri.fromFile(pictureFile);
+            }
+            startPhotoZoom(pictureUri);
+        }
+
+        public void startPhotoZoom(Uri uri) {
+            try {
+                if (AppUtils.existSDCard()) {
+                    mCropImageFile = FileUtils.createTmpFile(this);
+                    Intent intent = new Intent("com.android.camera.action.CROP");
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        //添加这一句表示对目标应用临时授权该Uri所代表的文件
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    }
+                    intent.setDataAndType(uri, "image/*");
+                    intent.putExtra("crop", "true");
+                /*if (Build.MANUFACTURER.equals("HUAWEI")) {//解决华为手机调用裁剪出现圆形裁剪框
                     intent.putExtra("aspectX", 9998);
                     intent.putExtra("aspectY", 9999);
                 } else {
                     intent.putExtra("aspectX", 1); // 裁剪框比例
                     intent.putExtra("aspectY", 1);
+                }*/
+                    intent.putExtra("outputX", 300); // 输出图片大小
+                    intent.putExtra("outputY", 300);
+                    intent.putExtra("scale", true);
+                    intent.putExtra("return-data", false);
+                    intent.putExtra("circleCrop", false);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCropImageFile));
+                    intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+                    intent.putExtra("noFaceDetection", true); // no face detection
+                    startActivityForResult(intent, CROP_FROM_CAMERA);
                 }
-                intent.putExtra("outputX", 300); // 输出图片大小
-                intent.putExtra("outputY", 300);
-                intent.putExtra("scale", true);
-                intent.putExtra("return-data", false);
-                intent.putExtra("circleCrop", false);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCropImageFile));
-                intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-                intent.putExtra("noFaceDetection", true); // no face detection
-                startActivityForResult(intent, CROP_FROM_CAMERA);
+            } catch (Exception e) {
+
             }
-        } catch (Exception e) {
 
         }
 
     }
-
-}

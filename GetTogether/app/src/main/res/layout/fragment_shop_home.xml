@@ -31,7 +31,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="推荐"
+            android:text="@string/tuijian"
             android:textColor="@color/home_red"
             android:textSize="13dp" />
 
@@ -41,7 +41,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="销量"
+            android:text="@string/xiaoliang"
             android:textColor="@color/text3"
             android:textSize="13dp" />
 
@@ -51,7 +51,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="新品"
+            android:text="@string/xinping"
             android:textColor="@color/text3"
             android:textSize="13dp" />
 
@@ -70,7 +70,7 @@
                 android:drawableRight="@drawable/pifaliang"
                 android:drawablePadding="4dp"
                 android:gravity="center"
-                android:text="起批量"
+                android:text="@string/qipiliang"
                 android:textColor="@color/text3"
                 android:textSize="13dp" />
         </LinearLayout>
@@ -137,7 +137,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="4dp"
-                        android:text="点击查看更多"
+                        android:text="@string/dianjichakangenduo"
                         android:textColor="@color/text3"
                         android:textSize="14dp" />
 

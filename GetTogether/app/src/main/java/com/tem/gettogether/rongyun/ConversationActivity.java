@@ -11,11 +11,25 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 
+import com.google.gson.Gson;
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.home.ShopActivity;
 import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
+import com.tem.gettogether.base.URLConstant;
+import com.tem.gettogether.bean.AddressDataBean;
+import com.tem.gettogether.bean.HeadMessageBean;
+import com.tem.gettogether.bean.MemberInformationBean;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.xutils3.MyCallBack;
+import com.tem.gettogether.utils.xutils3.XUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import cc.duduhuo.custoast.CusToast;
 import io.rong.imkit.RongIM;
@@ -81,10 +95,8 @@ public class ConversationActivity extends BaseActivity implements OnClickListene
              */
             @Override
             public boolean onUserPortraitClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo) {
-//                // 在这里处理你想要跳转的activity，示例代码为YourAcitivy
-//                Intent in = new Intent(context, UserDetailsActivity.class);
-//                in.putExtra("memberId", userInfo.getUserId());
-//                context.startActivity(in);
+
+                getUserMessage(context,userInfo.getUserId());
                 return true;
             }
 
@@ -133,6 +145,46 @@ public class ConversationActivity extends BaseActivity implements OnClickListene
 //                MyApplication.getInstance().locationCallback = locationCallback;
 //                Intent intent = new Intent(context, ShapeAddress.class);
 //                startActivity(intent);
+            }
+        });
+    }
+
+    private void getUserMessage(final Context context, String userId){
+        Map<String, Object> map = new HashMap<>();
+        map.put("user_id", userId);
+        XUtil.Post(URLConstant.MESSAGE_HEAD, map, new MyCallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                Log.i("====获取头像信息===", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    String msg = jsonObject.optString("msg");
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        HeadMessageBean mHeadMessageBean = gson.fromJson(result, HeadMessageBean.class);
+                        if(mHeadMessageBean.getResult().getRole_type().equals("1")) {// 1是供应商
+                            startActivity(new Intent(context, ShopActivity.class)
+                                    .putExtra("store_id", mHeadMessageBean.getResult().getStore_id())
+                                    .putExtra("type", ShopActivity.SHOPNHOME_TYPE));
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                ex.printStackTrace();
             }
         });
     }

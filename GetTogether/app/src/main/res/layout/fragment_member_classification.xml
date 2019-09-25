@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_10"
-            android:text="会员分类"
+            android:text="@string/huiyuanfenlei"
             android:textSize="18sp" />
 
         <ImageView
@@ -51,7 +51,7 @@
                 android:layout_marginTop="10dp"
                 android:drawableStart="@drawable/advanced_icon"
                 android:gravity="center"
-                android:text="高级会员"
+                android:text="@string/senior_member"
                 android:textSize="14sp" />
 
             <TextView
@@ -73,7 +73,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/advanced_classification_one_bg"
                 android:gravity="center"
-                android:text="商品搜索优先展示"
+                android:text="@string/shangpshousyouxianzhangshi"
                 android:textSize="10sp" />
 
             <TextView
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/advanced_classification_two_bg"
                 android:gravity="center"
-                android:text="采购询盘不限次数推送"
+                android:text="@string/cgxpbxcsts"
                 android:textSize="10sp" />
 
             <TextView
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/advanced_classification_one_bg"
                 android:gravity="center"
-                android:text="产品上传数量无上限"
+                android:text="@string/cpscslwsx"
                 android:textSize="10sp" />
 
             <TextView
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/advanced_classification_two_bg"
                 android:gravity="center"
-                android:text="可以查看询盘信息"
+                android:text="@string/kyckxpxx"
                 android:textSize="10sp" />
 
             <TextView
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/advanced_classification_one_bg"
                 android:gravity="center"
-                android:text="库存清仓"
+                android:text="@string/kcqc"
                 android:textSize="10sp" />
         </LinearLayout>
 
@@ -123,7 +123,7 @@
                 android:layout_marginTop="10dp"
                 android:drawableStart="@drawable/primary_icon"
                 android:gravity="center"
-                android:text="普通会员"
+                android:text="@string/ordinary_member"
                 android:textSize="14sp" />
 
             <TextView
@@ -145,7 +145,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/primary_classification_one_bg"
                 android:gravity="center"
-                android:text="动态展示"
+                android:text="@string/dongtaizs"
                 android:textSize="10sp" />
 
             <TextView
@@ -153,7 +153,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/primary_classification_two_bg"
                 android:gravity="center"
-                android:text="无"
+                android:text="@string/wu"
                 android:textSize="10sp" />
 
             <TextView
@@ -161,7 +161,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/primary_classification_one_bg"
                 android:gravity="center"
-                android:text="500-1000"
+                android:text="@string/wubaidaoyiq"
                 android:textSize="10sp" />
 
             <TextView
@@ -169,7 +169,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/primary_classification_two_bg"
                 android:gravity="center"
-                android:text="可以"
+                android:text="@string/keyi"
                 android:textSize="10sp" />
 
             <TextView
@@ -177,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/primary_classification_one_bg"
                 android:gravity="center"
-                android:text="无"
+                android:text="@string/wu"
                 android:textSize="10sp" />
         </LinearLayout>
 

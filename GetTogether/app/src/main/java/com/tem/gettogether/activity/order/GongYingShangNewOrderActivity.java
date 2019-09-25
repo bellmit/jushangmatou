@@ -10,14 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
-import com.tem.gettogether.activity.my.CgsAuthenticationActivity;
-import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActivity;
 import com.tem.gettogether.base.BaseActivity;
-import com.tem.gettogether.fragment.caigou.CaiGouOrderAllFragment;
-import com.tem.gettogether.fragment.caigou.CaiGouOrderFaHuoFragment;
-import com.tem.gettogether.fragment.caigou.CaiGouOrderJieKuanFragment;
-import com.tem.gettogether.fragment.caigou.CaiGouOrderShouHuoFragment;
-import com.tem.gettogether.fragment.caigou.CaiGouOrderWangChengFragment;
 import com.tem.gettogether.fragment.gongying.GongYingOrderAllFragment;
 import com.tem.gettogether.fragment.gongying.GongYingOrderFaHuoFragment;
 import com.tem.gettogether.fragment.gongying.GongYingOrderJieKuanFragment;

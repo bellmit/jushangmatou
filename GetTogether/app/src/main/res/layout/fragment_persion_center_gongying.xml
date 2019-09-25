@@ -65,7 +65,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:drawableEnd="@drawable/edit_name_icon"
-                                android:text="南有嘉人"
+                                android:text="null"
                                 android:textColor="@color/white"
                                 android:textSize="19dp" />
 
@@ -256,7 +256,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="待发货"
+                            android:text="@string/daifahuo"
                             android:textColor="@color/text6"
                             android:textSize="12dp" />
 
@@ -270,7 +270,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="待收货"
+                            android:text="@string/wait_s"
                             android:textColor="@color/text6"
                             android:textSize="12dp" />
 
@@ -284,7 +284,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="待结款"
+                            android:text="@string/yijiekuan"
                             android:textColor="@color/text6"
                             android:textSize="12dp" />
                     </LinearLayout>
@@ -410,7 +410,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
-                                android:text="我的店铺"
+                                android:text="@string/my_shop"
                                 android:textColor="@color/text3"
                                 android:textSize="14dp" />
 
@@ -495,7 +495,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
-                                android:text="店铺管理"
+                                android:text="@string/dianpuguanli"
                                 android:textColor="@color/text3"
                                 android:textSize="14dp" />
 

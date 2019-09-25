@@ -14,7 +14,7 @@
         android:layout_weight="1"
         android:background="@drawable/bg_line"
         android:gravity="start"
-        android:hint="请输入文字介绍"
+        android:hint="@string/qingshuruwenzijieshao"
         android:padding="@dimen/dp_10" />
 
     <LinearLayout
@@ -31,7 +31,7 @@
             android:layout_height="40dp"
             android:background="@drawable/main_fbqg15"
             android:gravity="center"
-            android:text="保存"
+            android:text="@string/save"
             android:textColor="@color/white"
             android:textSize="16dp" />
     </LinearLayout>

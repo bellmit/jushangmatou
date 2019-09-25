@@ -15,7 +15,7 @@
         android:gravity="center"
         android:textSize="13dp"
         android:textColor="@color/text3"
-        android:text="请选择"
+        android:text="@string/qingxuanze"
         android:layout_centerInParent="true"/>
     <View
         android:layout_width="match_parent"

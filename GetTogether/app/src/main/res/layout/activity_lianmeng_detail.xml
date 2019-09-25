@@ -45,7 +45,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="负责人：暂无"
+                        android:text="@string/fuzeren"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -61,7 +61,7 @@
                         android:id="@+id/phone_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="联系方式：暂无"
+                        android:text="@string/lianxifangshi"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -78,7 +78,7 @@
                         android:id="@+id/weChat_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="WeChat ID：暂无"
+                        android:text="@string/wechat_id"
                         android:textSize="14sp" />
 
                     <TextView
@@ -86,14 +86,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="WhatsApp：暂无"
+                        android:text="@string/whatsapp"
                         android:textSize="14sp" />
                     <TextView
                         android:id="@+id/facebook_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Facebook：暂无"
+                        android:text="@string/facebook_id"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -103,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:paddingLeft="10dp"
-                    android:text="官网：暂无"
+                    android:text="@string/guangwang"
                     android:textSize="14sp" />
 
                 <TextView
@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:paddingLeft="10dp"
-                    android:text="地址：暂无"
+                    android:text="@string/dizhi"
                     android:textSize="14sp" />
 
                 <View
@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="服务商介绍"
+                    android:text="@string/fuwusjs"
                     android:textColor="@color/black"
                     android:textSize="25sp" />
 
@@ -153,7 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="公司介绍：" />
+                    android:text="@string/gongsijieshao" />
 
                 <TextView
                     android:id="@+id/introduction_tv"

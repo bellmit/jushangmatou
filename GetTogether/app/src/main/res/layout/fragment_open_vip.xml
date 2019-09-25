@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="选择会员：" />
+            android:text="@string/xuanzehuiyuan" />
 
         <RadioGroup
             android:layout_width="wrap_content"
@@ -30,13 +30,13 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="高级会员" />
+                android:text="@string/senior_member" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="普通会员" />
+                android:text="@string/ordinary_member" />
         </RadioGroup>
     </LinearLayout>
 
@@ -56,20 +56,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="缴费金额：" />
+            android:text="@string/jiaofeijine" />
 
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="998￥/年" />
+            android:text="@string/huiyuanfei" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="2000￥/年(押金)" />
+            android:text="@string/yajinfei" />
     </LinearLayout>
 
     <View
@@ -89,7 +89,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="到期时间：" />
+            android:text="@string/daoqishijian" />
 
 
         <TextView
@@ -120,7 +120,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="支付方式：" />
+            android:text="@string/zhifufangshi" />
 
         <RadioGroup
             android:layout_width="wrap_content"
@@ -153,6 +153,6 @@
         android:layout_marginTop="20dp"
         android:background="@color/home_red"
         android:padding="@dimen/dp_10"
-        android:text="支付"
+        android:text="@string/zhifu_tv"
         android:textColor="@color/white" />
 </LinearLayout>

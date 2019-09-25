@@ -166,7 +166,7 @@
             android:layout_marginEnd="10dp"
             android:background="@color/line"
             android:gravity="center"
-            android:text="上一步"
+            android:text="@string/up_step"
             android:textColor="@color/text3"
             android:textSize="16dp" />
 
@@ -177,7 +177,7 @@
             android:layout_marginEnd="10dp"
             android:background="@color/home_red"
             android:gravity="center"
-            android:text="保存"
+            android:text="@string/save"
             android:textColor="@color/white"
             android:textSize="16dp" />
     </LinearLayout>

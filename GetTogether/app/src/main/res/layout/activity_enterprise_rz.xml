@@ -40,7 +40,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="14dp"
                         android:textColor="@color/my_sprz_text"
-                        android:text="公司名称"/>
+                        android:text="@string/gsmc"/>
                     <EditText
                         android:id="@+id/et_name"
                         android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                         android:maxLength="12"
                         android:textColor="@color/text9"
                         android:maxLines="1"
-                        android:hint="请输入"/>
+                        android:hint="@string/please_input"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -79,14 +79,14 @@
                         android:layout_height="wrap_content"
                         android:textSize="14dp"
                         android:textColor="@color/my_sprz_text"
-                        android:text="公司性质"/>
+                        android:text="@string/gsxz"/>
                     <TextView
                         android:id="@+id/tv_gongsixz"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical|right"
-                        android:text="请选择"
+                        android:text="@string/please_chose"
                         android:paddingStart="10dp"
                         android:textColor="@color/text9"
                         android:paddingEnd="10dp"
@@ -120,14 +120,14 @@
                         android:layout_height="wrap_content"
                         android:textSize="14dp"
                         android:textColor="@color/my_sprz_text"
-                        android:text="公司地址"/>
+                        android:text="@string/gsdz"/>
                     <TextView
                         android:id="@+id/tv_gongdizhi"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical|right"
-                        android:text="请选择"
+                        android:text="@string/please_chose"
                         android:maxLines="1"
                         android:ellipsize="end"
                         android:paddingStart="10dp"
@@ -174,7 +174,7 @@
                         android:inputType="text"
                         android:textColor="@color/text9"
                         android:maxLines="1"
-                        android:hint="请输入"/>
+                        android:hint="@string/please_input"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -209,7 +209,7 @@
                         android:gravity="right|center_vertical"
                         android:textColor="@color/text9"
                         android:maxLines="1"
-                        android:hint="请输入"/>
+                        android:hint="@string/please_input"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -248,7 +248,7 @@
                         android:maxLength="12"
                         android:textColor="@color/text9"
                         android:maxLines="1"
-                        android:hint="请输入"/>
+                        android:hint="@string/please_input"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -286,7 +286,7 @@
                         android:maxLength="11"
                         android:textColor="@color/text9"
                         android:maxLines="1"
-                        android:hint="请输入"/>
+                        android:hint="@string/please_input"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -323,7 +323,7 @@
                         android:inputType="number"
                         android:textColor="@color/text9"
                         android:maxLines="1"
-                        android:hint="请输入"/>
+                        android:hint="@string/please_input"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -428,7 +428,7 @@
                         android:gravity="right|center_vertical"
                         android:textColor="@color/text9"
                         android:maxLines="1"
-                        android:hint="请输入"/>
+                        android:hint="@string/please_input"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -465,7 +465,7 @@
                         android:inputType="number"
                         android:textColor="@color/text9"
                         android:maxLines="1"
-                        android:hint="请输入"/>
+                        android:hint="@string/please_input"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -501,7 +501,7 @@
                         android:inputType="text"
                         android:textColor="@color/text9"
                         android:maxLines="1"
-                        android:hint="请输入"/>
+                        android:hint="@string/please_input"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -597,7 +597,7 @@
                         android:gravity="right|center_vertical"
                         android:textColor="@color/text9"
                         android:maxLines="1"
-                        android:hint="请输入"/>
+                        android:hint="@string/please_input"/>
                 </LinearLayout>
 
                 <View
@@ -640,7 +640,7 @@
                         android:gravity="right|center_vertical"
                         android:textColor="@color/text9"
                         android:maxLines="1"
-                        android:hint="请输入"/>
+                        android:hint="@string/please_input"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -676,7 +676,7 @@
                         android:inputType="number"
                         android:textColor="@color/text9"
                         android:maxLines="1"
-                        android:hint="请输入"/>
+                        android:hint="@string/please_input"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -709,7 +709,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical|right"
-                        android:text="请选择"
+                        android:text="@string/please_chose"
                         android:paddingStart="10dp"
                         android:textColor="@color/text9"
                         android:paddingEnd="10dp"
@@ -751,7 +751,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical|right"
-                        android:text="请选择"
+                        android:text="@string/please_chose"
                         android:paddingStart="10dp"
                         android:textColor="@color/text9"
                         android:paddingEnd="10dp"
@@ -785,7 +785,7 @@
             android:id="@+id/tv_upStep"
             android:layout_width="80dp"
             android:layout_height="30dp"
-            android:text="上一步"
+            android:text="@string/up_step"
             android:gravity="center"
             android:textColor="@color/text3"
             android:textSize="14dp"
