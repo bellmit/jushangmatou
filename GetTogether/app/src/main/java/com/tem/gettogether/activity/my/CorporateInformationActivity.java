@@ -123,8 +123,8 @@ public class CorporateInformationActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText(informationType == 0 ? getResources().getText(R.string.qiyexinxi) : getResources().getText(R.string.gerenxinxi));
         informationType = getIntent().getIntExtra(Contacts.PERSION_ENTERPRISE_INFORMATION, 0);
+        tv_title.setText(informationType == 0 ? getResources().getText(R.string.qiyexinxi) : getResources().getText(R.string.gerenxinxi));
         card2_ll.setVisibility(informationType == 0 ? View.VISIBLE : View.GONE);
         if (informationType == 0) {
             getData();
@@ -261,11 +261,12 @@ public class CorporateInformationActivity extends BaseActivity {
         });
     }
 
-    private void saveData() {
+    private void saveData(String role_type) {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         map.put("country_id", countryId);
+        map.put("role_type",role_type);
         map.put("sex", man_rb.isChecked() ? "0" : "1");
         map.put("company_content", company_profile_tv.getText().toString());
         XUtil.Post(URLConstant.ENTERPISE_INFO_SAVE, map, new MyCallBack<String>() {
@@ -316,9 +317,9 @@ public class CorporateInformationActivity extends BaseActivity {
                 break;
             case R.id.save_tv:
                 if (informationType == 0) {// 企业
-                    saveData();
+                    saveData("1");
                 } else {// 个人
-
+                    saveData("0");
                 }
                 break;
         }

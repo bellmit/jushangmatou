@@ -161,10 +161,10 @@ public class AddAddressActivity extends BaseActivity {
                 } else if (phone.equals("")) {
                     CusToast.showToast(getText(R.string.enter_harvester_contact_number));
                     return;
-                } else if (Sheng == null || city == null || qu == null) {
+                } /*else if (Sheng == null || city == null || qu == null) {
                     CusToast.showToast(getText(R.string.select_shipping_address));
                     return;
-                } else if (xxdz.equals("")) {
+                } */else if (xxdz.equals("")) {
                     CusToast.showToast(getText(R.string.enter_detail_address));
                     return;
                 } else {

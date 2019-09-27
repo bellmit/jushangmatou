@@ -123,6 +123,8 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private TextView tv_xl_num;
     @ViewInject(R.id.tv_address)
     private TextView tv_address;
+    @ViewInject(R.id.huohao_tv)
+    private TextView huohao_tv;
     @ViewInject(R.id.tv_shopping_jj)
     private TextView tv_shopping_jj;
     @ViewInject(R.id.tv_qp_num)
@@ -186,6 +188,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private String APP_ID = "wxa6f24ff3369c8d21";
     private int allNum;
     private OrderDetailAdapter mOrderDetailAdapter;
+    private String detailUrl = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,7 +199,6 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
         initData();
         upShopXQData();
-
     }
 
     @Override
@@ -221,7 +223,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
         tv_kd_price.setText(getText(R.string.courier_fee));
         tv_xl_num.setText(getText(R.string.sales) + goodsBean.getSales_sum());
         tv_address.setText(storeBean.getProvince() + storeBean.getCity() + "");
-        tv_pj_num.setText(getText(R.string.evaluation)+"(" + goodsBean.getComment_count() + ")");
+        tv_pj_num.setText(getText(R.string.evaluation) + "(" + goodsBean.getComment_count() + ")");
         tv_hpd_num.setText(getText(R.string.praise_of) + goodsBean.getBest_percent());
         if (goodsBean.getIs_collect() != null) {
             if (goodsBean.getIs_collect().equals("0")) {
@@ -322,7 +324,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
         });
     }
 
-    @Event(value = {R.id.iv_close, R.id.tv_jian, R.id.ll_openWeb, R.id.rl_shard, R.id.rl_kf, R.id.ll_gzsj, R.id.tv_ljxj, R.id.iv_dianpu, R.id.ll_issc, R.id.iv_go_cart, R.id.tv_add, R.id.tv_look_all_pj, R.id.ll_pingjia, R.id.tv_jrgwc, R.id.ll_shuxing_xz, R.id.rl_input_dp, R.id.rl_input_dp2}, type = View.OnClickListener.class)
+    private int popType = 0; //0:加入采购  1:立即下单
+
+    @Event(value = {R.id.tv_buy, R.id.iv_close, R.id.tv_jian, R.id.ll_openWeb, R.id.rl_shard, R.id.rl_kf, R.id.ll_gzsj, R.id.tv_ljxj, R.id.iv_dianpu, R.id.ll_issc, R.id.iv_go_cart, R.id.tv_add, R.id.tv_look_all_pj, R.id.ll_pingjia, R.id.tv_jrgwc, R.id.ll_shuxing_xz, R.id.rl_input_dp, R.id.rl_input_dp2}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.iv_close:
@@ -372,6 +376,15 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         .putExtra("goods_id", goods_id));
                 break;
             case R.id.tv_jrgwc:
+                popType = 0;
+                if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
+                    CusToast.showToast(getResources().getText(R.string.supplier_does_not_have_this_feature));
+                } else {
+                    showPop(tv_jrgwc);
+                }
+                break;
+            case R.id.tv_buy:
+                popType = 1;
                 if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
                     CusToast.showToast(getResources().getText(R.string.supplier_does_not_have_this_feature));
                 } else {
@@ -404,6 +417,29 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
                 break;
             case R.id.tv_ljxj:
+                /*try {
+                    //发消息
+                    if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
+                        if (storeBean != null && storeBean.getStore_user_id() != null) {
+                            RongTalk.doConnection(ShoppingParticularsActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
+                                    , storeBean.getStore_user_id(), storeBean.getStore_name(),
+                                    storeBean.getStore_logo(), storeBean.getStore_id());
+                        } else {
+                            CusToast.showToast(getText(R.string.the_store_is_invalid));
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    CusToast.showToast(getText(R.string.customer_service_is_invalid));
+                }*/
+
+
+                break;
+            case R.id.rl_kf:
+                if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
+                    CusToast.showToast(getText(R.string.supplier_does_not_have_this_feature));
+                    return;
+                }
                 try {
                     //发消息
                     if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
@@ -416,42 +452,19 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         }
 
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    CusToast.showToast(getText(R.string.customer_service_is_invalid));
-                }
-
-                break;
-            case R.id.rl_kf:
-                try {
-                    if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
-                        CusToast.showToast(getText(R.string.supplier_does_not_have_this_feature));
-                    } else {
-                        //发消息
-                        if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
-                            if (storeBean != null && storeBean.getStore_user_id() != null) {
-                                RongTalk.doConnection(ShoppingParticularsActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
-                                        , storeBean.getStore_user_id(), storeBean.getStore_name(),
-                                        storeBean.getStore_logo(), storeBean.getStore_id());
-                            } else {
-                                CusToast.showToast(getText(R.string.the_store_is_invalid));
-                            }
-
-                        }
-                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();
                     CusToast.showToast(getText(R.string.customer_service_is_invalid));
                 }
 
-                sendCustomizeMessage(goods_id,storeBean.getStore_user_id(),galleryBeans.get(0).getImage_url(),goodsBean.getGoods_name(),goodsBean.getBatch_number()+"起批");
+                sendCustomizeMessage(goods_id, storeBean.getStore_user_id(), galleryBeans.get(0).getImage_url(), goodsBean.getGoods_name(), goodsBean.getBatch_number() + "起批", "0");
                 break;
         }
     }
 
-    private void sendCustomizeMessage(String goods_id,String targetId ,String image, String name, String count) {
-        CustomizeBuyMessage customizeMessage = new CustomizeBuyMessage(goods_id,image, name, count);
+    private void sendCustomizeMessage(String goods_id, String targetId, String image, String name, String count, String type) {
+        CustomizeBuyMessage customizeMessage = new CustomizeBuyMessage(goods_id, image, name, count, type);
         byte[] bvvv = customizeMessage.encode();
         CustomizeBuyMessage richContentMessage = new CustomizeBuyMessage(bvvv);
         io.rong.imlib.model.Message myMessage = io.rong.imlib.model.Message.obtain(targetId, Conversation.ConversationType.PRIVATE, richContentMessage);
@@ -544,9 +557,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
             Glide.with(ShoppingParticularsActivity.this).load(goodsBean.getCover_image()).error(R.mipmap.myy322x).into(iv_shopping_image);
             tv_shopping_content.setText(goodsBean.getGoods_name());
 
-            if(goodsBean.getIs_enquiry().equals("1")){
+            if (goodsBean.getIs_enquiry().equals("1")) {
                 tv_shopping_price.setText(getText(R.string.negotiable_tv));
-            }else{
+            } else {
                 tv_shopping_price.setText(goodsBean.getShop_price());
             }
 
@@ -555,7 +568,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
             TextView tv_add_num = view.findViewById(R.id.tv_add_num);
             final EditText tv_num_all = view.findViewById(R.id.tv_num_all);
             tv_num_all.setText(String.valueOf(tv_num.getText().toString()));
-            tv_queding.setText(getText(R.string.queding)+"(" + tv_num.getText().toString() + ")");
+            tv_queding.setText(getText(R.string.queding) + "(" + tv_num.getText().toString() + ")");
             TextView tv_jian_num = view.findViewById(R.id.tv_jian_num);
             final TextView tv_shuxing2 = view.findViewById(R.id.tv_shuxing2);
             final TextView tv_shuxing1 = view.findViewById(R.id.tv_shuxing1);
@@ -569,7 +582,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         CusToast.showToast(getText(R.string.the_number_cannot_be_less_than_one));
                         return;
                     }
-                    tv_queding.setText(getText(R.string.queding)+"(" + allNum + ")");
+                    tv_queding.setText(getText(R.string.queding) + "(" + allNum + ")");
                     tv_num_all.setText(allNum + "");
 
                 }
@@ -581,7 +594,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         allNum = Integer.parseInt(tv_num_all.getText().toString());
                         allNum++;
                         tv_num_all.setText(allNum + "");
-                        tv_queding.setText(getText(R.string.queding)+"(" + allNum + ")");
+                        tv_queding.setText(getText(R.string.queding) + "(" + allNum + ")");
                     } else {
                         allNum = 0;
                     }
@@ -605,7 +618,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     if (!tv_num_all.getText().toString().equals("")) {
                         allNum = Integer.parseInt(tv_num_all.getText().toString());
                         tv_num.setText(tv_num_all.getText().toString());
-                        tv_queding.setText(getText(R.string.queding)+"(" + allNum + ")");
+                        tv_queding.setText(getText(R.string.queding) + "(" + allNum + ")");
                     }
                 }
             });
@@ -721,44 +734,92 @@ public class ShoppingParticularsActivity extends BaseActivity {
             tv_queding.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {//加入购物车
-                    skuid.clear();
-                    allNum = Integer.parseInt(tv_num_all.getText().toString());
+                    if (popType == 0) {
+                        skuid.clear();
+                        allNum = Integer.parseInt(tv_num_all.getText().toString());
 
-                    String sku = null;
-                    if (goodsBean.getGoods_spec_list() != null) {
-                        if (goodsBean.getGoods_spec_list().size() >= 1) {
-                            skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(0).get(numpositionCorclo).getItem_id()));
+                        String sku = null;
+                        if (goodsBean.getGoods_spec_list() != null) {
+                            if (goodsBean.getGoods_spec_list().size() >= 1) {
+                                skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(0).get(numpositionCorclo).getItem_id()));
+                            }
+                            if (goodsBean.getGoods_spec_list().size() >= 2) {
+                                skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(1).get(numpositionCC).getItem_id()));
+                            }
+                            if (goodsBean.getGoods_spec_list().size() >= 3) {
+                                skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(2).get(numpositionML).getItem_id()));
+                            }
+                            if (goodsBean.getGoods_spec_list().size() >= 4) {
+                                skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(3).get(numpositionQT).getItem_id()));
+                            }
+                            Collections.sort(skuid);
+                            String str = "";
+                            for (int i = 0; i < skuid.size(); i++) {
+                                str += skuid.get(i) + "_";
+                            }
+                            sku = str.substring(0, str.length() - 1);
                         }
-                        if (goodsBean.getGoods_spec_list().size() >= 2) {
-                            skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(1).get(numpositionCC).getItem_id()));
-                        }
-                        if (goodsBean.getGoods_spec_list().size() >= 3) {
-                            skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(2).get(numpositionML).getItem_id()));
-                        }
-                        if (goodsBean.getGoods_spec_list().size() >= 4) {
-                            skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(3).get(numpositionQT).getItem_id()));
-                        }
-                        Collections.sort(skuid);
-                        String str = "";
-                        for (int i = 0; i < skuid.size(); i++) {
-                            str += skuid.get(i) + "_";
-                        }
-                        sku = str.substring(0, str.length() - 1);
-                    }
-                    try {
+                        try {
 //                            String skuidData=object.getString(sku);
 //                            JSONObject jsonObject=new JSONObject(skuidData);
 //                            String price=jsonObject.optString("price");
 //                            String store_count=jsonObject.optString("store_count");
-                        upAddCart(String.valueOf(allNum), sku);
+                            upAddCart(String.valueOf(allNum), sku);
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        mPop.dismiss();
+                        mPop = null;
+                    } else {// 立即下单
+                        mPop.dismiss();
+                        allNum = Integer.parseInt(tv_num_all.getText().toString());
+                        String sku = "";
+                        if (goodsBean.getGoods_spec_list() != null) {
+                            if (goodsBean.getGoods_spec_list().size() >= 1) {
+                                skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(0).get(numpositionCorclo).getItem_id()));
+                            }
+                            if (goodsBean.getGoods_spec_list().size() >= 2) {
+                                skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(1).get(numpositionCC).getItem_id()));
+                            }
+                            if (goodsBean.getGoods_spec_list().size() >= 3) {
+                                skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(2).get(numpositionML).getItem_id()));
+                            }
+                            if (goodsBean.getGoods_spec_list().size() >= 4) {
+                                skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(3).get(numpositionQT).getItem_id()));
+                            }
+                            Collections.sort(skuid);
+                            String str = "";
+                            for (int i = 0; i < skuid.size(); i++) {
+                                str += skuid.get(i) + "_";
+                            }
+                            sku = str.substring(0, str.length() - 1);
+                        }
+
+                        try {
+//                            String skuidData=object.getString(sku);
+//                            JSONObject jsonObject=new JSONObject(skuidData);
+//                            String price=jsonObject.optString("price");
+//                            String store_count=jsonObject.optString("store_count");
+//                        startActivity(new Intent(ShoppingParticularsActivity.this, CloseAccountActivity.class)
+//                                .putExtra("unique_id", "1")
+//                                .putExtra("goods_id", goods_id)
+//                                .putExtra("key", sku)
+//                                .putExtra("goods_num", String.valueOf(num_gwc)));
+                            Map<String, Object> map = new HashMap<>();
+                            map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+                            map.put("goods_id", goods_id);
+                            map.put("goods_num", String.valueOf(allNum));
+                            map.put("unique_id", "1");
+                            map.put("key", sku);
+                            upJieSCartData(map, sku, allNum);
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        mPop = null;
                     }
-
-
-                    mPop.dismiss();
-                    mPop = null;
                 }
             });
             view.findViewById(R.id.iv_dialog_close).setOnClickListener(new View.OnClickListener() {
@@ -960,8 +1021,10 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         mOrderBeans = shoppingXQBean.getResult().getOrder();
                         hot_iv.setVisibility(shoppingXQBean.getResult().getGoods().getIs_hot().equals("1") ? View.VISIBLE : View.GONE);
                         new_iv.setVisibility(shoppingXQBean.getResult().getGoods().getIs_new().equals("1") ? View.VISIBLE : View.GONE);
-                        clinch_count_tv.setText(getText(R.string.deal_done)+goodsBean.getSales_sum()+getResources().getText(R.string.piece_tv));
+                        clinch_count_tv.setText(getText(R.string.deal_done) + goodsBean.getSales_sum() + getResources().getText(R.string.piece_tv));
                         linyi_iv.setVisibility(shoppingXQBean.getResult().getStore().getIs_linyi().equals("1") ? View.VISIBLE : View.GONE);
+                        if (goodsBean.getGoods_sn() != null)
+                            huohao_tv.setText(goodsBean.getGoods_sn());
                         initLiuLangData();
                         if (shoppingXQBean.getResult().getOrder() != null) {
                             initOrderData();
@@ -1052,7 +1115,6 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     webView.getSettings().setJavaScriptEnabled(true);
                     webView.loadUrl(goodsBean.getDetail());
                     Log.i("===h5显示--", goodsBean.getDetail());
-
                 }
                 initView();
             }
@@ -1379,7 +1441,10 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 @Override
                 public void onClick(View view) {
                     WXWebpageObject webpage = new WXWebpageObject();
-                    webpage.webpageUrl = goodsBean.getDetail();//分享url
+                    webpage.webpageUrl = "http://www.jsmtgou.com/jushangmatou/index.php?m=Home&c=Goods&a=share_goods_detail&id="
+                            + goodsBean.getGoods_id()
+                            + "&user_id=" + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "");
+                    /*goodsBean.getDetail()*///分享url
                     WXMediaMessage msg = new WXMediaMessage(webpage);
                     msg.title = getString(R.string.from_Jushang_Pier);
                     msg.description = goodsBean.getGoods_name();
@@ -1397,9 +1462,12 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 @Override
                 public void onClick(View view) {
                     WXWebpageObject webpage = new WXWebpageObject();
-                    webpage.webpageUrl = goodsBean.getDetail();//分享url
+//                    webpage.webpageUrl = goodsBean.getDetail();//分享url
+                    webpage.webpageUrl = "http://www.jsmtgou.com/jushangmatou/index.php?m=Home&c=Goods&a=share_goods_detail&id="
+                            + goodsBean.getGoods_id()
+                            + "&user_id=" + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "");
                     WXMediaMessage msg = new WXMediaMessage(webpage);
-                    msg.title =getString(R.string.from_Jushang_Pier);
+                    msg.title = getString(R.string.from_Jushang_Pier);
                     msg.description = goodsBean.getGoods_name();
                     Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
                     msg.thumbData = bmpToByteArray(thumb);//封面图片byte数组
@@ -1414,7 +1482,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
             viewShard.findViewById(R.id.ll_QQ).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    UMWeb web = new UMWeb(goodsBean.getDetail() + "");
+                    UMWeb web = new UMWeb("http://www.jsmtgou.com/jushangmatou/index.php?m=Home&c=Goods&a=share_goods_detail&id="
+                            + goodsBean.getGoods_id()
+                            + "&user_id=" + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "") + "");
                     web.setTitle(getString(R.string.from_Jushang_Pier));
                     web.setDescription(goodsBean.getGoods_name());
                     web.setThumb(new UMImage(ShoppingParticularsActivity.this, R.mipmap.ic_launcher));
@@ -1429,7 +1499,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 @Override
                 public void onClick(View view) {
 
-                    UMWeb web = new UMWeb(goodsBean.getDetail() + "");
+                    UMWeb web = new UMWeb("http://www.jsmtgou.com/jushangmatou/index.php?m=Home&c=Goods&a=share_goods_detail&id="
+                            + goodsBean.getGoods_id()
+                            + "&user_id=" + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "") + "");
                     web.setTitle(getString(R.string.from_Jushang_Pier));
                     web.setDescription(goodsBean.getGoods_name());
                     web.setThumb(new UMImage(ShoppingParticularsActivity.this, R.mipmap.ic_launcher));

@@ -32,6 +32,7 @@ import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
 import com.tem.gettogether.activity.my.CorporateInformationActivity;
 import com.tem.gettogether.activity.my.FansActivity;
 import com.tem.gettogether.activity.my.GYWeActivity;
+import com.tem.gettogether.activity.my.ProductManagmentActivity;
 import com.tem.gettogether.activity.my.SettingActivity;
 import com.tem.gettogether.activity.my.ShopRzFailedActivity;
 import com.tem.gettogether.activity.my.StoreManagementActivity;
@@ -235,6 +236,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                 upName();
                 break;
             case R.id.ll_scj:// 商品
+                startActivity(new Intent(getActivity(), ProductManagmentActivity.class));
                 break;
             case R.id.ll_zj:// 粉丝
                 startActivity(new Intent(getActivity(), FansActivity.class));

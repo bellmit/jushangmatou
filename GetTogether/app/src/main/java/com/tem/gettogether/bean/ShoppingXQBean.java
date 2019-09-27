@@ -288,6 +288,15 @@ public class ShoppingXQBean {
             private String cover_image;
             private String is_hot;
             private String is_new;
+            private String goods_sn;
+
+            public String getGoods_sn() {
+                return goods_sn;
+            }
+
+            public void setGoods_sn(String goods_sn) {
+                this.goods_sn = goods_sn;
+            }
 
             public String getIs_new() {
                 return is_new;

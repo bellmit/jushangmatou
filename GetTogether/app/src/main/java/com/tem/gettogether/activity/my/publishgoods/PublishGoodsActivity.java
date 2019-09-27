@@ -411,7 +411,6 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                         mTaskImgAdapter.notifyDataSetChanged();
                     }
                     break;
-
             }
         }
 

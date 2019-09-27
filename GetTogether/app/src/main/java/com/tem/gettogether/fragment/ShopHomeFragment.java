@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -17,8 +18,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.home.ShopActivity;
 import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
 import com.tem.gettogether.base.BaseActivity;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseFragment;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.ShopKeyBean;
@@ -27,6 +30,7 @@ import com.tem.gettogether.bean.ShopTopBean;
 import com.tem.gettogether.utils.GlideImageLoader;
 import com.tem.gettogether.utils.ListUtils;
 import com.tem.gettogether.utils.NetWorkUtils;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.UiUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -54,6 +58,7 @@ import java.util.Set;
 import cc.duduhuo.custoast.CusToast;
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
+import me.nereo.multi_image_selector.bean.Image;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,6 +73,8 @@ public class ShopHomeFragment extends BaseFragment {
     private int PAGE_NUM = 1;
     @ViewInject(R.id.banner)
     private Banner banner;
+    @ViewInject(R.id.no_banner)
+    private ImageView no_banner;
     @ViewInject(R.id.tv_tj)
     private TextView tv_tj;
     @ViewInject(R.id.tv_xl)
@@ -77,17 +84,18 @@ public class ShopHomeFragment extends BaseFragment {
     @ViewInject(R.id.tv_qpl)
     private TextView tv_qpl;
     private String cat_id;
-    private String type="recommend";
     private String sousuoConnect;
     private String store_id;
-    private String sort="sort";
+    private String sort="sales";//默认销量
+    private String type="";//默认销量
     private List<ShopShoppingBean.ResultBean.GoodsListBean> goodsListBeans=new ArrayList<>();
     private List<ShopShoppingBean.ResultBean.GoodsListBean> list;
     public static ShopHomeFragment newInstance() {
         return new ShopHomeFragment();
     }
     private   BaseActivity baseActivity;
-
+    private List<ShopTopBean.ResultBean.StoreBannerBean> storeBannerBeans=new ArrayList<>();
+    private ShopTopBean.ResultBean resultBean=new ShopTopBean.ResultBean();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,14 +109,14 @@ public class ShopHomeFragment extends BaseFragment {
         baseActivity= (BaseActivity) getActivity();
 
         store_id=getActivity().getIntent().getExtras().getString("store_id");
-
+        upBannerData(store_id);
         initView();
         Map<String,Object> map=new HashMap<>();
         map.put("store_id",store_id);
         map.put("page",PAGE_NUM);
         map.put("sort",sort);
         map.put("mode","desc");
-        map.put("type","recommend");
+        map.put("type","");
 
         upShopData(map);
         super.onActivityCreated(savedInstanceState);
@@ -183,6 +191,64 @@ public class ShopHomeFragment extends BaseFragment {
 
 
     }
+
+    public void onMessage(List<ShopTopBean.ResultBean.StoreBannerBean> storeBannerBean) {
+        if (storeBannerBean == null) return;
+        List<String> img = new ArrayList<>();
+        for (int i=0;i<storeBannerBean.size();i++){
+            img.add(storeBannerBean.get(i).getAd_code());
+        }
+        banner.setImageLoader(new GlideImageLoader());
+        banner.setImages(img);
+        banner.start();
+    }
+
+
+    private void upBannerData(String store_id){
+        Map<String,Object> map=new HashMap<>();
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+        map.put("store_id",store_id);
+        baseActivity.showDialog();
+        XUtil.Post(URLConstant.SHOPHOMEHEAD,map,new MyCallBack<String>(){
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                baseActivity.closeDialog();
+                Log.i("====获取Banner数据===", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    if(res.equals("1")){
+                        Gson gson=new Gson();
+                        ShopTopBean shopTopBean=gson.fromJson(result,ShopTopBean.class);
+                        resultBean=shopTopBean.getResult();
+                    }
+                    if(resultBean.getStore_banner()!=null&&resultBean.getStore_banner().size()>0) {
+                        no_banner.setVisibility(View.GONE);
+                        onMessage(resultBean.getStore_banner());
+                    }else{
+                        no_banner.setVisibility(View.VISIBLE);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                baseActivity.closeDialog();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                baseActivity.closeDialog();
+
+            }
+        });
+    }
+
     public void clearList(List<ShopShoppingBean.ResultBean.GoodsListBean> list) {
         if (!ListUtils.isEmpty(list)) {
             list.clear();

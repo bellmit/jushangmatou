@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:background="@color/line"
-android:layout_height="match_parent"
-android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:background="@color/line"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 <include layout="@layout/title_layout" />
 
     <cn.bingoogolapple.refreshlayout.BGARefreshLayout
@@ -38,7 +36,6 @@ android:orientation="vertical">
                     <LinearLayout
                         android:id="@+id/ll_look_more"
                         android:layout_width="match_parent"
-                        android:visibility="gone"
                         android:layout_height="45dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">

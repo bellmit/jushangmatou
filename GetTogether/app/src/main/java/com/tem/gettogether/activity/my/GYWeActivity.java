@@ -1,5 +1,10 @@
 package com.tem.gettogether.activity.my;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -7,6 +12,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
@@ -32,12 +40,14 @@ public class GYWeActivity extends BaseActivity {
     private TextView tv_title;
     @ViewInject(R.id.tv_connect)
     private TextView tv_connect;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        ImageLoader imageLoader = ImageLoader.getInstance();//ImageLoader需要实例化
+        imageLoader.init(ImageLoaderConfiguration.createDefault(getContext()));
         initData();
-        initView();
     }
 
     @Override
@@ -50,6 +60,7 @@ public class GYWeActivity extends BaseActivity {
     protected void initView() {
         upGYData();
     }
+
     @Event(value = {R.id.rl_close}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
@@ -59,12 +70,13 @@ public class GYWeActivity extends BaseActivity {
 
         }
     }
+
     private void upGYData() {
         showDialog();
-        String language = SharedPreferencesUtils.getString(this,BaseConstant.SPConstant.language,"");
-        Map<String,String> map = new HashMap<>();
-        map.put("language",language);
-        XUtil.Get(URLConstant.GYWMEN,map, new MyCallBack<String>() {
+        String language = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "");
+        Map<String, String> map = new HashMap<>();
+        map.put("language", language);
+        XUtil.Get(URLConstant.GYWMEN, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -76,12 +88,13 @@ public class GYWeActivity extends BaseActivity {
 //                    CusToast.showToast(msg);
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        GYWMBean gywmBean=gson.fromJson(result,GYWMBean.class);
+                        GYWMBean gywmBean = gson.fromJson(result, GYWMBean.class);
 //                        String htmlStr = "<font color='#0000FF' size='500px'>我是蓝色的rfghgfcvgbhnhgfcvgbhnbvgcfgbvhnjm文本</font><br><font color='#ff0000' size='40px' weight='600'>我是红色的文本</font><br><font color='#000000' size='20px'>我是黑色的文本</font>";
 //                        tv_connect.setText(Html.fromHtml(htmlStr));
-                        tv_connect.setText(Html.fromHtml(gywmBean.getResult().getContent()));
-                    }
 
+                        URLImageParser imageGetter = new URLImageParser(tv_connect);
+                        tv_connect.setText(Html.fromHtml(gywmBean.getResult().getContent(), imageGetter, null));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -102,5 +115,45 @@ public class GYWeActivity extends BaseActivity {
                 closeDialog();
             }
         });
+    }
+
+    public class URLImageParser implements Html.ImageGetter {
+        TextView mTextView;
+
+        public URLImageParser(TextView textView) {
+            this.mTextView = textView;
+        }
+
+        @Override
+        public Drawable getDrawable(String source) {
+            final URLDrawable urlDrawable = new URLDrawable();
+            ImageLoader.getInstance().loadImage(source,
+                    new SimpleImageLoadingListener() {
+                        @Override
+                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                            urlDrawable.bitmap = loadedImage;
+                            urlDrawable.setBounds(0, 0, loadedImage.getWidth()-1, loadedImage.getHeight()-50);
+                            mTextView.invalidate();
+                            mTextView.setText(mTextView.getText());
+                        }
+                    });
+            return urlDrawable;
+        }
+    }
+
+    public static int px2dip(Context context, float pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
+
+    public class URLDrawable extends BitmapDrawable {
+        protected Bitmap bitmap;
+
+        @Override
+        public void draw(Canvas canvas) {
+            if (bitmap != null) {
+                canvas.drawBitmap(bitmap, 0, 0, getPaint());
+            }
+        }
     }
 }

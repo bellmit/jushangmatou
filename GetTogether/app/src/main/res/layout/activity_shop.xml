@@ -349,6 +349,7 @@
                         app:image_scale_type="center_crop"
                         app:indicator_drawable_selected="@drawable/banner_bg2"
                         app:indicator_drawable_unselected="@drawable/banner_bg"
+                        android:visibility="gone"
                         app:indicator_height="1dp"
                         app:indicator_width="10dp" />
                 </LinearLayout>
@@ -383,6 +384,7 @@
             android:id="@+id/ll_shopping_fenl"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:visibility="gone"
             android:layout_weight="1.5"
             android:gravity="center">
 

@@ -371,6 +371,7 @@ public class HotFenLeiActivity extends BaseActivity {
             }
         }
         String url;
+        Log.d("chenshichun","========isYiLain==="+isYiLain);
         if(isYiLain){
             url = URLConstant.YILIAN_SEARCH;
         }else{

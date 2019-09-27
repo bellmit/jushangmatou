@@ -86,7 +86,7 @@ public class AddressGLActivity extends BaseActivity {
                 ImageView iv_address_xz = holder.getImageView(R.id.iv_address_xz);
                 holder.getTextView(R.id.tv_name).setText(resultBeans.get(position).getConsignee());
                 holder.getTextView(R.id.tv_phone).setText(resultBeans.get(position).getMobile());
-                holder.getTextView(R.id.tv_address).setText(resultBeans.get(position).getProvince() + resultBeans.get(position).getCity() + resultBeans.get(position).getDistrict() + resultBeans.get(position).getTwon() + resultBeans.get(position).getAddress());
+                holder.getTextView(R.id.tv_address).setText(/*resultBeans.get(position).getProvince() + resultBeans.get(position).getCity() + resultBeans.get(position).getDistrict() + resultBeans.get(position).getTwon() +*/ resultBeans.get(position).getAddress());
 
                 if (resultBeans.get(position).getIs_default().equals("1")) {
                     tv_set_Address.setText(getText(R.string.default_address));

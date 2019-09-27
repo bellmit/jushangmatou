@@ -80,6 +80,7 @@
             android:background="@color/white"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:visibility="gone"
             android:paddingStart="16dp"
             android:paddingEnd="16dp">
 

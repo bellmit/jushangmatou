@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.classification.ClassificationActivity;
 import com.tem.gettogether.activity.home.HomeSouSuoActivity;
 import com.tem.gettogether.adapter.ClassificationLeftAdapter;
 import com.tem.gettogether.adapter.ClassificationRightAdapter;
@@ -77,8 +78,12 @@ public class LinYiClassificationActivity extends BaseActivity {
 
         mClassificationRightAdapter.setOnClickItem(new ClassificationRightAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position) {
-                Log.d("chenshichun", "=======positionsss====" + position);
+            public void onItemClick(int position, int position2) {
+                startActivity(new Intent(getContext(), ClassificationActivity.class)
+                        .putExtra("classification_id", mRightDatas.get(position).getSon().get(position2).getId())
+                        .putExtra("classification_type", 3)
+                        .putExtra("is_yilian", true)
+                        .putExtra("classification_name", mRightDatas.get(position).getSon().get(position2).getName()));
             }
         });
     }
@@ -88,18 +93,19 @@ public class LinYiClassificationActivity extends BaseActivity {
 
     }
 
-    @Event(value = {R.id.rl_close,R.id.rl_saoyisao, R.id.tv_sousuo_fl}, type = View.OnClickListener.class)
+    @Event(value = {R.id.rl_close, R.id.rl_saoyisao, R.id.tv_sousuo_fl}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
                 finish();
                 break;
             case R.id.rl_saoyisao:
-                Toast.makeText(getContext(), getText(R.string.camera_function_not_open_yet),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getText(R.string.camera_function_not_open_yet), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tv_sousuo_fl:
                 startActivity(new Intent(getContext(), HomeSouSuoActivity.class)
-                        .putExtra("store_id", "0").putExtra("is_yilian",true));
+                        .putExtra("store_id", "0")
+                        .putExtra("is_yilian", true));
                 break;
 
         }

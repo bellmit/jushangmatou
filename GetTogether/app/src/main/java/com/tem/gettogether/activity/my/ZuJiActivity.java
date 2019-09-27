@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.home.ShopActivity;
+import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
@@ -318,11 +319,16 @@ public class ZuJiActivity extends BaseActivity {
             baseViewHolder.getView(R.id.ll_item).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                        if(!listBeanXES.get(baseViewHolder.getAdapterPosition()).getStore_id().equals("")) {
+                        /*if(!listBeanXES.get(baseViewHolder.getAdapterPosition()).getStore_id().equals("")) {
                             startActivityForResult(new Intent(ZuJiActivity.this, ShopActivity.class)
                                     .putExtra("store_id",listBeanXES.get(baseViewHolder.getAdapterPosition()).getStore_id())
                                     .putExtra("type", ShopActivity.SHOPNHOME_TYPE), ShopActivity.SHOPNHOME_TYPE);
 
+                        }*/
+
+                        if(!listBeanXES.get(baseViewHolder.getAdapterPosition()).getFootprint_id().equals("")){
+                            startActivity(new Intent(ZuJiActivity.this, ShoppingParticularsActivity.class)
+                                    .putExtra("goods_id",listBeanXES.get(baseViewHolder.getAdapterPosition()).getPid()));
                         }
 
                 }

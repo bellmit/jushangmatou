@@ -214,15 +214,15 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
                     e.printStackTrace();
                     CusToast.showToast(getText(R.string.the_store_is_invalid));
                 }
-                Log.d("chenshichun","=====trade_id======"+trade_id);
-                sendCustomizeMessage(trade_id,waiMaoQiuGouBeans.get(0).getUser_id(),waiMaoQiuGouBeans.get(0).getGoods_logo().get(0),
-                        waiMaoQiuGouBeans.get(0).getGoods_name(),waiMaoQiuGouBeans.get(0).getGoods_num()+"起批");
+                Log.d("chenshichun", "=====trade_id======" + trade_id);
+                sendCustomizeMessage(trade_id, waiMaoQiuGouBeans.get(0).getUser_id(), waiMaoQiuGouBeans.get(0).getGoods_logo().get(0),
+                        waiMaoQiuGouBeans.get(0).getGoods_name(), waiMaoQiuGouBeans.get(0).getGoods_num() + "起批", "1");
             }
         });
     }
 
-    private void sendCustomizeMessage(String trade_id,String targetId ,String image, String name, String count) {
-        CustomizeBuyMessage customizeMessage = new CustomizeBuyMessage(trade_id,image, name, count);
+    private void sendCustomizeMessage(String trade_id, String targetId, String image, String name, String count, String type) {
+        CustomizeBuyMessage customizeMessage = new CustomizeBuyMessage(trade_id, image, name, count, type);
         byte[] bvvv = customizeMessage.encode();
         CustomizeBuyMessage richContentMessage = new CustomizeBuyMessage(bvvv);
         io.rong.imlib.model.Message myMessage = io.rong.imlib.model.Message.obtain(targetId, Conversation.ConversationType.PRIVATE, richContentMessage);

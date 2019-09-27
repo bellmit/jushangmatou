@@ -295,6 +295,9 @@ public class URLConstant {
     // 企业信息保存
     public final static String ENTERPISE_INFO_SAVE = SERVER + "/Api/User/enterprise_personal_info_submit";
 
+    // 采购商个人信息保存
+    public final static String CAIGOU_ENTERPISE_INFO_SAVE = SERVER + "/Api/User/personal_info_submit";
+
     // 个人信息
     public final static String PERSION_INFO = SERVER + "/Api/User/personal_info";
 
@@ -323,7 +326,7 @@ public class URLConstant {
     public final static String BUY_MANAGER = SERVER + "/Api/Goods/buyer_tradeList";
 
     // 上传图片接口
-    public final static String UPLOAD_PICTURE = SERVER +"/Api/Index/upload_binary";
+    public final static String UPLOAD_PICTURE = SERVER + "/Api/Index/upload_binary";
 
     //临沂店铺商品分类接口
     public final static String LINYI_SHOP_CLASSIFICATION = SERVER + "/Api/User/linyiget_goods_category";
@@ -347,23 +350,23 @@ public class URLConstant {
     public final static String VISITOR_DATA = SERVER + "/Api/Store/store_visiter_list";
 
     // 店铺装修
-    public final static String SHOP_DECORATION = SERVER +"/Api/Store/store_interface_mod";
+    public final static String SHOP_DECORATION = SERVER + "/Api/Store/store_interface_mod";
 
     // 店铺logo和背景图片上传接口
-    public final static String UPLOAD_SHOP_PICTURE = SERVER +"/Api/Store/upload_binary_logobanner";
+    public final static String UPLOAD_SHOP_PICTURE = SERVER + "/Api/Store/upload_binary_logobanner";
 
     // 店铺banner
-    public final static String UPLOAD_SHOP_BANNER_PICTURE = SERVER +"/Api/Store/upload_binary_adcode";
+    public final static String UPLOAD_SHOP_BANNER_PICTURE = SERVER + "/Api/Store/upload_binary_adcode";
 
     // 店铺装修修改
-    public final static String SHOP_DECORATION_MODIFY = SERVER +"/Api/Store/store_interface_save";
+    public final static String SHOP_DECORATION_MODIFY = SERVER + "/Api/Store/store_interface_save";
 
     //临沂搜索
-    public final static String YILIAN_SEARCH = SERVER+"/Api/Goods/linyigoodsList";
+    public final static String YILIAN_SEARCH = SERVER + "/Api/Goods/linyigoodsList";
 
     // 临沂新分类接口列表
     public final static String LIANYI_SEARCH_LIST_URL = SERVER + "/Api/Goods/linyicategory3_goodsList";
 
     //App端聊天获取用户角色接口
-    public final static String MESSAGE_HEAD = SERVER +"/Api/User/user_info";
+    public final static String MESSAGE_HEAD = SERVER + "/Api/User/user_info";
 }

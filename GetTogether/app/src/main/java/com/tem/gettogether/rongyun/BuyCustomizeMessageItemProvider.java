@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.home.HomeBuyDetailNewActivity;
+import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
 import com.tem.gettogether.base.BaseApplication;
 
 import io.rong.imkit.model.ProviderTag;
@@ -63,12 +64,19 @@ public class BuyCustomizeMessageItemProvider extends IContainerItemProvider.Mess
         holder.ll_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("chenshichun","==========="+customizeMessage.getTrade_id());
-                BaseApplication.getInstance().mInstance.startActivity(new Intent(BaseApplication.getInstance().mInstance, HomeBuyDetailNewActivity.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        .putExtra("trade_id", customizeMessage.getTrade_id())
-                        .putExtra("witch_page",0)
-                        .putExtra("page", 0));
+                Log.d("chenshichun", "===========" + customizeMessage.getTrade_id());
+                if (customizeMessage.getType().equals("0")) {// 详情
+                    BaseApplication.getInstance().startActivity(new Intent(BaseApplication.getInstance().mInstance, ShoppingParticularsActivity.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .putExtra("goods_id",customizeMessage.getTrade_id()));
+                } else {// 求购
+                    BaseApplication.getInstance().mInstance.startActivity(new Intent(BaseApplication.getInstance().mInstance, HomeBuyDetailNewActivity.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .putExtra("trade_id", customizeMessage.getTrade_id())
+                            .putExtra("witch_page", 0)
+                            .putExtra("page", 0));
+                }
+
             }
         });
     }

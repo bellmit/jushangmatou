@@ -97,7 +97,7 @@ public class ShopXQActivity extends BaseActivity {
         store_id = getIntent().getStringExtra("store_id");
         is_collect = getIntent().getStringExtra("is_collect");
         store_user_id = getIntent().getStringExtra("store_user_id");
-        if (is_collect != null) {
+       /* if (is_collect != null) {
             if (is_collect.equals("0")) {
                 tv_isgz.setText(getText(R.string.attention));
                 iv_gz.setVisibility(View.VISIBLE);
@@ -107,7 +107,7 @@ public class ShopXQActivity extends BaseActivity {
                 iv_gz.setVisibility(View.GONE);
                 iv_gz.setImageResource(R.drawable.yi_guanzhu);
             }
-        }
+        }*/
     }
 
     @Override
@@ -118,7 +118,7 @@ public class ShopXQActivity extends BaseActivity {
     private void initviews() {
 
         tv_shop_name.setText(resultBean.getStore_name());
-        tv_gz_num.setText(resultBean.getFcount() +getText(R.string.people));
+        tv_gz_num.setText(resultBean.getFcount() + getText(R.string.people));
         tv_shopping_num.setText(resultBean.getStore_count());
         tv_xp_num.setText(resultBean.getStore_new_count());
         tv_pj_num.setText(resultBean.getStore_comment_count());
@@ -152,6 +152,10 @@ public class ShopXQActivity extends BaseActivity {
 
                 break;
             case R.id.rl_zhaq:
+                if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
+                    CusToast.showToast(getText(R.string.supplier_does_not_have_this_feature));
+                    return;
+                }
                 try {
 
                     //发消息
@@ -221,7 +225,7 @@ public class ShopXQActivity extends BaseActivity {
         cancle = view.findViewById(R.id.cancle);
         tv_iteam1 = view.findViewById(R.id.tv_iteam1);
         tv_iteam1.setText(R.string.kefudian);
-        photo.setText(getText(R.string.call) + resultBean.getStore_phone());
+        photo.setText(getText(R.string.call) + resultBean.getContacts_mobile());
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

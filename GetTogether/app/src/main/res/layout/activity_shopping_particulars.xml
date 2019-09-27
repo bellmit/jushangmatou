@@ -300,15 +300,16 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="商货号"
-                    android:textColor="@color/text9"
+                    android:text="货号"
+                    android:textColor="@color/black"
                     android:textSize="13dp" />
 
                 <TextView
+                    android:id="@+id/huohao_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textColor="@color/text_4c"
+                    android:textColor="@color/black"
                     android:textSize="13dp" />
             </LinearLayout>
                 <View
@@ -949,6 +950,7 @@
                 android:layout_weight="1"
                 android:background="@color/my_yellow"
                 android:gravity="center"
+                android:visibility="gone"
                 android:text="@string/xuxunjia"
                 android:textColor="@color/white"
                 android:textSize="16dp" />
@@ -963,6 +965,18 @@
                 android:text="@string/jiarucaigou"
                 android:textColor="@color/white"
                 android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/tv_buy"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/home_red"
+                android:gravity="center"
+                android:text="@string/place_order"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

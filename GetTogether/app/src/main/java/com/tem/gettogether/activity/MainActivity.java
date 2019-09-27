@@ -40,6 +40,7 @@ import com.tem.gettogether.fragment.SearchFragment;
 import com.tem.gettogether.fragment.XunPanFragment;
 import com.tem.gettogether.fragment.XunPanTuiSongFragment;
 import com.tem.gettogether.utils.AppManager;
+import com.tem.gettogether.utils.BadgerUtil;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.language.LanguageBean;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
@@ -321,6 +322,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 .setMessage(getText(R.string.please_ensure_the_device_is_secure)).setPositiveButton(getText(R.string.re_register), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        BaseApplication.getInstance().removerUser();
                         startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     }
                 }).setCancelable(false);
@@ -551,6 +553,8 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
             if (messageNum > 0) {
                 mUnreadNumView.setVisibility(View.VISIBLE);
                 mUnreadNumView.setText(String.valueOf(count + messageNum));
+                BadgerUtil.addBadger(this, (count + messageNum));
+
             } else {
                 mUnreadNumView.setVisibility(View.GONE);
             }
@@ -558,9 +562,11 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
             mUnreadNumView.setVisibility(View.VISIBLE);
             upGetMessageData();
             mUnreadNumView.setText(String.valueOf(count + messageNum));
+            BadgerUtil.addBadger(this, (count + messageNum));
         } else {
             mUnreadNumView.setVisibility(View.VISIBLE);
             mUnreadNumView.setText(R.string.no_read_message);
+            BadgerUtil.addBadger(this, 0);
         }
     }
 
@@ -589,6 +595,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 mUnreadNumView.setVisibility(View.VISIBLE);
                 mUnreadNumView.setText(R.string.no_read_message);
             }
+            BadgerUtil.addBadger(getContext(), (rongyunmessageNum + messageNum));
         }
     };
 
@@ -614,6 +621,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                         if ((rongyunmessageNum + messageNum) > 0) {
                             mUnreadNumView.setVisibility(View.VISIBLE);
                             mUnreadNumView.setText(String.valueOf((rongyunmessageNum + messageNum)));
+                            BadgerUtil.addBadger(getContext(), (rongyunmessageNum + messageNum));
                         } else {
                             mUnreadNumView.setVisibility(View.GONE);
                         }

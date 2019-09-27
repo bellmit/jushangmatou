@@ -28,12 +28,22 @@ public class CustomizeBuyMessage extends MessageContent {
     private String image;
     private String name;
     private String count;
+    private String type;
 
-    public CustomizeBuyMessage(String trade_id,String image, String name, String count) {
+    public CustomizeBuyMessage(String trade_id,String image, String name, String count,String type) {
         this.trade_id = trade_id;
         this.image = image;
         this.name = name;
         this.count = count;
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getTrade_id() {
@@ -77,6 +87,7 @@ public class CustomizeBuyMessage extends MessageContent {
             jsonObj.put("image", getImage());
             jsonObj.put("name", getName());
             jsonObj.put("count", getCount());
+            jsonObj.put("type", getType());
         } catch (JSONException e) {
             Log.e("JSONException", e.getMessage());
         }
@@ -109,6 +120,8 @@ public class CustomizeBuyMessage extends MessageContent {
                 name = jsonObj.optString("name");
             if (jsonObj.has("count"))
                 count = jsonObj.optString("count");
+            if (jsonObj.has("type"))
+                type = jsonObj.optString("type");
         } catch (JSONException e) {
             Log.e("===", "JSONException" + e.getMessage());
         }
@@ -119,6 +132,7 @@ public class CustomizeBuyMessage extends MessageContent {
         setImage(ParcelUtils.readFromParcel(in));
         setName(ParcelUtils.readFromParcel(in));
         setCount(ParcelUtils.readFromParcel(in));
+        setType(ParcelUtils.readFromParcel(in));
     }
 
     public static final Creator<CustomizeBuyMessage> CREATOR = new Creator<CustomizeBuyMessage>() {
@@ -145,5 +159,6 @@ public class CustomizeBuyMessage extends MessageContent {
         ParcelUtils.writeToParcel(dest, getCount());//该类为工具类，对消息中属性进行序列化
         ParcelUtils.writeToParcel(dest, getName());//该类为工具类，对消息中属性进行序列化
         ParcelUtils.writeToParcel(dest, getImage());//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, getType());//该类为工具类，对消息中属性进行序列化
     }
 }

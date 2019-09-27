@@ -58,14 +58,8 @@ public class ClassificationRightAdapter extends RecyclerView.Adapter<Classificat
                 holder.getView(R.id.ll_shopping_item).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                       Log.d("chenshichun","=====position2======"+mDatas.get(position).getSon().get(position2).getId());
-
-                       context.startActivity(new Intent(context, ClassificationActivity.class)
-                               .putExtra("classification_id",mDatas.get(position).getSon().get(position2).getId())
-                               .putExtra("classification_type",3)
-                               .putExtra("is_yilian",true)
-                               .putExtra("classification_name",mDatas.get(position).getSon().get(position2).getName()));
-
+                        Log.d("chenshichun", "=====position2======" + mDatas.get(position).getSon().get(position2).getId());
+                        mOnItemClickListener.onItemClick(position, position2);
                     }
                 });
             }
@@ -99,7 +93,7 @@ public class ClassificationRightAdapter extends RecyclerView.Adapter<Classificat
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position);
+        void onItemClick(int position, int position2);
     }
 
     public void setOnClickItem(ClassificationRightAdapter.OnItemClickListener onItemClickListener) {

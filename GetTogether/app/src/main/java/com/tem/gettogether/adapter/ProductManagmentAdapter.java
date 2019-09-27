@@ -50,17 +50,17 @@ public class ProductManagmentAdapter extends RecyclerView.Adapter<ProductManagme
         if (pageType == 0) {
             holder.shelf_tv.setVisibility(View.GONE);
             holder.obtained_tv.setVisibility(View.VISIBLE);
-            holder.edit_tv.setVisibility(View.VISIBLE);
+//            holder.edit_tv.setVisibility(View.VISIBLE);
             holder.delete_tv.setVisibility(View.GONE);
         } else if (pageType == 1) {
             holder.shelf_tv.setVisibility(View.VISIBLE);
             holder.obtained_tv.setVisibility(View.GONE);
-            holder.edit_tv.setVisibility(View.VISIBLE);
+//            holder.edit_tv.setVisibility(View.VISIBLE);
             holder.delete_tv.setVisibility(View.VISIBLE);
         } else {
             holder.shelf_tv.setVisibility(View.GONE);
             holder.obtained_tv.setVisibility(View.GONE);
-            holder.edit_tv.setVisibility(View.VISIBLE);
+//            holder.edit_tv.setVisibility(View.VISIBLE);
             holder.delete_tv.setVisibility(View.VISIBLE);
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {

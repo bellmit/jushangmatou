@@ -664,7 +664,6 @@
     <string name="guanliyuanxiaoge">管理员小哥</string>
     <string name="quanbushangping">全部商品</string>
     <string name="shangxin">上新</string>
-    <string name="店铺成交">店铺成交</string>
     <string name="dianpuchengjiao">店铺成交</string>
     <string name="jianyinze">经营者</string>
     <string name="lianxidianhua">联系电话</string>
@@ -761,4 +760,6 @@
     <string name="lijifukuan">立即付款</string>
     <string name="weixinhao">微信号</string>
     <string name="qsrndweixinhao">请输入您的微信号</string>
+    <string name="select_up_to_2_images">最多选择2张图片</string>
+    <string name="place_order">立即下单</string>
 </resources>

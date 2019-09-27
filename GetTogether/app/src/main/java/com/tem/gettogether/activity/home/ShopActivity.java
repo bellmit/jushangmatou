@@ -102,9 +102,9 @@ public class ShopActivity extends BaseActivity {
     private LinearLayout ll_shop_xq;
     private PopupWindow mPop;
     private String store_id;
-    private ShopTopBean.ResultBean resultBean=new ShopTopBean.ResultBean();
-    private List<ShopTopBean.ResultBean.StoreBannerBean> storeBannerBeans=new ArrayList<>();
-    private List<ShoppingFenLieBean.ResultBean> resultBeans=new ArrayList<>();
+    private ShopTopBean.ResultBean resultBean = new ShopTopBean.ResultBean();
+    private List<ShopTopBean.ResultBean.StoreBannerBean> storeBannerBeans = new ArrayList<>();
+    private List<ShoppingFenLieBean.ResultBean> resultBeans = new ArrayList<>();
     @ViewInject(R.id.iv_shop_image)
     private RoundImageView iv_shop_image;
     @ViewInject(R.id.tv_shop_name)
@@ -125,6 +125,7 @@ public class ShopActivity extends BaseActivity {
     private RelativeLayout rl_sousuo;
     @ViewInject(R.id.banner)
     private Banner banner;
+
     @TargetApi(19)
     public void setTranslucentStatus(boolean on) {
         Window win = this.getWindow();
@@ -137,16 +138,17 @@ public class ShopActivity extends BaseActivity {
         }
         win.setAttributes(winParams);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         initData();
 
-        shopHomeFragment=new ShopHomeFragment();
-        shopShoppingFragment=new ShopShoppingFragment();
-        shopPingJFragment=new ShopPingJFragment();
-        shopDongTFragment=new ShopDongTFragment();
+        shopHomeFragment = new ShopHomeFragment();
+        shopShoppingFragment = new ShopShoppingFragment();
+        shopPingJFragment = new ShopPingJFragment();
+        shopDongTFragment = new ShopDongTFragment();
         if (savedInstanceState != null) {
             baseFragment = (BaseFragment) getSupportFragmentManager().getFragment(savedInstanceState, baseFragment.getClass().getSimpleName());
         } else {
@@ -157,9 +159,9 @@ public class ShopActivity extends BaseActivity {
                     line3.setVisibility(View.INVISIBLE);
                     line4.setVisibility(View.INVISIBLE);
                     tv_shou_home.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-                    tv_shopping.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL ));
-                    tv_pingjai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL ));
-                    tv_dongtai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL ));
+                    tv_shopping.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                    tv_pingjai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                    tv_dongtai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
                     baseFragment = ShopHomeFragment.newInstance();
                     break;
                 case SHOPSHOPING_TYPE:
@@ -168,9 +170,9 @@ public class ShopActivity extends BaseActivity {
                     line3.setVisibility(View.INVISIBLE);
                     line4.setVisibility(View.INVISIBLE);
                     tv_shou_home.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-                    tv_shopping.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD ));
-                    tv_pingjai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL ));
-                    tv_dongtai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL ));
+                    tv_shopping.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                    tv_pingjai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                    tv_dongtai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
                     baseFragment = ShopShoppingFragment.newInstance();
                     break;
                 case SHOPPINGJIA_TYPE:
@@ -179,9 +181,9 @@ public class ShopActivity extends BaseActivity {
                     line3.setVisibility(View.VISIBLE);
                     line4.setVisibility(View.INVISIBLE);
                     tv_shou_home.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-                    tv_shopping.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL ));
-                    tv_pingjai.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD ));
-                    tv_dongtai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL ));
+                    tv_shopping.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                    tv_pingjai.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                    tv_dongtai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 
                     baseFragment = ShopPingJFragment.newInstance();
                     break;
@@ -191,9 +193,9 @@ public class ShopActivity extends BaseActivity {
                     line3.setVisibility(View.INVISIBLE);
                     line4.setVisibility(View.VISIBLE);
                     tv_shou_home.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-                    tv_shopping.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL ));
-                    tv_pingjai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL ));
-                    tv_dongtai.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD ));
+                    tv_shopping.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                    tv_pingjai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                    tv_dongtai.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
 
                     baseFragment = ShopDongTFragment.newInstance();
                     break;
@@ -211,7 +213,7 @@ public class ShopActivity extends BaseActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
         }
-        store_id=getIntent().getStringExtra("store_id");
+        store_id = getIntent().getStringExtra("store_id");
         upShopData(store_id);
         upShopFenLieData(store_id);
     }
@@ -225,7 +227,7 @@ public class ShopActivity extends BaseActivity {
     public void onMessage(List<ShopTopBean.ResultBean.StoreBannerBean> storeBannerBean) {
         if (storeBannerBean == null) return;
         List<String> img = new ArrayList<>();
-        for (int i=0;i<storeBannerBean.size();i++){
+        for (int i = 0; i < storeBannerBean.size(); i++) {
             img.add(storeBannerBean.get(i).getAd_code());
         }
         banner.setImageLoader(new GlideImageLoader());
@@ -234,50 +236,52 @@ public class ShopActivity extends BaseActivity {
 
     }
 
-    @Event(value = {R.id.rl_close,R.id.ll_shopping_fenl,R.id.ll_shop_xq,R.id.ll_lianxikefu,R.id.ll_shop_go,R.id.rl_right_more,R.id.ll_shop_home,R.id.rl_sousuo,R.id.ll_shop_shopping,R.id.ll_shop_pingj,R.id.ll_shop_dongt,R.id.ll_is_gz},type = View.OnClickListener.class)
+    @Event(value = {R.id.rl_close, R.id.ll_shopping_fenl, R.id.ll_shop_xq, R.id.ll_lianxikefu, R.id.ll_shop_go, R.id.rl_right_more, R.id.ll_shop_home, R.id.rl_sousuo, R.id.ll_shop_shopping, R.id.ll_shop_pingj, R.id.ll_shop_dongt, R.id.ll_is_gz}, type = View.OnClickListener.class)
     private void getEvent(View view) {
-        Bundle bundle=new Bundle();
+        Bundle bundle = new Bundle();
 
         switch (view.getId()) {
             case R.id.rl_close:
                 finish();
                 break;
             case R.id.ll_lianxikefu:
+                if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
+                    CusToast.showToast(getText(R.string.supplier_does_not_have_this_feature));
+                    return;
+                }
                 try {
-                    if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
-                        CusToast.showToast(getText(R.string.supplier_does_not_have_this_feature));
-                    } else {
-                            if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
 
-                                if (resultBean != null && resultBean.getStore_user_id() != null) {
-                                    RongTalk.doConnection(ShopActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
-                                            , resultBean.getStore_user_id(), resultBean.getStore_name(),
-                                            resultBean.getStore_logo(), resultBean.getStore_id());
-                                } else {
-                                    CusToast.showToast(getText(R.string.the_store_is_invalid));
-                                }
+                    if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
 
-                            }
+                        if (resultBean != null && resultBean.getStore_user_id() != null) {
+                            RongTalk.doConnection(ShopActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
+                                    , resultBean.getStore_user_id(), resultBean.getStore_name(),
+                                    resultBean.getStore_logo(), resultBean.getStore_id());
+                        } else {
+                            CusToast.showToast(getText(R.string.the_store_is_invalid));
+                        }
+
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     CusToast.showToast(getText(R.string.the_store_is_invalid));
                 }
 
                 break;
             case R.id.rl_right_more:
-                String sousuo2=et_sousuo.getText().toString().trim();
-                if(sousuo2.equals("")){
+                String sousuo2 = et_sousuo.getText().toString().trim();
+                if (sousuo2.equals("")) {
                     CusToast.showToast(getText(R.string.please_enter_a_keyword));
                     return;
                 }
                 InputMethodManager imm2 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
 
                 imm2.hideSoftInputFromWindow(rl_sousuo.getWindowToken(), 0);
-                ShopKeyBean shopKeyBean2=new ShopKeyBean();
+                ShopKeyBean shopKeyBean2 = new ShopKeyBean();
                 shopKeyBean2.setSousuoConnect(sousuo2);
                 shopKeyBean2.setTypeLX("0x1001");
-                shopKeyBean2.setStore_id(store_id);;
+                shopKeyBean2.setStore_id(store_id);
+                ;
                 EventBus.getDefault().post(shopKeyBean2);
                 break;
             case R.id.ll_shop_home:
@@ -286,9 +290,9 @@ public class ShopActivity extends BaseActivity {
                 line3.setVisibility(View.INVISIBLE);
                 line4.setVisibility(View.INVISIBLE);
                 tv_shou_home.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-                tv_shopping.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL ));
-                tv_pingjai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL ));
-                tv_dongtai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL ));
+                tv_shopping.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                tv_pingjai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                tv_dongtai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 
                 turnToFragment(baseFragment.getClass(), ShopHomeFragment.class, null);
 
@@ -300,10 +304,10 @@ public class ShopActivity extends BaseActivity {
                 line3.setVisibility(View.INVISIBLE);
                 line4.setVisibility(View.INVISIBLE);
                 tv_shou_home.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-                tv_shopping.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD ));
-                tv_pingjai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL ));
-                tv_dongtai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL ));
-                bundle.putString("store_id",store_id);
+                tv_shopping.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                tv_pingjai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                tv_dongtai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                bundle.putString("store_id", store_id);
 
                 turnToFragment(baseFragment.getClass(), ShopShoppingFragment.class, bundle);
 
@@ -314,10 +318,10 @@ public class ShopActivity extends BaseActivity {
                 line3.setVisibility(View.VISIBLE);
                 line4.setVisibility(View.INVISIBLE);
                 tv_shou_home.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-                tv_shopping.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL ));
-                tv_pingjai.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD ));
-                tv_dongtai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL ));
-                bundle.putString("store_id",store_id);
+                tv_shopping.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                tv_pingjai.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                tv_dongtai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                bundle.putString("store_id", store_id);
                 turnToFragment(baseFragment.getClass(), ShopPingJFragment.class, bundle);
 
                 break;
@@ -327,25 +331,25 @@ public class ShopActivity extends BaseActivity {
                 line3.setVisibility(View.INVISIBLE);
                 line4.setVisibility(View.VISIBLE);
                 tv_shou_home.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-                tv_shopping.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL ));
-                tv_pingjai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL ));
-                tv_dongtai.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD ));
+                tv_shopping.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                tv_pingjai.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                tv_dongtai.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 turnToFragment(baseFragment.getClass(), ShopDongTFragment.class, null);
                 break;
             case R.id.ll_shopping_fenl://商品分类
                 showPop(ll_shopping_fenl);
                 break;
             case R.id.ll_shop_xq://店铺详情
-                startActivity(new Intent(this,ShopXQActivity.class)
-                        .putExtra("is_collect",resultBean.getIs_collect())
-                        .putExtra("store_user_id",resultBean.getStore_user_id())
-                        .putExtra("store_id",store_id));
+                startActivity(new Intent(this, ShopXQActivity.class)
+                        .putExtra("is_collect", resultBean.getIs_collect())
+                        .putExtra("store_user_id", resultBean.getStore_user_id())
+                        .putExtra("store_id", store_id));
                 break;
             case R.id.ll_shop_go:
-                startActivity(new Intent(this,ShopXQActivity.class)
-                        .putExtra("is_collect",resultBean.getIs_collect())
-                        .putExtra("store_user_id",resultBean.getStore_user_id())
-                        .putExtra("store_id",store_id));
+                startActivity(new Intent(this, ShopXQActivity.class)
+                        .putExtra("is_collect", resultBean.getIs_collect())
+                        .putExtra("store_user_id", resultBean.getStore_user_id())
+                        .putExtra("store_id", store_id));
 
 
                 break;
@@ -354,23 +358,25 @@ public class ShopActivity extends BaseActivity {
                 upisGZData(store_id);
                 break;
             case R.id.rl_sousuo:
-                String sousuo=et_sousuo.getText().toString().trim();
-                if(sousuo.equals("")){
+                String sousuo = et_sousuo.getText().toString().trim();
+                if (sousuo.equals("")) {
                     CusToast.showToast(getText(R.string.please_enter_a_keyword));
                     return;
                 }
                 InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
 
                 imm.hideSoftInputFromWindow(rl_sousuo.getWindowToken(), 0);
-                ShopKeyBean shopKeyBean=new ShopKeyBean();
+                ShopKeyBean shopKeyBean = new ShopKeyBean();
                 shopKeyBean.setSousuoConnect(sousuo);
                 shopKeyBean.setTypeLX("0x1001");
-                shopKeyBean.setStore_id(store_id);;
+                shopKeyBean.setStore_id(store_id);
+                ;
                 EventBus.getDefault().post(shopKeyBean);
 
                 break;
         }
     }
+
     //显示弹窗
     private void showPop(View v) {
         initPop();
@@ -382,6 +388,7 @@ public class ShopActivity extends BaseActivity {
         lp.alpha = 0.6f;
         getWindow().setAttributes(lp);
     }
+
     //初始化弹窗
     private void initPop() {
         if (mPop == null) {
@@ -407,11 +414,12 @@ public class ShopActivity extends BaseActivity {
             setPopClickListener(view);
         }
     }
+
     private void setPopClickListener(View view) {
         RecyclerView recycler_shop_fl = view.findViewById(R.id.recycler_shop_fl);
 
-        recycler_shop_fl.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        recycler_shop_fl.setAdapter(new BaseRVAdapter(this,resultBeans) {
+        recycler_shop_fl.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recycler_shop_fl.setAdapter(new BaseRVAdapter(this, resultBeans) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.shop_item_fl;
@@ -424,11 +432,12 @@ public class ShopActivity extends BaseActivity {
                     @Override
                     public void onClick(View view) {
                         mPop.dismiss();
-                        ShopKeyBean shopKeyBean=new ShopKeyBean();
+                        ShopKeyBean shopKeyBean = new ShopKeyBean();
                         shopKeyBean.setCat_id(resultBeans.get(position).getCat_id());
                         shopKeyBean.setTypeLX("0x1002");
 
-                        shopKeyBean.setStore_id(store_id);;
+                        shopKeyBean.setStore_id(store_id);
+                        ;
                         EventBus.getDefault().post(shopKeyBean);
 
 //                        CusToast.showToast("选中了"+position);
@@ -438,13 +447,14 @@ public class ShopActivity extends BaseActivity {
 
         });
     }
-    private void upShopData(String store_id){
-        Map<String,Object> map=new HashMap<>();
+
+    private void upShopData(String store_id) {
+        Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
-        map.put("store_id",store_id);
+        map.put("store_id", store_id);
         showDialog();
-        XUtil.Post(URLConstant.SHOPHOMEHEAD,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.SHOPHOMEHEAD, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -453,29 +463,29 @@ public class ShopActivity extends BaseActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        ShopTopBean shopTopBean=gson.fromJson(result,ShopTopBean.class);
-                        resultBean=shopTopBean.getResult();
-                        storeBannerBeans=shopTopBean.getResult().getStore_banner();
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        ShopTopBean shopTopBean = gson.fromJson(result, ShopTopBean.class);
+                        resultBean = shopTopBean.getResult();
+                        storeBannerBeans = shopTopBean.getResult().getStore_banner();
                         EventBus.getDefault().post(storeBannerBeans);
                         tv_shop_name.setText(resultBean.getStore_name());
-                        tv_shop_peopleNum.setText(resultBean.getStore_collect()+"人关注");
+                        tv_shop_peopleNum.setText(resultBean.getStore_collect() + "人关注");
                         tv_shop_xj.setText(resultBean.getStore_name());
                         Glide.with(ShopActivity.this).load(resultBean.getStore_logo()).error(R.drawable.head_bg).into(iv_shop_image);
 
                         Glide.with(ShopActivity.this).load(resultBean.getStore_background()).error(R.drawable.shop_bg).into(iv_image_top);
-                        if(resultBean.getIs_collect().equals("0")){
+                        if (resultBean.getIs_collect().equals("0")) {
                             tv_isgz.setText(getText(R.string.attention));
                             iv_isgz_icon.setVisibility(View.VISIBLE);
                             iv_isgz_icon.setImageResource(R.drawable.add_icon_b);
-                        }else{
+                        } else {
                             tv_isgz.setText(getText(R.string.has_been_concerned));
                             iv_isgz_icon.setVisibility(View.GONE);
                             iv_isgz_icon.setImageResource(R.drawable.yi_guanzhu);
                         }
 
-                        onMessage(resultBean.getStore_banner());
+//                        onMessage(resultBean.getStore_banner());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -496,11 +506,12 @@ public class ShopActivity extends BaseActivity {
             }
         });
     }
-    private void upShopFenLieData(String store_id){
-        Map<String,Object> map=new HashMap<>();
-        map.put("store_id",store_id);
+
+    private void upShopFenLieData(String store_id) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("store_id", store_id);
         showDialog();
-        XUtil.Post(URLConstant.SHOPPINGFENLIE,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.SHOPPINGFENLIE, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -509,10 +520,10 @@ public class ShopActivity extends BaseActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        ShoppingFenLieBean shoppingFenLieBean=gson.fromJson(result,ShoppingFenLieBean.class);
-                        resultBeans=shoppingFenLieBean.getResult();
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        ShoppingFenLieBean shoppingFenLieBean = gson.fromJson(result, ShoppingFenLieBean.class);
+                        resultBeans = shoppingFenLieBean.getResult();
                     }
 
                 } catch (JSONException e) {
@@ -534,13 +545,14 @@ public class ShopActivity extends BaseActivity {
             }
         });
     }
-    private void upisGZData(String store_id){
-        Map<String,Object> map=new HashMap<>();
-            map.put("store_id",store_id);
-            map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
+    private void upisGZData(String store_id) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("store_id", store_id);
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
         showDialog();
-        XUtil.Post(URLConstant.SHOPISGUANZHU,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.SHOPISGUANZHU, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -549,14 +561,14 @@ public class ShopActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
-                    Log.i("====店铺关注===", result+msg);
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        if(msg.equals(getText(R.string.successful_collection))){
+                    Log.i("====店铺关注===", result + msg);
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        if (msg.equals(getText(R.string.successful_collection))) {
                             tv_isgz.setText(getText(R.string.has_been_concerned));
                             iv_isgz_icon.setVisibility(View.GONE);
                             iv_isgz_icon.setImageResource(R.drawable.yi_guanzhu);
-                        }else if(msg.equals(getText(R.string.cancel_success))){
+                        } else if (msg.equals(getText(R.string.cancel_success))) {
                             tv_isgz.setText(getText(R.string.attention));
                             iv_isgz_icon.setVisibility(View.VISIBLE);
                             iv_isgz_icon.setImageResource(R.drawable.add_icon_b);

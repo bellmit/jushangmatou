@@ -107,6 +107,7 @@ public class HomeSouSuoActivity extends BaseActivity {
                     return;
                 }
                 startActivity(new Intent(this, HotFenLeiActivity.class)
+                        .putExtra("is_yilian",is_yilian)
                         .putExtra("keywords",et_sousuo.getText().toString().trim()));
                 break;
 
@@ -158,6 +159,7 @@ public class HomeSouSuoActivity extends BaseActivity {
                             @Override
                             public void onClick(View view) {
                                 startActivity(new Intent(HomeSouSuoActivity.this, HotFenLeiActivity.class)
+                                        .putExtra("is_yilian",is_yilian)
                                         .putExtra("keywords",resultBeans.get(position).getContent()));
                             }
                         });
@@ -223,6 +225,7 @@ public class HomeSouSuoActivity extends BaseActivity {
                             @Override
                             public void onClick(View view) {
                                 startActivity(new Intent(HomeSouSuoActivity.this, HotFenLeiActivity.class)
+                                        .putExtra("is_yilian",is_yilian)
                                         .putExtra("keywords",hotresultBeans.get(position).getContent()));
                             }
                         });

@@ -34,6 +34,7 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.MainActivity;
 import com.tem.gettogether.activity.home.HomeGongGaoActivity;
 import com.tem.gettogether.activity.home.HomeHotSellActivity;
 import com.tem.gettogether.activity.home.HomeLianMengActivity;
@@ -555,7 +556,8 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                 getResources().updateConfiguration(config, dm);
                 SharedPreferencesUtils.saveString(getActivity(), BaseConstant.SPConstant.language, "zh");
                 mPop.dismiss();
-                restartApplication(getActivity());
+//                restartApplication(getActivity());
+                getActivity().recreate();
                 break;
             case R.id.rl_item2:
                 DisplayMetrics dm2 = getResources().getDisplayMetrics();
@@ -565,7 +567,8 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                 getResources().updateConfiguration(config2, dm2);
                 SharedPreferencesUtils.saveString(getActivity(), BaseConstant.SPConstant.language, "en");
                 mPop.dismiss();
-                restartApplication(getActivity());
+                //restartApplication(getActivity());
+                getActivity().recreate();
                 break;
             case R.id.rl_item3:
                 DisplayMetrics dm3 = getResources().getDisplayMetrics();
@@ -575,7 +578,8 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                 getResources().updateConfiguration(config3, dm3);
                 SharedPreferencesUtils.saveString(getActivity(), BaseConstant.SPConstant.language, "ara");
                 mPop.dismiss();
-                restartApplication(getActivity());
+               // restartApplication(getActivity());
+                getActivity().recreate();
                 break;
         }
     }
