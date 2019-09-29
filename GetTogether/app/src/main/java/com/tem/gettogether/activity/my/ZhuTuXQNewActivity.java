@@ -57,7 +57,7 @@ public class ZhuTuXQNewActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
-        tv_title.setText(getText(R.string.spztu));
+        tv_title.setText(getText(R.string.product_master_map));
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setText(getText(R.string.save));
         cover_image=getIntent().getStringExtra("cover_image");

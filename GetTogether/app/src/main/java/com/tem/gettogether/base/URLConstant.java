@@ -369,4 +369,6 @@ public class URLConstant {
 
     //App端聊天获取用户角色接口
     public final static String MESSAGE_HEAD = SERVER + "/Api/User/user_info";
+
+    public final static String REFUND_URL = SERVER + "/Api/Wxpay/mpayBack";
 }

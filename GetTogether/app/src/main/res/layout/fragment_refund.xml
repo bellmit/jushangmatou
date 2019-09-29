@@ -48,6 +48,7 @@
                 android:text="@string/shifoushenqingtuikuan" />
 
             <TextView
+                android:id="@+id/request_refund"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_10"

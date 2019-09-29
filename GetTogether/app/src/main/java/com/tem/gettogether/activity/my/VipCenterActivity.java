@@ -70,8 +70,7 @@ public class VipCenterActivity extends BaseActivity {
     protected void initData() {
         x.view().inject(this);
         AppManager.getAppManager().addActivity(this);
-
-        headPic = getIntent().getStringExtra("head_pic");
+        headPic = SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.head_pic, "0");
         shopStatus = SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0");
         tv_title.setText(getResources().getString(R.string.membership_center));
         tv_title_right.setVisibility(View.VISIBLE);

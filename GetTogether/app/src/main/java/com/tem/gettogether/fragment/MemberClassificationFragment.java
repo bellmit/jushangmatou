@@ -70,9 +70,9 @@ public class MemberClassificationFragment extends BaseFragment {
                         seniorMember = memberAmountBean.getResult().getSeniormfee();
                         lever = memberAmountBean.getResult().getLevel();
                         if(lever.equals("7")){
-                            gaojihuiyuan_tv.setText(seniorMember+"元/年");
+                            gaojihuiyuan_tv.setText(seniorMember+getText(R.string.yuan_year));
                         }else if(lever.equals("1")){
-                            putonghuiyuan_tv.setText(seniorMember+"元/押金");
+                            putonghuiyuan_tv.setText(seniorMember+getText(R.string.yuan_deposit));
                         }
                     }
                 } catch (JSONException e) {

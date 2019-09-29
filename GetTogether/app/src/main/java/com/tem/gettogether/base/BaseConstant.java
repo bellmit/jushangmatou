@@ -22,7 +22,7 @@ public class BaseConstant {
         public static final String NAME = "nick";
         public static final String TYPE = "type";
         public static final String head_pic = "head_pic";
-        public static final String openid = "head_pic";
+        public static final String openid = "openid";
         public static final String language = "language";
         public static final String ROLE_TYPE = "role_type";
         public static final String CHAT_ID = "CHAT_ID";

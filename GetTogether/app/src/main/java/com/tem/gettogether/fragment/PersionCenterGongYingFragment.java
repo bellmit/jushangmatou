@@ -263,6 +263,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
             case R.id.rl_my_message:// 企业信息
                 if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("1")) {
                     CusToast.showToast(getText(R.string.please_certify_shops_first));
+                    startActivity(new Intent(getContext(), ShopAuthenticationActivity.class));
                     return;
                 }
                 startActivity(new Intent(getActivity(), CorporateInformationActivity.class).putExtra(Contacts.PERSION_ENTERPRISE_INFORMATION, 0));
@@ -270,6 +271,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
             case R.id.rl_ksbh:// 会员信息
                 if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("1")) {
                     CusToast.showToast(getText(R.string.please_certify_shops_first));
+                    startActivity(new Intent(getContext(), ShopAuthenticationActivity.class));
                     return;
                 }
                 if (myMessageBean != null) {
@@ -281,6 +283,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
             case R.id.rl_dzgl:// 我的店铺
                 if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("1")) {
                     CusToast.showToast(getText(R.string.please_certify_shops_first));
+                    startActivity(new Intent(getContext(), ShopAuthenticationActivity.class));
                     return;
                 }
                 startActivityForResult(new Intent(getActivity(), ShopActivity.class)

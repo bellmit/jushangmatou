@@ -40,25 +40,28 @@
                 android:layout_height="wrap_content"
                 android:gravity="bottom"
                 android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥0.00"
+                    android:textSize="12dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textColor="@color/home_red"
+                     />
                 <TextView
                     android:id="@+id/tv_qpl"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/dp_20"
                     android:text="300件起批"
                     android:textSize="14dp"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    android:textColor="@color/home_red" />
-                <TextView
-                    android:id="@+id/tv_hpl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="80%好评"
-                    android:textSize="12dp"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    android:textColor="@color/text6" />
+                    android:textColor="@color/text6"
+                    />
             </LinearLayout>
 
         </LinearLayout>

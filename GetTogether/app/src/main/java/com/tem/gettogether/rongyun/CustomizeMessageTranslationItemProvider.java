@@ -2,6 +2,7 @@ package com.tem.gettogether.rongyun;
 
 import android.content.Context;
 import android.text.Spannable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +40,10 @@ public class CustomizeMessageTranslationItemProvider extends IContainerItemProvi
         } else {
             holder.ll_item.setBackgroundResource(io.rong.imkit.R.drawable.rc_ic_bubble_left);
         }
-        holder.from_tv.setText(customizeTranslationMessage.getFrom());
-        holder.to_tv.setText(customizeTranslationMessage.getTo());
+        Log.d("chenshichun","======111====="+customizeTranslationMessage.getSource_str());
+        Log.d("chenshichun","======222====="+customizeTranslationMessage.getAims_str());
+        holder.from_tv.setText(customizeTranslationMessage.getSource_str());
+        holder.to_tv.setText(customizeTranslationMessage.getAims_str());
     }
 
     @Override

@@ -39,146 +39,159 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/advanced_classification_bg"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:layout_weight="1">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:drawableStart="@drawable/advanced_icon"
-                android:gravity="center"
-                android:text="@string/senior_member"
-                android:textSize="14sp" />
+                android:background="@drawable/advanced_classification_bg"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/gaojihuiyuan_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:gravity="center"
-                android:paddingBottom="2dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingTop="2dp"
-                android:text="@string/yuan_998"
-                android:textSize="18sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableStart="@drawable/advanced_icon"
+                    android:gravity="center"
+                    android:text="@string/senior_member"
+                    android:textSize="14sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/advanced_classification_one_bg"
-                android:gravity="center"
-                android:text="@string/shangpshousyouxianzhangshi"
-                android:textSize="10sp" />
+                <TextView
+                    android:id="@+id/gaojihuiyuan_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:gravity="center"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="2dp"
+                    android:text="@string/yuan_998"
+                    android:textSize="18sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/advanced_classification_two_bg"
-                android:gravity="center"
-                android:text="@string/cgxpbxcsts"
-                android:textSize="10sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/advanced_classification_one_bg"
+                    android:gravity="center"
+                    android:text="@string/shangpshousyouxianzhangshi"
+                    android:textSize="10sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/advanced_classification_one_bg"
-                android:gravity="center"
-                android:text="@string/cpscslwsx"
-                android:textSize="10sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/advanced_classification_two_bg"
+                    android:gravity="center"
+                    android:text="@string/cgxpbxcsts"
+                    android:textSize="10sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/advanced_classification_two_bg"
-                android:gravity="center"
-                android:text="@string/kyckxpxx"
-                android:textSize="10sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/advanced_classification_one_bg"
+                    android:gravity="center"
+                    android:text="@string/cpscslwsx"
+                    android:textSize="10sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/advanced_classification_one_bg"
-                android:gravity="center"
-                android:text="@string/kcqc"
-                android:textSize="10sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/advanced_classification_two_bg"
+                    android:gravity="center"
+                    android:text="@string/kyckxpxx"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/advanced_classification_one_bg"
+                    android:gravity="center"
+                    android:text="@string/kcqc"
+                    android:textSize="10sp" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:background="@drawable/primary_classification_bg"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:layout_weight="1">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:drawableStart="@drawable/primary_icon"
-                android:gravity="center"
-                android:text="@string/ordinary_member"
-                android:textSize="14sp" />
+                android:background="@drawable/primary_classification_bg"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/putonghuiyuan_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:gravity="center"
-                android:paddingBottom="2dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingTop="2dp"
-                android:text="@string/yuan_2000"
-                android:textSize="18sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableStart="@drawable/primary_icon"
+                    android:gravity="center"
+                    android:text="@string/ordinary_member"
+                    android:textSize="14sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/primary_classification_one_bg"
-                android:gravity="center"
-                android:text="@string/dongtaizs"
-                android:textSize="10sp" />
+                <TextView
+                    android:id="@+id/putonghuiyuan_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:gravity="center"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="2dp"
+                    android:text="@string/yuan_2000"
+                    android:textSize="18sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/primary_classification_two_bg"
-                android:gravity="center"
-                android:text="@string/wu"
-                android:textSize="10sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/primary_classification_one_bg"
+                    android:gravity="center"
+                    android:text="@string/dongtaizs"
+                    android:textSize="10sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/primary_classification_one_bg"
-                android:gravity="center"
-                android:text="@string/wubaidaoyiq"
-                android:textSize="10sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/primary_classification_two_bg"
+                    android:gravity="center"
+                    android:text="@string/wu"
+                    android:textSize="10sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/primary_classification_two_bg"
-                android:gravity="center"
-                android:text="@string/keyi"
-                android:textSize="10sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/primary_classification_one_bg"
+                    android:gravity="center"
+                    android:text="@string/wubaidaoyiq"
+                    android:textSize="10sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/primary_classification_one_bg"
-                android:gravity="center"
-                android:text="@string/wu"
-                android:textSize="10sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/primary_classification_two_bg"
+                    android:gravity="center"
+                    android:text="@string/keyi"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/primary_classification_one_bg"
+                    android:gravity="center"
+                    android:text="@string/wu"
+                    android:textSize="10sp" />
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

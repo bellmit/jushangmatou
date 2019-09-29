@@ -14,28 +14,59 @@ import io.rong.imlib.MessageTag;
 import io.rong.imlib.model.MessageContent;
 
 /**
- * @ProjectName: GetTogether
+ * @Projectgoods_name: GetTogether
  * @Package: com.tem.gettogether.rongyun
- * @ClassName: CustomizeBuyMessage
+ * @Classgoods_name: CustomizeBuyMessage
  * @Author: csc
  * @CreateDate: 2019/9/25 15:21
  * @Description:
  */
 @SuppressLint("ParcelCreator")
-@MessageTag(value = "GT:buy", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
+@MessageTag(value = "GT:goods", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
 public class CustomizeBuyMessage extends MessageContent {
-    private String trade_id;
     private String image;
-    private String name;
-    private String count;
+    private String goods_id;
+    private String goods_name;
+    private String batch_number;
     private String type;
+    private String store_id;
+    private String goods_type;
+    private String qiugou_type;
 
-    public CustomizeBuyMessage(String trade_id,String image, String name, String count,String type) {
-        this.trade_id = trade_id;
+    public CustomizeBuyMessage(String goods_id,String image, String goods_name,
+                               String batch_number,String type,String store_id,String goods_type,String qiugou_type) {
+        this.goods_id = goods_id;
         this.image = image;
-        this.name = name;
-        this.count = count;
+        this.goods_name = goods_name;
+        this.batch_number = batch_number;
         this.type = type;
+        this.store_id = store_id;
+        this.goods_type = goods_type;
+        this.qiugou_type = qiugou_type;
+    }
+
+    public String getQiugou_type() {
+        return qiugou_type;
+    }
+
+    public void setQiugou_type(String qiugou_type) {
+        this.qiugou_type = qiugou_type;
+    }
+
+    public String getGoods_type() {
+        return goods_type;
+    }
+
+    public void setGoods_type(String goods_type) {
+        this.goods_type = goods_type;
+    }
+
+    public String getStore_id() {
+        return store_id;
+    }
+
+    public void setStore_id(String store_id) {
+        this.store_id = store_id;
     }
 
     public String getType() {
@@ -46,12 +77,12 @@ public class CustomizeBuyMessage extends MessageContent {
         this.type = type;
     }
 
-    public String getTrade_id() {
-        return trade_id;
+    public String getGoods_id() {
+        return goods_id;
     }
 
-    public void setTrade_id(String trade_id) {
-        this.trade_id = trade_id;
+    public void setGoods_id(String goods_id) {
+        this.goods_id = goods_id;
     }
 
     public String getImage() {
@@ -62,20 +93,20 @@ public class CustomizeBuyMessage extends MessageContent {
         this.image = image;
     }
 
-    public String getName() {
-        return name;
+    public String getGoods_name() {
+        return goods_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGoods_name(String goods_name) {
+        this.goods_name = goods_name;
     }
 
-    public String getCount() {
-        return count;
+    public String getBatch_number() {
+        return batch_number;
     }
 
-    public void setCount(String count) {
-        this.count = count;
+    public void setBatch_number(String count) {
+        this.batch_number = count;
     }
 
     @Override
@@ -83,11 +114,14 @@ public class CustomizeBuyMessage extends MessageContent {
         JSONObject jsonObj = new JSONObject();
 
         try {
-            jsonObj.put("trade_id",getTrade_id());
+            jsonObj.put("goods_id",getGoods_id());
             jsonObj.put("image", getImage());
-            jsonObj.put("name", getName());
-            jsonObj.put("count", getCount());
+            jsonObj.put("goods_name", getGoods_name());
+            jsonObj.put("batch_number", getBatch_number());
             jsonObj.put("type", getType());
+            jsonObj.put("store_id", getStore_id());
+            jsonObj.put("goods_type", getGoods_type());
+            jsonObj.put("qiugou_type", getQiugou_type());
         } catch (JSONException e) {
             Log.e("JSONException", e.getMessage());
         }
@@ -112,27 +146,36 @@ public class CustomizeBuyMessage extends MessageContent {
 
         try {
             JSONObject jsonObj = new JSONObject(jsonStr);
-            if (jsonObj.has("trade_id"))
-                trade_id = jsonObj.optString("trade_id");
+            if (jsonObj.has("goods_id"))
+                goods_id = jsonObj.optString("goods_id");
             if (jsonObj.has("image"))
                 image = jsonObj.optString("image");
-            if (jsonObj.has("name"))
-                name = jsonObj.optString("name");
-            if (jsonObj.has("count"))
-                count = jsonObj.optString("count");
+            if (jsonObj.has("goods_name"))
+                goods_name = jsonObj.optString("goods_name");
+            if (jsonObj.has("batch_number"))
+                batch_number = jsonObj.optString("batch_number");
             if (jsonObj.has("type"))
                 type = jsonObj.optString("type");
+            if (jsonObj.has("store_id"))
+                store_id = jsonObj.optString("store_id");
+            if (jsonObj.has("goods_type"))
+                goods_type = jsonObj.optString("goods_type");
+            if (jsonObj.has("qiugou_type"))
+                qiugou_type = jsonObj.optString("qiugou_type");
         } catch (JSONException e) {
             Log.e("===", "JSONException" + e.getMessage());
         }
     }
 
     public CustomizeBuyMessage(Parcel in) {
-        setTrade_id(ParcelUtils.readFromParcel(in));
+        setGoods_id(ParcelUtils.readFromParcel(in));
         setImage(ParcelUtils.readFromParcel(in));
-        setName(ParcelUtils.readFromParcel(in));
-        setCount(ParcelUtils.readFromParcel(in));
+        setGoods_name(ParcelUtils.readFromParcel(in));
+        setBatch_number(ParcelUtils.readFromParcel(in));
         setType(ParcelUtils.readFromParcel(in));
+        setStore_id(ParcelUtils.readFromParcel(in));
+        setGoods_type(ParcelUtils.readFromParcel(in));
+        setQiugou_type(ParcelUtils.readFromParcel(in));
     }
 
     public static final Creator<CustomizeBuyMessage> CREATOR = new Creator<CustomizeBuyMessage>() {
@@ -155,10 +198,13 @@ public class CustomizeBuyMessage extends MessageContent {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        ParcelUtils.writeToParcel(dest, getTrade_id());//该类为工具类，对消息中属性进行序列化
-        ParcelUtils.writeToParcel(dest, getCount());//该类为工具类，对消息中属性进行序列化
-        ParcelUtils.writeToParcel(dest, getName());//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, getGoods_id());//该类为工具类，对消息中属性进行序列化
         ParcelUtils.writeToParcel(dest, getImage());//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, getGoods_name());//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, getBatch_number());//该类为工具类，对消息中属性进行序列化
         ParcelUtils.writeToParcel(dest, getType());//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, getStore_id());//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, getGoods_type());//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, getQiugou_type());//该类为工具类，对消息中属性进行序列化
     }
 }

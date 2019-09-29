@@ -476,8 +476,8 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                         .putExtra("store_id", "0"));
                 break;
             case R.id.tv_gonggao:
-                startActivity(new Intent(getActivity(), HomeGongGaoActivity.class)
-                        .putExtra("article_id", noticeBeans.getArticle_id()));
+                /*startActivity(new Intent(getActivity(), HomeGongGaoActivity.class)
+                        .putExtra("article_id", noticeBeans.getArticle_id()));*/
                 break;
             case R.id.tv_sousuo:
                 startActivity(new Intent(getActivity(), HomeSouSuoActivity.class)

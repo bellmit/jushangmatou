@@ -33,9 +33,11 @@ import java.util.List;
 
 import io.rong.common.RLog;
 import io.rong.imkit.RongContext;
+import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.UserInfo;
 
 
 /**

@@ -158,7 +158,7 @@
                                     android:id="@+id/tv_shop_name"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="广州贝尔乐儿童"
+                                    android:text="null"
                                     android:textColor="@color/white"
                                     android:textSize="15dp" />
 
@@ -189,7 +189,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="5dp"
-                                    android:text="20.9万人关注"
+                                    android:text="0.0万人关注"
                                     android:textColor="@color/white"
                                     android:textSize="10dp" />
                             </LinearLayout>

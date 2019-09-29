@@ -246,7 +246,7 @@ public class HomeSouSuoActivity extends BaseActivity {
     private void upRemoveData(){
         Map<String,Object> map=new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-
+        map.put("user_id",SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         map.put("store_id",store_id);
         showDialog();
         XUtil.Post(URLConstant.REMOVESOUSUOLISHI,map,new MyCallBack<String>(){
@@ -254,10 +254,12 @@ public class HomeSouSuoActivity extends BaseActivity {
             public void onSuccess(String result) {
                 super.onSuccess(result);
                 closeDialog();
-                Log.i("====热门搜索===", result);
+                Log.i("====删除历史搜索===", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
+                    String msg = jsonObject.optString("msg");
+                    CusToast.showToast(msg);
                     if(res.equals("1")){
                         upSouSuoLSData();
                     }

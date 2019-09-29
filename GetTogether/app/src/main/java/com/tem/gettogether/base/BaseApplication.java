@@ -117,10 +117,10 @@ public class BaseApplication extends Application {
                 RongExtensionManager.getInstance().registerExtensionModule(new ShopExtensionModule());
             }
         }
-        RongIM.registerMessageType(CustomizeMessage.class);
+//        RongIM.registerMessageType(CustomizeMessage.class);
         RongIM.registerMessageType(CustomizeTranslationMessage.class);
         RongIM.registerMessageType(CustomizeBuyMessage.class);
-        RongIM.getInstance().registerMessageTemplate(new CustomizeMessageItemProvider());
+//        RongIM.getInstance().registerMessageTemplate(new CustomizeMessageItemProvider());
         RongIM.getInstance().registerMessageTemplate(new CustomizeMessageTranslationItemProvider());
         RongIM.getInstance().registerMessageTemplate(new BuyCustomizeMessageItemProvider());
     }

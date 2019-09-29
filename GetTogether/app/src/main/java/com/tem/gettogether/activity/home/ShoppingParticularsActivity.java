@@ -81,6 +81,11 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -442,6 +447,8 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 }
                 try {
                     //发消息
+                    Log.d("chenshichun","=======CHAT_ID==== "+SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0"));
+                    Log.d("chenshichun","======getStore_user_id====="+storeBean.getStore_user_id());
                     if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
                         if (storeBean != null && storeBean.getStore_user_id() != null) {
                             RongTalk.doConnection(ShoppingParticularsActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
@@ -458,13 +465,17 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     CusToast.showToast(getText(R.string.customer_service_is_invalid));
                 }
 
-                sendCustomizeMessage(goods_id, storeBean.getStore_user_id(), galleryBeans.get(0).getImage_url(), goodsBean.getGoods_name(), goodsBean.getBatch_number() + "起批", "0");
+                sendCustomizeMessage(storeBean.getStore_user_id(),goods_id, galleryBeans.get(0).getImage_url(),
+                        goodsBean.getGoods_name(), goodsBean.getBatch_number() + "起批", "商品","");
                 break;
         }
     }
 
-    private void sendCustomizeMessage(String goods_id, String targetId, String image, String name, String count, String type) {
-        CustomizeBuyMessage customizeMessage = new CustomizeBuyMessage(goods_id, image, name, count, type);
+    private void sendCustomizeMessage(String targetId, String goods_id, String image, String goods_name,
+                                      String batch_number, String goods_type, String qiugou_type) {
+        CustomizeBuyMessage customizeMessage = new CustomizeBuyMessage(goods_id, image, goods_name,
+                batch_number, "", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, "")
+                , goods_type, qiugou_type);
         byte[] bvvv = customizeMessage.encode();
         CustomizeBuyMessage richContentMessage = new CustomizeBuyMessage(bvvv);
         io.rong.imlib.model.Message myMessage = io.rong.imlib.model.Message.obtain(targetId, Conversation.ConversationType.PRIVATE, richContentMessage);
@@ -1446,9 +1457,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
                             + "&user_id=" + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "");
                     /*goodsBean.getDetail()*///分享url
                     WXMediaMessage msg = new WXMediaMessage(webpage);
-                    msg.title = getString(R.string.from_Jushang_Pier);
+                    msg.title = goodsBean.getGoods_name()/*getString(R.string.from_Jushang_Pier)*/;
                     msg.description = goodsBean.getGoods_name();
-                    Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                    Bitmap thumb = returnBitMap(goodsBean.getCover_image())/*BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)*/;
                     msg.thumbData = bmpToByteArray(thumb);
                     SendMessageToWX.Req req = new SendMessageToWX.Req();
                     req.transaction = String.valueOf(System.currentTimeMillis());
@@ -1467,9 +1478,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
                             + goodsBean.getGoods_id()
                             + "&user_id=" + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "");
                     WXMediaMessage msg = new WXMediaMessage(webpage);
-                    msg.title = getString(R.string.from_Jushang_Pier);
+                    msg.title = goodsBean.getGoods_name();
                     msg.description = goodsBean.getGoods_name();
-                    Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                    Bitmap thumb = returnBitMap(goodsBean.getCover_image())/*BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)*/;
                     msg.thumbData = bmpToByteArray(thumb);//封面图片byte数组
                     SendMessageToWX.Req req = new SendMessageToWX.Req();
                     req.transaction = String.valueOf(System.currentTimeMillis());
@@ -1485,7 +1496,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     UMWeb web = new UMWeb("http://www.jsmtgou.com/jushangmatou/index.php?m=Home&c=Goods&a=share_goods_detail&id="
                             + goodsBean.getGoods_id()
                             + "&user_id=" + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "") + "");
-                    web.setTitle(getString(R.string.from_Jushang_Pier));
+                    web.setTitle(goodsBean.getGoods_name());
                     web.setDescription(goodsBean.getGoods_name());
                     web.setThumb(new UMImage(ShoppingParticularsActivity.this, R.mipmap.ic_launcher));
                     new ShareAction(ShoppingParticularsActivity.this).withMedia(web)
@@ -1498,11 +1509,10 @@ public class ShoppingParticularsActivity extends BaseActivity {
             viewShard.findViewById(R.id.ll_qzone).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     UMWeb web = new UMWeb("http://www.jsmtgou.com/jushangmatou/index.php?m=Home&c=Goods&a=share_goods_detail&id="
                             + goodsBean.getGoods_id()
                             + "&user_id=" + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "") + "");
-                    web.setTitle(getString(R.string.from_Jushang_Pier));
+                    web.setTitle(goodsBean.getGoods_name());
                     web.setDescription(goodsBean.getGoods_name());
                     web.setThumb(new UMImage(ShoppingParticularsActivity.this, R.mipmap.ic_launcher));
                     new ShareAction(ShoppingParticularsActivity.this).withMedia(web)
@@ -1520,6 +1530,36 @@ public class ShoppingParticularsActivity extends BaseActivity {
             });
 
         }
+    }
+
+    Bitmap bitmap;
+
+    public Bitmap returnBitMap(final String url) {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                URL imageurl = null;
+
+                try {
+                    imageurl = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    HttpURLConnection conn = (HttpURLConnection) imageurl.openConnection();
+                    conn.setDoInput(true);
+                    conn.connect();
+                    InputStream is = conn.getInputStream();
+                    bitmap = BitmapFactory.decodeStream(is);
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+        return bitmap;
     }
 
     /**

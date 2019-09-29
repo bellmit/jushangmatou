@@ -132,7 +132,8 @@ public class GYWeActivity extends BaseActivity {
                         @Override
                         public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                             urlDrawable.bitmap = loadedImage;
-                            urlDrawable.setBounds(0, 0, loadedImage.getWidth()-1, loadedImage.getHeight()-50);
+                            Log.d("chenshichun","==========="+loadedImage.getWidth());
+                            urlDrawable.setBounds(0, 0, loadedImage.getWidth(), loadedImage.getHeight());
                             mTextView.invalidate();
                             mTextView.setText(mTextView.getText());
                         }

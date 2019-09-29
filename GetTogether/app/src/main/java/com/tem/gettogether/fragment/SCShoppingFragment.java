@@ -175,7 +175,12 @@ public class SCShoppingFragment extends BaseFragment {
             Glide.with(getActivity()).load(resultBeans.get(baseViewHolder.getAdapterPosition()).getImage()).error(R.mipmap.myy322x).into(iv_pic);
             baseViewHolder.setText(R.id.tv_shoping_jj,resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
             baseViewHolder.setText(R.id.tv_qpl,resultBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number()+getText(R.string.from_batch));
+            if(resultBeans.get(baseViewHolder.getAdapterPosition()).getIs_enquiry()!=null&&resultBeans.get(baseViewHolder.getAdapterPosition()).getIs_enquiry().equals("1")){
+                baseViewHolder.setText(R.id.tv_price,getText(R.string.negotiable_tv));
+            }else{
+                baseViewHolder.setText(R.id.tv_price,"￥"+resultBeans.get(baseViewHolder.getAdapterPosition()).getShop_price());
 
+            }
             baseViewHolder.getView(R.id.ll_All_item).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

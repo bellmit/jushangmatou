@@ -27,13 +27,12 @@ import io.rong.imlib.model.Message;
 /**
  * Created by lt on 2019-05-15.
  */
-@ProviderTag(messageContent = CustomizeMessage.class)
-public class CustomizeMessageItemProvider extends IContainerItemProvider.MessageProvider<CustomizeMessage>  {
+@ProviderTag(messageContent = CustomizeBuyMessage.class)
+public class CustomizeMessageItemProvider extends IContainerItemProvider.MessageProvider<CustomizeBuyMessage>  {
     class ViewHolder {
         ImageView iv_iamge_lt;
         TextView tv_title_lt;
         TextView tv_qplNum;
-
         LinearLayout ll_item;
     }
 
@@ -53,7 +52,7 @@ public class CustomizeMessageItemProvider extends IContainerItemProvider.Message
         return (int) (dpValue * scale+0.5f);
     }
     @Override
-    public void bindView(View view, int i, final CustomizeMessage content, UIMessage message) {
+    public void bindView(View view, int i, final CustomizeBuyMessage content, UIMessage message) {
         CustomizeMessageItemProvider.ViewHolder holder = (CustomizeMessageItemProvider.ViewHolder) view.getTag();
 
         if (message.getMessageDirection() == Message.MessageDirection.SEND) {//消息方向，自己发送的
@@ -78,6 +77,7 @@ public class CustomizeMessageItemProvider extends IContainerItemProvider.Message
                 Log.i("===自定义消息--","--图片--"+content.getImage()+"--goods_id--"+content.getGoods_id()
                         +"--起批量--"+content.getBatch_number()+"--store_id--"+content.getStore_id());
                 BaseApplication.getInstance().mInstance.startActivity(new Intent(BaseApplication.getInstance(), ShoppingParticularsActivity.class)
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         .putExtra("goods_id",content.getGoods_id()));
 
             }
@@ -85,12 +85,12 @@ public class CustomizeMessageItemProvider extends IContainerItemProvider.Message
     }
 
     @Override
-    public Spannable getContentSummary(CustomizeMessage customizeMessage) {
+    public Spannable getContentSummary(CustomizeBuyMessage customizeMessage) {
         return new SpannableString("这是一条自定义消息CustomizeMessage");
     }
 
     @Override
-    public void onItemClick(View view, int i, CustomizeMessage customizeMessage, UIMessage uiMessage) {
+    public void onItemClick(View view, int i, CustomizeBuyMessage customizeMessage, UIMessage uiMessage) {
         CustomizeMessageItemProvider.ViewHolder holder = (CustomizeMessageItemProvider.ViewHolder) view.getTag();
 
     }

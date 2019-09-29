@@ -21,56 +21,10 @@
                 android:id="@+id/tv_connect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:lineSpacingMultiplier="1.6"
+                android:lineSpacingMultiplier="1.2"
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="13dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="18dp"
-                android:lineSpacingMultiplier="1.8"
-                android:text=" 《平台隐私政策》正文"
-                android:textColor="@color/black"
-                android:textSize="19dp"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="版本更新日期: 2019年1月15日"
-                android:textColor="@color/black"
-                android:textSize="13dp"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="版本生效日期: 2019年1月27日"
-                android:textColor="@color/black"
-                android:textSize="13dp"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="23dp"
-                android:layout_marginBottom="20dp"
-                android:text="引言"
-                android:textColor="@color/black"
-                android:textSize="13dp"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:lineSpacingMultiplier="1.6"
-                android:text="@string/guanyuwomen"
-                android:textColor="@color/black"
-                android:textSize="13dp"
-                android:visibility="gone" />
 
         </LinearLayout>
     </ScrollView>

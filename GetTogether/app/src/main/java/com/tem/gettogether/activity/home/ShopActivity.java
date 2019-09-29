@@ -281,7 +281,6 @@ public class ShopActivity extends BaseActivity {
                 shopKeyBean2.setSousuoConnect(sousuo2);
                 shopKeyBean2.setTypeLX("0x1001");
                 shopKeyBean2.setStore_id(store_id);
-                ;
                 EventBus.getDefault().post(shopKeyBean2);
                 break;
             case R.id.ll_shop_home:

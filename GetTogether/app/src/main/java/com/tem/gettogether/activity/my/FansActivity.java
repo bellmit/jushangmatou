@@ -26,6 +26,7 @@ import com.tem.gettogether.utils.xutils3.XUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
@@ -128,6 +129,16 @@ public class FansActivity extends BaseActivity {
             }
         });
     }
+
+    @Event(value = {R.id.rl_close}, type = View.OnClickListener.class)
+    private void getEvent(View view) {
+        switch (view.getId()) {
+            case R.id.rl_close:
+                finish();
+                break;
+        }
+    }
+
     private void initRefresh() {
         SinaRefreshView headerView = new SinaRefreshView(getContext());
         headerView.setTextColor(0xff745D5C);

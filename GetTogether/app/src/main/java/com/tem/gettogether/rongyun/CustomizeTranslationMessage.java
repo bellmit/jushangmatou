@@ -22,30 +22,30 @@ import io.rong.imlib.model.MessageContent;
  * @Description:
  */
 @SuppressLint("ParcelCreator")
-@MessageTag(value = "GT:translation", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
+@MessageTag(value = "GT:translte", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
 public class CustomizeTranslationMessage extends MessageContent {
-    private String from;
-    private String to;
+    private String source_str;
+    private String aims_str;
 
-    public CustomizeTranslationMessage(String from, String to) {
-        this.from = from;
-        this.to = to;
+    public CustomizeTranslationMessage(String from, String aims_str) {
+        this.source_str = from;
+        this.aims_str = aims_str;
     }
 
-    public String getFrom() {
-        return from;
+    public String getSource_str() {
+        return source_str;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setSource_str(String source_str) {
+        this.source_str = source_str;
     }
 
-    public String getTo() {
-        return to;
+    public String getAims_str() {
+        return aims_str;
     }
 
-    public void setTo(String to) {
-        this.to = to;
+    public void setAims_str(String aims_str) {
+        this.aims_str = aims_str;
     }
 
     @Override
@@ -53,8 +53,8 @@ public class CustomizeTranslationMessage extends MessageContent {
         JSONObject jsonObj = new JSONObject();
 
         try {
-            jsonObj.put("from", getFrom());
-            jsonObj.put("to", getTo());
+            jsonObj.put("source_str", getSource_str());
+            jsonObj.put("aims_str", getAims_str());
         } catch (JSONException e) {
             Log.e("JSONException", e.getMessage());
         }
@@ -81,10 +81,10 @@ public class CustomizeTranslationMessage extends MessageContent {
         try {
             JSONObject jsonObj = new JSONObject(jsonStr);
 
-            if (jsonObj.has("from"))
-                from = jsonObj.optString("from");
-            if (jsonObj.has("to"))
-                to = jsonObj.optString("to");
+            if (jsonObj.has("source_str"))
+                source_str = jsonObj.optString("source_str");
+            if (jsonObj.has("aims_str"))
+                aims_str = jsonObj.optString("aims_str");
         } catch (JSONException e) {
             Log.e("===", "JSONException" + e.getMessage());
         }
@@ -97,8 +97,8 @@ public class CustomizeTranslationMessage extends MessageContent {
      * @param in 初始化传入的 Parcel。
      */
     public CustomizeTranslationMessage(Parcel in) {
-        setFrom(ParcelUtils.readFromParcel(in));
-        setTo(ParcelUtils.readFromParcel(in));
+        setSource_str(ParcelUtils.readFromParcel(in));
+        setAims_str(ParcelUtils.readFromParcel(in));
     }
 
     /**
@@ -134,7 +134,7 @@ public class CustomizeTranslationMessage extends MessageContent {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        ParcelUtils.writeToParcel(dest, getFrom());//该类为工具类，对消息中属性进行序列化
-        ParcelUtils.writeToParcel(dest, getTo());//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, getSource_str());//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, getAims_str());//该类为工具类，对消息中属性进行序列化
     }
 }

@@ -253,14 +253,15 @@ public class LoginActivity extends BaseActivity {
                         SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.TYPE, type);
                         SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.TOKEN, loginBean.getResult().getToken());
                         SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.ROLE_TYPE, loginBean.getResult().getRole_type());
-                        SharedPreferencesUtils.saveString(LoginActivity.this,BaseConstant.SPConstant.USERID,loginBean.getResult().getUser_id());
-                        SharedPreferencesUtils.saveString(LoginActivity.this,BaseConstant.SPConstant.LEVER,loginBean.getResult().getLevel());
-                        SharedPreferencesUtils.saveString(LoginActivity.this,BaseConstant.SPConstant.head_pic,loginBean.getResult().getHead_pic());
-                        SharedPreferencesUtils.saveString(LoginActivity.this,BaseConstant.SPConstant.MOBILEPHONE,loginBean.getResult().getMobile());
-                        SharedPreferencesUtils.saveString(LoginActivity.this,BaseConstant.SPConstant.CHAT_ID,loginBean.getResult().getChat_id());
-
+                        SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.USERID, loginBean.getResult().getUser_id());
+                        SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.LEVER, loginBean.getResult().getLevel());
+                        SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.head_pic, loginBean.getResult().getHead_pic());
+                        SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.MOBILEPHONE, loginBean.getResult().getMobile());
+                        SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.CHAT_ID, loginBean.getResult().getChat_id());
+                        SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.NAME, loginBean.getResult().getNickname());
+                        Log.d("chenshichun", "======getNickname=====" + loginBean.getResult().getNickname());
                         String role_type = SharedPreferencesUtils.getString(LoginActivity.this, BaseConstant.SPConstant.ROLE_TYPE, "1");
-                        Log.e("chenshichun","=======role_type==== "+role_type);
+                        Log.e("chenshichun", "=======role_type==== " + role_type);
                         UserBean userBean = new UserBean();
                         userBean.setToken(loginBean.getResult().getToken());
                         userBean.setUserName(loginBean.getResult().getNickname());
@@ -271,7 +272,7 @@ public class LoginActivity extends BaseActivity {
                         userBean.setHead_pic(loginBean.getResult().getHead_pic());
                         userBean.setLever(loginBean.getResult().getLevel());
                         BaseApplication.getInstance().userBean = userBean;
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class).putExtra("LOGIN_TO_MIAN",1));
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class).putExtra("LOGIN_TO_MIAN", 1));
                         Intent intent = new Intent();
                         intent.setAction("LOGIN_TO_MIAN");
                         sendBroadcast(intent);
@@ -456,7 +457,7 @@ public class LoginActivity extends BaseActivity {
                         userBean.setLever(loginBean.getResult().getLevel());
                         BaseApplication.getInstance().userBean = userBean;
 
-                        if(loginBean.getResult().getMobile_validated().equals("1")) {// 绑定
+                        if (loginBean.getResult().getMobile_validated().equals("1")) {// 绑定
                             SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.TOKEN, loginBean.getResult().getToken());
                             SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.head_pic, QQhead);
                             SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.openid, QQopenid);
@@ -468,10 +469,10 @@ public class LoginActivity extends BaseActivity {
                             SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.MOBILEPHONE, loginBean.getResult().getMobile());
                             SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.CHAT_ID, loginBean.getResult().getChat_id());
                             SharedPreferencesUtils.saveString(LoginActivity.this, BaseConstant.SPConstant.MOBILE_AVLIDATED, loginBean.getResult().getMobile_validated());
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class).putExtra("LOGIN_TO_MIAN",1));
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class).putExtra("LOGIN_TO_MIAN", 1));
                             finish();
 
-                        }else{// 未绑定
+                        } else {// 未绑定
                             startActivity(new Intent(LoginActivity.this, RegisterActivity.class).putExtra(Contacts.REGISTER_TYPE, 1).putExtra(Contacts.REGISTER_OPEN_ID, QQopenid));
                             finish();
                         }

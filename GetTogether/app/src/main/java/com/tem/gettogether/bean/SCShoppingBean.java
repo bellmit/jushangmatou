@@ -60,6 +60,15 @@ public class SCShoppingBean {
         private String shop_price;
         private String batch_number;
         private String image;
+        private String is_enquiry;
+
+        public String getIs_enquiry() {
+            return is_enquiry;
+        }
+
+        public void setIs_enquiry(String is_enquiry) {
+            this.is_enquiry = is_enquiry;
+        }
 
         public String getCollect_id() {
             return collect_id;

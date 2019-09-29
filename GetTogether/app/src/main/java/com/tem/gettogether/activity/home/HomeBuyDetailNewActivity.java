@@ -16,13 +16,14 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.ShowImageDetail;
+import com.tem.gettogether.activity.my.VipCenterActivity;
 import com.tem.gettogether.activity.my.WaiMaoQiuGouActivity;
+import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.WaiMaoQiuGouBean;
 import com.tem.gettogether.rongyun.CustomizeBuyMessage;
-import com.tem.gettogether.rongyun.CustomizeTranslationMessage;
 import com.tem.gettogether.rongyun.RongTalk;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.SizeUtil;
@@ -83,15 +84,16 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
 
     private List<WaiMaoQiuGouBean.ResultEntity> waiMaoQiuGouBeans = new ArrayList<>();
     private int isHomeList = 0;
-    private int page;
+    private int type;
 
     @Override
     protected void initData() {
         x.view().inject(this);
         trade_id = getIntent().getStringExtra("trade_id");
         isHomeList = getIntent().getIntExtra("witch_page", 0);
-        page = getIntent().getIntExtra("page", 0);
-        initDatas(page);
+        type = getIntent().getIntExtra("page", 0);
+        Log.d("chenshichun","=====type======"+type);
+        initDatas(type);
         initRefresh();
     }
 
@@ -100,7 +102,7 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
 
     }
 
-    private void initDatas(int page) {
+    private void initDatas(int type) {
         Map<String, Object> map = new HashMap<>();
         String yuyan = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "");
         if (yuyan != null) {
@@ -109,7 +111,8 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
         map.put("trade_id", trade_id);
         showDialog();
         String url = "";
-        if (page == 0) {
+        Log.d("chenshichun","====type======="+type);
+        if (type == 0) {
             url = URLConstant.HOMEQIUGOUDETAIL1;
         } else {
             url = URLConstant.HOMEQIUGOUDETAIL;
@@ -189,11 +192,13 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
 
                 if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "").equals("1")) {
                     CusToast.showToast(getText(R.string.please_certify_shops_first));
+                    startActivity(new Intent(getContext(), ShopAuthenticationActivity.class));
                     return;
                 }
 
                 if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "").equals("7")) {
                     CusToast.showToast(getText(R.string.please_upgrade_the_premium_member_first));
+                    startActivity(new Intent(getContext(), VipCenterActivity.class));
                     return;
                 }
 
@@ -215,14 +220,17 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
                     CusToast.showToast(getText(R.string.the_store_is_invalid));
                 }
                 Log.d("chenshichun", "=====trade_id======" + trade_id);
-                sendCustomizeMessage(trade_id, waiMaoQiuGouBeans.get(0).getUser_id(), waiMaoQiuGouBeans.get(0).getGoods_logo().get(0),
-                        waiMaoQiuGouBeans.get(0).getGoods_name(), waiMaoQiuGouBeans.get(0).getGoods_num() + "起批", "1");
+                Log.d("chenshichun","======type====="+(type+1));
+                Log.d("chenshichun","=======targetId===="+waiMaoQiuGouBeans.get(0).getUser_id());
+                sendCustomizeMessage( waiMaoQiuGouBeans.get(0).getUser_id(),trade_id, waiMaoQiuGouBeans.get(0).getGoods_logo().get(0),
+                        waiMaoQiuGouBeans.get(0).getGoods_name(), waiMaoQiuGouBeans.get(0).getGoods_num() + "起批", "求购",""+(type+1));
             }
         });
     }
 
-    private void sendCustomizeMessage(String trade_id, String targetId, String image, String name, String count, String type) {
-        CustomizeBuyMessage customizeMessage = new CustomizeBuyMessage(trade_id, image, name, count, type);
+    private void sendCustomizeMessage(String targetId, String goods_id, String image, String goods_name,
+                                      String batch_number, String goods_type, String qiugou_type) {
+        CustomizeBuyMessage customizeMessage = new CustomizeBuyMessage(goods_id, image, goods_name, batch_number, "",  SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id,""), goods_type, qiugou_type);
         byte[] bvvv = customizeMessage.encode();
         CustomizeBuyMessage richContentMessage = new CustomizeBuyMessage(bvvv);
         io.rong.imlib.model.Message myMessage = io.rong.imlib.model.Message.obtain(targetId, Conversation.ConversationType.PRIVATE, richContentMessage);
@@ -266,7 +274,7 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
-                initDatas(page);
+                initDatas(type);
             }
 
             @Override
