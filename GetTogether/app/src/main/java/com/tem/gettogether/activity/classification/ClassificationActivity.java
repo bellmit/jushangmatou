@@ -236,11 +236,7 @@ public class ClassificationActivity extends BaseActivity {
                 break;
             case R.id.tv_zonghe:
                 keyValue = "is_new";
-                if (isZongheSort) {
-                    sort = "asc";
-                } else {
-                    sort = "desc";
-                }
+                sort = "desc";
                 setDrawableRight(chengjiaocishu, true, true);
                 setDrawableRight(huifulv, true, true);
                 setDrawableRight(price_tv, true, true);

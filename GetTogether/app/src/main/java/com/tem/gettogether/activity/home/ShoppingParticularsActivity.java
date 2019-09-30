@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -80,9 +81,12 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -99,6 +103,8 @@ import io.rong.imkit.RongIM;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+
+import static org.xutils.common.util.IOUtil.copy;
 
 @ContentView(R.layout.activity_shopping_particulars)
 public class ShoppingParticularsActivity extends BaseActivity {
@@ -447,8 +453,8 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 }
                 try {
                     //发消息
-                    Log.d("chenshichun","=======CHAT_ID==== "+SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0"));
-                    Log.d("chenshichun","======getStore_user_id====="+storeBean.getStore_user_id());
+                    Log.d("chenshichun", "=======CHAT_ID==== " + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0"));
+                    Log.d("chenshichun", "======getStore_user_id=====" + storeBean.getStore_user_id());
                     if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
                         if (storeBean != null && storeBean.getStore_user_id() != null) {
                             RongTalk.doConnection(ShoppingParticularsActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
@@ -465,8 +471,8 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     CusToast.showToast(getText(R.string.customer_service_is_invalid));
                 }
 
-                sendCustomizeMessage(storeBean.getStore_user_id(),goods_id, galleryBeans.get(0).getImage_url(),
-                        goodsBean.getGoods_name(), goodsBean.getBatch_number() + "起批", "商品","");
+                sendCustomizeMessage(storeBean.getStore_user_id(), goods_id, galleryBeans.get(0).getImage_url(),
+                        goodsBean.getGoods_name(), goodsBean.getBatch_number() + "起批", "商品", "");
                 break;
         }
     }
@@ -1424,7 +1430,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
         lp.alpha = 0.6f;
         getWindow().setAttributes(lp);
     }
-
+    Bitmap thumb;
     private void initPopShard() {
         if (mPopShard == null) {
             viewShard = LayoutInflater.from(this).inflate(R.layout.main_shard_layout, null);
@@ -1451,6 +1457,10 @@ public class ShoppingParticularsActivity extends BaseActivity {
             viewShard.findViewById(R.id.ll_wechat).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")){
+                        CusToast.showToast(R.string.login_first);
+                        startActivity(new Intent(ShoppingParticularsActivity.this,LoginActivity.class));
+                    }
                     WXWebpageObject webpage = new WXWebpageObject();
                     webpage.webpageUrl = "http://www.jsmtgou.com/jushangmatou/index.php?m=Home&c=Goods&a=share_goods_detail&id="
                             + goodsBean.getGoods_id()
@@ -1459,8 +1469,14 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     WXMediaMessage msg = new WXMediaMessage(webpage);
                     msg.title = goodsBean.getGoods_name()/*getString(R.string.from_Jushang_Pier)*/;
                     msg.description = goodsBean.getGoods_name();
-                    Bitmap thumb = returnBitMap(goodsBean.getCover_image())/*BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)*/;
-                    msg.thumbData = bmpToByteArray(thumb);
+                   /* new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            thumb = GetLocalOrNetBitmap(goodsBean.getCover_image())*//*BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)*//*;
+                        }
+                    });*/
+                    Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                    msg.thumbData = bmpToByteArray(thumb);//封面图片byte数组
                     SendMessageToWX.Req req = new SendMessageToWX.Req();
                     req.transaction = String.valueOf(System.currentTimeMillis());
                     req.message = msg;
@@ -1472,6 +1488,10 @@ public class ShoppingParticularsActivity extends BaseActivity {
             viewShard.findViewById(R.id.ll_wxcircle).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")){
+                        CusToast.showToast(R.string.login_first);
+                        startActivity(new Intent(ShoppingParticularsActivity.this,LoginActivity.class));
+                    }
                     WXWebpageObject webpage = new WXWebpageObject();
 //                    webpage.webpageUrl = goodsBean.getDetail();//分享url
                     webpage.webpageUrl = "http://www.jsmtgou.com/jushangmatou/index.php?m=Home&c=Goods&a=share_goods_detail&id="
@@ -1480,7 +1500,8 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     WXMediaMessage msg = new WXMediaMessage(webpage);
                     msg.title = goodsBean.getGoods_name();
                     msg.description = goodsBean.getGoods_name();
-                    Bitmap thumb = returnBitMap(goodsBean.getCover_image())/*BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)*/;
+                    Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+//                    Bitmap thumb = returnBitMap(/*goodsBean.getCover_image())*/BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
                     msg.thumbData = bmpToByteArray(thumb);//封面图片byte数组
                     SendMessageToWX.Req req = new SendMessageToWX.Req();
                     req.transaction = String.valueOf(System.currentTimeMillis());
@@ -1493,6 +1514,10 @@ public class ShoppingParticularsActivity extends BaseActivity {
             viewShard.findViewById(R.id.ll_QQ).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")){
+                        CusToast.showToast(R.string.login_first);
+                        startActivity(new Intent(ShoppingParticularsActivity.this,LoginActivity.class));
+                    }
                     UMWeb web = new UMWeb("http://www.jsmtgou.com/jushangmatou/index.php?m=Home&c=Goods&a=share_goods_detail&id="
                             + goodsBean.getGoods_id()
                             + "&user_id=" + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "") + "");
@@ -1509,6 +1534,10 @@ public class ShoppingParticularsActivity extends BaseActivity {
             viewShard.findViewById(R.id.ll_qzone).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")){
+                        CusToast.showToast(R.string.login_first);
+                        startActivity(new Intent(ShoppingParticularsActivity.this,LoginActivity.class));
+                    }
                     UMWeb web = new UMWeb("http://www.jsmtgou.com/jushangmatou/index.php?m=Home&c=Goods&a=share_goods_detail&id="
                             + goodsBean.getGoods_id()
                             + "&user_id=" + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "") + "");
@@ -1562,6 +1591,48 @@ public class ShoppingParticularsActivity extends BaseActivity {
         return bitmap;
     }
 
+
+    /**
+     * 把网络资源图片转化成bitmap
+     *
+     * @param url 网络资源图片
+     * @return Bitmap
+     */
+    public static Bitmap GetLocalOrNetBitmap(String url) {
+        Bitmap bitmap = null;
+        InputStream in = null;
+        BufferedOutputStream out = null;
+        Log.d("chenshichun","====bitmap======="+bitmap);
+        try {
+            in = new BufferedInputStream(new URL(url).openStream(), 1024);
+            final ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
+            out = new BufferedOutputStream(dataStream, 1024);
+            copys(in, out);
+            out.flush();
+            byte[] data = dataStream.toByteArray();
+            bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+            data = null;
+            Log.d("chenshichun","====bitmap======="+bitmap);
+            return bitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static void copys(InputStream in, OutputStream out)
+            throws IOException {
+        byte[] b = new byte[1024];
+        int read;
+        while ((read = in.read(b)) != -1) {
+            out.write(b, 0, read);
+        }
+    }
+
+    private String buildTransaction(final String type) {
+        return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
+    }
+
     /**
      * 得到Bitmap的byte
      *
@@ -1569,6 +1640,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
      * @return 返回压缩的图片
      */
     private static byte[] bmpToByteArray(Bitmap bmp) {
+        Log.d("chenshichun", "=====bmp======" + bmp);
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.PNG, 100, output);
 

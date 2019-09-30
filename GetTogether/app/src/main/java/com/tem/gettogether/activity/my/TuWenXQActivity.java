@@ -271,7 +271,6 @@ public class TuWenXQActivity extends BaseActivity implements View.OnClickListene
                                 final String compressImage = BitnapUtils.compressImage(pic_path, targetPath, 90);
                                 imagePaths.add(list.get(i));
                                 Bitmap bitmap = BitmapFactory.decodeFile(compressImage.toString());
-                                showDialog();
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -335,11 +334,9 @@ public class TuWenXQActivity extends BaseActivity implements View.OnClickListene
                     } else {
                         tv_shanchu.setVisibility(View.GONE);
                     }
-                    closeDialog();
                     break;
                 case 1:
                     CusToast.showToast(getText(R.string.upload_failed));
-                    closeDialog();
                     break;
             }
         }

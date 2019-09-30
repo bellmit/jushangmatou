@@ -110,6 +110,15 @@ public class MyMessageBean {
         private String fprint_count;
         private String my_orders;
         private String store_collect_count;
+        private String cart_goods;
+
+        public String getCart_goods() {
+            return cart_goods;
+        }
+
+        public void setCart_goods(String cart_goods) {
+            this.cart_goods = cart_goods;
+        }
 
         public String getStore_count() {
             return store_count;

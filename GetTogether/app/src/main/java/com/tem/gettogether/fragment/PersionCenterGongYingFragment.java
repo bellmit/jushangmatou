@@ -320,6 +320,8 @@ public class PersionCenterGongYingFragment extends BaseFragment {
         SinaRefreshView headerView = new SinaRefreshView(getContext());
         headerView.setTextColor(0xff745D5C);
         refreshLayout.setHeaderView(headerView);
+        refreshLayout.setEnableRefresh(false);
+        refreshLayout.setEnableOverScroll(false);
         LoadingView loadingView = new LoadingView(getContext());
         refreshLayout.setBottomView(loadingView);
         refreshLayout.setEnableLoadmore(false);

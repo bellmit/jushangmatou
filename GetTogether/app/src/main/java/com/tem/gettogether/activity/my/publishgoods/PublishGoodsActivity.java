@@ -384,7 +384,6 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                                 final String compressImage = BitnapUtils.compressImage(pic_path, targetPath, 60);
                                 compressPaths.add(compressImage);
                                 Log.d("chenshichun", "=====targetPath======" + targetPath);
-                                showDialog();
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -398,7 +397,6 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                                             } else {
                                                 mHandle.sendEmptyMessage(1);
                                             }
-                                            showDialog();
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
@@ -440,7 +438,6 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
         if (mCropImageFile != null) {
             final String path = mCropImageFile.getAbsolutePath();
             Bitmap bitmap = BitmapFactory.decodeFile(mCropImageFile.toString());
-            showDialog();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -540,10 +537,8 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
             switch (msg.what) {
                 case 0:
                     mTaskImgAdapter.notifyDataSetChanged();
-                    closeDialog();
                     break;
                 case 1:
-                    closeDialog();
                     break;
             }
         }

@@ -285,7 +285,6 @@ public class ShopDecorationActivity extends BaseMvpActivity<ShopDecorationPresen
                                 final String compressImage = BitnapUtils.compressImage(pic_path, targetPath, 60);
                                 compressPaths.add(compressImage);
                                 Log.d("chenshichun", "=======targetPath====" + targetPath);
-                                showDialog();
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -329,10 +328,8 @@ public class ShopDecorationActivity extends BaseMvpActivity<ShopDecorationPresen
             switch (msg.what) {
                 case 0:
                     mTaskImgAdapter.notifyDataSetChanged();
-                    closeDialog();
                     break;
                 case 1:
-                    closeDialog();
                     break;
             }
         }

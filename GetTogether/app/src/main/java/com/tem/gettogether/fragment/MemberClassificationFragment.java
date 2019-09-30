@@ -39,7 +39,7 @@ public class MemberClassificationFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getMemberFee();
+//        getMemberFee();
         return x.view().inject(this, inflater, container);
     }
 

@@ -45,9 +45,9 @@ public class HomeHotSellAdapter extends RecyclerView.Adapter<HomeHotSellAdapter.
         if(mDatas.get(position).getIs_enquiry().equals("1")){
             holder.buy_price_tv.setText(context.getText(R.string.negotiable_tv));
         }else{
-            holder.buy_price_tv.setText("￥"+mDatas.get(position).getGoods_price());
+            holder.buy_price_tv.setText("￥"+mDatas.get(position).getShop_price());
         }
-        holder.tv_sell_count.setText(mDatas.get(position).getGoods_num());
+        holder.tv_sell_count.setText(mDatas.get(position).getSales_sum());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

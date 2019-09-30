@@ -158,6 +158,33 @@ public class HomeHotSellBean {
         private String order_sn;
         private String transaction;
         private String original_img;
+        private String count;
+        private String sales_sum;
+        private String shop_price;
+
+        public String getShop_price() {
+            return shop_price;
+        }
+
+        public void setShop_price(String shop_price) {
+            this.shop_price = shop_price;
+        }
+
+        public String getSales_sum() {
+            return sales_sum;
+        }
+
+        public void setSales_sum(String sales_sum) {
+            this.sales_sum = sales_sum;
+        }
+
+        public String getCount() {
+            return count;
+        }
+
+        public void setCount(String count) {
+            this.count = count;
+        }
 
         public String getIs_enquiry() {
             return is_enquiry;

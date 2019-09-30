@@ -1346,6 +1346,24 @@ public class HomeDataNewBean {
             private String order_sn;
             private String transaction;
             private String is_enquiry;
+            private String sales_sum;
+            private String shop_price;
+
+            public String getSales_sum() {
+                return sales_sum;
+            }
+
+            public void setSales_sum(String sales_sum) {
+                this.sales_sum = sales_sum;
+            }
+
+            public String getShop_price() {
+                return shop_price;
+            }
+
+            public void setShop_price(String shop_price) {
+                this.shop_price = shop_price;
+            }
 
             public String getCover_image() {
                 return cover_image;

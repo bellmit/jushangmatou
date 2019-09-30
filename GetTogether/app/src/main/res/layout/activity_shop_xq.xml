@@ -63,12 +63,12 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="63dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="63dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="29dp"
                         android:background="@drawable/jianban3z_4dp"
                         android:gravity="center"

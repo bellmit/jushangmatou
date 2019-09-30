@@ -145,6 +145,7 @@ public class VisitorActivity extends BaseActivity {
         headerView.setTextColor(0xff745D5C);
         refreshLayout.setHeaderView(headerView);
         LoadingView loadingView = new LoadingView(getContext());
+        refreshLayout.setEnableLoadmore(false);
         refreshLayout.setBottomView(loadingView);
         refreshLayout.setEnableOverScroll(false);
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {

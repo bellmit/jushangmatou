@@ -78,13 +78,11 @@ public class ShopDecorationPresenter extends BasePresenter<ShopDecorationContrac
 
     @Override
     public void getShopDecorationModifyData(Map<String, Object> map) {
-        mView.showLoading();
         XUtil.Post(URLConstant.SHOP_DECORATION_MODIFY, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
                 Log.i("===店铺装修修改===", result.toString());
-                mView.hideLoading();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
@@ -102,7 +100,6 @@ public class ShopDecorationPresenter extends BasePresenter<ShopDecorationContrac
             @Override
             public void onFinished() {
                 super.onFinished();
-                mView.hideLoading();
             }
 
             @Override

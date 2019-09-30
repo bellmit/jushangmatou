@@ -88,13 +88,11 @@ public class PublishGoodsPresenter extends BasePresenter<PublishGoodsContract.Pu
     @Override
     public void uploadProduct(Map<String, Object> map) {
         Log.d("chenshichun", "=======uploadProduct====" + map);
-        mView.showLoading();
         XUtil.Post(URLConstant.ADDXINCHANPIN, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
                 Log.i("====商品上传===", result.toString());
-                mView.hideLoading();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
@@ -112,7 +110,6 @@ public class PublishGoodsPresenter extends BasePresenter<PublishGoodsContract.Pu
             @Override
             public void onFinished() {
                 super.onFinished();
-                mView.hideLoading();
             }
 
             @Override

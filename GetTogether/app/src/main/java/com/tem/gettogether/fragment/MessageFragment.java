@@ -217,7 +217,7 @@ public class MessageFragment extends BaseFragment {
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         Log.d("chenshichun","=====userId  "+userId);
         map.put("user_id", userId);
-        baseActivity.showDialog();
+//        baseActivity.showDialog();
         XUtil.Post(URLConstant.RONGYUN_NICKNAME_HEADPIC, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
@@ -241,13 +241,13 @@ public class MessageFragment extends BaseFragment {
             @Override
             public void onFinished() {
                 super.onFinished();
-                baseActivity.closeDialog();
+//                baseActivity.closeDialog();
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
-                baseActivity.closeDialog();
+//                baseActivity.closeDialog();
             }
         });
         return userInfo;

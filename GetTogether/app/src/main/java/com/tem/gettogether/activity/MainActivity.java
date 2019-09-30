@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -14,6 +15,7 @@ import android.os.Process;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -60,6 +62,7 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import cc.duduhuo.custoast.CusToast;
@@ -173,6 +176,18 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
 //        AppManager.getAppManager().addActivity(this);
         x.view().inject(this);
         initViews();
+        String yuyan = SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.language, "");
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        Configuration config = getResources().getConfiguration();
+        if(yuyan.equals("zh")){
+            config.locale = Locale.CHINESE;
+        }else if(yuyan.equals("en")){
+            config.locale = Locale.ENGLISH;
+        }else if(yuyan.equals("ara")){
+            config.locale = new Locale("ar");
+        }
+        getResources().updateConfiguration(config, dm);
+
         recevier = new Myreceiver();
         intentFilter = new IntentFilter();
         intentFilter.addAction("LOGIN_TO_MIAN");

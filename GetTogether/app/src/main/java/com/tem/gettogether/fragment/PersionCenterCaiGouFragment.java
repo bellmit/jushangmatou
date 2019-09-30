@@ -32,6 +32,7 @@ import com.tem.gettogether.activity.my.AddressGLActivity;
 import com.tem.gettogether.activity.my.BuyingManagementActivity;
 import com.tem.gettogether.activity.my.CgsAuthenticationActivity;
 import com.tem.gettogether.activity.my.CorporateInformationActivity;
+import com.tem.gettogether.activity.my.FansActivity;
 import com.tem.gettogether.activity.my.GYWeActivity;
 import com.tem.gettogether.activity.my.SCconnectActivity;
 import com.tem.gettogether.activity.my.SettingActivity;
@@ -167,8 +168,8 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
                             tv_zjNum.setText("0");
                         }
 
-                        if(myMessageBean.getResult().getMy_orders()!=null) {
-                            tv_qb_num.setText(myMessageBean.getResult().getMy_orders());
+                        if(myMessageBean.getResult().getCart_goods()!=null) {
+                            tv_qb_num.setText(myMessageBean.getResult().getCart_goods());
                         }else{
                             tv_qb_num.setText("0");
                         }
@@ -283,6 +284,8 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
         SinaRefreshView headerView = new SinaRefreshView(getContext());
         headerView.setTextColor(0xff745D5C);
         refreshLayout.setHeaderView(headerView);
+        refreshLayout.setEnableRefresh(false);
+        refreshLayout.setEnableOverScroll(false);
         LoadingView loadingView = new LoadingView(getContext());
         refreshLayout.setBottomView(loadingView);
         refreshLayout.setEnableLoadmore(false);

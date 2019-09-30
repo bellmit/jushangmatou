@@ -469,7 +469,7 @@ public class ShopActivity extends BaseActivity {
                         storeBannerBeans = shopTopBean.getResult().getStore_banner();
                         EventBus.getDefault().post(storeBannerBeans);
                         tv_shop_name.setText(resultBean.getStore_name());
-                        tv_shop_peopleNum.setText(resultBean.getStore_collect() + "人关注");
+                        tv_shop_peopleNum.setText(resultBean.getStore_collect() + getText(R.string.concerned));
                         tv_shop_xj.setText(resultBean.getStore_name());
                         Glide.with(ShopActivity.this).load(resultBean.getStore_logo()).error(R.drawable.head_bg).into(iv_shop_image);
 

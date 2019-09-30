@@ -85,7 +85,7 @@ public class BaseApplication extends Application {
         setInputProvider();
         UMShareAPI.get(this);
         initAppLanguage();
-        Bugtags.start("42c655de1b4f612f3e488385c64f3e81", this, Bugtags.BTGInvocationEventBubble/*BTGInvocationEventNone*/);
+        Bugtags.start("42c655de1b4f612f3e488385c64f3e81", this, /*Bugtags.BTGInvocationEventBubble*/Bugtags.BTGInvocationEventNone);
 
 
         Beta.autoCheckUpgrade = false;//设置不自动检查
