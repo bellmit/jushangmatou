@@ -33,9 +33,8 @@ import com.lcodecore.tkrefreshlayout.Footer.LoadingView;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
+import com.lcodecore.tkrefreshlayout.header.bezierlayout.RoundProgressView;
 import com.tem.gettogether.R;
-import com.tem.gettogether.activity.MainActivity;
-import com.tem.gettogether.activity.home.HomeGongGaoActivity;
 import com.tem.gettogether.activity.home.HomeHotSellActivity;
 import com.tem.gettogether.activity.home.HomeLianMengActivity;
 import com.tem.gettogether.activity.home.HomeSouSuoActivity;
@@ -394,7 +393,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
             @Override
             public void OnBannerClick(int position) {
 
-                if(adBeans.get(position).getAd_name().equals(getText(R.string.lianyi))) {
+                if(adBeans.get(position).getAd_name().equals("临沂")) {
                     startActivity(new Intent(getActivity(), LinYiClassificationActivity.class));
                     return;
                 }
@@ -425,7 +424,13 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
 
     private void initRefresh() {
         SinaRefreshView headerView = new SinaRefreshView(getContext());
+        headerView.setPullDownStr(getString(R.string.pull_down_refresh));
+        headerView.setReleaseRefreshStr(getString(R.string.release_refresh));
+        headerView.setRefreshingStr(getString(R.string.refreshing));
         headerView.setTextColor(0xff745D5C);
+        headerView.setPullDownStr(getString(R.string.pull_down_refresh));
+        headerView.setReleaseRefreshStr(getString(R.string.release_refresh));
+        headerView.setRefreshingStr(getString(R.string.refreshing));
         refreshLayout.setHeaderView(headerView);
         LoadingView loadingView = new LoadingView(getContext());
         refreshLayout.setAutoLoadMore(true);
@@ -617,7 +622,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
         MenuViewPagerAdapter menuViewPagerAdapter = new MenuViewPagerAdapter(mList);
         view_pager.setAdapter(menuViewPagerAdapter);
         //3.动态设置ViewPager的高度，并加载所有页面
-        int height = DpPxUtils.dp2Px(getContext(), 70);//这里的80为MainMenuAdapter中布局文件高度
+        int height = DpPxUtils.dp2Px(getContext(), 80);//这里的80为MainMenuAdapter中布局文件高度
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, datas.size() <= spanNum ? height : height * rowNum);
         view_pager.setLayoutParams(layoutParams);
         view_pager.setOffscreenPageLimit(pageNum - 1);

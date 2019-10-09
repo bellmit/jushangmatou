@@ -21,6 +21,7 @@ import com.tem.gettogether.bean.CategoriesClassificationBean;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
+import com.ybm.app.common.WindowToast.ToastTips;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +32,8 @@ import org.xutils.x;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import cc.duduhuo.custoast.CusToast;
 
 @ContentView(R.layout.fragment_refund)
 public class RefundFragment extends BaseFragment {
@@ -60,9 +63,8 @@ public class RefundFragment extends BaseFragment {
     }
 
     private void refund() {
-        Log.d("chenshichun","===refund========");
         Map<String, Object> map = new HashMap<>();
-        map.put("level_id", "7");
+        map.put("level_id", "1");
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         Log.d("chenshichun","====user_id======="+SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         baseActivity.showDialog();
@@ -75,9 +77,9 @@ public class RefundFragment extends BaseFragment {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     if (res.equals("1")) {
-                        Gson gson = new Gson();
+                        CusToast.showToast(getText(R.string.refund_successfully));
+                        getActivity().finish();
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

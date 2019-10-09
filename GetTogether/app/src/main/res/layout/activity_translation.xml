@@ -80,7 +80,7 @@
                 android:gravity="top"
                 android:hint="@string/shuruwenzi"
                 android:imeOptions="actionDone"
-                android:singleLine="true" />
+                 />
 
             <ImageView
                 android:id="@+id/delete_iv"
@@ -100,7 +100,9 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:background="@color/white"
-            android:visibility="gone" />
+            android:paddingLeft="@dimen/dp_10"
+            android:gravity="top"
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/translation_btn"

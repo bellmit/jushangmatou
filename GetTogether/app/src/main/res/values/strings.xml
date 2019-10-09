@@ -538,8 +538,8 @@
     <string name="rongyun_talk">会话</string>
     <string name="spysx">商品已失效</string>
     <string name="dpspkysx">店铺商品库已失效</string>
-    <string name="yuyin">语音</string>
-    <string name="fanyi">翻译</string>
+    <string name="yuyin">语音输入</string>
+    <string name="fanyi">文字翻译</string>
     <string name="tips">温馨提示</string>
     <string name="ndsfycgtjsh">您的身份信息已成功提交待审核</string>
     <string name="dqsjh">当前手机号</string>
@@ -765,4 +765,13 @@
     <string name="login_first">请先登录</string>
     <string name="concerned">人关注</string>
     <string name="trade_number">货号</string>
+    <string name="not_supported_yet">暂不支持</string>
+    <string name="pull_down_refresh">下拉刷新</string>
+    <string name="release_refresh">释放刷新</string>
+    <string name="refreshing">正在刷新</string>
+    <string name="message_failed">消息发送失败</string>
+    <string name="message_successed">消息发送成功</string>
+    <string name="refund_successfully">退款成功!</string>
+    <string name="batch">起批</string>
+    <string name="commodity">商品</string>
 </resources>

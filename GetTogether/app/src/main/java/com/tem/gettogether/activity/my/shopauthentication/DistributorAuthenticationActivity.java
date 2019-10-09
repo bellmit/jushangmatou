@@ -278,10 +278,10 @@ public class DistributorAuthenticationActivity extends BaseActivity {
                         String role_type = SharedPreferencesUtils.getString(DistributorAuthenticationActivity.this, BaseConstant.SPConstant.ROLE_TYPE, "");
                         if (role_type != null && role_type.equals("1")) {
                             startActivity(new Intent(DistributorAuthenticationActivity.this, com.tem.gettogether.activity.MainActivity.class)
-                                    .putExtra("tab", "6"));
+                                    .putExtra("tab", "5"));
                         } else {
                             startActivity(new Intent(DistributorAuthenticationActivity.this, com.tem.gettogether.activity.MainActivity.class)
-                                    .putExtra("tab", "7"));
+                                    .putExtra("tab", "6"));
                         }
                     }
 
@@ -322,10 +322,10 @@ public class DistributorAuthenticationActivity extends BaseActivity {
                         String role_type = SharedPreferencesUtils.getString(DistributorAuthenticationActivity.this, BaseConstant.SPConstant.ROLE_TYPE, "");
                         if (role_type != null && role_type.equals("1")) {
                             startActivity(new Intent(DistributorAuthenticationActivity.this, com.tem.gettogether.activity.MainActivity.class)
-                                    .putExtra("tab", "6"));
+                                    .putExtra("tab", "5"));
                         } else {
                             startActivity(new Intent(DistributorAuthenticationActivity.this, com.tem.gettogether.activity.MainActivity.class)
-                                    .putExtra("tab", "7"));
+                                    .putExtra("tab", "6"));
                         }
                     }
                 } catch (JSONException e) {

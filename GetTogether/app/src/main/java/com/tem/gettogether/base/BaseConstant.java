@@ -33,6 +33,10 @@ public class BaseConstant {
         public static final String LEVER = "lever";
         public static final String SHOP_STATUS = "shop_status";
         public static final String IS_VERIFY = "IS_VERIFY";
+        public static final String TRANSLATION_FROM = "TRANSLATION_FROM";
+        public static final String TRANSLATION_TO = "TRANSLATION_TO";
+        public static final String SPEECH_TRANSLATION_FROM = "SPEECH_TRANSLATION_FROM";
+        public static final String SPEECH_TRANSLATION_TO = "SPEECH_TRANSLATION_TO";
     }
     public static class ReceiverAction {
         public static final String REFRESHFEE = "com.call.beeper";

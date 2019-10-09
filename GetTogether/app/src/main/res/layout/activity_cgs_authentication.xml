@@ -166,8 +166,8 @@
                         android:textSize="14dp" />
 
                     <EditText
-                        android:id="@+id/et_card"
                         android:layout_width="match_parent"
+                        android:id="@+id/et_card"
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:hint="@string/qsrndweixinhao"

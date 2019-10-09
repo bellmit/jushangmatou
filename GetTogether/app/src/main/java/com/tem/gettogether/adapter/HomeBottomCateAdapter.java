@@ -11,11 +11,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tem.gettogether.activity.classification.ClassificationActivity;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.bean.HomeDataBean;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.home.BKRecommecdActivity;
 import com.tem.gettogether.bean.HomeDataBean;
 import com.tem.gettogether.bean.HomeDataNewBean;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.TransformationUtils;
 
 import java.util.List;
@@ -61,13 +63,26 @@ public class HomeBottomCateAdapter extends RecyclerView.Adapter<HomeBottomCateAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*context.startActivity(new Intent(context, BKRecommecdActivity.class)
-                        .putExtra("category_id",mDatas.get(position).getId()));*/
-                context.startActivity(new Intent(context, ClassificationActivity.class)
-                        .putExtra("classification_id",mDatas.get(position).getCategory_id())
-                        .putExtra("classification_type",2)
-                        .putExtra("is_yilian",false)
-                        .putExtra("classification_name",mDatas.get(position).getName()));
+
+                if (SharedPreferencesUtils.getString(context, BaseConstant.SPConstant.language, "").equals("en")) {
+                    context.startActivity(new Intent(context, ClassificationActivity.class)
+                            .putExtra("classification_id",mDatas.get(position).getCategory_id())
+                            .putExtra("classification_type",2)
+                            .putExtra("is_yilian",false)
+                            .putExtra("classification_name",mDatas.get(position).getEn_mobile_name()));
+                }else if(SharedPreferencesUtils.getString(context, BaseConstant.SPConstant.language, "").equals("ara")){
+                    context.startActivity(new Intent(context, ClassificationActivity.class)
+                            .putExtra("classification_id",mDatas.get(position).getCategory_id())
+                            .putExtra("classification_type",2)
+                            .putExtra("is_yilian",false)
+                            .putExtra("classification_name",mDatas.get(position).getAra_mobile_name()));
+                }else{
+                    context.startActivity(new Intent(context, ClassificationActivity.class)
+                            .putExtra("classification_id",mDatas.get(position).getCategory_id())
+                            .putExtra("classification_type",2)
+                            .putExtra("is_yilian",false)
+                            .putExtra("classification_name",mDatas.get(position).getName()));
+                }
             }
         });
     }

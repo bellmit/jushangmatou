@@ -129,7 +129,7 @@ public class SpeechTranslationPresenter extends BasePresenter<SpeechTranslationC
                 Log.d("chenshichun", "======发送成功=====");
 
                 //消息通过网络发送成功的回调
-                CusToast.showToast("发送成功");
+                CusToast.showToast(mContext.getText(R.string.message_successed));
                 mActivity.finish();
             }
 
@@ -137,6 +137,7 @@ public class SpeechTranslationPresenter extends BasePresenter<SpeechTranslationC
             public void onError(io.rong.imlib.model.Message message, RongIMClient.ErrorCode errorCode) {
                 //消息发送失败的回调
                 Log.d("chenshichun", "======消息发送失败=====");
+                CusToast.showToast(mContext.getText(R.string.message_failed));
             }
         });
     }

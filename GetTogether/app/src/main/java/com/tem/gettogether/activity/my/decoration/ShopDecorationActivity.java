@@ -106,7 +106,7 @@ public class ShopDecorationActivity extends BaseMvpActivity<ShopDecorationPresen
         publish_recy.setAdapter(mTaskImgAdapter);
     }
 
-    @Event(value = {R.id.shop_logo_ll, R.id.shop_bg_ll, R.id.rl_close,R.id.tv_fbShopping})
+    @Event(value = {R.id.shop_logo_ll, R.id.shop_bg_ll, R.id.rl_close, R.id.tv_fbShopping})
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
@@ -123,13 +123,13 @@ public class ShopDecorationActivity extends BaseMvpActivity<ShopDecorationPresen
             case R.id.tv_fbShopping:
                 Map<String, Object> map = new HashMap<>();
                 map.put("store_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, ""));
-                map.put("store_name",et_cpName.getText().toString());
-                map.put("app_store_logo",logo_image);
-                map.put("app_store_banner",bg_image);
-                map.put("seo_description",jianjie_tv.getText().toString());
-                Log.d("chenshichun","======seo_description====="+jianjie_tv.getText().toString());
+                map.put("store_name", et_cpName.getText().toString());
+                map.put("app_store_logo", logo_image);
+                map.put("app_store_banner", bg_image);
+                map.put("seo_description", jianjie_tv.getText().toString());
+                Log.d("chenshichun", "======seo_description=====" + jianjie_tv.getText().toString());
                 ad_code = "";
-                imagePaths.remove(imagePaths.size()-1);
+                imagePaths.remove(imagePaths.size() - 1);
                 if (imagePaths.size() > 0) {
                     for (int i = 0; i < imagePaths.size(); i++) {
                         if (i < imagePaths.size() - 1) {
@@ -139,8 +139,8 @@ public class ShopDecorationActivity extends BaseMvpActivity<ShopDecorationPresen
                         }
                     }
                 }
-                map.put("ad_code",ad_code);
-                Log.d("chenshichun","======轮播====="+ad_code);
+                map.put("ad_code", ad_code);
+                Log.d("chenshichun", "======轮播=====" + ad_code);
                 mPresenter.getShopDecorationModifyData(map);
 
                 break;
@@ -176,9 +176,14 @@ public class ShopDecorationActivity extends BaseMvpActivity<ShopDecorationPresen
         if (mResultBean.getAd_code() != null && mResultBean.getAd_code().size() > 0) {
             for (int i = 0; i < mResultBean.getAd_code().size(); i++) {
                 if (mResultBean.getAd_code().get(i).getAd_code().startsWith("http")) {
-                    imagePaths.add(mResultBean.getAd_code().get(i).getAd_code());
+                    Log.d("chenshichun","===========");
+                    if (!mResultBean.getAd_code().get(i).getAd_code().equals("")) {
+                        imagePaths.add(mResultBean.getAd_code().get(i).getAd_code());
+                    }
                 } else {
-                    imagePaths.add("http://www.jsmtgou.com/jushangmatou" + mResultBean.getAd_code().get(i).getAd_code());
+                    if (!mResultBean.getAd_code().get(i).getAd_code().equals("")) {
+                        imagePaths.add("http://www.jsmtgou.com/jushangmatou" + mResultBean.getAd_code().get(i).getAd_code());
+                    }
                 }
             }
         }
@@ -238,7 +243,7 @@ public class ShopDecorationActivity extends BaseMvpActivity<ShopDecorationPresen
                         if (imagePaths.size() > 0) {
                             imagePaths.remove(imagePaths.get(index1));
                         }
-                        Log.d("chenshichun","=====imagePaths======"+imagePaths);
+                        Log.d("chenshichun", "=====imagePaths======" + imagePaths);
 //                        if (cartImage.size() > 0) {
 //                            cartImage.remove(cartImage.get(index1));
 //                        }

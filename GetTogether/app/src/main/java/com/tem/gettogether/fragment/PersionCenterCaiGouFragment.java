@@ -183,6 +183,9 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
                         } else if (is_verify.equals("3")) {
                             rz_status_tv.setText(getText(R.string.shz));
                         }
+                    }else{
+//                        startActivity(new Intent(getActivity(), LoginActivity.class));
+//                        getActivity().finish();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -282,6 +285,9 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
 
     private void initRefresh() {
         SinaRefreshView headerView = new SinaRefreshView(getContext());
+        headerView.setPullDownStr(getString(R.string.pull_down_refresh));
+        headerView.setReleaseRefreshStr(getString(R.string.release_refresh));
+        headerView.setRefreshingStr(getString(R.string.refreshing));
         headerView.setTextColor(0xff745D5C);
         refreshLayout.setHeaderView(headerView);
         refreshLayout.setEnableRefresh(false);

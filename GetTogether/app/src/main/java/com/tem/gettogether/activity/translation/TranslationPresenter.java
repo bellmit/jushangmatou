@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Message;
 import android.util.Log;
 
+import com.tem.gettogether.R;
 import com.tem.gettogether.base.BasePresenter;
 import com.tem.gettogether.rongyun.CustomizeTranslationMessage;
 import com.youdao.sdk.app.Language;
@@ -96,7 +97,7 @@ public class TranslationPresenter extends BasePresenter<TranslationContract.Tran
                 Log.d("chenshichun", "======发送成功=====");
 
                 //消息通过网络发送成功的回调
-                CusToast.showToast("发送成功");
+                CusToast.showToast(mContext.getText(R.string.message_successed));
                 mActivity.finish();
             }
 
@@ -104,6 +105,8 @@ public class TranslationPresenter extends BasePresenter<TranslationContract.Tran
             public void onError(io.rong.imlib.model.Message message, RongIMClient.ErrorCode errorCode) {
                 //消息发送失败的回调
                 Log.d("chenshichun", "======消息发送失败=====");
+                CusToast.showToast(mContext.getText(R.string.message_failed));
+
             }
         });
     }

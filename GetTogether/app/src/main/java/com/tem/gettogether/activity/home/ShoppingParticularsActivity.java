@@ -455,7 +455,6 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     //发消息
                     Log.d("chenshichun", "=======CHAT_ID==== " + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0"));
                     Log.d("chenshichun", "======getStore_user_id=====" + storeBean.getStore_user_id());
-                    if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
                         if (storeBean != null && storeBean.getStore_user_id() != null) {
                             RongTalk.doConnection(ShoppingParticularsActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                                     , storeBean.getStore_user_id(), storeBean.getStore_name(),
@@ -464,7 +463,6 @@ public class ShoppingParticularsActivity extends BaseActivity {
                             CusToast.showToast(getText(R.string.the_store_is_invalid));
                         }
 
-                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -472,7 +470,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 }
 
                 sendCustomizeMessage(storeBean.getStore_user_id(), goods_id, galleryBeans.get(0).getImage_url(),
-                        goodsBean.getGoods_name(), goodsBean.getBatch_number() + "起批", "商品", "");
+                        goodsBean.getGoods_name(), goodsBean.getBatch_number() + getText(R.string.batch), getString(R.string.commodity), "");
                 break;
         }
     }
@@ -496,13 +494,14 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 Log.d("chenshichun", "======发送成功=====");
 
                 //消息通过网络发送成功的回调
-                CusToast.showToast("发送成功");
+                CusToast.showToast(getText(R.string.message_successed));
             }
 
             @Override
             public void onError(io.rong.imlib.model.Message message, RongIMClient.ErrorCode errorCode) {
                 //消息发送失败的回调
                 Log.d("chenshichun", "======消息发送失败=====");
+                CusToast.showToast(getText(R.string.message_failed));
             }
         });
     }
@@ -1461,27 +1460,38 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         CusToast.showToast(R.string.login_first);
                         startActivity(new Intent(ShoppingParticularsActivity.this,LoginActivity.class));
                     }
-                    WXWebpageObject webpage = new WXWebpageObject();
-                    webpage.webpageUrl = "http://www.jsmtgou.com/jushangmatou/index.php?m=Home&c=Goods&a=share_goods_detail&id="
-                            + goodsBean.getGoods_id()
-                            + "&user_id=" + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "");
-                    /*goodsBean.getDetail()*///分享url
-                    WXMediaMessage msg = new WXMediaMessage(webpage);
-                    msg.title = goodsBean.getGoods_name()/*getString(R.string.from_Jushang_Pier)*/;
-                    msg.description = goodsBean.getGoods_name();
-                   /* new Thread(new Runnable() {
+
+                    new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            thumb = GetLocalOrNetBitmap(goodsBean.getCover_image())*//*BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)*//*;
+                            WXWebpageObject webpage = new WXWebpageObject();
+                            webpage.webpageUrl = "http://www.jsmtgou.com/jushangmatou/index.php?m=Home&c=Goods&a=share_goods_detail&id="
+                                    + goodsBean.getGoods_id()
+                                    + "&user_id=" + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "");
+                            /*goodsBean.getDetail()*///分享url
+                            WXMediaMessage msg = new WXMediaMessage(webpage);
+                            msg.title = goodsBean.getGoods_name()/*getString(R.string.from_Jushang_Pier)*/;
+                            msg.description = goodsBean.getGoods_name();
+                            Bitmap thumb = null;
+                            try {
+                                thumb = BitmapFactory.decodeStream(new URL(goodsBean.getCover_image()).openStream());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Bitmap thumbBmp = Bitmap.createScaledBitmap(thumb,120,150,true);
+
+                            thumb.recycle();
+
+//                    Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                            msg.thumbData = bmpToByteArray(thumbBmp);//封面图片byte数组
+                            SendMessageToWX.Req req = new SendMessageToWX.Req();
+                            req.transaction = String.valueOf(System.currentTimeMillis());
+                            req.message = msg;
+                            req.scene = SendMessageToWX.Req.WXSceneSession;//好友
+                            wxAPI.sendReq(req);
                         }
-                    });*/
-                    Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-                    msg.thumbData = bmpToByteArray(thumb);//封面图片byte数组
-                    SendMessageToWX.Req req = new SendMessageToWX.Req();
-                    req.transaction = String.valueOf(System.currentTimeMillis());
-                    req.message = msg;
-                    req.scene = SendMessageToWX.Req.WXSceneSession;//好友
-                    wxAPI.sendReq(req);
+                    }).start();
+
                     mPopShard.dismiss();
                 }
             });
@@ -1492,22 +1502,37 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         CusToast.showToast(R.string.login_first);
                         startActivity(new Intent(ShoppingParticularsActivity.this,LoginActivity.class));
                     }
-                    WXWebpageObject webpage = new WXWebpageObject();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            WXWebpageObject webpage = new WXWebpageObject();
 //                    webpage.webpageUrl = goodsBean.getDetail();//分享url
-                    webpage.webpageUrl = "http://www.jsmtgou.com/jushangmatou/index.php?m=Home&c=Goods&a=share_goods_detail&id="
-                            + goodsBean.getGoods_id()
-                            + "&user_id=" + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "");
-                    WXMediaMessage msg = new WXMediaMessage(webpage);
-                    msg.title = goodsBean.getGoods_name();
-                    msg.description = goodsBean.getGoods_name();
-                    Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                            webpage.webpageUrl = "http://www.jsmtgou.com/jushangmatou/index.php?m=Home&c=Goods&a=share_goods_detail&id="
+                                    + goodsBean.getGoods_id()
+                                    + "&user_id=" + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "");
+                            WXMediaMessage msg = new WXMediaMessage(webpage);
+                            msg.title = goodsBean.getGoods_name();
+                            msg.description = goodsBean.getGoods_name();
+                            Bitmap thumb = null;
+                            try {
+                                thumb = BitmapFactory.decodeStream(new URL(goodsBean.getCover_image()).openStream());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Bitmap thumbBmp = Bitmap.createScaledBitmap(thumb,120,150,true);
+
+                            thumb.recycle();
+//                    Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
 //                    Bitmap thumb = returnBitMap(/*goodsBean.getCover_image())*/BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-                    msg.thumbData = bmpToByteArray(thumb);//封面图片byte数组
-                    SendMessageToWX.Req req = new SendMessageToWX.Req();
-                    req.transaction = String.valueOf(System.currentTimeMillis());
-                    req.message = msg;
-                    req.scene = SendMessageToWX.Req.WXSceneTimeline;//朋友圈
-                    wxAPI.sendReq(req);
+                            msg.thumbData = bmpToByteArray(thumbBmp);//封面图片byte数组
+                            SendMessageToWX.Req req = new SendMessageToWX.Req();
+                            req.transaction = String.valueOf(System.currentTimeMillis());
+                            req.message = msg;
+                            req.scene = SendMessageToWX.Req.WXSceneTimeline;//朋友圈
+                            wxAPI.sendReq(req);
+                        }
+                    }).start();
+
                     mPopShard.dismiss();
                 }
             });

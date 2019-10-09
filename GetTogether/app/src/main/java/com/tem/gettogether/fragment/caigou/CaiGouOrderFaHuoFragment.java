@@ -248,6 +248,9 @@ public class CaiGouOrderFaHuoFragment extends BaseFragment {
 
     private void initRefresh() {
         SinaRefreshView headerView = new SinaRefreshView(getContext());
+        headerView.setPullDownStr(getString(R.string.pull_down_refresh));
+        headerView.setReleaseRefreshStr(getString(R.string.release_refresh));
+        headerView.setRefreshingStr(getString(R.string.refreshing));
         headerView.setTextColor(0xff745D5C);
         refreshLayout.setHeaderView(headerView);
         LoadingView loadingView = new LoadingView(getContext());

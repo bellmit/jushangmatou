@@ -218,7 +218,7 @@ public class CorporateInformationActivity extends BaseActivity {
                         company_profile_tv.setText(mCompanyPersionInformationBean.getResult().getCompany_content());
                         countryId = mCompanyPersionInformationBean.getResult().getCountry_id();
 
-                        if (mCompanyPersionInformationBean.getResult().getCompany_province().equals("null")) {
+                        if (mCompanyPersionInformationBean.getResult().getCompany_province() == null || mCompanyPersionInformationBean.getResult().getCompany_province().equals("null")) {
                             company_address.setText("");
                         } else {
                             company_address.setText(mCompanyPersionInformationBean.getResult().getCompany_province()
@@ -236,6 +236,8 @@ public class CorporateInformationActivity extends BaseActivity {
                         category_tv.setText(mCompanyPersionInformationBean.getResult().getSc_name());
                         countryBeanBeans.removeAll(countryBeanBeans);
                         countryBeanBeans.addAll(mCompanyPersionInformationBean.getResult().getCountry());
+                        Log.d("chenshichun", "======size=====" + mCompanyPersionInformationBean.getResult().getCountry().size());
+                        Log.d("chenshichun", "=====countryBeanBeanscountryBeanBeans======" + countryBeanBeans.size());
                     } else {
                         String msg = jsonObject.optString("msg");
                         CusToast.showToast(msg);
@@ -266,7 +268,7 @@ public class CorporateInformationActivity extends BaseActivity {
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         map.put("country_id", countryId);
-        map.put("role_type",role_type);
+        map.put("role_type", role_type);
         map.put("sex", man_rb.isChecked() ? "0" : "1");
         map.put("company_content", company_profile_tv.getText().toString());
         XUtil.Post(URLConstant.ENTERPISE_INFO_SAVE, map, new MyCallBack<String>() {
@@ -420,6 +422,8 @@ public class CorporateInformationActivity extends BaseActivity {
     }
 
     private void initSetdialog() {
+        Log.d("chenshichun", "======countryBeanBeans=====" + countryBeanBeans);
+        Log.d("chenshichun", "=======countryBeanBeanssss====" + countryBeanBeans.get(0).getCountry_name());
         BaseRVAdapter baseRVAdapter = new BaseRVAdapter(this, countryBeanBeans) {
             @Override
             public int getLayoutId(int viewType) {
@@ -428,6 +432,7 @@ public class CorporateInformationActivity extends BaseActivity {
 
             @Override
             public void onBind(BaseViewHolder holder, final int position) {
+                Log.d("chenshichun", "=========countryBeanBeans.get(position).getCountry_name()==" + countryBeanBeans.get(position).getCountry_name());
                 holder.getTextView(R.id.tv_item).setText(countryBeanBeans.get(position).getCountry_name());
                 holder.getTextView(R.id.tv_item).setOnClickListener(new View.OnClickListener() {
                     @Override

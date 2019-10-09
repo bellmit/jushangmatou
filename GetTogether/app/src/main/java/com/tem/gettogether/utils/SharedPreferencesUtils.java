@@ -59,26 +59,25 @@ public class SharedPreferencesUtils {
         return sp.getBoolean(key, defValue);
     }
 
-    public static void saveInt(Context context, String key, boolean defValue) {
+    public static void saveInt(Context context, String key, int defValue) {
 
         if (sp == null) {
 
             sp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
         }
 
-        sp.edit().putBoolean(key, defValue).commit();
+        sp.edit().putInt(key, defValue).commit();
     }
 
-    public static boolean getInt(Context context, String key,
-                                 boolean defValue) {
+    public static int getInt(Context context, String key,
+                                 int defValue) {
 
         if (sp == null) {
 
             sp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
 
         }
-
-        return sp.getBoolean(key, defValue);
+        return sp.getInt(key, defValue);
     }
 
 

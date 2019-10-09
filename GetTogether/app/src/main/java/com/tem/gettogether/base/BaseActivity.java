@@ -71,6 +71,7 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
         mContext = this;
+        initAppLanguage();
         initData();
         initView();
     }
@@ -290,7 +291,6 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
 
         dismissProgress();
 
-        initAppLanguage();
     }
 
     @Override
@@ -410,13 +410,7 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
     }
 
     public void initAppLanguage() {
-        if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "").equals("zh")) {
-            DisplayMetrics dm = getResources().getDisplayMetrics();
-            Configuration config = getResources().getConfiguration();
-            // 应用用户选择语言
-            config.locale = Locale.CHINESE;
-            getResources().updateConfiguration(config, dm);
-        } else if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "").equals("en")) {
+        if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "").equals("en")) {
             DisplayMetrics dm = getResources().getDisplayMetrics();
             Configuration config = getResources().getConfiguration();
             // 应用用户选择语言
@@ -427,6 +421,12 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
             Configuration config = getResources().getConfiguration();
             // 应用用户选择语言
             config.locale = new Locale("ar");
+            getResources().updateConfiguration(config, dm);
+        }else{
+            DisplayMetrics dm = getResources().getDisplayMetrics();
+            Configuration config = getResources().getConfiguration();
+            // 应用用户选择语言
+            config.locale = Locale.CHINESE;
             getResources().updateConfiguration(config, dm);
         }
     }

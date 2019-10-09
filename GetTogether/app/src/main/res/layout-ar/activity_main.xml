@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -41,6 +40,7 @@
                 android:layout_marginTop="4dp"
                 android:text="@string/item_bottom_home"
                 android:textColor="@color/text"
+                android:textDirection="locale"
                 android:textSize="10sp" />
 
         </LinearLayout>
@@ -66,6 +66,7 @@
                 android:layout_marginTop="4dp"
                 android:text="@string/item_bottom_message"
                 android:textColor="@color/text"
+                android:textDirection="locale"
                 android:textSize="10sp" />
 
         </LinearLayout>
@@ -91,6 +92,7 @@
                 android:layout_marginTop="4dp"
                 android:text="@string/search"
                 android:textColor="@color/text"
+                android:textDirection="locale"
                 android:textSize="10sp" />
 
         </LinearLayout>
@@ -117,9 +119,11 @@
                 android:layout_marginTop="4dp"
                 android:text="@string/item_bottom_shop"
                 android:textColor="@color/text"
+                android:textDirection="locale"
                 android:textSize="10sp" />
 
         </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/ll_message"
@@ -129,21 +133,45 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/iv_message"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/liaotian" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/liaotian"
-                android:textColor="@color/text"
-                android:textSize="10sp" />
+                <LinearLayout
+                    android:id="@+id/ll_messages"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
+                    <ImageView
+                        android:id="@+id/iv_message"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/liaotian" />
+
+                    <TextView
+                        android:id="@+id/tv_message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/liaotian"
+                        android:textColor="@color/text"
+                        android:textDirection="locale"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <com.tem.gettogether.view.DragPointView
+                    android:id="@+id/seal_num"
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_toEndOf="@+id/ll_messages"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:visibility="invisible" />
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -178,18 +206,11 @@
                         android:layout_marginTop="4dp"
                         android:text="@string/item_bottom_me"
                         android:textColor="@color/text"
+                        android:textDirection="locale"
                         android:textSize="10sp" />
                 </LinearLayout>
 
-                <com.tem.gettogether.view.DragPointView
-                    android:id="@+id/seal_num"
-                    android:layout_width="19dp"
-                    android:layout_height="19dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_toEndOf="@+id/ll_me"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp"
-                    android:visibility="invisible" />
+
             </RelativeLayout>
 
 

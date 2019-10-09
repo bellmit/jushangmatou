@@ -172,10 +172,10 @@ public class CgsAuthenticationActivity extends BaseActivity {
                     CusToast.showToast(getText(R.string.please_enter_your_ID_card_or_passport));
                     return;
                 }
-                if (iv_image_1.getDrawable() == null) {
+                /*if (iv_image_1.getDrawable() == null) {
                     CusToast.showToast(getText(R.string.please_upload_your_ID_or_passport));
                     return;
-                }
+                }*/
                 upRzData();
                 break;
             case R.id.rl_card_image1:

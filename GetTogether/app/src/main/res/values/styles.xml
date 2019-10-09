@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="AppThemeSplash" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/qdongy</item>
+        <item name="android:windowBackground">@drawable/bg_app</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>

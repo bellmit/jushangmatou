@@ -109,7 +109,7 @@ public class MyShopActivity extends BaseActivity {
                                 + mShopInformationBean.getResult().get(0).getStore_city()
                                 + mShopInformationBean.getResult().get(0).getStore_district()
                                 + mShopInformationBean.getResult().get(0).getStore_address());
-                        et_card_num.setText(mShopInformationBean.getResult().get(0).getLegal_identity());
+                        et_card_num.setText(mShopInformationBean.getResult().get(0).getStore_person_identity());
                         apply_type = mShopInformationBean.getResult().get(0).getApply_type();
                         if (apply_type.equals("1")) {// 个人
                             except_persion_ll.setVisibility(View.GONE);

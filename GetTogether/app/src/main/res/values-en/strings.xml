@@ -61,7 +61,7 @@
     <string name="daifahuo">Pending Ship</string>
     <string name="ksbh">Purchasing information</string>
     <string name="xzcp">new product</string>
-    <string name="message">message center</string>
+    <string name="message">Message center</string>
     <string name="xittong_message">System message</string>
     <string name="address">Address management</string>
     <string name="xinjian_address">new address</string>
@@ -373,8 +373,8 @@
     <string name="unable_to_add_more_images">Can not add more images!</string>
     <string name="new_on_the_store">New on the store</string>
     <string name="are_you_sure_you_want_to_quit">Are you sure you want to quit?</string>
-    <string name="prompt">prompt</string>
-    <string name="sure_tv">confirm</string>
+    <string name="prompt">Prompt</string>
+    <string name="sure_tv">Confirm</string>
     <string name="please_fill_in_the_product_name">Please fill in the product name</string>
     <string name="please_fill_in_the_keywords">Please fill in the keywords</string>
     <string name="please_fill_in_the_number_of_batches">Please fill in the number of batches</string>
@@ -548,8 +548,8 @@
     <string name="rongyun_talk">Conversation</string>
     <string name="spysx">Product has expired</string>
     <string name="dpspkysx">Store catalog has expired</string>
-    <string name="yuyin">voice</string>
-    <string name="fanyi">translation</string>
+    <string name="yuyin">Voice input</string>
+    <string name="fanyi">Text Translation</string>
     <string name="tips">Tips</string>
     <string name="ndsfycgtjsh">Your identity has been successfully submitted for review</string>
     <string name="dqsjh">Current mobile number</string>
@@ -773,6 +773,14 @@
     <string name="place_order">Place order</string>
     <string name="login_first">Login first</string>
     <string name="concerned">Concerned</string>
-    <string name="fenxiang">Share</string>
     <string name="trade_number">Trade number</string>
+    <string name="not_supported_yet">Not supported yet</string>
+    <string name="pull_down_refresh">Pull down to refresh</string>
+    <string name="release_refresh">Release refresh</string>
+    <string name="refreshing">Refreshing</string>
+    <string name="message_failed">message send failed</string>
+    <string name="message_successed">message send success</string>
+    <string name="refund_successfully">Refund successfully</string>
+    <string name="batch">batch</string>
+    <string name="commodity">commodity</string>
 </resources>

@@ -1,7 +1,11 @@
 package com.tem.gettogether.activity.speechtranslation;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -13,12 +17,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseMvpActivity;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
+
+import cc.duduhuo.custoast.CusToast;
 
 /**
  * @ProjectName: GetTogether
@@ -49,21 +57,44 @@ public class SpeechTranslationActivity extends BaseMvpActivity<SpeechTranslation
     private String fromType;
     private String toType;
     private String[] languages;
+    private static final int GET_RECODE_AUDIO = 1;
 
     @Override
     protected void initData() {
         x.view().inject(this);
+
+        PackageManager pkgManager= getPackageManager();
+
+        boolean audioSatePermission =
+
+                pkgManager.checkPermission(Manifest.permission.RECORD_AUDIO, getPackageName()) == PackageManager.PERMISSION_GRANTED;
+
+        if(Build.VERSION.SDK_INT>=23&&!audioSatePermission) {
+
+            requestPermission();
+
+        }
+
         mPresenter = new SpeechTranslationPresenter(getContext(), SpeechTranslationActivity.this);
         mPresenter.attachView(this);
-        fromType = getString(R.string.chinese);
-        toType  = getString(R.string.english_tv);
         tv_title.setText(getText(R.string.speech_translation));
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setText(getText(R.string.umeng_socialize_send_btn_str));
         targetId = getIntent().getStringExtra("targetId");
-        spinner.setSelection(0, true);
-        spinner_aims.setSelection(1, true);
+        spinner.setSelection(SharedPreferencesUtils.getInt(getContext(), BaseConstant.SPConstant.SPEECH_TRANSLATION_FROM,0), true);
+        spinner_aims.setSelection(SharedPreferencesUtils.getInt(getContext(), BaseConstant.SPConstant.SPEECH_TRANSLATION_TO,1), true);
         languages = getResources().getStringArray(R.array.user_spingarr);
+        setType();
+    }
+    private void setType(){
+        fromType = languages[spinner.getSelectedItemPosition()];
+        toType = languages[spinner_aims.getSelectedItemPosition()];
+    }
+
+    private void requestPermission() {
+
+        ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.RECORD_AUDIO},GET_RECODE_AUDIO);
+
     }
 
     @Override
@@ -86,10 +117,19 @@ public class SpeechTranslationActivity extends BaseMvpActivity<SpeechTranslation
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        mPresenter.startRecord();
+                        if (!fromType.equals(languages[0]) && !toType.equals(languages[0]))
+                        {
+                            CusToast.showToast(getText(R.string.not_supported_yet));
+                        }else {
+                            mPresenter.startRecord();
+                        }
                         break;
                     case MotionEvent.ACTION_UP:
-                        mPresenter.stopRecord(fromType, toType);
+                        if (!fromType.equals(languages[0]) && !toType.equals(languages[0]))
+                        {
+                        }else {
+                            mPresenter.stopRecord(fromType, toType);
+                        }
                         break;
                 }
 
@@ -100,6 +140,7 @@ public class SpeechTranslationActivity extends BaseMvpActivity<SpeechTranslation
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                SharedPreferencesUtils.saveInt(getContext(),BaseConstant.SPConstant.SPEECH_TRANSLATION_FROM,position);
                 fromType = languages[position];
             }
 
@@ -112,6 +153,7 @@ public class SpeechTranslationActivity extends BaseMvpActivity<SpeechTranslation
         spinner_aims.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                SharedPreferencesUtils.saveInt(getContext(),BaseConstant.SPConstant.SPEECH_TRANSLATION_TO,position);
                 toType = languages[position];
             }
 

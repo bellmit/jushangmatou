@@ -21,7 +21,7 @@
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/my_red"
             app:tabIndicatorHeight="2dp"
-            app:tabMode="fixed"
+            app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/my_red"
             app:tabTextAppearance="@style/MyWishTabTextAppearance_collect"
             app:tabTextColor="@color/text3"/>

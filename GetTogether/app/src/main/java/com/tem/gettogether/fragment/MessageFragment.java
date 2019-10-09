@@ -230,7 +230,7 @@ public class MessageFragment extends BaseFragment {
                         Gson gson = new Gson();
                         RongYunBean mRongYunBean = gson.fromJson(result, RongYunBean.class);
                         userInfo = new UserInfo(mRongYunBean.getResult().getUser_id(),
-                                mRongYunBean.getResult().getNickname(),Uri.parse(""));
+                                mRongYunBean.getResult().getNickname(),Uri.parse(mRongYunBean.getResult().getHead_pic()));
                         RongIM.getInstance().refreshUserInfoCache(userInfo);
                     }
                 } catch (JSONException e) {

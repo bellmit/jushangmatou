@@ -5,15 +5,15 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="@dimen/dp_10"
+    android:layoutDirection="rtl"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/pic_iv"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@mipmap/myy322x"
         />
     <TextView
         android:id="@+id/name_tv"
@@ -22,6 +22,7 @@
         android:layout_marginTop="@dimen/dp_10"
         android:ellipsize="end"
         android:gravity="center"
+        android:textDirection="locale"
         android:lines="2"
         android:text="公司名字公司名字公司名字公司名字公司名字"
         />

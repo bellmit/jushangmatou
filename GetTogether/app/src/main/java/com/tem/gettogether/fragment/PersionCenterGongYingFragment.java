@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
@@ -27,6 +28,7 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.LoginActivity;
 import com.tem.gettogether.activity.home.ShopActivity;
 import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
 import com.tem.gettogether.activity.my.CorporateInformationActivity;
@@ -200,6 +202,9 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                         } else {
                             rz_status_tv.setText(getText(R.string.pending_certification));
                         }
+                    }else{
+//                        startActivity(new Intent(getActivity(), LoginActivity.class));
+//                        getActivity().finish();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -261,6 +266,10 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                         .putExtra("tabType", "3"));
                 break;
             case R.id.rl_my_message:// 企业信息
+                if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("2")) {
+                    CusToast.showToast(getText(R.string.store_review));
+                    return;
+                }
                 if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("1")) {
                     CusToast.showToast(getText(R.string.please_certify_shops_first));
                     startActivity(new Intent(getContext(), ShopAuthenticationActivity.class));
@@ -269,6 +278,10 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), CorporateInformationActivity.class).putExtra(Contacts.PERSION_ENTERPRISE_INFORMATION, 0));
                 break;
             case R.id.rl_ksbh:// 会员信息
+                if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("2")) {
+                    CusToast.showToast(getText(R.string.store_review));
+                    return;
+                }
                 if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("1")) {
                     CusToast.showToast(getText(R.string.please_certify_shops_first));
                     startActivity(new Intent(getContext(), ShopAuthenticationActivity.class));
@@ -281,6 +294,10 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                 }
                 break;
             case R.id.rl_dzgl:// 我的店铺
+                if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("2")) {
+                    CusToast.showToast(getText(R.string.store_review));
+                    return;
+                }
                 if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("1")) {
                     CusToast.showToast(getText(R.string.please_certify_shops_first));
                     startActivity(new Intent(getContext(), ShopAuthenticationActivity.class));
@@ -318,6 +335,9 @@ public class PersionCenterGongYingFragment extends BaseFragment {
 
     private void initRefresh() {
         SinaRefreshView headerView = new SinaRefreshView(getContext());
+        headerView.setPullDownStr(getString(R.string.pull_down_refresh));
+        headerView.setReleaseRefreshStr(getString(R.string.release_refresh));
+        headerView.setRefreshingStr(getString(R.string.refreshing));
         headerView.setTextColor(0xff745D5C);
         refreshLayout.setHeaderView(headerView);
         refreshLayout.setEnableRefresh(false);

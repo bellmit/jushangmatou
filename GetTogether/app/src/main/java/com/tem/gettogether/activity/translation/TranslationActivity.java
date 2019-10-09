@@ -14,12 +14,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseMvpActivity;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
+
+import cc.duduhuo.custoast.CusToast;
 
 /**
  * @ProjectName: GetTogether
@@ -61,15 +65,20 @@ public class TranslationActivity extends BaseMvpActivity<TranslationPresenter> i
         x.view().inject(this);
         mPresenter = new TranslationPresenter(getContext(), TranslationActivity.this);
         mPresenter.attachView(this);
-        fromType = getString(R.string.chinese);
-        toType  = getString(R.string.english_tv);
         tv_title.setText(getText(R.string.text_translation));
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setText(getText(R.string.umeng_socialize_send_btn_str));
         targetId = getIntent().getStringExtra("targetId");
-        spinner.setSelection(0, true);
-        spinner_aims.setSelection(1, true);
+
+        spinner.setSelection(SharedPreferencesUtils.getInt(getContext(), BaseConstant.SPConstant.TRANSLATION_FROM, 0), true);
+        spinner_aims.setSelection(SharedPreferencesUtils.getInt(getContext(), BaseConstant.SPConstant.TRANSLATION_TO, 1), true);
         languages = getResources().getStringArray(R.array.user_spingarr);
+        setType();
+    }
+
+    private void setType() {
+        fromType = languages[spinner.getSelectedItemPosition()];
+        toType = languages[spinner_aims.getSelectedItemPosition()];
     }
 
     @Override
@@ -88,6 +97,7 @@ public class TranslationActivity extends BaseMvpActivity<TranslationPresenter> i
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                SharedPreferencesUtils.saveInt(getContext(), BaseConstant.SPConstant.TRANSLATION_FROM, position);
                 fromType = languages[position];
                 spinnerPostion = position;
             }
@@ -101,6 +111,7 @@ public class TranslationActivity extends BaseMvpActivity<TranslationPresenter> i
         spinner_aims.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                SharedPreferencesUtils.saveInt(getContext(), BaseConstant.SPConstant.TRANSLATION_TO, position);
                 toType = languages[position];
                 spinnerAimsPostion = position;
             }
@@ -128,13 +139,18 @@ public class TranslationActivity extends BaseMvpActivity<TranslationPresenter> i
                 mPresenter.goSendTranslationMsg(text_et.getText().toString(), result_tv.getText().toString(), targetId);
                 break;
             case R.id.translation_conversion_ll:
-                spinner.setSelection(postitionB);
+                /*spinner.setSelection(postitionB);
                 spinner_aims.setSelection(postitionA);
                 postitionA = spinnerPostion;
-                postitionB = spinnerAimsPostion;
+                postitionB = spinnerAimsPostion;*/
                 break;
             case R.id.translation_btn:
-                mPresenter.goToTranslation(fromType, toType, text_et.getText().toString());
+                if (!fromType.equals(languages[0]) && !toType.equals(languages[0]))
+                {
+                    CusToast.showToast(getText(R.string.not_supported_yet));
+                    return;
+                }
+                    mPresenter.goToTranslation(fromType, toType, text_et.getText().toString());
                 break;
         }
     }

@@ -16,29 +16,30 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:background="@color/colorPrimary" />
+            android:background="@color/colorPrimary"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingBottom="6dp"
-            android:paddingTop="6dp">
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp">
 
             <TextView
                 android:id="@+id/tv_YuYQH"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:drawableLeft="@drawable/yuqiehh"
+                android:drawableStart="@drawable/yuqiehh"
                 android:drawablePadding="6dp"
                 android:gravity="center"
-                android:paddingEnd="16dp"
+                android:textDirection="locale"
                 android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:text="@string/language"
                 android:textColor="@color/text3"
-                android:textSize="14dp"
-                android:visibility="visible" />
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/tv_sousuo"
@@ -48,6 +49,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/home_sousuo"
                 android:drawablePadding="10dp"
+                android:textDirection="locale"
                 android:gravity="center_vertical"
                 android:paddingStart="10dp"
                 android:text="@string/qsrssnr"
@@ -86,7 +88,7 @@
                     <com.youth.banner.Banner
                         android:id="@+id/banner"
                         android:layout_width="match_parent"
-                        android:layout_height="175dp"
+                        android:layout_height="wrap_content"
                         app:image_scale_type="center_crop"
                         app:indicator_drawable_selected="@drawable/banner_bg2"
                         app:indicator_drawable_unselected="@drawable/banner_bg"
@@ -100,9 +102,9 @@
                         android:drawableStart="@drawable/home_message"
                         android:drawablePadding="8dp"
                         android:ellipsize="marquee"
+                        android:textDirection="locale"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
-                        android:textDirection="locale"
                         android:gravity="center_vertical"
                         android:paddingStart="16dp"
                         android:singleLine="true"
@@ -124,30 +126,53 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/white"
+                            android:paddingStart="16dp"
                             android:paddingEnd="8dp"
-                            android:paddingStart="16dp"></android.support.v7.widget.RecyclerView>
+                            android:visibility="gone"></android.support.v7.widget.RecyclerView>
                     </RelativeLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="9dp"
+                        android:background="@color/line"
+                        android:visibility="gone" />
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/view_pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <net.lucode.hackware.magicindicator.MagicIndicator
+                        android:id="@+id/magicIndicator"
+                        android:layout_width="20dp"
+                        android:layout_height="4dp"
+                        android:layout_gravity="center" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="9dp"
+                        android:layout_marginTop="@dimen/dp_10"
                         android:background="@color/line" />
 
                     <TextView
                         android:id="@+id/waimaoqiugou_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/qiugou_icon"
                         android:drawableEnd="@drawable/right_more"
-                        android:textDirection="locale"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:gravity="center_vertical"
                         android:padding="@dimen/dp_10"
                         android:text="@string/waimaoqiugou"
                         android:textColor="@color/black"
+                        android:textDirection="locale"
                         android:textStyle="bold" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="9dp"
-                        android:background="@color/line" />
+                        android:background="@color/line"
+                        android:visibility="gone" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -168,17 +193,21 @@
                         android:id="@+id/waimaorexiao_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/rexiao_icon"
                         android:drawableEnd="@drawable/right_more"
-                        android:textDirection="locale"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:gravity="center_vertical"
                         android:padding="@dimen/dp_10"
                         android:text="@string/waimaorexiao"
                         android:textColor="@color/black"
+                        android:textDirection="locale"
                         android:textStyle="bold" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="9dp"
-                        android:background="@color/line" />
+                        android:background="@color/line"
+                        android:visibility="gone" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -200,17 +229,21 @@
                         android:id="@+id/waimaolianmeng_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/lianmemg_icon"
                         android:drawableEnd="@drawable/right_more"
-                        android:textDirection="locale"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:gravity="center_vertical"
                         android:padding="@dimen/dp_10"
                         android:text="@string/waimaolianmeng"
                         android:textColor="@color/black"
+                        android:textDirection="locale"
                         android:textStyle="bold" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="9dp"
-                        android:background="@color/line" />
+                        android:background="@color/line"
+                        android:visibility="gone" />
 
 
                     <RelativeLayout
@@ -220,8 +253,7 @@
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/lianmeng_recyclerView"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingStart="16dp"></android.support.v7.widget.RecyclerView>
+                            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
                     </RelativeLayout>
 
                     <View
@@ -232,17 +264,21 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/xinping_icon"
                         android:drawableEnd="@drawable/right_more"
-                        android:textDirection="locale"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:gravity="center_vertical"
                         android:padding="@dimen/dp_10"
                         android:text="@string/waimaoxinpin"
                         android:textColor="@color/black"
+                        android:textDirection="locale"
                         android:textStyle="bold" />
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="9dp"
-                        android:background="@color/line" />
+                        android:layout_height="4dp"
+                        android:background="@color/line"
+                        android:visibility="gone" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -256,6 +292,10 @@
                             android:background="@color/line"></android.support.v7.widget.RecyclerView>
                     </RelativeLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:background="@color/line" />
                 </LinearLayout>
             </com.tem.gettogether.view.BaseScrollView>
         </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
@@ -265,10 +305,10 @@
         android:id="@+id/back_top_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="50dp"
-        android:layout_marginRight="20dp"
         android:background="@drawable/back_top_bg"
         android:visibility="gone" />
 </RelativeLayout>

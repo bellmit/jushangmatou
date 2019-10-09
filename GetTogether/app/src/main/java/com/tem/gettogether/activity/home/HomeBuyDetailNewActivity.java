@@ -190,6 +190,12 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
                     return;
                 }
 
+                if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "").equals("2")) {
+                    CusToast.showToast(getText(R.string.store_review));
+                    startActivity(new Intent(getContext(), ShopAuthenticationActivity.class));
+                    return;
+                }
+
                 if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "").equals("1")) {
                     CusToast.showToast(getText(R.string.please_certify_shops_first));
                     startActivity(new Intent(getContext(), ShopAuthenticationActivity.class));
@@ -245,13 +251,14 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
                 Log.d("chenshichun", "======发送成功=====");
 
                 //消息通过网络发送成功的回调
-                CusToast.showToast("发送成功");
+                CusToast.showToast(getText(R.string.message_successed));
             }
 
             @Override
             public void onError(io.rong.imlib.model.Message message, RongIMClient.ErrorCode errorCode) {
                 //消息发送失败的回调
                 Log.d("chenshichun", "======消息发送失败=====");
+                CusToast.showToast(getText(R.string.message_failed));
             }
         });
     }
@@ -265,6 +272,9 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
 
     private void initRefresh() {
         SinaRefreshView headerView = new SinaRefreshView(getContext());
+        headerView.setPullDownStr(getString(R.string.pull_down_refresh));
+        headerView.setReleaseRefreshStr(getString(R.string.release_refresh));
+        headerView.setRefreshingStr(getString(R.string.refreshing));
         headerView.setTextColor(0xff745D5C);
         refreshLayout.setHeaderView(headerView);
         refreshLayout.setEnableLoadmore(false);

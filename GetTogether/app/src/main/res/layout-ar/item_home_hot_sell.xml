@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layoutDirection="rtl">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dp_10">
+        android:padding="@dimen/dp_10"
+        tools:ignore="MissingConstraints">
 
         <ImageView
             android:id="@+id/pic_iv"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:background="@mipmap/myy322x"
             android:scaleType="fitXY"
             app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +25,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="                                                                                                                             "
+            android:text=""
+            android:textDirection="locale"
             app:layout_constraintTop_toTopOf="@+id/pic_iv" />
 
         <TextView
@@ -31,8 +35,9 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="2"
-            android:paddingStart="105dp"
+            android:paddingStart="115dp"
             android:text="标题标题标题标题"
+            android:textDirection="locale"
             app:layout_constraintTop_toTopOf="@+id/pic_iv" />
 
         <TextView
@@ -42,7 +47,9 @@
             android:layout_marginStart="5dp"
             android:text="￥"
             android:textColor="@color/home_red"
+            android:textDirection="locale"
             android:textSize="16sp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/pic_iv"
             app:layout_constraintStart_toEndOf="@id/pic_iv" />
 
@@ -53,6 +60,7 @@
             android:layout_marginStart="5dp"
             android:text="0.00"
             android:textColor="@color/home_red"
+            android:textDirection="locale"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/pic_iv"
             app:layout_constraintStart_toEndOf="@id/tv_buy_time" />
@@ -62,6 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="件"
+            android:textDirection="locale"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/pic_iv"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -71,6 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
+            android:textDirection="locale"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/pic_iv"
             app:layout_constraintEnd_toStartOf="@id/tv_jian" />
@@ -79,6 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="已成交"
+            android:textDirection="locale"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/pic_iv"
             app:layout_constraintEnd_toStartOf="@id/tv_sell_count" />
