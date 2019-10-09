@@ -783,4 +783,7 @@
     <string name="refund_successfully">Refund successfully</string>
     <string name="batch">batch</string>
     <string name="commodity">commodity</string>
+    <string name="factory_real_map">Factory real map</string>
+    <string name="shop">Shop</string>
+    <string name="are_you_sure_you_want_to_refund">Are you sure you want to refund?</string>
 </resources>

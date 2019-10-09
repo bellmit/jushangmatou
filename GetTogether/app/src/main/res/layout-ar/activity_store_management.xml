@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_close"
+            android:layout_width="60dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/left_close" />
+        </RelativeLayout>
+
+        <TextView
+
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Title"
+            android:textColor="@color/text3"
+            android:textSize="16dp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_title_right"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:paddingEnd="16dp">
+
+            <TextView
+                android:id="@+id/tv_title_right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="end"
+                android:text="@string/join_membership"
+                android:textColor="@color/my_yellow"
+                android:textSize="14dp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/title_line" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_cpgl"
+            android:layout_width="85dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:background="@drawable/dpgl_add5"
+            android:gravity="center"
+            android:text="@string/product_management"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/tv_decoration"
+            android:layout_width="85dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:background="@drawable/dpgl_add5"
+            android:gravity="center"
+            android:text="@string/store_construction"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/tv_dpxx"
+            android:layout_width="85dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="@dimen/dp_10"
+            android:background="@drawable/dpgl_5"
+            android:gravity="center"
+            android:text="@string/dianpuxinxo"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/tv_fbcp"
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/dpgl_save_20"
+        android:gravity="center"
+        android:text="@string/fabuchangping"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+
+</LinearLayout>

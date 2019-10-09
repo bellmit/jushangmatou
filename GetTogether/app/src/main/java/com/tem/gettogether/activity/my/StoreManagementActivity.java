@@ -12,7 +12,6 @@ import com.tem.gettogether.activity.my.decoration.ShopDecorationActivity;
 import com.tem.gettogether.activity.my.publishgoods.PublishGoodsActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
-import com.tem.gettogether.fragment.ShopXinXActivity;
 import com.tem.gettogether.utils.AppManager;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 

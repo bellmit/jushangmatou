@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
@@ -28,9 +27,7 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
-import com.tem.gettogether.activity.LoginActivity;
 import com.tem.gettogether.activity.home.ShopActivity;
-import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
 import com.tem.gettogether.activity.my.CorporateInformationActivity;
 import com.tem.gettogether.activity.my.FansActivity;
 import com.tem.gettogether.activity.my.GYWeActivity;
@@ -41,7 +38,6 @@ import com.tem.gettogether.activity.my.StoreManagementActivity;
 import com.tem.gettogether.activity.my.TAdviseActivity;
 import com.tem.gettogether.activity.my.VipCenterActivity;
 import com.tem.gettogether.activity.my.VisitorActivity;
-import com.tem.gettogether.activity.my.XunPanTuiSongActivity;
 import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActivity;
 import com.tem.gettogether.activity.order.GongYingShangNewOrderActivity;
 import com.tem.gettogether.base.BaseActivity;
@@ -309,7 +305,6 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                 break;
             case R.id.rl_sprz: // 商铺认证
                 if (resultBean.getStore_status().equals("1")) {//店铺管理
-
                     startActivity(new Intent(getActivity(), StoreManagementActivity.class));
                 } else if (resultBean.getStore_status().equals("2")) {
                     CusToast.showToast(getText(R.string.store_review));

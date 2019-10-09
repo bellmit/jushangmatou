@@ -1,8 +1,10 @@
 package com.tem.gettogether.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.home.HomeSouSuoActivity;
+import com.tem.gettogether.activity.my.publishgoods.PublishGoodsActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseFragment;
@@ -57,9 +60,31 @@ public class RefundFragment extends BaseFragment {
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.request_refund:
-                refund();
+                dialog();
                 break;
         }
+    }
+
+    protected void dialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(getText(R.string.are_you_sure_you_want_to_refund));
+        builder.setTitle(getText(R.string.prompt));
+        builder.setPositiveButton(getText(R.string.sure_tv),
+                new android.content.DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        refund();
+                        dialog.dismiss();
+                    }
+                });
+        builder.setNegativeButton(getText(R.string.quxiao),
+                new android.content.DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.create().show();
     }
 
     private void refund() {

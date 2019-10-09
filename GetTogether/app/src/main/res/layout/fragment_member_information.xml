@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/line"
-    android:layoutDirection="rtl"
     android:orientation="vertical">
 
     <LinearLayout
@@ -31,16 +30,14 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="@string/user_name"
-                android:textDirection="locale" />
+                android:text="@string/user_name" />
 
             <TextView
                 android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="null"
-                android:textDirection="locale" />
+                android:text="null" />
         </LinearLayout>
 
         <View
@@ -65,16 +62,14 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/huiyuandengji_tv"
-                    android:textDirection="locale" />
+                    android:text="@string/huiyuandengji_tv" />
 
                 <TextView
                     android:id="@+id/user_lever"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="@string/ordinary_member"
-                    android:textDirection="locale" />
+                    android:text="@string/ordinary_member" />
             </LinearLayout>
 
         </LinearLayout>
@@ -107,16 +102,14 @@
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/kaitongriji"
-                        android:textDirection="locale" />
+                        android:text="@string/kaitongriji" />
 
                     <TextView
                         android:id="@+id/ustart_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:text="2019-07-06"
-                        android:textDirection="locale" />
+                        android:text="2019-07-06" />
                 </LinearLayout>
 
 
@@ -136,16 +129,14 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/daoqiriqi"
-                    android:textDirection="locale" />
+                    android:text="@string/daoqiriqi" />
 
                 <TextView
                     android:id="@+id/uexpire_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="2020-07-06"
-                    android:textDirection="locale" />
+                    android:text="2020-07-06" />
             </LinearLayout>
 
             <View
@@ -171,16 +162,14 @@
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/jiaonayajin"
-                        android:textDirection="locale" />
+                        android:text="@string/jiaonayajin" />
 
                     <TextView
                         android:id="@+id/pay_fee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:text="0￥"
-                        android:textDirection="locale" />
+                        android:text="0￥" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -199,16 +188,14 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/fukuanfangshi"
-                    android:textDirection="locale" />
+                    android:text="@string/fukuanfangshi" />
 
                 <TextView
                     android:id="@+id/pay_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="支付宝"
-                    android:textDirection="locale" />
+                    android:text="支付宝" />
             </LinearLayout>
 
             <View
@@ -232,8 +219,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/dp_10"
-            android:text="交易记录"
-            android:textDirection="locale" />
+            android:text="交易记录" />
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"

@@ -53,7 +53,7 @@
             android:id="@+id/tv_in_Shop"
             android:layout_width="50dp"
             android:layout_height="25dp"
-            android:text="进店"
+            android:text="@string/shop"
             android:textSize="14dp"
             android:gravity="center"
             android:background="@drawable/home_shop_1bg"

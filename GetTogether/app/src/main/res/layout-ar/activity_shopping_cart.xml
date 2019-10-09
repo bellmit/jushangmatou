@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:layoutDirection="rtl"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:gravity="center_vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_close"
+            android:layout_width="60dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/left_close" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/wodecaigou"
+            android:textColor="@color/text3"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/tv_guanli"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:gravity="center_vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="@string/guanli"
+            android:textColor="@color/text3"
+            android:textSize="14dp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <cn.bingoogolapple.refreshlayout.BGARefreshLayout
+            android:id="@+id/order_refresh_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <com.tem.gettogether.view.BaseScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <com.tem.gettogether.view.powerfulrecyclerview.HomeListFreshRecyclerView
+                        android:id="@+id/order_rl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+
+                </FrameLayout>
+            </com.tem.gettogether.view.BaseScrollView>
+        </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:background="@color/cart_bg_e7"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_all_xz"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="16dp">
+
+            <ImageView
+                android:id="@+id/iv_cart_All"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/cart_wxz_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/quanxuan"
+                android:textColor="@color/line_cart_add"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/tv_yx_show"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:text=""
+                android:textColor="@color/line_cart_add"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_all_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="6dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="end"
+            android:maxLength="9"
+            android:maxLines="1"
+            android:text="¥0.00"
+            android:textColor="@color/my_red"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/tv_go_js"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:background="@color/cart_bg_6c"
+            android:gravity="center"
+            android:text="@string/goujiesuan"
+            android:textColor="@color/white"
+            android:textSize="17dp" />
+    </LinearLayout>
+</LinearLayout>
