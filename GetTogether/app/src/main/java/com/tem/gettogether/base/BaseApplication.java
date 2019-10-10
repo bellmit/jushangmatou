@@ -157,19 +157,19 @@ public class BaseApplication extends Application {
     }
 
     public void initAppLanguage() {
-        if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "").equals("zh")) {
+        if (SharedPreferencesUtils.getLanguageString(this, BaseConstant.SPConstant.language, "").equals("zh")) {
             DisplayMetrics dm = getResources().getDisplayMetrics();
             Configuration config = getResources().getConfiguration();
             // 应用用户选择语言
             config.locale = Locale.CHINESE;
             getResources().updateConfiguration(config, dm);
-        } else if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "").equals("en")) {
+        } else if (SharedPreferencesUtils.getLanguageString(this, BaseConstant.SPConstant.language, "").equals("en")) {
             DisplayMetrics dm = getResources().getDisplayMetrics();
             Configuration config = getResources().getConfiguration();
             // 应用用户选择语言
             config.locale = Locale.ENGLISH;
             getResources().updateConfiguration(config, dm);
-        } else if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "").equals("ara")) {
+        } else if (SharedPreferencesUtils.getLanguageString(this, BaseConstant.SPConstant.language, "").equals("ara")) {
             DisplayMetrics dm = getResources().getDisplayMetrics();
             Configuration config = getResources().getConfiguration();
             // 应用用户选择语言

@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 public class SharedPreferencesUtils {
 
     public static String SP_NAME = "config";
+    public static String SP_LANGUAGE_NAME = "language_config";
 
     public static SharedPreferences sp;
 
@@ -20,6 +21,28 @@ public class SharedPreferencesUtils {
         if (sp == null) {
 
             sp = context.getSharedPreferences(SP_NAME, context.MODE_PRIVATE);
+        }
+
+        sp.edit().putString(key, value).commit();
+
+        return key;
+    }
+
+    public static String getLanguageString(Context context, String key, String defValue) {
+
+        if (sp == null) {
+
+            sp = context.getSharedPreferences(SP_LANGUAGE_NAME, context.MODE_PRIVATE);
+        }
+
+        return sp.getString(key, defValue);
+    }
+
+    public static String saveLanguageString(Context context, String key, String value) {
+
+        if (sp == null) {
+
+            sp = context.getSharedPreferences(SP_LANGUAGE_NAME, context.MODE_PRIVATE);
         }
 
         sp.edit().putString(key, value).commit();

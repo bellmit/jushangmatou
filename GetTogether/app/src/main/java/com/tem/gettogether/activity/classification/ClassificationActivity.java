@@ -133,7 +133,7 @@ public class ClassificationActivity extends BaseActivity {
 
     private void initDatas(int currentPage, String classificationId, final boolean isNormal, final boolean isLoadMore) {
         Map<String, Object> map = new HashMap<>();
-        String yuyan = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "");
+        String yuyan = SharedPreferencesUtils.getLanguageString(this, BaseConstant.SPConstant.language, "");
         if (yuyan != null) {
             map.put("language", yuyan);
             map.put("id", classificationId);

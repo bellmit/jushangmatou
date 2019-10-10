@@ -114,7 +114,7 @@ public class LinYiClassificationActivity extends BaseActivity {
     private void initData(final int postion) {
 
         Map<String, Object> map = new HashMap<>();
-        String yuyan = SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.language, "");
+        String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
         if (yuyan != null) {
             map.put("language", yuyan);
         }

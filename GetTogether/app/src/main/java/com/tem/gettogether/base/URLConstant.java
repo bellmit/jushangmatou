@@ -370,8 +370,11 @@ public class URLConstant {
     //App端聊天获取用户角色接口
     public final static String MESSAGE_HEAD = SERVER + "/Api/User/user_info";
 
-    //退款接口
-    public final static String REFUND_URL = SERVER + "/Api/Wxpay/mpayBack";
+    //微信退款接口
+    public final static String WXPAY_REFUND_URL = SERVER + "/Api/Wxpay/mpayBack";
+
+    //支付宝退款接口
+    public final static String ALIPAY_REFUND_URL = SERVER +"/Api/Payment/mpayBack";
 
     // 融云获取头像昵称
     public final static String RONGYUN_NICKNAME_HEADPIC = SERVER + "/Api/User/getuser";

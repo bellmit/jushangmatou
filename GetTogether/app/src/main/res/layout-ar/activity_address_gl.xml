@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/line"
+    android:layoutDirection="rtl"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_layout" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_address"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/tv_add_address"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:background="@color/my_red"
+        android:gravity="center"
+        android:text="@string/xinjian_address"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+
+</LinearLayout>

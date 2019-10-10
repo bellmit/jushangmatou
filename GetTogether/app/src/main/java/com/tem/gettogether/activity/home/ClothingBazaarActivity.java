@@ -143,7 +143,7 @@ public class ClothingBazaarActivity extends BaseActivity {
     private void upGetTitle(){
         Map<String,Object> map=new HashMap<>();
         map.put("pavilion_cate_id",parent_id);
-        String yuyan= SharedPreferencesUtils.getString(ClothingBazaarActivity.this, BaseConstant.SPConstant.language, "");
+        String yuyan= SharedPreferencesUtils.getLanguageString(ClothingBazaarActivity.this, BaseConstant.SPConstant.language, "");
         if(yuyan!=null){
             map.put("language",yuyan);
         }

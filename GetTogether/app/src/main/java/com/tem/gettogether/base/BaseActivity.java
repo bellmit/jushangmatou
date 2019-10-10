@@ -410,13 +410,13 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
     }
 
     public void initAppLanguage() {
-        if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "").equals("en")) {
+        if (SharedPreferencesUtils.getLanguageString(this, BaseConstant.SPConstant.language, "").equals("en")) {
             DisplayMetrics dm = getResources().getDisplayMetrics();
             Configuration config = getResources().getConfiguration();
             // 应用用户选择语言
             config.locale = Locale.ENGLISH;
             getResources().updateConfiguration(config, dm);
-        } else if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "").equals("ara")) {
+        } else if (SharedPreferencesUtils.getLanguageString(this, BaseConstant.SPConstant.language, "").equals("ara")) {
             DisplayMetrics dm = getResources().getDisplayMetrics();
             Configuration config = getResources().getConfiguration();
             // 应用用户选择语言

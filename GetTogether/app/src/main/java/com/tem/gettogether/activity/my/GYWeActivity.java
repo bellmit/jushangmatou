@@ -73,7 +73,7 @@ public class GYWeActivity extends BaseActivity {
 
     private void upGYData() {
         showDialog();
-        String language = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.language, "");
+        String language = SharedPreferencesUtils.getLanguageString(this, BaseConstant.SPConstant.language, "");
         Map<String, String> map = new HashMap<>();
         map.put("language", language);
         XUtil.Get(URLConstant.GYWMEN, map, new MyCallBack<String>() {

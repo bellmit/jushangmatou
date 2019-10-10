@@ -176,7 +176,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
 //        AppManager.getAppManager().addActivity(this);
         x.view().inject(this);
         initViews();
-        String yuyan = SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.language, "");
+        String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
         DisplayMetrics dm = getResources().getDisplayMetrics();
         Configuration config = getResources().getConfiguration();
         if (yuyan.equals("zh")) {

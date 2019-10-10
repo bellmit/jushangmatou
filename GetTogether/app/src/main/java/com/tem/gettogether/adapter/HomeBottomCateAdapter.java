@@ -64,13 +64,13 @@ public class HomeBottomCateAdapter extends RecyclerView.Adapter<HomeBottomCateAd
             @Override
             public void onClick(View view) {
 
-                if (SharedPreferencesUtils.getString(context, BaseConstant.SPConstant.language, "").equals("en")) {
+                if (SharedPreferencesUtils.getLanguageString(context, BaseConstant.SPConstant.language, "").equals("en")) {
                     context.startActivity(new Intent(context, ClassificationActivity.class)
                             .putExtra("classification_id",mDatas.get(position).getCategory_id())
                             .putExtra("classification_type",2)
                             .putExtra("is_yilian",false)
                             .putExtra("classification_name",mDatas.get(position).getEn_mobile_name()));
-                }else if(SharedPreferencesUtils.getString(context, BaseConstant.SPConstant.language, "").equals("ara")){
+                }else if(SharedPreferencesUtils.getLanguageString(context, BaseConstant.SPConstant.language, "").equals("ara")){
                     context.startActivity(new Intent(context, ClassificationActivity.class)
                             .putExtra("classification_id",mDatas.get(position).getCategory_id())
                             .putExtra("classification_type",2)

@@ -1,7 +1,6 @@
 package com.tem.gettogether.fragment;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -10,21 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.tem.gettogether.R;
-import com.tem.gettogether.activity.home.HomeSouSuoActivity;
-import com.tem.gettogether.activity.my.publishgoods.PublishGoodsActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseFragment;
 import com.tem.gettogether.base.URLConstant;
-import com.tem.gettogether.bean.CategoriesClassificationBean;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
-import com.ybm.app.common.WindowToast.ToastTips;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,7 +66,7 @@ public class RefundFragment extends BaseFragment {
                 new android.content.DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        refund();
+                        refund(1);
                         dialog.dismiss();
                     }
                 });
@@ -87,13 +80,20 @@ public class RefundFragment extends BaseFragment {
         builder.create().show();
     }
 
-    private void refund() {
+    private void refund(int type) {
         Map<String, Object> map = new HashMap<>();
         map.put("level_id", "1");
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
-        Log.d("chenshichun","====user_id======="+SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
+        Log.d("chenshichun", "====user_id=======" + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         baseActivity.showDialog();
-        XUtil.Post(URLConstant.REFUND_URL, map, new MyCallBack<String>() {
+        String url = "";
+        if (type == 0) {
+            url = URLConstant.WXPAY_REFUND_URL;
+        } else {
+            url = URLConstant.ALIPAY_REFUND_URL;
+
+        }
+        XUtil.Post(url, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -101,8 +101,9 @@ public class RefundFragment extends BaseFragment {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
+                    String msg = jsonObject.optString("msg");
+                    CusToast.showToast(msg);
                     if (res.equals("1")) {
-                        CusToast.showToast(getText(R.string.refund_successfully));
                         getActivity().finish();
                     }
                 } catch (JSONException e) {

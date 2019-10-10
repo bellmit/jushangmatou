@@ -42,9 +42,9 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Glide.with(context).load(menuItems.get(position).getApp_image()).error(R.mipmap.myy322x).into(holder.pic);
-        if(SharedPreferencesUtils.getString(context, BaseConstant.SPConstant.language, "").equals("en")){
+        if(SharedPreferencesUtils.getLanguageString(context, BaseConstant.SPConstant.language, "").equals("en")){
             holder.product_title.setText(menuItems.get(position).getEn_mobile_name());
-        }else if(SharedPreferencesUtils.getString(context, BaseConstant.SPConstant.language, "").equals("ara")){
+        }else if(SharedPreferencesUtils.getLanguageString(context, BaseConstant.SPConstant.language, "").equals("ara")){
             holder.product_title.setText(menuItems.get(position).getAra_mobile_name());
         }else{
             holder.product_title.setText(menuItems.get(position).getName());
@@ -52,13 +52,13 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (SharedPreferencesUtils.getString(context, BaseConstant.SPConstant.language, "").equals("en")) {
+                if (SharedPreferencesUtils.getLanguageString(context, BaseConstant.SPConstant.language, "").equals("en")) {
                     context.startActivity(new Intent(context, ClassificationActivity.class)
                             .putExtra("classification_id",menuItems.get(position).getCategory_id())
                             .putExtra("classification_type",2)
                             .putExtra("is_yilian",false)
                             .putExtra("classification_name",menuItems.get(position).getEn_mobile_name()));
-                }else if(SharedPreferencesUtils.getString(context, BaseConstant.SPConstant.language, "").equals("ara")){
+                }else if(SharedPreferencesUtils.getLanguageString(context, BaseConstant.SPConstant.language, "").equals("ara")){
                     context.startActivity(new Intent(context, ClassificationActivity.class)
                             .putExtra("classification_id",menuItems.get(position).getCategory_id())
                             .putExtra("classification_type",2)

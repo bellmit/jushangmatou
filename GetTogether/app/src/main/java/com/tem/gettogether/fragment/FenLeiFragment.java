@@ -86,7 +86,7 @@ public class FenLeiFragment extends BaseFragment {
         languageQH();
     }
     private void languageQH(){
-        String yuyan=SharedPreferencesUtils.getString(getActivity(), BaseConstant.SPConstant.language, "");
+        String yuyan=SharedPreferencesUtils.getLanguageString(getActivity(), BaseConstant.SPConstant.language, "");
         if(yuyan!=null){
             if(yuyan.equals("en")){
                 upQieHuanYY(1,yuyan);
@@ -336,7 +336,7 @@ public class FenLeiFragment extends BaseFragment {
 
     private void LeftData() {
         Map<String,Object> map=new HashMap<>();
-        String yuyan= SharedPreferencesUtils.getString(getActivity(), BaseConstant.SPConstant.language, "");
+        String yuyan= SharedPreferencesUtils.getLanguageString(getActivity(), BaseConstant.SPConstant.language, "");
         if(yuyan!=null){
             map.put("language",yuyan);
         }
@@ -384,7 +384,7 @@ public class FenLeiFragment extends BaseFragment {
 
     private void RightData(String category_id) {
         Map<String, Object> map = new HashMap<>();
-        String yuyan= SharedPreferencesUtils.getString(getActivity(), BaseConstant.SPConstant.language, "");
+        String yuyan= SharedPreferencesUtils.getLanguageString(getActivity(), BaseConstant.SPConstant.language, "");
         if(yuyan!=null){
             map.put("language",yuyan);
         }

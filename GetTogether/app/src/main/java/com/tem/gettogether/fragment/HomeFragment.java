@@ -151,7 +151,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         languageQH();
     }
     private void languageQH(){
-        String yuyan=SharedPreferencesUtils.getString(getActivity(), BaseConstant.SPConstant.language, "");
+        String yuyan=SharedPreferencesUtils.getLanguageString(getActivity(), BaseConstant.SPConstant.language, "");
         if(yuyan!=null){
             if(yuyan.equals("en")){
                 upQieHuanYY(1,yuyan);
@@ -634,7 +634,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
     private void upHomeData(){
         Map<String,Object> map=new HashMap<>();
-        String yuyan=SharedPreferencesUtils.getString(getActivity(), BaseConstant.SPConstant.language, "");
+        String yuyan=SharedPreferencesUtils.getLanguageString(getActivity(), BaseConstant.SPConstant.language, "");
         if(yuyan!=null){
             map.put("language",yuyan);
         }
@@ -688,7 +688,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     private void upHomeTitle(int fenleiId){
         Map<String,Object> map=new HashMap<>();
-        String yuyan= SharedPreferencesUtils.getString(getActivity(), BaseConstant.SPConstant.language, "");
+        String yuyan= SharedPreferencesUtils.getLanguageString(getActivity(), BaseConstant.SPConstant.language, "");
         if(yuyan!=null){
             map.put("language",yuyan);
         }
@@ -859,7 +859,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 // 应用用户选择语言
                 config.locale = Locale.CHINESE;
                 getResources().updateConfiguration(config,dm);
-                SharedPreferencesUtils.saveString(getActivity(),BaseConstant.SPConstant.language,"zh");
+                SharedPreferencesUtils.saveLanguageString(getActivity(),BaseConstant.SPConstant.language,"zh");
                 mPop.dismiss();
 
 //                Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -876,7 +876,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 // 应用用户选择语言
                 config2.locale = Locale.ENGLISH;
                 getResources().updateConfiguration(config2,dm2);
-                SharedPreferencesUtils.saveString(getActivity(),BaseConstant.SPConstant.language,"en");
+                SharedPreferencesUtils.saveLanguageString(getActivity(),BaseConstant.SPConstant.language,"en");
                 mPop.dismiss();
 
 //                Intent intent2 = new Intent(getActivity(), MainActivity.class);
@@ -893,7 +893,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 // 应用用户选择语言
                 config3.locale = new Locale("ar");
                 getResources().updateConfiguration(config3,dm3);
-                SharedPreferencesUtils.saveString(getActivity(),BaseConstant.SPConstant.language,"ara");
+                SharedPreferencesUtils.saveLanguageString(getActivity(),BaseConstant.SPConstant.language,"ara");
                 mPop.dismiss();
                 restartApplication(getActivity());
                 break;

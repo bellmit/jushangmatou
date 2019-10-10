@@ -193,7 +193,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
 
     private void test(int currentPage) {
         Map<String, Object> map = new HashMap<>();
-        String yuyan = SharedPreferencesUtils.getString(getActivity(), BaseConstant.SPConstant.language, "");
+        String yuyan = SharedPreferencesUtils.getLanguageString(getActivity(), BaseConstant.SPConstant.language, "");
         if (yuyan != null) {
             map.put("language", yuyan);
             map.put("page", currentPage);
@@ -214,7 +214,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
 
     private void initData(int currentPage) {
         Map<String, Object> map = new HashMap<>();
-        String yuyan = SharedPreferencesUtils.getString(getActivity(), BaseConstant.SPConstant.language, "");
+        String yuyan = SharedPreferencesUtils.getLanguageString(getActivity(), BaseConstant.SPConstant.language, "");
         if (yuyan != null) {
             map.put("language", yuyan);
             map.put("page", currentPage);
@@ -267,7 +267,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
     private void initRefreshData(int currentPage, final boolean isRefresh) {
         test(currentPage);
         Map<String, Object> map = new HashMap<>();
-        String yuyan = SharedPreferencesUtils.getString(getActivity(), BaseConstant.SPConstant.language, "");
+        String yuyan = SharedPreferencesUtils.getLanguageString(getActivity(), BaseConstant.SPConstant.language, "");
         if (yuyan != null) {
             map.put("language", yuyan);
             map.put("page", currentPage);
@@ -559,7 +559,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                 // 应用用户选择语言
                 config.locale = Locale.CHINESE;
                 getResources().updateConfiguration(config, dm);
-                SharedPreferencesUtils.saveString(getActivity(), BaseConstant.SPConstant.language, "zh");
+                SharedPreferencesUtils.saveLanguageString(getActivity(), BaseConstant.SPConstant.language, "zh");
                 mPop.dismiss();
 //                restartApplication(getActivity());
                 getActivity().recreate();
@@ -570,7 +570,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                 // 应用用户选择语言
                 config2.locale = Locale.ENGLISH;
                 getResources().updateConfiguration(config2, dm2);
-                SharedPreferencesUtils.saveString(getActivity(), BaseConstant.SPConstant.language, "en");
+                SharedPreferencesUtils.saveLanguageString(getActivity(), BaseConstant.SPConstant.language, "en");
                 mPop.dismiss();
                 //restartApplication(getActivity());
                 getActivity().recreate();
@@ -581,7 +581,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                 // 应用用户选择语言
                 config3.locale = new Locale("ar");
                 getResources().updateConfiguration(config3, dm3);
-                SharedPreferencesUtils.saveString(getActivity(), BaseConstant.SPConstant.language, "ara");
+                SharedPreferencesUtils.saveLanguageString(getActivity(), BaseConstant.SPConstant.language, "ara");
                 mPop.dismiss();
                // restartApplication(getActivity());
                 getActivity().recreate();
