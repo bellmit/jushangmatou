@@ -245,14 +245,23 @@
             android:configChanges="locale"
             android:launchMode="singleTask" />
 
+        <!--   <provider
+               android:name="android.support.v4.content.FileProvider"
+               android:authorities="com.seven.modifyavatarmaster.fileprovider"
+               android:exported="false"
+               android:grantUriPermissions="true">
+               <meta-data
+                   android:name="android.support.FILE_PROVIDER_PATHS"
+                   android:resource="@xml/file_paths" />
+           </provider>-->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.seven.modifyavatarmaster.fileprovider"
+            android:authorities="com.tem.gettogether.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/rc_file_path" />
         </provider>
 
         <activity
@@ -426,84 +435,126 @@
         <activity
             android:name="com.tem.gettogether.activity.my.BuyMessageActivity"
             android:configChanges="locale" />
-        <activity android:name="com.tem.gettogether.activity.home.MainHotTJActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.my.MemberActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.my.BuyMemberActivity"
-            android:configChanges="locale"/>
-        <activity android:name=".activity.ServiceProviderActivity"
-            android:configChanges="locale"/>
-        <activity android:name=".activity.home.HomeHotSellActivity"
-            android:configChanges="locale"/>
-        <activity android:name=".activity.home.HomeLianMengActivity"
-            android:configChanges="locale"/>
-        <activity android:name=".activity.home.LianMengDetailActivity"
-            android:configChanges="locale"/>
-        <activity android:name=".activity.home.HomeBuyDetailActivity"
-            android:configChanges="locale"/>
-        <activity android:name=".activity.home.HomeBuyDetailNewActivity"
-            android:configChanges="locale"/>
-        <activity android:name=".activity.my.WaiMaoQiuGouActivity"
-            android:configChanges="locale"/>
-        <activity android:name=".activity.classification.ClassificationActivity"
-            android:configChanges="locale"/>
-        <activity android:name=".activity.my.shopauthentication.ShopAuthenticationActivity"
-            android:configChanges="locale"/>
-        <activity android:name=".activity.my.shopauthentication.PersionAuthenticationActivity"
-            android:configChanges="locale"/>
-        <activity android:name=".activity.my.shopauthentication.DistributorAuthenticationActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.my.CorporateInformationActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.my.CgsAuthenticationActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.my.FansActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.my.XunPanTuiSongActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.MyShopActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.my.VipCenterActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.my.ProductManagmentActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.my.VisitorActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.my.ShopRzFailedActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.my.BuyingManagementActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.cart.ShoppingCartActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.order.CaiGouShangOrderActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.order.GongYingOrderActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.order.CaiGouShangNewOrderActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.order.GongYingShangNewOrderActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.my.TextDescriptionActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.linyi.LinYiClassificationActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.my.publishgoods.PublishGoodsActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.my.specifications.SpecificationsActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.my.specificationsdetail.SpecificationsDetailActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.my.decoration.ShopDecorationActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.my.ShopLogoActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.my.ShopBgActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.translation.TranslationActivity"
-            android:configChanges="locale"/>
-        <activity android:name="com.tem.gettogether.activity.speechtranslation.SpeechTranslationActivity"
-            android:configChanges="locale"/>
+        <activity
+            android:name="com.tem.gettogether.activity.home.MainHotTJActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.my.MemberActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.my.BuyMemberActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name=".activity.ServiceProviderActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name=".activity.home.HomeHotSellActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name=".activity.home.HomeLianMengActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name=".activity.home.LianMengDetailActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name=".activity.home.HomeBuyDetailActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name=".activity.home.HomeBuyDetailNewActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name=".activity.my.WaiMaoQiuGouActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name=".activity.classification.ClassificationActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name=".activity.my.shopauthentication.ShopAuthenticationActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name=".activity.my.shopauthentication.PersionAuthenticationActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name=".activity.my.shopauthentication.DistributorAuthenticationActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.my.CorporateInformationActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.my.CgsAuthenticationActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.my.FansActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.my.XunPanTuiSongActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.MyShopActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.my.VipCenterActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.my.ProductManagmentActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.my.VisitorActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.my.ShopRzFailedActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.my.BuyingManagementActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.cart.ShoppingCartActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.order.CaiGouShangOrderActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.order.GongYingOrderActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.order.CaiGouShangNewOrderActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.order.GongYingShangNewOrderActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.my.TextDescriptionActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.linyi.LinYiClassificationActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.my.publishgoods.PublishGoodsActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.my.specifications.SpecificationsActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.my.specificationsdetail.SpecificationsDetailActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.my.decoration.ShopDecorationActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.my.ShopLogoActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.my.ShopBgActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.translation.TranslationActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name="com.tem.gettogether.activity.speechtranslation.SpeechTranslationActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name=".activity.my.member.MemberCentreActivity"
+            android:configChanges="locale" />
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"

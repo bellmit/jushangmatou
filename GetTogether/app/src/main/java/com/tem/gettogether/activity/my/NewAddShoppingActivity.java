@@ -1101,7 +1101,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             //""中的内容是随意的，但最好用package名.provider名的形式，清晰明了
             pictureUri = FileProvider.getUriForFile(this,
-                    "com.seven.modifyavatarmaster.fileprovider", pictureFile);
+                    "com.tem.gettogether.FileProvider", pictureFile);
         } else {
             intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             pictureUri = Uri.fromFile(pictureFile);
@@ -1119,7 +1119,7 @@ public class NewAddShoppingActivity extends BaseActivity implements View.OnClick
         Uri pictureUri;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             pictureUri = FileProvider.getUriForFile(this,
-                    "com.seven.modifyavatarmaster.fileprovider", pictureFile);
+                    "com.tem.gettogether.FileProvider", pictureFile);
         } else {
             pictureUri = Uri.fromFile(pictureFile);
         }

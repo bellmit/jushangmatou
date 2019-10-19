@@ -460,7 +460,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="28dp"
                         android:ellipsize="end"
-                        android:maxLines="2"
                         android:text="主营闪光棒、闪光托、泡泡枪、电动车、扭扭车等儿童玩具"
                         android:textColor="@color/text6"
                         android:textSize="13dp" />

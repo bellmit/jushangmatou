@@ -380,7 +380,10 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                 }
             }
         }
-
+        if(strImage.equals("")){
+            CusToast.showToast(getText(R.string.please_upload_pic));
+            return;
+        }
         if (!strImage.equals("")) {
             map.put("goods_logo", strImage);
         }
@@ -1008,7 +1011,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             //""中的内容是随意的，但最好用package名.provider名的形式，清晰明了
             pictureUri = FileProvider.getUriForFile(getContext(),
-                    "com.seven.modifyavatarmaster.fileprovider", pictureFile);
+                    "com.tem.gettogether.FileProvider", pictureFile);
         } else {
             intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             pictureUri = Uri.fromFile(pictureFile);
@@ -1042,7 +1045,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         Uri pictureUri;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             pictureUri = FileProvider.getUriForFile(getContext(),
-                    "com.seven.modifyavatarmaster.fileprovider", pictureFile);
+                    "com.tem.gettogether.FileProvider", pictureFile);
         } else {
             pictureUri = Uri.fromFile(pictureFile);
         }

@@ -24,11 +24,13 @@ public class StoreManagerListEntity implements Serializable {
     public static class GuigesEntity implements Serializable {
         /*
         "title": "颜色",
-		"guigeArray": ["绿色", "红色"]
+		"guigeArray": ["颜色：绿色"]
+		"itemGuigeArray":["绿色"]
          */
         public String title;
         public String titleID;
         public List<String> guigeArray= new ArrayList<>();
+        public List<String> itemGuigeArray= new ArrayList<>();
     }
 
 }

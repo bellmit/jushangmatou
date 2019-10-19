@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
-import com.tem.gettogether.activity.my.specifications.SpecificationsActivity;
-import com.tem.gettogether.activity.my.specifications.SpecificationsPresenter;
 import com.tem.gettogether.adapter.GoodsSpecTypeNumberAdapter;
 import com.tem.gettogether.adapter.SpecificationsDetailAdapter;
 import com.tem.gettogether.base.BaseConstant;
@@ -17,6 +15,9 @@ import com.tem.gettogether.bean.SpecificationsBean;
 import com.tem.gettogether.bean.StoreManagerListEntity;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
@@ -67,11 +68,13 @@ public class SpecificationsDetailActivity extends BaseMvpActivity<Specifications
                 StoreManagerListEntity.GuigesEntity entity = new StoreManagerListEntity.GuigesEntity();
                 entity.title = mLastSpecListBeanData.get(i).getName();
                 entity.titleID = mLastSpecListBeanData.get(i).getId();
-                Log.d("chenshichun", "=====entity.titleID ======" + entity.titleID);
+                Log.e("chenshichun", "---getName--" + mLastSpecListBeanData.get(i).getName());
+                Log.e("chenshichun", "---getId--" + mLastSpecListBeanData.get(i).getId());
+
                 entity.guigeArray.add("");
+                entity.itemGuigeArray.add("");
                 mSpecNameList.add(entity);
             }
-
         }
         mSpecificationsDetailAdapter = new SpecificationsDetailAdapter(getContext(), mSpecNameList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -140,6 +143,11 @@ public class SpecificationsDetailActivity extends BaseMvpActivity<Specifications
                 finish();
                 break;
             case R.id.tv_save:
+                Map<String, Object> map = new HashMap<>();
+                map.put("store_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, ""));
+                map.put("sm_arr", getSmArr());
+                map.put("spec_arr",getSpecArr());
+                mPresenter.saveSpecifications(map);
                 break;
         }
     }
@@ -165,4 +173,82 @@ public class SpecificationsDetailActivity extends BaseMvpActivity<Specifications
         }
         mNumberAdapter.notifyDataSetChanged();
     }
+
+    private String getSmArr() {
+        switch (mSpecNameList.size()) {
+            case 1:
+                try {
+                    JSONArray allArray = new JSONArray();
+                    for (int i = 0; i < mSpecNameList.get(0).itemGuigeArray.size() - 1; i++) {
+                        JSONObject obj = new JSONObject();
+                        JSONObject object = new JSONObject();
+                        JSONArray array = new JSONArray();
+                        object.put("spec_id", mSpecNameList.get(0).titleID);
+                        object.put("store_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, ""));
+                        object.put("item", mSpecNameList.get(0).itemGuigeArray.get(i));
+                        array.put(object);
+                        obj.put("key_name", array);
+                        allArray.put(obj);
+                    }
+                    Log.e("chenshichun", "--result---  " + allArray.toString());
+                    return allArray.toString();
+                } catch (JSONException e) {
+                    Log.e("chenshichun", "-----" + e.getMessage());
+                    e.printStackTrace();
+                }
+                break;
+            case 2:
+                try {
+                    JSONArray allArray1 = new JSONArray();
+                    for (int i = 0; i < mSpecNameList.get(0).itemGuigeArray.size() - 1; i++) {
+                        for (int j = 0; j < mSpecNameList.get(1).itemGuigeArray.size() - 1; j++) {
+                            JSONObject obj1 = new JSONObject();
+                            JSONObject object1 = new JSONObject();
+                            JSONObject object2 = new JSONObject();
+                            JSONArray array1 = new JSONArray();
+                            object1.put("spec_id", mSpecNameList.get(0).titleID);
+                            object1.put("store_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, ""));
+                            object1.put("item", mSpecNameList.get(0).itemGuigeArray.get(i));
+                            object2.put("spec_id", mSpecNameList.get(1).titleID);
+                            object2.put("store_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, ""));
+                            object2.put("item", mSpecNameList.get(1).itemGuigeArray.get(j));
+                            array1.put(object1);
+                            array1.put(object2);
+                            obj1.put("key_name", array1);
+                            allArray1.put(obj1);
+                        }
+                    }
+                    Log.e("chenshichun", "--rresult---  " + allArray1.toString());
+                    return allArray1.toString();
+                } catch (JSONException e) {
+                    Log.e("chenshichun", "-----" + e.getMessage());
+                    e.printStackTrace();
+                }
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+        }
+        return null;
+    }
+
+    private String getSpecArr() {
+        JSONArray array1 =new JSONArray();
+        for (int i=0;i<mSpecPriceList.size();i++){
+            JSONObject object2 =new JSONObject();
+            try {
+                object2.put("key_name",mSpecPriceList.get(i).spec);
+                object2.put("store_count","0");
+                object2.put("price","0");
+                object2.put("sku","0");
+                array1.put(object2);
+            }catch (Exception e){
+
+            }
+        }
+        Log.e("chenshichun","-----"+array1.toString());
+        return array1.toString();
+    }
+
 }

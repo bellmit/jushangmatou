@@ -1012,7 +1012,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("goods_id", goods_id);
-
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         showDialog();
         XUtil.Post(URLConstant.SHOPFENLEI_XIANGQING, map, new MyCallBack<String>() {
             @Override

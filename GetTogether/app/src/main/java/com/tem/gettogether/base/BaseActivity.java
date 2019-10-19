@@ -34,6 +34,7 @@ import com.tem.gettogether.dialog.CommonDialogLayout;
 import com.tem.gettogether.dialog.ShowAlertDialog;
 import com.tem.gettogether.utils.AppManager;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.language.LanguageUtil;
 import com.ybm.app.common.WindowToast.ToastTips;
 
@@ -65,7 +66,8 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
         x.view().inject(this);
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(getResources().getColor(R.color.white));
+//        window.setStatusBarColor(getResources().getColor(R.color.white));
+//        StatusBarUtil.setTransparent(this);
         if (isFullScreen) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -81,7 +83,7 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
     }
 
     public void showProgress() {
-        showProgress("加载中", true, true);
+        showProgress(getString(R.string.refresh_ing_text), true, true);
     }
 
     public void showProgress(String msg) {

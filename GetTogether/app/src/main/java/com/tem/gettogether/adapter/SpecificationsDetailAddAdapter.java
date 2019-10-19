@@ -56,10 +56,14 @@ public class SpecificationsDetailAddAdapter extends RecyclerView.Adapter<Specifi
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                     if (actionId == EditorInfo.IME_ACTION_DONE) {
                         String name = holder.text_et.getText().toString().trim();
+                        String itemName = mDatas.get(currentCount).title+":"+holder.text_et.getText().toString().trim();
                         if (!TextUtils.isEmpty(name)) {
                             mDatas.get(currentCount).guigeArray.remove(mDatas.get(currentCount).guigeArray.size()-1);
-                            mDatas.get(currentCount).guigeArray.add(name);
+                            mDatas.get(currentCount).guigeArray.add(itemName);
                             mDatas.get(currentCount).guigeArray.add("");
+                            mDatas.get(currentCount).itemGuigeArray.remove(mDatas.get(currentCount).itemGuigeArray.size()-1);
+                            mDatas.get(currentCount).itemGuigeArray.add(name);
+                            mDatas.get(currentCount).itemGuigeArray.add("");
 //                            holder.text_et.setFocusable(false);
                             notifyDataSetChanged();
                             List<String> list = bindAnotherRecyler();
@@ -74,7 +78,7 @@ public class SpecificationsDetailAddAdapter extends RecyclerView.Adapter<Specifi
         }else{
             holder.delete_iv.setVisibility(View.VISIBLE);
         }
-        holder.text_et.setText(mDatas.get(currentCount).guigeArray.get(position));
+        holder.text_et.setText(mDatas.get(currentCount).itemGuigeArray.get(position));
         holder.delete_iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,27 +124,33 @@ public class SpecificationsDetailAddAdapter extends RecyclerView.Adapter<Specifi
             List<String> copylist = new ArrayList<>();
             for (int a = 0; a < mDatas.size(); a++) {
                 if (mDatas.get(a).guigeArray.size() != 0) {
+                    Log.e("chenshichun","----mDatas.get(a).guigeArray-  "+mDatas.get(a).guigeArray);
                     copylist.addAll(mDatas.get(a).guigeArray);
                     b = a;
                     break;
                 }
             }
             copylist.remove(copylist.size()-1);
+            Log.e("chenshichun","---copylist--  "+copylist);
             if (copylist.size() > 0) {
                 List<String> L0 = new ArrayList<>();
                 L0.addAll(copylist);
+                Log.e("chenshichun","---L0--  "+L0);
+                Log.e("chenshichun","--b---"+b);
                 for (int i = b + 1; i < mDatas.size(); i++) {
                     List<String> L1 = mDatas.get(i).guigeArray;
-
+                    Log.e("chenshichun","--L1---"+L1);
                     List<String> list = new ArrayList<>();
                     for (int j = 0; j < L0.size(); j++) {
                         for (int z = 0; z < L1.size()-1; z++) {
                             String s = L0.get(j) + "," + L1.get(z);
+                            Log.e("chenshichun","--s---  "+s);
                             list.add(s);
                         }
                     }
                     if (list.size() != 0) {
                         L0 = list;
+                        Log.e("chenshichun","--L000---"+L0);
                     }
                 }
                 return L0;

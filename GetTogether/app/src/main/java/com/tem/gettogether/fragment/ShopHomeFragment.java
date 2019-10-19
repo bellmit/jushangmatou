@@ -86,8 +86,8 @@ public class ShopHomeFragment extends BaseFragment {
     private String cat_id;
     private String sousuoConnect;
     private String store_id;
-    private String sort="sales";//默认销量
-    private String type="";//默认销量
+    private String sort="comprehensive";//默认新品
+    private String type="";//默认新品
     private List<ShopShoppingBean.ResultBean.GoodsListBean> goodsListBeans=new ArrayList<>();
     private List<ShopShoppingBean.ResultBean.GoodsListBean> list;
     public static ShopHomeFragment newInstance() {
@@ -116,7 +116,6 @@ public class ShopHomeFragment extends BaseFragment {
         map.put("page",PAGE_NUM);
         map.put("sort",sort);
         map.put("mode","desc");
-        map.put("type","");
 
         upShopData(map);
         super.onActivityCreated(savedInstanceState);
@@ -265,6 +264,7 @@ public class ShopHomeFragment extends BaseFragment {
                 PAGE_NUM=1;
                 clearList(goodsListBeans);
                 type="recommend";
+                sort="batch_number";
                     Map<String,Object> map3=new HashMap<>();
                     map3.put("store_id",store_id);
                     map3.put("page",PAGE_NUM);
@@ -306,8 +306,7 @@ public class ShopHomeFragment extends BaseFragment {
                 tv_xl.setTextColor(getResources().getColor(R.color.text3));
                 tv_xp.setTextColor(getResources().getColor(R.color.home_red));
                 tv_qpl.setTextColor(getResources().getColor(R.color.text3));
-                sort="sales";
-                type="new";
+                sort="comprehensive";
                 PAGE_NUM=1;
                 clearList(goodsListBeans);
                 Map<String,Object> map1=new HashMap<>();
@@ -321,7 +320,6 @@ public class ShopHomeFragment extends BaseFragment {
                 if(cat_id!=null&&!cat_id.equals("")){
                     map1.put("cat_id",cat_id);
                 }
-                map1.put("type",type);
                 upShopData(map1);
                 break;
             case R.id.ll_qpl:

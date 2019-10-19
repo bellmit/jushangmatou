@@ -777,4 +777,5 @@
     <string name="factory_real_map">工厂实景图</string>
     <string name="shop">进店</string>
     <string name="are_you_sure_you_want_to_refund">确定要退款吗?</string>
+    <string name="please_upload_pic">请上传图片</string>
 </resources>

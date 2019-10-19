@@ -137,4 +137,6 @@ dependencies {
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
     implementation files('libs/universal-image-loader-1.9.5.jar')
+    implementation files('libs/HMS_SDK_2.6.1.301.jar')
+    implementation files('libs/MiPush_SDK_Client_3_5_2.jar')
 }

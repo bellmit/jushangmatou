@@ -129,5 +129,50 @@ public class SpecificationsDetailPresenter extends BasePresenter<SpecificationsD
         });
     }
 
+    /*
+     * 保存規格
+     * */
+    @Override
+    public void saveSpecifications(Map<String, Object> map) {
+        if (!isViewAttached()) {
+            return;
+        }
+        mView.showLoading();
+
+        XUtil.Post(URLConstant.SPECIFICARIONS_INPUT, map, new MyCallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                Log.i("====保存规格===", result);
+                mView.hideLoading();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    String msg = jsonObject.optString("msg");
+                    CusToast.showToast(msg);
+                    if (res.equals("1")) {
+                        mActivity.finish();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                mView.hideLoading();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                mView.hideLoading();
+                ex.printStackTrace();
+            }
+        });
+    }
+
 
 }

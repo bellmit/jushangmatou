@@ -173,6 +173,10 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                     mPresenter.showStoreCatePop(ll_shop_FL, mCategoriesBeans);
                 break;
             case R.id.ll_shop_GG://商品规格
+                if (majorClassId.equals("") || smallClassId.equals("")) {
+                    CusToast.showToast(getText(R.string.please_select_a_product_category));
+                    return;
+                }
                 startActivity(new Intent(this, SpecificationsActivity.class)
                         .putExtra("cat_id3", "" + smallClassId));
                 break;

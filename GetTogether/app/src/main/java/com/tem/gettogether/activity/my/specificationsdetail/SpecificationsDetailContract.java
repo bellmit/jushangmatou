@@ -20,6 +20,9 @@ public class SpecificationsDetailContract {
 
     interface Presenter {
         void addSpecifications(Map<String, Object> map);
+
         void deleteSpecifications(Map<String, Object> map);
+
+        void saveSpecifications(Map<String, Object> map);
     }
 }

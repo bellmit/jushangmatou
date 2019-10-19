@@ -558,7 +558,6 @@
                     android:id="@+id/ll_shop_GG"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:visibility="gone"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingStart="16dp"

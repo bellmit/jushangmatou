@@ -54,7 +54,7 @@ public class PictureUtil {
         File file = new File(imagePath);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             uri = FileProvider.getUriForFile(context,
-                    "com.seven.modifyavatarmaster.fileprovider", file);
+                    "com.tem.gettogether.FileProvider", file);
         } else {
             uri = Uri.fromFile(file);
         }
