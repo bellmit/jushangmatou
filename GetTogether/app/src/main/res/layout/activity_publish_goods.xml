@@ -585,6 +585,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:gravity="center_vertical"
                         android:hint="@string/qxzspgg"
                         android:paddingStart="15dp"

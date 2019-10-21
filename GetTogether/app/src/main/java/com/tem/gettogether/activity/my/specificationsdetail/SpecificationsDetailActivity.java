@@ -190,7 +190,7 @@ public class SpecificationsDetailActivity extends BaseMvpActivity<Specifications
                         obj.put("key_name", array);
                         allArray.put(obj);
                     }
-                    Log.e("chenshichun", "--result---  " + allArray.toString());
+                    Log.e("chenshichun", "--result1---  " + allArray.toString());
                     return allArray.toString();
                 } catch (JSONException e) {
                     Log.e("chenshichun", "-----" + e.getMessage());
@@ -218,7 +218,7 @@ public class SpecificationsDetailActivity extends BaseMvpActivity<Specifications
                             allArray1.put(obj1);
                         }
                     }
-                    Log.e("chenshichun", "--rresult---  " + allArray1.toString());
+                    Log.e("chenshichun", "--result2---  " + allArray1.toString());
                     return allArray1.toString();
                 } catch (JSONException e) {
                     Log.e("chenshichun", "-----" + e.getMessage());
@@ -226,8 +226,81 @@ public class SpecificationsDetailActivity extends BaseMvpActivity<Specifications
                 }
                 break;
             case 3:
+                try {
+                    JSONArray allArray1 = new JSONArray();
+                    for (int i = 0; i < mSpecNameList.get(0).itemGuigeArray.size() - 1; i++) {
+                        for (int j = 0; j < mSpecNameList.get(1).itemGuigeArray.size() - 1; j++) {
+                            for (int k = 0; k< mSpecNameList.get(2).itemGuigeArray.size() -1;k++){
+                                JSONObject obj1 = new JSONObject();
+                                JSONObject object1 = new JSONObject();
+                                JSONObject object2 = new JSONObject();
+                                JSONObject object3 = new JSONObject();
+                                JSONArray array1 = new JSONArray();
+                                object1.put("spec_id", mSpecNameList.get(0).titleID);
+                                object1.put("store_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, ""));
+                                object1.put("item", mSpecNameList.get(0).itemGuigeArray.get(i));
+                                object2.put("spec_id", mSpecNameList.get(1).titleID);
+                                object2.put("store_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, ""));
+                                object2.put("item", mSpecNameList.get(1).itemGuigeArray.get(j));
+                                object3.put("spec_id", mSpecNameList.get(2).titleID);
+                                object3.put("store_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, ""));
+                                object3.put("item", mSpecNameList.get(2).itemGuigeArray.get(k));
+                                array1.put(object1);
+                                array1.put(object2);
+                                array1.put(object3);
+                                obj1.put("key_name", array1);
+                                allArray1.put(obj1);
+                            }
+                        }
+                    }
+                    Log.e("chenshichun", "--result3---  " + allArray1.toString());
+                    return allArray1.toString();
+                } catch (JSONException e) {
+                    Log.e("chenshichun", "-----" + e.getMessage());
+                    e.printStackTrace();
+                }
                 break;
             case 4:
+                try {
+                    JSONArray allArray1 = new JSONArray();
+                    for (int i = 0; i < mSpecNameList.get(0).itemGuigeArray.size() - 1; i++) {
+                        for (int j = 0; j < mSpecNameList.get(1).itemGuigeArray.size() - 1; j++) {
+                            for (int k = 0; k< mSpecNameList.get(2).itemGuigeArray.size() -1;k++){
+                                for (int z = 0; z< mSpecNameList.get(2).itemGuigeArray.size() -1;z++) {
+                                    JSONObject obj1 = new JSONObject();
+                                    JSONObject object1 = new JSONObject();
+                                    JSONObject object2 = new JSONObject();
+                                    JSONObject object3 = new JSONObject();
+                                    JSONObject object4 = new JSONObject();
+                                    JSONArray array1 = new JSONArray();
+                                    object1.put("spec_id", mSpecNameList.get(0).titleID);
+                                    object1.put("store_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, ""));
+                                    object1.put("item", mSpecNameList.get(0).itemGuigeArray.get(i));
+                                    object2.put("spec_id", mSpecNameList.get(1).titleID);
+                                    object2.put("store_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, ""));
+                                    object2.put("item", mSpecNameList.get(1).itemGuigeArray.get(j));
+                                    object3.put("spec_id", mSpecNameList.get(2).titleID);
+                                    object3.put("store_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, ""));
+                                    object3.put("item", mSpecNameList.get(2).itemGuigeArray.get(k));
+                                    object4.put("spec_id", mSpecNameList.get(3).titleID);
+                                    object4.put("store_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, ""));
+                                    object4.put("item", mSpecNameList.get(3).itemGuigeArray.get(z));
+                                    array1.put(object1);
+                                    array1.put(object2);
+                                    array1.put(object3);
+                                    array1.put(object4);
+                                    obj1.put("key_name", array1);
+                                    allArray1.put(obj1);
+                                }
+                            }
+                        }
+                    }
+                    Log.e("chenshichun", "--result4---  " + allArray1.toString());
+                    return allArray1.toString();
+                } catch (JSONException e) {
+                    Log.e("chenshichun", "-----" + e.getMessage());
+                    e.printStackTrace();
+                }
                 break;
         }
         return null;

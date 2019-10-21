@@ -787,4 +787,8 @@
     <string name="shop">Shop</string>
     <string name="are_you_sure_you_want_to_refund">Are you sure you want to refund?</string>
     <string name="please_upload_pic">Please upload pictures</string>
+    <string name="open_immediately">Open immediately</string>
+    <string name="deposit_payment_tv">The deposit is paid at</string>
+    <string name="valid_until">Valid until at</string>
+    <string name="renewal_immediately">Renewal immediately</string>
 </resources>

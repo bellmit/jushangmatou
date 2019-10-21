@@ -259,7 +259,7 @@
     <string name="yyzz">营业执照</string>
     <string name="membership_classification">会员分类</string>
     <string name="membership_information">会员信息</string>
-    <string name="application_refund">申请退款</string>
+    <string name="application_refund">申请退押</string>
     <string name="membership_center">会员中心</string>
     <string name="upgrade_membership">升级会员</string>
     <string name="ordinary_member">普通会员</string>
@@ -778,4 +778,8 @@
     <string name="shop">进店</string>
     <string name="are_you_sure_you_want_to_refund">确定要退款吗?</string>
     <string name="please_upload_pic">请上传图片</string>
+    <string name="open_immediately">立即开通</string>
+    <string name="deposit_payment_tv">押金缴纳于</string>
+    <string name="valid_until">有效期至</string>
+    <string name="renewal_immediately">立即续费</string>
 </resources>

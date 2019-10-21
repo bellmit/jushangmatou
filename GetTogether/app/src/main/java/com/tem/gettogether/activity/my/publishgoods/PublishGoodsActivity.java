@@ -98,6 +98,8 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
     private LinearLayout ll_shop_FL;
     @ViewInject(R.id.fengmian_tv)
     private TextView fengmian_tv;
+    @ViewInject(R.id.tv_ShoppingGG)
+    private TextView tv_ShoppingGG;
     private List<CategoriesBean.ResultBean> mCategoriesBeans = new ArrayList<>();
     private String majorClassId = "";// 大类ID
     private String smallClassId = "";// 小类ID
@@ -112,7 +114,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
     private String strTwoImage = "";
     private String compressImageFilePath;
     private ArrayList<String> compressPaths = new ArrayList<>();
-
+    private String sku_str = "";
     @Override
     protected void initData() {
         x.view().inject(this);
@@ -177,8 +179,8 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                     CusToast.showToast(getText(R.string.please_select_a_product_category));
                     return;
                 }
-                startActivity(new Intent(this, SpecificationsActivity.class)
-                        .putExtra("cat_id3", "" + smallClassId));
+                startActivityForResult(new Intent(this, SpecificationsActivity.class)
+                        .putExtra("cat_id3", "" + smallClassId),1);
                 break;
             case R.id.text_description_ll://详情介绍
                 startActivityForResult(new Intent(this, TextDescriptionActivity.class)
@@ -325,7 +327,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
             map.put("goods_content", textDescription);
         }
         // 规格
-        //map.put("sku_str", tv_ShoppingGG.getText().toString());
+        map.put("sku_str", sku_str);
         //详情图
         map.put("original_img", goods_content);
         //主图
@@ -358,6 +360,13 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
+                case 1:// 规格
+                    if(data != null) {
+                        tv_ShoppingGG.setText(data.getStringExtra("key_name"));
+                        sku_str = data.getStringExtra("item");
+                    }
+                    Log.e("chenshichun","-----sku_str  "+sku_str);
+                    break;
                 case 8888:
                     textDescription = data.getStringExtra("text_description");
                     text_description_tv.setText(textDescription);
@@ -547,4 +556,6 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
             }
         }
     };
+
+
 }

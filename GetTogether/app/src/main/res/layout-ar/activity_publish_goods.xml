@@ -39,18 +39,18 @@
                         android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:focusable="true"
-                        android:textDirection="locale"
                         android:focusableInTouchMode="true"
                         android:text="*"
                         android:textColor="@color/my_red"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:textDirection="locale"
                         android:text="@string/product_name"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <EditText
@@ -60,10 +60,10 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:ellipsize="end"
-                        android:textDirection="locale"
                         android:hint="@string/please_fill_in_the_product_name"
                         android:maxLines="1"
                         android:paddingStart="15dp"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -93,16 +93,16 @@
                         android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:text="*"
-                        android:textDirection="locale"
                         android:textColor="@color/my_red"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:textDirection="locale"
                         android:text="@string/guanjianci"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <EditText
@@ -112,11 +112,11 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:ellipsize="end"
-                        android:textDirection="locale"
                         android:hint="@string/please_fill_in_the_keywords"
                         android:inputType="text"
                         android:maxLines="1"
                         android:paddingStart="15dp"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -151,9 +151,9 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:textDirection="locale"
                     android:text="@string/zdtj9z"
                     android:textColor="@color/text6"
+                    android:textDirection="locale"
                     android:visibility="gone" />
 
                 <View
@@ -174,17 +174,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
-                        android:textDirection="locale"
                         android:text="*"
                         android:textColor="@color/my_red"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:textDirection="locale"
                         android:text="@string/shifouxunjia"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <RadioGroup
@@ -228,10 +228,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
-                        android:textDirection="locale"
                         android:drawablePadding="10dp"
                         android:text="*"
                         android:textColor="@color/my_red"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -248,12 +248,12 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@null"
-                        android:textDirection="locale"
                         android:ellipsize="end"
                         android:hint="@string/qtxspsjia"
                         android:inputType="numberDecimal"
                         android:maxLines="1"
                         android:paddingStart="15dp"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -284,8 +284,8 @@
                         android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:text="*"
-                        android:textDirection="locale"
                         android:textColor="@color/my_red"
+                        android:textDirection="locale"
                         android:textSize="13dp"
                         android:visibility="invisible" />
 
@@ -302,12 +302,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:textDirection="locale"
                         android:background="@null"
                         android:ellipsize="end"
                         android:hint="@string/qtxsphh"
                         android:maxLines="1"
                         android:paddingStart="15dp"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -336,17 +336,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
-                        android:textDirection="locale"
                         android:text="*"
                         android:textColor="@color/my_red"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:textDirection="locale"
                         android:text="@string/qipigeshu"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <EditText
@@ -357,9 +357,9 @@
                         android:background="@null"
                         android:ellipsize="end"
                         android:hint="@string/please_fill_in_the_number_of_batches"
-                        android:textDirection="locale"
                         android:maxLines="1"
                         android:paddingStart="15dp"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -389,17 +389,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
-                        android:textDirection="locale"
                         android:text="*"
                         android:textColor="@color/my_red"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
-                        android:textDirection="locale"
                         android:drawablePadding="10dp"
                         android:text="选择馆  ："
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -408,11 +408,11 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:ellipsize="end"
-                        android:textDirection="locale"
                         android:gravity="center_vertical"
                         android:maxLines="1"
                         android:paddingStart="15dp"
                         android:text="请选择馆分类"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -441,16 +441,16 @@
                         android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:text="*"
-                        android:textDirection="locale"
                         android:textColor="@color/my_red"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:textDirection="locale"
                         android:text="@string/shangpingfenlei"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -458,10 +458,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:ellipsize="end"
                         android:gravity="center_vertical"
-                        android:textDirection="locale"
-                        android:paddingStart="15dp"
                         android:hint="@string/please_select_a_product_category"
+                        android:maxLines="1"
+                        android:paddingStart="15dp"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -490,9 +492,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
-                        android:textDirection="locale"
                         android:text="*"
                         android:textColor="@color/my_red"
+                        android:textDirection="locale"
                         android:textSize="13dp"
                         android:visibility="invisible" />
 
@@ -500,8 +502,8 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:textDirection="locale"
                         android:text="@string/bendianfenlei"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -509,12 +511,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:textDirection="locale"
                         android:ellipsize="end"
                         android:gravity="center_vertical"
                         android:maxLines="1"
                         android:paddingStart="15dp"
                         android:text="@string/qingxuanzebendianfenlei"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -546,18 +548,18 @@
                         android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:focusable="true"
-                        android:textDirection="locale"
                         android:focusableInTouchMode="true"
                         android:text="*"
                         android:textColor="@color/my_red"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:textDirection="locale"
                         android:text="商品图片："
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -568,9 +570,9 @@
                         android:ellipsize="end"
                         android:gravity="center_vertical|end"
                         android:maxLines="1"
-                        android:textDirection="locale"
                         android:paddingEnd="10dp"
                         android:text="上传"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -589,11 +591,11 @@
                     android:id="@+id/ll_shop_GG"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:visibility="gone"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingStart="16dp"
-                    android:paddingEnd="16dp">
+                    android:paddingEnd="16dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -601,8 +603,8 @@
                         android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:text="*"
-                        android:textDirection="locale"
                         android:textColor="@color/my_red"
+                        android:textDirection="locale"
                         android:textSize="13dp"
                         android:visibility="invisible" />
 
@@ -610,8 +612,8 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:textDirection="locale"
                         android:text="@string/shangpguige"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -620,9 +622,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:textDirection="locale"
                         android:hint="@string/qxzspgg"
                         android:paddingStart="15dp"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -660,8 +662,8 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:textDirection="locale"
                         android:text="@string/sfby"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -694,8 +696,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textDirection="locale"
                         android:text="@string/no"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                 </LinearLayout>
@@ -722,8 +724,8 @@
                         android:layout_marginEnd="5dp"
                         android:drawablePadding="10dp"
                         android:text="*"
-                        android:textDirection="locale"
                         android:textColor="@color/my_red"
+                        android:textDirection="locale"
                         android:textSize="13dp"
                         android:visibility="invisible" />
 
@@ -731,8 +733,8 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:textDirection="locale"
                         android:text="库存数量："
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <EditText
@@ -743,10 +745,10 @@
                         android:background="@null"
                         android:ellipsize="end"
                         android:hint="请填写库存数量"
-                        android:textDirection="locale"
                         android:inputType="number"
                         android:maxLines="1"
                         android:paddingStart="15dp"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -767,10 +769,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
-                    android:visibility="gone"
                     android:orientation="horizontal"
                     android:paddingStart="16dp"
-                    android:paddingEnd="16dp">
+                    android:paddingEnd="16dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -812,8 +814,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:visibility="gone"
-                    android:background="@color/line" />
+                    android:background="@color/line"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/text_description_ll"
@@ -838,8 +840,8 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:textDirection="locale"
                         android:text="@string/xqjs"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -848,11 +850,11 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:ellipsize="end"
-                        android:textDirection="locale"
                         android:gravity="center_vertical"
                         android:hint="@string/qsrxqjs"
                         android:maxLines="1"
                         android:paddingStart="15dp"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -900,12 +902,12 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@null"
-                        android:textDirection="locale"
                         android:ellipsize="end"
                         android:gravity="center_vertical"
                         android:hint="@string/qscspxqt"
                         android:maxLines="1"
                         android:paddingStart="15dp"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -950,13 +952,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:textDirection="locale"
                         android:background="@null"
                         android:ellipsize="end"
                         android:gravity="center_vertical"
                         android:hint="@string/qscspzt"
                         android:maxLines="1"
                         android:paddingStart="15dp"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -999,11 +1001,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:textDirection="locale"
                         android:background="@null"
                         android:gravity="center_vertical"
                         android:hint="@string/qingshangchuansptp"
                         android:paddingStart="15dp"
+                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -1041,10 +1043,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
-                    android:textDirection="locale"
                     android:layout_marginBottom="10dp"
                     android:text="@string/zdtj9z"
-                    android:textColor="@color/text6" />
+                    android:textColor="@color/text6"
+                    android:textDirection="locale" />
 
             </LinearLayout>
 

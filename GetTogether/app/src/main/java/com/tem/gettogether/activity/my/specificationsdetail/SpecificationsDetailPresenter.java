@@ -2,6 +2,7 @@ package com.tem.gettogether.activity.my.specificationsdetail;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.ybm.app.common.WindowToast.ToastTips;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -151,6 +153,13 @@ public class SpecificationsDetailPresenter extends BasePresenter<SpecificationsD
                     String msg = jsonObject.optString("msg");
                     CusToast.showToast(msg);
                     if (res.equals("1")) {
+                        JSONObject results = jsonObject.getJSONObject("result");
+                        String key_name=results.getString("key_name");
+                        String item=results.getString("item");
+                        Intent intent = new Intent();
+                        intent.putExtra("key_name", key_name);
+                        intent.putExtra("item", item);
+                        mActivity.setResult(3, intent);
                         mActivity.finish();
                     }
 

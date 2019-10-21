@@ -57,6 +57,7 @@ public class SpecificationsActivity extends BaseMvpActivity<SpecificationsPresen
     private String cat_id3;
     SpecificationsBean.ResultBean mSpecificationsBean;
     ArrayList<SpecificationsBean.ResultBean.SpecListBean> mLastSpecListBeanData = new ArrayList<>();
+
     @Override
     protected void initData() {
         x.view().inject(this);
@@ -102,16 +103,27 @@ public class SpecificationsActivity extends BaseMvpActivity<SpecificationsPresen
                 finish();
                 break;
             case R.id.tv_sure:
-                if(selectCount<1){
+                if (selectCount < 1) {
                     CusToast.showToast(getText(R.string.select_least_one_specification));
-                }else if (selectCount <= 4) {
+                } else if (selectCount <= 4) {
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("SPECIFICATION_CHOSE",mLastSpecListBeanData);
-                    startActivity(new Intent(this, SpecificationsDetailActivity.class).putExtras(bundle));
+                    bundle.putSerializable("SPECIFICATION_CHOSE", mLastSpecListBeanData);
+                    startActivityForResult(new Intent(this, SpecificationsDetailActivity.class).putExtras(bundle), 2);
                 } else {
                     CusToast.showToast(getText(R.string.select_least_four_specification));
                 }
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2 && resultCode == 3 && data != null) {
+            data.getStringExtra("key_name");
+            data.getStringExtra("item");
+            setResult(-1, data);
+            finish();
         }
     }
 

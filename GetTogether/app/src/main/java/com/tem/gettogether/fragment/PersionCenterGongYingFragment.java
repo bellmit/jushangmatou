@@ -38,6 +38,7 @@ import com.tem.gettogether.activity.my.StoreManagementActivity;
 import com.tem.gettogether.activity.my.TAdviseActivity;
 import com.tem.gettogether.activity.my.VipCenterActivity;
 import com.tem.gettogether.activity.my.VisitorActivity;
+import com.tem.gettogether.activity.my.member.MemberCentreActivity;
 import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActivity;
 import com.tem.gettogether.activity.order.GongYingShangNewOrderActivity;
 import com.tem.gettogether.base.BaseActivity;
@@ -284,9 +285,11 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                     return;
                 }
                 if (myMessageBean != null) {
-                    startActivity(new Intent(getActivity(), VipCenterActivity.class)
+                    /*startActivity(new Intent(getActivity(), VipCenterActivity.class)
                             .putExtra("head_pic", myMessageBean.getResult().getHead_pic())
-                            .putExtra("shop_status", resultBean.getStore_status()));
+                            .putExtra("shop_status", resultBean.getStore_status()));*/
+                    startActivity(new Intent(getActivity(), MemberCentreActivity.class));
+
                 }
                 break;
             case R.id.rl_dzgl:// 我的店铺
