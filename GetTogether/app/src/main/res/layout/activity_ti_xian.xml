@@ -3,10 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
-    <include layout="@layout/title_layout" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
+    <include layout="@layout/title_layout" />w
 
     <cn.bingoogolapple.refreshlayout.BGARefreshLayout
         android:id="@+id/order_refresh_fragment"
@@ -27,8 +33,8 @@
                     android:id="@+id/order_rl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingEnd="6dp"
-                    android:paddingStart="16dp"/>
+                    android:paddingStart="16dp"
+                    android:paddingEnd="6dp" />
 
 
             </FrameLayout>

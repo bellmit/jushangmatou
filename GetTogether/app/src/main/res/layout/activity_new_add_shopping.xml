@@ -5,6 +5,11 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
 
     <com.tem.gettogether.view.BaseScrollView
@@ -703,8 +708,7 @@
                         android:drawablePadding="10dp"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:textSize="13dp"
-                        />
+                        android:textSize="13dp" />
 
                     <TextView
                         android:layout_width="110dp"
@@ -822,8 +826,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:ellipsize="end"
-                        android:hint="@string/qsrxqjs"
                         android:gravity="center_vertical"
+                        android:hint="@string/qsrxqjs"
                         android:maxLines="1"
                         android:paddingStart="15dp"
                         android:textSize="13dp" />
@@ -831,8 +835,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/right_more"
-                        />
+                        android:src="@drawable/right_more" />
                 </LinearLayout>
 
                 <View
@@ -907,8 +910,7 @@
                         android:drawablePadding="10dp"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:textSize="13dp"
-                         />
+                        android:textSize="13dp" />
 
                     <TextView
                         android:layout_width="110dp"

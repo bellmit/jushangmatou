@@ -24,6 +24,7 @@ import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.ShopXQBean;
 import com.tem.gettogether.rongyun.RongTalk;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 
@@ -87,6 +88,7 @@ public class ShopXQActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
         initData();
         upShopXQData();
     }
@@ -230,11 +232,10 @@ public class ShopXQActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                Uri datav = Uri.parse(getText(R.string.tel_tv) + resultBean.getStore_phone());
+                Uri datav = Uri.parse(getText(R.string.tel_tv) + resultBean.getContacts_mobile());
                 intent.setData(datav);
                 startActivity(intent);
                 mPop.dismiss();
-
             }
         });
         cancle.setOnClickListener(new View.OnClickListener() {

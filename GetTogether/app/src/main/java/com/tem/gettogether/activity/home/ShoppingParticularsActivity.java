@@ -112,12 +112,8 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private Banner banner;
     @ViewInject(R.id.tv_image_num)
     private TextView tv_image_num;
-    @ViewInject(R.id.tv_add)
-    private TextView tv_add;
     @ViewInject(R.id.tv_num)
     private EditText tv_num;
-    @ViewInject(R.id.tv_jian)
-    private TextView tv_jian;
     @ViewInject(R.id.recyclerView_pj)
     private RecyclerView recyclerView_pj;
     @ViewInject(R.id.tv_jrgwc)
@@ -126,8 +122,6 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private TextView tv_pj_num;
     @ViewInject(R.id.tv_hpd_num)
     private TextView tv_hpd_num;
-    @ViewInject(R.id.tv_look_all_pj)
-    private TextView tv_look_all_pj;
     @ViewInject(R.id.tv_kd_price)
     private TextView tv_kd_price;
     @ViewInject(R.id.tv_xl_num)
@@ -182,6 +176,8 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private ImageView linyi_iv;
     @ViewInject(R.id.clinch_count_tv)
     private TextView clinch_count_tv;
+    @ViewInject(R.id.rl_order_detail)
+    private RelativeLayout rl_order_detail;
 
     private List<RollTextItem> data = new ArrayList<>();
 
@@ -337,7 +333,10 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
     private int popType = 0; //0:加入采购  1:立即下单
 
-    @Event(value = {R.id.tv_buy, R.id.iv_close, R.id.tv_jian, R.id.ll_openWeb, R.id.rl_shard, R.id.rl_kf, R.id.ll_gzsj, R.id.tv_ljxj, R.id.iv_dianpu, R.id.ll_issc, R.id.iv_go_cart, R.id.tv_add, R.id.tv_look_all_pj, R.id.ll_pingjia, R.id.tv_jrgwc, R.id.ll_shuxing_xz, R.id.rl_input_dp, R.id.rl_input_dp2}, type = View.OnClickListener.class)
+    @Event(value = {R.id.tv_buy, R.id.iv_close, R.id.tv_jian, R.id.ll_openWeb, R.id.rl_shard,
+            R.id.rl_kf, R.id.ll_gzsj, R.id.tv_ljxj, R.id.iv_dianpu, R.id.ll_issc, R.id.iv_go_cart,
+            R.id.tv_add, R.id.tv_look_all_pj, R.id.ll_pingjia, R.id.tv_jrgwc, R.id.ll_shuxing_xz,
+            R.id.rl_input_dp, R.id.rl_input_dp2, R.id.rl_order_detail}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.iv_close:
@@ -345,6 +344,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 break;
             case R.id.rl_shard:
                 showPopShard(rl_shard);
+                break;
+            case R.id.rl_order_detail:
+                startActivity(new Intent(this, OrderDetailActivity.class).putExtra("goods_id", goods_id));
                 break;
             case R.id.ll_openWeb:
                 ll_openWeb.setVisibility(View.GONE);
@@ -455,13 +457,13 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     //发消息
                     Log.d("chenshichun", "=======CHAT_ID==== " + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0"));
                     Log.d("chenshichun", "======getStore_user_id=====" + storeBean.getStore_user_id());
-                        if (storeBean != null && storeBean.getStore_user_id() != null) {
-                            RongTalk.doConnection(ShoppingParticularsActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
-                                    , storeBean.getStore_user_id(), storeBean.getStore_name(),
-                                    storeBean.getStore_logo(), storeBean.getStore_id());
-                        } else {
-                            CusToast.showToast(getText(R.string.the_store_is_invalid));
-                        }
+                    if (storeBean != null && storeBean.getStore_user_id() != null) {
+                        RongTalk.doConnection(ShoppingParticularsActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
+                                , storeBean.getStore_user_id(), storeBean.getStore_name(),
+                                storeBean.getStore_logo(), storeBean.getStore_id());
+                    } else {
+                        CusToast.showToast(getText(R.string.the_store_is_invalid));
+                    }
 
 
                 } catch (Exception e) {
@@ -788,6 +790,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         mPop.dismiss();
                         mPop = null;
                     } else {// 立即下单
+                        Log.e("chenshichun", "--立即下单---");
                         mPop.dismiss();
                         allNum = Integer.parseInt(tv_num_all.getText().toString());
                         String sku = "";
@@ -813,15 +816,6 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         }
 
                         try {
-//                            String skuidData=object.getString(sku);
-//                            JSONObject jsonObject=new JSONObject(skuidData);
-//                            String price=jsonObject.optString("price");
-//                            String store_count=jsonObject.optString("store_count");
-//                        startActivity(new Intent(ShoppingParticularsActivity.this, CloseAccountActivity.class)
-//                                .putExtra("unique_id", "1")
-//                                .putExtra("goods_id", goods_id)
-//                                .putExtra("key", sku)
-//                                .putExtra("goods_num", String.valueOf(num_gwc)));
                             Map<String, Object> map = new HashMap<>();
                             map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
                             map.put("goods_id", goods_id);
@@ -829,8 +823,6 @@ public class ShoppingParticularsActivity extends BaseActivity {
                             map.put("unique_id", "1");
                             map.put("key", sku);
                             upJieSCartData(map, sku, allNum);
-
-
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -1010,7 +1002,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private void upShopXQData() {
         Log.d("chenshichun", "-----goods_id  " + goods_id);
         Map<String, Object> map = new HashMap<>();
-        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+//        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("goods_id", goods_id);
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         showDialog();
@@ -1245,6 +1237,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     }
 
                 } catch (JSONException e) {
+                    Log.e("chenshichun", "--e---" + e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -1429,7 +1422,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
         lp.alpha = 0.6f;
         getWindow().setAttributes(lp);
     }
+
     Bitmap thumb;
+
     private void initPopShard() {
         if (mPopShard == null) {
             viewShard = LayoutInflater.from(this).inflate(R.layout.main_shard_layout, null);
@@ -1456,9 +1451,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
             viewShard.findViewById(R.id.ll_wechat).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")){
+                    if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")) {
                         CusToast.showToast(R.string.login_first);
-                        startActivity(new Intent(ShoppingParticularsActivity.this,LoginActivity.class));
+                        startActivity(new Intent(ShoppingParticularsActivity.this, LoginActivity.class));
                     }
 
                     new Thread(new Runnable() {
@@ -1478,7 +1473,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            Bitmap thumbBmp = Bitmap.createScaledBitmap(thumb,120,150,true);
+                            Bitmap thumbBmp = Bitmap.createScaledBitmap(thumb, 120, 150, true);
 
                             thumb.recycle();
 
@@ -1498,9 +1493,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
             viewShard.findViewById(R.id.ll_wxcircle).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")){
+                    if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")) {
                         CusToast.showToast(R.string.login_first);
-                        startActivity(new Intent(ShoppingParticularsActivity.this,LoginActivity.class));
+                        startActivity(new Intent(ShoppingParticularsActivity.this, LoginActivity.class));
                     }
                     new Thread(new Runnable() {
                         @Override
@@ -1519,7 +1514,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            Bitmap thumbBmp = Bitmap.createScaledBitmap(thumb,120,150,true);
+                            Bitmap thumbBmp = Bitmap.createScaledBitmap(thumb, 120, 150, true);
 
                             thumb.recycle();
 //                    Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
@@ -1539,9 +1534,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
             viewShard.findViewById(R.id.ll_QQ).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")){
+                    if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")) {
                         CusToast.showToast(R.string.login_first);
-                        startActivity(new Intent(ShoppingParticularsActivity.this,LoginActivity.class));
+                        startActivity(new Intent(ShoppingParticularsActivity.this, LoginActivity.class));
                     }
                     UMWeb web = new UMWeb("http://www.jsmtgou.com/jushangmatou/index.php?m=Home&c=Goods&a=share_goods_detail&id="
                             + goodsBean.getGoods_id()
@@ -1559,9 +1554,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
             viewShard.findViewById(R.id.ll_qzone).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")){
+                    if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")) {
                         CusToast.showToast(R.string.login_first);
-                        startActivity(new Intent(ShoppingParticularsActivity.this,LoginActivity.class));
+                        startActivity(new Intent(ShoppingParticularsActivity.this, LoginActivity.class));
                     }
                     UMWeb web = new UMWeb("http://www.jsmtgou.com/jushangmatou/index.php?m=Home&c=Goods&a=share_goods_detail&id="
                             + goodsBean.getGoods_id()
@@ -1627,7 +1622,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
         Bitmap bitmap = null;
         InputStream in = null;
         BufferedOutputStream out = null;
-        Log.d("chenshichun","====bitmap======="+bitmap);
+        Log.d("chenshichun", "====bitmap=======" + bitmap);
         try {
             in = new BufferedInputStream(new URL(url).openStream(), 1024);
             final ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
@@ -1637,7 +1632,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
             byte[] data = dataStream.toByteArray();
             bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
             data = null;
-            Log.d("chenshichun","====bitmap======="+bitmap);
+            Log.d("chenshichun", "====bitmap=======" + bitmap);
             return bitmap;
         } catch (IOException e) {
             e.printStackTrace();

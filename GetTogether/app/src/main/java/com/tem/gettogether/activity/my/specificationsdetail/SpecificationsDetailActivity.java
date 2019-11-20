@@ -3,6 +3,7 @@ package com.tem.gettogether.activity.my.specificationsdetail;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import com.tem.gettogether.base.BaseMvpActivity;
 import com.tem.gettogether.bean.SpecificationsBean;
 import com.tem.gettogether.bean.StoreManagerListEntity;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,6 +60,8 @@ public class SpecificationsDetailActivity extends BaseMvpActivity<Specifications
     @Override
     protected void initData() {
         x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
+
         tv_title.setText(R.string.product_specifications);
         mPresenter = new SpecificationsDetailPresenter(getContext(), SpecificationsDetailActivity.this);
         mPresenter.attachView(this);
@@ -68,8 +72,6 @@ public class SpecificationsDetailActivity extends BaseMvpActivity<Specifications
                 StoreManagerListEntity.GuigesEntity entity = new StoreManagerListEntity.GuigesEntity();
                 entity.title = mLastSpecListBeanData.get(i).getName();
                 entity.titleID = mLastSpecListBeanData.get(i).getId();
-                Log.e("chenshichun", "---getName--" + mLastSpecListBeanData.get(i).getName());
-                Log.e("chenshichun", "---getId--" + mLastSpecListBeanData.get(i).getId());
 
                 entity.guigeArray.add("");
                 entity.itemGuigeArray.add("");
@@ -97,7 +99,6 @@ public class SpecificationsDetailActivity extends BaseMvpActivity<Specifications
                 mLastDatas.removeAll(mLastDatas);
                 if (mDatas != null && mDatas.size() > 0)
                     mLastDatas.addAll(mDatas);
-
             }
 
             @Override
@@ -150,6 +151,16 @@ public class SpecificationsDetailActivity extends BaseMvpActivity<Specifications
                 mPresenter.saveSpecifications(map);
                 break;
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if(event.getAction()==MotionEvent.ACTION_DOWN){
+            View view = getCurrentFocus();
+            if(view!=recyclerView){
+            }
+        }
+        return super.dispatchTouchEvent(event);
     }
 
     @Override

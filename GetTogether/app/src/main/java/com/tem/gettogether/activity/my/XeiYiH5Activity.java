@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
+import com.tem.gettogether.utils.StatusBarUtil;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -25,6 +26,7 @@ public class XeiYiH5Activity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtil.setTranslucentStatus(this);
         x.view().inject(this);
         initData();
         initView();

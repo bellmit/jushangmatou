@@ -20,6 +20,7 @@ import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseMvpActivity;
 import com.tem.gettogether.bean.SpecificationsBean;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -61,6 +62,8 @@ public class SpecificationsActivity extends BaseMvpActivity<SpecificationsPresen
     @Override
     protected void initData() {
         x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
+
         mPresenter = new SpecificationsPresenter(getContext(), SpecificationsActivity.this);
         mPresenter.attachView(this);
         tv_title.setText(getText(R.string.product_specifications));

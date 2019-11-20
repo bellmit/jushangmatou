@@ -6,6 +6,11 @@
     android:layoutDirection="rtl"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
 
     <ScrollView
@@ -45,9 +50,9 @@
                         android:id="@+id/name_tv"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textDirection="locale"
                         android:layout_weight="1"
                         android:text="@string/fuzeren"
+                        android:textDirection="locale"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -63,8 +68,8 @@
                         android:id="@+id/phone_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textDirection="locale"
                         android:text="@string/lianxifangshi"
+                        android:textDirection="locale"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -81,8 +86,8 @@
                         android:id="@+id/weChat_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textDirection="locale"
                         android:text="@string/wechat_id"
+                        android:textDirection="locale"
                         android:textSize="14sp" />
 
                     <TextView
@@ -90,16 +95,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:textDirection="locale"
                         android:text="@string/whatsapp"
+                        android:textDirection="locale"
                         android:textSize="14sp" />
+
                     <TextView
                         android:id="@+id/facebook_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textDirection="locale"
                         android:layout_marginTop="10dp"
                         android:text="@string/facebook_id"
+                        android:textDirection="locale"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -107,10 +113,10 @@
                     android:id="@+id/official_website_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textDirection="locale"
                     android:layout_marginTop="10dp"
                     android:paddingStart="10dp"
                     android:text="@string/guangwang"
+                    android:textDirection="locale"
                     android:textSize="14sp" />
 
                 <TextView
@@ -119,8 +125,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:paddingStart="10dp"
-                    android:textDirection="locale"
                     android:text="@string/dizhi"
+                    android:textDirection="locale"
                     android:textSize="14sp" />
 
                 <View
@@ -133,10 +139,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:textDirection="locale"
                     android:layout_marginTop="10dp"
                     android:text="@string/fuwusjs"
                     android:textColor="@color/black"
+                    android:textDirection="locale"
                     android:textSize="25sp" />
 
                 <View
@@ -148,32 +154,32 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textDirection="locale"
                     android:padding="10dp"
-                    android:text="@string/business" />
+                    android:text="@string/business"
+                    android:textDirection="locale" />
 
                 <TextView
                     android:id="@+id/business_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textDirection="locale"
                     android:padding="10dp"
-                    android:text="@string/none" />
+                    android:text="@string/none"
+                    android:textDirection="locale" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textDirection="locale"
                     android:padding="10dp"
-                    android:text="@string/gongsijieshao" />
+                    android:text="@string/gongsijieshao"
+                    android:textDirection="locale" />
 
                 <TextView
                     android:id="@+id/introduction_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textDirection="locale"
                     android:padding="10dp"
-                    android:text="@string/none" />
+                    android:text="@string/none"
+                    android:textDirection="locale" />
 
             </LinearLayout>
         </LinearLayout>

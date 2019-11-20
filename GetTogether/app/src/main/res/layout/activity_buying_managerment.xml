@@ -4,6 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
 
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
@@ -15,7 +20,6 @@
             android:id="@+id/sell_RecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/line"
-            />
+            android:background="@color/line" />
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 </LinearLayout>

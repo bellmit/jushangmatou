@@ -5,6 +5,11 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
 
     <com.tem.gettogether.view.BaseScrollView
@@ -22,9 +27,9 @@
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
+                android:text="@string/upload_ID_card"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="@string/upload_ID_card" />
+                android:textStyle="bold" />
 
             <View
                 android:layout_width="match_parent"
@@ -43,8 +48,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/id_card_nun"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/et_card_num"
@@ -55,8 +60,8 @@
                     android:gravity="right|center_vertical"
                     android:hint="@string/please_input"
                     android:maxLines="1"
-                    android:paddingEnd="16dp"
                     android:paddingStart="10dp"
+                    android:paddingEnd="16dp"
                     android:textColor="@color/text9"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -69,11 +74,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp">
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp">
 
                 <RelativeLayout
                     android:id="@+id/rl_card_image1"
@@ -156,8 +161,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingBottom="40dp"
-        android:paddingTop="10dp">
+        android:paddingTop="10dp"
+        android:paddingBottom="40dp">
 
         <TextView
             android:id="@+id/tv_upStep"

@@ -43,4 +43,9 @@
         <item>阿拉伯文</item>
     </string-array>
 
+    <array name="language_spanner">
+        <item>@drawable/zhongwen</item>
+        <item>@drawable/yingwen</item>
+        <item>@drawable/alaboyu</item>
+    </array>
 </resources>

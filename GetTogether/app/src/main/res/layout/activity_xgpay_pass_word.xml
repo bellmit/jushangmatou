@@ -6,21 +6,27 @@
     android:background="@color/line"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="13dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="80dp"
             android:layout_marginBottom="12dp"
+            android:text="输入原支付密码，完成身份验证"
             android:textColor="@color/text9"
-            android:text="输入原支付密码，完成身份验证"/>
+            android:textSize="13dp" />
 
         <com.tem.gettogether.view.PasswordView
             android:id="@+id/passView"

@@ -3,16 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="64dp"
     android:gravity="center_vertical"
-    android:layout_marginStart="5dp"
-    android:layout_marginEnd="14dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="14dp"
     android:background="@android:color/transparent">
 
     <LinearLayout
         android:id="@+id/rc_layout"
         android:layout_width="match_parent"
         android:layout_height="22dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="14dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="14dp"
         android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
@@ -32,7 +32,7 @@
             android:id="@id/rc_conversation_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_weight="1"
             android:background="@android:color/transparent"
@@ -46,8 +46,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/rc_layout"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="14dp">
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="14dp">
 
         <TextView
             android:id="@id/rc_conversation_content"
@@ -65,7 +65,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:orientation="horizontal"
             android:paddingTop="1dp">
@@ -81,7 +81,7 @@
                 android:id="@+id/rc_conversation_msg_block"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:src="@drawable/rc_ic_message_block"
                 android:visibility="gone" />
 

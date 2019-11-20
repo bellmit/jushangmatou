@@ -29,6 +29,7 @@ import com.tem.gettogether.utils.AppManager;
 import com.tem.gettogether.utils.MessageEvent;
 import com.tem.gettogether.utils.PayResult;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tencent.mm.sdk.modelpay.PayReq;
@@ -82,6 +83,8 @@ public class BuyMemberActivity extends BaseActivity {
     @ViewInject(R.id.rl_senior_member)
     private RelativeLayout rl_senior_member;
 
+    private int REFUND_TYPE = 0;// 0：高级 1：普通
+
     /**
      * 区别三种支付方式 0:我的钱包 1:支付宝 2:微信支付
      **/
@@ -90,14 +93,33 @@ public class BuyMemberActivity extends BaseActivity {
     String money;
     String expire_time;
     private String ordinaryMember, seniorMember, lever;// lever:7 游客，lever:1 普通会员 ，lever:2 高级会员
+    private String userLever = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
         // 注册订阅者
         EventBus.getDefault().register(this);
         AppManager.getAppManager().addActivity(this);
+        userLever = SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7");
+        REFUND_TYPE = getIntent().getIntExtra("REFUND_TYPE", 0);
+
+        if (userLever.equals("2")) {// 高级会员，续费
+            tv_title.setText(R.string.huiyuanxufei);
+            rl_ordinary_member.setVisibility(View.GONE);
+        } else if (userLever.equals("1")) {// 普通会员,只能升级高级会员
+            tv_title.setText(getResources().getText(R.string.join_membership));
+            rl_ordinary_member.setVisibility(View.GONE);
+        } else {// 游客
+            if (REFUND_TYPE == 0) {
+                rl_ordinary_member.setVisibility(View.GONE);
+            } else if (REFUND_TYPE == 1) {
+                rl_senior_member.setVisibility(View.GONE);
+            }
+            tv_title.setText(getResources().getText(R.string.join_membership));
+        }
 
         initData();
         initView();
@@ -155,7 +177,6 @@ public class BuyMemberActivity extends BaseActivity {
     @Override
 
     protected void initView() {
-        tv_title.setText(getResources().getText(R.string.join_membership));
         choose_1 = (LinearLayout) findViewById(R.id.choose_1);
         choose_2 = (LinearLayout) findViewById(R.id.choose_2);
         choose_3 = (LinearLayout) findViewById(R.id.choose_3);

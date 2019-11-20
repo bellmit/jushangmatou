@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/line"
     android:layout_height="match_parent"
+    android:background="@color/line"
     android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
 
     <android.support.v7.widget.RecyclerView
@@ -13,14 +19,15 @@
         android:layout_weight="1">
 
     </android.support.v7.widget.RecyclerView>
+
     <TextView
         android:id="@+id/tv_add_address"
         android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:textSize="16dp"
-        android:textColor="@color/white"
-        android:text="@string/xinjian_address"
+        android:background="@color/my_red"
         android:gravity="center"
-        android:background="@color/my_red"/>
+        android:text="@string/xinjian_address"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
 
 </LinearLayout>

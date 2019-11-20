@@ -6,6 +6,11 @@
     android:layoutDirection="rtl"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
 
     <LinearLayout
@@ -23,15 +28,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textDirection="locale"
-                android:text="@string/quanbufensi" />
+                android:text="@string/quanbufensi"
+                android:textDirection="locale" />
 
             <TextView
                 android:id="@+id/fans_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textDirection="locale"
-                android:text="" />
+                android:text=""
+                android:textDirection="locale" />
         </LinearLayout>
 
         <ImageView
@@ -42,8 +47,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textDirection="locale"
-            android:text="@string/quanbufensi" />
+            android:text="@string/quanbufensi"
+            android:textDirection="locale" />
 
         <RelativeLayout
             android:id="@+id/ll_empty"
@@ -56,10 +61,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:drawableTop="@drawable/wu_shuj"
-                android:textDirection="locale"
                 android:gravity="center"
                 android:text="@string/mysj"
                 android:textColor="@color/black"
+                android:textDirection="locale"
                 android:textSize="20sp" />
         </RelativeLayout>
 

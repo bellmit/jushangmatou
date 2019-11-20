@@ -180,6 +180,15 @@ public class CartDataBean {
                 private String batch_number;
                 private String goods_logo;
                 private String itemXZ="0";
+                private String cover_image;
+
+                public String getCover_image() {
+                    return cover_image;
+                }
+
+                public void setCover_image(String cover_image) {
+                    this.cover_image = cover_image;
+                }
 
                 public String getStore_user_id() {
                     return store_user_id;

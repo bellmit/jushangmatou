@@ -22,6 +22,7 @@ import com.tem.gettogether.bean.MyAddressBean;
 import com.tem.gettogether.dialog.Effectstype;
 import com.tem.gettogether.dialog.LogoutDialogBuilder;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 
@@ -55,6 +56,7 @@ public class AddressGLActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
         initData();
 
 

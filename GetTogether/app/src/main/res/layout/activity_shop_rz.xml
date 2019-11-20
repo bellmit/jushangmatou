@@ -1,310 +1,360 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
+
     <com.tem.gettogether.view.BaseScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical">
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:textColor="@color/my_sprz_text"
-                android:text="商铺名称"/>
-            <EditText
-                android:id="@+id/et_name"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:textSize="15dp"
-                android:maxLines="1"
-                android:textColorHint="@color/my_sprz_hind"
-                android:hint="请输入商铺名称"/>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/line"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:paddingEnd="16dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_height="51dp">
-            <TextView
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:text="所在地区"
-                android:textColor="@color/my_sprz_text"
-                android:textSize="15dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="14dp"
-                android:layout_weight="1"
-                android:text="请选择所在地区"
-                android:layout_centerVertical="true"
-                android:textColor="#7f7f7f"
-                android:textSize="13dp"/>
-            <ImageView
-                android:id="@+id/iv_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/right_more"/>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/line"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:textColorHint="@color/my_sprz_text"
-                android:text="街道详情"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:textSize="15dp"
-                android:maxLines="1"
-                android:textColorHint="@color/my_sprz_hind"
-                android:hint="请输入街道详情"/>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/line"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:textColor="@color/my_sprz_text"
-                android:text="经 营 者"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:textSize="15dp"
-                android:maxLines="1"
-                android:textColorHint="@color/my_sprz_hind"
-                android:hint="请输入经营者姓名"/>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/line"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:textColor="@color/my_sprz_text"
-                android:text="身份证号"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:textSize="15dp"
-                android:maxLines="1"
-                android:maxLength="18"
-                android:digits="0123456789X"
-                android:textColorHint="@color/my_sprz_hind"
-                android:hint="请输入经营者身份证号"/>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/line"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:paddingEnd="16dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:textColor="@color/my_sprz_text"
-                android:text="安全手机"/>
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@null"
-                android:textSize="15dp"
-                android:maxLines="1"
-                android:textColorHint="@color/my_sprz_hind"
-                android:hint="请输入安全手机"/>
-            <TextView
-                android:id="@+id/tv_gain_cade"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:gravity="center"
-                android:textSize="12dp"
-                android:background="@drawable/my_cade_sprz"
-                android:textColor="#ffaa01"
-                android:text="点击获取"/>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/line"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:textColor="@color/my_sprz_text"
-                android:text="验 证 码"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:textSize="15dp"
-                android:maxLines="1"
-                android:inputType="number"
-                android:maxLength="6"
-                android:textColorHint="@color/my_sprz_hind"
-                android:hint="请输入验证码"/>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/line"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:textColor="@color/my_sprz_text"
-                android:text="联系人"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:textSize="15dp"
-                android:maxLines="1"
-                android:textColorHint="@color/my_sprz_hind"
-                android:hint="请输入联系人姓名"/>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/line"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:textColor="@color/my_sprz_text"
-                android:text="联系人电话"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:textSize="15dp"
-                android:inputType="number"
-                android:maxLength="11"
-                android:maxLines="1"
-                android:textColorHint="@color/my_sprz_hind"
-                android:hint="请输入联系人电话"/>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/line"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:textColor="@color/my_sprz_text"
-                android:text="主营"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:textSize="15dp"
-                android:maxLines="1"
-                android:textColorHint="@color/my_sprz_hind"
-                android:hint="请输入主营商品"/>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/line"/>
-        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="13dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="20dp"
-            android:textColor="@color/my_red"
-            android:text="注：安全手机用于保障账户安全、密码找回、资金提现
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingStart="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="商铺名称"
+                    android:textColor="@color/my_sprz_text"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/et_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="请输入商铺名称"
+                    android:maxLines="1"
+                    android:textColorHint="@color/my_sprz_hind"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingEnd="16dp">
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="所在地区"
+                    android:textColor="@color/my_sprz_text"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="14dp"
+                    android:layout_weight="1"
+                    android:text="请选择所在地区"
+                    android:textColor="#7f7f7f"
+                    android:textSize="13dp" />
+
+                <ImageView
+                    android:id="@+id/iv_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/right_more" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="街道详情"
+                    android:textColorHint="@color/my_sprz_text"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="请输入街道详情"
+                    android:maxLines="1"
+                    android:textColorHint="@color/my_sprz_hind"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="经 营 者"
+                    android:textColor="@color/my_sprz_text"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="请输入经营者姓名"
+                    android:maxLines="1"
+                    android:textColorHint="@color/my_sprz_hind"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="身份证号"
+                    android:textColor="@color/my_sprz_text"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:digits="0123456789X"
+                    android:hint="请输入经营者身份证号"
+                    android:maxLength="18"
+                    android:maxLines="1"
+                    android:textColorHint="@color/my_sprz_hind"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingEnd="16dp">
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="安全手机"
+                    android:textColor="@color/my_sprz_text"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="请输入安全手机"
+                    android:maxLines="1"
+                    android:textColorHint="@color/my_sprz_hind"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/tv_gain_cade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/my_cade_sprz"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="点击获取"
+                    android:textColor="#ffaa01"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="验 证 码"
+                    android:textColor="@color/my_sprz_text"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="请输入验证码"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:maxLines="1"
+                    android:textColorHint="@color/my_sprz_hind"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="联系人"
+                    android:textColor="@color/my_sprz_text"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="请输入联系人姓名"
+                    android:maxLines="1"
+                    android:textColorHint="@color/my_sprz_hind"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="联系人电话"
+                    android:textColor="@color/my_sprz_text"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="请输入联系人电话"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:maxLines="1"
+                    android:textColorHint="@color/my_sprz_hind"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="主营"
+                    android:textColor="@color/my_sprz_text"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="请输入主营商品"
+                    android:maxLines="1"
+                    android:textColorHint="@color/my_sprz_hind"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="20dp"
+                android:text="注：安全手机用于保障账户安全、密码找回、资金提现
 不对外公布。联系人和联系人电话在平台网站公开展示
-用于业务联系，允许与经营者或安全手机一致。"/>
-    </LinearLayout>
+用于业务联系，允许与经营者或安全手机一致。"
+                android:textColor="@color/my_red"
+                android:textSize="13dp" />
+        </LinearLayout>
     </com.tem.gettogether.view.BaseScrollView>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:textSize="16dp"
-        android:textColor="@color/white"
-        android:text="提交审核"
+        android:background="@color/my_red"
         android:gravity="center"
-        android:background="@color/my_red"/>
+        android:text="提交审核"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
 
 </LinearLayout>

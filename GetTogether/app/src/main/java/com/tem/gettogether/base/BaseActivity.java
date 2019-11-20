@@ -14,7 +14,6 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -26,23 +25,19 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bugtags.library.Bugtags;
 import com.tem.gettogether.R;
 import com.tem.gettogether.dialog.CommonDialogLayout;
 import com.tem.gettogether.dialog.ShowAlertDialog;
-import com.tem.gettogether.utils.AppManager;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.language.LanguageUtil;
-import com.ybm.app.common.WindowToast.ToastTips;
 
 import org.xutils.x;
 
 import java.util.Locale;
 
-import io.rong.imlib.RongIMClient;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 
@@ -56,26 +51,27 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
     public Context mContext;
     public boolean isFullScreen = false;
 
-//    public abstract int setLayoutId();
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
         x.view().inject(this);
-        Window window = getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//        window.setStatusBarColor(getResources().getColor(R.color.white));
-//        StatusBarUtil.setTransparent(this);
-        if (isFullScreen) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        StatusBarUtil.setRootViewFitsSystemWindows(this,true);
+        //设置状态栏透明
+//        StatusBarUtil.setTranslucentStatus(this);
+        //一般的手机的状态栏文字和图标都是白色的, 可如果你的应用也是纯白色的, 或导致状态栏文字看不清
+        //所以如果你是这种情况,请使用以下代码, 设置状态使用深色文字图标风格, 否则你可以选择性注释掉这个if内容
+        if (!StatusBarUtil.setStatusBarDarkTheme(this, true)) {
+            //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
+            //这样半透明+白=灰, 状态栏的文字能看得清
+            StatusBarUtil.setStatusBarColor(this,0x55000000);
         }
         mContext = this;
-        initAppLanguage();
         initData();
         initView();
+//        initAppLanguage();
     }
 
     public BaseActivity getContext() {

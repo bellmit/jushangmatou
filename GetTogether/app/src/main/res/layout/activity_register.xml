@@ -7,6 +7,11 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
 
     <LinearLayout
@@ -41,9 +46,9 @@
                 android:id="@+id/tv_goLogin2"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginEnd="13dp"
                 android:layout_marginStart="13dp"
                 android:layout_marginTop="50dp"
+                android:layout_marginEnd="13dp"
                 android:background="@drawable/my_pay_red_bg"
                 android:gravity="center"
                 android:text="@string/go_login"
@@ -61,9 +66,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="37dp"
+                android:layout_marginEnd="12dp"
                 android:background="@color/login_srk_bg">
 
                 <LinearLayout
@@ -93,9 +98,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
                 android:background="@color/login_srk_bg">
 
                 <LinearLayout
@@ -137,9 +142,9 @@
                 android:id="@+id/denglu_zt_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
                 android:background="@color/login_srk_bg">
 
                 <LinearLayout
@@ -170,9 +175,9 @@
                 android:id="@+id/denglu_zt_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
                 android:background="@color/login_srk_bg">
 
                 <LinearLayout
@@ -203,9 +208,9 @@
                 android:id="@+id/denglu_zt_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
                 android:background="@color/login_srk_bg">
 
                 <LinearLayout
@@ -249,9 +254,9 @@
                 android:id="@+id/denglu_zt_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
                 android:background="@color/login_srk_bg">
 
                 <LinearLayout
@@ -302,9 +307,9 @@
                 android:id="@+id/tv_register"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginEnd="13dp"
                 android:layout_marginStart="13dp"
                 android:layout_marginTop="18dp"
+                android:layout_marginEnd="13dp"
                 android:background="@drawable/my_pay_red_bg"
                 android:gravity="center"
                 android:text="@string/tyxybzc"
@@ -320,8 +325,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:drawablePadding="5dp"
                     android:drawableRight="@drawable/right_more"
+                    android:drawablePadding="5dp"
                     android:padding="16dp"
                     android:text="@string/yyouzhangh"
                     android:textColor="@color/text6"
@@ -334,8 +339,8 @@
                 android:layout_marginTop="34dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingEnd="12dp"
-                android:paddingStart="12dp">
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp">
 
                 <View
                     android:layout_width="wrap_content"
@@ -346,8 +351,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:text="@string/yyouzhangh"
                     android:textColor="@color/text6"
                     android:textSize="12dp" />
@@ -362,9 +367,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_marginTop="30dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="0dp"

@@ -21,6 +21,7 @@ import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.QiuGouListBean;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 
@@ -58,6 +59,8 @@ public class WaiMaoQiuGouActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
+
         tv_title.setText(getResources().getText(R.string.waimaoqiugou));
         initDatas(1, false);
         initRefresh();

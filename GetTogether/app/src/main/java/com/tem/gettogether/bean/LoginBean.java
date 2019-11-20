@@ -62,6 +62,15 @@ public class LoginBean {
         private String mobile_validated;
         private String level;
         private String head_pic;
+        private String openid;
+
+        public String getOpenid() {
+            return openid;
+        }
+
+        public void setOpenid(String openid) {
+            this.openid = openid;
+        }
 
         public String getLevel() {
             return level;

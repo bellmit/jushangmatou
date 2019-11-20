@@ -6,13 +6,18 @@
     android:background="@color/line"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:layout_margin="@dimen/dp_10"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <android.support.constraint.ConstraintLayout
@@ -80,7 +85,7 @@
             app:tl_textUnselectColor="#66000000"
             app:tl_textsize="12sp"
             app:tl_underline_color="#DDDDDD"
-            app:tl_underline_height="1dp"/>
+            app:tl_underline_height="1dp" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/myView"

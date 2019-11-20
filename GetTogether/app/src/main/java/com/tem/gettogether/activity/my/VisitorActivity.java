@@ -20,6 +20,7 @@ import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.FansDataBean;
 import com.tem.gettogether.bean.VisitorBean;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 
@@ -56,6 +57,7 @@ public class VisitorActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
         tv_title.setText(getResources().getText(R.string.visitor));
         getVisiterData(1, false);
         initRefresh();

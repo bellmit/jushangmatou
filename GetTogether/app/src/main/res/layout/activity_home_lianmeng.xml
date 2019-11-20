@@ -4,7 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
+
     <RelativeLayout
         android:id="@+id/ll_empty"
         android:layout_width="match_parent"
@@ -21,6 +27,7 @@
             android:textColor="@color/black"
             android:textSize="20sp" />
     </RelativeLayout>
+
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"

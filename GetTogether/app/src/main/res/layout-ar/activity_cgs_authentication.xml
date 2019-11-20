@@ -6,6 +6,11 @@
     android:layoutDirection="rtl"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
 
     <com.tem.gettogether.view.BaseScrollView
@@ -138,7 +143,6 @@
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:hint="@string/input_contacts_email"
-                        android:maxLength="18"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:textColorHint="@color/my_sprz_hind"

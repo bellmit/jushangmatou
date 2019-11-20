@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
+
     <com.tem.gettogether.view.BaseScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,70 +33,78 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*"
                         android:layout_marginEnd="10dp"
-                        android:textColor="@color/my_red"/>
+                        android:text="*"
+                        android:textColor="@color/my_red" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
+                        android:text="@string/gsmc"
                         android:textColor="@color/my_sprz_text"
-                        android:text="@string/gsmc"/>
+                        android:textSize="14dp" />
+
                     <EditText
                         android:id="@+id/et_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:paddingStart="10dp"
-                        android:textSize="14dp"
-                        android:paddingEnd="16dp"
                         android:gravity="right|center_vertical"
+                        android:hint="@string/please_input"
                         android:inputType="text"
                         android:maxLength="12"
-                        android:textColor="@color/text9"
                         android:maxLines="1"
-                        android:hint="@string/please_input"/>
+                        android:paddingStart="10dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/text9"
+                        android:textSize="14dp" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
+
                 <LinearLayout
                     android:id="@+id/ll_gsxz"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*"
                         android:layout_marginEnd="10dp"
-                        android:textColor="@color/my_red"/>
+                        android:text="*"
+                        android:textColor="@color/my_red" />
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
+                        android:text="@string/gsxz"
                         android:textColor="@color/my_sprz_text"
-                        android:text="@string/gsxz"/>
+                        android:textSize="14dp" />
+
                     <TextView
                         android:id="@+id/tv_gongsixz"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical|right"
-                        android:text="@string/please_chose"
                         android:paddingStart="10dp"
-                        android:textColor="@color/text9"
                         android:paddingEnd="10dp"
+                        android:text="@string/please_chose"
+                        android:textColor="@color/text9"
                         android:textSize="14dp" />
 
                     <ImageView
@@ -97,42 +112,47 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/right_more" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
+
                 <LinearLayout
                     android:id="@+id/ll_gsAddress"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*"
                         android:layout_marginEnd="10dp"
-                        android:textColor="@color/my_red"/>
+                        android:text="*"
+                        android:textColor="@color/my_red" />
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
+                        android:text="@string/gsdz"
                         android:textColor="@color/my_sprz_text"
-                        android:text="@string/gsdz"/>
+                        android:textSize="14dp" />
+
                     <TextView
                         android:id="@+id/tv_gongdizhi"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="center_vertical|right"
-                        android:text="@string/please_chose"
-                        android:maxLines="1"
                         android:ellipsize="end"
+                        android:gravity="center_vertical|right"
+                        android:maxLines="1"
                         android:paddingStart="10dp"
-                        android:textColor="@color/text9"
                         android:paddingEnd="10dp"
+                        android:text="@string/please_chose"
+                        android:textColor="@color/text9"
                         android:textSize="14dp" />
 
                     <ImageView
@@ -140,412 +160,464 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/right_more" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*"
                         android:layout_marginEnd="10dp"
-                        android:textColor="@color/my_red"/>
+                        android:text="*"
+                        android:textColor="@color/my_red" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
+                        android:text="公司详细地址"
                         android:textColor="@color/my_sprz_text"
-                        android:text="公司详细地址"/>
+                        android:textSize="14dp" />
+
                     <EditText
                         android:id="@+id/et_gsAddress"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:paddingStart="10dp"
-                        android:textSize="14dp"
-                        android:paddingEnd="16dp"
                         android:gravity="right|center_vertical"
+                        android:hint="@string/please_input"
                         android:inputType="text"
-                        android:textColor="@color/text9"
                         android:maxLines="1"
-                        android:hint="@string/please_input"/>
+                        android:paddingStart="10dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/text9"
+                        android:textSize="14dp" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*"
                         android:layout_marginEnd="10dp"
-                        android:textColor="@color/my_red"/>
+                        android:text="*"
+                        android:textColor="@color/my_red" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
+                        android:text="固定电话"
                         android:textColor="@color/my_sprz_text"
-                        android:text="固定电话"/>
+                        android:textSize="14dp" />
+
                     <EditText
                         android:id="@+id/gdPhone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:paddingStart="10dp"
-                        android:textSize="14dp"
-                        android:paddingEnd="16dp"
                         android:gravity="right|center_vertical"
-                        android:textColor="@color/text9"
+                        android:hint="@string/please_input"
                         android:maxLines="1"
-                        android:hint="@string/please_input"/>
+                        android:paddingStart="10dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/text9"
+                        android:textSize="14dp" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*"
-                        android:visibility="invisible"
                         android:layout_marginEnd="10dp"
-                        android:textColor="@color/my_red"/>
+                        android:text="*"
+                        android:textColor="@color/my_red"
+                        android:visibility="invisible" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
+                        android:text="电子邮箱"
                         android:textColor="@color/my_sprz_text"
-                        android:text="电子邮箱"/>
+                        android:textSize="14dp" />
+
                     <EditText
                         android:id="@+id/et_dzyb"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:paddingStart="10dp"
-                        android:textSize="14dp"
-                        android:paddingEnd="16dp"
                         android:gravity="right|center_vertical"
+                        android:hint="@string/please_input"
                         android:inputType="text"
                         android:maxLength="12"
-                        android:textColor="@color/text9"
                         android:maxLines="1"
-                        android:hint="@string/please_input"/>
+                        android:paddingStart="10dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/text9"
+                        android:textSize="14dp" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*"
                         android:layout_marginEnd="10dp"
-                        android:visibility="invisible"
-                        android:textColor="@color/my_red"/>
+                        android:text="*"
+                        android:textColor="@color/my_red"
+                        android:visibility="invisible" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
+                        android:text="传真"
                         android:textColor="@color/my_sprz_text"
-                        android:text="传真"/>
+                        android:textSize="14dp" />
+
                     <EditText
                         android:id="@+id/et_chuanz"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:paddingStart="10dp"
-                        android:textSize="14dp"
-                        android:paddingEnd="16dp"
                         android:gravity="right|center_vertical"
+                        android:hint="@string/please_input"
                         android:inputType="text"
                         android:maxLength="11"
-                        android:textColor="@color/text9"
                         android:maxLines="1"
-                        android:hint="@string/please_input"/>
+                        android:paddingStart="10dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/text9"
+                        android:textSize="14dp" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*"
                         android:layout_marginEnd="10dp"
-                        android:visibility="invisible"
-                        android:textColor="@color/my_red"/>
+                        android:text="*"
+                        android:textColor="@color/my_red"
+                        android:visibility="invisible" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
+                        android:text="邮政编码"
                         android:textColor="@color/my_sprz_text"
-                        android:text="邮政编码"/>
+                        android:textSize="14dp" />
+
                     <EditText
                         android:id="@+id/et_yzbm"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:paddingStart="10dp"
-                        android:textSize="14dp"
-                        android:paddingEnd="16dp"
                         android:gravity="right|center_vertical"
+                        android:hint="@string/please_input"
                         android:inputType="number"
-                        android:textColor="@color/text9"
                         android:maxLines="1"
-                        android:hint="@string/please_input"/>
+                        android:paddingStart="10dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/text9"
+                        android:textSize="14dp" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
-                    android:text="营业执照信息"/>
+                    android:paddingStart="16dp"
+                    android:text="营业执照信息" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="51dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*"
                         android:layout_marginEnd="10dp"
-                        android:textColor="@color/my_red"/>
+                        android:text="*"
+                        android:textColor="@color/my_red" />
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
+                        android:text="一证一码商家"
                         android:textColor="@color/my_sprz_text"
-                        android:text="一证一码商家"/>
+                        android:textSize="14dp" />
+
                     <View
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <ImageView
                         android:id="@+id/iv_qglx1"
                         android:layout_width="30dp"
                         android:layout_height="20dp"
                         android:layout_marginStart="30dp"
-                        android:src="@drawable/weixuanz"/>
+                        android:src="@drawable/weixuanz" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:textSize="14dp"
+                        android:text="是"
                         android:textColor="@color/text3"
-                        android:text="是"/>
+                        android:textSize="14dp" />
 
                     <ImageView
                         android:id="@+id/iv_qglx2"
                         android:layout_width="30dp"
                         android:layout_height="20dp"
                         android:layout_marginStart="30dp"
-                        android:src="@drawable/xuanzhongf"/>
+                        android:src="@drawable/xuanzhongf" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:textSize="14dp"
                         android:layout_marginEnd="16dp"
+                        android:text="否"
                         android:textColor="@color/text3"
-                        android:text="否"/>
+                        android:textSize="14dp" />
 
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*"
-                        android:visibility="invisible"
                         android:layout_marginEnd="10dp"
-                        android:textColor="@color/my_red"/>
+                        android:text="*"
+                        android:textColor="@color/my_red"
+                        android:visibility="invisible" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
+                        android:text="注册资金"
                         android:textColor="@color/my_sprz_text"
-                        android:text="注册资金"/>
+                        android:textSize="14dp" />
+
                     <EditText
                         android:id="@+id/et_ZCZJ"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:paddingStart="10dp"
-                        android:textSize="14dp"
-                        android:inputType="number"
-                        android:paddingEnd="16dp"
                         android:gravity="right|center_vertical"
-                        android:textColor="@color/text9"
+                        android:hint="@string/please_input"
+                        android:inputType="number"
                         android:maxLines="1"
-                        android:hint="@string/please_input"/>
+                        android:paddingStart="10dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/text9"
+                        android:textSize="14dp" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*"
                         android:layout_marginEnd="10dp"
-                        android:textColor="@color/my_red"/>
+                        android:text="*"
+                        android:textColor="@color/my_red" />
+
                     <TextView
                         android:id="@+id/tv_ymysj"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
+                        android:text="营业执照注册号"
                         android:textColor="@color/my_sprz_text"
-                        android:text="营业执照注册号"/>
+                        android:textSize="14dp" />
+
                     <EditText
                         android:id="@+id/et_yyzcNum"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:paddingStart="10dp"
-                        android:textSize="14dp"
-                        android:paddingEnd="16dp"
                         android:gravity="right|center_vertical"
+                        android:hint="@string/please_input"
                         android:inputType="number"
-                        android:textColor="@color/text9"
                         android:maxLines="1"
-                        android:hint="@string/please_input"/>
+                        android:paddingStart="10dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/text9"
+                        android:textSize="14dp" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*"
                         android:layout_marginEnd="10dp"
-                        android:textColor="@color/my_red"/>
+                        android:text="*"
+                        android:textColor="@color/my_red" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
+                        android:text="法定代表人姓名"
                         android:textColor="@color/my_sprz_text"
-                        android:text="法定代表人姓名"/>
+                        android:textSize="14dp" />
+
                     <EditText
                         android:id="@+id/et_fddbr"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:paddingStart="10dp"
-                        android:textSize="14dp"
-                        android:paddingEnd="16dp"
                         android:gravity="right|center_vertical"
+                        android:hint="@string/please_input"
                         android:inputType="text"
-                        android:textColor="@color/text9"
                         android:maxLines="1"
-                        android:hint="@string/please_input"/>
+                        android:paddingStart="10dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/text9"
+                        android:textSize="14dp" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
+
                 <LinearLayout
                     android:id="@+id/ll_yyzzyxq"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*"
                         android:layout_marginEnd="10dp"
-                        android:textColor="@color/my_red"/>
+                        android:text="*"
+                        android:textColor="@color/my_red" />
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
+                        android:text="营业执照有效期"
                         android:textColor="@color/my_sprz_text"
-                        android:text="营业执照有效期"/>
+                        android:textSize="14dp" />
 
                     <TextView
                         android:id="@+id/tv_starTime"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:hint="开始时间"
                         android:paddingStart="10dp"
-                        android:layout_marginStart="20dp"
-                        android:textColor="@color/text9"
                         android:paddingEnd="10dp"
+                        android:textColor="@color/text9"
                         android:textSize="14dp" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
+                        android:text="/"
                         android:textColor="@color/my_sprz_text"
-                        android:text="/"/>
+                        android:textSize="14dp" />
 
                     <TextView
                         android:id="@+id/tv_endTime"
@@ -555,55 +627,62 @@
                         android:gravity="center"
                         android:hint="结束时间"
                         android:paddingStart="10dp"
-                        android:textColor="@color/text9"
                         android:paddingEnd="10dp"
+                        android:textColor="@color/text9"
                         android:textSize="14dp" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:src="@drawable/right_more" />
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/line"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:paddingStart="16dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="*"
-                        android:layout_marginEnd="10dp"
-                        android:textColor="@color/my_red"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14dp"
-                        android:textColor="@color/my_sprz_text"
-                        android:text="营业执照经营范围"/>
-                    <EditText
-                        android:id="@+id/et_jyfw"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:paddingStart="10dp"
-                        android:textSize="14dp"
-                        android:paddingEnd="16dp"
-                        android:gravity="right|center_vertical"
-                        android:textColor="@color/text9"
-                        android:maxLines="1"
-                        android:hint="@string/please_input"/>
+                        android:src="@drawable/right_more"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="*"
+                        android:textColor="@color/my_red" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="营业执照经营范围"
+                        android:textColor="@color/my_sprz_text"
+                        android:textSize="14dp" />
+
+                    <EditText
+                        android:id="@+id/et_jyfw"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:gravity="right|center_vertical"
+                        android:hint="@string/please_input"
+                        android:maxLines="1"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/text9"
+                        android:textSize="14dp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
                 <LinearLayout
                     android:id="@+id/ll_isymysj"
                     android:layout_width="match_parent"
@@ -611,108 +690,121 @@
                     android:orientation="vertical">
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:paddingStart="16dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="*"
-                        android:layout_marginEnd="10dp"
-                        android:textColor="@color/my_red"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14dp"
-                        android:textColor="@color/my_sprz_text"
-                        android:text="组织机构代码"/>
-                    <EditText
-                        android:id="@+id/et_zzjgdm"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:paddingStart="10dp"
-                        android:textSize="14dp"
-                        android:paddingEnd="16dp"
-                        android:gravity="right|center_vertical"
-                        android:textColor="@color/text9"
-                        android:maxLines="1"
-                        android:hint="@string/please_input"/>
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/line"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:paddingStart="16dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="*"
-                        android:layout_marginEnd="10dp"
-                        android:textColor="@color/my_red"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14dp"
-                        android:textColor="@color/my_sprz_text"
-                        android:text="税务登记号码"/>
-                    <EditText
-                        android:id="@+id/et_swdjNum"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:text="*"
+                            android:textColor="@color/my_red" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="组织机构代码"
+                            android:textColor="@color/my_sprz_text"
+                            android:textSize="14dp" />
+
+                        <EditText
+                            android:id="@+id/et_zzjgdm"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:gravity="right|center_vertical"
+                            android:hint="@string/please_input"
+                            android:maxLines="1"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="16dp"
+                            android:textColor="@color/text9"
+                            android:textSize="14dp" />
+                    </LinearLayout>
+
+                    <View
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:paddingStart="10dp"
-                        android:textSize="14dp"
-                        android:paddingEnd="16dp"
-                        android:gravity="right|center_vertical"
-                        android:inputType="number"
-                        android:textColor="@color/text9"
-                        android:maxLines="1"
-                        android:hint="@string/please_input"/>
+                        android:layout_height="1dp"
+                        android:background="@color/line" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:text="*"
+                            android:textColor="@color/my_red" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="税务登记号码"
+                            android:textColor="@color/my_sprz_text"
+                            android:textSize="14dp" />
+
+                        <EditText
+                            android:id="@+id/et_swdjNum"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:gravity="right|center_vertical"
+                            android:hint="@string/please_input"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="16dp"
+                            android:textColor="@color/text9"
+                            android:textSize="14dp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/line" />
                 </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/line"/>
-                </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/ll_nsrLX"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*"
                         android:layout_marginEnd="10dp"
-                        android:textColor="@color/my_red"/>
+                        android:text="*"
+                        android:textColor="@color/my_red" />
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
+                        android:text="纳税人类型"
                         android:textColor="@color/my_sprz_text"
-                        android:text="纳税人类型"/>
+                        android:textSize="14dp" />
+
                     <TextView
                         android:id="@+id/tv_nsrlx"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical|right"
-                        android:text="@string/please_chose"
                         android:paddingStart="10dp"
-                        android:textColor="@color/text9"
                         android:paddingEnd="10dp"
+                        android:text="@string/please_chose"
+                        android:textColor="@color/text9"
                         android:textSize="14dp" />
 
                     <ImageView
@@ -720,41 +812,46 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/right_more" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
+
                 <LinearLayout
                     android:id="@+id/ll_nslxSM"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*"
                         android:layout_marginEnd="10dp"
-                        android:visibility="invisible"
-                        android:textColor="@color/my_red"/>
+                        android:text="*"
+                        android:textColor="@color/my_red"
+                        android:visibility="invisible" />
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
+                        android:text="纳税类型税码"
                         android:textColor="@color/my_sprz_text"
-                        android:text="纳税类型税码"/>
+                        android:textSize="14dp" />
+
                     <TextView
                         android:id="@+id/tv_nslxSM"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical|right"
-                        android:text="@string/please_chose"
                         android:paddingStart="10dp"
-                        android:textColor="@color/text9"
                         android:paddingEnd="10dp"
+                        android:text="@string/please_chose"
+                        android:textColor="@color/text9"
                         android:textSize="14dp" />
 
                     <ImageView
@@ -762,10 +859,11 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/right_more" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
 
 
             </LinearLayout>
@@ -777,29 +875,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
         android:gravity="center"
+        android:orientation="horizontal"
         android:paddingTop="10dp"
-        android:orientation="horizontal">
+        android:paddingBottom="10dp">
+
         <TextView
             android:id="@+id/tv_upStep"
             android:layout_width="80dp"
             android:layout_height="30dp"
-            android:text="@string/up_step"
-            android:gravity="center"
-            android:textColor="@color/text3"
-            android:textSize="14dp"
             android:layout_marginEnd="10dp"
-            android:background="@color/line"/>
+            android:background="@color/line"
+            android:gravity="center"
+            android:text="@string/up_step"
+            android:textColor="@color/text3"
+            android:textSize="14dp" />
+
         <TextView
             android:id="@+id/tv_nextStep"
             android:layout_width="135dp"
             android:layout_height="30dp"
-            android:text="下一步店铺信息"
+            android:background="@color/my_red"
             android:gravity="center"
-            android:textSize="14dp"
+            android:text="下一步店铺信息"
             android:textColor="@color/white"
-            android:background="@color/my_red"/>
+            android:textSize="14dp" />
     </LinearLayout>
 
 </LinearLayout>

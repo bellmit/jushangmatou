@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
+import com.tem.gettogether.utils.StatusBarUtil;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -42,7 +43,7 @@ public class BankCardBDActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        StatusBarUtil.setTranslucentStatus(this);
     }
     @Event(value = {R.id.rl_close,R.id.tv_xiayibu}, type = View.OnClickListener.class)
     private void getEvent(View view) {

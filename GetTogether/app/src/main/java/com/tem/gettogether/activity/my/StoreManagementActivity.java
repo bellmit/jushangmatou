@@ -9,11 +9,13 @@ import android.widget.TextView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.MyShopActivity;
 import com.tem.gettogether.activity.my.decoration.ShopDecorationActivity;
+import com.tem.gettogether.activity.my.member.MemberCentreActivity;
 import com.tem.gettogether.activity.my.publishgoods.PublishGoodsActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.utils.AppManager;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -26,31 +28,25 @@ public class StoreManagementActivity extends BaseActivity {
     private TextView tv_title;
     @ViewInject(R.id.rl_title_right)
     private RelativeLayout rl_title_right;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        x.view().inject(this);
-        AppManager.getAppManager().addActivity(this);
-        initData();
-        initView();
-    }
 
     @Override
     protected void initData() {
+        x.view().inject(this);
+        AppManager.getAppManager().addActivity(this);
         tv_title.setText(R.string.dianpuguanli);
         if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7").equals("2")) {
             rl_title_right.setVisibility(View.GONE);
-        }else{
+        } else {
             rl_title_right.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     protected void initView() {
-
+        StatusBarUtil.setTranslucentStatus(this);
     }
 
-    @Event(value = {R.id.rl_close, R.id.tv_cpgl,R.id.tv_decoration, R.id.tv_dpxx, R.id.tv_fbcp, R.id.rl_title_right}, type = View.OnClickListener.class)
+    @Event(value = {R.id.rl_close, R.id.tv_cpgl, R.id.tv_decoration, R.id.tv_dpxx, R.id.tv_fbcp, R.id.rl_title_right}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
@@ -66,7 +62,7 @@ public class StoreManagementActivity extends BaseActivity {
                 startActivity(new Intent(this, MyShopActivity.class));
                 break;
             case R.id.rl_title_right:
-                startActivity(new Intent(this, BuyMemberActivity.class));
+                startActivity(new Intent(this, MemberCentreActivity.class));
                 break;
             case R.id.tv_decoration:
                 startActivity(new Intent(this, ShopDecorationActivity.class));

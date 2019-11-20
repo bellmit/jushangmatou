@@ -5,6 +5,11 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
 
     <LinearLayout
@@ -40,6 +45,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/dp_10"
             android:text="@string/quanbufangke" />
+
         <RelativeLayout
             android:id="@+id/ll_empty"
             android:layout_width="match_parent"
@@ -56,6 +62,7 @@
                 android:textColor="@color/black"
                 android:textSize="20sp" />
         </RelativeLayout>
+
         <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
             android:id="@+id/refreshLayout"
             android:layout_width="match_parent"

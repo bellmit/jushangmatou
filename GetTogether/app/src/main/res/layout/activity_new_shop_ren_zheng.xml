@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
+
     <com.tem.gettogether.view.BaseScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,174 +32,193 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="51dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*"
                         android:layout_marginEnd="10dp"
-                        android:textColor="@color/my_red"/>
+                        android:text="*"
+                        android:textColor="@color/my_red" />
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
+                        android:text="联系人姓名"
                         android:textColor="@color/my_sprz_text"
-                        android:text="联系人姓名"/>
+                        android:textSize="14dp" />
+
                     <EditText
                         android:id="@+id/et_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:paddingStart="10dp"
-                        android:textSize="14dp"
+                        android:hint="请输入您身份证上的姓名"
                         android:inputType="text"
                         android:maxLength="12"
-                        android:textColor="@color/text3"
                         android:maxLines="1"
+                        android:paddingStart="10dp"
+                        android:textColor="@color/text3"
                         android:textColorHint="@color/my_sprz_hind"
-                        android:hint="请输入您身份证上的姓名"/>
+                        android:textSize="14dp" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="51dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*"
                         android:layout_marginEnd="10dp"
-                        android:textColor="@color/my_red"/>
+                        android:text="*"
+                        android:textColor="@color/my_red" />
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
+                        android:text="联系人手机号"
                         android:textColor="@color/my_sprz_text"
-                        android:text="联系人手机号"/>
+                        android:textSize="14dp" />
+
                     <EditText
                         android:id="@+id/et_phone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:textSize="14dp"
-                        android:textColor="@color/text3"
-                        android:paddingStart="10dp"
+                        android:hint="请输入您的手机号"
                         android:inputType="number"
                         android:maxLength="11"
+                        android:paddingStart="10dp"
+                        android:textColor="@color/text3"
                         android:textColorHint="@color/my_sprz_hind"
-                        android:hint="请输入您的手机号"/>
+                        android:textSize="14dp" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="51dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*"
                         android:layout_marginEnd="10dp"
-                        android:textColor="@color/my_red"/>
+                        android:text="*"
+                        android:textColor="@color/my_red" />
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
+                        android:text="联系人电子邮箱"
                         android:textColor="@color/my_sprz_text"
-                        android:text="联系人电子邮箱"/>
+                        android:textSize="14dp" />
+
                     <EditText
                         android:id="@+id/et_youxiang"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:textSize="15dp"
-                        android:maxLines="1"
+                        android:hint="请输入您的电子邮箱"
                         android:maxLength="18"
+                        android:maxLines="1"
                         android:paddingStart="10dp"
                         android:textColorHint="@color/my_sprz_hind"
-                        android:hint="请输入您的电子邮箱"/>
+                        android:textSize="15dp" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="51dp"
-                    android:paddingStart="16dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*"
                         android:layout_marginEnd="10dp"
-                        android:textColor="@color/my_red"/>
+                        android:text="*"
+                        android:textColor="@color/my_red" />
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
+                        android:text="申请类型"
                         android:textColor="@color/my_sprz_text"
-                        android:text="申请类型"/>
+                        android:textSize="14dp" />
+
                     <View
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
 
                     <ImageView
                         android:id="@+id/iv_qglx1"
                         android:layout_width="30dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/weixuanz"/>
+                        android:src="@drawable/weixuanz" />
 
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:textSize="14dp"
+                        android:text="个人入驻"
                         android:textColor="@color/text3"
-                        android:text="个人入驻"/>
+                        android:textSize="14dp" />
 
                     <ImageView
                         android:id="@+id/iv_qglx2"
                         android:layout_width="30dp"
                         android:layout_height="20dp"
                         android:layout_marginStart="15dp"
-                        android:src="@drawable/weixuanz"/>
+                        android:src="@drawable/weixuanz" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:textSize="14dp"
                         android:layout_marginEnd="16dp"
+                        android:text="企业入驻"
                         android:textColor="@color/text3"
-                        android:text="企业入驻"/>
+                        android:textSize="14dp" />
 
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"/>
+                    android:background="@color/line" />
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/line"/>
+                android:background="@color/line" />
 
         </LinearLayout>
     </com.tem.gettogether.view.BaseScrollView>
@@ -201,10 +227,10 @@
         android:id="@+id/tv_tjsh"
         android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:textSize="16dp"
-        android:textColor="@color/white"
-        android:text="下一步，填写公司信息"
+        android:background="@color/my_red"
         android:gravity="center"
-        android:background="@color/my_red"/>
+        android:text="下一步，填写公司信息"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
 
 </LinearLayout>

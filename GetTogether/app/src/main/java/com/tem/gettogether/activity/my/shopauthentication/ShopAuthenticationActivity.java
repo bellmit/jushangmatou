@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -54,6 +56,12 @@ public class ShopAuthenticationActivity extends BaseActivity {
     private EditText et_moble;
     @ViewInject(R.id.linyi_cb)
     private CheckBox linyi_cb;
+    @ViewInject(R.id.distributor_rb)
+    private RadioButton distributor_rb;
+    @ViewInject(R.id.factory_rb)
+    private RadioButton factory_rb;
+    @ViewInject(R.id.personal_rb)
+    private RadioButton personal_rb;
 
     @Override
     protected void initData() {
@@ -65,32 +73,33 @@ public class ShopAuthenticationActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        distributor_rb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                RZType = 1;
+            }
+        });
 
+        factory_rb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                RZType = 2;
+            }
+        });
+
+        personal_rb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                RZType = 0;
+            }
+        });
     }
 
-    @Event(value = {R.id.rl_close, R.id.tv_tjsh, R.id.iv_qglx1, R.id.iv_qglx2, R.id.iv_qglx3}, type = View.OnClickListener.class)
+    @Event(value = {R.id.rl_close, R.id.tv_tjsh}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
                 finish();
-                break;
-            case R.id.iv_qglx1:
-                RZType = 1;
-                iv_qglx1.setImageResource(R.drawable.xuanzhongf);
-                iv_qglx2.setImageResource(R.drawable.weixuanz);
-                iv_qglx3.setImageResource(R.drawable.weixuanz);
-                break;
-            case R.id.iv_qglx2:
-                RZType = 2;
-                iv_qglx2.setImageResource(R.drawable.xuanzhongf);
-                iv_qglx1.setImageResource(R.drawable.weixuanz);
-                iv_qglx3.setImageResource(R.drawable.weixuanz);
-                break;
-            case R.id.iv_qglx3:
-                RZType = 0;
-                iv_qglx3.setImageResource(R.drawable.xuanzhongf);
-                iv_qglx2.setImageResource(R.drawable.weixuanz);
-                iv_qglx1.setImageResource(R.drawable.weixuanz);
                 break;
             case R.id.tv_tjsh:
                 upRequest();

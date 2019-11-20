@@ -5,6 +5,11 @@
     android:layoutDirection="rtl"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
 
     <EditText
@@ -13,11 +18,11 @@
         android:layout_height="match_parent"
         android:layout_margin="20dp"
         android:layout_weight="1"
-        android:textDirection="locale"
         android:background="@drawable/bg_line"
         android:gravity="start"
         android:hint="@string/qingshuruwenzijieshao"
-        android:padding="@dimen/dp_10" />
+        android:padding="@dimen/dp_10"
+        android:textDirection="locale" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -5,6 +5,11 @@
     android:background="@color/line"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
 
     <LinearLayout
@@ -71,20 +76,19 @@
             android:background="@color/white"
             android:gravity="top"
             android:hint="输入文字"
-            android:paddingLeft="@dimen/dp_10"
-            android:visibility="gone"
             android:imeOptions="actionDone"
-             />
+            android:paddingLeft="@dimen/dp_10"
+            android:visibility="gone" />
 
         <EditText
             android:id="@+id/to_result_tv"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:paddingLeft="@dimen/dp_10"
-            android:gravity="top"
-            android:visibility="gone"
             android:layout_marginTop="@dimen/dp_20"
-            android:background="@color/white" />
+            android:background="@color/white"
+            android:gravity="top"
+            android:paddingLeft="@dimen/dp_10"
+            android:visibility="gone" />
 
         <View
             android:layout_width="match_parent"

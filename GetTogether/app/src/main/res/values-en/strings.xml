@@ -106,22 +106,22 @@
     <string name="shanchu">delete</string>
 
     <!--登录-->
-    <string name="denglu">login</string>
+    <string name="denglu">Login</string>
     <string name="phone_denglu">Phone Login</string>
     <string name="zhanghao_pass_dl">Account password</string>
     <string name="qsrsjh">Please enter your phone number</string>
     <string name="qsrnd_padd">Please enter your password</string>
     <string name="lijizc">Register now</string>
-    <string name="forget_pass">Forgot password?</string>
+    <string name="forget_pass">Forgot password</string>
     <string name="yyouzhangh">Existing account to log in</string>
-    <string name="yanzhengm">Please enter the verification code</string>
+    <string name="yanzhengm">Code</string>
     <string name="huoquyanzm">Verification Code</string>
     <string name="qing_newPass">Please enter a new password</string>
     <string name="qing_qrnewPass">Please make sure the new password</string>
 
     <string name="gerenzhongxin">Personal information</string>
     <string name="xiugaitouxiang">Modify the picture</string>
-    <string name="nicheng">nickname</string>
+    <string name="nicheng">Nickname</string>
     <string name="xiugai_nicheng">Modify the nickname</string>
     <string name="zhanghao">account</string>
     <string name="huiyuandengji">Membership grade</string>
@@ -149,7 +149,7 @@
     <string name="tuichu">Log out</string>
     <string name="queding">determine</string>
     <string name="xiayibu">next</string>
-    <string name="zhuche">registered</string>
+    <string name="zhuche">Registered</string>
 
 
     <string name="umeng_socialize_text_qq_key">QQ</string>
@@ -310,7 +310,7 @@
     <string name="join_membership">Join member</string>
     <string name="my_shop">My shop</string>
     <string name="restart_rz">Fill in again</string>
-    <string name="specification_description">selected%1$dSeveral product specifications，Maximum optional%2$d个</string>
+    <string name="specification_description">Selected%1$dSeveral product specifications，Maximum optional%2$d</string>
     <string name="bill_tv">Bill</string>
     <string name="change_address">Replacement address</string>
     <string name="contact_tv">Contact：</string>
@@ -614,7 +614,7 @@
     <string name="qingtianxieshangpmc">Please fill in the product name</string>
     <string name="shifouxunjia">Whether to ask for price：</string>
     <string name="yes">Yes</string>
-    <string name="no">no</string>
+    <string name="no">No</string>
     <string name="shangpjiage">Product price：</string>
     <string name="qtxspsjia">Please fill in the product price</string>
     <string name="sphh">Product number：</string>
@@ -647,7 +647,7 @@
     <string name="splunbo">Product carousel picture：</string>
     <string name="qingshangchuansptp">Please upload a product image(Up to 9 sheets)</string>
     <string name="lianximaijia">Contact seller</string>
-    <string name="bodadianhua">dial number</string>
+    <string name="bodadianhua">Dial number</string>
     <string name="dpszqy">Store location</string>
     <string name="zhucechenggong">registration success！</string>
     <string name="go_login">Go to login</string>
@@ -791,4 +791,47 @@
     <string name="deposit_payment_tv">The deposit is paid at</string>
     <string name="valid_until">Valid until at</string>
     <string name="renewal_immediately">Renewal immediately</string>
+    <string name="delete_last_one">Delete the last one</string>
+    <string name="refund_application">Refund application</string>
+    <string name="password">Password</string>
+    <string name="sms_verification_code_sign">SMS verification code sign</string>
+    <string name="email_sign">Email sign</string>
+    <string name="new_user_registration">New user registration</string>
+    <string name="other_login_methods">Other login methods</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="phone_registered">Phone</string>
+    <string name="email_registered">Email</string>
+    <string name="email">Email</string>
+    <string name="qtxyxh">Please fill email number</string>
+    <string name="email_login">Email Login</string>
+    <string name="submit">Submit</string>
+    <string name="pthyyjyeth">Ordinary member deposit balance refunded</string>
+    <string name="tkzhxx">Refund account information</string>
+    <string name="sqzh">Account Application：</string>
+    <string name="tkxm">Refund item：</string>
+    <string name="tkje">Refund amount：</string>
+    <string name="zfbzhm">Alipay account name：</string>
+    <string name="qtxzhm">Please fill in the account name</string>
+    <string name="alipay_account">Alipay account：</string>
+    <string name="qsrtkmbzfbzh">Please enter the refund target Alipay account</string>
+    <string name="refund_declaration">Refund declaration：</string>
+    <string name="tuikuanshengming">Refund declaration detail</string>
+    <string name="save_submission">Save submission</string>
+    <string name="putong_refund">The deposit refund time is 1-15 working days. After the application, your account will be downgraded to the status of the visitor and you will not be able to use the membership. Is the deposit still refunded?</string>
+    <string name="gaoji_refund">Ordinary member upgrade to a premium member: deduct 998 yuan from the 2000 yuan deposit, the senior member will be opened immediately, the remaining 1002 deposit, please apply for a deposit refund!</string>
+    <string name="sjhyyjyeth">Upgrade member deposit balance refund</string>
+    <string name="huiyuanxufei">Member renewal</string>
+    <string name="reacquire">Reacquire</string>
+    <string name="phone_change_password">Phone</string>
+    <string name="email_change_password">Email</string>
+    <string name="country_code">Country/...</string>
+    <string name="refund_progress">Refund progress</string>
+    <string name="fill_personal_information">Fill in personal information</string>
+    <string name="store_information">Store information</string>
+    <string name="select_supplier_identity">Please select a supplier identity</string>
+    <string name="choose_your_identity">In order to better serve everyone, please choose your identity</string>
+    <string name="is_buyer">Buyer</string>
+    <string name="is_supplier">Supplier</string>
+    <string name="select_country_code">Select country code</string>
+    <string name="please_enter_full_email_address">Please enter the full email address</string>
 </resources>

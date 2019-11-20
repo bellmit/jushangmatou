@@ -46,7 +46,6 @@ public class SpecificationsDetailAdapter extends RecyclerView.Adapter<Specificat
     public void onBindViewHolder(final SpecificationsDetailAdapter.ViewHolder holder, final int position) {
         mSpecificationsDetailAddAdapter = new SpecificationsDetailAddAdapter(context, position, mDatas);
         holder.recyclerView.setAdapter(mSpecificationsDetailAddAdapter);
-
         mSpecificationsDetailAddAdapter.setOnDataItem(new SpecificationsDetailAddAdapter.OnDataListener() {
             @Override
             public void onAddData(String name, int currentCount, List<String> mDatas) {
@@ -114,7 +113,6 @@ public class SpecificationsDetailAdapter extends RecyclerView.Adapter<Specificat
                 }
             }
             copylist.remove(copylist.size()-1);
-            Log.d("chenshichun","copylist:: "+copylist);
             if (copylist.size() > 0) {
                 List<String> L0 = new ArrayList<>();
                 L0.addAll(copylist);

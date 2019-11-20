@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.my.authentication.AuthenticationActivity;
 import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
@@ -148,7 +149,7 @@ public class ShopRzFailedActivity extends BaseActivity {
                 break;
             case R.id.rz_btn:
                 if (rz_type == 0) {
-                    startActivity(new Intent(this, ShopAuthenticationActivity.class));
+                    startActivity(new Intent(this, AuthenticationActivity.class));
                     finish();
                 } else {
                     startActivity(new Intent(this, CgsAuthenticationActivity.class));

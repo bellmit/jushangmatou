@@ -140,10 +140,8 @@ public class ServiceProviderActivity extends BaseActivity {
             @Override
             public void onItemClick(int position) {
                 Intent intent = getIntent();
-                Bundle bundle = intent.getExtras();
-                bundle.putString("companyName", serviceProviderBeans.get(position).getCompany_name());
-                bundle.putString("companyId", serviceProviderBeans.get(position).getCompanyid());
-                intent.putExtras(bundle);
+                intent.putExtra("companyName", serviceProviderBeans.get(position).getCompany_name());
+                intent.putExtra("companyId", serviceProviderBeans.get(position).getCompanyid());
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }

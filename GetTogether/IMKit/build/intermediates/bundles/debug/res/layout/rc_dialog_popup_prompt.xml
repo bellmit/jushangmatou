@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:paddingStart="19dp"
+            android:paddingLeft="19dp"
             android:singleLine="true"
             android:textColor="@color/rc_popup_dialog_text_color"
             android:textSize="20sp"
@@ -35,8 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:paddingStart="19dp"
-            android:paddingEnd="19dp"
+            android:paddingLeft="19dp"
+            android:paddingRight="19dp"
             android:textColor="@color/rc_popup_dialog_text_color"
             android:textSize="17sp" />
     </RelativeLayout>
@@ -48,7 +48,7 @@
         android:gravity="right"
         android:orientation="horizontal"
         android:paddingBottom="12dp"
-        android:paddingEnd="5dp"
+        android:paddingRight="5dp"
         android:paddingTop="12dp">
 
         <TextView

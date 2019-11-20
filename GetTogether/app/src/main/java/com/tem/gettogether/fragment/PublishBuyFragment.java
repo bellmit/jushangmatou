@@ -805,34 +805,6 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
 
     @Override
     public boolean onLongClick(View view) {
-        final Integer index = (Integer) view.getTag();
-        System.out.println("index:===" + index);
-        /**
-         这里使用了 android.support.v7.app.AlertDialog.Builder
-         可以直接在头部写 import android.support.v7.app.AlertDialog
-         那么下面就可以写成 AlertDialog.Builder
-         */
-        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getActivity());
-        builder.setMessage(getText(R.string.whether_to_confirm_the_deletion));
-        builder.setNegativeButton(getText(R.string.quxiao), null);
-        builder.setPositiveButton(getText(R.string.queding), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (imagePaths.size() > 0) {
-                    imagePaths.remove(imagePaths.get(index));
-                }
-                if (compressPaths.size() > 0) {
-                    compressPaths.remove(compressPaths.get(index));
-                }
-                if (cartImage.size() > 0) {
-                    cartImage.remove(cartImage.get(index));
-                }
-                mTaskImgAdapter.notifyDataSetChanged();
-            }
-        });
-        if (imagePaths.size() - 1 != index)
-            builder.show();
-
         return true;
     }
 

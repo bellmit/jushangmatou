@@ -93,7 +93,7 @@ public class SharedPreferencesUtils {
     }
 
     public static int getInt(Context context, String key,
-                                 int defValue) {
+                             int defValue) {
 
         if (sp == null) {
 
@@ -103,5 +103,13 @@ public class SharedPreferencesUtils {
         return sp.getInt(key, defValue);
     }
 
+    public static void clearUser(Context context) {
+        if (sp == null) {
 
+            sp = context.getSharedPreferences(SP_LANGUAGE_NAME, context.MODE_PRIVATE);
+        }
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        editor.commit();
+    }
 }

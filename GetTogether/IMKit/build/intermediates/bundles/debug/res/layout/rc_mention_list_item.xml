@@ -12,7 +12,7 @@
         android:layout_height="fill_parent"
         android:layout_weight="1.0"
         android:paddingBottom="5dip"
-        android:paddingStart="12dip"
+        android:paddingLeft="12dip"
         android:paddingTop="5dip"
         android:background="#f0f0f6"
         android:text="A"
@@ -21,7 +21,7 @@
     <LinearLayout
         android:id="@+id/memberItem"
         android:layout_width="fill_parent"
-        android:paddingEnd="12dp"
+        android:paddingRight="12dp"
         android:layout_height="52dp"
         android:background="@drawable/rc_bg_mentionlist_item"
         android:orientation="horizontal">
@@ -32,7 +32,7 @@
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:scaleType="centerCrop"
-            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
             app:RCCornerRadius="3dip"
             app:RCDefDrawable="@drawable/rc_default_portrait" />
 
@@ -44,7 +44,7 @@
             android:lines="1"
             android:ellipsize="end"
             android:maxLength="32"
-            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
             android:textColor="#353535"
             android:textSize="16sp" />
 
@@ -53,8 +53,8 @@
     <View
         android:layout_width="wrap_content"
         android:layout_height="1px"
-        android:layout_marginStart="13dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="16dp"
         android:background="#ccc" />
 
 </LinearLayout>

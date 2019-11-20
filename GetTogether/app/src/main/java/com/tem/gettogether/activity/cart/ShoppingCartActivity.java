@@ -14,10 +14,8 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
-import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
 import com.tem.gettogether.activity.my.AddressGLActivity;
 import com.tem.gettogether.base.BaseActivity;
-import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
@@ -28,6 +26,7 @@ import com.tem.gettogether.bean.JieSuanBean;
 import com.tem.gettogether.rongyun.RongTalk;
 import com.tem.gettogether.utils.NetWorkUtils;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.RoundImageView;
@@ -83,6 +82,7 @@ public class ShoppingCartActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
         initView();
     }
 
@@ -136,9 +136,9 @@ public class ShoppingCartActivity extends BaseActivity {
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(getContext(), true);
         // 设置下拉刷新
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.color_F3F5F4);//背景色
-        refreshViewHolder.setPullDownRefreshText(""+getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
-        refreshViewHolder.setReleaseRefreshText(""+getResources().getText(R.string.refresh_release_text));//松开的提示文字
-        refreshViewHolder.setRefreshingText(""+getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
+        refreshViewHolder.setPullDownRefreshText("" + getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
+        refreshViewHolder.setReleaseRefreshText("" + getResources().getText(R.string.refresh_release_text));//松开的提示文字
+        refreshViewHolder.setRefreshingText("" + getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
 
         // 设置下拉刷新和上拉加载更多的风格
 //        order_refresh_fragment.setRefreshViewHolder(refreshViewHolder);
@@ -442,10 +442,16 @@ public class ShoppingCartActivity extends BaseActivity {
                                             iv_cart_shopping_isxz = holder.getImageView(R.id.iv_cart_shopping_isxz);
                                             TextView tv_red_num = holder.getTextView(R.id.tv_red_num);
                                             TextView tv_shopping_qpl = holder.getTextView(R.id.tv_shopping_qpl);
+                                            TextView tv_guige = holder.getTextView(R.id.tv_guige);
                                             final TextView tv_connectNum = holder.getTextView(R.id.tv_connectNum);
                                             final TextView tv_shopping_price = holder.getTextView(R.id.tv_shopping_price);
                                             RoundImageView iv_shopping_image = (RoundImageView) holder.getImageView(R.id.iv_shopping_image);
-                                            Glide.with(getContext()).load(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_logo()).error(R.mipmap.myy322x).into(iv_shopping_image);
+                                            Glide.with(getContext()).load(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getCover_image()).error(R.mipmap.myy322x).into(iv_shopping_image);
+                                            if (storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getSpec_key_name() != null &&
+                                                    !storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getSpec_key_name().equals("")) {
+                                                tv_guige.setVisibility(View.VISIBLE);
+                                                tv_guige.setText(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getSpec_key_name());
+                                            }
                                             tv_connectNum.setText(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_num());
                                             holder.getTextView(R.id.tv_connect).setText(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_name());
                                             if (storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getIs_enquiry().equals("1")) {//立即询价
@@ -461,7 +467,7 @@ public class ShoppingCartActivity extends BaseActivity {
                                                 tv_shopping_qpl.setVisibility(View.VISIBLE);
                                                 tv_red_num.setVisibility(View.GONE);
                                                 holder.getTextView(R.id.tv_shopping_qpl).setText(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getBatch_number() + getResources().getText(R.string.from_batch));
-                                                holder.getTextView(R.id.tv_shopping_price).setText(getResources().getText(R.string.renminbi_symbol)+ storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_price() +"/"+ getResources().getText(R.string.piece_tv));
+                                                holder.getTextView(R.id.tv_shopping_price).setText(getResources().getText(R.string.renminbi_symbol) + storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_price() + "/" + getResources().getText(R.string.piece_tv));
                                                 tv_shopping_price.setTextColor(getResources().getColor(R.color.my_red));
                                             }
 
@@ -512,15 +518,15 @@ public class ShoppingCartActivity extends BaseActivity {
                                                     if (tv_shopping_price.getText().toString().equals(getResources().getText(R.string.ask))) {
                                                         try {
 
-                                                                //发消息
-                                                                if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
-                                                                    if (storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList() != null && storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_user_id() != null) {
-                                                                        RongTalk.doConnection(getContext(), SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
-                                                                                , storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_user_id(), storeListBeans.get(baseViewHolder.getAdapterPosition()).getStore_name(),
-                                                                                storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_logo(), storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_id());
-                                                                    } else {
-                                                                        CusToast.showToast(getResources().getText(R.string.the_store_is_invalid));
-                                                                    }
+                                                            //发消息
+                                                            if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
+                                                                if (storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList() != null && storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_user_id() != null) {
+                                                                    RongTalk.doConnection(getContext(), SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
+                                                                            , storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_user_id(), storeListBeans.get(baseViewHolder.getAdapterPosition()).getStore_name(),
+                                                                            storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getCover_image(), storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_id());
+                                                                } else {
+                                                                    CusToast.showToast(getResources().getText(R.string.the_store_is_invalid));
+                                                                }
                                                             }
 
                                                         } catch (Exception e) {
@@ -624,7 +630,7 @@ public class ShoppingCartActivity extends BaseActivity {
                         Gson gson = new Gson();
                         CartDataBean cartDataBean = gson.fromJson(result, CartDataBean.class);
                         storeListBeans.removeAll(storeListBeans);
-                        storeListBeans.addAll( cartDataBean.getResult().getStoreList());
+                        storeListBeans.addAll(cartDataBean.getResult().getStoreList());
                         totalPriceBeans = cartDataBean.getResult().getTotal_price();
                     } else if (msg.equals("")) {
                         tv_all_price.setVisibility(View.VISIBLE);

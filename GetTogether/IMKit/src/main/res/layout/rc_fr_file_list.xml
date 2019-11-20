@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
             android:singleLine="true"
             android:text="@string/rc_ac_file_send_preview"
             android:textColor="#ffffff"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
             android:background="@android:color/transparent"
-            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
             android:textColor="@color/rc_btn_file_list_send"
             android:textSize="18sp"
             android:text="@string/rc_ad_send_file_no_select_file"/>

@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/line"
     android:layout_height="match_parent"
+    android:background="@color/line"
     android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
 
     <cn.bingoogolapple.refreshlayout.BGARefreshLayout
@@ -25,6 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <com.tem.gettogether.view.powerfulrecyclerview.HomeListFreshRecyclerView
                         android:id="@+id/order_rl"
                         android:layout_width="match_parent"
@@ -34,33 +41,37 @@
                     <LinearLayout
                         android:id="@+id/ll_look_more"
                         android:layout_width="match_parent"
-                        android:visibility="gone"
                         android:layout_height="45dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
                         <View
                             android:layout_width="0dp"
                             android:layout_height="1dp"
                             android:layout_weight="1"
-                            android:background="@color/line"/>
+                            android:background="@color/line" />
+
                         <ImageView
                             android:layout_width="15dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
-                            android:src="@drawable/home_xq_sl"/>
+                            android:src="@drawable/home_xq_sl" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14dp"
                             android:layout_marginStart="4dp"
                             android:layout_marginEnd="4dp"
+                            android:text="@string/dianjichakangenduo"
                             android:textColor="@color/text3"
-                            android:text="@string/dianjichakangenduo"/>
+                            android:textSize="14dp" />
+
                         <View
                             android:layout_width="0dp"
                             android:layout_height="1dp"
                             android:layout_weight="1"
-                            android:background="@color/line"/>
+                            android:background="@color/line" />
                     </LinearLayout>
 
                 </LinearLayout>

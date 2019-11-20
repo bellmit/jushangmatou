@@ -5,8 +5,7 @@
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <com.tem.gettogether.view.BaseScrollView
             android:layout_width="match_parent"
@@ -22,7 +21,7 @@
                     android:id="@+id/ll_myhead"
                     android:layout_width="match_parent"
                     android:layout_height="190dp"
-                    android:background="@drawable/plan_progress_one"
+                    android:background="@drawable/my_bg"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -50,8 +49,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
-                                android:layout_alignParentBottom="true"
-                                 />
+                                android:layout_alignParentBottom="true" />
                         </RelativeLayout>
 
                         <LinearLayout
@@ -65,8 +63,8 @@
                                 android:id="@+id/tv_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:drawableEnd="@drawable/edit_name_icon"
                                 android:text="null"
+                                android:paddingStart="4dp"
                                 android:textColor="@color/white"
                                 android:textSize="19dp" />
 
@@ -80,28 +78,18 @@
                                 android:textSize="12dp"
                                 android:visibility="gone" />
 
-                            <LinearLayout
-                                android:id="@+id/ll_dprz"
+
+                            <TextView
+                                android:id="@+id/tv_shopZZ"
                                 android:layout_width="wrap_content"
-                                android:layout_height="21dp"
-                                android:layout_marginTop="10dp"
-                                android:background="@drawable/radius_write_btn"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal"
-                                android:paddingStart="8dp"
-                                android:paddingEnd="8dp">
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_10"
+                                android:background="@drawable/identity_bg"
+                                android:gravity="center"
+                                android:text="@string/gongyingshang"
+                                android:textColor="@color/Orange"
+                                android:textSize="11dp" />
 
-                                <TextView
-                                    android:id="@+id/tv_shopZZ"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="4dp"
-                                    android:layout_marginEnd="4dp"
-                                    android:text="@string/gongyingshang"
-                                    android:textColor="@color/Orange"
-                                    android:textSize="11dp" />
-
-                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
 
@@ -203,7 +191,7 @@
                 <TextView
                     android:id="@+id/tv_bg"
                     android:layout_width="match_parent"
-                    android:layout_height="110dp"
+                    android:layout_height="130dp"
                     android:layout_below="@+id/ll_myhead"
                     android:background="@color/my_kb_bg" />
 
@@ -211,9 +199,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="13dp"
-                    android:layout_marginTop="178dp"
+                    android:layout_marginTop="170dp"
                     android:layout_marginEnd="13dp"
-                    android:background="@drawable/my_zhuangtai_bg"
+                    android:background="@drawable/center_white_bg"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
@@ -221,6 +209,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
+                        android:layout_marginStart="@dimen/dp_20"
                         android:text="@string/my_signing"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
@@ -235,59 +224,126 @@
                         android:layout_height="wrap_content"
                         android:padding="@dimen/dp_10">
 
-                        <TextView
-                            android:id="@+id/tv_all"
+                        <RelativeLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:drawableTop="@drawable/my_zt_all"
-                            android:drawablePadding="10dp"
-                            android:gravity="center"
-                            android:text="@string/quanbu"
-                            android:textColor="@color/text6"
-                            android:textSize="12dp" />
+                            android:layout_weight="1">
 
-                        <TextView
-                            android:id="@+id/tv_dfk"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:drawableTop="@drawable/fahuo_icon"
-                            android:drawablePadding="10dp"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="@string/daifahuo"
-                            android:textColor="@color/text6"
-                            android:textSize="12dp" />
+                            <TextView
+                                android:id="@+id/tv_all"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:drawableTop="@drawable/my_zt_all"
+                                android:drawablePadding="10dp"
+                                android:gravity="center"
+                                android:text="@string/quanbu"
+                                android:textColor="@color/text6"
+                                android:textSize="12dp" />
 
-                        <TextView
-                            android:id="@+id/tv_dfh"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:drawableTop="@drawable/yishouhuo_icon"
-                            android:drawablePadding="10dp"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="@string/wait_s"
-                            android:textColor="@color/text6"
-                            android:textSize="12dp" />
+                            <TextView
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_alignRight="@id/tv_all"
+                                android:background="@drawable/red_circle_bg"
+                                android:gravity="center"
+                                android:text="99"
+                                android:textColor="@color/col_circle"
+                                android:textSize="8sp" />
 
-                        <TextView
-                            android:id="@+id/tv_dsh"
+                        </RelativeLayout>
+
+                        <RelativeLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:drawableTop="@drawable/yijiekuan_icon"
-                            android:drawablePadding="10dp"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="@string/yijiekuan"
-                            android:textColor="@color/text6"
-                            android:textSize="12dp" />
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_dfk"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:drawableTop="@drawable/fahuo_icon"
+                                android:drawablePadding="10dp"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxLines="2"
+                                android:text="@string/daifahuo"
+                                android:textColor="@color/text6"
+                                android:textSize="12dp" />
+
+                            <TextView
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_alignRight="@id/tv_dfk"
+                                android:background="@drawable/red_circle_bg"
+                                android:gravity="center"
+                                android:text="99"
+                                android:textColor="@color/col_circle"
+                                android:textSize="8sp" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_dfh"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:drawableTop="@drawable/yishouhuo_icon"
+                                android:drawablePadding="10dp"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxLines="2"
+                                android:text="@string/wait_s"
+                                android:textColor="@color/text6"
+                                android:textSize="12dp" />
+
+                            <TextView
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_alignRight="@id/tv_dfh"
+                                android:background="@drawable/red_circle_bg"
+                                android:gravity="center"
+                                android:text="99"
+                                android:textColor="@color/col_circle"
+                                android:textSize="8sp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_dsh"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_weight="1"
+                                android:drawableTop="@drawable/yijiekuan_icon"
+                                android:drawablePadding="10dp"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxLines="2"
+                                android:text="@string/yijiekuan"
+                                android:textColor="@color/text6"
+                                android:textSize="12dp" />
+
+                            <TextView
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_alignRight="@id/tv_dsh"
+                                android:background="@drawable/red_circle_bg"
+                                android:gravity="center"
+                                android:text="99"
+                                android:textColor="@color/col_circle"
+                                android:textSize="8sp" />
+                        </RelativeLayout>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -441,15 +497,16 @@
                                 android:text="@string/shopRZ"
                                 android:textColor="@color/text3"
                                 android:textSize="14dp" />
+
                             <TextView
                                 android:id="@+id/rz_status_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text=""
-                                android:layout_marginEnd="20dp"
-                                android:layout_centerVertical="true"
                                 android:layout_alignParentEnd="true"
-                                />
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="20dp"
+                                android:text="" />
+
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

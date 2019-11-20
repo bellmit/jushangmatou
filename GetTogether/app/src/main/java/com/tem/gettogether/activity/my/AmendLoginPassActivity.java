@@ -15,6 +15,7 @@ import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 
@@ -55,7 +56,7 @@ public class AmendLoginPassActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        StatusBarUtil.setTranslucentStatus(this);
     }
     @Event(value = {R.id.rl_close,R.id.tv_sure}, type = View.OnClickListener.class)
     private void getEvent(View view) {

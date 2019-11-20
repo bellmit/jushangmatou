@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
 
     <include layout="@layout/title_layout" />
 
@@ -16,24 +21,26 @@
             android:id="@+id/ps_tab"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:orientation="horizontal"
             android:background="@color/white"
+            android:orientation="horizontal"
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/my_red"
             app:tabIndicatorHeight="2dp"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/my_red"
             app:tabTextAppearance="@style/MyWishTabTextAppearance_collect"
-            app:tabTextColor="@color/text3"/>
+            app:tabTextColor="@color/text3" />
+
         <View
-            android:background="@color/line"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:background="@color/line" />
+
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_client"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"/>
+            android:background="@color/white" />
 
     </LinearLayout>
 </LinearLayout>

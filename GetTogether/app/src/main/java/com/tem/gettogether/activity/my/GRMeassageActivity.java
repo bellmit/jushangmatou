@@ -37,6 +37,7 @@ import com.tem.gettogether.retrofit.UploadUtil;
 import com.tem.gettogether.utils.Base64BitmapUtil;
 import com.tem.gettogether.utils.BitnapUtils;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.permissions.AppUtils;
 import com.tem.gettogether.utils.permissions.FileUtils;
 import com.tem.gettogether.utils.permissions.PermissionsActivity;
@@ -106,6 +107,7 @@ public class GRMeassageActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        StatusBarUtil.setTranslucentStatus(this);
         upGetMessageData();
     }
 

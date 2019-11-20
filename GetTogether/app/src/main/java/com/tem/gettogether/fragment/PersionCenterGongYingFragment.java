@@ -36,10 +36,10 @@ import com.tem.gettogether.activity.my.SettingActivity;
 import com.tem.gettogether.activity.my.ShopRzFailedActivity;
 import com.tem.gettogether.activity.my.StoreManagementActivity;
 import com.tem.gettogether.activity.my.TAdviseActivity;
-import com.tem.gettogether.activity.my.VipCenterActivity;
 import com.tem.gettogether.activity.my.VisitorActivity;
+import com.tem.gettogether.activity.my.authentication.AuthenticationActivity;
 import com.tem.gettogether.activity.my.member.MemberCentreActivity;
-import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActivity;
+import com.tem.gettogether.activity.my.refundprogress.RefundProgressActivity;
 import com.tem.gettogether.activity.order.GongYingShangNewOrderActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
@@ -72,34 +72,8 @@ public class PersionCenterGongYingFragment extends BaseFragment {
     TextView tv_setting;
     @ViewInject(R.id.tv_name)
     private TextView tv_name;
-    @ViewInject(R.id.ll_scj)
-    private LinearLayout ll_scj;
-    @ViewInject(R.id.ll_zj)
-    private LinearLayout ll_zj;
-    @ViewInject(R.id.ll_qb)
-    private LinearLayout ll_qb;
-    @ViewInject(R.id.tv_all)
-    private TextView tv_all;
-    @ViewInject(R.id.tv_dfk)
-    private TextView tv_dfk;
-    @ViewInject(R.id.tv_dfh)
-    private TextView tv_dfh;
-    @ViewInject(R.id.tv_dsh)
-    private TextView tv_dsh;
-    @ViewInject(R.id.rl_my_message)
-    private RelativeLayout rl_my_message;
-    @ViewInject(R.id.rl_ksbh)
-    private RelativeLayout rl_ksbh;
-    @ViewInject(R.id.rl_sprz)
-    private RelativeLayout rl_sprz;
-    @ViewInject(R.id.rl_dzgl)
-    private RelativeLayout rl_dzgl;
     @ViewInject(R.id.rl_zxkf)
     private RelativeLayout rl_zxkf;
-    @ViewInject(R.id.rl_tdyj)
-    private RelativeLayout rl_tdyj;
-    @ViewInject(R.id.rl_gywm)
-    private RelativeLayout rl_gywm;
     @ViewInject(R.id.tv_shop_RZ)
     private TextView tv_shop_RZ;
     @ViewInject(R.id.iv_head)
@@ -166,21 +140,21 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                         SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, resultBean.getStore_status());
                         SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.head_pic, resultBean.getHead_pic());
                         SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.Shop_store_id, resultBean.getStore_id());
-                        if(myMessageBean.getResult().getStore_count()!=null) {
+                        if (myMessageBean.getResult().getStore_count() != null) {
                             tv_scNum.setText(myMessageBean.getResult().getStore_count());
-                        }else{
+                        } else {
                             tv_scNum.setText("0");
                         }
 
-                        if(myMessageBean.getResult().getFans_count()!=null) {
+                        if (myMessageBean.getResult().getFans_count() != null) {
                             tv_zjNum.setText(myMessageBean.getResult().getFans_count());
-                        }else{
+                        } else {
                             tv_zjNum.setText("0");
                         }
 
-                        if(myMessageBean.getResult().getVisiters_count()!=null) {
+                        if (myMessageBean.getResult().getVisiters_count() != null) {
                             tv_qb_num.setText(myMessageBean.getResult().getVisiters_count());
-                        }else{
+                        } else {
                             tv_qb_num.setText("0");
                         }
 
@@ -196,10 +170,12 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                             rz_status_tv.setText("");//已认证
                         } else if (resultBean.getStore_status().equals("2")) {
                             rz_status_tv.setText(getText(R.string.certification_review));
+                        } else if (resultBean.getStore_status().equals("3")) {
+                            rz_status_tv.setText(getText(R.string.rzsb));
                         } else {
                             rz_status_tv.setText(getText(R.string.pending_certification));
                         }
-                    }else{
+                    } else {
 //                        startActivity(new Intent(getActivity(), LoginActivity.class));
 //                        getActivity().finish();
                     }
@@ -220,6 +196,54 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                 super.onError(ex, isOnCallback);
                 ex.printStackTrace();
                 baseActivity.closeDialog();
+            }
+        });
+    }
+
+
+    // 获取退款状态
+    public void getRefundProgress() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
+        XUtil.Post(URLConstant.GET_REFUND_PROGRESS, map, new MyCallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                Log.i("====退款状态===", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    String msg = jsonObject.optString("msg");
+                    CusToast.showToast(msg);
+                    if (res.equals("1")) {
+                        if (jsonObject.optString("result") == null || jsonObject.optString("result").equals("")) {
+                            if (myMessageBean != null) {
+                    /*startActivity(new Intent(getActivity(), VipCenterActivity.class)
+                            .putExtra("head_pic", myMessageBean.getResult().getHead_pic())
+                            .putExtra("shop_status", resultBean.getStore_status()));*/
+                                startActivity(new Intent(getActivity(), MemberCentreActivity.class));
+
+                            }
+                        } else {
+                            startActivity(new Intent(getActivity(), RefundProgressActivity.class));
+                        }
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                ex.printStackTrace();
             }
         });
     }
@@ -269,7 +293,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                 }
                 if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("1")) {
                     CusToast.showToast(getText(R.string.please_certify_shops_first));
-                    startActivity(new Intent(getContext(), ShopAuthenticationActivity.class));
+                    startActivity(new Intent(getContext(), AuthenticationActivity.class));
                     return;
                 }
                 startActivity(new Intent(getActivity(), CorporateInformationActivity.class).putExtra(Contacts.PERSION_ENTERPRISE_INFORMATION, 0));
@@ -281,25 +305,22 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                 }
                 if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("1")) {
                     CusToast.showToast(getText(R.string.please_certify_shops_first));
-                    startActivity(new Intent(getContext(), ShopAuthenticationActivity.class));
+                    startActivity(new Intent(getContext(), AuthenticationActivity.class));
                     return;
                 }
-                if (myMessageBean != null) {
-                    /*startActivity(new Intent(getActivity(), VipCenterActivity.class)
-                            .putExtra("head_pic", myMessageBean.getResult().getHead_pic())
-                            .putExtra("shop_status", resultBean.getStore_status()));*/
-                    startActivity(new Intent(getActivity(), MemberCentreActivity.class));
 
-                }
+                getRefundProgress();
+
                 break;
             case R.id.rl_dzgl:// 我的店铺
+//                startActivity(new Intent(getContext(), AuthenticationActivity.class));
                 if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("2")) {
                     CusToast.showToast(getText(R.string.store_review));
                     return;
                 }
                 if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("1")) {
                     CusToast.showToast(getText(R.string.please_certify_shops_first));
-                    startActivity(new Intent(getContext(), ShopAuthenticationActivity.class));
+                    startActivity(new Intent(getContext(), AuthenticationActivity.class));
                     return;
                 }
                 startActivityForResult(new Intent(getActivity(), ShopActivity.class)
@@ -313,10 +334,11 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                     CusToast.showToast(getText(R.string.store_review));
                     return;
                 } else if (resultBean.getStore_status().equals("3")) {// 认证失败
-                    startActivity(new Intent(getActivity(), ShopRzFailedActivity.class)
-                            .putExtra(Contacts.RZ_TYPE, 0));
+                    /*startActivity(new Intent(getActivity(), ShopRzFailedActivity.class)
+                            .putExtra(Contacts.RZ_TYPE, 0));*/
+                    startActivity(new Intent(getActivity(), AuthenticationActivity.class));
                 } else if (resultBean.getStore_status().equals("4")) {// 认证
-                    startActivity(new Intent(getActivity(), ShopAuthenticationActivity.class));
+                    startActivity(new Intent(getActivity(), AuthenticationActivity.class));
                 }
                 break;
             case R.id.rl_zxkf:// 在线客服

@@ -5,6 +5,11 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
 
     <ScrollView
@@ -88,6 +93,7 @@
                         android:layout_marginTop="10dp"
                         android:text="@string/whatsapp"
                         android:textSize="14sp" />
+
                     <TextView
                         android:id="@+id/facebook_tv"
                         android:layout_width="wrap_content"

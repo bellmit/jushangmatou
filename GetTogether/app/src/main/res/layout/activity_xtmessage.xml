@@ -3,9 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/line"
     android:layout_height="match_parent"
+    android:background="@color/line"
     android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
 
     <cn.bingoogolapple.refreshlayout.BGARefreshLayout
@@ -27,11 +33,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <com.tem.gettogether.view.powerfulrecyclerview.HomeListFreshRecyclerView
                         android:id="@+id/order_rl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-
 
 
                 </LinearLayout>

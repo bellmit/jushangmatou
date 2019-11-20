@@ -386,6 +386,7 @@
                     android:background="@color/line" />
 
                 <RelativeLayout
+                    android:id="@+id/rl_order_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -396,7 +397,13 @@
                         android:padding="@dimen/dp_10"
                         android:text="@string/dingdanxiangqing"
                         android:textColor="@color/white" />
-
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/right_more" />
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

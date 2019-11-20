@@ -1,17 +1,25 @@
 package com.tem.gettogether.activity.my;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,8 +41,12 @@ import com.tem.gettogether.bean.ImageDataBean;
 import com.tem.gettogether.retrofit.UploadUtil;
 import com.tem.gettogether.utils.BitnapUtils;
 import com.tem.gettogether.utils.Confirg;
+import com.tem.gettogether.utils.PhotoUtil;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.permissions.PermissionsActivity;
 import com.tem.gettogether.utils.permissions.PermissionsChecker;
+import com.tem.gettogether.utils.permissions.PictureUtil;
+import com.wildma.pictureselector.PictureSelector;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -75,19 +87,14 @@ public class TuWenXQActivity extends BaseActivity implements View.OnClickListene
     private List<Integer> imageRes = new ArrayList<>();
     private BaseRVAdapter mTaskImgAdapter;
     private String strImage = "";
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        x.view().inject(this);
-        checker = new PermissionsChecker(this);
-
-        initData();
-        initView();
-    }
+    private final int CROP_FROM_CAMERA = 333;
 
     @Override
     protected void initData() {
+        x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
+
+        checker = new PermissionsChecker(this);
         tv_title.setText(R.string.product_graphic_details);
         tv_title_right.setText(R.string.save);
         cartImage = getIntent().getStringArrayListExtra("listImage");
@@ -148,6 +155,7 @@ public class TuWenXQActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.tv_shanchu:
                 cartImage.remove(cartImage.size() - 1);
+                imagePaths.remove(imagePaths.size() - 1);
                 mTaskImgAdapter.notifyDataSetChanged();
                 if (cartImage.size() > 0) {
                     tv_shanchu.setVisibility(View.VISIBLE);
@@ -199,9 +207,24 @@ public class TuWenXQActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void setPopClickListener(View view) {
-        TextView tv_xiangche, cancle;
+        TextView tv_paizhao, tv_xiangche, cancle;
         tv_xiangche = view.findViewById(R.id.tv_xiangche);
+        tv_paizhao = view.findViewById(R.id.tv_paizhao);
         cancle = view.findViewById(R.id.cancle);
+        tv_paizhao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {//申请WRITE_EXTERNAL_STORAGE权限
+
+                    ActivityCompat.requestPermissions(TuWenXQActivity.this, new String[]{Manifest.permission.CAMERA}, 1);
+
+                } else {
+                    imageCapture();//系统相机拍照
+                    mPop.dismiss();
+                }
+
+            }
+        });
 
         tv_xiangche.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -215,7 +238,7 @@ public class TuWenXQActivity extends BaseActivity implements View.OnClickListene
                 // 是否显示调用相机拍照
                 intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, false);
                 // 最大图片选择数量
-                intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 9);
+                intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 9 - imagePaths.size());
 
                 // 设置模式 (支持 单选/MultiImageSelectorActivity.MODE_SINGLE 或者 多选/MultiImageSelectorActivity.MODE_MULTI)
                 intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_MULTI);
@@ -231,6 +254,32 @@ public class TuWenXQActivity extends BaseActivity implements View.OnClickListene
                 mPop.dismiss();
             }
         });
+    }
+
+    private static String IMAGE_FILE_NAME = "user_head_icon.jpg";
+    private final int PHOTO_PICKED_FROM_CAMERA = 111; // 用来标识头像来自系统拍照
+
+    private void imageCapture() {
+        Intent intent;
+        Uri pictureUri;
+        //getMyPetRootDirectory()得到的是Environment.getExternalStorageDirectory() + File.separator+"."
+        //也就是我之前创建的存放头像的文件夹（目录）
+        File pictureFile = new File(PictureUtil.getMyPetRootDirectory(), IMAGE_FILE_NAME);
+        // 判断当前系统
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            //这一句非常重要
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            //""中的内容是随意的，但最好用package名.provider名的形式，清晰明了
+            pictureUri = FileProvider.getUriForFile(getContext(),
+                    "com.tem.gettogether.FileProvider", pictureFile);
+        } else {
+            intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            pictureUri = Uri.fromFile(pictureFile);
+        }
+        // 去拍照,拍照的结果存到pictureUri对应的路径中
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, pictureUri);
+        startActivityForResult(intent, PHOTO_PICKED_FROM_CAMERA);
     }
 
     @Override
@@ -260,24 +309,27 @@ public class TuWenXQActivity extends BaseActivity implements View.OnClickListene
                             Confirg.compressFile.mkdirs();
                         }
 
-                        List<String> list = data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT);
-                        System.out.println("========：" + list.size());
+                        final List<String> list = data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT);
+                        showDialog();
                         if (imagePaths.size() < 9) {
-                            for (int i = 0; i < list.size(); i++) {
-                                final String pic_path = list.get(i);
-                                final String targetPath = compressImageFilePath + Confirg.df.
-                                        format(new Date()) + ".jpg";
-                                //调用压缩图片的方法，返回压缩后的图片path
-                                final String compressImage = BitnapUtils.compressImage(pic_path, targetPath, 90);
-                                imagePaths.add(list.get(i));
-                                Bitmap bitmap = BitmapFactory.decodeFile(compressImage.toString());
-                                new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    for (int i = 0; i < list.size(); i++) {
+                                        final String pic_path = list.get(i);
+                                        final String targetPath = compressImageFilePath + Confirg.df.
+                                                format(new Date()) + ".jpg";
+                                        //调用压缩图片的方法，返回压缩后的图片path
+                                        final String compressImage = BitnapUtils.compressImage(pic_path, targetPath, 90);
+                                        Bitmap bitmap = BitmapFactory.decodeFile(compressImage.toString());
+                                        final int finalI = i;
+
                                         try {
                                             ImageDataBean imageDataBean = null;
                                             imageDataBean = UploadUtil.uploadFile(BitnapUtils.readStream(targetPath), new File(targetPath), URLConstant.UPLOAD_PICTURE);
+
                                             if (imageDataBean != null) {
+                                                imagePaths.add(list.get(finalI));
                                                 cartImage.add(imageDataBean.getResult().getImage_show().get(0));
                                                 mHandle.sendEmptyMessage(0);
                                             } else {
@@ -286,16 +338,51 @@ public class TuWenXQActivity extends BaseActivity implements View.OnClickListene
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
+
+                                        if (i == list.size() - 1) {
+                                            Log.e("chenshichun", "---stop--");
+                                            closeDialog();
+                                        }
                                     }
-                                }).start();
-                            }
+                                }
+                            }).start();
                         } else {
                             CusToast.showToast(getText(R.string.unable_to_add_more_images));
                         }
-
                     }
                     break;
+                case PHOTO_PICKED_FROM_CAMERA:
+                    PhotoUtil.startSystemCamera(TuWenXQActivity.this, getContext());
+                    break;
+                case CROP_FROM_CAMERA:
+                    setPicToView();
+                    break;
             }
+        }
+    }
+
+    public void setPicToView() {
+        if (PhotoUtil.mCropImageFile != null) {
+            final String path = PhotoUtil.mCropImageFile.getAbsolutePath();
+            Bitmap bitmap = BitmapFactory.decodeFile(PhotoUtil.mCropImageFile.toString());
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        ImageDataBean imageDataBean = null;
+                        imageDataBean = UploadUtil.uploadFile(BitnapUtils.readStream(path), new File(path), URLConstant.UPLOAD_PICTURE);
+                        if (imageDataBean != null) {
+                            imagePaths.add(imagePaths.size(), path);
+                            cartImage.add(imageDataBean.getResult().getImage_show().get(0));
+                            mHandle.sendEmptyMessage(0);
+                        } else {
+                            mHandle.sendEmptyMessage(1);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
         }
     }
 

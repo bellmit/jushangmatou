@@ -47,6 +47,7 @@ import com.tem.gettogether.fragment.ShopShoppingFragment;
 import com.tem.gettogether.rongyun.RongTalk;
 import com.tem.gettogether.utils.GlideImageLoader;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.RoundImageView;
@@ -144,7 +145,7 @@ public class ShopActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         initData();
-
+        StatusBarUtil.setTranslucentStatus(this);
         shopHomeFragment = new ShopHomeFragment();
         shopShoppingFragment = new ShopShoppingFragment();
         shopPingJFragment = new ShopPingJFragment();
@@ -210,8 +211,12 @@ public class ShopActivity extends BaseActivity {
     @Override
     protected void initData() {
         type = getIntent().getIntExtra("type", 0);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            setTranslucentStatus(true);
+//        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
         store_id = getIntent().getStringExtra("store_id");
         upShopData(store_id);
@@ -369,7 +374,6 @@ public class ShopActivity extends BaseActivity {
                 shopKeyBean.setSousuoConnect(sousuo);
                 shopKeyBean.setTypeLX("0x1001");
                 shopKeyBean.setStore_id(store_id);
-                ;
                 EventBus.getDefault().post(shopKeyBean);
 
                 break;

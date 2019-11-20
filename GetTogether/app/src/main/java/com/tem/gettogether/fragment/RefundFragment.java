@@ -90,7 +90,7 @@ public class RefundFragment extends BaseFragment {
         if (type == 0) {
             url = URLConstant.WXPAY_REFUND_URL;
         } else {
-            url = URLConstant.ALIPAY_REFUND_URL;
+            url = URLConstant.OLD_ALIPAY_REFUND_URL;
 
         }
         XUtil.Post(url, map, new MyCallBack<String>() {

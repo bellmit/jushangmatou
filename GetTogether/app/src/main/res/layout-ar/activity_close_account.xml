@@ -2,9 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="rtl"
     android:background="@color/white"
+    android:layoutDirection="rtl"
     android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
 
     <include layout="@layout/title_layout" />
 
@@ -29,9 +34,9 @@
                 android:layout_height="44dp"
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
-                android:textDirection="locale"
                 android:text="@string/contact_tv"
                 android:textColor="@color/black"
+                android:textDirection="locale"
                 android:textSize="14dp" />
 
             <View
@@ -72,9 +77,9 @@
                     android:gravity="center_vertical"
                     android:maxLines="2"
                     android:paddingStart="16dp"
-                    android:textDirection="locale"
                     android:text="@string/shdz"
                     android:textColor="@color/black"
+                    android:textDirection="locale"
                     android:textSize="14dp" />
 
                 <TextView
@@ -84,10 +89,10 @@
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:maxLines="2"
-                    android:textDirection="locale"
                     android:privateImeOptions="16dp"
                     android:text=""
                     android:textColor="@color/black"
+                    android:textDirection="locale"
                     android:textSize="12dp" />
             </LinearLayout>
 
@@ -237,8 +242,8 @@
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
                 android:text="@string/mjly"
-                android:textDirection="locale"
                 android:textColor="@color/text3"
+                android:textDirection="locale"
                 android:textSize="14dp" />
 
             <LinearLayout
@@ -257,9 +262,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:textDirection="locale"
                     android:hint="@string/qsrndly"
                     android:textColorHint="@color/cart_text_cf"
+                    android:textDirection="locale"
                     android:textSize="13dp" />
             </LinearLayout>
 
@@ -352,11 +357,11 @@
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:ellipsize="end"
-            android:textDirection="locale"
             android:gravity="end"
             android:maxLength="9"
             android:text="@string/hejijine"
             android:textColor="@color/black"
+            android:textDirection="locale"
             android:textSize="15dp"
             android:visibility="invisible" />
 

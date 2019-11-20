@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.URLConstant;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 
@@ -64,6 +65,8 @@ public class XGPhoneActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        StatusBarUtil.setTranslucentStatus(this);
+
         et_phone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

@@ -3,6 +3,7 @@ package com.tem.gettogether.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,11 +24,13 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.Footer.LoadingView;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -39,6 +42,7 @@ import com.tem.gettogether.activity.home.HomeHotSellActivity;
 import com.tem.gettogether.activity.home.HomeLianMengActivity;
 import com.tem.gettogether.activity.home.HomeSouSuoActivity;
 import com.tem.gettogether.activity.home.ShopActivity;
+import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
 import com.tem.gettogether.activity.linyi.LinYiClassificationActivity;
 import com.tem.gettogether.activity.my.WaiMaoQiuGouActivity;
 import com.tem.gettogether.activity.my.XeiYiH5Activity;
@@ -49,10 +53,12 @@ import com.tem.gettogether.adapter.HomeLianMengAdapter;
 import com.tem.gettogether.adapter.HomeXinPinAdapter;
 import com.tem.gettogether.adapter.MainMenuAdapter;
 import com.tem.gettogether.adapter.MenuViewPagerAdapter;
+import com.tem.gettogether.adapter.TopNavAdapter;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseFragment;
 import com.tem.gettogether.base.URLConstant;
+import com.tem.gettogether.bean.HomeAnnouncementBean;
 import com.tem.gettogether.bean.HomeDataNewBean;
 import com.tem.gettogether.bean.ServiceProviderBean;
 import com.tem.gettogether.retrofit.RetrofitHelper;
@@ -61,9 +67,11 @@ import com.tem.gettogether.utils.DpPxUtils;
 import com.tem.gettogether.utils.GlideImageLoader;
 import com.tem.gettogether.utils.ListUtils;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.SizeUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.BaseScrollView;
+import com.sunfusheng.marqueeview.MarqueeView;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -101,12 +109,8 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
 
     @ViewInject(R.id.tv_YuYQH)
     private TextView tv_YuYQH;
-    @ViewInject(R.id.tv_sousuo)
-    private TextView tv_sousuo;
     @ViewInject(R.id.tv_gonggao)
     private TextView tv_gonggao;
-    @ViewInject(R.id.rl_saoyisao)
-    private RelativeLayout rl_saoyisao;
     @ViewInject(R.id.banner)
     private Banner banner;
     @ViewInject(R.id.recyclerView)
@@ -117,28 +121,28 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
     private RecyclerView sell_recyclerView;// 外贸热销
     @ViewInject(R.id.lianmeng_recyclerView)
     private RecyclerView lianmeng_recyclerView;
-    @ViewInject(R.id.xinpin_recyclerView)
+    @ViewInject(R.id.xinpin_recyclerView)// 外贸新品
     private RecyclerView xinpin_recyclerView;
-
-    @ViewInject(R.id.waimaoqiugou_tv)
-    private TextView waimaoqiugou_tv;
-    @ViewInject(R.id.waimaorexiao_tv)
-    private TextView waimaorexiao_tv;
-    @ViewInject(R.id.waimaolianmeng_tv)
-    private TextView waimaolianmeng_tv;
+    @ViewInject(R.id.top_recyclerView)
+    private RecyclerView top_recyclerView;
     @ViewInject(R.id.back_top_btn)
     private ImageButton back_top_btn;
-
     @ViewInject(R.id.refreshLayout)
     private TwinklingRefreshLayout refreshLayout;
     @ViewInject(R.id.mScrollView)
     private BaseScrollView mScrollView;
-
+    @ViewInject(R.id.img0)
+    private ImageView img0;
+    @ViewInject(R.id.img1)
+    private ImageView img1;
+    @ViewInject(R.id.img2)
+    private ImageView img2;
     @ViewInject(R.id.view_pager)
     private ViewPager view_pager;
     @ViewInject(R.id.magicIndicator)
     private MagicIndicator magicIndicator;
-
+    @ViewInject(R.id.marqueeview)
+    private MarqueeView marqueeview;
     private BaseActivity baseActivity;
     private List<HomeDataNewBean.ResultEntity.AdEntity> adBeans = new ArrayList<>();
     private List<HomeDataNewBean.ResultEntity.Bottom_cateEntity> bottomCateBeans = new ArrayList<>();
@@ -146,16 +150,20 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
     private List<HomeDataNewBean.ResultEntity.Order_pastedEntity> sellBeans = new ArrayList<>();
     private List<HomeDataNewBean.ResultEntity.Trade_unionEntity> lianmengBeans = new ArrayList<>();
     private List<HomeDataNewBean.ResultEntity.Ftrade_newEntity> xinpinBeans = new ArrayList<>();
+    private List<HomeDataNewBean.ResultEntity.Top_navEntity> topNavBeans = new ArrayList<>();
+    private List<HomeAnnouncementBean.ResultBean.AnnouncementBean> announcementBeans = new ArrayList<>();
+    private List<HomeDataNewBean.ResultEntity.Special_recommendEntity> specialRecommendBeans = new ArrayList<>();
     private HomeDataNewBean.ResultEntity.NoticeEntity noticeBeans = new HomeDataNewBean.ResultEntity.NoticeEntity();
-
 
     private HomeBottomCateAdapter mHomeBottomCateAdapter;
     private HomeBuyAdapter mHomeBuyAdapter;
     private HomeHotSellAdapter mHomeHotSellAdapter;
     private HomeLianMengAdapter mHomeLianMengAdapter;
     private HomeXinPinAdapter mHomeXinPinAdapter;
+    private TopNavAdapter mTopNavAdapter;
 
     private int currentPage = 1;
+    List<String> info = new ArrayList<>();
 
     @Nullable
     @Override
@@ -168,9 +176,9 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         baseActivity = (BaseActivity) getActivity();
+        announcement();
         initView();
         initData(currentPage);
-
         mScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -238,6 +246,8 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                         lianmengBeans = homeDataBean.getResult().getTrade_union();
                         xinpinBeans = homeDataBean.getResult().getFtrade_new();
                         noticeBeans = homeDataBean.getResult().getNotice();
+                        topNavBeans = homeDataBean.getResult().getTop_nav();
+                        specialRecommendBeans = homeDataBean.getResult().getSpecial_recommend();
                         setAllData();
                         initViewPager(bottomCateBeans, 2, 5);
                     }
@@ -281,7 +291,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
-                    Log.d("chenshichun","======首页====="+jsonObject.optString("result"));
+                    Log.d("chenshichun", "======首页=====" + jsonObject.optString("result"));
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         HomeDataNewBean homeDataBean = gson.fromJson(result, HomeDataNewBean.class);
@@ -299,11 +309,14 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                             lianmengBeans.addAll(homeDataBean.getResult().getTrade_union());
                             xinpinBeans.clear();
                             xinpinBeans.addAll(homeDataBean.getResult().getFtrade_new());
+                            topNavBeans.clear();
+                            topNavBeans.addAll(homeDataBean.getResult().getTop_nav());
                             mHomeBottomCateAdapter.notifyDataSetChanged();
                             mHomeBuyAdapter.notifyDataSetChanged();
                             mHomeHotSellAdapter.notifyDataSetChanged();
                             mHomeLianMengAdapter.notifyDataSetChanged();
                             mHomeXinPinAdapter.notifyDataSetChanged();
+                            mTopNavAdapter.notifyDataSetChanged();
                         } else {
                             if (homeDataBean.getResult().getFtrade_new().size() > 0) {
                                 xinpinBeans.addAll(homeDataBean.getResult().getFtrade_new());
@@ -336,6 +349,42 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
         });
     }
 
+    private void announcement() {
+        XUtil.Post(URLConstant.ANNOUNCEMENT_URL, new MyCallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.e("chenshichun", "--result---" + result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        HomeAnnouncementBean mHomeAnnouncementBean = gson.fromJson(result, HomeAnnouncementBean.class);
+                        announcementBeans = mHomeAnnouncementBean.getResult().getAnnouncement();
+                        for (int i = 0; i < announcementBeans.size(); i++) {
+                            info.add(announcementBeans.get(i).getStore_name());
+                        }
+                        marqueeview.startWithList(info);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                super.onSuccess(result);
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+            }
+        });
+    }
+
     private void setAllData() {
         tv_gonggao.setText(noticeBeans.getTitle());
         setBanner();
@@ -359,6 +408,35 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
         xinpin_recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false));
         xinpin_recyclerView.setAdapter(mHomeXinPinAdapter);
 
+        mTopNavAdapter = new TopNavAdapter(getContext(), topNavBeans);
+        top_recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4, LinearLayoutManager.VERTICAL, false));
+        top_recyclerView.setAdapter(mTopNavAdapter);
+
+        Resources resources = this.getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        int width = dm.widthPixels;
+        int imageSize = SizeUtil.dp2px(getContext(), 10);
+
+        Log.e("chenshichun", "-width----" + width);
+        int img0W = (width - imageSize) * 3 / 7;
+        int img0H = img0W * 732 / 592;
+        Log.e("chenshichun", "--img0W::  " + img0W + "  img0H::  " + img0H);
+        int img1W = (width - imageSize) * 4 / 7;
+        int img1H = img1W * 360 / 800;
+        Log.e("chenshichun", "--img1W::  " + img1W + "  img1H::  " + img1H);
+        ViewGroup.LayoutParams lp = img0.getLayoutParams();
+        lp.width = img0W;
+        lp.height = img0H;
+        ViewGroup.LayoutParams pp = img1.getLayoutParams();
+        pp.width = img1W;
+        pp.height = img1H;
+
+        ViewGroup.LayoutParams pp2 = img2.getLayoutParams();
+        pp2.width = img1W;
+        pp2.height = img1H;
+        Glide.with(getContext()).load(/*specialRecommendBeans.get(0).getCover_image()*/R.drawable.img0).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(img0W, img0H).into(img0);
+        Glide.with(getContext()).load(/*specialRecommendBeans.get(1).getCover_image()*/R.drawable.img1).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(img1W, img1H).into(img1);
+        Glide.with(getContext()).load(/*specialRecommendBeans.get(2).getCover_image()*/R.drawable.img2).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(img1W, img1H).into(img2);
     }
 
     /**
@@ -393,7 +471,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
             @Override
             public void OnBannerClick(int position) {
 
-                if(adBeans.get(position).getAd_name().equals("临沂")) {
+                if (adBeans.get(position).getAd_name().equals("临沂")) {
                     startActivity(new Intent(getActivity(), LinYiClassificationActivity.class));
                     return;
                 }
@@ -470,7 +548,9 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
 
 
     @Event(value = {R.id.rl_saoyisao, R.id.tv_YuYQH, R.id.tv_gonggao, R.id.tv_sousuo,
-            R.id.ll_rmtj, R.id.ll_tjzq, R.id.ll_look_more, R.id.waimaoqiugou_tv, R.id.waimaorexiao_tv, R.id.waimaolianmeng_tv, R.id.back_top_btn}, type = View.OnClickListener.class)
+            R.id.ll_rmtj, R.id.ll_tjzq, R.id.ll_look_more, R.id.waimaoqiugou_tv,
+            R.id.waimaorexiao_tv, R.id.waimaolianmeng_tv, R.id.back_top_btn,
+            R.id.img0, R.id.img1, R.id.img2}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.tv_YuYQH:
@@ -487,7 +567,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
             case R.id.tv_sousuo:
                 startActivity(new Intent(getActivity(), HomeSouSuoActivity.class)
                         .putExtra("store_id", "0")
-                        .putExtra("is_yilian",false));
+                        .putExtra("is_yilian", false));
                 break;
             case R.id.waimaoqiugou_tv:
                 startActivity(new Intent(getActivity(), WaiMaoQiuGouActivity.class));
@@ -500,6 +580,18 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.waimaolianmeng_tv:
                 startActivity(new Intent(getActivity(), HomeLianMengActivity.class));
+                break;
+            case R.id.img0:
+                startActivity(new Intent(getActivity(), ShoppingParticularsActivity.class)
+                        .putExtra("goods_id", specialRecommendBeans.get(2).getGoods_id()));
+                break;
+            case R.id.img1:
+                startActivity(new Intent(getActivity(), ShoppingParticularsActivity.class)
+                        .putExtra("goods_id", specialRecommendBeans.get(1).getGoods_id()));
+                break;
+            case R.id.img2:
+                startActivity(new Intent(getActivity(), ShoppingParticularsActivity.class)
+                        .putExtra("goods_id", specialRecommendBeans.get(0).getGoods_id()));
                 break;
         }
     }
@@ -583,7 +675,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                 getResources().updateConfiguration(config3, dm3);
                 SharedPreferencesUtils.saveLanguageString(getActivity(), BaseConstant.SPConstant.language, "ara");
                 mPop.dismiss();
-               // restartApplication(getActivity());
+                // restartApplication(getActivity());
                 getActivity().recreate();
                 break;
         }

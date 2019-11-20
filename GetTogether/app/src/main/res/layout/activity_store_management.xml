@@ -3,108 +3,121 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="44dp">
+
         <RelativeLayout
             android:id="@+id/rl_close"
             android:layout_width="60dp"
             android:layout_height="match_parent">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
-                android:src="@drawable/left_close"/>
+                android:src="@drawable/left_close" />
         </RelativeLayout>
+
         <TextView
 
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text3"
             android:layout_centerInParent="true"
-            android:textSize="16dp"
-            android:text="Title"/>
+            android:text="Title"
+            android:textColor="@color/text3"
+            android:textSize="16dp" />
 
         <RelativeLayout
             android:id="@+id/rl_title_right"
             android:layout_width="100dp"
+            android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
-            android:paddingEnd="16dp"
-            android:layout_height="match_parent">
+            android:paddingEnd="16dp">
+
             <TextView
                 android:id="@+id/tv_title_right"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
                 android:layout_centerVertical="true"
+                android:gravity="right"
+                android:text="@string/join_membership"
                 android:textColor="@color/my_yellow"
-                android:textSize="14dp"
-                android:text="@string/join_membership"/>
+                android:textSize="14dp" />
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/title_line"/>
+            android:background="@color/title_line" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:gravity="center"
         android:background="@color/white"
+        android:gravity="center"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/tv_cpgl"
             android:layout_width="85dp"
             android:layout_height="35dp"
-            android:textColor="@color/white"
-            android:text="@string/product_management"
-            android:textSize="14dp"
-            android:gravity="center"
             android:layout_marginRight="@dimen/dp_10"
-            android:background="@drawable/dpgl_add5"/>
+            android:background="@drawable/dpgl_add5"
+            android:gravity="center"
+            android:text="@string/product_management"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/tv_decoration"
             android:layout_width="85dp"
             android:layout_height="35dp"
-            android:textColor="@color/white"
-            android:text="@string/store_construction"
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_marginRight="@dimen/dp_10"
-            android:textSize="14dp"
+            android:background="@drawable/dpgl_add5"
             android:gravity="center"
-            android:background="@drawable/dpgl_add5"/>
+            android:text="@string/store_construction"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/tv_dpxx"
             android:layout_width="85dp"
             android:layout_height="35dp"
-            android:textColor="@color/white"
-            android:text="@string/dianpuxinxo"
             android:layout_marginLeft="@dimen/dp_10"
-            android:textSize="14dp"
+            android:background="@drawable/dpgl_5"
             android:gravity="center"
-            android:background="@drawable/dpgl_5"/>
+            android:text="@string/dianpuxinxo"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
+
     <TextView
         android:id="@+id/tv_fbcp"
         android:layout_width="240dp"
         android:layout_height="40dp"
-        android:textSize="16dp"
         android:layout_gravity="center"
         android:layout_marginBottom="40dp"
-        android:textColor="@color/white"
-        android:text="@string/fabuchangping"
+        android:background="@drawable/dpgl_save_20"
         android:gravity="center"
-        android:background="@drawable/dpgl_save_20"/>
+        android:text="@string/fabuchangping"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
 
 </LinearLayout>

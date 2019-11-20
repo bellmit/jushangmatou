@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.fragment.ProductManagmentFragment;
+import com.tem.gettogether.utils.StatusBarUtil;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -35,6 +36,7 @@ public class ProductManagmentActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
         tv_title.setText(getText(R.string.product_management));
         initDatas();
         initViews();

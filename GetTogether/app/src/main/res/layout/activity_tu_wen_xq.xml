@@ -1,9 +1,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
 
     <include layout="@layout/title_layout" />
 
@@ -17,11 +22,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="10dp">
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/publish_task_recyclerView"
                     android:layout_width="match_parent"
@@ -35,29 +42,30 @@
         android:id="@+id/tv_shanchu"
         android:layout_width="260dp"
         android:layout_height="40dp"
-        android:textSize="16dp"
         android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:visibility="gone"
-        android:textColor="@color/white"
         android:background="@drawable/main_shanc19"
-        android:text="删除最后一张"/>
+        android:gravity="center"
+        android:text="@string/delete_last_one"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:padding="10dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content">
+        android:gravity="center"
+        android:padding="10dp">
+
         <TextView
             android:id="@+id/tv_fbShopping"
             android:layout_width="260dp"
             android:layout_height="40dp"
-            android:textSize="16dp"
-            android:gravity="center"
-            android:textColor="@color/white"
             android:background="@drawable/main_fbqg15"
-            android:text="@string/tianjiatupian"/>
+            android:gravity="center"
+            android:text="@string/tianjiatupian"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
     </LinearLayout>
 
 </LinearLayout>

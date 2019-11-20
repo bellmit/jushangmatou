@@ -6,6 +6,11 @@
     android:background="@color/line"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
 
     <LinearLayout
@@ -24,8 +29,8 @@
                 android:id="@+id/rl_xgPhone"
                 android:layout_width="match_parent"
                 android:layout_height="51dp"
-                android:paddingEnd="16dp"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:paddingEnd="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -86,6 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/line" />
+
             <RelativeLayout
                 android:id="@+id/rl_pay_Password"
                 android:layout_width="match_parent"
@@ -165,12 +171,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/line" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
-                android:visibility="gone"
                 android:background="@color/white"
-                android:paddingEnd="16dp">
+                android:paddingEnd="16dp"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -189,9 +196,7 @@
             </RelativeLayout>
 
 
-
         </LinearLayout>
-
 
 
     </LinearLayout>

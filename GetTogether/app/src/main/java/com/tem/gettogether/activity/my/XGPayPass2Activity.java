@@ -13,6 +13,7 @@ import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.OnPasswordInputFinish2;
@@ -68,6 +69,8 @@ public class XGPayPass2Activity extends BaseActivity {
 
     @Override
     protected void initView() {
+        StatusBarUtil.setTranslucentStatus(this);
+
         passView2.setOnFinishInput2(new OnPasswordInputFinish2() {
             @Override
             public void inputFinish() {

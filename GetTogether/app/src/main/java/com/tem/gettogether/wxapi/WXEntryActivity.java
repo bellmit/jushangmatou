@@ -1,22 +1,23 @@
 package com.tem.gettogether.wxapi;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.tem.gettogether.activity.LoginActivity;
 import com.tem.gettogether.activity.MainActivity;
 import com.tem.gettogether.activity.RegisterActivity;
-import com.tem.gettogether.activity.SplashActivity;
 import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.LoginBean;
+import com.tem.gettogether.bean.LoginStatusBean;
 import com.tem.gettogether.bean.UserBean;
 import com.tem.gettogether.bean.WeiXinBean1;
 import com.tem.gettogether.bean.WeiXinMessageBean;
@@ -24,6 +25,7 @@ import com.tem.gettogether.utils.Contacts;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
+import com.tem.gettogether.view.IdentityDialog;
 import com.tem.gettogether.view.ShowPopupWindow;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
@@ -202,7 +204,10 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 //                    Log.i("===微信信息", "onSuccess: "+bean.toString());
                     BaseApplication.getInstance().bean = bean;
 
-                    upLogin();
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("fid", "");
+                    map.put("openid", BaseApplication.getInstance().bean.getOpenid());
+                    facebookWxCheck(map);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -222,6 +227,65 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         });
     }
 
+    public void facebookWxCheck(Map<String, Object> map) {
+        showDialog();
+        XUtil.Post(URLConstant.FACEBOOK_WX_CHECK, map, new MyCallBack<String>() {
+            @SuppressLint("LongLogTag")
+            @Override
+            public void onSuccess(String result) {
+                try {
+                    Log.e("chenshichun", "--微信facebook第三方登录状态检查接口---" + result);
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    String msg = jsonObject.optString("msg");
+                    CusToast.showToast(msg);
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        LoginStatusBean mLoginStatusBean = gson.fromJson(result, LoginStatusBean.class);
+                        if (mLoginStatusBean.getResult().getWeixin_status().equals("1")) {
+                            upLogin(mLoginStatusBean.getResult().getRole_type());
+                        } else {
+                            showIdentityDialog();
+                        }
+                    }
+                } catch (JSONException ex) {
+                    ex.printStackTrace();
+                }
+                super.onSuccess(result);
+            }
+
+            @Override
+            public void onFinished() {
+                closeDialog();
+                super.onFinished();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                closeDialog();
+                super.onError(ex, isOnCallback);
+            }
+        });
+    }
+
+
+    private void showIdentityDialog() {
+        Log.e("chenshichun", "---showIdentityDialog--");
+        IdentityDialog mIdentityDialog = new IdentityDialog.Builder(this)
+                .setBuyersClick(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        upLogin("0");
+                    }
+                }).setSupplierClick(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        upLogin("1");
+                    }
+                }).create();
+        mIdentityDialog.show();
+    }
+
     public Dialog dialog;
 
     public void showDialog() {
@@ -238,12 +302,15 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         }
     }
 
-    private void upLogin() {
+    private void upLogin(String role_type) {
         Map<String, Object> map = new HashMap<>();
         map.put("openid", BaseApplication.getInstance().bean.getOpenid());
+        map.put("fid", "");
+        map.put("role_type", role_type);
         map.put("from", "wx");//登陆类型
         map.put("nickname", BaseApplication.getInstance().bean.getNickname());
         map.put("head_pic", BaseApplication.getInstance().bean.getHeadimgurl());
+        map.put("mobile_validated", 0);
         Set keys = map.keySet();
         if (keys != null) {
             Iterator iterator = keys.iterator();
@@ -278,23 +345,23 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                         userBean.setHead_pic(loginBean.getResult().getHead_pic());
                         userBean.setLever(loginBean.getResult().getLevel());
                         BaseApplication.getInstance().userBean = userBean;
-                        if (loginBean.getResult().getMobile_validated().equals("1")) {// 已绑定
-                            SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.TOKEN, loginBean.getResult().getToken());
-                            SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.head_pic, BaseApplication.getInstance().bean.getHeadimgurl());
-                            SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.openid, BaseApplication.getInstance().bean.getOpenid());
-                            SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.NAME, BaseApplication.getInstance().bean.getNickname());
-                            SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.TYPE, "3");//微信
-                            SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.USERID, loginBean.getResult().getUser_id());
-                            SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.LEVER, loginBean.getResult().getLevel());
-                            SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.ROLE_TYPE, loginBean.getResult().getRole_type());
-                            SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.CHAT_ID, loginBean.getResult().getChat_id());
-                            SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.MOBILE_AVLIDATED, loginBean.getResult().getMobile_validated());
-                            startActivity(new Intent(WXEntryActivity.this, MainActivity.class));
-                            finish();
-                        } else {// 未绑定
-                            startActivity(new Intent(WXEntryActivity.this, RegisterActivity.class).putExtra(Contacts.REGISTER_TYPE, 1).putExtra(Contacts.REGISTER_OPEN_ID, BaseApplication.getInstance().bean.getOpenid()));
-                            finish();
-                        }
+//                        if (loginBean.getResult().getMobile_validated().equals("1")) {// 已绑定
+                        SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.TOKEN, loginBean.getResult().getToken());
+                        SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.head_pic, BaseApplication.getInstance().bean.getHeadimgurl());
+                        SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.openid, BaseApplication.getInstance().bean.getOpenid());
+                        SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.NAME, BaseApplication.getInstance().bean.getNickname());
+                        SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.TYPE, "3");//微信
+                        SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.USERID, loginBean.getResult().getUser_id());
+                        SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.LEVER, loginBean.getResult().getLevel());
+                        SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.ROLE_TYPE, loginBean.getResult().getRole_type());
+                        SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.CHAT_ID, loginBean.getResult().getChat_id());
+                        SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.MOBILE_AVLIDATED, loginBean.getResult().getMobile_validated());
+                        startActivity(new Intent(WXEntryActivity.this, MainActivity.class));
+                        finish();
+//                        } else {// 未绑定
+//                            startActivity(new Intent(WXEntryActivity.this, RegisterActivity.class).putExtra(Contacts.REGISTER_TYPE, 1).putExtra(Contacts.REGISTER_OPEN_ID, BaseApplication.getInstance().bean.getOpenid()));
+//                            finish();
+//                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

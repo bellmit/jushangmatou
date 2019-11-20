@@ -19,6 +19,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.LoginActivity;
+import com.tem.gettogether.activity.login.phonelogin.PhoneLoginActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
@@ -27,6 +28,7 @@ import com.tem.gettogether.bean.MyMessageBean;
 import com.tem.gettogether.utils.AppManager;
 import com.tem.gettogether.utils.CacheUtil;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.CircularImage;
@@ -106,7 +108,7 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        StatusBarUtil.setTranslucentStatus(this);
     }
 
     @Event(value = {R.id.update_ll, R.id.rl_close, R.id.rl_zhaq, R.id.rl_address_gl, R.id.ll_grxx, R.id.rl_gl_account, R.id.tv_getOut, R.id.rl_smrz, R.id.qchc_rl}, type = View.OnClickListener.class)
@@ -130,7 +132,6 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.rl_smrz://实名认证
                 startActivity(new Intent(this, AutonymRZActivity.class));
-
                 break;
             case R.id.tv_getOut:
                 showPop(tv_getOut);
@@ -275,12 +276,16 @@ public class SettingActivity extends BaseActivity {
                     String msg = jsonObject.optString("msg");
                     CusToast.showToast(msg);
                     if (res.equals("1")) {
-                        BaseApplication.getInstance().removerUser();
-                        startActivity(new Intent(SettingActivity.this, LoginActivity.class));
+//                        BaseApplication.getInstance().removerUser();
+                        SharedPreferencesUtils.clearUser(getContext());
+                        /*startActivity(new Intent(SettingActivity.this, LoginActivity.class));*/
+                        startActivity(new Intent(SettingActivity.this, PhoneLoginActivity.class));
                         AppManager.getAppManager().finishAllActivity();
                     } else {
-                        BaseApplication.getInstance().removerUser();
-                        startActivity(new Intent(SettingActivity.this, LoginActivity.class));
+//                        BaseApplication.getInstance().removerUser();
+                        SharedPreferencesUtils.clearUser(getContext());
+                        /*startActivity(new Intent(SettingActivity.this, LoginActivity.class));*/
+                        startActivity(new Intent(SettingActivity.this, PhoneLoginActivity.class));
                         AppManager.getAppManager().finishAllActivity();
                     }
 
@@ -298,6 +303,7 @@ public class SettingActivity extends BaseActivity {
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
+                Log.e("chenshichun","---ex--"+ex);
                 closeDialog();
 
             }

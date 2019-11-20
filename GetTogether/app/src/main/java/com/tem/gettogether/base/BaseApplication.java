@@ -11,6 +11,8 @@ import android.view.View;
 
 
 import com.bugtags.library.Bugtags;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.tem.gettogether.bean.UserBean;
 import com.tem.gettogether.bean.WeiXinBean1;
 import com.tem.gettogether.bean.WeiXinMessageBean;
@@ -94,8 +96,11 @@ public class BaseApplication extends Application {
 
 
         /*有道翻译初始化*/
-        if (YouDaoApplication.getApplicationContext() == null)
-            YouDaoApplication.init(this, "086f7d9c1f5d5f84");
+       /* if (YouDaoApplication.getApplicationContext() == null)
+            YouDaoApplication.init(this, "086f7d9c1f5d5f84");*/
+
+            FacebookSdk.sdkInitialize(getApplicationContext());
+            AppEventsLogger.activateApp(this);
     }
 
     {
@@ -137,7 +142,8 @@ public class BaseApplication extends Application {
     }
 
     public void removerUser() {
-        SharedPreferences sp = getSharedPreferences("config", Context.MODE_PRIVATE);
+        Log.e("chenshichun","--SharedPreferences---");
+        SharedPreferences sp = getSharedPreferences(SharedPreferencesUtils.SP_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();
         editor.commit();

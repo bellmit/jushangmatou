@@ -58,8 +58,8 @@
                     android:id="@+id/rc_emoticon_tab_setting"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
                     android:src="@drawable/rc_ext_tab_setting" />
             </LinearLayout>
 

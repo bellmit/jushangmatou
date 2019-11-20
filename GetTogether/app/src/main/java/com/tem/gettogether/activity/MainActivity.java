@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -20,12 +19,16 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.login.phonelogin.PhoneLoginActivity;
 import com.tem.gettogether.activity.my.CgsAuthenticationActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
@@ -33,13 +36,11 @@ import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.fragment.CartFragment;
 import com.tem.gettogether.fragment.HomeNewFragment;
-import com.tem.gettogether.fragment.MeFragment;
 import com.tem.gettogether.fragment.MessageFragment;
 import com.tem.gettogether.fragment.PersionCenterCaiGouFragment;
 import com.tem.gettogether.fragment.PersionCenterGongYingFragment;
 import com.tem.gettogether.fragment.PublishBuyFragment;
 import com.tem.gettogether.fragment.SearchFragment;
-import com.tem.gettogether.fragment.XunPanFragment;
 import com.tem.gettogether.fragment.XunPanTuiSongFragment;
 import com.tem.gettogether.utils.AppManager;
 import com.tem.gettogether.utils.BadgerUtil;
@@ -68,29 +69,15 @@ import java.util.Map;
 import cc.duduhuo.custoast.CusToast;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.manager.IUnReadMessageObserver;
-import io.rong.imkit.model.UIConversation;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
-import io.rong.imlib.model.UserInfo;
-import io.rong.message.RecallNotificationMessage;
 
 @ContentView(R.layout.activity_main)
 public class MainActivity extends BaseActivity implements IUnReadMessageObserver, DragPointView.OnDragListencer, PublishBuyFragment.OnSwitchListener, XunPanTuiSongFragment.OnMyListener, MessageFragment.OnMessageListener {
 
     private static MainActivity mainActivity;
+    private CallbackManager mCallbackManager;
 
-    @ViewInject(R.id.ll_home)
-    private LinearLayout ll_home;
-    @ViewInject(R.id.ll_Fl)
-    private LinearLayout ll_Fl;
-    @ViewInject(R.id.ll_fbqg)
-    private LinearLayout ll_fbqg;
-    @ViewInject(R.id.ll_card)
-    private LinearLayout ll_card;
-    @ViewInject(R.id.ll_message)
-    private LinearLayout ll_message;
-    @ViewInject(R.id.ll_My)
-    private LinearLayout ll_My;
     @ViewInject(R.id.iv_my)
     private ImageView iv_my;
     @ViewInject(R.id.iv_cart)
@@ -162,6 +149,25 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 RongIM.getInstance().setOnReceiveUnreadCountChangedListener(mCountListener, conversationTypes);
             }
         }, 500);
+
+        mCallbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(mCallbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        Log.e("chenshichun","--onSuccess---");
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Log.e("chenshichun","--onCancel---");
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        Log.e("chenshichun","-onError----");
+                    }
+                });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -173,9 +179,18 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
 
     @Override
     protected void initData() {
-//        AppManager.getAppManager().addActivity(this);
+        AppManager.getAppManager().addActivity(this);
         x.view().inject(this);
         initViews();
+        String able= getResources().getConfiguration().locale.getCountry();
+        Log.e("chenshichun","---able--"+able);
+        if(able.equals("CN")){
+            SharedPreferencesUtils.saveLanguageString(getContext(),BaseConstant.SPConstant.language,"zh");
+        }else if(able.equals("SA")){
+            SharedPreferencesUtils.saveLanguageString(getContext(),BaseConstant.SPConstant.language,"ara");
+        }else{
+            SharedPreferencesUtils.saveLanguageString(getContext(),BaseConstant.SPConstant.language,"en");
+        }
         String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
         DisplayMetrics dm = getResources().getDisplayMetrics();
         Configuration config = getResources().getConfiguration();
@@ -338,8 +353,9 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 .setMessage(getText(R.string.please_ensure_the_device_is_secure)).setPositiveButton(getText(R.string.re_register), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        BaseApplication.getInstance().removerUser();
-                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+//                        BaseApplication.getInstance().removerUser();
+                        SharedPreferencesUtils.clearUser(getContext());
+                        startActivity(new Intent(MainActivity.this, PhoneLoginActivity.class));
                     }
                 }).setCancelable(false);
         builder.create().show();
@@ -348,6 +364,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     @Event(value = {R.id.ll_home, R.id.ll_Fl, R.id.ll_fbqg, R.id.ll_card, R.id.ll_My, R.id.ll_message}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         String token = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.TOKEN, "");
+        Log.e("chenshichun","---token--"+token);
         switch (view.getId()) {
             case R.id.ll_home:
                 initHome();
@@ -396,7 +413,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 if (token != null && !token.equals("")) {
                     hideFragment(3);
                 } else {
-                    startActivity(new Intent(this, LoginActivity.class));
+                    startActivity(new Intent(this, PhoneLoginActivity.class));
                     finish();
                 }
                 break;
@@ -698,7 +715,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                             initMyCenter();
                         }
                     } else {
-                        startActivity(new Intent(getContext(), LoginActivity.class));
+                        startActivity(new Intent(getContext(), PhoneLoginActivity.class));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

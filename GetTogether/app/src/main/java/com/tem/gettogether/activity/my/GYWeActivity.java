@@ -21,6 +21,7 @@ import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.GYWMBean;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 
@@ -53,7 +54,7 @@ public class GYWeActivity extends BaseActivity {
     @Override
     protected void initData() {
         tv_title.setText(R.string.gywm);
-
+        StatusBarUtil.setTranslucentStatus(this);
     }
 
     @Override

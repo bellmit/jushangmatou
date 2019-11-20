@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:numColumns="7"
-    android:paddingStart="10dp"
-    android:paddingEnd="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     android:paddingTop="26dp"
     android:listSelector="@drawable/rc_emoji_grid_item_selector"
     android:verticalSpacing="14dp"/>

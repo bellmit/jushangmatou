@@ -20,6 +20,7 @@ import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.FansDataBean;
 import com.tem.gettogether.bean.ProductManagementBean;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 
@@ -55,6 +56,7 @@ public class FansActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
         tv_title.setText(R.string.fans);
         getFansData(1,false);
         initRefresh();

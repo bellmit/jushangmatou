@@ -76,5 +76,10 @@
     <color name="dpgl_add">#f7a64e</color>
 
     <color name="foreign_trade_service_provider_color">#FD6C0B</color>
-
+    
+    <color name="col_login_1">#ddaf59</color>
+    <color name="col_login_2">#30a5dd</color>
+    <color name="col_login_3">#50b674</color>
+    <color name="col_login_4">#f72e1a</color>
+    <color name="col_circle">#fd5700</color>
 </resources>

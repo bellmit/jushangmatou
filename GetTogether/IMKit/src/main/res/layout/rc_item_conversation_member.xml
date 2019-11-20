@@ -39,7 +39,7 @@
         android:id="@android:id/icon1"
         android:layout_width="22.5dp"
         android:layout_height="22.5dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginTop="4dp"
         android:padding="2.5dp"
         android:src="@drawable/rc_mebmer_delete" />

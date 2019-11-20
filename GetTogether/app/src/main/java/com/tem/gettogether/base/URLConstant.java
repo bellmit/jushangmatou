@@ -9,8 +9,8 @@ public class URLConstant {
 //    public final static String SERVER = "";
     //测试环境
 
-    public final static String SERVER = "http://www.jsmtgou.com/jushangmatou/index.php";//www.jushangmat.com  www.jsmtgou.com
-    //    public final static String SERVER = "http://test.uonep.com/jushangmatou/index.php";//www.jushangmat.com  www.jsmtgou.com
+//        public final static String SERVER = "http://www.jsmtgou.com/jushangmatou/index.php";//www.jushangmat.com  www.jsmtgou.com
+    public final static String SERVER = "http://m.jsmtgou.com/jushangmatou/index.php";//www.jushangmat.com  www.jsmtgou.com
     //注册
     public final static String REGISTER = SERVER + "/Api/User/reg";
     // 绑定手机号码
@@ -374,9 +374,55 @@ public class URLConstant {
     public final static String WXPAY_REFUND_URL = SERVER + "/Api/Wxpay/mpayBack";
 
     //支付宝退款接口
-    public final static String ALIPAY_REFUND_URL = SERVER +"/Api/Payment/mpayBack";
+    public final static String OLD_ALIPAY_REFUND_URL = SERVER + "/Api/Payment/mpayBack";
 
     // 融云获取头像昵称
     public final static String RONGYUN_NICKNAME_HEADPIC = SERVER + "/Api/User/getuser";
 
+    // 支付宝退款
+    public final static String ALIPAY_REFUND_URL = SERVER + "/Api/User/pay_back";
+
+    // 普通会员升级高级会员
+    public final static String ALIPAY_REFUND_BALANCE_URL = SERVER + "/Api/User/upgrade_pay_back";
+
+    // 普通会员退款金额接口
+    public final static String GET_REFUND_AMOUNT = SERVER + "/Api/User/pay_back_money";
+
+    // 退款进度
+    public final static String GET_REFUND_PROGRESS = SERVER + "/Api/User/refund_status";
+
+    // 电话验证码
+    public final static String PHOEN_CODE = SERVER + "/Api/User/send_csms_reg_code";
+
+    // 邮箱验证码
+    public final static String EMAIL_CODE = SERVER + "/Api/User/send_mail_reg_code";
+
+    // 国家代码
+    public final static String COUNTRY_CODE = SERVER + "/Api/User/country_code";
+
+    // 会员手机和邮箱注册接口
+    public final static String PHONE_EMAIL_REGISTER = SERVER + "/Api/User/reg1";
+
+    // 会员手机和邮箱登录接口
+    public final static String PHONE_EMAIL_LOGIN = SERVER + "/Api/User/login1";
+
+    // 会员用手机号码或邮箱找回密码接口
+    public final static String FIND_PASSWORD = SERVER + "/Api/User/forgetPwd1";
+
+    // 认证接口
+    public final static String ENTERPRICE_PERSION_STORE = SERVER + "/Api/Newjoin/enterprise_person_store";
+
+    // 获取店铺认证资料接口
+    public final static String AUTHENTICATION_DATA = SERVER + "/Api/Newjoin/store_apply_info";
+
+    // 微信facebook第三方登录状态检查接口
+    public final static String FACEBOOK_WX_CHECK = SERVER + "/Api/Newjoin/facebook_wx_check";
+
+    public final static String ANNOUNCEMENT_URL = SERVER + "/Api/Index/announcement";
+
+    // 聚工厂
+    public final static String FACTORY_LIST = SERVER +"/Api/Index/outside_factory_list";
+
+    // 订单详情
+    public final static String ORDER_DETAIL = SERVER + "/Api/Goods/newest_orderlist_for_onegoods";
 }

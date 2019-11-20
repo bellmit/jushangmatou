@@ -23,6 +23,7 @@ import com.tem.gettogether.bean.HotSouSuoBean;
 import com.tem.gettogether.bean.SouSuoLSBean;
 import com.tem.gettogether.utils.ListUtils;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.UiUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -62,6 +63,7 @@ public class HomeSouSuoActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
         is_yilian = getIntent().getBooleanExtra("is_yilian",false);
         initData();
         initView();

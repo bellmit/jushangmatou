@@ -18,6 +18,7 @@ import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.ShoppingPJBean;
 import com.tem.gettogether.utils.ListUtils;
 import com.tem.gettogether.utils.NetWorkUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.UiUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -73,6 +74,8 @@ public class ShoppingEvaluateActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
+
         initData();
         initView();
         upShoppingSC(commentType);

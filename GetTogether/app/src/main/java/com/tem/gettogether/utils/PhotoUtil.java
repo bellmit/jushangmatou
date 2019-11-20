@@ -26,7 +26,7 @@ import java.io.File;
 public class PhotoUtil {
     private static String IMAGE_FILE_NAME = "user_head_icon.jpg";
     private static final int PHOTO_PICKED_FROM_CAMERA = 111; // 用来标识头像来自系统拍照
-    private static File mCropImageFile;
+    public static File mCropImageFile;
     private static final int CROP_FROM_CAMERA = 333;
 
     public static void imageCapture(Activity activity) {
@@ -78,15 +78,15 @@ public class PhotoUtil {
                 }
                 intent.setDataAndType(uri, "image/*");
                 intent.putExtra("crop", "true");
-                if (Build.MANUFACTURER.equals("HUAWEI")) {//解决华为手机调用裁剪出现圆形裁剪框
+                /*if (Build.MANUFACTURER.equals("HUAWEI")) {//解决华为手机调用裁剪出现圆形裁剪框
                     intent.putExtra("aspectX", 9998);
                     intent.putExtra("aspectY", 9999);
                 } else {
                     intent.putExtra("aspectX", 1); // 裁剪框比例
                     intent.putExtra("aspectY", 1);
-                }
-                intent.putExtra("outputX", 300); // 输出图片大小
-                intent.putExtra("outputY", 300);
+                }*/
+//                intent.putExtra("outputX", 300); // 输出图片大小
+//                intent.putExtra("outputY", 300);
                 intent.putExtra("scale", true);
                 intent.putExtra("return-data", false);
                 intent.putExtra("circleCrop", false);

@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="F:\jushangmatou\GetTogether\IMKit\src\main\assets"/><source path="F:\jushangmatou\GetTogether\IMKit\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="F:\jushangmatou\GetTogether\IMKit\src\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="F:\jushangmatou\GetTogether\IMKit\src\main\assets"><file name="combine.json" path="F:\jushangmatou\GetTogether\IMKit\src\main\assets\combine.json"/></source><source path="F:\jushangmatou\GetTogether\IMKit\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="F:\jushangmatou\GetTogether\IMKit\src\debug\assets"/></dataSet></merger>

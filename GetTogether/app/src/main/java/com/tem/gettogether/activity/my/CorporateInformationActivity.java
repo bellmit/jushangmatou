@@ -39,6 +39,7 @@ import com.tem.gettogether.bean.ImageDataBean;
 import com.tem.gettogether.utils.Base64BitmapUtil;
 import com.tem.gettogether.utils.Contacts;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.permissions.AppUtils;
 import com.tem.gettogether.utils.permissions.FileUtils;
 import com.tem.gettogether.utils.permissions.PermissionsActivity;
@@ -123,6 +124,7 @@ public class CorporateInformationActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
         informationType = getIntent().getIntExtra(Contacts.PERSION_ENTERPRISE_INFORMATION, 0);
         tv_title.setText(informationType == 0 ? getResources().getText(R.string.qiyexinxi) : getResources().getText(R.string.gerenxinxi));
         card2_ll.setVisibility(informationType == 0 ? View.VISIBLE : View.GONE);

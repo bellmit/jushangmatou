@@ -39,6 +39,7 @@ import com.tem.gettogether.bean.JieSuanBean;
 import com.tem.gettogether.bean.WechatDataBean;
 import com.tem.gettogether.utils.PayResult;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.OnPasswordInputFinish2;
@@ -108,6 +109,7 @@ public class CloseAccountActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
         initData();
 
     }

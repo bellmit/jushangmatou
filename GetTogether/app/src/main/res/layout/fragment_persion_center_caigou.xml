@@ -21,7 +21,7 @@
                     android:id="@+id/ll_myhead"
                     android:layout_width="match_parent"
                     android:layout_height="190dp"
-                    android:background="@drawable/plan_progress_one"
+                    android:background="@drawable/my_bg"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -57,8 +57,8 @@
                                 android:id="@+id/tv_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:drawableEnd="@drawable/edit_name_icon"
                                 android:text="null"
+                                android:paddingStart="4dp"
                                 android:textColor="@color/white"
                                 android:textSize="19dp" />
 
@@ -72,28 +72,18 @@
                                 android:textSize="12dp"
                                 android:visibility="gone" />
 
-                            <LinearLayout
-                                android:id="@+id/ll_dprz"
+
+                            <TextView
+                                android:id="@+id/tv_shopZZ"
                                 android:layout_width="wrap_content"
-                                android:layout_height="21dp"
-                                android:layout_marginTop="10dp"
-                                android:background="@drawable/radius_write_btn"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal"
-                                android:paddingStart="8dp"
-                                android:paddingEnd="8dp">
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_10"
+                                android:background="@drawable/identity_bg"
+                                android:gravity="center"
+                                android:text="@string/caigoushang"
+                                android:textColor="@color/Orange"
+                                android:textSize="14dp" />
 
-                                <TextView
-                                    android:id="@+id/tv_shopZZ"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="4dp"
-                                    android:layout_marginEnd="4dp"
-                                    android:text="@string/caigoushang"
-                                    android:textColor="@color/Orange"
-                                    android:textSize="11dp" />
-
-                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
 
@@ -195,7 +185,7 @@
                 <TextView
                     android:id="@+id/tv_bg"
                     android:layout_width="match_parent"
-                    android:layout_height="110dp"
+                    android:layout_height="130dp"
                     android:layout_below="@+id/ll_myhead"
                     android:background="@color/my_kb_bg" />
 
@@ -203,9 +193,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="13dp"
-                    android:layout_marginTop="178dp"
+                    android:layout_marginTop="170dp"
                     android:layout_marginEnd="13dp"
-                    android:background="@drawable/my_zhuangtai_bg"
+                    android:background="@drawable/center_white_bg"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
@@ -213,6 +203,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
+                        android:layout_marginStart="@dimen/dp_20"
                         android:text="@string/my_signing"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
@@ -422,15 +413,16 @@
                                 android:text="@string/caigoushangrenzhen"
                                 android:textColor="@color/text3"
                                 android:textSize="14dp" />
+
                             <TextView
                                 android:id="@+id/rz_status_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text=""
-                                android:layout_marginEnd="20dp"
-                                android:layout_centerVertical="true"
                                 android:layout_alignParentEnd="true"
-                                />
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="20dp"
+                                android:text="" />
+
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

@@ -16,6 +16,7 @@ import com.tem.gettogether.fragment.gongying.GongYingOrderFaHuoFragment;
 import com.tem.gettogether.fragment.gongying.GongYingOrderJieKuanFragment;
 import com.tem.gettogether.fragment.gongying.GongYingOrderShouHuoFragment;
 import com.tem.gettogether.fragment.gongying.GongYingOrderWangChengFragment;
+import com.tem.gettogether.utils.StatusBarUtil;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -43,6 +44,7 @@ public class GongYingShangNewOrderActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
         tv_title.setText(getText(R.string.my_order));
         titles = new String[]{getResources().getString(R.string.all), getString(R.string.daifahuo), getString(R.string.wait_s), getResources().getString(R.string.yijiekuan), getResources().getString(R.string.complete)};
         list_fragment = new ArrayList<>();
