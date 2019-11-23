@@ -87,7 +87,7 @@ public class BaseApplication extends Application {
         setInputProvider();
         UMShareAPI.get(this);
         initAppLanguage();
-        Bugtags.start("42c655de1b4f612f3e488385c64f3e81", this, Bugtags.BTGInvocationEventBubble/*Bugtags.BTGInvocationEventNone*/);
+        Bugtags.start("42c655de1b4f612f3e488385c64f3e81", this, /*Bugtags.BTGInvocationEventBubble*/Bugtags.BTGInvocationEventNone);
 
 
         Beta.autoCheckUpgrade = false;//设置不自动检查
@@ -96,8 +96,8 @@ public class BaseApplication extends Application {
 
 
         /*有道翻译初始化*/
-       /* if (YouDaoApplication.getApplicationContext() == null)
-            YouDaoApplication.init(this, "086f7d9c1f5d5f84");*/
+        if (YouDaoApplication.getApplicationContext() == null)
+            YouDaoApplication.init(this, "086f7d9c1f5d5f84");
 
             FacebookSdk.sdkInitialize(getApplicationContext());
             AppEventsLogger.activateApp(this);

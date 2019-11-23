@@ -37,6 +37,7 @@ import com.tem.gettogether.activity.LoginActivity;
 import com.tem.gettogether.activity.cart.CloseAccountActivity;
 import com.tem.gettogether.activity.cart.ShoppingCartActivity;
 import com.tem.gettogether.activity.my.AddressGLActivity;
+import com.tem.gettogether.activity.my.CgsAuthenticationActivity;
 import com.tem.gettogether.adapter.OrderDetailAdapter;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
@@ -401,7 +402,15 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
                     CusToast.showToast(getResources().getText(R.string.supplier_does_not_have_this_feature));
                 } else {
-                    showPop(tv_jrgwc);
+                    if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("1")) {
+                        showPop(tv_jrgwc);
+                    } else if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("3")) {
+                        CusToast.showToast(getText(R.string.shz));
+                    } else {
+                        CusToast.showToast(getText(R.string.please_first_purchase_the_buyer));
+                        startActivity(new Intent(getContext(), CgsAuthenticationActivity.class));
+                        return;
+                    }
                 }
                 break;
             case R.id.ll_shuxing_xz:
@@ -586,7 +595,6 @@ public class ShoppingParticularsActivity extends BaseActivity {
             TextView tv_add_num = view.findViewById(R.id.tv_add_num);
             final EditText tv_num_all = view.findViewById(R.id.tv_num_all);
             tv_num_all.setText(String.valueOf(tv_num.getText().toString()));
-            tv_queding.setText(getText(R.string.queding) + "(" + tv_num.getText().toString() + ")");
             TextView tv_jian_num = view.findViewById(R.id.tv_jian_num);
             final TextView tv_shuxing2 = view.findViewById(R.id.tv_shuxing2);
             final TextView tv_shuxing1 = view.findViewById(R.id.tv_shuxing1);
@@ -600,7 +608,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         CusToast.showToast(getText(R.string.the_number_cannot_be_less_than_one));
                         return;
                     }
-                    tv_queding.setText(getText(R.string.queding) + "(" + allNum + ")");
+//                    tv_queding.setText(getText(R.string.queding) + "(" + allNum + ")");
                     tv_num_all.setText(allNum + "");
 
                 }
@@ -612,7 +620,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         allNum = Integer.parseInt(tv_num_all.getText().toString());
                         allNum++;
                         tv_num_all.setText(allNum + "");
-                        tv_queding.setText(getText(R.string.queding) + "(" + allNum + ")");
+//                        tv_queding.setText(getText(R.string.queding) + "(" + allNum + ")");
                     } else {
                         allNum = 0;
                     }
@@ -636,7 +644,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     if (!tv_num_all.getText().toString().equals("")) {
                         allNum = Integer.parseInt(tv_num_all.getText().toString());
                         tv_num.setText(tv_num_all.getText().toString());
-                        tv_queding.setText(getText(R.string.queding) + "(" + allNum + ")");
+//                        tv_queding.setText(getText(R.string.queding) + "(" + allNum + ")");
                     }
                 }
             });
@@ -700,6 +708,20 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 @Override
                 public void onClick(View view) {
                     mPop.dismiss();
+                    if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
+                        CusToast.showToast(getResources().getText(R.string.supplier_does_not_have_this_feature));
+                        return;
+                    }
+                    if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("1")) {
+                        if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("3")) {
+                            CusToast.showToast(getText(R.string.shz));
+                            return;
+                        } else {
+                            CusToast.showToast(getText(R.string.please_first_purchase_the_buyer));
+                            startActivity(new Intent(getContext(), CgsAuthenticationActivity.class));
+                            return;
+                        }
+                    }
                     allNum = Integer.parseInt(tv_num_all.getText().toString());
                     String sku = "";
                     if (goodsBean.getGoods_spec_list() != null) {
@@ -741,7 +763,6 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         map.put("key", sku);
                         upJieSCartData(map, sku, allNum);
 
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -752,7 +773,13 @@ public class ShoppingParticularsActivity extends BaseActivity {
             tv_queding.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {//加入购物车
-                    if (popType == 0) {
+                    if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
+                        CusToast.showToast(getResources().getText(R.string.supplier_does_not_have_this_feature));
+                        mPop.dismiss();
+                        mPop = null;
+                        return;
+                    }
+                   /* if (popType == 0) {*/
                         skuid.clear();
                         allNum = Integer.parseInt(tv_num_all.getText().toString());
 
@@ -789,9 +816,19 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         }
                         mPop.dismiss();
                         mPop = null;
-                    } else {// 立即下单
+                   /* } else {// 立即下单
                         Log.e("chenshichun", "--立即下单---");
                         mPop.dismiss();
+                        if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("1")) {
+                            if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("3")) {
+                                CusToast.showToast(getText(R.string.shz));
+                                return;
+                            } else {
+                                CusToast.showToast(getText(R.string.please_first_purchase_the_buyer));
+                                startActivity(new Intent(getContext(), CgsAuthenticationActivity.class));
+                                return;
+                            }
+                        }
                         allNum = Integer.parseInt(tv_num_all.getText().toString());
                         String sku = "";
                         if (goodsBean.getGoods_spec_list() != null) {
@@ -827,7 +864,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                             e.printStackTrace();
                         }
                         mPop = null;
-                    }
+                    }*/
                 }
             });
             view.findViewById(R.id.iv_dialog_close).setOnClickListener(new View.OnClickListener() {

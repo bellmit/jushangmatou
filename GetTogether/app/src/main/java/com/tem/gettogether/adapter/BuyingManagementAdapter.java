@@ -32,10 +32,16 @@ public class BuyingManagementAdapter extends CommonAdapter<QiuGouListBean.Result
         holder.setText(R.id.product_title, resultBean.getGoods_name());
         holder.setText(R.id.buy_style_tv, resultBean.getRelease_type());
         holder.setText(R.id.buy_time_tv, resultBean.getAttach_time());
-        holder.setVisible(R.id.time_tv,true);
-        holder.setText(R.id.chukou_tv, resultBean.getCountry_name());
-        holder.setText(R.id.time_tv,resultBean.getAdd_time());
+        holder.setVisible(R.id.time_tv, true);
+        holder.setText(R.id.chukou_tv, context.getString(R.string.export) + resultBean.getCountry_name());
+        holder.setText(R.id.time_tv, resultBean.getAdd_time());
         final EasySwipeMenuLayout easySwipeMenuLayout = holder.getView(R.id.action_bar);
+        holder.setOnClickListener(R.id.upload_completed_order_tv, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.uploadCompletedOrder();
+            }
+        });
 
         //删除
         holder.setOnClickListener(R.id.right, new View.OnClickListener() {
@@ -59,6 +65,7 @@ public class BuyingManagementAdapter extends CommonAdapter<QiuGouListBean.Result
 
         void ItemDeleteClickListener(View view, int position);
 
+        void uploadCompletedOrder();
     }
 
 }

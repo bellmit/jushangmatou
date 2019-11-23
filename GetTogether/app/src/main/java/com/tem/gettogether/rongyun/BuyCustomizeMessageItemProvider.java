@@ -50,8 +50,6 @@ public class BuyCustomizeMessageItemProvider extends IContainerItemProvider.Mess
     @Override
     public void bindView(View view, int i, final CustomizeBuyMessage customizeMessage, UIMessage uiMessage) {
         BuyCustomizeMessageItemProvider.ViewHolder holder = (BuyCustomizeMessageItemProvider.ViewHolder) view.getTag();
-        Log.d("chenshichun","========getImage==="+customizeMessage.getImage());
-        Log.d("chenshichun","========getBatch_number==="+customizeMessage.getBatch_number());
 
         if (uiMessage.getMessageDirection() == Message.MessageDirection.SEND) {//消息方向，自己发送的
             holder.ll_item.setBackgroundResource(io.rong.imkit.R.drawable.rc_ic_bubble_right);
@@ -79,6 +77,12 @@ public class BuyCustomizeMessageItemProvider extends IContainerItemProvider.Mess
                             .putExtra("page", 0));
                 }
 
+            }
+        });
+        holder.ll_item.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
             }
         });
     }

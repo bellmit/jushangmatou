@@ -1,10 +1,8 @@
 package com.tem.gettogether.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -18,7 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
-import com.tem.gettogether.activity.my.VipCenterActivity;
+import com.tem.gettogether.activity.my.authentication.AuthenticationActivity;
+import com.tem.gettogether.activity.my.member.MemberCentreActivity;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseFragment;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
@@ -84,7 +83,7 @@ public class XunPanTuiSongFragment extends BaseFragment {
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.tv_title_right:
-                startActivity(new Intent(getActivity(), VipCenterActivity.class));
+                startActivity(new Intent(getActivity(), MemberCentreActivity.class));
                 break;
         }
     }
@@ -132,11 +131,19 @@ public class XunPanTuiSongFragment extends BaseFragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 Log.d("chenshichun","==========="+SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7"));
-
+                if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("2")) {
+                    CusToast.showToast(getText(R.string.store_review));
+                    return;
+                }
+                if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("1")) {
+                    CusToast.showToast(getText(R.string.please_certify_shops_first));
+                    startActivity(new Intent(getContext(), AuthenticationActivity.class));
+                    return;
+                }
                 if (tab.getPosition() == 1 && !SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7").equals("2")) {
 //                    listener.switchMy();
                     CusToast.showToast(getText(R.string.please_upgrade_the_premium_member_first));
-                    startActivityForResult(new Intent(getContext(), VipCenterActivity.class), 10000);
+                    startActivityForResult(new Intent(getContext(), MemberCentreActivity.class), 10000);
                 }
             }
 

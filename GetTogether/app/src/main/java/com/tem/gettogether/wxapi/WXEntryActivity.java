@@ -238,7 +238,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
-                    CusToast.showToast(msg);
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         LoginStatusBean mLoginStatusBean = gson.fromJson(result, LoginStatusBean.class);
@@ -275,12 +274,19 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                 .setBuyersClick(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        finish();
                         upLogin("0");
                     }
                 }).setSupplierClick(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        finish();
                         upLogin("1");
+                    }
+                }).setCloseClick(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
                     }
                 }).create();
         mIdentityDialog.show();
@@ -358,10 +364,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                         SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.MOBILE_AVLIDATED, loginBean.getResult().getMobile_validated());
                         startActivity(new Intent(WXEntryActivity.this, MainActivity.class));
                         finish();
-//                        } else {// 未绑定
-//                            startActivity(new Intent(WXEntryActivity.this, RegisterActivity.class).putExtra(Contacts.REGISTER_TYPE, 1).putExtra(Contacts.REGISTER_OPEN_ID, BaseApplication.getInstance().bean.getOpenid()));
-//                            finish();
-//                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

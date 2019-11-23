@@ -1,6 +1,12 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        />
 
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
         android:id="@+id/refreshLayout"
@@ -63,8 +69,8 @@
                                 android:id="@+id/tv_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="null"
                                 android:paddingStart="4dp"
+                                android:text="null"
                                 android:textColor="@color/white"
                                 android:textSize="19dp" />
 
@@ -208,8 +214,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
                         android:layout_marginStart="@dimen/dp_20"
+                        android:padding="5dp"
                         android:text="@string/my_signing"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
@@ -249,7 +255,8 @@
                                 android:gravity="center"
                                 android:text="99"
                                 android:textColor="@color/col_circle"
-                                android:textSize="8sp" />
+                                android:textSize="8sp"
+                                android:visibility="gone" />
 
                         </RelativeLayout>
 
@@ -261,7 +268,7 @@
                             <TextView
                                 android:id="@+id/tv_dfk"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_centerHorizontal="true"
                                 android:drawableTop="@drawable/fahuo_icon"
                                 android:drawablePadding="10dp"
@@ -280,7 +287,8 @@
                                 android:gravity="center"
                                 android:text="99"
                                 android:textColor="@color/col_circle"
-                                android:textSize="8sp" />
+                                android:textSize="8sp"
+                                android:visibility="gone" />
 
                         </RelativeLayout>
 
@@ -311,7 +319,8 @@
                                 android:gravity="center"
                                 android:text="99"
                                 android:textColor="@color/col_circle"
-                                android:textSize="8sp" />
+                                android:textSize="8sp"
+                                android:visibility="gone" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -342,7 +351,8 @@
                                 android:gravity="center"
                                 android:text="99"
                                 android:textColor="@color/col_circle"
-                                android:textSize="8sp" />
+                                android:textSize="8sp"
+                                android:visibility="gone" />
                         </RelativeLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -662,4 +672,4 @@
             </RelativeLayout>
         </com.tem.gettogether.view.BaseScrollView>
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
-</LinearLayout>
+</RelativeLayout>

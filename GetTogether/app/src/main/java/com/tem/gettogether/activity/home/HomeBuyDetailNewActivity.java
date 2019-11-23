@@ -18,6 +18,7 @@ import com.tem.gettogether.R;
 import com.tem.gettogether.ShowImageDetail;
 import com.tem.gettogether.activity.my.VipCenterActivity;
 import com.tem.gettogether.activity.my.WaiMaoQiuGouActivity;
+import com.tem.gettogether.activity.my.member.MemberCentreActivity;
 import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
@@ -204,7 +205,7 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
 
                 if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "").equals("7")) {
                     CusToast.showToast(getText(R.string.please_upgrade_the_premium_member_first));
-                    startActivity(new Intent(getContext(), VipCenterActivity.class));
+                    startActivity(new Intent(getContext(), MemberCentreActivity.class));
                     return;
                 }
 

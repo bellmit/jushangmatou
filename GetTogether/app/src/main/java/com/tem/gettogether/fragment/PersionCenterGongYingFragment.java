@@ -1,6 +1,7 @@
 package com.tem.gettogether.fragment;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,7 +34,6 @@ import com.tem.gettogether.activity.my.FansActivity;
 import com.tem.gettogether.activity.my.GYWeActivity;
 import com.tem.gettogether.activity.my.ProductManagmentActivity;
 import com.tem.gettogether.activity.my.SettingActivity;
-import com.tem.gettogether.activity.my.ShopRzFailedActivity;
 import com.tem.gettogether.activity.my.StoreManagementActivity;
 import com.tem.gettogether.activity.my.TAdviseActivity;
 import com.tem.gettogether.activity.my.VisitorActivity;
@@ -105,6 +105,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         baseActivity = (BaseActivity) getActivity();
+
         upGetMessageData();
         initRefresh();
     }
@@ -218,11 +219,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                     if (res.equals("1")) {
                         if (jsonObject.optString("result") == null || jsonObject.optString("result").equals("")) {
                             if (myMessageBean != null) {
-                    /*startActivity(new Intent(getActivity(), VipCenterActivity.class)
-                            .putExtra("head_pic", myMessageBean.getResult().getHead_pic())
-                            .putExtra("shop_status", resultBean.getStore_status()));*/
                                 startActivity(new Intent(getActivity(), MemberCentreActivity.class));
-
                             }
                         } else {
                             startActivity(new Intent(getActivity(), RefundProgressActivity.class));
@@ -360,7 +357,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
         headerView.setRefreshingStr(getString(R.string.refreshing));
         headerView.setTextColor(0xff745D5C);
         refreshLayout.setHeaderView(headerView);
-        refreshLayout.setEnableRefresh(false);
+        refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableOverScroll(false);
         LoadingView loadingView = new LoadingView(getContext());
         refreshLayout.setBottomView(loadingView);

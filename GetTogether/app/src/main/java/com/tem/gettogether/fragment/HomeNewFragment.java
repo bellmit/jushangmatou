@@ -2,6 +2,9 @@ package com.tem.gettogether.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
@@ -14,6 +17,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -92,6 +96,8 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -102,6 +108,8 @@ import cc.duduhuo.custoast.CusToast;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.umeng.socialize.utils.ContextUtil.getPackageName;
 
 
 @ContentView(R.layout.fragment_new_home)
@@ -185,6 +193,23 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                 back_top_btn.setVisibility(scrollY > 500 ? View.VISIBLE : View.GONE);
             }
         });
+
+        /*try {
+            int i = 0;
+            PackageInfo info = getContext().getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                i++;
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                String KeyHash = Base64.encodeToString(md.digest(), Base64.DEFAULT);
+                //KeyHash 就是你要的，不用改任何代码  复制粘贴 ;
+                Log.e("tyl", "KeyHash=" + KeyHash);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }*/
     }
 
     @Override
@@ -417,13 +442,10 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
         int width = dm.widthPixels;
         int imageSize = SizeUtil.dp2px(getContext(), 10);
 
-        Log.e("chenshichun", "-width----" + width);
         int img0W = (width - imageSize) * 3 / 7;
         int img0H = img0W * 732 / 592;
-        Log.e("chenshichun", "--img0W::  " + img0W + "  img0H::  " + img0H);
         int img1W = (width - imageSize) * 4 / 7;
         int img1H = img1W * 360 / 800;
-        Log.e("chenshichun", "--img1W::  " + img1W + "  img1H::  " + img1H);
         ViewGroup.LayoutParams lp = img0.getLayoutParams();
         lp.width = img0W;
         lp.height = img0H;
@@ -583,15 +605,17 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.img0:
                 startActivity(new Intent(getActivity(), ShoppingParticularsActivity.class)
-                        .putExtra("goods_id", specialRecommendBeans.get(2).getGoods_id()));
+                        .putExtra("goods_id", "5928"/*specialRecommendBeans.get(2).getGoods_id()*/));
                 break;
             case R.id.img1:
+
                 startActivity(new Intent(getActivity(), ShoppingParticularsActivity.class)
-                        .putExtra("goods_id", specialRecommendBeans.get(1).getGoods_id()));
+                        .putExtra("goods_id", "6197"/*specialRecommendBeans.get(1).getGoods_id()*/));
                 break;
             case R.id.img2:
+
                 startActivity(new Intent(getActivity(), ShoppingParticularsActivity.class)
-                        .putExtra("goods_id", specialRecommendBeans.get(0).getGoods_id()));
+                        .putExtra("goods_id", "6589"/*specialRecommendBeans.get(0).getGoods_id()*/));
                 break;
         }
     }
@@ -646,33 +670,33 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_item:
-                DisplayMetrics dm = getResources().getDisplayMetrics();
+             /*   DisplayMetrics dm = getResources().getDisplayMetrics();
                 Configuration config = getResources().getConfiguration();
                 // 应用用户选择语言
                 config.locale = Locale.CHINESE;
-                getResources().updateConfiguration(config, dm);
+                getResources().updateConfiguration(config, dm);*/
                 SharedPreferencesUtils.saveLanguageString(getActivity(), BaseConstant.SPConstant.language, "zh");
                 mPop.dismiss();
 //                restartApplication(getActivity());
                 getActivity().recreate();
                 break;
             case R.id.rl_item2:
-                DisplayMetrics dm2 = getResources().getDisplayMetrics();
+                /*DisplayMetrics dm2 = getResources().getDisplayMetrics();
                 Configuration config2 = getResources().getConfiguration();
                 // 应用用户选择语言
                 config2.locale = Locale.ENGLISH;
-                getResources().updateConfiguration(config2, dm2);
+                getResources().updateConfiguration(config2, dm2);*/
                 SharedPreferencesUtils.saveLanguageString(getActivity(), BaseConstant.SPConstant.language, "en");
                 mPop.dismiss();
                 //restartApplication(getActivity());
                 getActivity().recreate();
                 break;
             case R.id.rl_item3:
-                DisplayMetrics dm3 = getResources().getDisplayMetrics();
+                /*DisplayMetrics dm3 = getResources().getDisplayMetrics();
                 Configuration config3 = getResources().getConfiguration();
                 // 应用用户选择语言
                 config3.locale = new Locale("ar");
-                getResources().updateConfiguration(config3, dm3);
+                getResources().updateConfiguration(config3, dm3);*/
                 SharedPreferencesUtils.saveLanguageString(getActivity(), BaseConstant.SPConstant.language, "ara");
                 mPop.dismiss();
                 // restartApplication(getActivity());

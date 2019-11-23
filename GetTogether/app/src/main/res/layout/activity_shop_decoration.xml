@@ -279,13 +279,13 @@
 
             <TextView
                 android:id="@+id/tv_fbShopping"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/main_fbqg15"
+                android:background="@drawable/btn_bg"
                 android:gravity="center"
                 android:text="@string/baocunzhuangxiu"
                 android:textColor="@color/white"

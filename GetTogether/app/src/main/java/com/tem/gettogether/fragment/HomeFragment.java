@@ -854,45 +854,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rl_item:
-                DisplayMetrics dm = getResources().getDisplayMetrics();
-                Configuration config = getResources().getConfiguration();
-                // 应用用户选择语言
-                config.locale = Locale.CHINESE;
-                getResources().updateConfiguration(config,dm);
                 SharedPreferencesUtils.saveLanguageString(getActivity(),BaseConstant.SPConstant.language,"zh");
                 mPop.dismiss();
-
-//                Intent intent = new Intent(getActivity(), MainActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                getActivity().startActivity(intent);
-//
-//                android.os.Process.killProcess(android.os.Process.myPid());
-//                System.exit(0);
                 restartApplication(getActivity());
                 break;
             case R.id.rl_item2:
-                DisplayMetrics dm2 = getResources().getDisplayMetrics();
-                Configuration config2 = getResources().getConfiguration();
-                // 应用用户选择语言
-                config2.locale = Locale.ENGLISH;
-                getResources().updateConfiguration(config2,dm2);
                 SharedPreferencesUtils.saveLanguageString(getActivity(),BaseConstant.SPConstant.language,"en");
                 mPop.dismiss();
 
-//                Intent intent2 = new Intent(getActivity(), MainActivity.class);
-//                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                getActivity().startActivity(intent2);
-//
-//                android.os.Process.killProcess(android.os.Process.myPid());
-//                System.exit(0);
                 restartApplication(getActivity());
                 break;
             case R.id.rl_item3:
-                DisplayMetrics dm3 = getResources().getDisplayMetrics();
-                Configuration config3 = getResources().getConfiguration();
-                // 应用用户选择语言
-                config3.locale = new Locale("ar");
-                getResources().updateConfiguration(config3,dm3);
                 SharedPreferencesUtils.saveLanguageString(getActivity(),BaseConstant.SPConstant.language,"ara");
                 mPop.dismiss();
                 restartApplication(getActivity());

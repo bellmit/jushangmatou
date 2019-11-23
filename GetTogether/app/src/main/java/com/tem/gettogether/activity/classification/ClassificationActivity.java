@@ -21,6 +21,7 @@ import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.ClassificationListBean;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 
@@ -75,6 +76,7 @@ public class ClassificationActivity extends BaseActivity {
     @Override
     protected void initData() {
         x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
         tv_title.setText(getIntent().getStringExtra("classification_name"));
         classificationId = getIntent().getStringExtra("classification_id");
         is_yilian = getIntent().getBooleanExtra("is_yilian", false);

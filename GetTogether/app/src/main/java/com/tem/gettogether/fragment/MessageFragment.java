@@ -62,10 +62,8 @@ public class MessageFragment extends BaseFragment {
     @ViewInject(R.id.main_viewpager)
     private ViewPager main_viewpager;
     private List<Fragment> mFragment = new ArrayList<>();
-    @ViewInject(R.id.rl_close)
-    private RelativeLayout rl_close;
-    @ViewInject(R.id.tv_title)
-    private TextView tv_title;
+//    @ViewInject(R.id.rl_close)
+//    private RelativeLayout rl_close;
     @ViewInject(R.id.ll_xtMessage)
     private LinearLayout ll_xtMessage;
     long firstClick = 0;
@@ -98,9 +96,7 @@ public class MessageFragment extends BaseFragment {
     }
 
     private void initData() {
-        rl_close.setVisibility(View.GONE);
-        tv_title.setTextColor(getResources().getColor(R.color.bottom_text));
-        tv_title.setText(R.string.message);
+//        rl_close.setVisibility(View.GONE);
 
         RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
 
@@ -111,12 +107,12 @@ public class MessageFragment extends BaseFragment {
 
         }, true);
 
-        rl_close.setOnClickListener(new View.OnClickListener() {
+        /*rl_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 baseActivity.finish();
             }
-        });
+        });*/
         ll_xtMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

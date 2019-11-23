@@ -18,8 +18,10 @@ import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.QiuGouListBean;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
+import com.wildma.pictureselector.PictureSelector;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,6 +47,8 @@ public class BuyingManagementActivity extends BaseActivity implements BuyingMana
     private RelativeLayout rl_close;
     @ViewInject(R.id.refreshLayout)
     private TwinklingRefreshLayout refreshLayout;
+    @ViewInject(R.id.ll_empty)
+    private RelativeLayout ll_empty;
 
     private BuyingManagementAdapter mHomeBuyAdapter;
     private List<QiuGouListBean.ResultBean> homeDataBean = new ArrayList<>();
@@ -55,6 +59,7 @@ public class BuyingManagementActivity extends BaseActivity implements BuyingMana
     protected void initData() {
         x.view().inject(this);
         tv_title.setText(getText(R.string.buying_management));
+        StatusBarUtil.setTranslucentStatus(this);
         setData();
         initDatas(1, false);
         initRefresh();
@@ -93,13 +98,15 @@ public class BuyingManagementActivity extends BaseActivity implements BuyingMana
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         if (!isLoadMore) {
-                            if(jsonObject.optString("result").equals("null")){
+                            if(jsonObject.optString("result")==null||jsonObject.optString("result").equals("")){
                                 homeDataBean.removeAll(homeDataBean);
                                 mHomeBuyAdapter.notifyDataSetChanged();
+                                ll_empty.setVisibility(View.VISIBLE);
                             }else {
                                 homeDataBean.removeAll(homeDataBean);
                                 homeDataBean.addAll(gson.fromJson(result, QiuGouListBean.class).getResult());
                                 mHomeBuyAdapter.notifyDataSetChanged();
+                                ll_empty.setVisibility(View.GONE);
                             }
 
                         } else {
@@ -149,7 +156,7 @@ public class BuyingManagementActivity extends BaseActivity implements BuyingMana
                     String res = jsonObject.optString("status");
                     if (res.equals("1")) {
                         initDatas(1, false);
-                        mHomeBuyAdapter.notifyDataSetChanged();
+//                        mHomeBuyAdapter.notifyDataSetChanged();
                     }
 
                 } catch (JSONException e) {
@@ -222,5 +229,12 @@ public class BuyingManagementActivity extends BaseActivity implements BuyingMana
     @Override
     public void ItemDeleteClickListener(View view, int position) {
         deleteData(homeDataBean.get(position).getTrade_id());
+    }
+
+    @Override
+    public void uploadCompletedOrder() {
+        PictureSelector
+                .create(BuyingManagementActivity.this, PictureSelector.SELECT_REQUEST_CODE)
+                .selectPicture(true, 500, 500, 1, 1);
     }
 }

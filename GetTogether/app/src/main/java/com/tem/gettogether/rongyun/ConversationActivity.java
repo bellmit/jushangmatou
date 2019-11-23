@@ -125,10 +125,6 @@ public class ConversationActivity extends BaseActivity implements OnClickListene
                 }else{
                     isimage=false;
                 }
-                Log.d("====商品333--：", "=="+ message.getExtra());
-
-                Log.d("====商品444--：",  message.getContent().toString()+"=="+message.getExtra()+"--"+message.getObjectName());
-
                 return isimage;
             }
         });

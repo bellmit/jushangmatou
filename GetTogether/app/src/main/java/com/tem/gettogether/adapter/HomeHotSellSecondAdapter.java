@@ -12,13 +12,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tem.gettogether.R;
-import com.tem.gettogether.activity.LoginActivity;
 import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
-import com.tem.gettogether.base.BaseApplication;
-import com.tem.gettogether.bean.HomeDataNewBean;
 import com.tem.gettogether.bean.HomeHotSellBean;
 import com.tem.gettogether.utils.SizeUtil;
-import com.tem.gettogether.utils.TransformationUtils;
 
 import java.util.List;
 
@@ -33,49 +29,49 @@ public class HomeHotSellSecondAdapter extends RecyclerView.Adapter<HomeHotSellSe
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_home_hot_sell, parent, false);
-        return new HomeHotSellSecondAdapter.ViewHolder(view);
+    public HomeHotSellSecondAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_home_xinpin, null);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
-        int imageSize = SizeUtil.dp2px(context, 110);
-        Glide.with(context).load(mDatas.get(position).getcover_image()).asBitmap().placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x)
-                .override(imageSize, imageSize).into(holder.pic_iv);
-        holder.product_title.setText(mDatas.get(position).getGoods_name());
-        if(mDatas.get(position).getIs_enquiry()!=null && mDatas.get(position).getIs_enquiry().equals("1")){
-            holder.buy_price_tv.setText(context.getText(R.string.negotiable_tv));
-        }else{
-            holder.buy_price_tv.setText("￥" + mDatas.get(position).getShop_price());
+    public void onBindViewHolder(HomeHotSellSecondAdapter.ViewHolder holder, final int position) {
+        int imageSize = SizeUtil.dp2px(context, 180);
+        Glide.with(context).load(mDatas.get(position).getcover_image()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(imageSize, imageSize).into(holder.iv_image);
+        holder.title_tv.setText(mDatas.get(position).getGoods_name());
+        if (mDatas.get(position).getIs_enquiry().equals("1")) {
+            holder.price_tv.setText(context.getText(R.string.negotiable_tv));
+        } else {
+            holder.price_tv.setText("￥"+mDatas.get(position).getShop_price());
         }
-        holder.tv_sell_count.setText(mDatas.get(position).getSales_sum());
+        holder.count_tv.setText(mDatas.get(position).getSales_sum());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    context.startActivity(new Intent(context, ShoppingParticularsActivity.class)
-                            .putExtra("goods_id", mDatas.get(position).getGoods_id()));
+                context.startActivity(new Intent(context, ShoppingParticularsActivity.class)
+                        .putExtra("goods_id", mDatas.get(position).getGoods_id()));
             }
         });
     }
 
     @Override
     public int getItemCount() {
+        Log.e("chenshichun","--mDatas.size()---"+mDatas.size());
         return mDatas.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView pic_iv;
-        public TextView product_title;
-        public TextView buy_price_tv;
-        public TextView tv_sell_count;
+        public ImageView iv_image;
+        public TextView title_tv;
+        public TextView price_tv;
+        public TextView count_tv;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            pic_iv = itemView.findViewById(R.id.pic_iv);
-            product_title = itemView.findViewById(R.id.product_title);
-            buy_price_tv = itemView.findViewById(R.id.buy_price_tv);
-            tv_sell_count = itemView.findViewById(R.id.tv_sell_count);
+            iv_image = itemView.findViewById(R.id.iv_image);
+            title_tv = itemView.findViewById(R.id.title_tv);
+            price_tv = itemView.findViewById(R.id.price_tv);
+            count_tv = itemView.findViewById(R.id.count_tv);
         }
     }
 }

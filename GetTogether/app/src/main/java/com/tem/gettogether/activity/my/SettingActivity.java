@@ -278,13 +278,12 @@ public class SettingActivity extends BaseActivity {
                     if (res.equals("1")) {
 //                        BaseApplication.getInstance().removerUser();
                         SharedPreferencesUtils.clearUser(getContext());
-                        /*startActivity(new Intent(SettingActivity.this, LoginActivity.class));*/
                         startActivity(new Intent(SettingActivity.this, PhoneLoginActivity.class));
                         AppManager.getAppManager().finishAllActivity();
                     } else {
 //                        BaseApplication.getInstance().removerUser();
+
                         SharedPreferencesUtils.clearUser(getContext());
-                        /*startActivity(new Intent(SettingActivity.this, LoginActivity.class));*/
                         startActivity(new Intent(SettingActivity.this, PhoneLoginActivity.class));
                         AppManager.getAppManager().finishAllActivity();
                     }

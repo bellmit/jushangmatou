@@ -259,7 +259,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:background="@color/phone_red"
-                android:text="确定(1)"
+                android:text="@string/jiarucaigou"
                 android:textSize="17dp"
                 android:textColor="@color/white" />
         </LinearLayout>

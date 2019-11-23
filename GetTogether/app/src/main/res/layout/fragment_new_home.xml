@@ -320,7 +320,7 @@
                         android:drawablePadding="@dimen/dp_10"
                         android:gravity="center_vertical"
                         android:padding="@dimen/dp_10"
-                        android:text="优质推荐"
+                        android:text="@string/high_quality_recommendation"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
 

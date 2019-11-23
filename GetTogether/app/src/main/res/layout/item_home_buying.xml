@@ -8,7 +8,8 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,95 +22,118 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="20dp"
                 android:text="8月1号"
-                android:visibility="gone"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:visibility="gone" />
         </LinearLayout>
 
-        <android.support.constraint.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:padding="10dp">
+            android:layout_height="wrap_content">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cl_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/pic_iv"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/product_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="2"
+                    android:paddingLeft="115dp"
+                    android:text="标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toTopOf="@+id/pic_iv" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/tv_buy_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/buy_time"
+                    app:layout_constraintBottom_toBottomOf="@id/pic_iv"
+                    app:layout_constraintLeft_toRightOf="@id/pic_iv" />
+
+                <TextView
+                    android:id="@+id/buy_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="现货"
+                    app:layout_constraintBottom_toBottomOf="@id/pic_iv"
+                    app:layout_constraintLeft_toRightOf="@id/tv_buy_time" />
+
+                <TextView
+                    android:id="@+id/tv_buy_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/buy_style"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_buy_time"
+                    app:layout_constraintLeft_toRightOf="@id/pic_iv" />
+
+                <TextView
+                    android:id="@+id/buy_style_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="意大利外贸大货"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_buy_style"
+                    app:layout_constraintLeft_toRightOf="@id/tv_buy_style" />
+
+                <TextView
+                    android:id="@+id/chukou_tv"
+                    android:layout_width="@dimen/dp_110"
+                    android:layout_height="wrap_content"
+                    android:background="#f2e8da"
+                    android:gravity="center"
+                    android:text="出口伊拉克"
+                    app:layout_constraintLeft_toLeftOf="@id/pic_iv"
+                    app:layout_constraintRight_toRightOf="@id/pic_iv"
+                    app:layout_constraintTop_toBottomOf="@id/pic_iv" />
+
+                <TextView
+                    android:id="@+id/upload_completed_order_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/call_bg"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/upload_completed_order"
+                    android:textColor="@color/white"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/pic_iv"
+                    tools:ignore="MissingConstraints" />
+            </android.support.constraint.ConstraintLayout>
 
             <ImageView
-                android:id="@+id/pic_iv"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
-                android:scaleType="fitCenter"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/product_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:lines="2"
-                android:paddingLeft="115dp"
-                android:text="标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题"
-                app:layout_constraintTop_toTopOf="@+id/pic_iv" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/tv_buy_time"
+                android:id="@+id/transaction_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="@string/buy_time"
-                app:layout_constraintBottom_toBottomOf="@id/pic_iv"
-                app:layout_constraintLeft_toRightOf="@id/pic_iv" />
-
-            <TextView
-                android:id="@+id/buy_time_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="现货"
-                app:layout_constraintBottom_toBottomOf="@id/pic_iv"
-                app:layout_constraintLeft_toRightOf="@id/tv_buy_time" />
-
-            <TextView
-                android:id="@+id/tv_buy_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginBottom="5dp"
-                android:text="@string/buy_style"
-                app:layout_constraintBottom_toTopOf="@+id/tv_buy_time"
-                app:layout_constraintLeft_toRightOf="@id/pic_iv" />
-
-            <TextView
-                android:id="@+id/buy_style_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="意大利外贸大货"
-                app:layout_constraintBottom_toBottomOf="@id/tv_buy_style"
-                app:layout_constraintLeft_toRightOf="@id/tv_buy_style" />
-
-            <TextView
-                android:id="@+id/tv_chukou"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginBottom="5dp"
-                android:text="@string/chugouguojia"
-                app:layout_constraintBottom_toTopOf="@+id/tv_buy_style"
-                app:layout_constraintLeft_toRightOf="@id/pic_iv" />
-
-            <TextView
-                android:id="@+id/chukou_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text=""
-                app:layout_constraintBottom_toBottomOf="@id/tv_chukou"
-                app:layout_constraintLeft_toRightOf="@id/tv_chukou" />
-        </android.support.constraint.ConstraintLayout>
+                android:layout_alignBottom="@id/cl_frame"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:background="@drawable/transaction_icon"
+                android:visibility="gone" />
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

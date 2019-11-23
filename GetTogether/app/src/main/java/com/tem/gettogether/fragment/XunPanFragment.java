@@ -72,7 +72,6 @@ public class XunPanFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         baseActivity = (BaseActivity) getActivity();
         typePage = getArguments().getInt("page");
-        Log.d("chenshichun","====typePage======="+typePage);
         initDatas(1, false);
         initRefresh();
     }

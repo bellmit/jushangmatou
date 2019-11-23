@@ -12,6 +12,7 @@ import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseFragment;
 import com.tem.gettogether.fragment.SCShopFragment;
 import com.tem.gettogether.fragment.SCShoppingFragment;
+import com.tem.gettogether.utils.StatusBarUtil;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -42,6 +43,7 @@ public class SCconnectActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
         initData();
         shoppingFragment=new SCShoppingFragment();
         shopDPFragment=new SCShopFragment();

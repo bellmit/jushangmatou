@@ -15,6 +15,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.my.AddressGLActivity;
+import com.tem.gettogether.activity.my.CgsAuthenticationActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseRVAdapter;
@@ -172,6 +173,16 @@ public class ShoppingCartActivity extends BaseActivity {
                 }
                 break;
             case R.id.tv_go_js:
+                if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("1")) {
+                    if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("3")) {
+                        CusToast.showToast(getText(R.string.shz));
+                        return;
+                    } else {
+                        CusToast.showToast(getText(R.string.please_first_purchase_the_buyer));
+                        startActivity(new Intent(getContext(), CgsAuthenticationActivity.class));
+                        return;
+                    }
+                }
                 final List<Integer> cartId = new ArrayList<>();
                 String str = "";
                 if (storeListBeans != null && storeListBeans.size() > 0) {

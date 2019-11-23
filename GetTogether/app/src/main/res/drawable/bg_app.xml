@@ -3,7 +3,7 @@
     <item>
         <shape>
 
-            <solid android:color="#f6a51d"></solid>
+            <solid android:color="@color/white"></solid>
         </shape>
     </item>
     <item android:bottom="@dimen/dp_50">

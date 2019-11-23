@@ -16,6 +16,7 @@ import com.tem.gettogether.fragment.caigou.CaiGouOrderFaHuoFragment;
 import com.tem.gettogether.fragment.caigou.CaiGouOrderJieKuanFragment;
 import com.tem.gettogether.fragment.caigou.CaiGouOrderShouHuoFragment;
 import com.tem.gettogether.fragment.caigou.CaiGouOrderWangChengFragment;
+import com.tem.gettogether.utils.StatusBarUtil;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -44,6 +45,7 @@ public class CaiGouShangNewOrderActivity extends BaseActivity {
     protected void initData() {
         x.view().inject(this);
         tv_title.setText(R.string.my_order);
+        StatusBarUtil.setTranslucentStatus(this);
         titles = new String[]{getResources().getString(R.string.all), getString(R.string.daifahuo), getString(R.string.wait_s), getResources().getString(R.string.yijiekuan), getResources().getString(R.string.complete)};
         list_fragment = new ArrayList<>();
         list_fragment.add(new CaiGouOrderAllFragment());

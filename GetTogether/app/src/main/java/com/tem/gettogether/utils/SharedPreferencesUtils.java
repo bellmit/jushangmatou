@@ -15,6 +15,7 @@ public class SharedPreferencesUtils {
     public static String SP_LANGUAGE_NAME = "language_config";
 
     public static SharedPreferences sp;
+    public static SharedPreferences languageSp;
 
     public static String saveString(Context context, String key, String value) {
 
@@ -30,22 +31,22 @@ public class SharedPreferencesUtils {
 
     public static String getLanguageString(Context context, String key, String defValue) {
 
-        if (sp == null) {
+        if (languageSp == null) {
 
-            sp = context.getSharedPreferences(SP_LANGUAGE_NAME, context.MODE_PRIVATE);
+            languageSp = context.getSharedPreferences(SP_LANGUAGE_NAME, context.MODE_PRIVATE);
         }
 
-        return sp.getString(key, defValue);
+        return languageSp.getString(key, defValue);
     }
 
     public static String saveLanguageString(Context context, String key, String value) {
 
-        if (sp == null) {
+        if (languageSp == null) {
 
-            sp = context.getSharedPreferences(SP_LANGUAGE_NAME, context.MODE_PRIVATE);
+            languageSp = context.getSharedPreferences(SP_LANGUAGE_NAME, context.MODE_PRIVATE);
         }
 
-        sp.edit().putString(key, value).commit();
+        languageSp.edit().putString(key, value).commit();
 
         return key;
     }
@@ -106,7 +107,7 @@ public class SharedPreferencesUtils {
     public static void clearUser(Context context) {
         if (sp == null) {
 
-            sp = context.getSharedPreferences(SP_LANGUAGE_NAME, context.MODE_PRIVATE);
+            sp = context.getSharedPreferences(SP_NAME, context.MODE_PRIVATE);
         }
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();

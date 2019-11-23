@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.tem.gettogether">
+    package="com.tem.gettogether"
+    android:installLocation="preferExternal">
 
     <!-- <uses-sdk tools:overrideLibrary="io.rong.imkit,com.umeng.socialize.evernote,com.umeng.socialize.pinterest"/> -->
     <uses-feature android:name="android.hardware.camera" />
@@ -110,7 +111,13 @@
             android:name="com.tem.gettogether.activity.MainActivity"
             android:configChanges="locale"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+            <intent-filter>
+
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
+
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.tem.gettogether.activity.my.ZuJiActivity"
             android:configChanges="locale"
@@ -602,6 +609,9 @@
             android:configChanges="locale" />
         <activity
             android:name=".activity.home.OrderDetailActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name=".activity.home.FactoryWebActivity"
             android:configChanges="locale" />
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"

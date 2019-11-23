@@ -182,15 +182,6 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         AppManager.getAppManager().addActivity(this);
         x.view().inject(this);
         initViews();
-        String able= getResources().getConfiguration().locale.getCountry();
-        Log.e("chenshichun","---able--"+able);
-        if(able.equals("CN")){
-            SharedPreferencesUtils.saveLanguageString(getContext(),BaseConstant.SPConstant.language,"zh");
-        }else if(able.equals("SA")){
-            SharedPreferencesUtils.saveLanguageString(getContext(),BaseConstant.SPConstant.language,"ara");
-        }else{
-            SharedPreferencesUtils.saveLanguageString(getContext(),BaseConstant.SPConstant.language,"en");
-        }
         String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
         DisplayMetrics dm = getResources().getDisplayMetrics();
         Configuration config = getResources().getConfiguration();
@@ -364,7 +355,6 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     @Event(value = {R.id.ll_home, R.id.ll_Fl, R.id.ll_fbqg, R.id.ll_card, R.id.ll_My, R.id.ll_message}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         String token = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.TOKEN, "");
-        Log.e("chenshichun","---token--"+token);
         switch (view.getId()) {
             case R.id.ll_home:
                 initHome();
@@ -471,7 +461,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
             }
             transaction.commit();
         } catch (Exception e) {
-            //  initView();
+
         }
     }
 
@@ -646,7 +636,6 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
 
     private void initMyCenter() {
         String token = SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.TOKEN, "");
-        Log.d("chenshichun", "===========" + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.MOBILE_AVLIDATED, "").equals("1"));
         tv_home.setTextColor(getResources().getColor(R.color.text));
         tv_fenl.setTextColor(getResources().getColor(R.color.text));
         tv_fbqg.setTextColor(getResources().getColor(R.color.text));
@@ -666,7 +655,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         if (role_type != null && role_type.equals("1")) {
             hideFragment(5);
         } else {
-            hideFragment(6);//7
+            hideFragment(6);
         }
     }
 
@@ -701,7 +690,6 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
-                Log.i("====获取个人信息===", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
@@ -742,7 +730,8 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         if (role_type != null && role_type.equals("1")) {
             hideFragment(7);
         } else {
-            if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("1")) {
+            hideFragment(2);
+            /*if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("1")) {
                 hideFragment(2);
             } else if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("3")) {
                 CusToast.showToast(getText(R.string.shz));
@@ -750,7 +739,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 CusToast.showToast(getText(R.string.please_first_purchase_the_buyer));
                 startActivity(new Intent(getContext(), CgsAuthenticationActivity.class));
                 return;
-            }
+            }*/
         }
         tv_home.setTextColor(getResources().getColor(R.color.text));
         tv_fenl.setTextColor(getResources().getColor(R.color.text));
@@ -791,4 +780,5 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         iv_my.setImageResource(R.drawable.wode);
 
     }
+
 }

@@ -27,6 +27,7 @@ import com.tem.gettogether.bean.MemberAmountBean;
 import com.tem.gettogether.bean.ShoppingKuBean;
 import com.tem.gettogether.utils.AppManager;
 import com.tem.gettogether.utils.MessageEvent;
+import com.tem.gettogether.utils.PayManager;
 import com.tem.gettogether.utils.PayResult;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.StatusBarUtil;
@@ -102,7 +103,7 @@ public class BuyMemberActivity extends BaseActivity {
         StatusBarUtil.setTranslucentStatus(this);
         // 注册订阅者
         EventBus.getDefault().register(this);
-        AppManager.getAppManager().addActivity(this);
+        PayManager.getPayManager().addActivity(this);
         userLever = SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7");
         REFUND_TYPE = getIntent().getIntExtra("REFUND_TYPE", 0);
 
@@ -455,7 +456,7 @@ public class BuyMemberActivity extends BaseActivity {
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                         CusToast.showToast(R.string.payment_successful);
-                        AppManager.getAppManager().finishAllActivity();
+                        PayManager.getPayManager().finishAllActivity();
 //                        setStart(f2ZhiFuBaoBean.getInfo().getPartner(), f2ZhiFuBaoBean.getInfo().getTotal_fee());
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。

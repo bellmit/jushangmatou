@@ -1,5 +1,6 @@
 package com.tem.gettogether.activity.home;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -97,11 +98,17 @@ public class HomeHotSellActivity extends BaseActivity {
                     String res = jsonObject.optString("status");
                     if (res.equals("1")) {
                         Gson gson = new Gson();
+                        Log.e("chenshichun","---isLoadMore--"+isLoadMore);
+
                         if (!isLoadMore) {
+
                             homeDataBean = gson.fromJson(result, HomeHotSellBean.class).getResult();
+                            Log.e("chenshichun","---homeDataBean.size()--"+homeDataBean.size());
+
                             if(homeDataBean.size()==0){
                                 ll_empty.setVisibility(View.VISIBLE);
                             }else {
+                                Log.e("chenshichun","---data--");
                                 ll_empty.setVisibility(View.GONE);
                                 setData();
                             }
@@ -140,7 +147,7 @@ public class HomeHotSellActivity extends BaseActivity {
 
     private void setData() {
         mHomeHotSellSecondAdapter = new HomeHotSellSecondAdapter(getContext(), homeDataBean);
-        sell_RecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        sell_RecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false));
         sell_RecyclerView.setAdapter(mHomeHotSellSecondAdapter);
     }
 

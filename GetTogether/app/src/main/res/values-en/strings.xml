@@ -221,7 +221,7 @@
     <string name="my_signing">My list</string>
     <string name="qiyexinxi">Company information</string>
     <string name="huiyuanxinxi">Member information</string>
-    <string name="tuisongxunpan">Query push</string>
+    <string name="tuisongxunpan">Foreign Buying</string>
     <string name="yixiadan">Pending order</string>
     <string name="yishouhuo">Prepare for shipment</string>
     <string name="daishouhuo">Pending Receipt</string>
@@ -364,7 +364,7 @@
     <string name="store_details">Store details</string>
     <string name="tourist">Tourist</string>
     <string name="people">People</string>
-    <string name="tel_tv">Tel:</string>
+    <string name="tel_tv">tel:</string>
     <string name="linyi_mall">Linyi Mall</string>
     <string name="camera_function_not_open_yet">Camera function is not open yet</string>
     <string name="store_construction">Shop construction</string>
@@ -492,7 +492,7 @@
     <string name="yzzfmm">Verify payment password</string>
     <string name="dxyzmyfs">SMS verification code has been sent to+86</string>
     <string name="qtxyzm">Please fill in the verification code</string>
-    <string name="inquiry_push">Query push</string>
+    <string name="inquiry_push">Foreign Buying</string>
     <string name="ckhyqx">Member rights</string>
     <string name="product_master_map">Product master</string>
     <string name="qdscgzjm">Are you sure you want to delete this footstep?？</string>
@@ -834,4 +834,8 @@
     <string name="is_supplier">Supplier</string>
     <string name="select_country_code">Select country code</string>
     <string name="please_enter_full_email_address">Please enter the full email address</string>
+    <string name="together_facatory">Together facatory</string>
+    <string name="high_quality_recommendation">High quality recommendation</string>
+    <string name="upload_completed_order">Upload completed order</string>
+    <string name="export">Export</string>
 </resources>

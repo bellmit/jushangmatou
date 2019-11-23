@@ -158,6 +158,7 @@ public class SpecificationsDetailActivity extends BaseMvpActivity<Specifications
         if(event.getAction()==MotionEvent.ACTION_DOWN){
             View view = getCurrentFocus();
             if(view!=recyclerView){
+
             }
         }
         return super.dispatchTouchEvent(event);

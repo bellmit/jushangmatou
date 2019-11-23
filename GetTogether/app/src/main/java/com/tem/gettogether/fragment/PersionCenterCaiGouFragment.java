@@ -68,38 +68,10 @@ import cc.duduhuo.custoast.CusToast;
 
 @ContentView(R.layout.fragment_persion_center_caigou)
 public class PersionCenterCaiGouFragment extends BaseFragment {
-    @ViewInject(R.id.tv_setting)
-    TextView tv_setting;
     @ViewInject(R.id.tv_name)
     private TextView tv_name;
-    @ViewInject(R.id.ll_scj)
-    private LinearLayout ll_scj;
-    @ViewInject(R.id.ll_zj)
-    private LinearLayout ll_zj;
-    @ViewInject(R.id.ll_qb)
-    private LinearLayout ll_qb;
-    @ViewInject(R.id.tv_all)
-    private TextView tv_all;
-    @ViewInject(R.id.tv_dfk)
-    private TextView tv_dfk;
-    @ViewInject(R.id.tv_dfh)
-    private TextView tv_dfh;
-    @ViewInject(R.id.tv_dsh)
-    private TextView tv_dsh;
-    @ViewInject(R.id.rl_my_message)
-    private RelativeLayout rl_my_message;
-    @ViewInject(R.id.rl_ksbh)
-    private RelativeLayout rl_ksbh;
-    @ViewInject(R.id.rl_sprz)
-    private RelativeLayout rl_sprz;
-    @ViewInject(R.id.rl_dzgl)
-    private RelativeLayout rl_dzgl;
     @ViewInject(R.id.rl_zxkf)
     private RelativeLayout rl_zxkf;
-    @ViewInject(R.id.rl_tdyj)
-    private RelativeLayout rl_tdyj;
-    @ViewInject(R.id.rl_gywm)
-    private RelativeLayout rl_gywm;
     @ViewInject(R.id.iv_head)
     private CircularImage iv_head;
     private BaseActivity baseActivity;
@@ -290,7 +262,7 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
         headerView.setRefreshingStr(getString(R.string.refreshing));
         headerView.setTextColor(0xff745D5C);
         refreshLayout.setHeaderView(headerView);
-        refreshLayout.setEnableRefresh(false);
+        refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableOverScroll(false);
         LoadingView loadingView = new LoadingView(getContext());
         refreshLayout.setBottomView(loadingView);

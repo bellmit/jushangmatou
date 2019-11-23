@@ -50,7 +50,7 @@
                 android:layout_centerVertical="true"
                 android:gravity="right"
                 android:text="@string/join_membership"
-                android:textColor="@color/my_yellow"
+                android:textColor="#e2b63d"
                 android:textSize="14dp" />
         </RelativeLayout>
 
@@ -85,7 +85,7 @@
             android:layout_height="35dp"
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_marginRight="@dimen/dp_10"
-            android:background="@drawable/dpgl_add5"
+            android:background="@drawable/dpgl_yellow"
             android:gravity="center"
             android:text="@string/store_construction"
             android:textColor="@color/white"
@@ -110,11 +110,11 @@
 
     <TextView
         android:id="@+id/tv_fbcp"
-        android:layout_width="240dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="40dp"
-        android:background="@drawable/dpgl_save_20"
+        android:background="@drawable/btn_bg"
         android:gravity="center"
         android:text="@string/fabuchangping"
         android:textColor="@color/white"

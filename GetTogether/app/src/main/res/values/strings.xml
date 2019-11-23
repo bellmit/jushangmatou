@@ -179,7 +179,7 @@
     <string name="collected">已收藏</string>
     <string name="add">加入购物车</string>
     <string name="ask">立即询价</string>
-    <string name="buy">立即购买</string>
+    <string name="buy">立即下单</string>
 
     <string name="all">全部</string>
     <string name="wait_h">待付款</string>
@@ -211,7 +211,7 @@
     <string name="my_signing">我的签单</string>
     <string name="qiyexinxi">企业信息</string>
     <string name="huiyuanxinxi">会员信息</string>
-    <string name="tuisongxunpan">询盘推送</string>
+    <string name="tuisongxunpan">外贸求购</string>
     <string name="yixiadan">待下单</string>
     <string name="yishouhuo">待发货</string>
     <string name="daishouhuo">待收货</string>
@@ -482,7 +482,7 @@
     <string name="yzzfmm">验证支付密码</string>
     <string name="dxyzmyfs">短信验证码已发送至+86</string>
     <string name="qtxyzm">请填写验证码</string>
-    <string name="inquiry_push">询盘推送</string>
+    <string name="inquiry_push">外贸求购</string>
     <string name="ckhyqx">查看会员权限</string>
     <string name="product_master_map">商品主图</string>
     <string name="qdscgzjm">确定删除该足迹吗？</string>
@@ -827,4 +827,8 @@
     <string name="is_supplier">我是供应商</string>
     <string name="select_country_code">选择国家和地区代码</string>
     <string name="please_enter_full_email_address">请输入完整邮箱</string>
+    <string name="together_facatory">聚工厂</string>
+    <string name="high_quality_recommendation">优质推荐</string>
+    <string name="upload_completed_order">上传已成交订单</string>
+    <string name="export">出口</string>
 </resources>

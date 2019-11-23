@@ -69,9 +69,9 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
             StatusBarUtil.setStatusBarColor(this,0x55000000);
         }
         mContext = this;
+        initAppLanguage();
         initData();
         initView();
-//        initAppLanguage();
     }
 
     public BaseActivity getContext() {
@@ -408,6 +408,22 @@ public abstract class BaseActivity extends SwipeBackActivity implements View.OnC
     }
 
     public void initAppLanguage() {
+        String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
+        String able= getResources().getConfiguration().locale.getCountry();
+        Log.e("cuckoo","---yuyan--"+yuyan);
+        Log.e("cuckoo","---able--"+able);
+        if(yuyan.equals("")) {
+            if (able.equals("CN")) {
+                Log.e("cuckoo","---设置语言中文--");
+                SharedPreferencesUtils.saveLanguageString(getContext(), BaseConstant.SPConstant.language, "zh");
+            } else if (able.equals("SA")) {
+                Log.e("cuckoo","---设置语言阿拉伯--");
+                SharedPreferencesUtils.saveLanguageString(getContext(), BaseConstant.SPConstant.language, "ara");
+            } else {
+                Log.e("cuckoo","---设置语言英文--");
+                SharedPreferencesUtils.saveLanguageString(getContext(), BaseConstant.SPConstant.language, "en");
+            }
+        }
         if (SharedPreferencesUtils.getLanguageString(this, BaseConstant.SPConstant.language, "").equals("en")) {
             DisplayMetrics dm = getResources().getDisplayMetrics();
             Configuration config = getResources().getConfiguration();

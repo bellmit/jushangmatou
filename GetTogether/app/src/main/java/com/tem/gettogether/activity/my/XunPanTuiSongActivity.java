@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.my.member.MemberCentreActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.fragment.XunPanFragment;
@@ -79,7 +80,7 @@ public class XunPanTuiSongActivity extends BaseActivity {
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.tv_title_right:
-                startActivity(new Intent(XunPanTuiSongActivity.this, VipCenterActivity.class));
+                startActivity(new Intent(XunPanTuiSongActivity.this, MemberCentreActivity.class));
                 break;
             case R.id.rl_close:
                 finish();
@@ -115,7 +116,7 @@ public class XunPanTuiSongActivity extends BaseActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 1 && !SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7").equals("2")) {
                     CusToast.showToast(getText(R.string.please_upgrade_the_premium_member_first));
-                    startActivityForResult(new Intent(getContext(), VipCenterActivity.class), 10000);
+                    startActivityForResult(new Intent(getContext(), MemberCentreActivity.class), 10000);
                 }
             }
 
