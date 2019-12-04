@@ -130,7 +130,6 @@ public class XunPanTuiSongFragment extends BaseFragment {
         myTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Log.d("chenshichun","==========="+SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7"));
                 if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("2")) {
                     CusToast.showToast(getText(R.string.store_review));
                     return;
@@ -141,7 +140,6 @@ public class XunPanTuiSongFragment extends BaseFragment {
                     return;
                 }
                 if (tab.getPosition() == 1 && !SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7").equals("2")) {
-//                    listener.switchMy();
                     CusToast.showToast(getText(R.string.please_upgrade_the_premium_member_first));
                     startActivityForResult(new Intent(getContext(), MemberCentreActivity.class), 10000);
                 }

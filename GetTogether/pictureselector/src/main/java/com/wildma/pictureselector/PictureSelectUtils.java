@@ -160,8 +160,8 @@ public class PictureSelectUtils {
         }
         intent.putExtra("aspectX", aspectX);
         intent.putExtra("aspectY", aspectY);*/
-        intent.putExtra("outputX", w);
-        intent.putExtra("outputY", h);
+//        intent.putExtra("outputX", w);
+//        intent.putExtra("outputY", h);
 
         /*解决图片有黑边问题*/
         intent.putExtra("scale", true);

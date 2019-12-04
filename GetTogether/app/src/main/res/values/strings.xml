@@ -831,4 +831,12 @@
     <string name="high_quality_recommendation">优质推荐</string>
     <string name="upload_completed_order">上传已成交订单</string>
     <string name="export">出口</string>
+    <string name="application_has_been_accepted">申请已受理</string>
+    <string name="refunded_tv">已退款</string>
+    <string name="decoration_notice">装修须知</string>
+    <string name="prompt_txt">建议上传尺寸如下：</string>
+    <string name="shop_logo_szie">店铺logo图:64*64(px)</string>
+    <string name="shop_bg_size">店铺背景图:750*300(px)</string>
+    <string name="shop_carousel_size">店铺轮播图:750*300(px)</string>
+    <string name="please_enter_WeChat">请输入微信号</string>
 </resources>

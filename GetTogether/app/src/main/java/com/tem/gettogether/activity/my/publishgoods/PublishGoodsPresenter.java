@@ -22,7 +22,9 @@ import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.CategoriesBean;
+import com.tem.gettogether.bean.KSBHBean;
 import com.tem.gettogether.bean.ReasultBean;
+import com.tem.gettogether.bean.ShopEditBean;
 import com.tem.gettogether.retrofit.RetrofitHelper;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -101,6 +103,42 @@ public class PublishGoodsPresenter extends BasePresenter<PublishGoodsContract.Pu
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         mActivity.finish();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                Log.d("chenshichun", "===========" + ex.getMessage());
+                ex.printStackTrace();
+            }
+        });
+    }
+
+    @Override
+    public void editShop(Map<String, Object> map) {
+        XUtil.Post(URLConstant.SHOP_EDIT, map, new MyCallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                Log.i("====商品编辑===", result.toString());
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    String msg = jsonObject.optString("msg");
+                    CusToast.showToast(msg);
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        ShopEditBean mShopEditBean = gson.fromJson(result, ShopEditBean.class);
+                        mView.getShopEditData(mShopEditBean.getResult());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

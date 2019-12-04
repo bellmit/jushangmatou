@@ -18,6 +18,7 @@ import com.tem.gettogether.R;
 import com.tem.gettogether.ShowImageDetail;
 import com.tem.gettogether.activity.my.VipCenterActivity;
 import com.tem.gettogether.activity.my.WaiMaoQiuGouActivity;
+import com.tem.gettogether.activity.my.authentication.AuthenticationActivity;
 import com.tem.gettogether.activity.my.member.MemberCentreActivity;
 import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActivity;
 import com.tem.gettogether.base.BaseActivity;
@@ -199,7 +200,7 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
 
                 if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "").equals("1")) {
                     CusToast.showToast(getText(R.string.please_certify_shops_first));
-                    startActivity(new Intent(getContext(), ShopAuthenticationActivity.class));
+                    startActivity(new Intent(getContext(), AuthenticationActivity.class));
                     return;
                 }
 

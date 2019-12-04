@@ -838,4 +838,12 @@
     <string name="high_quality_recommendation">High quality recommendation</string>
     <string name="upload_completed_order">Upload completed order</string>
     <string name="export">Export</string>
+    <string name="application_has_been_accepted">Application has been accepted</string>
+    <string name="refunded_tv">Refunded</string>
+    <string name="decoration_notice">Decoration notice</string>
+    <string name="prompt_txt">The recommended upload sizes are as follows：</string>
+    <string name="shop_logo_szie">Shop logo size:64*64(px)</string>
+    <string name="shop_bg_size">Shop background size:750*300(px)</string>
+    <string name="shop_carousel_size">Shop carousel size:750*300(px)</string>
+    <string name="please_enter_WeChat">Please enter WeChat</string>
 </resources>

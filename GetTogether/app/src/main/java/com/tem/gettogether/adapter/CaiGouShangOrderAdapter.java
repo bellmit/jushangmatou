@@ -39,23 +39,44 @@ public class CaiGouShangOrderAdapter extends RecyclerView.Adapter<CaiGouShangOrd
     }
 
     @Override
-    public void onBindViewHolder(CaiGouShangOrderAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final CaiGouShangOrderAdapter.ViewHolder holder, final int position) {
         holder.tv_shopName.setText(resultBeans.get(position).getStore_name());
         holder.tv_right_top.setText(resultBeans.get(position).getOrder_status_desc());
         holder.tv_shopping_num.setText(context.getString(R.string.total) +
                 resultBeans.get(position).getGoods_all_num()
-                + " "+context.getString(R.string.items)+" "+context.getString(R.string.total_tv)+"￥");
-        holder.tv_all_peice.setText(resultBeans.get(position).getTotal_amount() + "（"+context.getString(R.string.freight_included)+"¥" +
+                + " " + context.getString(R.string.items) + " " + context.getString(R.string.total_tv) + "￥");
+        holder.tv_all_peice.setText(resultBeans.get(position).getTotal_amount() + "（" + context.getString(R.string.freight_included) + "¥" +
                 resultBeans.get(position).getShipping_price() + "）");
-        if (resultBeans.get(position).getOrder_status_code() != null && resultBeans.get(position).getOrder_status_code().equals("WAITRECEIVE")) {
-            holder.tv_red_right.setVisibility(View.VISIBLE);
+        if (resultBeans.get(position).getOrder_status_code() != null) {
+            if (resultBeans.get(position).getOrder_status_code().equals("WAITRECEIVE")) {
+                holder.tv_red_right.setVisibility(View.VISIBLE);
+                holder.tv_red_right.setText(R.string.confirm_receipt);
+                holder.tv_delete.setVisibility(View.GONE);
+            } else if (resultBeans.get(position).getOrder_status_code().equals("FINISH")) {
+                holder.tv_red_right.setVisibility(View.VISIBLE);
+                holder.tv_delete.setVisibility(View.VISIBLE);
+                holder.tv_red_right.setText(R.string.complete);
+            } else {
+                holder.tv_red_right.setVisibility(View.GONE);
+                holder.tv_delete.setVisibility(View.GONE);
+            }
         } else {
             holder.tv_red_right.setVisibility(View.GONE);
         }
         holder.tv_red_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnItemClickListener.onItemClick(position);
+                if(!holder.tv_red_right.getText().equals(context.getText(R.string.complete))){
+                    mOnItemClickListener.onItemClick(position);
+                }
+            }
+        });
+
+        holder.tv_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("chenshichun","---tv_delete--");
+                mOnItemClickListener.deleteOrder(position);
             }
         });
 
@@ -73,7 +94,7 @@ public class CaiGouShangOrderAdapter extends RecyclerView.Adapter<CaiGouShangOrd
 
                 holder.getTextView(R.id.tv_shopping_name).setText(resultBeans.get(position).getGoods_list().get(position2).getGoods_name());
                 holder.getTextView(R.id.tv_shopping_qpl).setText(resultBeans.get(position).getGoods_list().get(position2).getSpec_key_name());
-                holder.getTextView(R.id.tv_shopping_price).setText("¥" + resultBeans.get(position).getGoods_list().get(position2).getGoods_price() + "/"+context.getText(R.string.piece_tv));
+                holder.getTextView(R.id.tv_shopping_price).setText("¥" + resultBeans.get(position).getGoods_list().get(position2).getGoods_price() + "/" + context.getText(R.string.piece_tv));
                 holder.getTextView(R.id.tv_shoping_Num).setText(context.getText(R.string.total) + resultBeans.get(position).getGoods_list().get(position2).getGoods_num() + context.getText(R.string.piece_tv));
                 holder.getTextView(R.id.tv_shopping_zt).setText(resultBeans.get(position).getGoods_list().get(position2).getGoods_sn());
                 holder.getView(R.id.ll_item_dd).setOnClickListener(new View.OnClickListener() {
@@ -84,8 +105,6 @@ public class CaiGouShangOrderAdapter extends RecyclerView.Adapter<CaiGouShangOrd
                     }
                 });
             }
-
-
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +124,7 @@ public class CaiGouShangOrderAdapter extends RecyclerView.Adapter<CaiGouShangOrd
         public RecyclerView recyclerView_item;
         public TextView tv_shopping_num;
         public TextView tv_all_peice;
+        public TextView tv_delete;
         public TextView tv_red_right;
 
         public ViewHolder(View itemView) {
@@ -115,11 +135,14 @@ public class CaiGouShangOrderAdapter extends RecyclerView.Adapter<CaiGouShangOrd
             tv_all_peice = itemView.findViewById(R.id.tv_all_peice);
             tv_red_right = itemView.findViewById(R.id.tv_red_right);
             recyclerView_item = itemView.findViewById(R.id.recyclerView_item);
+            tv_delete = itemView.findViewById(R.id.tv_delete);
         }
     }
 
     public interface OnItemClickListener {
         void onItemClick(int position);
+
+        void deleteOrder(int position);
     }
 
     public void setOnClickItem(CaiGouShangOrderAdapter.OnItemClickListener onItemClickListener) {

@@ -88,7 +88,6 @@ public class MyPublicTaskRecycleAdapter extends RecyclerView.Adapter<MyPublicTas
             viewHolder.deleteIv.setVisibility(View.VISIBLE);
         }
 
-        System.out.println("onBindViewHolder:" + drawableUrl);
         ImageLoader.getInstance().displayImage(drawableUrl, viewHolder.mImg, options);
 
         viewHolder.mImg.setOnClickListener(onClickListener);

@@ -1,27 +1,51 @@
 package com.tem.gettogether;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.transition.Transition;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.tem.gettogether.base.BaseActivity;
+import com.tem.gettogether.utils.BitmapUtil;
 import com.tem.gettogether.view.PhotoView;
+import com.ybm.app.common.WindowToast.ToastTips;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.annotations.Nullable;
+import io.reactivex.schedulers.Schedulers;
 import io.rong.imageloader.core.ImageLoader;
 
 
@@ -68,7 +92,6 @@ public class ShowImageDetail extends BaseActivity {
      * 上一个界面图片的位置信息
      */
     private Rect mRect;
-
 
 
     @Override
@@ -137,11 +160,13 @@ public class ShowImageDetail extends BaseActivity {
             }
 
             view.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
+            final String url;
             if (mData.get(position).contains("http")) {
                 ImageLoader.getInstance().displayImage(mData.get(position), view);
+                url = mData.get(position);
             } else {
                 ImageLoader.getInstance().displayImage("file://" + mData.get(position), view);
+                url = "file://" + mData.get(position);
             }
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -149,6 +174,32 @@ public class ShowImageDetail extends BaseActivity {
                     ShowImageDetail.this.finish();
 //                    runExitAnim(view);
 
+                }
+            });
+
+            view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setIcon(R.mipmap.ic_launcher).setTitle("保存图片")
+                            .setMessage("确定保存图片吗").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Glide.with(getContext()).load(url).asBitmap().into(new SimpleTarget<Bitmap>() {
+                                        @Override
+                                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                                            saveImage(resource);
+                                        }
+                                    });
+                                    dialogInterface.dismiss();
+                                }
+                            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                    builder.create().show();
+                    return false;
                 }
             });
             container.addView(view);
@@ -173,6 +224,44 @@ public class ShowImageDetail extends BaseActivity {
 
         }
     };
+
+
+    private void saveImage(Bitmap image) {
+        String saveImagePath = null;
+        Random random = new Random();
+        String imageFileName = "JPEG_" + "down" + random.nextInt(10) + ".jpg";
+        File storageDir = new File(Environment.getExternalStoragePublicDirectory
+                (Environment.DIRECTORY_PICTURES) + "test");
+
+        boolean success = true;
+        if(!storageDir.exists()){
+            success = storageDir.mkdirs();
+        }
+        if(success){
+            File imageFile = new File(storageDir, imageFileName);
+            saveImagePath = imageFile.getAbsolutePath();
+            try {
+                OutputStream fout = new FileOutputStream(imageFile);
+                image.compress(Bitmap.CompressFormat.JPEG, 100, fout);
+                fout.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            // Add the image to the system gallery
+            galleryAddPic(saveImagePath);
+            Toast.makeText(mContext, "IMAGE SAVED", Toast.LENGTH_LONG).show();
+        }
+//        return saveImagePath;
+    }
+
+    private void galleryAddPic(String imagePath) {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(imagePath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        sendBroadcast(mediaScanIntent);
+    }
 
     /**
      * 初始化场景

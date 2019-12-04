@@ -11,7 +11,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="44dp">
+        android:layout_height="44dp"
+        android:background="@drawable/plan_progress_one" >
 
         <RelativeLayout
             android:id="@+id/rl_close"
@@ -33,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="Title"
-            android:textColor="@color/text3"
+            android:textColor="@color/white"
             android:textSize="16dp" />
 
         <RelativeLayout
@@ -50,7 +51,7 @@
                 android:layout_centerVertical="true"
                 android:gravity="right"
                 android:text="@string/join_membership"
-                android:textColor="#e2b63d"
+                android:textColor="@color/white"
                 android:textSize="14dp" />
         </RelativeLayout>
 

@@ -21,6 +21,7 @@ import com.tem.gettogether.bean.XITMessageLBBean;
 import com.tem.gettogether.utils.ListUtils;
 import com.tem.gettogether.utils.NetWorkUtils;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.powerfulrecyclerview.HomeListFreshRecyclerView;
@@ -57,6 +58,7 @@ public class XTMessageActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
         initData();
         initView();
     }
@@ -149,7 +151,7 @@ public class XTMessageActivity extends BaseActivity {
                 super.onSuccess(result);
                 order_refresh_fragment.endRefreshing();
                 order_refresh_fragment.endLoadingMore();
-                Log.i("====系统信息列表===", result);
+                Log.e("chenshichun","====系统信息列表==="+result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
@@ -205,11 +207,16 @@ public class XTMessageActivity extends BaseActivity {
         @Override
         protected void convert(final com.chad.library.adapter.base.BaseViewHolder baseViewHolder, Object o) {
             ImageView iv_xximage=baseViewHolder.getView(R.id.iv_xximage);
+            TextView tv_title_xx= baseViewHolder.getView(R.id.tv_title_xx);
+            TextView tv_title_time = baseViewHolder.getView(R.id.tv_title_time);
             if(resultBeans.get(baseViewHolder.getAdapterPosition()).getIs_read()==0){
                 iv_xximage.setImageResource(R.drawable.xitong_yd_icon);
+                tv_title_xx.setTextColor(getResources().getColor(R.color.home_red));
+                tv_title_time.setTextColor(getResources().getColor(R.color.home_red));
             }else {
                 iv_xximage.setImageResource(R.drawable.xitong_wdicon);
-
+                tv_title_xx.setTextColor(getResources().getColor(R.color.black));
+                tv_title_time.setTextColor(getResources().getColor(R.color.black));
             }
             baseViewHolder.setText(R.id.tv_title_xx,resultBeans.get(baseViewHolder.getAdapterPosition()).getTitle());
             baseViewHolder.setText(R.id.tv_title_time,resultBeans.get(baseViewHolder.getAdapterPosition()).getTime());

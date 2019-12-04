@@ -46,6 +46,7 @@ import com.tem.gettogether.base.BaseMvpActivity;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.CategoriesBean;
 import com.tem.gettogether.bean.ImageDataBean;
+import com.tem.gettogether.bean.ShopEditBean;
 import com.tem.gettogether.retrofit.UploadUtil;
 import com.tem.gettogether.utils.BitnapUtils;
 import com.tem.gettogether.utils.Confirg;
@@ -118,7 +119,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
     private String smallClassId = "";// 小类ID
     private String textDescription = "";// 详情介绍返回值
     private ArrayList<String> listImage = new ArrayList<>();
-    private String goods_content = "";
+    private String original_img = "";
     private String cover_image = "";
     private MyPublicTaskRecycleAdapter mTaskImgAdapter;
     private ArrayList<String> imagePaths = new ArrayList<>();
@@ -127,6 +128,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
     private String compressImageFilePath;
     private ArrayList<String> compressPaths = new ArrayList<>();
     private String sku_str = "";
+    private String goodsID;
 
     @Override
     protected void initData() {
@@ -175,6 +177,14 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
             }
         });
 
+
+        goodsID = getIntent().getStringExtra("goodsID");
+        if (!goodsID.equals("")) {
+            Map<String, Object> map1 = new HashMap<>();
+            map1.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
+            map1.put("goods_id", goodsID);
+            mPresenter.editShop(map1);
+        }
     }
 
     @Event(value = {R.id.ll_fengmian, R.id.rl_close, R.id.tv_fbShopping, R.id.text_description_ll, R.id.ll_XQ_ms, R.id.ll_shop_FL, R.id.ll_shop_GG}, type = View.OnClickListener.class)
@@ -270,13 +280,56 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
         this.majorClassId = majorClassId;
         this.smallClassId = smallClassId;
         tv_XZshopFL.setText(majorClassName + " " + smallClassName);
+        tv_ShoppingGG.setText("");
+        sku_str = "";
+    }
+
+    @Override
+    public void getShopEditData(ShopEditBean.ResultBean mResultBean) {
+        et_cpName.setText(mResultBean.getGoods().getGoods_name());
+        et_GuanJC.setText(mResultBean.getGoods().getKeywords());
+        if (mResultBean.getGoods().getIs_enquiry().equals("1")) {
+            yes_rb.setChecked(true);
+            et_ShopingSJ.setText(getText(R.string.negotiable_tv));
+        } else {
+            yes_rb.setChecked(false);
+            et_ShopingSJ.setText(mResultBean.getGoods().getShop_price());
+        }
+        et_ShoppingHH.setText(mResultBean.getGoods().getGoods_sn());
+        et_QPNum.setText(mResultBean.getGoods().getBatch_number());
+        tv_XZshopFL.setText(mResultBean.getCat().getCat2_name() + " " + mResultBean.getCat().getCat3_name());
+        majorClassId = mResultBean.getGoods().getCat_id2();
+        smallClassId = mResultBean.getGoods().getCat_id3();
+        tv_ShoppingGG.setText(mResultBean.getThis_goods_spec());
+        text_description_tv.setText(mResultBean.getGoods().getGoods_content());
+        textDescription = mResultBean.getGoods().getGoods_content();
+        if (mResultBean.getGoods().getOriginal_img() != null && !mResultBean.getGoods().getOriginal_img().equals("")) {
+            rt_tuwen.setText(getText(R.string.filled_in));
+            original_img = mResultBean.getGoods().getOriginal_img().get(0);
+            for (int i=0;i<mResultBean.getGoods().getOriginal_img().size();i++){
+                listImage.add(mResultBean.getGoods().getOriginal_img().get(i));
+            }
+        }
+
+        if (mResultBean.getGoods().getCover_image()!=null&&!mResultBean.getGoods().getCover_image().equals("")){
+            cover_image = mResultBean.getGoods().getCover_image();
+            fengmian_tv.setText(getText(R.string.filled_in));
+        }
+         for (int i=0;i<mResultBean.getGoods_images().size();i++){
+             imagePaths.add(imagePaths.size() - 1, mResultBean.getGoods_images().get(i));
+             cartImage.add(mResultBean.getGoods_images().get(i));
+             Log.e("chenshichun","---cartImage-- "+cartImage);
+             mTaskImgAdapter.notifyDataSetChanged();
+         }
     }
 
     private void publishGoods() {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
-
+        if (!goodsID.equals("")) {
+            map.put("goods_id", goodsID);
+        }
         if (et_cpName.getText().toString().equals("")) {
             CusToast.showToast(getText(R.string.please_fill_in_the_product_name));
             return;
@@ -341,12 +394,15 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
             map.put("goods_content", textDescription);
         }
         // 规格
-        map.put("item", sku_str);
+        if(!sku_str.equals("")) {
+            map.put("item", sku_str);
+        }
         //详情图
-        map.put("original_img", goods_content);
+        map.put("original_img", original_img);
         //主图
         map.put("cover_image", cover_image);
         //轮播图
+        Log.e("chenshichun","---strTwoImage--"+strTwoImage);
         map.put("goods_images", strTwoImage);
         map.put("is_on_sale", "1");
         mPresenter.uploadProduct(map);
@@ -366,9 +422,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
     };
     private static String IMAGE_FILE_NAME = "user_head_icon.jpg";
     private final int PHOTO_PICKED_FROM_CAMERA = 111; // 用来标识头像来自系统拍照
-    private final int PHOTO_PICKED_FROM_FILE = 222; // 用来标识从相册获取头像
     private final int CROP_FROM_CAMERA = 333;
-    private File mCropImageFile;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -386,7 +440,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                     text_description_tv.setText(textDescription);
                     break;
                 case 6666:
-                    goods_content = data.getExtras().getString("goods_content");
+                    original_img = data.getExtras().getString("goods_content");
                     listImage = data.getStringArrayListExtra("listImage");
                     rt_tuwen.setText(getText(R.string.filled_in));
                     break;
@@ -402,7 +456,6 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                             Confirg.compressFile.mkdirs();
                         }
                         showLoading();
-                        Log.e("chenshichun", "--showLoading---");
                         final List<String> list = data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT);
                         if (imagePaths.size() < 10) {
                             new Thread(new Runnable() {
@@ -421,6 +474,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                                             if (imageDataBean != null) {
                                                 imagePaths.add(imagePaths.size() - 1, pic_path);
                                                 cartImage.add(imageDataBean.getResult().getImage_show().get(0));
+                                                Log.e("chenshichun","---cartImage-add-  "+cartImage);
                                                 mHandle.sendEmptyMessage(0);
                                             } else {
                                                 mHandle.sendEmptyMessage(1);
@@ -507,33 +561,6 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                     intent.putExtra("index", index);
                     startActivity(intent);
                 }
-                /*Integer index = (Integer) v.getTag(R.id.postion);
-                if (index == imagePaths.size() - 1) {
-
-                    if (imagePaths.size() >= 10) {
-                        CusToast.showToast(getText(R.string.select_up_to_9_images));
-                        return;
-                    }
-
-                    intent = new Intent(this, MultiImageSelectorActivity.class);
-                    // 是否显示调用相机拍照
-                    intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, false);
-                    // 最大图片选择数量
-                    intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 10 - imagePaths.size());
-                    // 设置模式 (支持 单选/MultiImageSelectorActivity.MODE_SINGLE 或者 多选/MultiImageSelectorActivity.MODE_MULTI)
-                    intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_MULTI);
-
-                    startActivityForResult(intent, FROM_ALBUM_CODE);
-                } else {
-                    ArrayList<String> paths = new ArrayList<>();
-                    paths.addAll(imagePaths);
-                    paths.remove(paths.get(paths.size() - 1));
-
-                    intent = new Intent(this, ShowImageDetail.class);
-                    intent.putStringArrayListExtra("paths", paths);
-                    intent.putExtra("index", index);
-                    startActivity(intent);
-                }*/
                 break;
             case R.id.delete_iv:
                 final Integer index1 = (Integer) v.getTag(R.id.postion);

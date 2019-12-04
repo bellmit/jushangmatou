@@ -1,6 +1,7 @@
 package com.tem.gettogether.adapter.viewHolder;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = ViewHolder.get(mContext, convertView, parent,
                 layoutId, position);
+        Log.e("chenshichun","---position--"+position);
         convert(holder, getItem(position));
         return holder.getConvertView();
     }

@@ -34,10 +34,7 @@ public class CaiGouShangNewOrderActivity extends BaseActivity {
     private TabLayout tabLayout;
     @ViewInject(R.id.vp_client)
     private ViewPager viewPager;
-    private ArrayList<String> mList_title;
     private List<Fragment> list_fragment;
-    private String mTabId;
-    private int position = 0;
     private String[] titles;
     private MyAdapter adapter;
 

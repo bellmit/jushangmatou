@@ -18,6 +18,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
+import com.tem.gettogether.ShowImageDetail;
 import com.tem.gettogether.activity.home.ShopActivity;
 import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
 import com.tem.gettogether.base.BaseActivity;
@@ -37,6 +38,7 @@ import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.RoundImageView;
 import com.tem.gettogether.view.powerfulrecyclerview.HomeListFreshRecyclerView;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -193,13 +195,22 @@ public class ShopHomeFragment extends BaseFragment {
 
     public void onMessage(List<ShopTopBean.ResultBean.StoreBannerBean> storeBannerBean) {
         if (storeBannerBean == null) return;
-        List<String> img = new ArrayList<>();
+        final List<String> img = new ArrayList<>();
         for (int i=0;i<storeBannerBean.size();i++){
             img.add(storeBannerBean.get(i).getAd_code());
         }
         banner.setImageLoader(new GlideImageLoader());
         banner.setImages(img);
         banner.start();
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Intent intent2 = new Intent(getActivity(), ShowImageDetail.class);
+                intent2.putStringArrayListExtra("paths", (ArrayList<String>) img);
+                startActivity(intent2);
+            }
+        });
+
     }
 
 

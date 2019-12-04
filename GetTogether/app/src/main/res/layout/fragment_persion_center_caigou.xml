@@ -1,13 +1,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        />
+        android:background="@color/white" />
 
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
         android:id="@+id/refreshLayout"
@@ -225,59 +223,134 @@
                         android:layout_height="wrap_content"
                         android:padding="@dimen/dp_10">
 
-                        <TextView
-                            android:id="@+id/tv_all"
+                        <RelativeLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:drawableTop="@drawable/my_zt_all"
-                            android:drawablePadding="10dp"
-                            android:gravity="center"
-                            android:text="@string/quanbu"
-                            android:textColor="@color/text6"
-                            android:textSize="12dp" />
+                            android:layout_weight="1">
 
-                        <TextView
-                            android:id="@+id/tv_dfk"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:drawableTop="@drawable/fahuo_icon"
-                            android:drawablePadding="10dp"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="@string/wait_s"
-                            android:textColor="@color/text6"
-                            android:textSize="12dp" />
+                            <TextView
+                                android:id="@+id/tv_all"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:drawableTop="@drawable/my_zt_all"
+                                android:drawablePadding="10dp"
+                                android:gravity="center"
+                                android:text="@string/quanbu"
+                                android:textColor="@color/text6"
+                                android:textSize="12dp" />
 
-                        <TextView
-                            android:id="@+id/tv_dfh"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:drawableTop="@drawable/yishouhuo_icon"
-                            android:drawablePadding="10dp"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="@string/daifahuo"
-                            android:textColor="@color/text6"
-                            android:textSize="12dp" />
+                            <TextView
+                                android:id="@+id/count_0"
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_alignRight="@id/tv_all"
+                                android:background="@drawable/red_circle_bg"
+                                android:gravity="center"
+                                android:text="99"
+                                android:textColor="@color/white"
+                                android:textSize="8sp"
+                                android:visibility="gone" />
 
-                        <TextView
-                            android:id="@+id/tv_dsh"
+                        </RelativeLayout>
+
+                        <RelativeLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:drawableTop="@drawable/yijiekuan_icon"
-                            android:drawablePadding="10dp"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="@string/yijiekuan"
-                            android:textColor="@color/text6"
-                            android:textSize="12dp" />
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_dfk"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_centerHorizontal="true"
+                                android:drawableTop="@drawable/fahuo_icon"
+                                android:drawablePadding="10dp"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxLines="2"
+                                android:text="@string/daifahuo"
+                                android:textColor="@color/text6"
+                                android:textSize="12dp" />
+
+                            <TextView
+                                android:id="@+id/count_1"
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_alignRight="@id/tv_dfk"
+                                android:background="@drawable/red_circle_bg"
+                                android:gravity="center"
+                                android:text="99"
+                                android:textColor="@color/white"
+                                android:textSize="8sp"
+                                android:visibility="gone" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_dfh"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:drawableTop="@drawable/yishouhuo_icon"
+                                android:drawablePadding="10dp"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxLines="2"
+                                android:text="@string/wait_s"
+                                android:textColor="@color/text6"
+                                android:textSize="12dp" />
+
+                            <TextView
+                                android:id="@+id/count_2"
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_alignRight="@id/tv_dfh"
+                                android:background="@drawable/red_circle_bg"
+                                android:gravity="center"
+                                android:text="99"
+                                android:textColor="@color/white"
+                                android:textSize="8sp"
+                                android:visibility="gone" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_dsh"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_weight="1"
+                                android:drawableTop="@drawable/yijiekuan_icon"
+                                android:drawablePadding="10dp"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxLines="2"
+                                android:text="@string/yijiekuan"
+                                android:textColor="@color/text6"
+                                android:textSize="12dp" />
+
+                            <TextView
+                                android:id="@+id/count_3"
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_alignRight="@id/tv_dsh"
+                                android:background="@drawable/red_circle_bg"
+                                android:gravity="center"
+                                android:text="99"
+                                android:textColor="@color/white"
+                                android:textSize="8sp"
+                                android:visibility="gone" />
+                        </RelativeLayout>
                     </LinearLayout>
                 </LinearLayout>
 

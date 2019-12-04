@@ -20,6 +20,7 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.my.publishgoods.PublishGoodsActivity;
 import com.tem.gettogether.adapter.ProductManagmentAdapter;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseFragment;
@@ -196,7 +197,7 @@ public class ProductManagmentFragment extends BaseFragment {
 
             @Override
             public void setEditClick(String id) {
-
+                startActivity(new Intent(getContext(), PublishGoodsActivity.class).putExtra("goodsID",id));
             }
 
             @Override

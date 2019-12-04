@@ -331,6 +331,8 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                 }
             }
         });
+
+
     }
 
     /**
@@ -584,6 +586,9 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                         String result2 = jsonObject.optString("result");
                         JSONObject jsonObject2 = new JSONObject(result2);
                         String count = jsonObject2.optString("count");
+                        Intent intent = new Intent("UNREAD_MESSAGE");
+                        sendBroadcast(intent);
+                        Log.e("chenshichun","---UNREAD_MESSAGE--");
                         messageNum = Integer.parseInt(count);
                         if ((rongyunmessageNum + messageNum) > 0) {
                             mUnreadNumView.setVisibility(View.VISIBLE);

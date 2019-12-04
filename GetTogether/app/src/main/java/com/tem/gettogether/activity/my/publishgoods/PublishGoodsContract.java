@@ -5,6 +5,7 @@ import android.view.View;
 import com.tem.gettogether.base.BaseView;
 import com.tem.gettogether.bean.CategoriesBean;
 import com.tem.gettogether.bean.ReasultBean;
+import com.tem.gettogether.bean.ShopEditBean;
 
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,8 @@ public class PublishGoodsContract {
         void getStoreCate(List<CategoriesBean.ResultBean> mCategoriesBeans);
 
         void getChooseStoreCate(String majorClassName, String smallClassName, String majorClassId, String smallClassId);
+
+        void getShopEditData(ShopEditBean.ResultBean mResultBean);
     }
 
     interface Presenter {
@@ -51,5 +54,7 @@ public class PublishGoodsContract {
         void showStoreCatePop(View view, List<CategoriesBean.ResultBean> mCategoriesBeans);
 
         void uploadProduct(Map<String, Object> map);
+
+        void editShop(Map<String,Object> map);
     }
 }

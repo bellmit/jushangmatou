@@ -63,6 +63,7 @@ public class ZhuTuXQNewActivity extends BaseActivity {
         tv_title.setText(getText(R.string.product_master_map));
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setText(getText(R.string.save));
+        tv_title_right.setTextColor(getResources().getColor(R.color.white));
         cover_image=getIntent().getStringExtra("cover_image");
         Glide.with(ZhuTuXQNewActivity.this).load(cover_image).error(R.mipmap.myy322x).into(iamge_iv);
     }

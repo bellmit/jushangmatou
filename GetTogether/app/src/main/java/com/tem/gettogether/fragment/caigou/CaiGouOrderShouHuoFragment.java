@@ -252,6 +252,11 @@ public class CaiGouOrderShouHuoFragment extends BaseFragment {
                 Log.d("chenshichun", "========getOrder_id===  " + resultBeans.get(position).getOrder_id());
                 confirmReceipt(resultBeans.get(position).getOrder_id());
             }
+
+            @Override
+            public void deleteOrder(int position) {
+
+            }
         });
     }
 

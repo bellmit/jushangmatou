@@ -241,7 +241,42 @@ public class CaiGouOrderWangChengFragment extends BaseFragment {
             }
         });
     }
+    private void deleteFinishOrder(String orderId) {// 确认收货
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
+        map.put("order_id", orderId);
+        baseActivity.showDialog();
+        XUtil.Post(URLConstant.SHANCHUDINGDAN, map, new MyCallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                Log.e("chenshichun","---result--"+result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    if (res.equals("1")) {
+                        initDatas(1, false, false);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                baseActivity.closeDialog();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                baseActivity.closeDialog();
+                ex.printStackTrace();
+            }
+        });
+    }
     private void setData() {
         mOrderAdapter = new CaiGouShangOrderAdapter(getContext(), resultBeans, mTab);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -251,6 +286,11 @@ public class CaiGouOrderWangChengFragment extends BaseFragment {
             public void onItemClick(int position) {
                 Log.d("chenshichun", "========getOrder_id===  " + resultBeans.get(position).getOrder_id());
                 confirmReceipt(resultBeans.get(position).getOrder_id());
+            }
+
+            @Override
+            public void deleteOrder(int position) {
+                deleteFinishOrder(resultBeans.get(position).getOrder_id());
             }
         });
     }

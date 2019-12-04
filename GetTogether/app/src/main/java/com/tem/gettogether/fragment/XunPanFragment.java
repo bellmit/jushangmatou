@@ -18,8 +18,9 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
+import com.tem.gettogether.ShowImageDetail;
 import com.tem.gettogether.activity.home.HomeBuyDetailNewActivity;
-import com.tem.gettogether.adapter.HomeBuyListAdapter;
+import com.tem.gettogether.adapter.XunPanAdapter;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseFragment;
@@ -46,20 +47,15 @@ import cc.duduhuo.custoast.CusToast;
 public class XunPanFragment extends BaseFragment {
     @ViewInject(R.id.sell_RecyclerView)
     private RecyclerView sell_RecyclerView;
-    @ViewInject(R.id.tv_title)
-    private TextView tv_title;
-    @ViewInject(R.id.rl_close)
-    private RelativeLayout rl_close;
     @ViewInject(R.id.refreshLayout)
     private TwinklingRefreshLayout refreshLayout;
     @ViewInject(R.id.ll_empty)
     private RelativeLayout ll_empty;
-    private HomeBuyListAdapter mHomeBuyAdapter;
+    private XunPanAdapter mHomeBuyAdapter;
     private List<QiuGouListBean.ResultBean> homeDataBean = new ArrayList<>();
-
     private int currentPage = 1;
     private BaseActivity baseActivity;
-    private int typePage=1;
+    private int typePage = 1;
 
     @Nullable
     @Override
@@ -108,10 +104,10 @@ public class XunPanFragment extends BaseFragment {
                                 setData();
                             }
                         } else {
-                            if(gson.fromJson(result, QiuGouListBean.class).getResult().size()>0) {
+                            if (gson.fromJson(result, QiuGouListBean.class).getResult().size() > 0) {
                                 homeDataBean.addAll(gson.fromJson(result, QiuGouListBean.class).getResult());
                                 mHomeBuyAdapter.notifyDataSetChanged();
-                            }else{
+                            } else {
                                 CusToast.showToast(getResources().getText(R.string.no_more_data));
                             }
                         }
@@ -141,16 +137,24 @@ public class XunPanFragment extends BaseFragment {
 
 
     private void setData() {
-        mHomeBuyAdapter = new HomeBuyListAdapter(getContext(), homeDataBean);
+        mHomeBuyAdapter = new XunPanAdapter(getContext(), homeDataBean);
         sell_RecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         sell_RecyclerView.setAdapter(mHomeBuyAdapter);
-        mHomeBuyAdapter.setOnClickView(new HomeBuyListAdapter.onClickView() {
+        mHomeBuyAdapter.setOnClickView(new XunPanAdapter.onClickView() {
             @Override
             public void onClick(int position) {
-                getContext().startActivity(new Intent(getContext(), HomeBuyDetailNewActivity.class)
-                        .putExtra("trade_id", homeDataBean.get(position).getTrade_id())
-                        .putExtra("witch_page", 1)
-                        .putExtra("page", typePage));
+                if (homeDataBean.get(position).getStatus() != null && homeDataBean.get(position).getStatus().equals("2")) {
+                    ArrayList<String> resultList = new ArrayList<>();
+                    resultList.add(homeDataBean.get(position).getEnd_pic());
+                    Intent intent = new Intent(getContext(), ShowImageDetail.class);
+                    intent.putStringArrayListExtra("paths", resultList);
+                    getContext().startActivity(intent);
+                } else {
+                    getContext().startActivity(new Intent(getContext(), HomeBuyDetailNewActivity.class)
+                            .putExtra("trade_id", homeDataBean.get(position).getTrade_id())
+                            .putExtra("witch_page", 1)
+                            .putExtra("page", typePage));
+                }
             }
         });
     }

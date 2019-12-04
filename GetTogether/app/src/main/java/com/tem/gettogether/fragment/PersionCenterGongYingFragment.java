@@ -46,6 +46,7 @@ import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseFragment;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.MyMessageBean;
+import com.tem.gettogether.bean.OrderCountBean;
 import com.tem.gettogether.dialog.CheckUpDialog;
 import com.tem.gettogether.utils.Contacts;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
@@ -90,6 +91,14 @@ public class PersionCenterGongYingFragment extends BaseFragment {
     private TextView tv_zjNum;
     @ViewInject(R.id.tv_qb_num)
     private TextView tv_qb_num;
+    @ViewInject(R.id.count_0)
+    private TextView count_0;
+    @ViewInject(R.id.count_1)
+    private TextView count_1;
+    @ViewInject(R.id.count_2)
+    private TextView count_2;
+    @ViewInject(R.id.count_3)
+    private TextView count_3;
     private BaseActivity baseActivity;
     private MyMessageBean.ResultBean resultBean = new MyMessageBean.ResultBean();
     private String userLever;
@@ -108,6 +117,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
 
         upGetMessageData();
         initRefresh();
+        getOrderNum();
     }
 
     /*
@@ -215,7 +225,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
-                    CusToast.showToast(msg);
+//                    CusToast.showToast(msg);
                     if (res.equals("1")) {
                         if (jsonObject.optString("result") == null || jsonObject.optString("result").equals("")) {
                             if (myMessageBean != null) {
@@ -225,6 +235,68 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                             startActivity(new Intent(getActivity(), RefundProgressActivity.class));
                         }
 
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                ex.printStackTrace();
+            }
+        });
+    }
+
+    // 获取订单数量
+    public void getOrderNum() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("role_type", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, ""));
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
+        XUtil.Post(URLConstant.ORDER_NUM, map, new MyCallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                Log.e("chenshichun", "---订单数量--" + result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    String msg = jsonObject.optString("msg");
+                    //CusToast.showToast(msg);
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        OrderCountBean mOrderCountBean = gson.fromJson(result, OrderCountBean.class);
+                     /*   if (!mOrderCountBean.getResult().getAll_count().equals("0")) {
+                            count_0.setVisibility(View.VISIBLE);
+                        } else {
+                            count_0.setVisibility(View.GONE);
+                        }*/
+                        if (!mOrderCountBean.getResult().getWaitsend().equals("0")) {
+                            count_1.setVisibility(View.VISIBLE);
+                        } else {
+                            count_1.setVisibility(View.GONE);
+                        }
+                        if (!mOrderCountBean.getResult().getWaitreceive().equals("0")) {
+                            count_2.setVisibility(View.VISIBLE);
+                        } else {
+                            count_2.setVisibility(View.GONE);
+                        }
+                        if (!mOrderCountBean.getResult().getWaitccomment().equals("0")) {
+                            count_3.setVisibility(View.VISIBLE);
+                        } else {
+                            count_3.setVisibility(View.GONE);
+                        }
+//                        count_0.setText(mOrderCountBean.getResult().getAll_count());
+                        count_1.setText(mOrderCountBean.getResult().getWaitsend());
+                        count_2.setText(mOrderCountBean.getResult().getWaitreceive());
+                        count_3.setText(mOrderCountBean.getResult().getWaitccomment());
                     }
 
                 } catch (JSONException e) {
@@ -367,6 +439,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
                 upGetMessageData();
+                getOrderNum();
             }
 
             @Override
@@ -457,6 +530,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         upGetMessageData();
+        getOrderNum();
     }
 
     private void upName() {
@@ -502,7 +576,7 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
-                    CusToast.showToast(msg);
+                   // CusToast.showToast(msg);
                     if (res.equals("1")) {
                         upGetMessageData();
                     }

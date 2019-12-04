@@ -123,10 +123,10 @@ public class ShopAuthenticationActivity extends BaseActivity {
             CusToast.showToast(getText(R.string.input_contacts_email));
             return;
         }
-        if (!isEmail(youxiang)) {
+        /*if (!isEmail(youxiang)) {
             CusToast.showToast(getText(R.string.please_select_the_museum_classification));
             return;
-        }
+        }*/
 
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("contacts_name", name);

@@ -47,6 +47,7 @@ import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseFragment;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.MyMessageBean;
+import com.tem.gettogether.bean.OrderCountBean;
 import com.tem.gettogether.dialog.CheckUpDialog;
 import com.tem.gettogether.utils.Contacts;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
@@ -85,6 +86,14 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
     private TextView tv_zjNum;
     @ViewInject(R.id.tv_qb_num)
     private TextView tv_qb_num;
+    @ViewInject(R.id.count_0)
+    private TextView count_0;
+    @ViewInject(R.id.count_1)
+    private TextView count_1;
+    @ViewInject(R.id.count_2)
+    private TextView count_2;
+    @ViewInject(R.id.count_3)
+    private TextView count_3;
     private MyMessageBean.ResultBean resultBean = new MyMessageBean.ResultBean();
     private String is_verify;// 采购商认证状态
 
@@ -100,6 +109,7 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
         baseActivity = (BaseActivity) getActivity();
         upGetMessageData();
         initRefresh();
+        getOrderNum();
     }
 
     /*
@@ -128,21 +138,21 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
                         SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.NAME, myMessageBean.getResult().getNickname());
                         SharedPreferencesUtils.saveString(getContext(), BaseConstant.SPConstant.IS_VERIFY, myMessageBean.getResult().getIs_verify());
                         is_verify = myMessageBean.getResult().getIs_verify();
-                        if(myMessageBean.getResult().getStore_collect_count()!=null) {
+                        if (myMessageBean.getResult().getStore_collect_count() != null) {
                             tv_scNum.setText(myMessageBean.getResult().getStore_collect_count());
-                        }else{
+                        } else {
                             tv_scNum.setText("0");
                         }
 
-                        if(myMessageBean.getResult().getFprint_count()!=null) {
+                        if (myMessageBean.getResult().getFprint_count() != null) {
                             tv_zjNum.setText(myMessageBean.getResult().getFprint_count());
-                        }else{
+                        } else {
                             tv_zjNum.setText("0");
                         }
 
-                        if(myMessageBean.getResult().getCart_goods()!=null) {
+                        if (myMessageBean.getResult().getCart_goods() != null) {
                             tv_qb_num.setText(myMessageBean.getResult().getCart_goods());
-                        }else{
+                        } else {
                             tv_qb_num.setText("0");
                         }
 
@@ -155,7 +165,7 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
                         } else if (is_verify.equals("3")) {
                             rz_status_tv.setText(getText(R.string.shz));
                         }
-                    }else{
+                    } else {
 //                        startActivity(new Intent(getActivity(), LoginActivity.class));
 //                        getActivity().finish();
                     }
@@ -272,6 +282,7 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
                 upGetMessageData();
+                getOrderNum();
             }
 
             @Override
@@ -296,6 +307,68 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         upGetMessageData();
+        getOrderNum();
+    }
+
+    // 获取订单数量
+    public void getOrderNum() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("role_type", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, ""));
+        map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
+        XUtil.Post(URLConstant.ORDER_NUM, map, new MyCallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                Log.e("chenshichun", "---订单数量--" + result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    String msg = jsonObject.optString("msg");
+//                    CusToast.showToast(msg);
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        OrderCountBean mOrderCountBean = gson.fromJson(result, OrderCountBean.class);
+                        /*if (!mOrderCountBean.getResult().getAll_count().equals("0")) {
+                            count_0.setVisibility(View.VISIBLE);
+                        } else {
+                            count_0.setVisibility(View.GONE);
+                        }*/
+                        if (!mOrderCountBean.getResult().getWaitsend().equals("0")) {
+                            count_1.setVisibility(View.VISIBLE);
+                        } else {
+                            count_1.setVisibility(View.GONE);
+                        }
+                        if (!mOrderCountBean.getResult().getWaitreceive().equals("0")) {
+                            count_2.setVisibility(View.VISIBLE);
+                        } else {
+                            count_2.setVisibility(View.GONE);
+                        }
+                        if (!mOrderCountBean.getResult().getWaitccomment().equals("0")) {
+                            count_3.setVisibility(View.VISIBLE);
+                        } else {
+                            count_3.setVisibility(View.GONE);
+                        }
+//                        count_0.setText(mOrderCountBean.getResult().getAll_count());
+                        count_1.setText(mOrderCountBean.getResult().getWaitsend());
+                        count_2.setText(mOrderCountBean.getResult().getWaitreceive());
+                        count_3.setText(mOrderCountBean.getResult().getWaitccomment());
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                ex.printStackTrace();
+            }
+        });
     }
 
     private void upName() {
@@ -341,7 +414,7 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
-                    CusToast.showToast(msg);
+                    //CusToast.showToast(msg);
                     if (res.equals("1")) {
                         upGetMessageData();
                     }

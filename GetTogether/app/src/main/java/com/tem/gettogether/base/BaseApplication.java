@@ -22,6 +22,7 @@ import com.tem.gettogether.rongyun.CustomizeMessage;
 import com.tem.gettogether.rongyun.CustomizeMessageItemProvider;
 import com.tem.gettogether.rongyun.CustomizeMessageTranslationItemProvider;
 import com.tem.gettogether.rongyun.CustomizeTranslationMessage;
+import com.tem.gettogether.rongyun.RongCloudEvent;
 import com.tem.gettogether.rongyun.ShopExtensionModule;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tencent.bugly.Bugly;
@@ -83,14 +84,14 @@ public class BaseApplication extends Application {
         CusToast.init(this);
         api = WXAPIFactory.createWXAPI(this, WXAPP_ID);
         RongIM.init(this);
-
+        RongCloudEvent.init(this);
         setInputProvider();
         UMShareAPI.get(this);
         initAppLanguage();
         Bugtags.start("42c655de1b4f612f3e488385c64f3e81", this, /*Bugtags.BTGInvocationEventBubble*/Bugtags.BTGInvocationEventNone);
 
 
-        Beta.autoCheckUpgrade = false;//设置不自动检查
+        Beta.autoCheckUpgrade = true;//设置不自动检查
 
         Bugly.init(getApplicationContext(), "d3faa6cafc", false);// bugly
 

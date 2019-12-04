@@ -172,7 +172,7 @@ public class CgsAuthenticationActivity extends BaseActivity {
                 }
 
                 if (et_card.getText().toString().equals("")) {
-                    CusToast.showToast(getText(R.string.please_enter_your_ID_card_or_passport));
+                    CusToast.showToast(R.string.please_enter_WeChat);
                     return;
                 }
                 /*if (iv_image_1.getDrawable() == null) {

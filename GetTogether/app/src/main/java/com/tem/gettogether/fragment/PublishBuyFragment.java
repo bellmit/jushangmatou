@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -44,12 +43,9 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.ShowImageDetail;
-import com.tem.gettogether.activity.LoginActivity;
-import com.tem.gettogether.activity.MainActivity;
 import com.tem.gettogether.adapter.MyPublicTaskRecycleAdapter;
 import com.tem.gettogether.base.Base2Fragment;
 import com.tem.gettogether.base.BaseActivity;
-import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
@@ -57,7 +53,6 @@ import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.ImageDataBean;
 import com.tem.gettogether.bean.QiuGouXXBean;
 import com.tem.gettogether.retrofit.UploadUtil;
-import com.tem.gettogether.utils.Base64BitmapUtil;
 import com.tem.gettogether.utils.BitnapUtils;
 import com.tem.gettogether.utils.Confirg;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
@@ -644,12 +639,6 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                 if (imagePaths.size() < 10) {
                     Uri cropUri = Uri.fromFile(mCropImageFile);
                     final String cropPath = "" + cropUri;
-//                    imagePaths.add(imagePaths.size() - 1, cropPath.substring(cropPath.indexOf("/storage")));
-
-//                    Map<String, Object> map = new HashMap<>();
-//                    Bitmap bitmap = BitmapFactory.decodeFile(mCropImageFile.toString());
-//                    map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
-//                    upMessageData(map, cropPath.substring(cropPath.indexOf("/storage")));
                     new Thread(new Runnable(){
                         @Override
                         public void run() {

@@ -99,7 +99,7 @@ public class TuWenXQActivity extends BaseActivity implements View.OnClickListene
         tv_title_right.setText(R.string.save);
         cartImage = getIntent().getStringArrayListExtra("listImage");
         tv_title_right.setVisibility(View.VISIBLE);
-        tv_title_right.setTextColor(getResources().getColor(R.color.my_yellow));
+        tv_title_right.setTextColor(getResources().getColor(R.color.white));
     }
 
     @Override

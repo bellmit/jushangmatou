@@ -1,10 +1,13 @@
 package com.tem.gettogether.fragment;
 
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -13,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,6 +31,7 @@ import com.tem.gettogether.base.BaseFragment;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.RongYunBean;
 import com.tem.gettogether.rongyun.ConversationListAdapterEx;
+import com.tem.gettogether.utils.BadgerUtil;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -62,14 +67,20 @@ public class MessageFragment extends BaseFragment {
     @ViewInject(R.id.main_viewpager)
     private ViewPager main_viewpager;
     private List<Fragment> mFragment = new ArrayList<>();
-//    @ViewInject(R.id.rl_close)
-//    private RelativeLayout rl_close;
     @ViewInject(R.id.ll_xtMessage)
     private LinearLayout ll_xtMessage;
+    @ViewInject(R.id.system_message_img)
+    private ImageView system_message_img;
+    @ViewInject(R.id.system_message_tv)
+    private TextView system_message_tv;
+    @ViewInject(R.id.count_tv)
+    private TextView count_tv;
+
     long firstClick = 0;
     long secondClick = 0;
     private OnMessageListener listener;
-
+    private myReceiver recevier;
+    private IntentFilter intentFilter;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -83,7 +94,6 @@ public class MessageFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.d("chenshichun", "------------------");
         return x.view().inject(this, inflater, container);
     }
 
@@ -92,12 +102,13 @@ public class MessageFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         baseActivity = (BaseActivity) getActivity();
         initData();
-
+        recevier = new myReceiver();
+        intentFilter = new IntentFilter();
+        intentFilter.addAction("UNREAD_MESSAGE");
+        getContext().registerReceiver(recevier,intentFilter);
     }
 
     private void initData() {
-//        rl_close.setVisibility(View.GONE);
-
         RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
 
             @Override
@@ -106,13 +117,6 @@ public class MessageFragment extends BaseFragment {
             }
 
         }, true);
-
-        /*rl_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                baseActivity.finish();
-            }
-        });*/
         ll_xtMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -154,6 +158,55 @@ public class MessageFragment extends BaseFragment {
         }
     }
 
+    private void upGetMessageData() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+        XUtil.Post(URLConstant.XITONGXIAO_WEIDU, map, new MyCallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                Log.i("====系统信息未读数量===", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    String msg = jsonObject.optString("msg");
+
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        String result2 = jsonObject.optString("result");
+                        JSONObject jsonObject2 = new JSONObject(result2);
+                        String count = jsonObject2.optString("count");
+                        if (count.equals("0")) {
+                            system_message_img.setBackgroundResource(R.drawable.xtxiaoxicon);
+                            system_message_tv.setTextColor(getResources().getColor(R.color.black));
+                            count_tv.setVisibility(View.GONE);
+                        } else {
+                            system_message_img.setBackgroundResource(R.drawable.home_message);
+                            system_message_tv.setTextColor(getResources().getColor(R.color.home_red));
+                            count_tv.setVisibility(View.VISIBLE);
+                            count_tv.setText(count);
+                        }
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                ex.printStackTrace();
+            }
+        });
+    }
 
     private ConversationListFragment mConversationListFragment = null;
     private boolean isDebug;
@@ -211,7 +264,6 @@ public class MessageFragment extends BaseFragment {
     private UserInfo findUserById(String userId) {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-        Log.d("chenshichun","=====userId  "+userId);
         map.put("user_id", userId);
 //        baseActivity.showDialog();
         XUtil.Post(URLConstant.RONGYUN_NICKNAME_HEADPIC, map, new MyCallBack<String>() {
@@ -220,13 +272,13 @@ public class MessageFragment extends BaseFragment {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
-                    Log.d("chenshichun","======列表信息====="+jsonObject.optString("result"));
+                    Log.d("chenshichun", "======列表信息=====" + jsonObject.optString("result"));
 
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         RongYunBean mRongYunBean = gson.fromJson(result, RongYunBean.class);
                         userInfo = new UserInfo(mRongYunBean.getResult().getUser_id(),
-                                mRongYunBean.getResult().getNickname(),Uri.parse(mRongYunBean.getResult().getHead_pic()));
+                                mRongYunBean.getResult().getNickname(), Uri.parse(mRongYunBean.getResult().getHead_pic()));
                         RongIM.getInstance().refreshUserInfoCache(userInfo);
                     }
                 } catch (JSONException e) {
@@ -268,4 +320,14 @@ public class MessageFragment extends BaseFragment {
     public interface OnMessageListener {
         void refreshMessage();
     }
+
+    public class myReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getAction().equals("UNREAD_MESSAGE")){
+                upGetMessageData();
+            }
+        }
+    }
+
 }

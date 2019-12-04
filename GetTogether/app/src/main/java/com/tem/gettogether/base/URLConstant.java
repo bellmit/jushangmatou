@@ -9,8 +9,8 @@ public class URLConstant {
 //    public final static String SERVER = "";
     //测试环境
 
-        public final static String SERVER = "http://www.jsmtgou.com/jushangmatou/index.php";//www.jushangmat.com  www.jsmtgou.com
-//    public final static String SERVER = "http://m.jsmtgou.com/jushangmatou/index.php";//www.jushangmat.com  www.jsmtgou.com
+//        public final static String SERVER = "http://www.jsmtgou.com/jushangmatou/index.php";//www.jushangmat.com  www.jsmtgou.com
+    public final static String SERVER = "http://m.jsmtgou.com/jushangmatou/index.php";//www.jushangmat.com  www.jsmtgou.com
     //注册
     public final static String REGISTER = SERVER + "/Api/User/reg";
     // 绑定手机号码
@@ -421,8 +421,20 @@ public class URLConstant {
     public final static String ANNOUNCEMENT_URL = SERVER + "/Api/Index/announcement";
 
     // 聚工厂
-    public final static String FACTORY_LIST = SERVER +"/Api/Index/outside_factory_list";
+    public final static String FACTORY_LIST = SERVER + "/Api/Index/outside_factory_list";
 
     // 订单详情
     public final static String ORDER_DETAIL = SERVER + "/Api/Goods/newest_orderlist_for_onegoods";
+
+    // 求购管理成交图片上传接口
+    public final static String UPLOAD_BINARY_END_PIC = SERVER + "/Api/Store/upload_binary_end_pic";
+
+    // 求购管理上传图片
+    public final static String BUYER_TRADE_DODE = SERVER + "/Api/Goods/buyer_trade_done";
+
+    // 订单数量
+    public final static String ORDER_NUM = SERVER + "/Api/User/getOrderCount";
+
+    // 商品编辑接口
+    public final static String SHOP_EDIT = SERVER + "/Api/User/mod_goods";
 }

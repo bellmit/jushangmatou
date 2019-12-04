@@ -56,7 +56,7 @@ public class StoreManagementActivity extends BaseActivity {
                 startActivity(new Intent(this, ProductManagmentActivity.class));
                 break;
             case R.id.tv_fbcp:
-                startActivity(new Intent(this, PublishGoodsActivity.class/*NewAddShoppingActivity.class*/));
+                startActivity(new Intent(this, PublishGoodsActivity.class).putExtra("goodsID",""));
                 break;
             case R.id.tv_dpxx:
                 startActivity(new Intent(this, MyShopActivity.class));

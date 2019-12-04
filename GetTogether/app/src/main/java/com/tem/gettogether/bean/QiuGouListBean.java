@@ -57,7 +57,34 @@ public class QiuGouListBean {
         private String attach_time;
         private String add_time;
         private String country_name;
+        private String status;
+        private String end_time;
+        private String end_pic;
         private List<String> goods_logo;
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public String getEnd_time() {
+            return end_time;
+        }
+
+        public void setEnd_time(String end_time) {
+            this.end_time = end_time;
+        }
+
+        public String getEnd_pic() {
+            return end_pic;
+        }
+
+        public void setEnd_pic(String end_pic) {
+            this.end_pic = end_pic;
+        }
 
         public String getTrade_id() {
             return trade_id;

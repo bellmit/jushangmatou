@@ -50,6 +50,8 @@ import com.tem.gettogether.utils.SizeUtil;
 import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.permissions.PictureUtil;
 import com.tem.gettogether.view.CircularImage;
+import com.tem.gettogether.view.DecorationNoticeDialog;
+import com.tem.gettogether.view.IdentityDialog;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -88,7 +90,8 @@ public class ShopDecorationActivity extends BaseMvpActivity<ShopDecorationPresen
     private RecyclerView publish_recy;
     @ViewInject(R.id.jianjie_tv)
     private EditText jianjie_tv;
-
+    @ViewInject(R.id.tv_title_right)
+    private TextView tv_title_right;
     private MyPublicTaskRecycleAdapter mTaskImgAdapter;
     private ArrayList<String> imagePaths = new ArrayList<>();
     private String logo_image = "";
@@ -107,6 +110,8 @@ public class ShopDecorationActivity extends BaseMvpActivity<ShopDecorationPresen
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
         tv_title.setText(getText(R.string.store_construction));
+        tv_title_right.setVisibility(View.VISIBLE);
+        tv_title_right.setText(R.string.decoration_notice);
         imagePaths.clear();
         imagePaths.add(R.drawable.addtupian + "");
         compressImageFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/WorksComing/Compress2/";
@@ -130,7 +135,7 @@ public class ShopDecorationActivity extends BaseMvpActivity<ShopDecorationPresen
         publish_recy.setAdapter(mTaskImgAdapter);
     }
 
-    @Event(value = {R.id.shop_logo_ll, R.id.shop_bg_ll, R.id.rl_close, R.id.tv_fbShopping})
+    @Event(value = {R.id.shop_logo_ll, R.id.shop_bg_ll, R.id.rl_close, R.id.tv_fbShopping,R.id.tv_title_right})
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
@@ -167,6 +172,10 @@ public class ShopDecorationActivity extends BaseMvpActivity<ShopDecorationPresen
                 Log.d("chenshichun", "======轮播=====" + ad_code);
                 mPresenter.getShopDecorationModifyData(map);
 
+                break;
+            case R.id.tv_title_right:
+                DecorationNoticeDialog mDecorationNoticeDialog = new DecorationNoticeDialog.Builder(mContext).create();
+                mDecorationNoticeDialog.show();
                 break;
         }
     }
