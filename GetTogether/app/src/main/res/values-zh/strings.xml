@@ -837,4 +837,8 @@
     <string name="shop_bg_size">店铺背景图:750*300(px)</string>
     <string name="shop_carousel_size">店铺轮播图:750*300(px)</string>
     <string name="please_enter_WeChat">请输入微信号</string>
+    <string name="detriment">求购</string>
+    <string name="save_the_picture">确定保存图片吗</string>
+    <string name="save_picture">保存图片</string>
+    <string name="custom_message">这是一条自定义消息</string>
 </resources>

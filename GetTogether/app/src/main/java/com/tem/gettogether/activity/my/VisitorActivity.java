@@ -19,6 +19,7 @@ import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.FansDataBean;
 import com.tem.gettogether.bean.VisitorBean;
+import com.tem.gettogether.rongyun.RongTalk;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
@@ -68,6 +69,14 @@ public class VisitorActivity extends BaseActivity {
         mVisitorAdapter = new VisitorAdapter(getContext(), mVisitorBean);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(mVisitorAdapter);
+        mVisitorAdapter.setOnClickItem(new VisitorAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, int position2) {
+                RongTalk.doConnection(VisitorActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
+                        , mVisitorBean.get(position).getVisiters().get(position2).getUser_id(), mVisitorBean.get(position).getVisiters().get(position2).getNickname(),
+                        mVisitorBean.get(position).getVisiters().get(position2).getHead_pic(), null);
+            }
+        });
     }
 
     private void getVisiterData(int currentPage, final boolean isLoadMore) {

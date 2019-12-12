@@ -202,10 +202,8 @@ public class SpecificationsDetailActivity extends BaseMvpActivity<Specifications
                         obj.put("key_name", array);
                         allArray.put(obj);
                     }
-                    Log.e("chenshichun", "--result1---  " + allArray.toString());
                     return allArray.toString();
                 } catch (JSONException e) {
-                    Log.e("chenshichun", "-----" + e.getMessage());
                     e.printStackTrace();
                 }
                 break;
@@ -230,10 +228,8 @@ public class SpecificationsDetailActivity extends BaseMvpActivity<Specifications
                             allArray1.put(obj1);
                         }
                     }
-                    Log.e("chenshichun", "--result2---  " + allArray1.toString());
                     return allArray1.toString();
                 } catch (JSONException e) {
-                    Log.e("chenshichun", "-----" + e.getMessage());
                     e.printStackTrace();
                 }
                 break;

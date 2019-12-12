@@ -48,8 +48,14 @@ public class SpecificationsDetailAddAdapter extends RecyclerView.Adapter<Specifi
 
     @Override
     public void onBindViewHolder(final SpecificationsDetailAddAdapter.ViewHolder holder, final int position) {
+        Log.e("chenshichun", "----position-  " + position);
+        Log.e("chenshichun", "----size-  " + mDatas.get(currentCount).guigeArray.size());
+
         if (position == mDatas.get(currentCount).guigeArray.size() - 1) {
             holder.delete_iv.setVisibility(View.GONE);
+            holder.text_tv.setVisibility(View.GONE);
+            holder.text_et.setVisibility(View.VISIBLE);
+            holder.text_et.setText("");
             holder.text_et.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                 @Override
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -73,14 +79,16 @@ public class SpecificationsDetailAddAdapter extends RecyclerView.Adapter<Specifi
             });
         } else {
             holder.delete_iv.setVisibility(View.VISIBLE);
+            holder.text_et.setVisibility(View.GONE);
+            holder.text_tv.setVisibility(View.VISIBLE);
         }
-
-        holder.text_et.setText(mDatas.get(currentCount).itemGuigeArray.get(position));
+        holder.text_tv.setText(mDatas.get(currentCount).itemGuigeArray.get(position));
         holder.delete_iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mDatas.get(currentCount).guigeArray.remove(position);
                 mDatas.get(currentCount).itemGuigeArray.remove(position);
+                Log.e("chenshichun", "-----" + mDatas.get(currentCount).itemGuigeArray);
                 notifyDataSetChanged();
                 List<String> list = bindAnotherRecyler();
                 onDataListener.onDeleteData(holder.text_et.getText().toString(), position, list);
@@ -94,12 +102,14 @@ public class SpecificationsDetailAddAdapter extends RecyclerView.Adapter<Specifi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView text_tv;
         public EditText text_et;
         public ImageView delete_iv;
         public RecyclerView recyclerView;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            text_tv = itemView.findViewById(R.id.text_tv);
             text_et = itemView.findViewById(R.id.text_et);
             delete_iv = itemView.findViewById(R.id.delete_iv);
             recyclerView = itemView.findViewById(R.id.recyclerView);
@@ -122,33 +132,26 @@ public class SpecificationsDetailAddAdapter extends RecyclerView.Adapter<Specifi
             List<String> copylist = new ArrayList<>();
             for (int a = 0; a < mDatas.size(); a++) {
                 if (mDatas.get(a).guigeArray.size() != 0) {
-                    Log.e("chenshichun", "----mDatas.get(a).guigeArray-  " + mDatas.get(a).guigeArray);
                     copylist.addAll(mDatas.get(a).guigeArray);
                     b = a;
                     break;
                 }
             }
             copylist.remove(copylist.size() - 1);
-            Log.e("chenshichun", "---copylist--  " + copylist);
             if (copylist.size() > 0) {
                 List<String> L0 = new ArrayList<>();
                 L0.addAll(copylist);
-                Log.e("chenshichun", "---L0--  " + L0);
-                Log.e("chenshichun", "--b---" + b);
                 for (int i = b + 1; i < mDatas.size(); i++) {
                     List<String> L1 = mDatas.get(i).guigeArray;
-                    Log.e("chenshichun", "--L1---" + L1);
                     List<String> list = new ArrayList<>();
                     for (int j = 0; j < L0.size(); j++) {
                         for (int z = 0; z < L1.size() - 1; z++) {
                             String s = L0.get(j) + "," + L1.get(z);
-                            Log.e("chenshichun", "--s---  " + s);
                             list.add(s);
                         }
                     }
                     if (list.size() != 0) {
                         L0 = list;
-                        Log.e("chenshichun", "--L000---" + L0);
                     }
                 }
                 return L0;

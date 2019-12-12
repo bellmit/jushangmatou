@@ -846,4 +846,8 @@
     <string name="shop_bg_size">Shop background size:750*300(px)</string>
     <string name="shop_carousel_size">Shop carousel size:750*300(px)</string>
     <string name="please_enter_WeChat">Please enter WeChat</string>
+    <string name="detriment">Buy</string>
+    <string name="save_the_picture">Are you sure you want to save the picture?</string>
+    <string name="save_picture">Save the picture</string>
+    <string name="custom_message">这是一条自定义消息</string>
 </resources>

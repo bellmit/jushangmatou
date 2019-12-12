@@ -156,8 +156,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:visibility="gone"
-                    android:background="@color/line" />
+                    android:background="@color/line"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -359,8 +359,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:visibility="gone"
-                    android:background="@color/line" />
+                    android:background="@color/line"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/ll_xuanZG"
@@ -442,8 +442,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:paddingStart="15dp"
                         android:hint="@string/please_select_a_product_category"
+                        android:paddingStart="15dp"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -455,8 +455,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:visibility="gone"
-                    android:background="@color/line" />
+                    android:background="@color/line"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/ll_bd_FL"
@@ -567,10 +567,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
-                    android:visibility="visible"
                     android:orientation="horizontal"
                     android:paddingStart="16dp"
-                    android:paddingEnd="16dp">
+                    android:paddingEnd="16dp"
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -595,9 +595,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:ellipsize="end"
-                        android:maxLines="1"
                         android:gravity="center_vertical"
                         android:hint="@string/qxzspgg"
+                        android:maxLines="1"
                         android:paddingStart="15dp"
                         android:textSize="13dp" />
 
@@ -736,10 +736,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
-                    android:visibility="gone"
                     android:orientation="horizontal"
                     android:paddingStart="16dp"
-                    android:paddingEnd="16dp">
+                    android:paddingEnd="16dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -781,8 +781,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:visibility="gone"
-                    android:background="@color/line" />
+                    android:background="@color/line"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/text_description_ll"
@@ -1006,17 +1006,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/line">
+                android:background="@color/line"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/tv_fbShopping"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/main_fbqg15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/btn_bg"
                     android:gravity="center"
                     android:text="@string/fabuchangping"
                     android:textColor="@color/white"

@@ -34,7 +34,7 @@ import io.rong.imlib.model.Message;
 
 @ProviderTag(messageContent = CustomizeBuyMessage.class)
 public class BuyCustomizeMessageItemProvider extends IContainerItemProvider.MessageProvider<CustomizeBuyMessage> {
-
+    private Context con;
     class ViewHolder {
         ImageView image;
         TextView name;
@@ -89,7 +89,8 @@ public class BuyCustomizeMessageItemProvider extends IContainerItemProvider.Mess
 
     @Override
     public Spannable getContentSummary(CustomizeBuyMessage customizeBuyMessage) {
-        return new SpannableString("这是一条自定义消息CustomizeMessage");
+        Log.e("chenshichun","----con-  "+con);
+        return new SpannableString(""/*con.getString(R.string.custom_message)*/);
     }
 
     @Override
@@ -99,6 +100,7 @@ public class BuyCustomizeMessageItemProvider extends IContainerItemProvider.Mess
 
     @Override
     public View newView(Context context, ViewGroup viewGroup) {
+        con = context;
         View view = LayoutInflater.from(context).inflate(R.layout.item_qiugou_customize_message, null);
         BuyCustomizeMessageItemProvider.ViewHolder holder = new BuyCustomizeMessageItemProvider.ViewHolder();
         holder.image = view.findViewById(R.id.image_iv);

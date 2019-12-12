@@ -39,14 +39,13 @@
 
                 <TextView
                     android:id="@+id/tv_title"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:maxLines="2"
-                    android:text="DIV小屋手工制作手工拼装模型创意玩创"
+                    android:text="null"
                     android:textColor="@color/text3"
-                    android:textDirection="locale"
                     android:textSize="13dp" />
 
 
@@ -57,7 +56,6 @@
                     android:gravity="center_vertical"
                     android:text="￥1.00"
                     android:textColor="@color/text3"
-                    android:textDirection="locale"
                     android:textSize="12dp" />
 
                 <LinearLayout
@@ -72,7 +70,6 @@
                         android:layout_height="wrap_content"
                         android:text="10件"
                         android:textColor="@color/text6"
-                        android:textDirection="locale"
                         android:textSize="12dp" />
                 </LinearLayout>
             </LinearLayout>
@@ -96,54 +93,57 @@
 
                 <TextView
                     android:id="@+id/shelf_tv"
-                    android:layout_width="50dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_marginEnd="5dp"
                     android:background="@drawable/dpgl_add5"
                     android:gravity="center"
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_10"
                     android:text="@string/shelf"
                     android:textColor="@color/white"
-                    android:textDirection="locale"
                     android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/obtained_tv"
-                    android:layout_width="50dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_marginStart="@dimen/dp_10"
                     android:layout_marginEnd="5dp"
                     android:background="@drawable/dpgl_add5"
                     android:gravity="center"
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_10"
                     android:text="@string/obtained"
                     android:textColor="@color/white"
-                    android:textDirection="locale"
                     android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/edit_tv"
-                    android:layout_width="50dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_marginStart="@dimen/dp_10"
                     android:layout_marginEnd="5dp"
                     android:background="@drawable/dpgl_add5"
                     android:gravity="center"
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_10"
                     android:text="@string/bianji"
                     android:textColor="@color/white"
-                    android:textDirection="locale"
-                    android:textSize="12dp"
-                    android:visibility="gone" />
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/delete_tv"
-                    android:layout_width="50dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_marginStart="@dimen/dp_10"
                     android:layout_marginEnd="5dp"
                     android:background="@drawable/dpgl_add5"
                     android:gravity="center"
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_10"
                     android:text="@string/delete"
                     android:textColor="@color/white"
-                    android:textDirection="locale"
                     android:textSize="12dp" />
             </LinearLayout>
         </RelativeLayout>

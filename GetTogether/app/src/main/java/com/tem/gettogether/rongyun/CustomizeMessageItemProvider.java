@@ -29,6 +29,7 @@ import io.rong.imlib.model.Message;
  */
 @ProviderTag(messageContent = CustomizeBuyMessage.class)
 public class CustomizeMessageItemProvider extends IContainerItemProvider.MessageProvider<CustomizeBuyMessage>  {
+    private Context con;
     class ViewHolder {
         ImageView iv_iamge_lt;
         TextView tv_title_lt;
@@ -38,6 +39,7 @@ public class CustomizeMessageItemProvider extends IContainerItemProvider.Message
 
     @Override
     public View newView(Context context, ViewGroup viewGroup) {
+        con = context;
         View view = LayoutInflater.from(context).inflate(R.layout.item_customize2_message, null);
         ViewHolder holder = new ViewHolder();
         holder.iv_iamge_lt = view.findViewById(R.id.iv_iamge_lt);
@@ -86,7 +88,7 @@ public class CustomizeMessageItemProvider extends IContainerItemProvider.Message
 
     @Override
     public Spannable getContentSummary(CustomizeBuyMessage customizeMessage) {
-        return new SpannableString("这是一条自定义消息CustomizeMessage");
+        return new SpannableString(con.getString(R.string.custom_message));
     }
 
     @Override

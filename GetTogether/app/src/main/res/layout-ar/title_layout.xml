@@ -1,46 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/base_rl"
     android:layout_width="match_parent"
+    android:layout_height="44dp"
     android:background="@drawable/plan_progress_one"
-    android:layoutDirection="rtl"
-    android:layout_height="44dp">
+    android:layoutDirection="rtl">
+    <!--android:background="@color/white"-->
+    <!--android:background="@drawable/plan_progress_one"-->
     <RelativeLayout
         android:id="@+id/rl_close"
         android:layout_width="60dp"
         android:layout_height="match_parent">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
-            android:src="@drawable/left_close"/>
+            android:src="@drawable/left_close" />
     </RelativeLayout>
+
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/text3"
-        android:textDirection="locale"
         android:layout_centerInParent="true"
-        android:textSize="16dp"
-        android:text="Title"/>
+        android:text="Title"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+
     <RelativeLayout
         android:id="@+id/rl_title_right"
         android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
-        android:paddingEnd="16dp"
-        android:layout_height="match_parent">
+        android:layout_marginEnd="@dimen/dp_20">
+
         <TextView
             android:id="@+id/tv_title_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="start"
-            android:textDirection="locale"
-            android:visibility="gone"
             android:layout_centerVertical="true"
-            android:textColor="@color/text3"
+            android:gravity="right"
+            android:textColor="@color/white"
             android:textSize="14dp"
-            android:text=""/>
+            android:visibility="gone" />
     </RelativeLayout>
 
 
@@ -48,5 +52,5 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/title_line"/>
+        android:background="@color/title_line" />
 </RelativeLayout>

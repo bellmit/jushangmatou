@@ -16,45 +16,50 @@
         android:focusableInTouchMode="true"
         android:gravity="center_vertical"
         android:orientation="horizontal">
+
         <RelativeLayout
             android:id="@+id/rl_close"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent">
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
-                android:src="@drawable/left_close"/>
+                android:src="@drawable/arrow_left" />
         </RelativeLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/home_sousuo"
             android:orientation="horizontal">
+
             <RelativeLayout
                 android:id="@+id/rl_sousuo"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/sousuo"/>
+                    android:src="@drawable/sousuo" />
             </RelativeLayout>
 
             <EditText
                 android:id="@+id/et_sousuo"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
-                 android:layout_weight="1"
+                android:layout_weight="1"
+                android:background="@null"
+                android:ellipsize="end"
                 android:hint="@string/search"
                 android:maxLines="1"
-                android:ellipsize="end"
-                android:background="@null"
                 android:textSize="13dp" />
 
         </LinearLayout>
@@ -116,7 +121,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="11dp"
-                    android:paddingEnd="15dp"/>
+                    android:paddingEnd="15dp" />
             </LinearLayout>
 
             <RelativeLayout
@@ -150,7 +155,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="11dp"
-                    android:paddingEnd="15dp"/>
+                    android:paddingEnd="15dp" />
             </LinearLayout>
 
         </LinearLayout>

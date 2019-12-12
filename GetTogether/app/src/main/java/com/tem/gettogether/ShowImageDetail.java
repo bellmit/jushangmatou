@@ -180,8 +180,8 @@ public class ShowImageDetail extends BaseActivity {
             view.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setIcon(R.mipmap.ic_launcher).setTitle("保存图片")
-                            .setMessage("确定保存图片吗").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setIcon(R.mipmap.ic_launcher).setTitle(R.string.save_picture)
+                            .setMessage(R.string.save_the_picture).setPositiveButton(R.string.queding, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     Glide.with(getContext()).load(url).asBitmap().into(new SimpleTarget<Bitmap>() {
@@ -192,7 +192,7 @@ public class ShowImageDetail extends BaseActivity {
                                     });
                                     dialogInterface.dismiss();
                                 }
-                            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            }).setNegativeButton(R.string.quxiao, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     dialogInterface.dismiss();
@@ -234,10 +234,10 @@ public class ShowImageDetail extends BaseActivity {
                 (Environment.DIRECTORY_PICTURES) + "test");
 
         boolean success = true;
-        if(!storageDir.exists()){
+        if (!storageDir.exists()) {
             success = storageDir.mkdirs();
         }
-        if(success){
+        if (success) {
             File imageFile = new File(storageDir, imageFileName);
             saveImagePath = imageFile.getAbsolutePath();
             try {

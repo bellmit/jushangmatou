@@ -458,11 +458,11 @@ public class ShoppingCartActivity extends BaseActivity {
                                             final TextView tv_shopping_price = holder.getTextView(R.id.tv_shopping_price);
                                             RoundImageView iv_shopping_image = (RoundImageView) holder.getImageView(R.id.iv_shopping_image);
                                             Glide.with(getContext()).load(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getCover_image()).error(R.mipmap.myy322x).into(iv_shopping_image);
-                                            if (storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getSpec_key_name() != null &&
+                                            /*if (storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getSpec_key_name() != null &&
                                                     !storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getSpec_key_name().equals("")) {
                                                 tv_guige.setVisibility(View.VISIBLE);
                                                 tv_guige.setText(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getSpec_key_name());
-                                            }
+                                            }*/
                                             tv_connectNum.setText(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_num());
                                             holder.getTextView(R.id.tv_connect).setText(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_name());
                                             if (storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getIs_enquiry().equals("1")) {//立即询价

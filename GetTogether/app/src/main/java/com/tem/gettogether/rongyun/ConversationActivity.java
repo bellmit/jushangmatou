@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -22,6 +23,7 @@ import com.tem.gettogether.bean.AddressDataBean;
 import com.tem.gettogether.bean.HeadMessageBean;
 import com.tem.gettogether.bean.MemberInformationBean;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 
@@ -50,16 +52,19 @@ public class ConversationActivity extends BaseActivity implements OnClickListene
     /**
      * 会话类型
      */
+    private RelativeLayout base_rl;
     private Conversation.ConversationType mConversationType;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.conversation);
+//        StatusBarUtil.setTranslucentStatus(this);
 
         initData();
 
         tv_title = (TextView) findViewById(R.id.tv_title);
-
+        base_rl = (RelativeLayout) findViewById(R.id.base_rl);
+        base_rl.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         if (null != getTitle) {
             tv_title.setText(getTitle);
         } else {

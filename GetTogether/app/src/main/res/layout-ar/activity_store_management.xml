@@ -12,7 +12,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="44dp">
+        android:layout_height="44dp"
+        android:background="@drawable/plan_progress_one">
 
         <RelativeLayout
             android:id="@+id/rl_close"
@@ -34,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="Title"
-            android:textColor="@color/text3"
+            android:textColor="@color/white"
             android:textSize="16dp" />
 
         <RelativeLayout
@@ -51,7 +52,7 @@
                 android:layout_centerVertical="true"
                 android:gravity="end"
                 android:text="@string/join_membership"
-                android:textColor="@color/my_yellow"
+                android:textColor="@color/white"
                 android:textSize="14dp" />
         </RelativeLayout>
 
@@ -86,7 +87,7 @@
             android:layout_height="35dp"
             android:layout_marginStart="@dimen/dp_10"
             android:layout_marginEnd="@dimen/dp_10"
-            android:background="@drawable/dpgl_add5"
+            android:background="@drawable/dpgl_yellow"
             android:gravity="center"
             android:text="@string/store_construction"
             android:textColor="@color/white"
@@ -111,11 +112,11 @@
 
     <TextView
         android:id="@+id/tv_fbcp"
-        android:layout_width="240dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="40dp"
-        android:background="@drawable/dpgl_save_20"
+        android:background="@drawable/btn_bg"
         android:gravity="center"
         android:text="@string/fabuchangping"
         android:textColor="@color/white"

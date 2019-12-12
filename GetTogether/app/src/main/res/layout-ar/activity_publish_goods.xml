@@ -5,6 +5,11 @@
     android:layoutDirection="rtl"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
 
     <com.tem.gettogether.view.BaseScrollView
@@ -42,7 +47,6 @@
                         android:focusableInTouchMode="true"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -50,7 +54,6 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="@string/product_name"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <EditText
@@ -63,7 +66,6 @@
                         android:hint="@string/please_fill_in_the_product_name"
                         android:maxLines="1"
                         android:paddingStart="15dp"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -94,7 +96,6 @@
                         android:drawablePadding="10dp"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -102,7 +103,6 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="@string/guanjianci"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <EditText
@@ -116,7 +116,6 @@
                         android:inputType="text"
                         android:maxLines="1"
                         android:paddingStart="15dp"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -153,13 +152,13 @@
                     android:layout_marginBottom="10dp"
                     android:text="@string/zdtj9z"
                     android:textColor="@color/text6"
-                    android:textDirection="locale"
                     android:visibility="gone" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line" />
+                    android:background="@color/line"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -176,7 +175,6 @@
                         android:drawablePadding="10dp"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -184,7 +182,6 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="@string/shifouxunjia"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <RadioGroup
@@ -231,7 +228,6 @@
                         android:drawablePadding="10dp"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -239,7 +235,6 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="@string/shangpjiage"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <EditText
@@ -253,7 +248,6 @@
                         android:inputType="numberDecimal"
                         android:maxLines="1"
                         android:paddingStart="15dp"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -285,7 +279,6 @@
                         android:drawablePadding="10dp"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:textDirection="locale"
                         android:textSize="13dp"
                         android:visibility="invisible" />
 
@@ -294,7 +287,6 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="@string/sphh"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <EditText
@@ -307,7 +299,6 @@
                         android:hint="@string/qtxsphh"
                         android:maxLines="1"
                         android:paddingStart="15dp"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -338,7 +329,6 @@
                         android:drawablePadding="10dp"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -346,7 +336,6 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="@string/qipigeshu"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <EditText
@@ -359,7 +348,6 @@
                         android:hint="@string/please_fill_in_the_number_of_batches"
                         android:maxLines="1"
                         android:paddingStart="15dp"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -372,7 +360,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line" />
+                    android:background="@color/line"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/ll_xuanZG"
@@ -391,7 +380,6 @@
                         android:drawablePadding="10dp"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -399,7 +387,6 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="选择馆  ："
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -412,7 +399,6 @@
                         android:maxLines="1"
                         android:paddingStart="15dp"
                         android:text="请选择馆分类"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -442,7 +428,6 @@
                         android:drawablePadding="10dp"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -450,7 +435,6 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="@string/shangpingfenlei"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -458,12 +442,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:ellipsize="end"
                         android:gravity="center_vertical"
                         android:hint="@string/please_select_a_product_category"
-                        android:maxLines="1"
                         android:paddingStart="15dp"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -475,7 +456,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line" />
+                    android:background="@color/line"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/ll_bd_FL"
@@ -494,7 +476,6 @@
                         android:drawablePadding="10dp"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:textDirection="locale"
                         android:textSize="13dp"
                         android:visibility="invisible" />
 
@@ -503,7 +484,6 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="@string/bendianfenlei"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -516,7 +496,6 @@
                         android:maxLines="1"
                         android:paddingStart="15dp"
                         android:text="@string/qingxuanzebendianfenlei"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -551,7 +530,6 @@
                         android:focusableInTouchMode="true"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -559,7 +537,6 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="商品图片："
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -572,7 +549,6 @@
                         android:maxLines="1"
                         android:paddingEnd="10dp"
                         android:text="上传"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -604,7 +580,6 @@
                         android:drawablePadding="10dp"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:textDirection="locale"
                         android:textSize="13dp"
                         android:visibility="invisible" />
 
@@ -613,7 +588,6 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="@string/shangpguige"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -621,10 +595,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:ellipsize="end"
                         android:gravity="center_vertical"
                         android:hint="@string/qxzspgg"
+                        android:maxLines="1"
                         android:paddingStart="15dp"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -655,7 +630,6 @@
                         android:drawablePadding="10dp"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -663,7 +637,6 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="@string/sfby"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -682,7 +655,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/yes"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <com.tem.gettogether.view.CheckBoxSample
@@ -697,7 +669,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/no"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                 </LinearLayout>
@@ -725,7 +696,6 @@
                         android:drawablePadding="10dp"
                         android:text="*"
                         android:textColor="@color/my_red"
-                        android:textDirection="locale"
                         android:textSize="13dp"
                         android:visibility="invisible" />
 
@@ -734,7 +704,6 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="库存数量："
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <EditText
@@ -748,7 +717,6 @@
                         android:inputType="number"
                         android:maxLines="1"
                         android:paddingStart="15dp"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -841,7 +809,6 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="@string/xqjs"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -854,7 +821,6 @@
                         android:hint="@string/qsrxqjs"
                         android:maxLines="1"
                         android:paddingStart="15dp"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -893,7 +859,6 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="@string/xqtp"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -907,7 +872,6 @@
                         android:hint="@string/qscspxqt"
                         android:maxLines="1"
                         android:paddingStart="15dp"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -944,7 +908,6 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="@string/spztu"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -958,7 +921,6 @@
                         android:hint="@string/qscspzt"
                         android:maxLines="1"
                         android:paddingStart="15dp"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -994,7 +956,6 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:text="@string/splunbo"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <TextView
@@ -1005,7 +966,6 @@
                         android:gravity="center_vertical"
                         android:hint="@string/qingshangchuansptp"
                         android:paddingStart="15dp"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                     <ImageView
@@ -1014,11 +974,6 @@
                         android:src="@drawable/right_more"
                         android:visibility="gone" />
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/line" />
 
                 <View
                     android:layout_width="match_parent"
@@ -1045,25 +1000,22 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:text="@string/zdtj9z"
-                    android:textColor="@color/text6"
-                    android:textDirection="locale" />
+                    android:textColor="@color/text6" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/line">
+                android:background="@color/line"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/tv_fbShopping"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/main_fbqg15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/btn_bg"
                     android:gravity="center"
                     android:text="@string/fabuchangping"
                     android:textColor="@color/white"

@@ -9,8 +9,8 @@ public class URLConstant {
 //    public final static String SERVER = "";
     //测试环境
 
-//        public final static String SERVER = "http://www.jsmtgou.com/jushangmatou/index.php";//www.jushangmat.com  www.jsmtgou.com
-    public final static String SERVER = "http://m.jsmtgou.com/jushangmatou/index.php";//www.jushangmat.com  www.jsmtgou.com
+        public final static String SERVER = "http://www.jsmtgou.com/jushangmatou/index.php";//www.jushangmat.com  www.jsmtgou.com
+//    public final static String SERVER = "http://m.jsmtgou.com/jushangmatou/index.php";//www.jushangmat.com  www.jsmtgou.com
     //注册
     public final static String REGISTER = SERVER + "/Api/User/reg";
     // 绑定手机号码

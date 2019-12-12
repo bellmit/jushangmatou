@@ -2,14 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="7dp"
     android:layout_marginStart="7dp"
     android:layout_marginTop="10dp"
-    android:paddingStart="@dimen/dp_10"
-    android:paddingEnd="@dimen/dp_10"
-    android:paddingTop="@dimen/dp_10"
+    android:layout_marginEnd="7dp"
     android:layout_marginBottom="@dimen/dp_10"
-    >
+    android:paddingStart="@dimen/dp_10"
+    android:paddingTop="@dimen/dp_10"
+    android:paddingEnd="@dimen/dp_10">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,12 +38,12 @@
 
                 <TextView
                     android:id="@+id/tv_title"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:maxLines="2"
-                    android:text="DIV小屋手工制作手工拼装模型创意玩创"
+                    android:text="null"
                     android:textColor="@color/text3"
                     android:textSize="13dp" />
 
@@ -93,47 +92,55 @@
 
                 <TextView
                     android:id="@+id/shelf_tv"
-                    android:layout_width="50dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_marginEnd="5dp"
                     android:background="@drawable/dpgl_add5"
                     android:gravity="center"
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_10"
                     android:text="@string/shelf"
                     android:textColor="@color/white"
                     android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/obtained_tv"
-                    android:layout_width="50dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="25dp"
-                    android:layout_marginEnd="5dp"
                     android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="5dp"
                     android:background="@drawable/dpgl_add5"
                     android:gravity="center"
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_10"
                     android:text="@string/obtained"
                     android:textColor="@color/white"
                     android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/edit_tv"
-                    android:layout_width="50dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="25dp"
-                    android:layout_marginEnd="5dp"
                     android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="5dp"
                     android:background="@drawable/dpgl_add5"
                     android:gravity="center"
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_10"
                     android:text="@string/bianji"
                     android:textColor="@color/white"
                     android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/delete_tv"
-                    android:layout_width="50dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="25dp"
-                    android:layout_marginEnd="5dp"
                     android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="5dp"
                     android:background="@drawable/dpgl_add5"
                     android:gravity="center"
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_10"
                     android:text="@string/delete"
                     android:textColor="@color/white"
                     android:textSize="12dp" />

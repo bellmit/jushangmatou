@@ -216,7 +216,7 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
                         if (waiMaoQiuGouBeans != null && waiMaoQiuGouBeans.get(0).getUser_id() != null) {
                             RongTalk.doConnection(HomeBuyDetailNewActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                                     , waiMaoQiuGouBeans.get(0).getUser_id(), waiMaoQiuGouBeans.get(0).getNickname(),
-                                    "", "");
+                                    waiMaoQiuGouBeans.get(0).getHead_pic(), "");
                         } else {
                             CusToast.showToast(R.string.the_store_is_invalid);
                         }
@@ -227,11 +227,8 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
                     e.printStackTrace();
                     CusToast.showToast(getText(R.string.the_store_is_invalid));
                 }
-                Log.d("chenshichun", "=====trade_id======" + trade_id);
-                Log.d("chenshichun","======type====="+(type+1));
-                Log.d("chenshichun","=======targetId===="+waiMaoQiuGouBeans.get(0).getUser_id());
                 sendCustomizeMessage( waiMaoQiuGouBeans.get(0).getUser_id(),trade_id, waiMaoQiuGouBeans.get(0).getGoods_logo().get(0),
-                        waiMaoQiuGouBeans.get(0).getGoods_name(), waiMaoQiuGouBeans.get(0).getGoods_num() + "起批", "求购",""+(type+1));
+                        waiMaoQiuGouBeans.get(0).getGoods_name(), waiMaoQiuGouBeans.get(0).getGoods_num() + getText(R.string.batch), getString(R.string.detriment),""+(type+1));
             }
         });
     }

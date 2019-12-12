@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@id/rc_item_conversation"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#EEEEEE"
-    android:gravity="center_vertical" >
+    android:gravity="center_vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,15 +14,15 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:background="@drawable/plan_progress_one" />
+            android:background="@color/colorPrimary" />
 
         <include layout="@layout/title_layout" />
 
         <fragment
-        android:id="@+id/conversation"
-        android:name="io.rong.imkit.fragment.ConversationFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+            android:id="@+id/conversation"
+            android:name="io.rong.imkit.fragment.ConversationFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

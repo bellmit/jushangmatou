@@ -11,8 +11,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tem.gettogether.R;
+import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseRVAdapter;
+import com.tem.gettogether.bean.SpecificationsBean;
 import com.tem.gettogether.bean.VisitorBean;
+import com.tem.gettogether.rongyun.RongTalk;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.SizeUtil;
 import com.tem.gettogether.view.CircularImage;
 
@@ -33,6 +38,7 @@ public class VisitorAdapter extends RecyclerView.Adapter<VisitorAdapter.ViewHold
     private List<VisitorBean.ResultBean.VsBean> mDatas;
     private VisitorDetailsAdapter mVisitorDetailsAdapter;
     List<VisitorBean.ResultBean.VsBean.VisitersBean> mDatasssss = new ArrayList<>();
+    private OnItemClickListener mOnItemClickListener;
 
     public VisitorAdapter(Context context, List<VisitorBean.ResultBean.VsBean> mDatas) {
         this.context = context;
@@ -66,6 +72,12 @@ public class VisitorAdapter extends RecyclerView.Adapter<VisitorAdapter.ViewHold
                 holder.getTextView(R.id.tv_name).setText(mDatas.get(position).getVisiters().get(position2).getNickname());
                 holder.getTextView(R.id.detail_tv).setText(context.getText(R.string.user_tv) +
                         mDatas.get(position).getVisiters().get(position2).getNickname() + mContext.getString(R.string.followed_your_shop));
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                       mOnItemClickListener.onItemClick(position,position2);
+                    }
+                });
             }
         });
     }
@@ -85,4 +97,13 @@ public class VisitorAdapter extends RecyclerView.Adapter<VisitorAdapter.ViewHold
             mRecyclerView = itemView.findViewById(R.id.mRecyclerView);
         }
     }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position,int position2);
+    }
+
+    public void setOnClickItem(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
+    }
+
 }

@@ -5,7 +5,13 @@
     android:layoutDirection="rtl"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/plan_progress_one" />
+
     <include layout="@layout/title_layout" />
+
     <RelativeLayout
         android:id="@+id/ll_empty"
         android:layout_width="match_parent"
@@ -18,11 +24,11 @@
             android:layout_centerInParent="true"
             android:drawableTop="@drawable/wu_shuj"
             android:gravity="center"
-            android:textDirection="locale"
             android:text="@string/mysj"
             android:textColor="@color/black"
             android:textSize="20sp" />
     </RelativeLayout>
+
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"

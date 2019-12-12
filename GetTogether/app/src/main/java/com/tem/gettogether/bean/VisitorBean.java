@@ -106,6 +106,15 @@ public class VisitorBean {
                 private String nickname;
                 private String head_pic;
                 private String user_id;
+                private String mobile;
+
+                public String getMobile() {
+                    return mobile;
+                }
+
+                public void setMobile(String mobile) {
+                    this.mobile = mobile;
+                }
 
                 public String getNickname() {
                     return nickname;
