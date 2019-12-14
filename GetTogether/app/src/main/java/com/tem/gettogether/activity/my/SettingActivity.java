@@ -279,12 +279,15 @@ public class SettingActivity extends BaseActivity {
 //                        BaseApplication.getInstance().removerUser();
                         SharedPreferencesUtils.clearUser(getContext());
                         startActivity(new Intent(SettingActivity.this, PhoneLoginActivity.class));
+                        Log.e("chenshichun","---登录界面444444444444444444--");
                         AppManager.getAppManager().finishAllActivity();
                     } else {
 //                        BaseApplication.getInstance().removerUser();
 
                         SharedPreferencesUtils.clearUser(getContext());
                         startActivity(new Intent(SettingActivity.this, PhoneLoginActivity.class));
+                        Log.e("chenshichun","---登录界面5555555555555555555555555--");
+
                         AppManager.getAppManager().finishAllActivity();
                     }
 

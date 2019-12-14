@@ -840,5 +840,8 @@
     <string name="detriment">طلب شراء</string>
     <string name="save_the_picture">متأكد من حفظ الصورة؟</string>
     <string name="save_picture">حفظ الصورة</string>
-    <string name="custom_message">这是一条自定义消息</string>
+    <string name="custom_message">هذه رسالة مخصصة</string>
+    <string name="away_from_me">بعيدا عني</string>
+    <string name="km">كم</string>
+    <string name="km_0">0 كم مني</string>
 </resources>

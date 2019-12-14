@@ -111,7 +111,7 @@
             android:name="com.tem.gettogether.activity.MainActivity"
             android:configChanges="locale"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
 
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
@@ -347,6 +347,22 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.tem.gettogether.rongyun.PushActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.tem.gettogether"
+                    android:pathPrefix="/push_message"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+
         <!-- 高德地图 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
@@ -608,6 +624,9 @@
             android:name=".activity.home.TogetherFactoryActivity"
             android:configChanges="locale" />
         <activity
+            android:name=".activity.home.TogetherFactorySearchActivity"
+            android:configChanges="locale" />
+        <activity
             android:name=".activity.home.OrderDetailActivity"
             android:configChanges="locale" />
         <activity
@@ -619,7 +638,8 @@
             android:theme="@android:style/Theme.Translucent" />
 
         <!--融云广播接受者-->
-        <receiver android:name="com.tem.gettogether.rongyun.CharNotificationReceiver"
+        <receiver
+            android:name="com.tem.gettogether.rongyun.CharNotificationReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />
@@ -628,6 +648,7 @@
                 <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED" />
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

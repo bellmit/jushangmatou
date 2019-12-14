@@ -63,8 +63,8 @@ public class ConversationActivity extends BaseActivity implements OnClickListene
         initData();
 
         tv_title = (TextView) findViewById(R.id.tv_title);
-        base_rl = (RelativeLayout) findViewById(R.id.base_rl);
-        base_rl.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+//        base_rl = (RelativeLayout) findViewById(R.id.base_rl);
+//        base_rl.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         if (null != getTitle) {
             tv_title.setText(getTitle);
         } else {

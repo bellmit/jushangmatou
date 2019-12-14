@@ -841,4 +841,7 @@
     <string name="save_the_picture">确定保存图片吗</string>
     <string name="save_picture">保存图片</string>
     <string name="custom_message">这是一条自定义消息</string>
+    <string name="away_from_me">距我</string>
+    <string name="km">千米</string>
+    <string name="km_0">距我0千米</string>
 </resources>

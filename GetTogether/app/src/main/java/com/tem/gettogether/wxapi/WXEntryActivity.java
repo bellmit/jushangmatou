@@ -22,6 +22,7 @@ import com.tem.gettogether.bean.UserBean;
 import com.tem.gettogether.bean.WeiXinBean1;
 import com.tem.gettogether.bean.WeiXinMessageBean;
 import com.tem.gettogether.utils.Contacts;
+import com.tem.gettogether.utils.PayManager;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -62,6 +63,8 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 通过WXAPIFactory工厂，获取IWXAPI的实例
+        PayManager.getPayManager().addActivity(this);
+
         api = WXAPIFactory.createWXAPI(this, WXAPP_ID, true);
         api.registerApp(WXAPP_ID);
 
@@ -363,7 +366,8 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                         SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.CHAT_ID, loginBean.getResult().getChat_id());
                         SharedPreferencesUtils.saveString(WXEntryActivity.this, BaseConstant.SPConstant.MOBILE_AVLIDATED, loginBean.getResult().getMobile_validated());
                         startActivity(new Intent(WXEntryActivity.this, MainActivity.class));
-                        finish();
+//                        finish();
+                        PayManager.getPayManager().finishAllActivity();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

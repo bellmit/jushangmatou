@@ -849,5 +849,8 @@
     <string name="detriment">Buy</string>
     <string name="save_the_picture">Are you sure you want to save the picture?</string>
     <string name="save_picture">Save the picture</string>
-    <string name="custom_message">这是一条自定义消息</string>
+    <string name="custom_message">This is a custom message</string>
+    <string name="away_from_me">Away from me </string>
+    <string name="km"> km</string>
+    <string name="km_0">Away from me 0 km</string>
 </resources>

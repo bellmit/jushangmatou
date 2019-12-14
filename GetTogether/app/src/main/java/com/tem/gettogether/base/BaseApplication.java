@@ -49,6 +49,8 @@ import io.rong.imkit.RongIM;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
+import io.rong.push.RongPushClient;
+import io.rong.push.pushconfig.PushConfig;
 
 /**
  * Created by pc on 2018/4/16.
@@ -83,6 +85,13 @@ public class BaseApplication extends Application {
         context = getApplicationContext();
         CusToast.init(this);
         api = WXAPIFactory.createWXAPI(this, WXAPP_ID);
+        PushConfig config = new PushConfig.Builder()
+                .enableHWPush(true)
+                /*.enableMiPush("小米 appId", "小米 appKey")
+                .enableMeiZuPush("魅族 appId", "魅族 appKey")*/
+                .enableFCM(true)
+                .build();
+        RongPushClient.setPushConfig(config);
         RongIM.init(this);
         RongCloudEvent.init(this);
         setInputProvider();

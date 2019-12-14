@@ -202,7 +202,6 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
     }
 
     private void initViews() {
-        Log.d("chenshichun", "=======role_type 身份====" + role_type);
         Intent dataIntent = getIntent();
         EventBus.getDefault().register(this);
         BaseApplication.addDestoryActivity(this, "login");
@@ -349,6 +348,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
 //                        BaseApplication.getInstance().removerUser();
                         SharedPreferencesUtils.clearUser(getContext());
                         startActivity(new Intent(MainActivity.this, PhoneLoginActivity.class));
+                        Log.e("chenshichun","---登录界面1111111111111111111--");
                     }
                 }).setCancelable(false);
         builder.create().show();
@@ -406,6 +406,8 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                     hideFragment(3);
                 } else {
                     startActivity(new Intent(this, PhoneLoginActivity.class));
+                    Log.e("chenshichun","---登录界面222222222222222222222222222--");
+
                     finish();
                 }
                 break;
@@ -709,6 +711,8 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                         }
                     } else {
                         startActivity(new Intent(getContext(), PhoneLoginActivity.class));
+                        Log.e("chenshichun","---登录界面33333333333333333333--");
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
