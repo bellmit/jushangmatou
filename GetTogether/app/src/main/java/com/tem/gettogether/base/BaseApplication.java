@@ -1,18 +1,25 @@
 package com.tem.gettogether.base;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 
 
 import com.bugtags.library.Bugtags;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.tem.gettogether.R;
 import com.tem.gettogether.bean.UserBean;
 import com.tem.gettogether.bean.WeiXinBean1;
 import com.tem.gettogether.bean.WeiXinMessageBean;
@@ -24,6 +31,7 @@ import com.tem.gettogether.rongyun.CustomizeMessageTranslationItemProvider;
 import com.tem.gettogether.rongyun.CustomizeTranslationMessage;
 import com.tem.gettogether.rongyun.RongCloudEvent;
 import com.tem.gettogether.rongyun.ShopExtensionModule;
+import com.tem.gettogether.utils.NotificationUtils;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
@@ -85,8 +93,10 @@ public class BaseApplication extends Application {
         context = getApplicationContext();
         CusToast.init(this);
         api = WXAPIFactory.createWXAPI(this, WXAPP_ID);
+
         PushConfig config = new PushConfig.Builder()
                 .enableHWPush(true)
+                .enableOppoPush("d672de8aaccd42d8b5c3e08652b54eb3", "97bbe55096b842b88a8f2f1eecbf018a")
                 /*.enableMiPush("小米 appId", "小米 appKey")
                 .enableMeiZuPush("魅族 appId", "魅族 appKey")*/
                 .enableFCM(true)
@@ -94,10 +104,10 @@ public class BaseApplication extends Application {
         RongPushClient.setPushConfig(config);
         RongIM.init(this);
         RongCloudEvent.init(this);
-        setInputProvider();
+//        setInputProvider();
         UMShareAPI.get(this);
         initAppLanguage();
-        Bugtags.start("42c655de1b4f612f3e488385c64f3e81", this, /*Bugtags.BTGInvocationEventBubble*/Bugtags.BTGInvocationEventNone);
+        Bugtags.start("42c655de1b4f612f3e488385c64f3e81", this, Bugtags.BTGInvocationEventBubble/*Bugtags.BTGInvocationEventNone*/);
 
 
         Beta.autoCheckUpgrade = true;//设置不自动检查
@@ -109,15 +119,15 @@ public class BaseApplication extends Application {
         if (YouDaoApplication.getApplicationContext() == null)
             YouDaoApplication.init(this, "086f7d9c1f5d5f84");
 
-            FacebookSdk.sdkInitialize(getApplicationContext());
-            AppEventsLogger.activateApp(this);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
     }
 
     {
         PlatformConfig.setQQZone("101557245", "2fe9d31228f7ccb88ffd26beb709d31e");
     }
 
-    private void setInputProvider() {
+    /*private void setInputProvider() {
         List<IExtensionModule> moduleList = RongExtensionManager.getInstance().getExtensionModules();
         IExtensionModule defaultModule = null;
         if (moduleList != null) {
@@ -138,7 +148,7 @@ public class BaseApplication extends Application {
 //        RongIM.getInstance().registerMessageTemplate(new CustomizeMessageItemProvider());
         RongIM.getInstance().registerMessageTemplate(new CustomizeMessageTranslationItemProvider());
         RongIM.getInstance().registerMessageTemplate(new BuyCustomizeMessageItemProvider());
-    }
+    }*/
 
     /**
      * 添加到销毁队列
@@ -152,7 +162,7 @@ public class BaseApplication extends Application {
     }
 
     public void removerUser() {
-        Log.e("chenshichun","--SharedPreferences---");
+        Log.e("chenshichun", "--SharedPreferences---");
         SharedPreferences sp = getSharedPreferences(SharedPreferencesUtils.SP_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();

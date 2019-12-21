@@ -287,8 +287,8 @@ public class URLConstant {
     public final static String SEARCH_URL = SERVER + "/Api/User/get_goods_category";
 
     // 新分类接口列表
-    public final static String SEARCH_LIST_URL = SERVER + "/Api/Goods/category3_goodsList";
 
+    public final static String SEARCH_LIST_URL = SERVER + "/Api/Goods/category3_goodsList";
     // 企业信息
     public final static String ENTERPISE_INFO = SERVER + "/Api/User/enterprise_info";
 
@@ -422,6 +422,15 @@ public class URLConstant {
 
     // 聚工厂
     public final static String FACTORY_LIST = SERVER + "/Api/Index/outside_factory_list";
+
+    // 聚工厂搜索
+    public final static String FACTORY_SEARCH_LIST = SERVER +"/Api/Index/outside_factoryList";
+
+    // 聚工厂搜索历史
+    public final static String FACTORY_SEARCH_HISTORY_LIST = SERVER +"/Api/Index/outside_factory_search";
+
+    // 聚工厂搜索历史
+    public final static String FACTORY_SEARCH_DELETE_HISTORY_LIST = SERVER +"/Api/Index/empty_outside_factory_search";
 
     // 订单详情
     public final static String ORDER_DETAIL = SERVER + "/Api/Goods/newest_orderlist_for_onegoods";

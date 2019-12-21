@@ -13,11 +13,15 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.base.BaseActivity;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.ShoppingKuBean;
+import com.tem.gettogether.rongyun.CustomizeBuyMessage;
 import com.tem.gettogether.rongyun.CustomizeMessage;
 import com.tem.gettogether.utils.ListUtils;
 import com.tem.gettogether.utils.NetWorkUtils;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.UiUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -54,24 +58,25 @@ public class ShoppingKUActivity extends BaseActivity {
     private BGARefreshLayout order_refresh_fragment;
     private int PAGE_NUM = 1;
     private String store_id;
-    private List<ShoppingKuBean.ResultBean.GoodsListBean> goodsListBeans=new ArrayList<>();
+    private List<ShoppingKuBean.ResultBean.GoodsListBean> goodsListBeans = new ArrayList<>();
     private List<ShoppingKuBean.ResultBean.GoodsListBean> listBeans;
     private String targetId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
         initData();
         initView();
         upshopKuData();
-
     }
 
     @Override
     protected void initData() {
         tv_title.setText(getText(R.string.commodity_library));
-        store_id=getIntent().getStringExtra("store_id");
-        targetId=getIntent().getStringExtra("targetId");
+        store_id = getIntent().getStringExtra("store_id");
+        targetId = getIntent().getStringExtra("targetId");
         findViewById(R.id.rl_close).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,7 +96,7 @@ public class ShoppingKUActivity extends BaseActivity {
                     }
                     return;
                 }
-                PAGE_NUM=1;
+                PAGE_NUM = 1;
                 clearList(goodsListBeans);
                 upshopKuData();
 
@@ -113,25 +118,27 @@ public class ShoppingKUActivity extends BaseActivity {
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, true);
         // 设置下拉刷新
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.color_F3F5F4);//背景色
-        refreshViewHolder.setPullDownRefreshText(""+getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
-        refreshViewHolder.setReleaseRefreshText(""+getResources().getText(R.string.refresh_release_text));//松开的提示文字
-        refreshViewHolder.setRefreshingText(""+getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
+        refreshViewHolder.setPullDownRefreshText("" + getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
+        refreshViewHolder.setReleaseRefreshText("" + getResources().getText(R.string.refresh_release_text));//松开的提示文字
+        refreshViewHolder.setRefreshingText("" + getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
 
         // 设置下拉刷新和上拉加载更多的风格
         order_refresh_fragment.setRefreshViewHolder(refreshViewHolder);
         order_refresh_fragment.shouldHandleRecyclerViewLoadingMore(order_rl);
     }
+
     public void clearList(List<ShoppingKuBean.ResultBean.GoodsListBean> list) {
         if (!ListUtils.isEmpty(list)) {
             list.clear();
         }
     }
-    private void upshopKuData(){
-        Map<String,Object> map=new HashMap<>();
-        map.put("store_id",store_id);
-        map.put("page",PAGE_NUM);
 
-        XUtil.Post(URLConstant.SHOPSHOPIINGDATA,map,new MyCallBack<String>(){
+    private void upshopKuData() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("store_id", store_id);
+        map.put("page", PAGE_NUM);
+
+        XUtil.Post(URLConstant.SHOPSHOPIINGDATA, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -142,14 +149,14 @@ public class ShoppingKUActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        ShoppingKuBean shoppingKuBean =gson.fromJson(result,ShoppingKuBean.class);
-                        if(PAGE_NUM==1){
-                            goodsListBeans=shoppingKuBean.getResult().getGoods_list();
-                        }else {
-                            listBeans=shoppingKuBean.getResult().getGoods_list();
-                            if (listBeans.size()==0){
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        ShoppingKuBean shoppingKuBean = gson.fromJson(result, ShoppingKuBean.class);
+                        if (PAGE_NUM == 1) {
+                            goodsListBeans = shoppingKuBean.getResult().getGoods_list();
+                        } else {
+                            listBeans = shoppingKuBean.getResult().getGoods_list();
+                            if (listBeans.size() == 0) {
                                 CusToast.showToast(getResources().getText(R.string.no_more_data));
                                 return;
                             }
@@ -166,7 +173,7 @@ public class ShoppingKUActivity extends BaseActivity {
             @Override
             public void onFinished() {
                 super.onFinished();
-                ShoppingKudapter adapter=new ShoppingKudapter(goodsListBeans);
+                ShoppingKudapter adapter = new ShoppingKudapter(goodsListBeans);
                 order_rl.setAdapter(adapter);
             }
 
@@ -178,6 +185,7 @@ public class ShoppingKUActivity extends BaseActivity {
             }
         });
     }
+
     public class ShoppingKudapter extends BaseQuickAdapter {
 
         public ShoppingKudapter(List<ShoppingKuBean.ResultBean.GoodsListBean> data) {
@@ -186,48 +194,43 @@ public class ShoppingKUActivity extends BaseActivity {
 
         @Override
         protected void convert(final BaseViewHolder baseViewHolder, Object o) {
-            ImageView iv_pic=baseViewHolder.getView(R.id.iv_pic);
+            ImageView iv_pic = baseViewHolder.getView(R.id.iv_pic);
             Glide.with(ShoppingKUActivity.this).load(goodsListBeans.get(baseViewHolder.getAdapterPosition()).getImage()).error(R.mipmap.myy322x).into(iv_pic);
-            baseViewHolder.setText(R.id.tv_shoping_jj,goodsListBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
-            baseViewHolder.setText(R.id.tv_qpl,goodsListBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number()+getText(R.string.from_batch));
+            baseViewHolder.setText(R.id.tv_shoping_jj, goodsListBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
+            baseViewHolder.setText(R.id.tv_qpl, goodsListBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number() + getText(R.string.from_batch));
             baseViewHolder.getView(R.id.tv_send).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                    CusToast.showToast("功能暂未开放");
-//                    SharedPreferencesUtils.saveString(ShoppingKUActivity.this, BaseConstant.SPConstant.Shop_goods_id,goodsListBeans.get(baseViewHolder.getAdapterPosition()).getGoods_id());
-                    CustomizeMessage customizeMessage=new CustomizeMessage(goodsListBeans.get(baseViewHolder.getAdapterPosition()).getGoods_id(),goodsListBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name(),goodsListBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number(),
-                            goodsListBeans.get(baseViewHolder.getAdapterPosition()).getImage(),store_id);
-                    byte[] bvvv=customizeMessage.encode();
-                    CustomizeMessage richContentMessage=new CustomizeMessage(bvvv);
-                    Message myMessage = Message.obtain(targetId, Conversation.ConversationType.PRIVATE, richContentMessage);
+                    CustomizeBuyMessage customizeMessage = new CustomizeBuyMessage(goodsListBeans.get(baseViewHolder.getAdapterPosition()).getGoods_id(), goodsListBeans.get(baseViewHolder.getAdapterPosition()).getImage(), goodsListBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name(),
+                            goodsListBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number() + getText(R.string.batch), "", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, "")
+                            , getString(R.string.commodity), "");
+                    byte[] bvvv = customizeMessage.encode();
+                    CustomizeBuyMessage richContentMessage = new CustomizeBuyMessage(bvvv);
+                    io.rong.imlib.model.Message myMessage = io.rong.imlib.model.Message.obtain(targetId, Conversation.ConversationType.PRIVATE, richContentMessage);
                     RongIM.getInstance().sendMessage(myMessage, null, null, new IRongCallback.ISendMessageCallback() {
                         @Override
-                        public void onAttached(Message message) {
+                        public void onAttached(io.rong.imlib.model.Message message) {
                             //消息本地数据库存储成功的回调
                         }
 
                         @Override
-                        public void onSuccess(Message message) {
-                            //消息通过网络发送成功的回调
-                            CusToast.showToast(getText(R.string.sent_successfully));
+                        public void onSuccess(io.rong.imlib.model.Message message) {
+                            Log.d("chenshichun", "======发送成功=====");
                             finish();
+                            //消息通过网络发送成功的回调
+                            CusToast.showToast(getText(R.string.message_successed));
                         }
 
                         @Override
-                        public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+                        public void onError(io.rong.imlib.model.Message message, RongIMClient.ErrorCode errorCode) {
                             //消息发送失败的回调
-                            Log.i("====消息发送失败--",message+"--"+errorCode.getMessage());
+                            Log.d("chenshichun", "======消息发送失败=====");
+                            CusToast.showToast(getText(R.string.message_failed));
                         }
                     });
                 }
             });
-//            baseViewHolder.getView(R.id.ll_All_item).setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    startActivity(new Intent(ShoppingKUActivity.this,ShoppingParticularsActivity.class)
-//                            .putExtra("goods_id",goodsListBeans.get(baseViewHolder.getAdapterPosition()).getGoods_id()));
-//                }
-//            });
+
         }
     }
 }

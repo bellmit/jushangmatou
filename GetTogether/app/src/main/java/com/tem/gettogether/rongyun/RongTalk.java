@@ -2,6 +2,7 @@ package com.tem.gettogether.rongyun;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.tem.gettogether.base.BaseApplication;
@@ -14,6 +15,7 @@ import java.io.ObjectOutputStream;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.UserInfo;
 
 /**
@@ -28,7 +30,7 @@ public class RongTalk {
      * update----荣云单聊
      */
     public static void doConnection(final Activity activity, final String userToken,
-                                    final String targetId, final String targetName, final String targetImage, final String store_id) {
+                                    final String targetId, final String targetName, final String targetImage, final String store_id,final Bundle bundle) {
         /**
          * 链接自己的token值
          */
@@ -59,7 +61,9 @@ public class RongTalk {
                     if (RongIM.getInstance() != null) {
 
                         System.out.println("----启动会话----");
-                        RongIM.getInstance().startPrivateChat(activity, targetId, targetName);
+                        //RongIM.getInstance().startPrivateChat(activity, targetId, targetName);
+                        RongIM.getInstance().startConversation(activity, Conversation.ConversationType.PRIVATE, targetId, targetName,bundle);
+
                     }
 
                 } else {

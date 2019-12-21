@@ -179,7 +179,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
 
 
         goodsID = getIntent().getStringExtra("goodsID");
-        if (!goodsID.equals("")) {
+        if (goodsID != null && !goodsID.equals("")) {
             Map<String, Object> map1 = new HashMap<>();
             map1.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
             map1.put("goods_id", goodsID);
@@ -306,21 +306,21 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
         if (mResultBean.getGoods().getOriginal_img() != null && !mResultBean.getGoods().getOriginal_img().equals("")) {
             rt_tuwen.setText(getText(R.string.filled_in));
             original_img = mResultBean.getGoods().getOriginal_img().get(0);
-            for (int i=0;i<mResultBean.getGoods().getOriginal_img().size();i++){
+            for (int i = 0; i < mResultBean.getGoods().getOriginal_img().size(); i++) {
                 listImage.add(mResultBean.getGoods().getOriginal_img().get(i));
             }
         }
 
-        if (mResultBean.getGoods().getCover_image()!=null&&!mResultBean.getGoods().getCover_image().equals("")){
+        if (mResultBean.getGoods().getCover_image() != null && !mResultBean.getGoods().getCover_image().equals("")) {
             cover_image = mResultBean.getGoods().getCover_image();
             fengmian_tv.setText(getText(R.string.filled_in));
         }
-         for (int i=0;i<mResultBean.getGoods_images().size();i++){
-             imagePaths.add(imagePaths.size() - 1, mResultBean.getGoods_images().get(i));
-             cartImage.add(mResultBean.getGoods_images().get(i));
-             Log.e("chenshichun","---cartImage-- "+cartImage);
-             mTaskImgAdapter.notifyDataSetChanged();
-         }
+        for (int i = 0; i < mResultBean.getGoods_images().size(); i++) {
+            imagePaths.add(imagePaths.size() - 1, mResultBean.getGoods_images().get(i));
+            cartImage.add(mResultBean.getGoods_images().get(i));
+            Log.e("chenshichun", "---cartImage-- " + cartImage);
+            mTaskImgAdapter.notifyDataSetChanged();
+        }
     }
 
     private void publishGoods() {
@@ -394,7 +394,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
             map.put("goods_content", textDescription);
         }
         // 规格
-        if(!sku_str.equals("")) {
+        if (!sku_str.equals("")) {
             map.put("item", sku_str);
         }
         //详情图
@@ -402,7 +402,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
         //主图
         map.put("cover_image", cover_image);
         //轮播图
-        Log.e("chenshichun","---strTwoImage--"+strTwoImage);
+        Log.e("chenshichun", "---strTwoImage--" + strTwoImage);
         map.put("goods_images", strTwoImage);
         map.put("is_on_sale", "1");
         mPresenter.uploadProduct(map);
@@ -474,7 +474,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
                                             if (imageDataBean != null) {
                                                 imagePaths.add(imagePaths.size() - 1, pic_path);
                                                 cartImage.add(imageDataBean.getResult().getImage_show().get(0));
-                                                Log.e("chenshichun","---cartImage-add-  "+cartImage);
+                                                Log.e("chenshichun", "---cartImage-add-  " + cartImage);
                                                 mHandle.sendEmptyMessage(0);
                                             } else {
                                                 mHandle.sendEmptyMessage(1);

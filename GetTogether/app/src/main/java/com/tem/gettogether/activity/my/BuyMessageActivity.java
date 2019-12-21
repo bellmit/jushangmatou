@@ -230,7 +230,7 @@ public class BuyMessageActivity extends BaseActivity {
                             if (resultBeans != null && resultBeans.get(baseViewHolder.getAdapterPosition()).getUser_id() != null) {
                                 RongTalk.doConnection(BuyMessageActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                                         , resultBeans.get(baseViewHolder.getAdapterPosition()).getUser_id(), "",
-                                        "", "");
+                                        "", "",null);
                             } else {
                                 CusToast.showToast(getText(R.string.the_store_is_invalid));
                             }

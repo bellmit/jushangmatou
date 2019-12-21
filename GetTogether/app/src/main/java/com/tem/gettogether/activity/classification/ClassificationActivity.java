@@ -144,9 +144,6 @@ public class ClassificationActivity extends BaseActivity {
             map.put("page", currentPage);
             map.put("type", type);
         }
-        Log.d("chenshichun","====id======="+classificationId);
-        Log.d("chenshichun","=====type======"+type);
-        Log.d("chenshichun","=======is_yilian===="+is_yilian);
         showDialog();
         String url = "";
         if (is_yilian) {

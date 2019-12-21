@@ -844,4 +844,6 @@
     <string name="away_from_me">بعيدا عني</string>
     <string name="km">كم</string>
     <string name="km_0">0 كم مني</string>
+    <string name="notification_authority">سلطة الإخطار</string>
+    <string name="open_notification_permissions">سواء لتشغيل أذونات الإعلام</string>
 </resources>

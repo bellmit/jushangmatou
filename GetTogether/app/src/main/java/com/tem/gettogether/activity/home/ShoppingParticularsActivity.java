@@ -6,8 +6,8 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,23 +33,23 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.ShowImageDetail;
-import com.tem.gettogether.activity.LoginActivity;
 import com.tem.gettogether.activity.cart.CloseAccountActivity;
 import com.tem.gettogether.activity.cart.ShoppingCartActivity;
+import com.tem.gettogether.activity.login.phonelogin.PhoneLoginActivity;
 import com.tem.gettogether.activity.my.AddressGLActivity;
 import com.tem.gettogether.activity.my.CgsAuthenticationActivity;
 import com.tem.gettogether.adapter.OrderDetailAdapter;
 import com.tem.gettogether.base.BaseActivity;
-import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseRVAdapter;
 import com.tem.gettogether.base.BaseViewHolder;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.CardCloaseBean;
 import com.tem.gettogether.bean.JieSuanBean;
+import com.tem.gettogether.bean.MyMessageBean;
 import com.tem.gettogether.bean.OrderDetailBean;
+import com.tem.gettogether.bean.ProductBean;
 import com.tem.gettogether.bean.ShoppingXQBean;
-import com.tem.gettogether.rongyun.CustomizeBuyMessage;
 import com.tem.gettogether.rongyun.RongTalk;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
@@ -100,12 +100,6 @@ import java.util.Map;
 import java.util.Set;
 
 import cc.duduhuo.custoast.CusToast;
-import io.rong.imkit.RongIM;
-import io.rong.imlib.IRongCallback;
-import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.Conversation;
-
-import static org.xutils.common.util.IOUtil.copy;
 
 @ContentView(R.layout.activity_shopping_particulars)
 public class ShoppingParticularsActivity extends BaseActivity {
@@ -175,6 +169,8 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private ImageView new_iv;
     @ViewInject(R.id.linyi_iv)
     private ImageView linyi_iv;
+    @ViewInject(R.id.call_btn)
+    private ImageView call_btn;
     @ViewInject(R.id.clinch_count_tv)
     private TextView clinch_count_tv;
     @ViewInject(R.id.rl_order_detail)
@@ -207,6 +203,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
 
         initData();
         upShopXQData();
+        if (!SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("0")) {
+            call_btn.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -248,11 +247,10 @@ public class ShoppingParticularsActivity extends BaseActivity {
         }
         if (storeBean.getIs_collect() != null) {
             if (storeBean.getIs_collect().equals("0")) {
-                iv_shop_isgz.setVisibility(View.GONE);
+                iv_shop_isgz.setBackgroundResource(R.drawable.unguanzhu_xx);
                 tv_sjgz.setText(getText(R.string.follow_the_business));
             } else {
-                iv_shop_isgz.setVisibility(View.VISIBLE);
-                iv_shop_isgz.setImageResource(R.drawable.guanzhu_xx);
+                iv_shop_isgz.setBackgroundResource(R.drawable.guanzhu_xx);
                 tv_sjgz.setText(getText(R.string.has_been_concerned));
             }
         }
@@ -337,13 +335,18 @@ public class ShoppingParticularsActivity extends BaseActivity {
     @Event(value = {R.id.tv_buy, R.id.iv_close, R.id.tv_jian, R.id.ll_openWeb, R.id.rl_shard,
             R.id.rl_kf, R.id.ll_gzsj, R.id.tv_ljxj, R.id.iv_dianpu, R.id.ll_issc, R.id.iv_go_cart,
             R.id.tv_add, R.id.tv_look_all_pj, R.id.ll_pingjia, R.id.tv_jrgwc, R.id.ll_shuxing_xz,
-            R.id.rl_input_dp, R.id.rl_input_dp2, R.id.rl_order_detail}, type = View.OnClickListener.class)
+            R.id.rl_input_dp, R.id.rl_input_dp2, R.id.rl_order_detail, R.id.call_btn}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.iv_close:
                 finish();
                 break;
             case R.id.rl_shard:
+                if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")) {
+                    CusToast.showToast(R.string.login_first);
+                    startActivity(new Intent(ShoppingParticularsActivity.this, PhoneLoginActivity.class));
+                    return;
+                }
                 showPopShard(rl_shard);
                 break;
             case R.id.rl_order_detail:
@@ -354,6 +357,11 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 webView.setVisibility(View.VISIBLE);
                 break;
             case R.id.iv_go_cart:
+                if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")) {
+                    CusToast.showToast(R.string.login_first);
+                    startActivity(new Intent(ShoppingParticularsActivity.this, PhoneLoginActivity.class));
+                    return;
+                }
                 CardCloaseBean cardCloaseBean = new CardCloaseBean();
                 cardCloaseBean.setGoods_id(goods_id);
                 cardCloaseBean.setCartClose(true);
@@ -391,6 +399,11 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 break;
             case R.id.tv_jrgwc:
                 popType = 0;
+                if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")) {
+                    CusToast.showToast(R.string.login_first);
+                    startActivity(new Intent(ShoppingParticularsActivity.this, PhoneLoginActivity.class));
+                    return;
+                }
                 if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
                     CusToast.showToast(getResources().getText(R.string.supplier_does_not_have_this_feature));
                 } else {
@@ -399,6 +412,11 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 break;
             case R.id.tv_buy:
                 popType = 1;
+                if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")) {
+                    CusToast.showToast(R.string.login_first);
+                    startActivity(new Intent(ShoppingParticularsActivity.this, PhoneLoginActivity.class));
+                    return;
+                }
                 if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
                     CusToast.showToast(getResources().getText(R.string.supplier_does_not_have_this_feature));
                 } else {
@@ -417,6 +435,11 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 showPop(ll_shuxing_xz);
                 break;
             case R.id.ll_issc:
+                if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")) {
+                    CusToast.showToast(R.string.login_first);
+                    startActivity(new Intent(ShoppingParticularsActivity.this, PhoneLoginActivity.class));
+                    return;
+                }
                 upShoppingSC(sctype);
                 break;
             case R.id.rl_input_dp:
@@ -430,93 +453,66 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         .putExtra("type", ShopActivity.SHOPNHOME_TYPE), ShopActivity.SHOPNHOME_TYPE);
                 break;
             case R.id.iv_dianpu:
+
                 startActivityForResult(new Intent(ShoppingParticularsActivity.this, ShopActivity.class)
                         .putExtra("store_id", storeBean.getStore_id())
                         .putExtra("type", ShopActivity.SHOPNHOME_TYPE), ShopActivity.SHOPNHOME_TYPE);
                 break;
             case R.id.ll_gzsj:
+                if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")) {
+                    CusToast.showToast(R.string.login_first);
+                    startActivity(new Intent(ShoppingParticularsActivity.this, PhoneLoginActivity.class));
+                    return;
+                }
                 upisGZData(storeBean.getStore_id());
 
                 break;
             case R.id.tv_ljxj:
-                /*try {
-                    //发消息
-                    if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
-                        if (storeBean != null && storeBean.getStore_user_id() != null) {
-                            RongTalk.doConnection(ShoppingParticularsActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
-                                    , storeBean.getStore_user_id(), storeBean.getStore_name(),
-                                    storeBean.getStore_logo(), storeBean.getStore_id());
-                        } else {
-                            CusToast.showToast(getText(R.string.the_store_is_invalid));
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    CusToast.showToast(getText(R.string.customer_service_is_invalid));
-                }*/
-
-
                 break;
             case R.id.rl_kf:
+                if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")) {
+                    CusToast.showToast(R.string.login_first);
+                    startActivity(new Intent(ShoppingParticularsActivity.this, PhoneLoginActivity.class));
+                    return;
+                }
                 if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
                     CusToast.showToast(getText(R.string.supplier_does_not_have_this_feature));
                     return;
                 }
                 try {
                     //发消息
-                    Log.d("chenshichun", "=======CHAT_ID==== " + SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0"));
-                    Log.d("chenshichun", "======getStore_user_id=====" + storeBean.getStore_user_id());
+                    Log.e("chenshichun", "---storeBean.getStore_user_id()--" + storeBean.getStore_user_id());
                     if (storeBean != null && storeBean.getStore_user_id() != null) {
+                        ProductBean productBean = new ProductBean();
+                        productBean.setTarget_id(storeBean.getStore_user_id());
+                        productBean.setGoods_id(goods_id);
+                        productBean.setImage(galleryBeans.get(0).getImage_url());
+                        productBean.setGoods_name(goodsBean.getGoods_name());
+                        productBean.setBatch_number(goodsBean.getBatch_number() + getText(R.string.batch));
+                        productBean.setGoods_type(getString(R.string.commodity));
+                        productBean.setQiugou_type("");
+
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("send_message", productBean);
+
                         RongTalk.doConnection(ShoppingParticularsActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                                 , storeBean.getStore_user_id(), storeBean.getStore_name(),
-                                storeBean.getStore_logo(), storeBean.getStore_id());
+                                storeBean.getStore_logo(), storeBean.getStore_id(), bundle);
                     } else {
                         CusToast.showToast(getText(R.string.the_store_is_invalid));
                     }
-
 
                 } catch (Exception e) {
                     e.printStackTrace();
                     CusToast.showToast(getText(R.string.customer_service_is_invalid));
                 }
 
-                sendCustomizeMessage(storeBean.getStore_user_id(), goods_id, galleryBeans.get(0).getImage_url(),
-                        goodsBean.getGoods_name(), goodsBean.getBatch_number() + getText(R.string.batch), getString(R.string.commodity), "");
+                break;
+            case R.id.call_btn:
+                showCallPop(call_btn);
                 break;
         }
     }
-
-    private void sendCustomizeMessage(String targetId, String goods_id, String image, String goods_name,
-                                      String batch_number, String goods_type, String qiugou_type) {
-        CustomizeBuyMessage customizeMessage = new CustomizeBuyMessage(goods_id, image, goods_name,
-                batch_number, "", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, "")
-                , goods_type, qiugou_type);
-        byte[] bvvv = customizeMessage.encode();
-        CustomizeBuyMessage richContentMessage = new CustomizeBuyMessage(bvvv);
-        io.rong.imlib.model.Message myMessage = io.rong.imlib.model.Message.obtain(targetId, Conversation.ConversationType.PRIVATE, richContentMessage);
-        RongIM.getInstance().sendMessage(myMessage, null, null, new IRongCallback.ISendMessageCallback() {
-            @Override
-            public void onAttached(io.rong.imlib.model.Message message) {
-                //消息本地数据库存储成功的回调
-            }
-
-            @Override
-            public void onSuccess(io.rong.imlib.model.Message message) {
-                Log.d("chenshichun", "======发送成功=====");
-
-                //消息通过网络发送成功的回调
-                CusToast.showToast(getText(R.string.message_successed));
-            }
-
-            @Override
-            public void onError(io.rong.imlib.model.Message message, RongIMClient.ErrorCode errorCode) {
-                //消息发送失败的回调
-                Log.d("chenshichun", "======消息发送失败=====");
-                CusToast.showToast(getText(R.string.message_failed));
-            }
-        });
-    }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -708,19 +704,10 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 @Override
                 public void onClick(View view) {
                     mPop.dismiss();
-                    if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
-                        CusToast.showToast(getResources().getText(R.string.supplier_does_not_have_this_feature));
+                    if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")) {
+                        CusToast.showToast(R.string.login_first);
+                        startActivity(new Intent(ShoppingParticularsActivity.this, PhoneLoginActivity.class));
                         return;
-                    }
-                    if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("1")) {
-                        if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("3")) {
-                            CusToast.showToast(getText(R.string.shz));
-                            return;
-                        } else {
-                            CusToast.showToast(getText(R.string.please_first_purchase_the_buyer));
-                            startActivity(new Intent(getContext(), CgsAuthenticationActivity.class));
-                            return;
-                        }
                     }
                     allNum = Integer.parseInt(tv_num_all.getText().toString());
                     String sku = "";
@@ -744,28 +731,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         }
                         sku = str.substring(0, str.length() - 1);
                     }
-
-                    try {
-//                            String skuidData=object.getString(sku);
-//                            JSONObject jsonObject=new JSONObject(skuidData);
-//                            String price=jsonObject.optString("price");
-//                            String store_count=jsonObject.optString("store_count");
-//                        startActivity(new Intent(ShoppingParticularsActivity.this, CloseAccountActivity.class)
-//                                .putExtra("unique_id", "1")
-//                                .putExtra("goods_id", goods_id)
-//                                .putExtra("key", sku)
-//                                .putExtra("goods_num", String.valueOf(num_gwc)));
-                        Map<String, Object> map = new HashMap<>();
-                        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-                        map.put("goods_id", goods_id);
-                        map.put("goods_num", String.valueOf(allNum));
-                        map.put("unique_id", "1");
-                        map.put("key", sku);
-                        upJieSCartData(map, sku, allNum);
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    upGetMessageData(sku);
                     mPop = null;
 
                 }
@@ -773,98 +739,50 @@ public class ShoppingParticularsActivity extends BaseActivity {
             tv_queding.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {//加入购物车
+                    if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")) {
+                        CusToast.showToast(R.string.login_first);
+                        startActivity(new Intent(ShoppingParticularsActivity.this, PhoneLoginActivity.class));
+                        return;
+                    }
                     if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
                         CusToast.showToast(getResources().getText(R.string.supplier_does_not_have_this_feature));
                         mPop.dismiss();
                         mPop = null;
                         return;
                     }
-                   /* if (popType == 0) {*/
-                        skuid.clear();
-                        allNum = Integer.parseInt(tv_num_all.getText().toString());
+                    /* if (popType == 0) {*/
+                    skuid.clear();
+                    allNum = Integer.parseInt(tv_num_all.getText().toString());
 
-                        String sku = null;
-                        if (goodsBean.getGoods_spec_list() != null) {
-                            if (goodsBean.getGoods_spec_list().size() >= 1) {
-                                skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(0).get(numpositionCorclo).getItem_id()));
-                            }
-                            if (goodsBean.getGoods_spec_list().size() >= 2) {
-                                skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(1).get(numpositionCC).getItem_id()));
-                            }
-                            if (goodsBean.getGoods_spec_list().size() >= 3) {
-                                skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(2).get(numpositionML).getItem_id()));
-                            }
-                            if (goodsBean.getGoods_spec_list().size() >= 4) {
-                                skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(3).get(numpositionQT).getItem_id()));
-                            }
-                            Collections.sort(skuid);
-                            String str = "";
-                            for (int i = 0; i < skuid.size(); i++) {
-                                str += skuid.get(i) + "_";
-                            }
-                            sku = str.substring(0, str.length() - 1);
+                    String sku = null;
+                    if (goodsBean.getGoods_spec_list() != null) {
+                        if (goodsBean.getGoods_spec_list().size() >= 1) {
+                            skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(0).get(numpositionCorclo).getItem_id()));
                         }
-                        try {
-//                            String skuidData=object.getString(sku);
-//                            JSONObject jsonObject=new JSONObject(skuidData);
-//                            String price=jsonObject.optString("price");
-//                            String store_count=jsonObject.optString("store_count");
-                            upAddCart(String.valueOf(allNum), sku);
+                        if (goodsBean.getGoods_spec_list().size() >= 2) {
+                            skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(1).get(numpositionCC).getItem_id()));
+                        }
+                        if (goodsBean.getGoods_spec_list().size() >= 3) {
+                            skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(2).get(numpositionML).getItem_id()));
+                        }
+                        if (goodsBean.getGoods_spec_list().size() >= 4) {
+                            skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(3).get(numpositionQT).getItem_id()));
+                        }
+                        Collections.sort(skuid);
+                        String str = "";
+                        for (int i = 0; i < skuid.size(); i++) {
+                            str += skuid.get(i) + "_";
+                        }
+                        sku = str.substring(0, str.length() - 1);
+                    }
+                    try {
+                        upAddCart(String.valueOf(allNum), sku);
 
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        mPop.dismiss();
-                        mPop = null;
-                   /* } else {// 立即下单
-                        Log.e("chenshichun", "--立即下单---");
-                        mPop.dismiss();
-                        if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("1")) {
-                            if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("3")) {
-                                CusToast.showToast(getText(R.string.shz));
-                                return;
-                            } else {
-                                CusToast.showToast(getText(R.string.please_first_purchase_the_buyer));
-                                startActivity(new Intent(getContext(), CgsAuthenticationActivity.class));
-                                return;
-                            }
-                        }
-                        allNum = Integer.parseInt(tv_num_all.getText().toString());
-                        String sku = "";
-                        if (goodsBean.getGoods_spec_list() != null) {
-                            if (goodsBean.getGoods_spec_list().size() >= 1) {
-                                skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(0).get(numpositionCorclo).getItem_id()));
-                            }
-                            if (goodsBean.getGoods_spec_list().size() >= 2) {
-                                skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(1).get(numpositionCC).getItem_id()));
-                            }
-                            if (goodsBean.getGoods_spec_list().size() >= 3) {
-                                skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(2).get(numpositionML).getItem_id()));
-                            }
-                            if (goodsBean.getGoods_spec_list().size() >= 4) {
-                                skuid.add(Integer.parseInt(goodsBean.getGoods_spec_list().get(3).get(numpositionQT).getItem_id()));
-                            }
-                            Collections.sort(skuid);
-                            String str = "";
-                            for (int i = 0; i < skuid.size(); i++) {
-                                str += skuid.get(i) + "_";
-                            }
-                            sku = str.substring(0, str.length() - 1);
-                        }
-
-                        try {
-                            Map<String, Object> map = new HashMap<>();
-                            map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-                            map.put("goods_id", goods_id);
-                            map.put("goods_num", String.valueOf(allNum));
-                            map.put("unique_id", "1");
-                            map.put("key", sku);
-                            upJieSCartData(map, sku, allNum);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        mPop = null;
-                    }*/
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    mPop.dismiss();
+                    mPop = null;
                 }
             });
             view.findViewById(R.id.iv_dialog_close).setOnClickListener(new View.OnClickListener() {
@@ -1419,8 +1337,10 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         Gson gson = new Gson();
                         if (msg.equals(getText(R.string.successful_collection))) {
                             tv_sjgz.setText(getText(R.string.has_been_concerned));
+                            iv_shop_isgz.setBackgroundResource(R.drawable.guanzhu_xx);
                         } else if (msg.equals(getText(R.string.cancel_success))) {
                             tv_sjgz.setText(getText(R.string.follow_the_business));
+                            iv_shop_isgz.setBackgroundResource(R.drawable.unguanzhu_xx);
                         }
                     }
 
@@ -1490,7 +1410,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 public void onClick(View view) {
                     if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")) {
                         CusToast.showToast(R.string.login_first);
-                        startActivity(new Intent(ShoppingParticularsActivity.this, LoginActivity.class));
+                        startActivity(new Intent(ShoppingParticularsActivity.this, PhoneLoginActivity.class));
                     }
 
                     new Thread(new Runnable() {
@@ -1532,7 +1452,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 public void onClick(View view) {
                     if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")) {
                         CusToast.showToast(R.string.login_first);
-                        startActivity(new Intent(ShoppingParticularsActivity.this, LoginActivity.class));
+                        startActivity(new Intent(ShoppingParticularsActivity.this, PhoneLoginActivity.class));
                     }
                     new Thread(new Runnable() {
                         @Override
@@ -1573,7 +1493,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 public void onClick(View view) {
                     if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")) {
                         CusToast.showToast(R.string.login_first);
-                        startActivity(new Intent(ShoppingParticularsActivity.this, LoginActivity.class));
+                        startActivity(new Intent(ShoppingParticularsActivity.this, PhoneLoginActivity.class));
                     }
                     UMWeb web = new UMWeb("http://www.jsmtgou.com/jushangmatou/index.php?m=Home&c=Goods&a=share_goods_detail&id="
                             + goodsBean.getGoods_id()
@@ -1593,7 +1513,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 public void onClick(View view) {
                     if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")) {
                         CusToast.showToast(R.string.login_first);
-                        startActivity(new Intent(ShoppingParticularsActivity.this, LoginActivity.class));
+                        startActivity(new Intent(ShoppingParticularsActivity.this, PhoneLoginActivity.class));
                     }
                     UMWeb web = new UMWeb("http://www.jsmtgou.com/jushangmatou/index.php?m=Home&c=Goods&a=share_goods_detail&id="
                             + goodsBean.getGoods_id()
@@ -1733,5 +1653,138 @@ public class ShoppingParticularsActivity extends BaseActivity {
         mOrderDetailAdapter = new OrderDetailAdapter(getContext(), mOrderBeans);
         order_detail_RecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         order_detail_RecyclerView.setAdapter(mOrderDetailAdapter);
+    }
+
+
+    private PopupWindow mmPop;
+
+    //初始化弹窗
+    private void initCallPop() {
+        if (mmPop == null) {
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.pop_layout, null);
+            mmPop = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            //点击弹窗外消失mPop
+            mmPop.setFocusable(true);
+            mmPop.setOutsideTouchable(true);
+            //设置背景，才能使用动画效果
+            mmPop.setBackgroundDrawable(new BitmapDrawable());
+            //设置动画
+            mmPop.setAnimationStyle(R.style.PopWindowAnim);
+            //设置弹窗消失监听
+            mmPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    WindowManager.LayoutParams lp = getContext().getWindow().getAttributes();
+                    lp.alpha = 1f;
+                    getContext().getWindow().setAttributes(lp);
+                }
+            });
+            //设置弹窗内的点击事件
+            setPopClickListener(view);
+        }
+    }
+
+    //显示弹窗
+    private void showCallPop(View v) {
+        initCallPop();
+        if (mmPop.isShowing())
+            return;
+        //设置弹窗底部位置
+        mmPop.showAtLocation(v, Gravity.BOTTOM, 0, 0);
+        WindowManager.LayoutParams lp = getContext().getWindow().getAttributes();
+        lp.alpha = 0.6f;
+        getContext().getWindow().setAttributes(lp);
+    }
+
+    private void setPopClickListener(View view) {
+        TextView tv_iteam1, photo, cancle;
+        photo = view.findViewById(R.id.photo);
+        cancle = view.findViewById(R.id.cancle);
+        tv_iteam1 = view.findViewById(R.id.tv_iteam1);
+        tv_iteam1.setText(R.string.kefudian);
+        photo.setText(getResources().getText(R.string.call) + storeBean.getContacts_mobile());
+        photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                Uri datav = Uri.parse("tel:" + storeBean.getContacts_mobile());
+                intent.setData(datav);
+                startActivity(intent);
+                mmPop.dismiss();
+
+            }
+        });
+        cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mmPop.dismiss();
+            }
+        });
+    }
+
+    private void upGetMessageData(final String sku) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+
+        showDialog();
+        XUtil.Post(URLConstant.GET_MESSAGE, map, new MyCallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                Log.e("chenshichun", "====获取个人信息===" + result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    String msg = jsonObject.optString("msg");
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        MyMessageBean myMessageBean = gson.fromJson(result, MyMessageBean.class);
+
+                        if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
+                            CusToast.showToast(getResources().getText(R.string.supplier_does_not_have_this_feature));
+                            return;
+                        }
+                        if (!myMessageBean.getResult().getIs_verify().equals("1")) {
+                            if (myMessageBean.getResult().getIs_verify().equals("3")) {
+                                CusToast.showToast(getText(R.string.shz));
+                                return;
+                            } else {
+                                CusToast.showToast(getText(R.string.please_first_purchase_the_buyer));
+                                startActivity(new Intent(getContext(), CgsAuthenticationActivity.class));
+                                return;
+                            }
+                        }
+                        try {
+                            Map<String, Object> map = new HashMap<>();
+                            map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+                            map.put("goods_id", goods_id);
+                            map.put("goods_num", String.valueOf(allNum));
+                            map.put("unique_id", "1");
+                            map.put("key", sku);
+                            upJieSCartData(map, sku, allNum);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+                closeDialog();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                ex.printStackTrace();
+            }
+        });
     }
 }

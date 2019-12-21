@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:layoutDirection="rtl"
     android:orientation="vertical"
     tools:context="com.tem.gettogether.activity.home.ShoppingParticularsActivity">
 
@@ -754,7 +753,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="8dp"
-                                android:src="@drawable/guanzhu_xx" />
+                                android:background="@drawable/unguanzhu_xx" />
 
                             <TextView
                                 android:id="@+id/tv_sjgz"
@@ -772,7 +771,7 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@drawable/home_7d_1bg">
+                            android:background="@drawable/home_go_shop_bg">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -782,7 +781,7 @@
                                 android:drawablePadding="8dp"
                                 android:gravity="center"
                                 android:text="@string/jindianguanguan"
-                                android:textColor="@color/text_4c"
+                                android:textColor="@color/white"
                                 android:textSize="13dp" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -867,6 +866,16 @@
                 android:src="@drawable/dianpu"
                 android:visibility="gone" />
         </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/call_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_100"
+            android:background="@drawable/call_icon_icon" />
     </RelativeLayout>
 
     <View
@@ -890,9 +899,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:gravity="center"
                 android:drawableTop="@drawable/kefu"
                 android:drawablePadding="4dp"
+                android:gravity="center"
                 android:text="@string/service"
                 android:textColor="@color/black"
                 android:textSize="13dp" />
@@ -910,11 +919,12 @@
             android:layout_weight="1">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:drawableTop="@drawable/dianpu"
                 android:drawablePadding="4dp"
+                android:gravity="center"
                 android:text="@string/store"
                 android:textColor="@color/black"
                 android:textSize="13dp" />

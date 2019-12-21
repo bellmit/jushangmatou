@@ -74,7 +74,7 @@ public class VisitorActivity extends BaseActivity {
             public void onItemClick(int position, int position2) {
                 RongTalk.doConnection(VisitorActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                         , mVisitorBean.get(position).getVisiters().get(position2).getUser_id(), mVisitorBean.get(position).getVisiters().get(position2).getNickname(),
-                        mVisitorBean.get(position).getVisiters().get(position2).getHead_pic(), null);
+                        mVisitorBean.get(position).getVisiters().get(position2).getHead_pic(), null,null);
             }
         });
     }

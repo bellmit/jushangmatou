@@ -28,8 +28,8 @@
 
             <ImageView
                 android:id="@+id/iv_home"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/shouye" />
 
             <TextView
@@ -53,8 +53,8 @@
 
             <ImageView
                 android:id="@+id/iv_fbqg"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/fbqg_main" />
 
             <TextView
@@ -78,8 +78,8 @@
 
             <ImageView
                 android:id="@+id/iv_fl"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/fenlei" />
 
             <TextView
@@ -104,8 +104,8 @@
 
             <ImageView
                 android:id="@+id/iv_cart"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/jinhuoche1" />
 
             <TextView
@@ -142,8 +142,8 @@
 
                     <ImageView
                         android:id="@+id/iv_message"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/liaotian" />
 
                     <TextView
@@ -189,8 +189,8 @@
 
                     <ImageView
                         android:id="@+id/iv_my"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/wode" />
 
                     <TextView

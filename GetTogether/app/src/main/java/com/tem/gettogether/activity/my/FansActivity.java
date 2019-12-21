@@ -19,6 +19,7 @@ import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.FansDataBean;
 import com.tem.gettogether.bean.ProductManagementBean;
+import com.tem.gettogether.rongyun.RongTalk;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
@@ -67,6 +68,14 @@ public class FansActivity extends BaseActivity {
         mFansAdapter = new FansAdapter(getContext(), mFansBean);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(mFansAdapter);
+        mFansAdapter.setOnClickItem(new FansAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                RongTalk.doConnection(FansActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
+                        , mFansBean.get(position).getUser_id(), mFansBean.get(position).getNickname(),
+                        mFansBean.get(position).getHead_pic(), null,null);
+            }
+        });
     }
 
     private void getFansData(int currentPage, final boolean isLoadMore) {

@@ -49,18 +49,18 @@
                     android:textSize="14dp"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    android:textColor="@color/home_red" />
+                    android:textColor="@color/my_red" />
                 <TextView
                     android:id="@+id/tv_send"
                     android:layout_width="48dp"
                     android:layout_height="25dp"
-                    android:text="发送"
+                    android:text="@string/umeng_socialize_send_btn_str"
                     android:gravity="center"
-                    android:background="@drawable/home_7d_1bg"
+                    android:background="@drawable/bg_shop"
                     android:textSize="12dp"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    android:textColor="@color/text6" />
+                    android:textColor="@color/white" />
             </LinearLayout>
 
         </LinearLayout>

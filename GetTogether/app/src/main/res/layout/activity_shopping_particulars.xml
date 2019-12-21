@@ -45,17 +45,17 @@
                         android:id="@+id/iv_banner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="gone"
-                        android:layout_marginTop="50dp" />
+                        android:layout_marginTop="50dp"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/tv_image_num"
                         android:layout_width="40dp"
                         android:layout_height="20dp"
-                        android:layout_alignParentBottom="true"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginBottom="20dp"
+                        android:layout_alignParentBottom="true"
                         android:layout_marginEnd="25dp"
+                        android:layout_marginBottom="20dp"
                         android:background="@drawable/home_shop_image_sl10"
                         android:gravity="center"
                         android:text="1/1"
@@ -73,8 +73,8 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
 
                         <TextView
@@ -169,8 +169,8 @@
                     android:layout_height="41dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp"
                     android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     android:visibility="gone">
 
                     <TextView
@@ -213,9 +213,9 @@
                     android:layout_height="41dp"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:visibility="gone"
+                    android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:paddingStart="16dp">
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="0dp"
@@ -233,8 +233,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@color/line" />
 
                 <LinearLayout
@@ -242,9 +242,9 @@
                     android:layout_height="44dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
+                    android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:visibility="gone"
-                    android:paddingStart="16dp">
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="0dp"
@@ -288,35 +288,36 @@
 
                 </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingEnd="16dp"
-                android:paddingStart="16dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/trade_number"
-                    android:textColor="@color/black"
-                    android:textSize="13dp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/trade_number"
+                        android:textColor="@color/black"
+                        android:textSize="13dp" />
 
-                <TextView
-                    android:id="@+id/huohao_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="13dp" />
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/huohao_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="13dp" />
+                </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@color/line" />
 
                 <LinearLayout
@@ -325,8 +326,8 @@
                     android:layout_height="45dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp"
-                    android:paddingStart="16dp">
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -397,13 +398,15 @@
                         android:padding="@dimen/dp_10"
                         android:text="@string/dingdanxiangqing"
                         android:textColor="@color/white" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_marginEnd="@dimen/dp_10"
                         android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/dp_10"
                         android:src="@drawable/right_more" />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -472,9 +475,9 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/price_tv"
-                        android:visibility="gone"
                         android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:visibility="gone" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -516,8 +519,8 @@
                     android:layout_height="45dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="16dp"
                     android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     android:visibility="gone">
 
                     <TextView
@@ -551,8 +554,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@color/line"
                     android:visibility="gone" />
 
@@ -572,8 +575,8 @@
                     android:id="@+id/tv_look_all_pj"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/home_7d_1bg"
                     android:gravity="center"
                     android:text="查看全部评价"
@@ -750,7 +753,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="8dp"
-                                android:src="@drawable/guanzhu_xx" />
+                                android:background="@drawable/unguanzhu_xx" />
 
                             <TextView
                                 android:id="@+id/tv_sjgz"
@@ -768,7 +771,7 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@drawable/home_7d_1bg">
+                            android:background="@drawable/home_go_shop_bg">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -778,7 +781,7 @@
                                 android:drawablePadding="8dp"
                                 android:gravity="center"
                                 android:text="@string/jindianguanguan"
-                                android:textColor="@color/text_4c"
+                                android:textColor="@color/white"
                                 android:textSize="13dp" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -813,8 +816,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
                         android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
                         android:text="点击查看图文详情"
                         android:textColor="@color/text3"
                         android:textSize="14dp" />
@@ -863,6 +866,16 @@
                 android:src="@drawable/dianpu"
                 android:visibility="gone" />
         </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/call_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_100"
+            android:background="@drawable/call_icon_icon" />
     </RelativeLayout>
 
     <View
@@ -886,9 +899,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:drawableTop="@drawable/kefu"
                 android:drawablePadding="4dp"
                 android:gravity="center"
-                android:drawableTop="@drawable/kefu"
                 android:text="@string/service"
                 android:textColor="@color/black"
                 android:textSize="13dp" />
@@ -909,9 +922,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:drawableTop="@drawable/dianpu"
                 android:drawablePadding="4dp"
                 android:gravity="center"
-                android:drawableTop="@drawable/dianpu"
                 android:text="@string/store"
                 android:textColor="@color/black"
                 android:textSize="13dp" />
@@ -959,10 +972,10 @@
                 android:layout_weight="1"
                 android:background="@color/my_yellow"
                 android:gravity="center"
-                android:visibility="gone"
                 android:text="@string/xuxunjia"
                 android:textColor="@color/white"
-                android:textSize="16dp" />
+                android:textSize="16dp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_jrgwc"

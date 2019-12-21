@@ -845,5 +845,7 @@
     <string name="custom_message">这是一条自定义消息</string>
     <string name="away_from_me">距我</string>
     <string name="km">千米</string>
-    <string name="km_0">距我0千米</string>
+    <string name="km_0">距我 0 千米</string>
+    <string name="notification_authority">通知权限</string>
+    <string name="open_notification_permissions">是否打开通知权限</string>
 </resources>

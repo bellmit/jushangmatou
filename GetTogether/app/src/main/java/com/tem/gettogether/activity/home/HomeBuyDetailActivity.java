@@ -138,7 +138,7 @@ public class HomeBuyDetailActivity extends BaseActivity {
                             if (waiMaoQiuGouBeans != null && waiMaoQiuGouBeans.get(0).getUser_id() != null) {
                                 RongTalk.doConnection(HomeBuyDetailActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                                         , waiMaoQiuGouBeans.get(0).getUser_id(), "",
-                                        "", "");
+                                        "", "",null);
                             } else {
                                 CusToast.showToast(getText(R.string.the_store_is_invalid));
                             }

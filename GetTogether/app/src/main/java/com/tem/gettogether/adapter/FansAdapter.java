@@ -21,6 +21,7 @@ public class FansAdapter extends RecyclerView.Adapter<FansAdapter.ViewHolder> {
 
     private Context context;
     private List<FansDataBean.ResultBean.FansBean> mDatas;
+    private OnItemClickListener mOnItemClickListener;
 
     public FansAdapter(Context context, List<FansDataBean.ResultBean.FansBean> mDatas) {
         this.context = context;
@@ -41,6 +42,12 @@ public class FansAdapter extends RecyclerView.Adapter<FansAdapter.ViewHolder> {
         holder.tv_name.setText(mDatas.get(position).getNickname());
         holder.detail_tv.setText(context.getText(R.string.user_tv) + mDatas.get(position).getNickname()
                 + context.getText(R.string.followed_your_shop));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnItemClickListener.onItemClick(position);
+            }
+        });
     }
 
     @Override
@@ -60,4 +67,13 @@ public class FansAdapter extends RecyclerView.Adapter<FansAdapter.ViewHolder> {
             detail_tv = itemView.findViewById(R.id.detail_tv);
         }
     }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnClickItem(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
+    }
+
 }

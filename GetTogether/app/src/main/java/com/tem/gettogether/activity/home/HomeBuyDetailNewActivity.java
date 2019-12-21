@@ -24,6 +24,7 @@ import com.tem.gettogether.activity.my.shopauthentication.ShopAuthenticationActi
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
+import com.tem.gettogether.bean.ProductBean;
 import com.tem.gettogether.bean.WaiMaoQiuGouBean;
 import com.tem.gettogether.rongyun.CustomizeBuyMessage;
 import com.tem.gettogether.rongyun.RongTalk;
@@ -214,9 +215,21 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
                     if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
 
                         if (waiMaoQiuGouBeans != null && waiMaoQiuGouBeans.get(0).getUser_id() != null) {
+                            ProductBean productBean = new ProductBean();
+                            productBean.setTarget_id(waiMaoQiuGouBeans.get(0).getUser_id());
+                            productBean.setGoods_id(trade_id);
+                            productBean.setImage(waiMaoQiuGouBeans.get(0).getGoods_logo().get(0));
+                            productBean.setGoods_name(waiMaoQiuGouBeans.get(0).getGoods_name());
+                            productBean.setBatch_number(waiMaoQiuGouBeans.get(0).getGoods_num() + getText(R.string.batch));
+                            productBean.setGoods_type(getString(R.string.detriment));
+                            productBean.setQiugou_type(""+(type+1));
+
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("send_message", productBean);
+
                             RongTalk.doConnection(HomeBuyDetailNewActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                                     , waiMaoQiuGouBeans.get(0).getUser_id(), waiMaoQiuGouBeans.get(0).getNickname(),
-                                    waiMaoQiuGouBeans.get(0).getHead_pic(), "");
+                                    waiMaoQiuGouBeans.get(0).getHead_pic(), "",bundle);
                         } else {
                             CusToast.showToast(R.string.the_store_is_invalid);
                         }
@@ -227,40 +240,10 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
                     e.printStackTrace();
                     CusToast.showToast(getText(R.string.the_store_is_invalid));
                 }
-                sendCustomizeMessage( waiMaoQiuGouBeans.get(0).getUser_id(),trade_id, waiMaoQiuGouBeans.get(0).getGoods_logo().get(0),
-                        waiMaoQiuGouBeans.get(0).getGoods_name(), waiMaoQiuGouBeans.get(0).getGoods_num() + getText(R.string.batch), getString(R.string.detriment),""+(type+1));
             }
         });
     }
 
-    private void sendCustomizeMessage(String targetId, String goods_id, String image, String goods_name,
-                                      String batch_number, String goods_type, String qiugou_type) {
-        CustomizeBuyMessage customizeMessage = new CustomizeBuyMessage(goods_id, image, goods_name, batch_number, "",  SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id,""), goods_type, qiugou_type);
-        byte[] bvvv = customizeMessage.encode();
-        CustomizeBuyMessage richContentMessage = new CustomizeBuyMessage(bvvv);
-        io.rong.imlib.model.Message myMessage = io.rong.imlib.model.Message.obtain(targetId, Conversation.ConversationType.PRIVATE, richContentMessage);
-        RongIM.getInstance().sendMessage(myMessage, null, null, new IRongCallback.ISendMessageCallback() {
-            @Override
-            public void onAttached(io.rong.imlib.model.Message message) {
-                //消息本地数据库存储成功的回调
-            }
-
-            @Override
-            public void onSuccess(io.rong.imlib.model.Message message) {
-                Log.d("chenshichun", "======发送成功=====");
-
-                //消息通过网络发送成功的回调
-                CusToast.showToast(getText(R.string.message_successed));
-            }
-
-            @Override
-            public void onError(io.rong.imlib.model.Message message, RongIMClient.ErrorCode errorCode) {
-                //消息发送失败的回调
-                Log.d("chenshichun", "======消息发送失败=====");
-                CusToast.showToast(getText(R.string.message_failed));
-            }
-        });
-    }
 
     public class GlideImageLoader extends ImageLoader {
         @Override

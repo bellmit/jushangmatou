@@ -853,4 +853,6 @@
     <string name="away_from_me">Away from me </string>
     <string name="km"> km</string>
     <string name="km_0">Away from me 0 km</string>
+    <string name="notification_authority">Notification authority</string>
+    <string name="open_notification_permissions">Whether to turn on notification permissions</string>
 </resources>

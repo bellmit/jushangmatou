@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.tem.gettogether"
         multiDexEnabled true
         minSdkVersion 17
-        targetSdkVersion 26
+        targetSdkVersion 28
         versionCode 13
         versionName "1.2.9"
         multiDexEnabled true
@@ -17,7 +17,7 @@ android {
             }
         }
         ndk {
-            abiFilters "armeabi","armeabi-v7a", "x86"
+            abiFilters "armeabi-v7a", "arm64-v8a"
         }
         multiDexEnabled true
 
@@ -101,7 +101,8 @@ dependencies {
     compile files('libs/umeng_social_shareview.jar')
     compile files('libs/umeng_social_tool.jar')
     implementation files('libs/libammsdk.jar')
-    compile project(':IMKit')
+    implementation project(':IMKit')
+    implementation project(':IMLib')
     compile files('libs/Amap_2DMap_V5.2.0_20170627.jar')
     compile files('libs/AMap_Channel_Location_V1.4.0_20160708.jar')
     compile files('libs/AMap_Search_V6.5.0_20180930.jar')

@@ -33,7 +33,6 @@ public class TranslationPlugin implements IPluginModule {
 
     @Override
     public void onClick(Fragment fragment, RongExtension rongExtension) {
-        Log.d("chenshichun","=====翻译======");
         fragment.getActivity().startActivity(new Intent(fragment.getActivity(), TranslationActivity.class).putExtra("targetId",rongExtension.getTargetId()));
     }
 

@@ -249,7 +249,7 @@ public class OrderXQActivity extends BaseActivity {
                         if (resultBeans != null && resultBeans.getUser_id() != null) {
                             RongTalk.doConnection(OrderXQActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                                     , resultBeans.getUser_id(), resultBeans.getStore_name(),
-                                    "", resultBeans.getStore_id());
+                                    "", resultBeans.getStore_id(),null);
                         } else {
                             CusToast.showToast(getText(R.string.the_store_is_invalid));
                         }

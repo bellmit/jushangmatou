@@ -548,7 +548,7 @@ public class CartFragment extends TabFragment {
                                                                     if (storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList() != null && storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_user_id() != null) {
                                                                         RongTalk.doConnection(getActivity(), SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                                                                                 , storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_user_id(), storeListBeans.get(baseViewHolder.getAdapterPosition()).getStore_name(),
-                                                                                storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_logo(), storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_id());
+                                                                                storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getGoods_logo(), storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_id(),null);
                                                                     } else {
                                                                         CusToast.showToast(getText(R.string.the_store_is_invalid));
                                                                     }

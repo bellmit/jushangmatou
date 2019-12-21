@@ -45,3 +45,9 @@
 
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
+
+-dontwarn io.rong.push.**
+ -dontnote com.xiaomi.**
+-keep public class com.google.firebase.* {*;}
+ -dontnote io.rong.**
+-keep class com.tem.gettogether.rongyun.CharNotificationReceiver {*;}

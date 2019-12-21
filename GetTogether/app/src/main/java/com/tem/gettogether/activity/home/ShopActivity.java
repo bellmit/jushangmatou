@@ -30,6 +30,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.LoginActivity;
+import com.tem.gettogether.activity.login.phonelogin.PhoneLoginActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
@@ -250,6 +251,11 @@ public class ShopActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.ll_lianxikefu:
+                if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")) {
+                    CusToast.showToast(R.string.login_first);
+                    startActivity(new Intent(ShopActivity.this, PhoneLoginActivity.class));
+                    return;
+                }
                 if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
                     CusToast.showToast(getText(R.string.supplier_does_not_have_this_feature));
                     return;
@@ -261,7 +267,7 @@ public class ShopActivity extends BaseActivity {
                         if (resultBean != null && resultBean.getStore_user_id() != null) {
                             RongTalk.doConnection(ShopActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                                     , resultBean.getStore_user_id(), resultBean.getStore_name(),
-                                    resultBean.getStore_logo(), resultBean.getStore_id());
+                                    resultBean.getStore_logo(), resultBean.getStore_id(),null);
                         } else {
                             CusToast.showToast(getText(R.string.the_store_is_invalid));
                         }

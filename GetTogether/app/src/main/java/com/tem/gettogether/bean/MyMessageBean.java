@@ -74,12 +74,12 @@ public class MyMessageBean {
 
         private String user_id;
         private String email;
-        private Object pay_password;
+        private String pay_password;
         private String sex;
         private String birthday;
         private String user_money;
         private String frozen_money;
-        private Object qq;
+        private String qq;
         private String mobile;
         private String mobile_validated;
         private String head_pic;
@@ -89,7 +89,7 @@ public class MyMessageBean {
         private String total_amount;
         private String is_lock;
         private String token;
-        private Object truename;
+        private String truename;
         private String chat_id;
         private String footprint_count;
         private String coupon_count;
@@ -216,11 +216,11 @@ public class MyMessageBean {
             this.email = email;
         }
 
-        public Object getPay_password() {
+        public String getPay_password() {
             return pay_password;
         }
 
-        public void setPay_password(Object pay_password) {
+        public void setPay_password(String pay_password) {
             this.pay_password = pay_password;
         }
 
@@ -256,11 +256,11 @@ public class MyMessageBean {
             this.frozen_money = frozen_money;
         }
 
-        public Object getQq() {
+        public String getQq() {
             return qq;
         }
 
-        public void setQq(Object qq) {
+        public void setQq(String qq) {
             this.qq = qq;
         }
 
@@ -336,11 +336,11 @@ public class MyMessageBean {
             this.token = token;
         }
 
-        public Object getTruename() {
+        public String getTruename() {
             return truename;
         }
 
-        public void setTruename(Object truename) {
+        public void setTruename(String truename) {
             this.truename = truename;
         }
 

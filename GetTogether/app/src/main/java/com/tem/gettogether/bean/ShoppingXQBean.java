@@ -138,6 +138,15 @@ public class ShoppingXQBean {
             private String is_collect;
             private String store_logo;
             private String is_linyi;
+            private String contacts_mobile;
+
+            public String getContacts_mobile() {
+                return contacts_mobile;
+            }
+
+            public void setContacts_mobile(String contacts_mobile) {
+                this.contacts_mobile = contacts_mobile;
+            }
 
             public String getIs_linyi() {
                 return is_linyi;

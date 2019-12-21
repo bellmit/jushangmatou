@@ -166,7 +166,7 @@ public class ShopXQActivity extends BaseActivity {
                         if (resultBean != null && store_id != null) {
                             RongTalk.doConnection(ShopXQActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                                     , store_id, resultBean.getStore_name(),
-                                    resultBean.getStore_logo(), resultBean.getStore_id());
+                                    resultBean.getStore_logo(), resultBean.getStore_id(),null);
                         } else {
                             CusToast.showToast(getText(R.string.the_store_is_invalid));
                         }

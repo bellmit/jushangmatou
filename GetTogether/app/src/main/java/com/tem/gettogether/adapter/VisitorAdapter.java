@@ -53,7 +53,6 @@ public class VisitorAdapter extends RecyclerView.Adapter<VisitorAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(VisitorAdapter.ViewHolder holder, final int position) {
-        Log.d("chenshichun", "===========" + mDatas.get(position).getTime());
         holder.time_tv.setText(mDatas.get(position).getTime());
         holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         holder.mRecyclerView.setAdapter(new BaseRVAdapter(context, mDatas.get(position).getVisiters()) {
@@ -64,7 +63,6 @@ public class VisitorAdapter extends RecyclerView.Adapter<VisitorAdapter.ViewHold
 
             @Override
             public void onBind(com.tem.gettogether.base.BaseViewHolder holder, final int position2) {
-                Log.d("chenshichun", "====position2=======" + position2);
                 CircularImage head_pic = holder.getView(R.id.head_pic);
                 int imageSize = SizeUtil.dp2px(context, 60);
                 Glide.with(context).load(mDatas.get(position).getVisiters().get(position2).getHead_pic()).asBitmap().placeholder(R.mipmap.myy322x)

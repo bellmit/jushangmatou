@@ -6,7 +6,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -80,7 +82,21 @@ public class HomeSouSuoActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        et_sousuo.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    if(et_sousuo.getText().toString().trim().equals("")){
+                        CusToast.showToast(getText(R.string.qsrssnr));
+                        return false;
+                    }
+                    startActivity(new Intent(HomeSouSuoActivity.this, HotFenLeiActivity.class)
+                            .putExtra("keywords",et_sousuo.getText().toString().trim())
+                            .putExtra("is_yilian",is_yilian));
+                }
+                return false;
+            }
+        });
     }
     @Event(value = {R.id.rl_close,R.id.rl_cancle,R.id.iv_ShuaX,R.id.iv_remove,R.id.rl_sousuo}, type = View.OnClickListener.class)
     private void getEvent(View view) {

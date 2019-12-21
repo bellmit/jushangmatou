@@ -130,13 +130,13 @@ public class XunPanTuiSongFragment extends BaseFragment {
         myTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("2")) {
+                if (tab.getPosition() == 1 &&SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("2")) {
                     CusToast.showToast(getText(R.string.store_review));
                     return;
                 }
-                if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("1")) {
+                if (tab.getPosition() == 1 &&!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("1")) {
                     CusToast.showToast(getText(R.string.please_certify_shops_first));
-                    startActivity(new Intent(getContext(), AuthenticationActivity.class));
+                    startActivityForResult(new Intent(getContext(), AuthenticationActivity.class),10000);
                     return;
                 }
                 if (tab.getPosition() == 1 && !SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7").equals("2")) {

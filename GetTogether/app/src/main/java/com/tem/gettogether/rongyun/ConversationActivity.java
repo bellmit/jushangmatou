@@ -4,14 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.home.ShopActivity;
@@ -22,7 +26,9 @@ import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.AddressDataBean;
 import com.tem.gettogether.bean.HeadMessageBean;
 import com.tem.gettogether.bean.MemberInformationBean;
+import com.tem.gettogether.bean.ProductBean;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.SizeUtil;
 import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -35,6 +41,7 @@ import java.util.Map;
 
 import cc.duduhuo.custoast.CusToast;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
@@ -42,7 +49,7 @@ import io.rong.imlib.model.UserInfo;
 
 public class ConversationActivity extends BaseActivity implements OnClickListener {
     private TextView tv_title;
-
+    private ConstraintLayout cl_send;
     private String getId, getTitle;
     private static final String TAG = "====RongTalk会话界面---";
     /**
@@ -54,17 +61,53 @@ public class ConversationActivity extends BaseActivity implements OnClickListene
      */
     private RelativeLayout base_rl;
     private Conversation.ConversationType mConversationType;
+    private ImageView product_pic_iv;
+    private TextView product_title;
+    private TextView product_price;
+    private TextView send_btn;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.conversation);
 //        StatusBarUtil.setTranslucentStatus(this);
-
-        initData();
-
+        cl_send = (ConstraintLayout) findViewById(R.id.cl_send);
         tv_title = (TextView) findViewById(R.id.tv_title);
 //        base_rl = (RelativeLayout) findViewById(R.id.base_rl);
 //        base_rl.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        product_pic_iv = (ImageView) findViewById(R.id.product_pic_iv);
+        product_title = (TextView) findViewById(R.id.product_title);
+        product_price = (TextView) findViewById(R.id.product_price);
+        send_btn = (TextView) findViewById(R.id.send_btn);
+
+        Intent intent = getIntent();
+        if (intent == null || intent.getData() == null)
+            return;
+        mTargetId = intent.getData().getQueryParameter("targetId");
+        getTitle = intent.getData().getQueryParameter("title").toString();
+        Log.e("chenshichun", "---mTargetId--" + mTargetId);
+        Bundle bundle = intent.getExtras();
+        Log.e("cuckoo","---bundle--"+bundle);
+        if (bundle != null) {
+            final ProductBean productBean = (ProductBean) bundle.get("send_message");
+            cl_send.setVisibility(View.VISIBLE);
+            product_title.setText(productBean.getGoods_name());
+            product_price.setText(productBean.getBatch_number());
+            int imageSize = SizeUtil.dp2px(getContext(), 100);
+            Glide.with(getContext()).load(productBean.getImage()).asBitmap().placeholder(R.mipmap.myy322x)
+                    .error(R.mipmap.myy322x).override(imageSize, imageSize).into(product_pic_iv);
+            send_btn.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendCustomizeMessage(productBean.getTarget_id(), productBean.getGoods_id(), productBean.getImage(),
+                            productBean.getGoods_name(), productBean.getBatch_number(), productBean.getGoods_type(), productBean.getQiugou_type());
+                    cl_send.setVisibility(View.GONE);
+                }
+            });
+        }
+//        mConversationType = Conversation.ConversationType.valueOf(intent.getData()
+//                .getLastPathSegment().toUpperCase(Locale.US));
+//        reconnect(mTargetId);
+
         if (null != getTitle) {
             tv_title.setText(getTitle);
         } else {
@@ -101,7 +144,7 @@ public class ConversationActivity extends BaseActivity implements OnClickListene
             @Override
             public boolean onUserPortraitClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo) {
 
-                getUserMessage(context,userInfo.getUserId());
+                getUserMessage(context, userInfo.getUserId());
                 return true;
             }
 
@@ -117,18 +160,18 @@ public class ConversationActivity extends BaseActivity implements OnClickListene
             public boolean onMessageClick(Context context, View view, Message message) {
                 boolean isimage;
 
-                if(message.getObjectName().contains("ImgTextMsg")){
-                    String goods_id=SharedPreferencesUtils.getString(context, BaseConstant.SPConstant.Shop_goods_id,"");
-                    if(goods_id!=null&&!goods_id.equals("")){
+                if (message.getObjectName().contains("ImgTextMsg")) {
+                    String goods_id = SharedPreferencesUtils.getString(context, BaseConstant.SPConstant.Shop_goods_id, "");
+                    if (goods_id != null && !goods_id.equals("")) {
                         context.startActivity(new Intent(context, ShoppingParticularsActivity.class)
-                                .putExtra("goods_id",goods_id));
-                    }else{
+                                .putExtra("goods_id", goods_id));
+                    } else {
 
                         CusToast.showToast(getText(R.string.spysx));
                     }
-                    isimage=true;
-                }else{
-                    isimage=false;
+                    isimage = true;
+                } else {
+                    isimage = false;
                 }
                 return isimage;
             }
@@ -150,7 +193,7 @@ public class ConversationActivity extends BaseActivity implements OnClickListene
         });
     }
 
-    private void getUserMessage(final Context context, String userId){
+    private void getUserMessage(final Context context, String userId) {
         Map<String, Object> map = new HashMap<>();
         map.put("user_id", userId);
         XUtil.Post(URLConstant.MESSAGE_HEAD, map, new MyCallBack<String>() {
@@ -165,7 +208,7 @@ public class ConversationActivity extends BaseActivity implements OnClickListene
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         HeadMessageBean mHeadMessageBean = gson.fromJson(result, HeadMessageBean.class);
-                        if(mHeadMessageBean.getResult().getRole_type().equals("1")) {// 1是供应商
+                        if (mHeadMessageBean.getResult().getRole_type().equals("1")) {// 1是供应商
                             startActivity(new Intent(context, ShopActivity.class)
                                     .putExtra("store_id", mHeadMessageBean.getResult().getStore_id())
                                     .putExtra("type", ShopActivity.SHOPNHOME_TYPE));
@@ -192,20 +235,13 @@ public class ConversationActivity extends BaseActivity implements OnClickListene
 
     @Override
     protected void initData() {
-        Intent intent = getIntent();
-        if (intent == null || intent.getData() == null)
-            return;
-        mTargetId = intent.getData().getQueryParameter("targetId");
-        getTitle = intent.getData().getQueryParameter("title").toString();
-
-//        mConversationType = Conversation.ConversationType.valueOf(intent.getData()
-//                .getLastPathSegment().toUpperCase(Locale.US));
-//        reconnect(mTargetId);
     }
+
     @Override
     protected void initView() {
 
     }
+
     private void reconnect(String token) {
         RongIM.connect(token, new RongIMClient.ConnectCallback() {
             @Override
@@ -228,6 +264,7 @@ public class ConversationActivity extends BaseActivity implements OnClickListene
         });
 
     }
+
     private ConversationFragmentEx fragment;
 
     /**
@@ -253,7 +290,6 @@ public class ConversationActivity extends BaseActivity implements OnClickListene
     }
 
 
-
     @Override
     public void onClick(View v) {
 
@@ -269,5 +305,35 @@ public class ConversationActivity extends BaseActivity implements OnClickListene
         }
     }
 
+    private void sendCustomizeMessage(String targetId, String goods_id, String image, String goods_name,
+                                      String batch_number, String goods_type, String qiugou_type) {
+        CustomizeBuyMessage customizeMessage = new CustomizeBuyMessage(goods_id, image, goods_name,
+                batch_number, "", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, "")
+                , goods_type, qiugou_type);
+        byte[] bvvv = customizeMessage.encode();
+        CustomizeBuyMessage richContentMessage = new CustomizeBuyMessage(bvvv);
+        io.rong.imlib.model.Message myMessage = io.rong.imlib.model.Message.obtain(targetId, Conversation.ConversationType.PRIVATE, richContentMessage);
+        RongIM.getInstance().sendMessage(myMessage, null, null, new IRongCallback.ISendMessageCallback() {
+            @Override
+            public void onAttached(io.rong.imlib.model.Message message) {
+                //消息本地数据库存储成功的回调
+            }
+
+            @Override
+            public void onSuccess(io.rong.imlib.model.Message message) {
+                Log.d("chenshichun", "======发送成功=====");
+
+                //消息通过网络发送成功的回调
+                CusToast.showToast(getText(R.string.message_successed));
+            }
+
+            @Override
+            public void onError(io.rong.imlib.model.Message message, RongIMClient.ErrorCode errorCode) {
+                //消息发送失败的回调
+                Log.d("chenshichun", "======消息发送失败=====");
+                CusToast.showToast(getText(R.string.message_failed));
+            }
+        });
+    }
 
 }

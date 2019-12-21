@@ -382,7 +382,6 @@ public class PersionCenterGongYingFragment extends BaseFragment {
 
                 break;
             case R.id.rl_dzgl:// 我的店铺
-//                startActivity(new Intent(getContext(), AuthenticationActivity.class));
                 if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("2")) {
                     CusToast.showToast(getText(R.string.store_review));
                     return;
@@ -403,8 +402,6 @@ public class PersionCenterGongYingFragment extends BaseFragment {
                     CusToast.showToast(getText(R.string.store_review));
                     return;
                 } else if (resultBean.getStore_status().equals("3")) {// 认证失败
-                    /*startActivity(new Intent(getActivity(), ShopRzFailedActivity.class)
-                            .putExtra(Contacts.RZ_TYPE, 0));*/
                     startActivity(new Intent(getActivity(), AuthenticationActivity.class));
                 } else if (resultBean.getStore_status().equals("4")) {// 认证
                     startActivity(new Intent(getActivity(), AuthenticationActivity.class));

@@ -534,7 +534,7 @@ public class ShoppingCartActivity extends BaseActivity {
                                                                 if (storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList() != null && storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_user_id() != null) {
                                                                     RongTalk.doConnection(getContext(), SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                                                                             , storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_user_id(), storeListBeans.get(baseViewHolder.getAdapterPosition()).getStore_name(),
-                                                                            storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getCover_image(), storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_id());
+                                                                            storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getCover_image(), storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_id(),null);
                                                                 } else {
                                                                     CusToast.showToast(getResources().getText(R.string.the_store_is_invalid));
                                                                 }

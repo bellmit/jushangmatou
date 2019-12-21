@@ -13,8 +13,10 @@ import com.tem.gettogether.ShowImageDetail;
 import com.tem.gettogether.activity.home.LianMengDetailActivity;
 import com.tem.gettogether.adapter.viewHolder.CommonAdapter;
 import com.tem.gettogether.adapter.viewHolder.ViewHolder;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.bean.BuyingManagementBean;
 import com.tem.gettogether.bean.QiuGouListBean;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.SizeUtil;
 
 import java.util.ArrayList;
@@ -41,9 +43,17 @@ public class BuyingManagementAdapter extends CommonAdapter<BuyingManagementBean.
         holder.setText(R.id.chukou_tv, context.getString(R.string.export) + resultBean.getCountry_name());
         final ArrayList<String> resultList = new ArrayList<>();
         resultList.add(resultBean.getEnd_pic());
+        String language = SharedPreferencesUtils.getLanguageString(context, BaseConstant.SPConstant.language, "");
         if (resultBean.getStatus().equals("2")) {// 图片已上传
             holder.getView(R.id.upload_completed_order_tv).setVisibility(View.GONE);
             holder.getView(R.id.transaction_iv).setVisibility(View.VISIBLE);
+            if (language.equals("ara")){
+                holder.getView(R.id.transaction_iv).setBackgroundResource(R.drawable.transaction_icon_ara);
+            }else if(language.equals("en")){
+                holder.getView(R.id.transaction_iv).setBackgroundResource(R.drawable.transaction_icon_en);
+            }else{
+                holder.getView(R.id.transaction_iv).setBackgroundResource(R.drawable.transaction_icon);
+            }
         }
         final EasySwipeMenuLayout easySwipeMenuLayout = holder.getView(R.id.action_bar);
         holder.setOnClickListener(R.id.upload_completed_order_tv, new View.OnClickListener() {

@@ -25,6 +25,7 @@ import com.tem.gettogether.bean.SouSuoDataBean;
 import com.tem.gettogether.utils.ListUtils;
 import com.tem.gettogether.utils.NetWorkUtils;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.UiUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -61,6 +62,8 @@ public class HotFenLeiActivity extends BaseActivity {
     private TextView huifulv;
     @ViewInject(R.id.order_rl)
     private HomeListFreshRecyclerView order_rl;
+    @ViewInject(R.id.tv_title)
+    private TextView tv_title;
     @ViewInject(R.id.order_refresh_fragment)
     private BGARefreshLayout order_refresh_fragment;
     private int PAGE_NUM = 1;
@@ -81,6 +84,7 @@ public class HotFenLeiActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         isYiLain = getIntent().getBooleanExtra("is_yilian",false);
+        StatusBarUtil.setTranslucentStatus(this);
 
         initData();
         initView();
@@ -90,7 +94,7 @@ public class HotFenLeiActivity extends BaseActivity {
     protected void initData() {
         category_id = getIntent().getStringExtra("category_id");
         keywords = getIntent().getStringExtra("keywords");
-
+        tv_title.setText(keywords);
     }
 
     @Override
@@ -371,7 +375,6 @@ public class HotFenLeiActivity extends BaseActivity {
             }
         }
         String url;
-        Log.d("chenshichun","========isYiLain==="+isYiLain);
         if(isYiLain){
             url = URLConstant.YILIAN_SEARCH;
         }else{
