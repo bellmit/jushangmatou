@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_bg"
+    android:layout_width="match_parent"
+    android:layout_height="170dp"
+    android:background="@drawable/viewpage_putong"
+    android:padding="@dimen/dp_20">
+
+    <com.tem.gettogether.view.CircularImage
+        android:id="@+id/head_iv"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="@dimen/dp_50"
+        android:background="@drawable/head_icon0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/head_iv"
+        app:layout_constraintStart_toEndOf="@id/head_iv"
+        app:layout_constraintTop_toTopOf="@id/head_iv"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/nick_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:text="null" />
+
+        <TextView
+            android:id="@+id/count_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:text="null" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/level_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/puton_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/head_iv" />
+
+    <ImageView
+        android:id="@+id/nonactivated_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:background="@drawable/nonactivated_icon"
+        app:layout_constraintEnd_toStartOf="@id/level_pic"
+        app:layout_constraintTop_toBottomOf="@id/head_iv"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/upgrade_membership_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_bg"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/open_immediately"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nonactivated_pic"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/deposit_payment_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="null"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/upgrade_membership_tv"
+        tools:ignore="MissingConstraints"/>
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="rtl"
+    android:layout_margin="10dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:text="8月1号"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cl_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/pic_iv"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/product_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="2"
+                android:paddingStart="115dp"
+                android:text="标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toTopOf="@+id/pic_iv" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tv_buy_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="@string/buy_time"
+                app:layout_constraintBottom_toBottomOf="@id/pic_iv"
+                app:layout_constraintStart_toEndOf="@id/pic_iv" />
+
+            <TextView
+                android:id="@+id/buy_time_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="现货"
+                app:layout_constraintBottom_toBottomOf="@id/pic_iv"
+                app:layout_constraintStart_toEndOf="@id/tv_buy_time" />
+
+            <TextView
+                android:id="@+id/tv_buy_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/buy_style"
+                app:layout_constraintBottom_toBottomOf="@+id/pic_iv"
+                app:layout_constraintStart_toEndOf="@id/pic_iv"
+                app:layout_constraintTop_toTopOf="@+id/pic_iv" />
+
+            <TextView
+                android:id="@+id/buy_style_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="意大利外贸大货"
+                app:layout_constraintBottom_toBottomOf="@id/tv_buy_style"
+                app:layout_constraintStart_toEndOf="@id/tv_buy_style" />
+
+            <TextView
+                android:id="@+id/chukou_tv"
+                android:layout_width="@dimen/dp_110"
+                android:layout_height="wrap_content"
+                android:background="#f2e8da"
+                android:gravity="center"
+                android:text="出口伊拉克"
+                app:layout_constraintStart_toStartOf="@id/pic_iv"
+                app:layout_constraintEnd_toEndOf="@id/pic_iv"
+                app:layout_constraintTop_toBottomOf="@id/pic_iv" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/line"
+                app:layout_constraintTop_toBottomOf="@id/chukou_tv"
+                android:layout_marginTop="@dimen/dp_10"
+                tools:ignore="MissingConstraints" />
+        </android.support.constraint.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/transaction_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/cl_frame"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:background="@drawable/transaction_icon"
+            android:visibility="gone" />
+    </RelativeLayout>
+</RelativeLayout>

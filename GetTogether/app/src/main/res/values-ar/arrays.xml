@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="permissions">
+        <item>@string/permission_recode_audio_hint</item>
+        <item>@string/permission_get_accounts_hint</item>
+        <item>@string/permission_read_phone_hint</item>
+        <item>@string/permission_call_phone_hint</item>
+        <item>@string/permission_camera_hint</item>
+        <item>@string/permission_access_fine_location_hint</item>
+        <item>@string/permission_access_coarse_location_hint</item>
+        <item>@string/permission_read_external_hint</item>
+        <item>@string/permission_white_external_hint</item>
+    </string-array>
+    <declare-styleable name="Life_CropImage">
+        <attr name="life_Crop_ratio" format="float" />
+    </declare-styleable>
+    <declare-styleable name="CheckBox_Sample">
+        <attr name="size" format="dimension" />
+        <attr name="color_border" format="color" />
+        <attr name="color_background" format="color" />
+    </declare-styleable>
+
+    <string-array name="test1">
+        <item>قائمة الدفع</item>
+        <item>قائمة الاستفسارات </item>
+    </string-array>
+
+    <string-array name="test2">
+        <item>معروضة للبيع</item>
+        <item>تم نفاذ بيع المنتج </item>
+        <item>صندوق المُسودَّة</item>
+    </string-array>
+
+    <string-array name="spingarr">
+        <item>中文</item>
+        <item>English</item>
+        <item>العربية</item>
+    </string-array>
+
+    <string-array name="user_spingarr">
+        <item>中文</item>
+        <item>英文</item>
+        <item>阿拉伯文</item>
+    </string-array>
+</resources>

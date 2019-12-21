@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">PictureSelector</string>
+
+    <!--选择图片相关-->
+    <string name="select_picture_photograph">Take photo</string>
+    <string name="select_picture_select_from_album">Select from the album</string>
+    <string name="select_picture_cancel">Cancel</string>
+</resources>
