@@ -48,9 +48,6 @@ public class SpecificationsDetailAddAdapter extends RecyclerView.Adapter<Specifi
 
     @Override
     public void onBindViewHolder(final SpecificationsDetailAddAdapter.ViewHolder holder, final int position) {
-        Log.e("chenshichun", "----position-  " + position);
-        Log.e("chenshichun", "----size-  " + mDatas.get(currentCount).guigeArray.size());
-
         if (position == mDatas.get(currentCount).guigeArray.size() - 1) {
             holder.delete_iv.setVisibility(View.GONE);
             holder.text_tv.setVisibility(View.GONE);

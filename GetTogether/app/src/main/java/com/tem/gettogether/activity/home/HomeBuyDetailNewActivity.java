@@ -16,6 +16,7 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.tem.gettogether.R;
 import com.tem.gettogether.ShowImageDetail;
+import com.tem.gettogether.activity.login.phonelogin.PhoneLoginActivity;
 import com.tem.gettogether.activity.my.VipCenterActivity;
 import com.tem.gettogether.activity.my.WaiMaoQiuGouActivity;
 import com.tem.gettogether.activity.my.authentication.AuthenticationActivity;
@@ -187,6 +188,11 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
 
+                if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")) {
+                    CusToast.showToast(R.string.login_first);
+                    startActivity(new Intent(getContext(), PhoneLoginActivity.class));
+                    return;
+                }
 
                 if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, "").equals("0")) {
                     CusToast.showToast(getText(R.string.buyer_does_not_have_this_feature));
@@ -195,7 +201,7 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
 
                 if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "").equals("2")) {
                     CusToast.showToast(getText(R.string.store_review));
-                    startActivity(new Intent(getContext(), ShopAuthenticationActivity.class));
+//                    startActivity(new Intent(getContext(), AuthenticationActivity.class));
                     return;
                 }
 

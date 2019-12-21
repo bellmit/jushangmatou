@@ -79,6 +79,10 @@ public class ShopXQActivity extends BaseActivity {
     private ImageView iv_shop_head;
     @ViewInject(R.id.ll_lxdh)
     private LinearLayout ll_lxdh;
+    @ViewInject(R.id.iv_image_4)
+    private ImageView iv_image_4;
+    @ViewInject(R.id.iv_image_5)
+    private ImageView iv_image_5;
     private String store_user_id;
     private String store_id;
     private String is_collect;
@@ -99,17 +103,6 @@ public class ShopXQActivity extends BaseActivity {
         store_id = getIntent().getStringExtra("store_id");
         is_collect = getIntent().getStringExtra("is_collect");
         store_user_id = getIntent().getStringExtra("store_user_id");
-       /* if (is_collect != null) {
-            if (is_collect.equals("0")) {
-                tv_isgz.setText(getText(R.string.attention));
-                iv_gz.setVisibility(View.VISIBLE);
-                iv_gz.setImageResource(R.drawable.add_icon_b);
-            } else {
-                tv_isgz.setText(getText(R.string.has_been_concerned));
-                iv_gz.setVisibility(View.GONE);
-                iv_gz.setImageResource(R.drawable.yi_guanzhu);
-            }
-        }*/
     }
 
     @Override
@@ -123,7 +116,6 @@ public class ShopXQActivity extends BaseActivity {
         tv_gz_num.setText(resultBean.getFcount() + getText(R.string.people));
         tv_shopping_num.setText(resultBean.getStore_count());
         tv_xp_num.setText(resultBean.getStore_new_count());
-        tv_pj_num.setText(resultBean.getStore_comment_count());
         tv_dt_num.setText(resultBean.getOcount());
 
         if (resultBean.getLevel().equals("7")) {
@@ -140,6 +132,14 @@ public class ShopXQActivity extends BaseActivity {
         tv_bq.setText(resultBean.getContacts_mobile());
         tv_shop_jj.setText(resultBean.getSeo_description());
         tv_shop_address.setText(resultBean.getLocation());
+
+        if (resultBean.getFactory_scene().get(0) != null) {
+            Glide.with(getContext()).load(resultBean.getFactory_scene().get(0) + "").error(R.mipmap.myy322x).centerCrop().into(iv_image_4);
+        }
+        if (resultBean.getFactory_scene().get(1) != null) {
+            Glide.with(getContext()).load(resultBean.getFactory_scene().get(1) + "").error(R.mipmap.myy322x).centerCrop().into(iv_image_5);
+        }
+
     }
 
 
@@ -166,7 +166,7 @@ public class ShopXQActivity extends BaseActivity {
                         if (resultBean != null && store_id != null) {
                             RongTalk.doConnection(ShopXQActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                                     , store_id, resultBean.getStore_name(),
-                                    resultBean.getStore_logo(), resultBean.getStore_id(),null);
+                                    resultBean.getStore_logo(), resultBean.getStore_id(), null);
                         } else {
                             CusToast.showToast(getText(R.string.the_store_is_invalid));
                         }

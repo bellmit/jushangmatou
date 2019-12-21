@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/line"
-    android:layoutDirection="rtl"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <View
@@ -52,9 +51,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
-                        android:text="null"
+                        android:text="广州贝儿乐儿童"
                         android:textColor="@color/black"
-                        android:textDirection="locale"
                         android:textSize="14dp" />
 
                     <TextView
@@ -65,7 +63,6 @@
                         android:layout_marginTop="10dp"
                         android:text="10"
                         android:textColor="@color/text9"
-                        android:textDirection="locale"
                         android:textSize="11dp" />
 
                 </LinearLayout>
@@ -96,7 +93,6 @@
                             android:layout_marginStart="3dp"
                             android:text="@string/has_been_concerned"
                             android:textColor="@color/white"
-                            android:textDirection="locale"
                             android:textSize="14dp" />
                     </LinearLayout>
 
@@ -107,7 +103,6 @@
                         android:background="@drawable/shop_gz_4dp_"
                         android:gravity="center"
                         android:text="0人"
-                        android:textDirection="locale"
                         android:textSize="11dp" />
                 </LinearLayout>
             </LinearLayout>
@@ -132,9 +127,8 @@
                         android:id="@+id/tv_shopping_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
+                        android:text="34"
                         android:textColor="@color/bg_59"
-                        android:textDirection="locale"
                         android:textSize="15dp" />
 
                     <TextView
@@ -143,7 +137,6 @@
                         android:layout_marginTop="10dp"
                         android:text="@string/quanbushangping"
                         android:textColor="@color/bg_59"
-                        android:textDirection="locale"
                         android:textSize="12dp" />
                 </LinearLayout>
 
@@ -163,9 +156,8 @@
                         android:id="@+id/tv_xp_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
+                        android:text="10"
                         android:textColor="@color/bg_59"
-                        android:textDirection="locale"
                         android:textSize="15dp" />
 
                     <TextView
@@ -174,7 +166,6 @@
                         android:layout_marginTop="10dp"
                         android:text="@string/shangxin"
                         android:textColor="@color/bg_59"
-                        android:textDirection="locale"
                         android:textSize="12dp" />
                 </LinearLayout>
 
@@ -183,32 +174,6 @@
                     android:layout_height="32dp"
                     android:background="@color/line" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:id="@+id/tv_pj_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textColor="@color/bg_59"
-                        android:textDirection="locale"
-                        android:textSize="15dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/evaluation"
-                        android:textColor="@color/bg_59"
-                        android:textDirection="locale"
-                        android:textSize="12dp" />
-                </LinearLayout>
 
                 <View
                     android:layout_width="1dp"
@@ -228,7 +193,6 @@
                         android:layout_height="wrap_content"
                         android:text="0"
                         android:textColor="@color/bg_59"
-                        android:textDirection="locale"
                         android:textSize="15dp" />
 
                     <TextView
@@ -237,7 +201,6 @@
                         android:layout_marginTop="10dp"
                         android:text="@string/dianpuchengjiao"
                         android:textColor="@color/bg_59"
-                        android:textDirection="locale"
                         android:textSize="12dp" />
                 </LinearLayout>
 
@@ -271,7 +234,6 @@
                         android:layout_centerVertical="true"
                         android:text="商位号"
                         android:textColor="@color/text3"
-                        android:textDirection="locale"
                         android:textSize="14dp" />
 
 
@@ -279,9 +241,8 @@
                         android:id="@+id/tv_swh"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
+                        android:text="2326"
                         android:textColor="@color/text_hs"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                 </LinearLayout>
@@ -300,7 +261,6 @@
                         android:layout_centerVertical="true"
                         android:text="@string/jianyinze"
                         android:textColor="@color/text3"
-                        android:textDirection="locale"
                         android:textSize="14dp" />
 
 
@@ -310,7 +270,6 @@
                         android:layout_height="wrap_content"
                         android:text="null"
                         android:textColor="@color/text_hs"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                 </LinearLayout>
@@ -335,7 +294,6 @@
                         android:layout_centerVertical="true"
                         android:text="@string/lianxidianhua"
                         android:textColor="@color/text3"
-                        android:textDirection="locale"
                         android:textSize="14dp" />
 
 
@@ -345,7 +303,6 @@
                         android:layout_height="wrap_content"
                         android:text="null"
                         android:textColor="@color/text_hs"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                 </LinearLayout>
@@ -370,7 +327,6 @@
                         android:layout_centerVertical="true"
                         android:text="@string/lianximaijia"
                         android:textColor="@color/text3"
-                        android:textDirection="locale"
                         android:textSize="14dp" />
 
                     <ImageView
@@ -412,7 +368,6 @@
                         android:layout_centerVertical="true"
                         android:text="店铺二维码"
                         android:textColor="@color/text3"
-                        android:textDirection="locale"
                         android:textSize="14dp" />
 
                     <ImageView
@@ -441,7 +396,6 @@
                         android:layout_centerVertical="true"
                         android:text="证照信息"
                         android:textColor="@color/text3"
-                        android:textDirection="locale"
                         android:textSize="14dp" />
 
 
@@ -478,7 +432,6 @@
                         android:layout_height="wrap_content"
                         android:text="@string/dianpuijianjies"
                         android:textColor="@color/text3"
-                        android:textDirection="locale"
                         android:textSize="14dp" />
 
 
@@ -490,7 +443,6 @@
                         android:ellipsize="end"
                         android:text="主营闪光棒、闪光托、泡泡枪、电动车、扭扭车等儿童玩具"
                         android:textColor="@color/text6"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                 </LinearLayout>
@@ -514,7 +466,6 @@
                         android:layout_height="wrap_content"
                         android:text="@string/suozaidiqu"
                         android:textColor="@color/text3"
-                        android:textDirection="locale"
                         android:textSize="14dp" />
 
 
@@ -525,7 +476,6 @@
                         android:layout_marginStart="28dp"
                         android:text="浙江省杭州市"
                         android:textColor="@color/text6"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
                 </LinearLayout>
@@ -543,7 +493,6 @@
                         android:layout_height="wrap_content"
                         android:text="开店时间"
                         android:textColor="@color/text3"
-                        android:textDirection="locale"
                         android:textSize="14dp" />
 
 
@@ -554,9 +503,77 @@
                         android:layout_marginStart="28dp"
                         android:text="2018-07-25"
                         android:textColor="@color/text6"
-                        android:textDirection="locale"
                         android:textSize="13dp" />
 
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingEnd="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/factory_real_map"
+                        android:textColor="@color/text3"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/iv_image_4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@mipmap/myy322x"
+                            android:scaleType="centerCrop" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/iv_image_5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@mipmap/myy322x"
+                            android:scaleType="centerCrop" />
+                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
