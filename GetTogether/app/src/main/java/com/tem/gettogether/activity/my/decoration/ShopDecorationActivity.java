@@ -92,6 +92,8 @@ public class ShopDecorationActivity extends BaseMvpActivity<ShopDecorationPresen
     private EditText jianjie_tv;
     @ViewInject(R.id.tv_title_right)
     private TextView tv_title_right;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private MyPublicTaskRecycleAdapter mTaskImgAdapter;
     private ArrayList<String> imagePaths = new ArrayList<>();
     private String logo_image = "";
@@ -109,6 +111,9 @@ public class ShopDecorationActivity extends BaseMvpActivity<ShopDecorationPresen
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         tv_title.setText(getText(R.string.store_construction));
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setText(R.string.decoration_notice);

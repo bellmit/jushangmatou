@@ -34,8 +34,6 @@ public class XunPanTuiSongActivity extends BaseActivity {
     private TabLayout myTab;
     @ViewInject(R.id.myView)
     private ViewPager myView;
-    @ViewInject(R.id.head_view)
-    private TextView head_view;
     @ViewInject(R.id.tv_title_right)
     TextView tv_title_right;
     private List<String> myTitle;
@@ -50,7 +48,6 @@ public class XunPanTuiSongActivity extends BaseActivity {
             tv_title_right.setTextSize(14);
             tv_title_right.setText(getText(R.string.ckhyqx));
         }
-        head_view.setVisibility(View.GONE);
         initDatas();
         initViews();
     }

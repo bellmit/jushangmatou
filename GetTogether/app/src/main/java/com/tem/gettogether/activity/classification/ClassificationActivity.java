@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -59,6 +60,8 @@ public class ClassificationActivity extends BaseActivity {
     private RelativeLayout ll_empty;
     @ViewInject(R.id.refreshLayout)
     private TwinklingRefreshLayout refreshLayout;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
 
     private String classificationId;
     private ClassificationListAdapter mClassifcationListAdapter;
@@ -77,6 +80,9 @@ public class ClassificationActivity extends BaseActivity {
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         tv_title.setText(getIntent().getStringExtra("classification_name"));
         classificationId = getIntent().getStringExtra("classification_id");
         is_yilian = getIntent().getBooleanExtra("is_yilian", false);
@@ -146,6 +152,7 @@ public class ClassificationActivity extends BaseActivity {
         }
         showDialog();
         String url = "";
+        Log.e("chenshichun","---is_yilian--"+is_yilian);
         if (is_yilian) {
             url = URLConstant.LIANYI_SEARCH_LIST_URL;
         } else {

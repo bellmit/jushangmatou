@@ -90,24 +90,21 @@ public class GRMeassageActivity extends BaseActivity {
     private final int PHOTO_PICKED_FROM_FILE = 222; // 用来标识从相册获取头像
     private final int CROP_FROM_CAMERA = 333;
     private File mCropImageFile;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        x.view().inject(this);
-        initData();
-        initView();
-    }
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
 
     @Override
     protected void initData() {
+        x.view().inject(this);
         tv_title.setText(R.string.gerenzhongxin);
-
     }
 
     @Override
     protected void initView() {
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         upGetMessageData();
     }
 

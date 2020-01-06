@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
@@ -26,7 +27,8 @@ public class BankCardBDActivity extends BaseActivity {
     private EditText et_name;
     @ViewInject(R.id.et_yhanka)
     private EditText et_yhanka;
-
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,9 @@ public class BankCardBDActivity extends BaseActivity {
     @Override
     protected void initView() {
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
     }
     @Event(value = {R.id.rl_close,R.id.tv_xiayibu}, type = View.OnClickListener.class)
     private void getEvent(View view) {

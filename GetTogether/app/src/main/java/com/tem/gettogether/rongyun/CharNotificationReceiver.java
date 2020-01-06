@@ -18,12 +18,19 @@ public class CharNotificationReceiver extends PushMessageReceiver {
 
     @Override
     public boolean onNotificationMessageArrived(Context context, PushType pushType, PushNotificationMessage pushNotificationMessage) {
-        Log.e("chenshichun","---收到服务器推送--");
+        Log.e("chenshichun","---收到服务器推送--"+pushType);
         return false;
     }
 
     @Override
     public boolean onNotificationMessageClicked(Context context, PushType pushType, PushNotificationMessage pushNotificationMessage) {
         return false;
+    }
+
+    @Override
+    public void onThirdPartyPushState(PushType pushType, String action, long resultCode) {
+        Log.e("chenshichun","--onThirdPartyPushState-pushType--"+pushType);
+        Log.e("chenshichun","--onThirdPartyPushState-resultCode--"+resultCode);
+        super.onThirdPartyPushState(pushType, action, resultCode);
     }
 }

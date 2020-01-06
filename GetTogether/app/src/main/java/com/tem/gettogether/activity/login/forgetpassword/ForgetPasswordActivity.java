@@ -60,7 +60,8 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPasswordPresen
     private String mobileCode = "86";
     private String countryName = "中国";
     private int type = 0;
-
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     @Override
     protected void initData() {
         x.view().inject(this);
@@ -121,6 +122,10 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPasswordPresen
     @Override
     protected void initView() {
         StatusBarUtil.setTranslucentStatus(this);
+
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
     }
 
     @Override

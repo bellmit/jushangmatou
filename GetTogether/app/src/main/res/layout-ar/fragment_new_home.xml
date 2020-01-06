@@ -9,144 +9,305 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
+        <View
+            android:id="@+id/status_bar_id"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:background="@color/colorPrimary"
-            android:visibility="gone" />
+            android:layout_height="0dp"
+            android:background="@color/colorPrimaryDark"
+            android:fitsSystemWindows="true" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp">
+            android:layout_height="match_parent"
+            android:layout_alignTop="@id/status_bar_id"
+            android:background="@color/white"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_YuYQH"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:drawableLeft="@drawable/yuqiehh"
-                android:drawablePadding="6dp"
-                android:gravity="center"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:text="@string/language"
-                android:textColor="@color/text3"
-                android:textSize="14dp" />
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="@color/colorPrimary"
+                android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/tv_sousuo"
-                android:layout_width="0dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="16dp"
-                android:layout_weight="1"
-                android:background="@drawable/home_sousuo"
-                android:drawablePadding="10dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:paddingStart="10dp"
-                android:text="@string/qsrssnr"
-                android:textSize="13dp" />
+                android:orientation="horizontal"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp">
 
-            <RelativeLayout
-                android:id="@+id/rl_saoyisao"
-                android:layout_width="50dp"
+                <TextView
+                    android:id="@+id/tv_YuYQH"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@drawable/yuqiehh"
+                    android:drawablePadding="6dp"
+                    android:gravity="center"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="@string/language"
+                    android:textColor="@color/text3"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/tv_sousuo"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/home_sousuo"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:text="@string/qsrssnr"
+                    android:textSize="13dp" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_saoyisao"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/sousuo" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+                android:id="@+id/refreshLayout"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/sousuo" />
-            </RelativeLayout>
-
-        </LinearLayout>
-
-        <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
-            android:id="@+id/refreshLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.tem.gettogether.view.BaseScrollView
-                android:id="@+id/mScrollView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="none">
-
-                <LinearLayout
+                <com.tem.gettogether.view.BaseScrollView
+                    android:id="@+id/mScrollView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <com.youth.banner.Banner
-                        android:id="@+id/banner"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:image_scale_type="center_crop"
-                        app:indicator_drawable_selected="@drawable/banner_bg2"
-                        app:indicator_drawable_unselected="@drawable/banner_bg"
-                        app:indicator_height="1dp"
-                        app:indicator_width="10dp" />
+                    android:scrollbars="none">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical|end"
-                        android:orientation="horizontal"
-                        android:paddingStart="@dimen/dp_15">
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:layout_width="30px"
-                            android:layout_height="30px"
-                            android:background="@drawable/home_message" />
+                        <com.youth.banner.Banner
+                            android:id="@+id/banner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:image_scale_type="center_crop"
+                            app:indicator_drawable_selected="@drawable/banner_bg2"
+                            app:indicator_drawable_unselected="@drawable/banner_bg"
+                            app:indicator_height="1dp"
+                            app:indicator_width="10dp" />
 
-                        <com.sunfusheng.marqueeview.MarqueeView
-                            android:id="@+id/marqueeview"
-                            android:layout_width="0dp"
-                            android:layout_height="30dp"
-                            android:layout_marginStart="@dimen/dp_10"
-                            android:layout_weight="1"
-                            android:layout_gravity="end"
-                            app:mvAnimDuration="1000"
-                            app:mvDirection="bottom_to_top"
-                            app:mvInterval="3000"
-                            app:mvSingleLine="true"
-                            app:mvTextColor="@color/my_red"
-                            app:mvTextSize="14sp" />
-                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingEnd="@dimen/dp_5">
+
+                            <com.sunfusheng.marqueeview.MarqueeView
+                                android:id="@+id/marqueeview"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center"
+                                android:layout_marginEnd="@dimen/dp_10"
+                                android:layout_weight="1"
+                                app:mvAnimDuration="1000"
+                                app:mvDirection="bottom_to_top"
+                                app:mvGravity="left"
+                                app:mvInterval="3000"
+                                app:mvSingleLine="true"
+                                app:mvTextColor="@color/my_red"
+                                app:mvTextSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="30px"
+                                android:layout_height="30px"
+                                android:background="@drawable/home_message" />
+                        </LinearLayout>
 
 
-                    <TextView
-                        android:id="@+id/tv_gonggao"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:drawableStart="@drawable/home_message"
-                        android:drawablePadding="8dp"
-                        android:ellipsize="marquee"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:gravity="center_vertical"
-                        android:paddingStart="16dp"
-                        android:singleLine="true"
-                        android:text="协同发展 相互赋能 生态聚商交易圈强势来袭 等你来看..."
-                        android:textColor="@color/text6"
-                        android:textSize="12dp"
-                        android:visibility="gone" />
+                        <TextView
+                            android:id="@+id/tv_gonggao"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:drawableStart="@drawable/home_message"
+                            android:drawablePadding="8dp"
+                            android:ellipsize="marquee"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:gravity="center_vertical"
+                            android:paddingStart="16dp"
+                            android:singleLine="true"
+                            android:text="协同发展 相互赋能 生态聚商交易圈强势来袭 等你来看..."
+                            android:textColor="@color/text6"
+                            android:textSize="12dp"
+                            android:visibility="gone" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                android:background="@color/line" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/recyclerView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/white"
+                                    android:paddingStart="16dp"
+                                    android:paddingEnd="8dp"
+                                    android:visibility="gone"></android.support.v7.widget.RecyclerView>
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="9dp"
+                                android:background="@color/line"
+                                android:visibility="gone" />
+
+                            <android.support.v4.view.ViewPager
+                                android:id="@+id/view_pager"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                            <net.lucode.hackware.magicindicator.MagicIndicator
+                                android:id="@+id/magicIndicator"
+                                android:layout_width="20dp"
+                                android:layout_height="4dp"
+                                android:layout_gravity="center" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="9dp"
+                                android:layout_marginTop="@dimen/dp_10"
+                                android:background="@color/line" />
+
+                            <TextView
+                                android:id="@+id/waimaoqiugou_tv"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@drawable/qiugou_icon"
+                                android:drawableEnd="@drawable/right_more"
+                                android:drawablePadding="@dimen/dp_10"
+                                android:gravity="center_vertical"
+                                android:padding="@dimen/dp_10"
+                                android:text="@string/waimaoqiugou"
+                                android:textColor="@color/black"
+                                android:textDirection="locale"
+                                android:textStyle="bold" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="9dp"
+                                android:background="@color/line"
+                                android:visibility="gone" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/buy_recyclerView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="9dp"
+                                android:background="@color/line" />
+
+                            <TextView
+                                android:id="@+id/waimaorexiao_tv"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@drawable/rexiao_icon"
+                                android:drawableEnd="@drawable/right_more"
+                                android:drawablePadding="@dimen/dp_10"
+                                android:gravity="center_vertical"
+                                android:padding="@dimen/dp_10"
+                                android:text="@string/waimaorexiao"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="9dp"
+                                android:background="@color/line"
+                                android:visibility="gone" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/sell_recyclerView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/white"></android.support.v7.widget.RecyclerView>
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="9dp"
+                                android:background="@color/line" />
+
+                            <TextView
+                                android:id="@+id/waimaolianmeng_tv"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@drawable/lianmemg_icon"
+                                android:drawableEnd="@drawable/right_more"
+                                android:drawablePadding="@dimen/dp_10"
+                                android:gravity="center_vertical"
+                                android:padding="@dimen/dp_10"
+                                android:text="@string/waimaolianmeng"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="9dp"
+                                android:background="@color/line"
+                                android:visibility="gone" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/lianmeng_recyclerView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="9dp"
+                                android:background="@color/line" />
+                        </LinearLayout>
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="10dp"
+                            android:layout_height="9dp"
                             android:background="@color/line" />
 
                         <RelativeLayout
@@ -154,263 +315,117 @@
                             android:layout_height="wrap_content">
 
                             <android.support.v7.widget.RecyclerView
-                                android:id="@+id/recyclerView"
+                                android:id="@+id/top_recyclerView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@color/white"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="8dp"
-                                android:visibility="gone"></android.support.v7.widget.RecyclerView>
+                                android:paddingStart="8dp"
+                                android:paddingEnd="8dp"></android.support.v7.widget.RecyclerView>
                         </RelativeLayout>
 
+                        <!--android:drawableStart="@drawable/xinping_icon"
+                        android:drawableEnd="@drawable/right_more"-->
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="9dp"
-                            android:background="@color/line"
-                            android:visibility="gone" />
-
-                        <android.support.v4.view.ViewPager
-                            android:id="@+id/view_pager"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                        <net.lucode.hackware.magicindicator.MagicIndicator
-                            android:id="@+id/magicIndicator"
-                            android:layout_width="20dp"
-                            android:layout_height="4dp"
-                            android:layout_gravity="center" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="9dp"
-                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_height="5dp"
                             android:background="@color/line" />
 
                         <TextView
-                            android:id="@+id/waimaoqiugou_tv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/qiugou_icon"
-                            android:drawableEnd="@drawable/right_more"
                             android:drawablePadding="@dimen/dp_10"
                             android:gravity="center_vertical"
                             android:padding="@dimen/dp_10"
-                            android:text="@string/waimaoqiugou"
-                            android:textColor="@color/black"
-                            android:textDirection="locale"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="9dp"
-                            android:background="@color/line"
-                            android:visibility="gone" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/buy_recyclerView"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
-                        </RelativeLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="9dp"
-                            android:background="@color/line" />
-
-                        <TextView
-                            android:id="@+id/waimaorexiao_tv"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/rexiao_icon"
-                            android:drawableEnd="@drawable/right_more"
-                            android:drawablePadding="@dimen/dp_10"
-                            android:gravity="center_vertical"
-                            android:padding="@dimen/dp_10"
-                            android:text="@string/waimaorexiao"
+                            android:text="@string/high_quality_recommendation"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="9dp"
-                            android:background="@color/line"
-                            android:visibility="gone" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/sell_recyclerView"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"></android.support.v7.widget.RecyclerView>
-                        </RelativeLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="9dp"
-                            android:background="@color/line" />
-
-                        <TextView
-                            android:id="@+id/waimaolianmeng_tv"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/lianmemg_icon"
-                            android:drawableEnd="@drawable/right_more"
-                            android:drawablePadding="@dimen/dp_10"
-                            android:gravity="center_vertical"
-                            android:padding="@dimen/dp_10"
-                            android:text="@string/waimaolianmeng"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="9dp"
-                            android:background="@color/line"
-                            android:visibility="gone" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/lianmeng_recyclerView"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
-                        </RelativeLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="9dp"
-                            android:background="@color/line" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="9dp"
-                        android:background="@color/line" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/top_recyclerView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:paddingStart="8dp"
-                            android:paddingEnd="8dp"></android.support.v7.widget.RecyclerView>
-                    </RelativeLayout>
-
-                    <!--android:drawableStart="@drawable/xinping_icon"
-                    android:drawableEnd="@drawable/right_more"-->
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="5dp"
-                        android:background="@color/line" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawablePadding="@dimen/dp_10"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/dp_10"
-                        android:text="@string/high_quality_recommendation"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingStart="@dimen/dp_5"
-                        android:paddingEnd="@dimen/dp_5">
-
-                        <ImageView
-                            android:id="@+id/img0"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:scaleType="fitXY"></ImageView>
-
-                        <View
-                            android:layout_width="@dimen/dp_10"
-                            android:layout_height="match_parent"
-                            android:background="@color/white" />
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:scaleType="fitXY">
+                            android:orientation="horizontal"
+                            android:paddingStart="@dimen/dp_5"
+                            android:paddingEnd="@dimen/dp_5">
 
                             <ImageView
-                                android:id="@+id/img1"
+                                android:id="@+id/img0"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:scaleType="fitXY"></ImageView>
 
                             <View
-                                android:layout_width="match_parent"
-                                android:layout_height="10dp"
+                                android:layout_width="@dimen/dp_10"
+                                android:layout_height="match_parent"
                                 android:background="@color/white" />
 
-                            <ImageView
-                                android:id="@+id/img2"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:scaleType="fitXY"></ImageView>
+                                android:orientation="vertical"
+                                android:scaleType="fitXY">
 
+                                <ImageView
+                                    android:id="@+id/img1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:scaleType="fitXY"></ImageView>
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="10dp"
+                                    android:background="@color/white" />
+
+                                <ImageView
+                                    android:id="@+id/img2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:scaleType="fitXY"></ImageView>
+
+                            </LinearLayout>
                         </LinearLayout>
-                    </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="5dp"
-                        android:background="@color/line" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="5dp"
+                            android:background="@color/line" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawablePadding="@dimen/dp_10"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/dp_10"
-                        android:text="@string/waimaoxinpin"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="4dp"
-                        android:background="@color/line"
-                        android:visibility="gone" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/line">
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/xinpin_recyclerView"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp_8"
-                            android:background="@color/line"></android.support.v7.widget.RecyclerView>
-                    </RelativeLayout>
+                            android:drawablePadding="@dimen/dp_10"
+                            android:gravity="center_vertical"
+                            android:padding="@dimen/dp_10"
+                            android:text="@string/waimaoxinpin"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="4dp"
-                        android:background="@color/line" />
-                </LinearLayout>
-            </com.tem.gettogether.view.BaseScrollView>
-        </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp"
+                            android:background="@color/line"
+                            android:visibility="gone" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/line">
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/xinpin_recyclerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_8"
+                                android:background="@color/line"></android.support.v7.widget.RecyclerView>
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp"
+                            android:background="@color/line" />
+                    </LinearLayout>
+                </com.tem.gettogether.view.BaseScrollView>
+            </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <ImageButton

@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
     android:layout_marginTop="10dp">
 
     <LinearLayout
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="DIV小屋手工制作手工拼装模型创意玩具小房别墅生日礼物物女生"
+                android:text="null"
                 android:textColor="@color/text3"
                 android:textSize="13dp" />
 
@@ -52,7 +52,7 @@
                     android:id="@+id/tv_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="¥45.50"
+                    android:text="¥0.0"
                     android:textColor="@color/my_zj_moneytext"
                     android:textSize="14dp" />
 
@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="10个起购"
+                    android:text="null"
                     android:textColor="@color/text6"
                     android:textSize="12dp" />
 

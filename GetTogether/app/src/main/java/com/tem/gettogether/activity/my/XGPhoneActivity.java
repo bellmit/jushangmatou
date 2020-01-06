@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -43,16 +44,12 @@ public class XGPhoneActivity extends BaseActivity {
     private TextView tv_dq_phone;
     @ViewInject(R.id.tv_title_ms)
     private TextView tv_title_ms;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        x.view().inject(this);
-        initData();
-        initView();
-    }
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
 
     @Override
     protected void initData() {
+        x.view().inject(this);
         tv_title.setText(R.string.bangding_phone);
         String phone=getIntent().getStringExtra("phone");
         tv_dq_phone.setText(phone);
@@ -66,7 +63,9 @@ public class XGPhoneActivity extends BaseActivity {
     @Override
     protected void initView() {
         StatusBarUtil.setTranslucentStatus(this);
-
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         et_phone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

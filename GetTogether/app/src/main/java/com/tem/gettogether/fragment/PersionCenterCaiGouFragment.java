@@ -319,20 +319,13 @@ public class PersionCenterCaiGouFragment extends BaseFragment {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
-                Log.e("chenshichun", "---订单数量--" + result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
-//                    CusToast.showToast(msg);
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         OrderCountBean mOrderCountBean = gson.fromJson(result, OrderCountBean.class);
-                        /*if (!mOrderCountBean.getResult().getAll_count().equals("0")) {
-                            count_0.setVisibility(View.VISIBLE);
-                        } else {
-                            count_0.setVisibility(View.GONE);
-                        }*/
                         if (!mOrderCountBean.getResult().getWaitsend().equals("0")) {
                             count_1.setVisibility(View.VISIBLE);
                         } else {

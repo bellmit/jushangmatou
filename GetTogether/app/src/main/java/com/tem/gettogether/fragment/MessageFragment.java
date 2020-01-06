@@ -75,7 +75,8 @@ public class MessageFragment extends BaseFragment {
     private TextView system_message_tv;
     @ViewInject(R.id.count_tv)
     private TextView count_tv;
-
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     long firstClick = 0;
     long secondClick = 0;
     private OnMessageListener listener;
@@ -101,6 +102,10 @@ public class MessageFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         baseActivity = (BaseActivity) getActivity();
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
+
         initData();
         recevier = new myReceiver();
         intentFilter = new IntentFilter();

@@ -245,6 +245,12 @@ public class OrderXQActivity extends BaseActivity {
                 break;
             case R.id.ll_lx_kf:
                 try {
+
+                    if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
+                        CusToast.showToast(getResources().getText(R.string.supplier_does_not_have_this_feature));
+                        return;
+                    }
+
                     if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0").equals("")) {
                         if (resultBeans != null && resultBeans.getUser_id() != null) {
                             RongTalk.doConnection(OrderXQActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")

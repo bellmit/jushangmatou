@@ -97,7 +97,8 @@ public class CorporateInformationActivity extends BaseActivity {
     private LinearLayout ll_image_xg;
     @ViewInject(R.id.country_ll)
     private LinearLayout country_ll;
-
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private List<CompanyPersionInformationBean.ResultBean.CountryBean> countryBeanBeans = new ArrayList<>();// 店铺主营大类数据
 
 
@@ -125,6 +126,10 @@ public class CorporateInformationActivity extends BaseActivity {
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
+
         informationType = getIntent().getIntExtra(Contacts.PERSION_ENTERPRISE_INFORMATION, 0);
         tv_title.setText(informationType == 0 ? getResources().getText(R.string.qiyexinxi) : getResources().getText(R.string.gerenxinxi));
         card2_ll.setVisibility(informationType == 0 ? View.VISIBLE : View.GONE);
@@ -139,6 +144,8 @@ public class CorporateInformationActivity extends BaseActivity {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
+        String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
+        map.put("language", yuyan);
         showDialog();
         XUtil.Post(URLConstant.PERSION_INFO, map, new MyCallBack<String>() {
             @Override
@@ -200,6 +207,8 @@ public class CorporateInformationActivity extends BaseActivity {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
+        String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
+        map.put("language", yuyan);
         showDialog();
         XUtil.Post(URLConstant.ENTERPISE_INFO, map, new MyCallBack<String>() {
             @Override

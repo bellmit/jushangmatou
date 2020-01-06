@@ -55,6 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:entries="@array/spingarr" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -79,8 +80,7 @@
                 android:background="@null"
                 android:gravity="top"
                 android:hint="@string/shuruwenzi"
-                android:imeOptions="actionDone"
-                 />
+                android:imeOptions="actionDone" />
 
             <ImageView
                 android:id="@+id/delete_iv"
@@ -100,14 +100,16 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:background="@color/white"
-            android:paddingLeft="@dimen/dp_10"
             android:gravity="top"
+            android:paddingLeft="@dimen/dp_10"
             android:visibility="visible" />
 
         <Button
             android:id="@+id/translation_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg"
+            android:textColor="@color/white"
             android:layout_marginTop="@dimen/dp_20"
             android:text="@string/fanyi" />
     </LinearLayout>

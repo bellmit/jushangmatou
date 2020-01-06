@@ -1,8 +1,10 @@
 package com.tem.gettogether.activity.login.phonelogin;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -72,7 +74,8 @@ public class PhoneLoginActivity extends BaseMvpActivity<PhoneLoginPresenter> imp
     private String fid = "";
     private String nickname = "";
     private String head_pic = "";
-
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     @Override
     protected void initData() {
         x.view().inject(this);
@@ -85,6 +88,9 @@ public class PhoneLoginActivity extends BaseMvpActivity<PhoneLoginPresenter> imp
     @Override
     protected void initView() {
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
         mCallbackManager = CallbackManager.Factory.create();

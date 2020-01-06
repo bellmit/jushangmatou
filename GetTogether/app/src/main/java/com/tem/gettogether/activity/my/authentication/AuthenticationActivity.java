@@ -102,7 +102,8 @@ public class AuthenticationActivity extends BaseMvpActivity<AuthenticationPresen
     private EditText et_youxiang;
     @ViewInject(R.id.et_moble)
     private EditText et_moble;
-
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     @ViewInject(R.id.et_shop_name)
     private EditText et_shop_name;
     @ViewInject(R.id.tv_dpzy)
@@ -156,6 +157,9 @@ public class AuthenticationActivity extends BaseMvpActivity<AuthenticationPresen
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         tv_title.setText(getText(R.string.shop_certification));
     }
 

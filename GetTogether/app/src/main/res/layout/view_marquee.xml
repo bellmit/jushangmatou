@@ -13,7 +13,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.6">
+            android:layout_weight="0.3">
 
             <com.tem.gettogether.view.CircularImage
                 android:id="@+id/img_iv"
@@ -26,6 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:visibility="gone"
                 android:layout_marginStart="@dimen/dp_10"
                 android:text="hello world"
                 android:textColor="@color/black"

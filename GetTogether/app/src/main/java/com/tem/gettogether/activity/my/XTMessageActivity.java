@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -48,6 +49,8 @@ public class XTMessageActivity extends BaseActivity {
     private TextView tv_title;
     @ViewInject(R.id.order_rl)
     private HomeListFreshRecyclerView order_rl;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     @ViewInject(R.id.order_refresh_fragment)
     private BGARefreshLayout order_refresh_fragment;
     private int PAGE_NUM = 1;
@@ -59,6 +62,9 @@ public class XTMessageActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         initData();
         initView();
     }

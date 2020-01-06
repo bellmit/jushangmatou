@@ -59,19 +59,13 @@ public class ZuJiActivity extends BaseActivity {
     @ViewInject(R.id.order_refresh_fragment)
     private BGARefreshLayout order_refresh_fragment;
     private int PAGE_NUM = 1;
-    private List<MyZJBean.ResultBean> listBeanXES=new ArrayList<>();
+    private List<MyZJBean.ResultBean> listBeanXES = new ArrayList<>();
     private List<MyZJBean.ResultBean> list;
     private Effectstype effect;
     @ViewInject(R.id.ll_look_more)
     private LinearLayout ll_look_more;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        x.view().inject(this);
-        StatusBarUtil.setTranslucentStatus(this);
-        initData();
-        initView();
-    }
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
 
     @Override
     protected void initView() {
@@ -84,12 +78,13 @@ public class ZuJiActivity extends BaseActivity {
                     }
                     return;
                 }
-                PAGE_NUM=1;
+                PAGE_NUM = 1;
                 clearList(listBeanXES);
-                    Map<String,Object> map3=new HashMap<>();
-                    map3.put("page",PAGE_NUM);
+                Map<String, Object> map3 = new HashMap<>();
+                map3.put("page", PAGE_NUM);
                 map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-
+                String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
+                map3.put("language", yuyan);
                 upShopData(map3);
 
 
@@ -102,10 +97,11 @@ public class ZuJiActivity extends BaseActivity {
                     return false;
                 }
                 PAGE_NUM++;
-                Map<String,Object> map3=new HashMap<>();
-                map3.put("page",PAGE_NUM);
+                Map<String, Object> map3 = new HashMap<>();
+                map3.put("page", PAGE_NUM);
                 map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-
+                String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
+                map3.put("language", yuyan);
                 upShopData(map3);
                 return true;
             }
@@ -115,31 +111,41 @@ public class ZuJiActivity extends BaseActivity {
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, true);
         // 设置下拉刷新
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.color_F3F5F4);//背景色
-        refreshViewHolder.setPullDownRefreshText(""+getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
-        refreshViewHolder.setReleaseRefreshText(""+getResources().getText(R.string.refresh_release_text));//松开的提示文字
-        refreshViewHolder.setRefreshingText(""+getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
+        refreshViewHolder.setPullDownRefreshText("" + getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
+        refreshViewHolder.setReleaseRefreshText("" + getResources().getText(R.string.refresh_release_text));//松开的提示文字
+        refreshViewHolder.setRefreshingText("" + getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
 
         // 设置下拉刷新和上拉加载更多的风格
         order_refresh_fragment.setRefreshViewHolder(refreshViewHolder);
         order_refresh_fragment.shouldHandleRecyclerViewLoadingMore(order_rl);
     }
+
     public void clearList(List<MyZJBean.ResultBean> list) {
         if (!ListUtils.isEmpty(list)) {
             list.clear();
         }
     }
+
     @Override
     protected void initData() {
+        x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         tv_title.setText(R.string.zuji);
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setText(R.string.qingkong);
-        Map<String,Object> map3=new HashMap<>();
-        map3.put("page","1");
+        Map<String, Object> map3 = new HashMap<>();
+        map3.put("page", "1");
         map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+        String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
+        map3.put("language", yuyan);
         upShopData(map3);
 
     }
-    @Event(value = {R.id.rl_close,R.id.rl_title_right,R.id.ll_look_more}, type = View.OnClickListener.class)
+
+    @Event(value = {R.id.rl_close, R.id.rl_title_right, R.id.ll_look_more}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
@@ -151,17 +157,20 @@ public class ZuJiActivity extends BaseActivity {
                 break;
             case R.id.ll_look_more:
                 PAGE_NUM++;
-                Map<String,Object> map3=new HashMap<>();
-                map3.put("page",PAGE_NUM);
+                Map<String, Object> map3 = new HashMap<>();
+                map3.put("page", PAGE_NUM);
                 map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+                String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
+                map3.put("language", yuyan);
                 upShopData(map3);
                 break;
 
         }
     }
-    private void  upShopData(Map<String,Object> map){
 
-        XUtil.Post(URLConstant.SHOPPING_ZUJI,map,new MyCallBack<String>(){
+    private void upShopData(Map<String, Object> map) {
+
+        XUtil.Post(URLConstant.SHOPPING_ZUJI, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -172,25 +181,24 @@ public class ZuJiActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
 
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        MyZJBean myZJBean=gson.fromJson(result,MyZJBean.class);
-                        if(PAGE_NUM==1){
-                            listBeanXES=myZJBean.getResult();
-                        }else{
-                            list=myZJBean.getResult();
-                            if (list.size()==0){
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        MyZJBean myZJBean = gson.fromJson(result, MyZJBean.class);
+                        if (PAGE_NUM == 1) {
+                            listBeanXES = myZJBean.getResult();
+                        } else {
+                            list = myZJBean.getResult();
+                            if (list.size() == 0) {
                                 CusToast.showToast(getText(R.string.no_more_data));
                                 return;
                             }
                             listBeanXES.addAll(list);
                         }
 
-                    }else{
+                    } else {
                         String msg = jsonObject.optString("msg");
                         CusToast.showToast(msg);
                     }
-
 
 
                 } catch (JSONException e) {
@@ -201,8 +209,8 @@ public class ZuJiActivity extends BaseActivity {
             @Override
             public void onFinished() {
                 super.onFinished();
-                    MyZujiAdapter adapter=new MyZujiAdapter(listBeanXES);
-                    order_rl.setAdapter(adapter);
+                MyZujiAdapter adapter = new MyZujiAdapter(listBeanXES);
+                order_rl.setAdapter(adapter);
 
             }
 
@@ -214,11 +222,11 @@ public class ZuJiActivity extends BaseActivity {
             }
         });
     }
-    private void upRemoveAllData(){
-        Map<String,Object> map=new HashMap<>();
-        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
 
-        XUtil.Post(URLConstant.SHOPPING_REMOVEALLZUJI,map,new MyCallBack<String>(){
+    private void upRemoveAllData() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+        XUtil.Post(URLConstant.SHOPPING_REMOVEALLZUJI, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -227,12 +235,13 @@ public class ZuJiActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        Map<String,Object> map3=new HashMap<>();
-                        map3.put("page","1");
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        Map<String, Object> map3 = new HashMap<>();
+                        map3.put("page", "1");
                         map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-
+                        String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
+                        map3.put("language", yuyan);
                         upShopData(map3);
                     }
                     CusToast.showToast(msg);
@@ -256,12 +265,12 @@ public class ZuJiActivity extends BaseActivity {
             }
         });
     }
-    private void upRemoveitenmData(String footprint_id){
-        Map<String,Object> map=new HashMap<>();
-        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-        map.put("footprint_id",footprint_id);
 
-        XUtil.Post(URLConstant.SHOPPING_REMOVEITEMZUJI,map,new MyCallBack<String>(){
+    private void upRemoveitenmData(String footprint_id) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
+        map.put("footprint_id", footprint_id);
+        XUtil.Post(URLConstant.SHOPPING_REMOVEITEMZUJI, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -271,12 +280,13 @@ public class ZuJiActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        Map<String,Object> map3=new HashMap<>();
-                        map3.put("page","1");
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        Map<String, Object> map3 = new HashMap<>();
+                        map3.put("page", "1");
                         map3.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-
+                        String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
+                        map3.put("language", yuyan);
                         upShopData(map3);
                     }
                     CusToast.showToast(msg);
@@ -300,6 +310,7 @@ public class ZuJiActivity extends BaseActivity {
             }
         });
     }
+
     public class MyZujiAdapter extends BaseQuickAdapter {
 
         public MyZujiAdapter(List<MyZJBean.ResultBean> data) {//
@@ -308,15 +319,19 @@ public class ZuJiActivity extends BaseActivity {
 
         @Override
         protected void convert(final com.chad.library.adapter.base.BaseViewHolder baseViewHolder, Object o) {
-            ImageView iv_image=baseViewHolder.getView(R.id.iv_image);
-                    if(listBeanXES.get(baseViewHolder.getAdapterPosition()).getGoods_name()!=null&&!listBeanXES.get(baseViewHolder.getAdapterPosition()).getGoods_name().equals("")
-                            &&!listBeanXES.get(baseViewHolder.getAdapterPosition()).getFootprint_id().equals("")&&!listBeanXES.get(baseViewHolder.getAdapterPosition()).getStore_id().equals("")) {
-                        Glide.with(ZuJiActivity.this).load(listBeanXES.get(baseViewHolder.getAdapterPosition()).getOriginal_img()).error(R.mipmap.myy322x).into(iv_image);
-                        baseViewHolder.setText(R.id.tv_title,listBeanXES.get(baseViewHolder.getAdapterPosition()).getGoods_name());
-                        baseViewHolder.setText(R.id.tv_price,"¥"+listBeanXES.get(baseViewHolder.getAdapterPosition()).getGoods_price());
-                        baseViewHolder.setText(R.id.tv_qg,listBeanXES.get(baseViewHolder.getAdapterPosition()).getBatch_number()+getText(R.string.purchase));
+            ImageView iv_image = baseViewHolder.getView(R.id.iv_image);
+            if (listBeanXES.get(baseViewHolder.getAdapterPosition()).getGoods_name() != null && !listBeanXES.get(baseViewHolder.getAdapterPosition()).getGoods_name().equals("")
+                    && !listBeanXES.get(baseViewHolder.getAdapterPosition()).getFootprint_id().equals("") && !listBeanXES.get(baseViewHolder.getAdapterPosition()).getStore_id().equals("")) {
+                Glide.with(ZuJiActivity.this).load(listBeanXES.get(baseViewHolder.getAdapterPosition()).getOriginal_img()).error(R.mipmap.myy322x).into(iv_image);
+                baseViewHolder.setText(R.id.tv_title, listBeanXES.get(baseViewHolder.getAdapterPosition()).getGoods_name());
+                if (listBeanXES.get(baseViewHolder.getAdapterPosition()).getIs_enquiry().equals("1")) {
+                    baseViewHolder.setText(R.id.tv_price, mContext.getText(R.string.negotiable_tv));
+                }else {
+                    baseViewHolder.setText(R.id.tv_price, "¥" + listBeanXES.get(baseViewHolder.getAdapterPosition()).getGoods_price());
+                }
+                baseViewHolder.setText(R.id.tv_qg, listBeanXES.get(baseViewHolder.getAdapterPosition()).getBatch_number() + getText(R.string.purchase));
 
-                    }
+            }
 
             baseViewHolder.getView(R.id.ll_item).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -328,10 +343,10 @@ public class ZuJiActivity extends BaseActivity {
 
                         }*/
 
-                        if(!listBeanXES.get(baseViewHolder.getAdapterPosition()).getFootprint_id().equals("")){
-                            startActivity(new Intent(ZuJiActivity.this, ShoppingParticularsActivity.class)
-                                    .putExtra("goods_id",listBeanXES.get(baseViewHolder.getAdapterPosition()).getPid()));
-                        }
+                    if (!listBeanXES.get(baseViewHolder.getAdapterPosition()).getFootprint_id().equals("")) {
+                        startActivity(new Intent(ZuJiActivity.this, ShoppingParticularsActivity.class)
+                                .putExtra("goods_id", listBeanXES.get(baseViewHolder.getAdapterPosition()).getPid()));
+                    }
 
                 }
             });
@@ -361,10 +376,10 @@ public class ZuJiActivity extends BaseActivity {
                             .setButton2Click(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                        if(!listBeanXES.get(baseViewHolder.getAdapterPosition()).getFootprint_id().equals("")){
-                                            upRemoveitenmData(listBeanXES.get(baseViewHolder.getAdapterPosition()).getFootprint_id());
-                                            dialogLogout.dismiss();
-                                        }
+                                    if (!listBeanXES.get(baseViewHolder.getAdapterPosition()).getFootprint_id().equals("")) {
+                                        upRemoveitenmData(listBeanXES.get(baseViewHolder.getAdapterPosition()).getFootprint_id());
+                                        dialogLogout.dismiss();
+                                    }
 
                                 }
                             })
@@ -372,7 +387,7 @@ public class ZuJiActivity extends BaseActivity {
                     return true;
                 }
             });
-            
+
         }
     }
 }

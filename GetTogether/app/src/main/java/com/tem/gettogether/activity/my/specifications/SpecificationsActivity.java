@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
@@ -51,6 +52,8 @@ public class SpecificationsActivity extends BaseMvpActivity<SpecificationsPresen
     private RecyclerView recyclerView;
     @ViewInject(R.id.description_tv)
     private TextView description_tv;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private SpecificationsAdapter mSpecificationsAdapter;
     String format;
     String specification_description;
@@ -63,7 +66,9 @@ public class SpecificationsActivity extends BaseMvpActivity<SpecificationsPresen
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
-
+        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         mPresenter = new SpecificationsPresenter(getContext(), SpecificationsActivity.this);
         mPresenter.attachView(this);
         tv_title.setText(getText(R.string.product_specifications));

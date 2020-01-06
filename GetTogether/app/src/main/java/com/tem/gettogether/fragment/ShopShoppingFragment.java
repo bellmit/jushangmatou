@@ -20,12 +20,14 @@ import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.home.ShoppingParticularsActivity;
 import com.tem.gettogether.base.BaseActivity;
+import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.BaseFragment;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.bean.ShopKeyBean;
 import com.tem.gettogether.bean.ShopShoppingBean;
 import com.tem.gettogether.utils.ListUtils;
 import com.tem.gettogether.utils.NetWorkUtils;
+import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tem.gettogether.utils.UiUtils;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -381,7 +383,8 @@ public class ShopShoppingFragment extends BaseFragment {
             }
         }
         baseActivity.showDialog();
-
+        String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
+        map.put("language", yuyan);
         XUtil.Post(URLConstant.SHOPSHOPIINGDATA,map,new MyCallBack<String>(){
             @Override
             public void onSuccess(String result) {

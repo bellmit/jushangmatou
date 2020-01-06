@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
@@ -30,6 +31,8 @@ public class ProductManagmentActivity extends BaseActivity {
     private TabLayout myTab;
     @ViewInject(R.id.myView)
     private ViewPager myView;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private List<String> myTitle;
     private List<Fragment> myFragment;
     private  FragmentPagerAdapter fragmentPagerAdapter;
@@ -37,6 +40,9 @@ public class ProductManagmentActivity extends BaseActivity {
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         tv_title.setText(getText(R.string.product_management));
         initDatas();
         initViews();

@@ -455,6 +455,8 @@ public class ShopHomeFragment extends BaseFragment {
                 Log.e("--搜索参数打印--" + key, "" + value + "\n");
             }
         }
+        String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
+        map.put("language", yuyan);
         baseActivity.showDialog();
         XUtil.Post(URLConstant.SHOPSHOPIINGDATA,map,new MyCallBack<String>(){
             @Override

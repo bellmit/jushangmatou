@@ -91,12 +91,9 @@ public class ProductManagmentFragment extends BaseFragment {
     private void initDatas(final int currentPage, final boolean isLoadMore) {
         Map<String, Object> map = new HashMap<>();
         String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
-        if (yuyan != null) {
-            map.put("language", yuyan);
-        }
+        map.put("language", yuyan);
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         map.put("page", currentPage);
-        Log.d("chenshichun","=====currentPage======"+currentPage);
         map.put("list_row", 10);
         map.put("tap", tap);
         XUtil.Post(URLConstant.PRODUCT_MANAGEMENT, map, new MyCallBack<String>() {
@@ -118,10 +115,10 @@ public class ProductManagmentFragment extends BaseFragment {
                                 setData();
                             }
                         } else {
-                            if(gson.fromJson(result, ProductManagementBean.class).getResult()!=null&&gson.fromJson(result, ProductManagementBean.class).getResult().size()>0) {
+                            if (gson.fromJson(result, ProductManagementBean.class).getResult() != null && gson.fromJson(result, ProductManagementBean.class).getResult().size() > 0) {
                                 mProductManagementBeans.addAll(gson.fromJson(result, ProductManagementBean.class).getResult());
                                 mProductManagmentAdapter.notifyDataSetChanged();
-                            }else{
+                            } else {
                                 CusToast.showToast(getResources().getText(R.string.no_more_data));
                             }
                         }
@@ -197,7 +194,7 @@ public class ProductManagmentFragment extends BaseFragment {
 
             @Override
             public void setEditClick(String id) {
-                startActivity(new Intent(getContext(), PublishGoodsActivity.class).putExtra("goodsID",id));
+                startActivity(new Intent(getContext(), PublishGoodsActivity.class).putExtra("goodsID", id));
             }
 
             @Override

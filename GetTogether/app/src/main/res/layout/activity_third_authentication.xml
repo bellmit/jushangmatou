@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <View
+        android:id="@+id/status_bar_id"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:background="@drawable/plan_progress_one" />
@@ -74,7 +75,7 @@
                         android:visibility="invisible" />
 
                     <TextView
-                        android:layout_width="100dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/subscript_icon"
                         android:gravity="center"
@@ -367,7 +368,7 @@
                         android:visibility="invisible" />
 
                     <TextView
-                        android:layout_width="100dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/subscript_icon"
                         android:gravity="center"

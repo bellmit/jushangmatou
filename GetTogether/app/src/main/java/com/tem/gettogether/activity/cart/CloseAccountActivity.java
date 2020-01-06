@@ -96,6 +96,8 @@ public class CloseAccountActivity extends BaseActivity {
     private RelativeLayout rl_title_right;
     @ViewInject(R.id.tv_title_right)
     private TextView tv_title_right;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private String cartid;
     private JieSuanBean.ResultBean.AddressListBean addressListBeans = new JieSuanBean.ResultBean.AddressListBean();
     private JieSuanBean.ResultBean.TotalPriceBean totalPriceBean = new JieSuanBean.ResultBean.TotalPriceBean();
@@ -106,16 +108,12 @@ public class CloseAccountActivity extends BaseActivity {
     private int ADDRESS = 100;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
-        initData();
-
-    }
-
-    @Override
-    protected void initData() {
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         tv_title.setText(getResources().getText(R.string.bill_tv));
         cartid = getIntent().getStringExtra("cartid");
         goods_id = getIntent().getStringExtra("goods_id");

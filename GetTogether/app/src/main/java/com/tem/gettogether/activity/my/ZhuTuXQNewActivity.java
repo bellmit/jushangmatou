@@ -8,6 +8,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -53,13 +54,17 @@ public class ZhuTuXQNewActivity extends BaseActivity {
     private TextView tv_title_right;
     @ViewInject(R.id.iamge_iv)
     private ImageView iamge_iv;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private String compressImageFilePath;
     private String cover_image="";
     @Override
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
-
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         tv_title.setText(getText(R.string.product_master_map));
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setText(getText(R.string.save));

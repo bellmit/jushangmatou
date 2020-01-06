@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <View
+        android:id="@+id/status_bar_id"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:background="@drawable/plan_progress_one" />
@@ -254,7 +255,7 @@
 
                 <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@null"
                     android:hint="@string/qsrndly"
                     android:textColorHint="@color/cart_text_cf"

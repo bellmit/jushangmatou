@@ -95,12 +95,16 @@ public class BuyMemberActivity extends BaseActivity {
     String expire_time;
     private String ordinaryMember, seniorMember, lever;// lever:7 游客，lever:1 普通会员 ，lever:2 高级会员
     private String userLever = "";
-
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         // 注册订阅者
         EventBus.getDefault().register(this);
         PayManager.getPayManager().addActivity(this);

@@ -73,7 +73,8 @@ public class CgsAuthenticationActivity extends BaseActivity {
     private ImageView iv_image_1;
     @ViewInject(R.id.rl_card_image1)
     private RelativeLayout rl_card_image1;
-
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     //系统相机
     public static final int REQUEST_CODE_CAMERA_PERMISSION = 101;
     //系统相册
@@ -97,7 +98,9 @@ public class CgsAuthenticationActivity extends BaseActivity {
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
-
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         tv_title.setText(getText(R.string.buyer_certification));
     }
 

@@ -127,6 +127,7 @@ public class ShopActivity extends BaseActivity {
     private RelativeLayout rl_sousuo;
     @ViewInject(R.id.banner)
     private Banner banner;
+    private String gztype;// 关注
 
     @TargetApi(19)
     public void setTranslucentStatus(boolean on) {
@@ -151,7 +152,7 @@ public class ShopActivity extends BaseActivity {
         shopShoppingFragment = new ShopShoppingFragment();
         shopPingJFragment = new ShopPingJFragment();
         shopDongTFragment = new ShopDongTFragment();
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null && baseFragment.getClass() != null) {
             baseFragment = (BaseFragment) getSupportFragmentManager().getFragment(savedInstanceState, baseFragment.getClass().getSimpleName());
         } else {
             switch (type) {
@@ -203,7 +204,7 @@ public class ShopActivity extends BaseActivity {
                     break;
             }
         }
-        if (!baseFragment.isAdded()) {
+        if (!baseFragment.isAdded() && baseFragment.getClass() != null) {
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_item_shop, baseFragment, baseFragment.getClass().getSimpleName()).show(baseFragment).commit();
         }
         initView();
@@ -267,7 +268,7 @@ public class ShopActivity extends BaseActivity {
                         if (resultBean != null && resultBean.getStore_user_id() != null) {
                             RongTalk.doConnection(ShopActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                                     , resultBean.getStore_user_id(), resultBean.getStore_name(),
-                                    resultBean.getStore_logo(), resultBean.getStore_id(),null);
+                                    resultBean.getStore_logo(), resultBean.getStore_id(), null);
                         } else {
                             CusToast.showToast(getText(R.string.the_store_is_invalid));
                         }
@@ -477,18 +478,19 @@ public class ShopActivity extends BaseActivity {
                         ShopTopBean shopTopBean = gson.fromJson(result, ShopTopBean.class);
                         resultBean = shopTopBean.getResult();
                         storeBannerBeans = shopTopBean.getResult().getStore_banner();
-                        EventBus.getDefault().post(storeBannerBeans);
+//                        EventBus.getDefault().post(storeBannerBeans);
                         tv_shop_name.setText(resultBean.getStore_name());
                         tv_shop_peopleNum.setText(resultBean.getStore_collect() + getText(R.string.concerned));
                         tv_shop_xj.setText(resultBean.getStore_name());
                         Glide.with(ShopActivity.this).load(resultBean.getStore_logo()).error(R.drawable.head_bg).into(iv_shop_image);
-
                         Glide.with(ShopActivity.this).load(resultBean.getStore_background()).error(R.drawable.shop_bg).into(iv_image_top);
                         if (resultBean.getIs_collect().equals("0")) {
+                            gztype = "0";
                             tv_isgz.setText(getText(R.string.attention));
                             iv_isgz_icon.setVisibility(View.VISIBLE);
                             iv_isgz_icon.setImageResource(R.drawable.add_icon_b);
                         } else {
+                            gztype = "1";
                             tv_isgz.setText(getText(R.string.has_been_concerned));
                             iv_isgz_icon.setVisibility(View.GONE);
                             iv_isgz_icon.setImageResource(R.drawable.yi_guanzhu);
@@ -497,6 +499,7 @@ public class ShopActivity extends BaseActivity {
 //                        onMessage(resultBean.getStore_banner());
                     }
                 } catch (JSONException e) {
+                    Log.e("chenshichun", "-----" + e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -570,14 +573,17 @@ public class ShopActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
-                    Log.i("====店铺关注===", result + msg);
+                    Log.e("chenshichun", "====店铺关注===" + result);
+                    Log.e("chenshichun", "---gztype--" + gztype);
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        if (msg.equals(getText(R.string.successful_collection))) {
+                        if (gztype.equals("0")) {
+                            gztype = "1";
                             tv_isgz.setText(getText(R.string.has_been_concerned));
                             iv_isgz_icon.setVisibility(View.GONE);
                             iv_isgz_icon.setImageResource(R.drawable.yi_guanzhu);
-                        } else if (msg.equals(getText(R.string.cancel_success))) {
+                        } else {
+                            gztype = "0";
                             tv_isgz.setText(getText(R.string.attention));
                             iv_isgz_icon.setVisibility(View.VISIBLE);
                             iv_isgz_icon.setImageResource(R.drawable.add_icon_b);

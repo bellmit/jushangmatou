@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <View
+        android:id="@+id/status_bar_id"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:background="@drawable/plan_progress_one" />
@@ -57,6 +58,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
+                        android:gravity="center_vertical"
                         android:hint="@string/input_contacts_name"
                         android:inputType="text"
                         android:maxLength="12"
@@ -100,6 +102,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
+                        android:gravity="center_vertical"
                         android:hint="@string/input_contacts_phone_nun"
                         android:inputType="number"
                         android:maxLength="11"
@@ -142,6 +145,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
+                        android:gravity="center_vertical"
                         android:hint="@string/input_contacts_email"
                         android:maxLines="1"
                         android:paddingStart="10dp"
@@ -182,6 +186,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
+                        android:gravity="center_vertical"
                         android:hint="@string/qsrndweixinhao"
                         android:maxLines="1"
                         android:paddingStart="10dp"

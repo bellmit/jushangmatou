@@ -27,6 +27,7 @@ import com.tem.gettogether.bean.AddressDataBean;
 import com.tem.gettogether.bean.AddressXQBean;
 import com.tem.gettogether.utils.ListUtils;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
 import com.tem.gettogether.view.SwitchView;
@@ -73,29 +74,26 @@ public class AddAddressActivity extends BaseActivity {
     private EditText et_phone;
     @ViewInject(R.id.et_xxdz)
     private EditText et_xxdz;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
+
     private String is_default = "1";
     private String type = "1";
     private String address_id;
     private AddressXQBean.ResultBean resultBean = new AddressXQBean.ResultBean();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        x.view().inject(this);
-
-        initData();
-        initView();
-        upGetAddressData("0");
-
-    }
-
-    @Override
     protected void initData() {
+        x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
+        upGetAddressData("0");
         address_id = getIntent().getStringExtra("address_id");
         if (address_id != null) {
             tv_title.setText(getText(R.string.modify_shipping_address));
             upgetAddressData();
-
         } else {
             tv_title.setText(getText(R.string.new_harvest_address));
             switchView.setOpened(true);
@@ -112,7 +110,7 @@ public class AddAddressActivity extends BaseActivity {
         switchView.setOnStateChangedListener(new SwitchView.OnStateChangedListener() {
             @Override
             public void toggleToOn(View view) {
-                if(switchView.isOpened()==false){
+                if (switchView.isOpened() == false) {
                     switchView.setOpened(true);
                     is_default = "1";
                 }
@@ -121,7 +119,7 @@ public class AddAddressActivity extends BaseActivity {
 
             @Override
             public void toggleToOff(View view) {
-                if(switchView.isOpened()==true){
+                if (switchView.isOpened() == true) {
                     switchView.setOpened(false);
                     is_default = "0";
                 }
@@ -164,7 +162,7 @@ public class AddAddressActivity extends BaseActivity {
                 } /*else if (Sheng == null || city == null || qu == null) {
                     CusToast.showToast(getText(R.string.select_shipping_address));
                     return;
-                } */else if (xxdz.equals("")) {
+                } */ else if (xxdz.equals("")) {
                     CusToast.showToast(getText(R.string.enter_detail_address));
                     return;
                 } else {
@@ -252,7 +250,7 @@ public class AddAddressActivity extends BaseActivity {
                     if (res.equals("1")) {
                         Gson gson = new Gson();
                         AddressXQBean addressXQBean = gson.fromJson(result, AddressXQBean.class);
-                        resultBean=addressXQBean.getResult();
+                        resultBean = addressXQBean.getResult();
                     }
 
                 } catch (JSONException e) {
@@ -264,29 +262,29 @@ public class AddAddressActivity extends BaseActivity {
             public void onFinished() {
                 super.onFinished();
                 closeDialog();
-                if(resultBean==null)return;
+                if (resultBean == null) return;
                 et_shouhuoren.setText(resultBean.getConsignee());
-                Sheng=resultBean.getProvince();
-                city=resultBean.getCity();
-                qu=resultBean.getDistrict();
-                jiedao=resultBean.getTwon();
+                Sheng = resultBean.getProvince();
+                city = resultBean.getCity();
+                qu = resultBean.getDistrict();
+                jiedao = resultBean.getTwon();
                 et_phone.setText(resultBean.getMobile());
                 et_xxdz.setText(resultBean.getAddress());
-                tv_address.setText(resultBean.getProvince_name() + " " + resultBean.getCity_name() + " " + resultBean.getDistrict_name() + " " + resultBean.getTwon_name() );
+                tv_address.setText(resultBean.getProvince_name() + " " + resultBean.getCity_name() + " " + resultBean.getDistrict_name() + " " + resultBean.getTwon_name());
                 if (resultBean.getIs_default().equals("0")) {
                     tv_lx_xz.setVisibility(View.GONE);
                     tv_lx_xz2.setVisibility(View.VISIBLE);
                     iv_lx_xz.setVisibility(View.VISIBLE);
                     iv_lx_xz2.setVisibility(View.GONE);
-                }else {
+                } else {
                     tv_lx_xz2.setVisibility(View.GONE);
                     tv_lx_xz.setVisibility(View.VISIBLE);
                     iv_lx_xz2.setVisibility(View.VISIBLE);
                     iv_lx_xz.setVisibility(View.GONE);
                 }
-                if(resultBean.getType().equals("1")){
+                if (resultBean.getType().equals("1")) {
                     switchView.setOpened(true);
-                }else{
+                } else {
                     switchView.setOpened(false);
 
                 }

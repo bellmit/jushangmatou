@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -60,28 +61,27 @@ public class HomeSouSuoActivity extends BaseActivity {
     private EditText et_sousuo;
     @ViewInject(R.id.rl_close)
     private RelativeLayout rl_close;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private boolean is_yilian;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         is_yilian = getIntent().getBooleanExtra("is_yilian",false);
-        initData();
-        initView();
         upSouSuoLSData();
         upSouSuoHotData();
     }
 
     @Override
-    protected void initData() {
+    protected void initView() {
         recy_hot.setLayoutManager(new GridLayoutManager(this,3,LinearLayoutManager.VERTICAL,false));
         recy_sous_ls.setLayoutManager(new GridLayoutManager(this,3,LinearLayoutManager.VERTICAL,false));
         store_id = SharedPreferencesUtils.getString(getContext(),BaseConstant.SPConstant.Shop_store_id,"0");
-    }
-
-    @Override
-    protected void initView() {
         et_sousuo.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

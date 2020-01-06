@@ -5,6 +5,7 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
@@ -22,23 +23,22 @@ public class XeiYiH5Activity extends BaseActivity {
     private TextView tv_title;
     @ViewInject(R.id.webView)
     private WebView webView;
-    private String h5url,typeMain;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        StatusBarUtil.setTranslucentStatus(this);
-        x.view().inject(this);
-        initData();
-        initView();
-    }
+    private String h5url, typeMain;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
 
     @Override
     protected void initData() {
-        typeMain=getIntent().getStringExtra("typeMain");
-        h5url=getIntent().getStringExtra("h5url");
-        if(typeMain.equals("1")){
+        x.view().inject(this);
+        StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
+        typeMain = getIntent().getStringExtra("typeMain");
+        h5url = getIntent().getStringExtra("h5url");
+        if (typeMain.equals("1")) {
             tv_title.setText(getText(R.string.carousel_details));
-        }else {
+        } else {
             tv_title.setText(getText(R.string.jushang_terminal_service_agreement));
 
         }
@@ -64,6 +64,7 @@ public class XeiYiH5Activity extends BaseActivity {
 
         }
     }
+
     @Event(value = {R.id.rl_close}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {

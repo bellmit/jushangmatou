@@ -833,7 +833,7 @@
                     android:id="@+id/webView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                     />
             </LinearLayout>
         </com.tem.gettogether.view.BaseScrollView>
 

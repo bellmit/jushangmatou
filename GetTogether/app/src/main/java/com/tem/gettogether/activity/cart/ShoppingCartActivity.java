@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -76,6 +77,8 @@ public class ShoppingCartActivity extends BaseActivity {
     private BaseActivity baseActivity;
     @ViewInject(R.id.rl_close)
     private RelativeLayout rl_close;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private List<CartDataBean.ResultBean.StoreListBean> storeListBeans = new ArrayList<>();
     private CartDataBean.ResultBean.TotalPriceBean totalPriceBeans = new CartDataBean.ResultBean.TotalPriceBean();
     private String goods_id;
@@ -84,6 +87,11 @@ public class ShoppingCartActivity extends BaseActivity {
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
+
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
+
         initView();
     }
 
@@ -534,7 +542,7 @@ public class ShoppingCartActivity extends BaseActivity {
                                                                 if (storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList() != null && storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_user_id() != null) {
                                                                     RongTalk.doConnection(getContext(), SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                                                                             , storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_user_id(), storeListBeans.get(baseViewHolder.getAdapterPosition()).getStore_name(),
-                                                                            storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getCover_image(), storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_id(),null);
+                                                                            storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getCover_image(), storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getStore_id(), null);
                                                                 } else {
                                                                     CusToast.showToast(getResources().getText(R.string.the_store_is_invalid));
                                                                 }
@@ -551,6 +559,11 @@ public class ShoppingCartActivity extends BaseActivity {
                                                 @Override
                                                 public void onClick(View view) {
                                                     int numJian = Integer.parseInt(tv_connectNum.getText().toString().trim());
+                                                    int qipi = Integer.parseInt(storeListBeans.get(baseViewHolder.getAdapterPosition()).getCartList().get(position).getBatch_number());
+                                                    if (numJian <= qipi) {
+                                                        CusToast.showToast(getResources().getText(R.string.the_number_cannot_be_less_than_batch_number));
+                                                        return;
+                                                    }
                                                     if (numJian <= 1) {
                                                         CusToast.showToast(getResources().getText(R.string.the_number_cannot_be_less_than_one));
                                                         return;
@@ -622,8 +635,9 @@ public class ShoppingCartActivity extends BaseActivity {
 
     private void upCartData() {
         Map<String, Object> map = new HashMap<>();
+        String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
+        map.put("language", yuyan);
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
         XUtil.Post(URLConstant.CART_LIEBIAO, map, new MyCallBack<String>() {
             @Override

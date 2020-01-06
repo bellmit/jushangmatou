@@ -52,5 +52,12 @@
             app:layout_constraintTop_toTopOf="@id/pic_iv" />
 
     </android.support.constraint.ConstraintLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/line"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintTop_toBottomOf="@id/cl"
+        >
+    </View>
 </android.support.constraint.ConstraintLayout>

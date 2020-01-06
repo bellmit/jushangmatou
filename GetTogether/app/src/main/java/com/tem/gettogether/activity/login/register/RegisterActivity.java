@@ -68,6 +68,8 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
     private EditText nickname_tv;
     @ViewInject(R.id.et_passworld)
     private EditText et_passworld;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     @ViewInject(R.id.verification_code_tv)
     private EditText verification_code_tv;
     private String companyName;
@@ -77,7 +79,9 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
     private int type = 0;
     @ViewInject(R.id.checkbox)
     private CheckBox checkbox;
-
+    @ViewInject(R.id.tv_xieyi)
+    private TextView tv_xieyi;
+    private CountDownTimerUtils3 mCountDownTimerUtils;
     @Override
     protected void initData() {
         x.view().inject(this);
@@ -87,11 +91,12 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
         checkbox.setChecked(true);
         supplier_rb.setChecked(true);
         ll_zhanlvlianmeng.setVisibility(View.GONE);
+         mCountDownTimerUtils = new CountDownTimerUtils3(get_verification_code_tv, 60000, 1000);
     }
 
     @Event(value = {R.id.rl_close, R.id.phone_register_tv, R.id.email_register_tv,
             R.id.get_verification_code_tv, R.id.ll_zhanlvlianmeng, R.id.code_tv,
-            R.id.register_tv, R.id.quyers_rb, R.id.supplier_rb})
+            R.id.register_tv, R.id.quyers_rb, R.id.supplier_rb,R.id.tv_xieyi})
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
@@ -136,9 +141,12 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
                     ll_zhanlvlianmeng.setVisibility(View.GONE);
                 }
                 break;
+            case R.id.tv_xieyi:
+                mPresenter.upCodeZHUCE();
+                break;
             case R.id.register_tv:
                 if (nickname_tv.getText().toString().length() < 1) {
-                    CusToast.showToast("请填写昵称");
+                    CusToast.showToast(R.string.fill_in_nickname);
                     return;
                 }
                 if (type == 0) {
@@ -148,7 +156,7 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
                     }
                 } else {
                     if (et_email.getText().toString().length() < 1) {
-                        CusToast.showToast("请填写完整邮箱");
+                        CusToast.showToast(R.string.fill_in_full_mailbox);
                         return;
                     }
                 }
@@ -207,6 +215,9 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
     @Override
     protected void initView() {
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
     }
 
     @Override
@@ -231,6 +242,7 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
         ll_email.setVisibility(View.GONE);
         ll_phone_num.setVisibility(View.VISIBLE);
         setDrawableLeftPic(phone_register_tv, email_register_tv);
+        mCountDownTimerUtils.onCancel();
     }
 
     @Override
@@ -240,11 +252,11 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
         ll_email.setVisibility(View.VISIBLE);
         ll_phone_num.setVisibility(View.GONE);
         setDrawableLeftPic(email_register_tv, phone_register_tv);
+        mCountDownTimerUtils.onCancel();
     }
 
     @Override
     public void codeTime() {
-        CountDownTimerUtils3 mCountDownTimerUtils = new CountDownTimerUtils3(get_verification_code_tv, 60000, 1000);
         mCountDownTimerUtils.start();
     }
 

@@ -3,6 +3,7 @@ package com.tem.gettogether.activity.my;
 import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
@@ -22,14 +23,17 @@ public class TextDescriptionActivity extends BaseActivity {
     private TextView tv_title;
     @ViewInject(R.id.text_description_et)
     private EditText text_description_et;
-
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private String textDescription;
 
     @Override
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
-
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         tv_title.setText(getText(R.string.ignored_by_settings));
         textDescription = getIntent().getStringExtra("text_description");
         text_description_et.setText(textDescription);

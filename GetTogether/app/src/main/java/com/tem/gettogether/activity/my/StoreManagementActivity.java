@@ -3,6 +3,7 @@ package com.tem.gettogether.activity.my;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -28,7 +29,8 @@ public class StoreManagementActivity extends BaseActivity {
     private TextView tv_title;
     @ViewInject(R.id.rl_title_right)
     private RelativeLayout rl_title_right;
-
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     @Override
     protected void initData() {
         x.view().inject(this);
@@ -44,6 +46,9 @@ public class StoreManagementActivity extends BaseActivity {
     @Override
     protected void initView() {
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
     }
 
     @Event(value = {R.id.rl_close, R.id.tv_cpgl, R.id.tv_decoration, R.id.tv_dpxx, R.id.tv_fbcp, R.id.rl_title_right}, type = View.OnClickListener.class)

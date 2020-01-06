@@ -88,6 +88,7 @@ public class TogetherFactoryAdapter extends RecyclerView.Adapter<TogetherFactory
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Log.e("chenshichun","--聚工厂网址---"+mDatas.get(position).getWebsite());
                         context.startActivity(new Intent(context, FactoryWebActivity.class)
                                 .putExtra("website", mDatas.get(position).getWebsite())
                                 .putExtra("factory_name", mDatas.get(position).getFactory_name()));

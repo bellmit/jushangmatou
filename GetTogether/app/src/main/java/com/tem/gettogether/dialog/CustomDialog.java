@@ -2,21 +2,104 @@ package com.tem.gettogether.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.TextView;
 
+import com.tem.gettogether.R;
+
+/**
+ *  
+ * description ： TODO:类的作用
+ * author : chenshichun
+ * email : chenshichuen123@qq.com
+ * date : 2019/12/27 17:13 
+ */
+
+/**
+ * Created by wangfei
+ */
 
 public class CustomDialog extends Dialog {
+    private String title;
+    private String content;
+    private String buttonConfirm;
+    private View.OnClickListener confirmClickListener;
+    private static final int SHOW_ONE = 1;
+    private int show = 2;
 
-
-    public CustomDialog(Context context) {
-        super(context);
+    public CustomDialog(Context context, String title, String content,
+                        String buttonConfirm,
+                        View.OnClickListener confirmClickListener) {
+        super(context, R.style.Dialog);
+        this.title = title;
+        this.content = content;
+        this.buttonConfirm = buttonConfirm;
+        this.confirmClickListener = confirmClickListener;
+        this.show = SHOW_ONE;
     }
 
-    public CustomDialog(Context context, int themeResId) {
-        super(context, themeResId);
+    public CustomDialog(Context context, String title, String content,
+                        String buttonConfirm,
+                        View.OnClickListener confirmClickListener, String buttonCancel) {
+        super(context, R.style.Dialog);
+        this.title = title;
+        this.content = content;
+        this.buttonConfirm = buttonConfirm;
+        this.confirmClickListener = confirmClickListener;
     }
 
-    protected CustomDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
-        super(context, cancelable, cancelListener);
+    public CustomDialog(Context context, String title, String content,
+                        View.OnClickListener confirmClickListener, String buttonConfirm, String buttonCancel) {
+        super(context, R.style.Dialog);
+        this.title = title;
+        this.content = content;
+        this.buttonConfirm = buttonConfirm;
+        this.confirmClickListener = confirmClickListener;
     }
 
+    public CustomDialog(Context context, String title, String content,
+                        View.OnClickListener confirmClickListener, View.OnClickListener cancelClickListener, String
+                                buttonConfirm, String buttonCancel) {
+        super(context, R.style.Dialog);
+        this.title = title;
+        this.content = content;
+        this.buttonConfirm = buttonConfirm;
+        this.confirmClickListener = confirmClickListener;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.dialog_protocol);
+        TextView dialog_title = (TextView) findViewById(R.id.dialog_title);
+        TextView dialog_content = (TextView) findViewById(R.id.dialog_content);
+        TextView dialog_confirm = (TextView) findViewById(R.id.dialog_confirm);
+        dialog_confirm.setOnClickListener(confirmClickListener);
+       /* if (!TextUtils.isEmpty(title))
+            dialog_title.setText(title);
+        if (!TextUtils.isEmpty(content)) {
+            dialog_content.setText(content);
+        } else {
+            dialog_content.setVisibility(View.GONE);
+        }
+
+        if (!TextUtils.isEmpty(buttonConfirm))
+            dialog_confirm.setText(buttonConfirm);*/
+    }
+
+    public void setCanotBackPress() {
+        this.setOnKeyListener(new OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
 }

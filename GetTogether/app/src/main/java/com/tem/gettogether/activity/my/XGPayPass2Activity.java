@@ -3,6 +3,7 @@ package com.tem.gettogether.activity.my;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -50,16 +51,13 @@ public class XGPayPass2Activity extends BaseActivity {
 
     @ViewInject(R.id.tv_paytitle)
     private TextView tv_paytitle;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        x.view().inject(this);
-        initData();
-        initView();
-    }
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
 
     @Override
     protected void initData() {
+        x.view().inject(this);
+
         tv_title.setText(R.string.xiugai_pay_mima);
         tv_title_right.setVisibility(View.VISIBLE);
         tv_title_right.setText(R.string.xiayibu);
@@ -70,6 +68,9 @@ public class XGPayPass2Activity extends BaseActivity {
     @Override
     protected void initView() {
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
 
         passView2.setOnFinishInput2(new OnPasswordInputFinish2() {
             @Override

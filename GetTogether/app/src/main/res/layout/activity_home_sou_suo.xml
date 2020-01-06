@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <View
+        android:id="@+id/status_bar_id"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:background="@drawable/plan_progress_one" />
@@ -56,6 +57,7 @@
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:background="@null"
                 android:ellipsize="end"
                 android:singleLine="true"

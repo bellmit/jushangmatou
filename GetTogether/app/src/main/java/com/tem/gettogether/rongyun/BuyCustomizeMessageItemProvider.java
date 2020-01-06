@@ -64,8 +64,10 @@ public class BuyCustomizeMessageItemProvider extends IContainerItemProvider.Mess
         holder.ll_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("chenshichun", "=======getGoods_type====" + customizeMessage.getGoods_type());
-                if (!customizeMessage.getGoods_type().equals("求购")) {// 详情
+                Log.e("chenshichun", "=======getGoods_type====" + customizeMessage.getGoods_type());
+                Log.e("chenshichun","--getQiugou_type---" + customizeMessage.getQiugou_type());
+
+                if (customizeMessage.getGoods_type().equals(con.getString(R.string.commodity))) {// 详情
                     BaseApplication.getInstance().startActivity(new Intent(BaseApplication.getInstance().mInstance, ShoppingParticularsActivity.class)
                             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("goods_id",customizeMessage.getGoods_id()));

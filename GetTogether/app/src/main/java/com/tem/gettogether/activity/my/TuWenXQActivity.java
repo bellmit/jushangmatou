@@ -73,6 +73,8 @@ public class TuWenXQActivity extends BaseActivity implements View.OnClickListene
     private TextView tv_title_right;
     @ViewInject(R.id.tv_shanchu)
     private TextView tv_shanchu;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private PermissionsChecker checker;
 
     private String compressImageFilePath;
@@ -93,6 +95,10 @@ public class TuWenXQActivity extends BaseActivity implements View.OnClickListene
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
+
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
 
         checker = new PermissionsChecker(this);
         tv_title.setText(R.string.product_graphic_details);

@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -47,6 +48,8 @@ public class HomeHotSellActivity extends BaseActivity {
     private TextView tv_title;
     @ViewInject(R.id.rl_close)
     private RelativeLayout rl_close;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     @ViewInject(R.id.refreshLayout)
     private TwinklingRefreshLayout refreshLayout;
     @ViewInject(R.id.ll_empty)
@@ -59,6 +62,10 @@ public class HomeHotSellActivity extends BaseActivity {
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
+
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
 
         tv_title.setText(getResources().getText(R.string.waimaorexiao));
         initDatas(1, false);
@@ -91,32 +98,26 @@ public class HomeHotSellActivity extends BaseActivity {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
-                Log.d("chenshichun","=======外贸热销列表===="+result);
+                Log.d("chenshichun", "=======外贸热销列表====" + result);
                 closeDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        Log.e("chenshichun","---isLoadMore--"+isLoadMore);
-
                         if (!isLoadMore) {
-
-                            homeDataBean = gson.fromJson(result, HomeHotSellBean.class).getResult();
-                            Log.e("chenshichun","---homeDataBean.size()--"+homeDataBean.size());
-
-                            if(homeDataBean.size()==0){
+                            if (gson.fromJson(result, HomeHotSellBean.class).getResult() == null) {
                                 ll_empty.setVisibility(View.VISIBLE);
-                            }else {
-                                Log.e("chenshichun","---data--");
+                            } else {
                                 ll_empty.setVisibility(View.GONE);
+                                homeDataBean = gson.fromJson(result, HomeHotSellBean.class).getResult();
                                 setData();
                             }
                         } else {
-                            if(gson.fromJson(result, HomeHotSellBean.class).getResult().size()>0) {
+                            if (gson.fromJson(result, HomeHotSellBean.class).getResult().size() > 0) {
                                 homeDataBean.addAll(gson.fromJson(result, HomeHotSellBean.class).getResult());
                                 mHomeHotSellSecondAdapter.notifyDataSetChanged();
-                            }else{
+                            } else {
                                 CusToast.showToast(getResources().getText(R.string.no_more_data));
                             }
                         }

@@ -68,13 +68,15 @@ public class SettingActivity extends BaseActivity {
     private TextView huiyuan_tv;
     @ViewInject(R.id.update_ll)
     private TextView update_ll;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
 
     private String phone;
     private String lever;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initData() {
+        tv_title.setText(R.string.settings);
         x.view().inject(this);
         lever = SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7");
 
@@ -91,24 +93,20 @@ public class SettingActivity extends BaseActivity {
             huiyuandengji_rl.setVisibility(View.GONE);
         }
 
-        initData();
-        initView();
         try {
             tv_qchc.setText(CacheUtil.getTotalCacheSize(this));
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    protected void initData() {
-        tv_title.setText(R.string.settings);
         AppManager.getAppManager().addActivity(this);
     }
 
     @Override
     protected void initView() {
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
     }
 
     @Event(value = {R.id.update_ll, R.id.rl_close, R.id.rl_zhaq, R.id.rl_address_gl, R.id.ll_grxx, R.id.rl_gl_account, R.id.tv_getOut, R.id.rl_smrz, R.id.qchc_rl}, type = View.OnClickListener.class)

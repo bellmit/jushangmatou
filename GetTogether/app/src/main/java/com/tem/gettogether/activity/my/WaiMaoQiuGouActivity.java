@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -47,6 +48,8 @@ public class WaiMaoQiuGouActivity extends BaseActivity {
     private TextView tv_title;
     @ViewInject(R.id.rl_close)
     private RelativeLayout rl_close;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     @ViewInject(R.id.refreshLayout)
     private TwinklingRefreshLayout refreshLayout;
     @ViewInject(R.id.ll_empty)
@@ -60,7 +63,9 @@ public class WaiMaoQiuGouActivity extends BaseActivity {
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
-
+        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         tv_title.setText(getResources().getText(R.string.waimaoqiugou));
         initDatas(1, false);
         initRefresh();

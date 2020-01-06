@@ -846,4 +846,8 @@
     <string name="km_0">距我 0 千米</string>
     <string name="notification_authority">通知权限</string>
     <string name="open_notification_permissions">是否打开通知权限</string>
+    <string name="turn_on_mobile_positioning">请确保打开手机定位</string>
+    <string name="the_number_cannot_be_less_than_batch_number">数量不能少于起批量</string>
+    <string name="fill_in_nickname">请填写昵称</string>
+    <string name="fill_in_full_mailbox">请填写完整邮箱</string>
 </resources>

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -48,7 +49,8 @@ public class XunPanTuiSongFragment extends BaseFragment {
     private List<String> myTitle;
     private List<Fragment> myFragment;
     private OnMyListener listener;
-
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,11 +72,14 @@ public class XunPanTuiSongFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         rl_close.setVisibility(View.GONE);
         tv_title.setText(R.string.tuisongxunpan);
-        if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7").equals("2")) {
+        /*if (!SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.LEVER, "7").equals("2")) {
             tv_title_right.setVisibility(View.VISIBLE);
             tv_title_right.setTextSize(14);
             tv_title_right.setText(R.string.ckhyqx);
-        }
+        }*/
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         initDatas();
         initViews();
     }

@@ -41,4 +41,11 @@ public class CountDownTimerUtils3 extends CountDownTimer {
 //        mTextView.setBackgroundResource(R.drawable.btn_blue);
         mTextView.setTextColor(Color.rgb(247,46,26));
     }
+
+    public void onCancel(){
+        cancel();
+        mTextView.setText(R.string.huoquyanzm);
+        mTextView.setClickable(true);//重新获得点击
+        mTextView.setTextColor(Color.rgb(247,46,26));
+    }
 }

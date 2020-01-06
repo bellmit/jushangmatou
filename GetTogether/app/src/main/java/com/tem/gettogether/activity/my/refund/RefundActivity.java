@@ -2,6 +2,7 @@ package com.tem.gettogether.activity.my.refund;
 
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
@@ -43,7 +44,8 @@ public class RefundActivity extends BaseMvpActivity<RefundPresenter> implements 
     private TextView refund_item_tv;
     @ViewInject(R.id.refund_amount_tv)
     private TextView refund_amount_tv;
-
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private int REFUND_TYPE = 0;// 0：高级 1：普通退款
     private String url = "";
 
@@ -79,6 +81,9 @@ public class RefundActivity extends BaseMvpActivity<RefundPresenter> implements 
     protected void initView() {
         tv_title.setText(getText(R.string.refund_application));
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         account_tv.setText(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.MOBILEPHONE, ""));
         REFUND_TYPE = getIntent().getIntExtra("REFUND_TYPE", 0);
         if (REFUND_TYPE == 0) {

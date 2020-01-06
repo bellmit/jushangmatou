@@ -27,5 +27,6 @@ public class RegisterContract {
         void chooseStrategicAlliance();
         void toChooseCountryCode();
         void register(Map<String, Object> map);
+        void upCodeZHUCE();
     }
 }

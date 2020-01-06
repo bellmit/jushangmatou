@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -46,6 +47,8 @@ public class AddressGLActivity extends BaseActivity {
     private RecyclerView recyclerView_address;
     @ViewInject(R.id.tv_title)
     private TextView tv_title;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private Effectstype effect;
     private List<MyAddressBean.ResultBean> resultBeans = new ArrayList<>();
     private String cart_ids;
@@ -57,9 +60,10 @@ public class AddressGLActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         initData();
-
-
     }
 
     @Override

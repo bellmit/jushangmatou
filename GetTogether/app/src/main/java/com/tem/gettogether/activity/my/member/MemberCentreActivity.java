@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
@@ -48,12 +49,16 @@ public class MemberCentreActivity extends BaseMvpActivity<MemberCentrePresenter>
     private List<Fragment> myFragment;
     private List<String> myTitle;
     String userLever = "";
-
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     @Override
     protected void initData() {
         x.view().inject(this);
         tv_title.setText(getText(R.string.membership_center));
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         PayManager.getPayManager().addActivity(this);
         String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
         if(yuyan.equals("zh")){

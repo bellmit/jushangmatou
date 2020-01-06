@@ -268,7 +268,8 @@ public class SCShopFragment extends BaseFragment {
         Map<String,Object> map=new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("page",page);
-
+        String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
+        map.put("language", yuyan);
         baseActivity.showDialog();
         XUtil.Post(URLConstant.SC_SHOPLIEBIAO,map,new MyCallBack<String>(){
             @Override

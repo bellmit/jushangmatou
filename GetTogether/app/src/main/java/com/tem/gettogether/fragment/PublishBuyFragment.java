@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -33,6 +34,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -56,6 +58,7 @@ import com.tem.gettogether.retrofit.UploadUtil;
 import com.tem.gettogether.utils.BitnapUtils;
 import com.tem.gettogether.utils.Confirg;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.SoftKeyBoardUtil;
 import com.tem.gettogether.utils.permissions.AppUtils;
 import com.tem.gettogether.utils.permissions.FileUtils;
 import com.tem.gettogether.utils.permissions.PermissionsActivity;
@@ -95,8 +98,8 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
     private ImageView iv_qglx1;
     @ViewInject(R.id.iv_qglx2)
     private ImageView iv_qglx2;
-  /*  @ViewInject(R.id.keywords_tv)
-    private EditText keywords_tv;*/
+    /*  @ViewInject(R.id.keywords_tv)
+      private EditText keywords_tv;*/
     @ViewInject(R.id.et_cpName)
     private EditText et_cpName;
     @ViewInject(R.id.et_cpms)
@@ -111,6 +114,8 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
     private LinearLayout ll_ckgj;
     @ViewInject(R.id.et_qgNum)
     private EditText et_qgNum;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     @ViewInject(R.id.publish_task_recyclerView)
     private RecyclerView recyclerView;
     private MyPublicTaskRecycleAdapter mTaskImgAdapter;
@@ -155,7 +160,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
     @ViewInject(R.id.item_publishTask_image)
     private ImageView item_publishTask_image;
     private OnSwitchListener listener;
-
+    private List<View> mListView = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -194,12 +199,24 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
             folder.mkdirs();
         }
     }
-
+    public static int getStatusBarHeight(Context context) {
+        Resources resources = context.getResources();
+        int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
+        int height = resources.getDimensionPixelSize(resourceId);
+        return height;
+    }
     public void initView() {
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3, LinearLayoutManager.VERTICAL, false));
         mTaskImgAdapter = new MyPublicTaskRecycleAdapter(getActivity(), imagePaths, this, this, 0);
         recyclerView.setAdapter(mTaskImgAdapter);
+
+        mListView.add(et_cpName);
+        mListView.add(et_cpms);
+        mListView.add(et_qgNum);
 
     }
 
@@ -222,64 +239,68 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
             case R.id.ll_cpfl:
                 type = 1;
                 mPop = null;
+                SoftKeyBoardUtil.hideSoftKeyboard(getContext(),mListView);
                 showPop(ll_cpfl);
                 break;
             case R.id.ll_qglx:
                 type = 2;
                 mPop = null;
+                SoftKeyBoardUtil.hideSoftKeyboard(getContext(),mListView);
                 showPop(ll_qglx);
                 break;
             case R.id.ll_jhTime:
                 type = 3;
                 mPop = null;
+                SoftKeyBoardUtil.hideSoftKeyboard(getContext(),mListView);
                 showPop(ll_jhTime);
                 break;
             case R.id.ll_ckgj:
                 type = 4;
                 mPop = null;
+                SoftKeyBoardUtil.hideSoftKeyboard(getContext(),mListView);
                 showPop(ll_ckgj);
                 break;
             case R.id.tv_fbqg:
-                    String name = et_cpName.getText().toString();
-                    String cpms = et_cpms.getText().toString();
-                    if (name.equals("")) {
-                        CusToast.showToast(getText(R.string.txcpmc));
-                        return;
-                    }
-                    if (cpms.equals("")) {
-                        CusToast.showToast(getText(R.string.qtxcpms));
-                        return;
-                    }
+                String name = et_cpName.getText().toString();
+                String cpms = et_cpms.getText().toString();
+                if (name.equals("")) {
+                    CusToast.showToast(getText(R.string.txcpmc));
+                    return;
+                }
+                if (cpms.equals("")) {
+                    CusToast.showToast(getText(R.string.qtxcpms));
+                    return;
+                }
                     /*if (keywords_tv.getText().toString().equals("")) {
                         CusToast.showToast("请填写产品关键词");
                         return;
                     }*/
-                    if (country_name.equals("")) {
-                        CusToast.showToast(getText(R.string.qxzckgj));
-                        return;
-                    }
-                    if (release_type.equals("")) {
-                        CusToast.showToast(getText(R.string.qxzqglx));
-                        return;
-                    }
-                    if (attach_time.equals("")) {
-                        CusToast.showToast(getText(R.string.qxzjhsj));
-                        return;
-                    }
+                if (country_name.equals("")) {
+                    CusToast.showToast(getText(R.string.qxzckgj));
+                    return;
+                }
+                if (release_type.equals("")) {
+                    CusToast.showToast(getText(R.string.qxzqglx));
+                    return;
+                }
+                if (attach_time.equals("")) {
+                    CusToast.showToast(getText(R.string.qxzjhsj));
+                    return;
+                }
 
-                    if (qgNum == 0) {
-                        CusToast.showToast(getText(R.string.qxzqgsl));
+                if (qgNum == 0) {
+                    CusToast.showToast(getText(R.string.qxzqgsl));
+                    return;
+                }
+                if (qgNum == 1) {
+                    if (et_qgNum.getText().toString().equals("")) {
+                        CusToast.showToast(getText(R.string.qsrqgnum));
                         return;
                     }
-                    if (qgNum == 1) {
-                        if (et_qgNum.getText().toString().equals("")) {
-                            CusToast.showToast(getText(R.string.qsrqgnum));
-                            return;
-                        }
-                    }
+                }
 
-                    Log.i("===图片22--", strImage + "");
-                    upSCQGXXData();
+                Log.i("===图片22--", strImage + "");
+                upSCQGXXData();
                 break;
         }
     }
@@ -375,7 +396,7 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                 }
             }
         }
-        if(strImage.equals("")){
+        if (strImage.equals("")) {
             CusToast.showToast(getText(R.string.please_upload_pic));
             return;
         }
@@ -639,13 +660,13 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                 if (imagePaths.size() < 10) {
                     Uri cropUri = Uri.fromFile(mCropImageFile);
                     final String cropPath = "" + cropUri;
-                    new Thread(new Runnable(){
+                    new Thread(new Runnable() {
                         @Override
                         public void run() {
                             try {
                                 ImageDataBean imageDataBean = null;
-                                imageDataBean = UploadUtil.uploadFile(BitnapUtils.readStream(cropPath.substring(cropPath.indexOf("/storage"))),new File(cropPath.substring(cropPath.indexOf("/storage"))),URLConstant.UPLOAD_PICTURE);
-                                if(imageDataBean!=null){
+                                imageDataBean = UploadUtil.uploadFile(BitnapUtils.readStream(cropPath.substring(cropPath.indexOf("/storage"))), new File(cropPath.substring(cropPath.indexOf("/storage"))), URLConstant.UPLOAD_PICTURE);
+                                if (imageDataBean != null) {
                                     cartImage.add(imageDataBean.getResult().getImage_show().get(0));
                                     imagePaths.add(imagePaths.size() - 1, cropPath.substring(cropPath.indexOf("/storage")));
                                     mHandle.sendEmptyMessage(0);
@@ -693,13 +714,13 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
                                 Map<String, Object> map = new HashMap<>();
                                 map.put("image_base_64_arr", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
                                 upMessageData(map, list.get(i));*/
-                                new Thread(new Runnable(){
+                                new Thread(new Runnable() {
                                     @Override
                                     public void run() {
                                         try {
                                             ImageDataBean imageDataBean = null;
-                                            imageDataBean = UploadUtil.uploadFile(BitnapUtils.readStream(pic_path),new File(pic_path),URLConstant.UPLOAD_PICTURE);
-                                            if(imageDataBean!=null){
+                                            imageDataBean = UploadUtil.uploadFile(BitnapUtils.readStream(pic_path), new File(pic_path), URLConstant.UPLOAD_PICTURE);
+                                            if (imageDataBean != null) {
                                                 cartImage.add(imageDataBean.getResult().getImage_show().get(0));
                                                 imagePaths.add(imagePaths.size() - 1, pic_path);
                                                 mHandle.sendEmptyMessage(0);
@@ -1053,10 +1074,10 @@ public class PublishBuyFragment extends Base2Fragment implements View.OnClickLis
         void switchHome();
     }
 
-    private Handler mHandle = new Handler(){
+    private Handler mHandle = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case 0:
                     mTaskImgAdapter.notifyDataSetChanged();
                     break;

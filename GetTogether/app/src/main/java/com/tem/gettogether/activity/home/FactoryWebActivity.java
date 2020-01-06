@@ -5,6 +5,7 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
@@ -30,11 +31,15 @@ public class FactoryWebActivity extends BaseActivity {
     @ViewInject(R.id.webview)
     private WebView webview;
     private String website, factoryName;
-
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     @Override
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         website = getIntent().getStringExtra("website");
         factoryName = getIntent().getStringExtra("factory_name");
         tv_title.setText(factoryName);

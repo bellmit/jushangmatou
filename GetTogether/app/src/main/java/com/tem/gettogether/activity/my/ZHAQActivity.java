@@ -3,6 +3,7 @@ package com.tem.gettogether.activity.my;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
@@ -21,6 +22,8 @@ public class ZHAQActivity extends BaseActivity {
     private String phone;
     @ViewInject(R.id.tv_dq_phone)
     private TextView tv_dq_phone;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,9 @@ public class ZHAQActivity extends BaseActivity {
     @Override
     protected void initView() {
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
     }
     @Event(value = {R.id.rl_close,R.id.rl_xgPhone,R.id.rl_pay_Password,R.id.rl_bank_bd,R.id.rl_xg_loginPass}, type = View.OnClickListener.class)
     private void getEvent(View view) {

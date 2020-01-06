@@ -279,7 +279,6 @@ public class BadgerUtil {
      * <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE "/>
      */
     private static void badgeHuawei(Context context, int badgeCount) {
-        Log.d("chenshichun","========badgeHuawei===");
         try {
             Bundle bunlde = new Bundle();
             bunlde.putString("package", context.getPackageName());

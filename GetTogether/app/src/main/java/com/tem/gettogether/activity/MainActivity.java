@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Looper;
@@ -18,6 +19,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,13 +31,13 @@ import com.facebook.login.LoginResult;
 import com.google.gson.Gson;
 import com.tem.gettogether.R;
 import com.tem.gettogether.activity.login.phonelogin.PhoneLoginActivity;
-import com.tem.gettogether.activity.my.CgsAuthenticationActivity;
 import com.tem.gettogether.activity.my.authentication.AuthenticationActivity;
 import com.tem.gettogether.activity.my.publishgoods.PublishGoodsActivity;
 import com.tem.gettogether.base.BaseActivity;
 import com.tem.gettogether.base.BaseApplication;
 import com.tem.gettogether.base.BaseConstant;
 import com.tem.gettogether.base.URLConstant;
+import com.tem.gettogether.dialog.CustomDialog;
 import com.tem.gettogether.fragment.CartFragment;
 import com.tem.gettogether.fragment.HomeNewFragment;
 import com.tem.gettogether.fragment.MessageFragment;
@@ -53,6 +55,7 @@ import com.tem.gettogether.utils.AppManager;
 import com.tem.gettogether.utils.BadgerUtil;
 import com.tem.gettogether.utils.NotificationUtils;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
+import com.tem.gettogether.utils.StatusBarUtil;
 import com.tem.gettogether.utils.language.LanguageBean;
 import com.tem.gettogether.utils.xutils3.MyCallBack;
 import com.tem.gettogether.utils.xutils3.XUtil;
@@ -135,6 +138,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
 
     private Myreceiver recevier;
     private IntentFilter intentFilter;
+    CustomDialog mDialog = null;
 
     private Handler mHandler = new Handler(Looper.getMainLooper()) {
 
@@ -147,6 +151,27 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
 
     @Override
     protected void initView() {
+        StatusBarUtil.setTranslucentStatus(this);
+
+        final SharedPreferences pref = this.getSharedPreferences("data", MODE_PRIVATE);
+        boolean APP_START = pref.getBoolean("APP_START", true);// //第二个参数为默认值这里设
+        if (APP_START) {
+                 mDialog=new CustomDialog(this, "", "", "",new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putBoolean("APP_START", false);//执行了第一次运行的任务，保存为假
+                    editor.commit();
+                    mDialog.dismiss();
+                }
+            });
+            mDialog.setCanotBackPress();
+            mDialog.setCanceledOnTouchOutside(false);
+            mDialog.show();
+        }else{
+
+        }
+
         final Conversation.ConversationType[] conversationTypes = {
                 Conversation.ConversationType.PRIVATE,
                 Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
@@ -380,12 +405,14 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
             public void onChanged(ConnectionStatus connectionStatus) {
                 switch (connectionStatus) {
                     case CONNECTED:
-                        Log.d("chenshichun", "====CONNECTED=======");
+                        Log.e("chenshichun", "==RongIMClient==CONNECTED=======");
                         break;
                     case DISCONNECTED:
-                        Log.d("chenshichun", "====DISCONNECTED=======");
+                        Log.e("chenshichun", "===RongIMClient=DISCONNECTED=======");
                         break;
                     case KICKED_OFFLINE_BY_OTHER_CLIENT://用户账户在其他设备登录，本机会被踢掉线
+                        Log.e("chenshichun", "===RongIMClient=KICKED_OFFLINE_BY_OTHER_CLIENT=======");
+
                         showDialogs();
                         break;
                 }
@@ -409,7 +436,6 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
 //                        BaseApplication.getInstance().removerUser();
                         SharedPreferencesUtils.clearUser(getContext());
                         startActivity(new Intent(MainActivity.this, PhoneLoginActivity.class));
-                        Log.e("chenshichun", "---登录界面1111111111111111111--");
                     }
                 }).setCancelable(false);
         builder.create().show();
@@ -425,7 +451,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
             case R.id.ll_Fl:
                 if (role_type != null && role_type.equals("1")) {
                     isToLogin(0);
-                }else{
+                } else {
                     tv_home.setTextColor(getResources().getColor(R.color.text));
                     tv_fenl.setTextColor(getResources().getColor(R.color.bottom_text));
                     tv_fbqg.setTextColor(getResources().getColor(R.color.text));
@@ -651,7 +677,6 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                         String count = jsonObject2.optString("count");
                         Intent intent = new Intent("UNREAD_MESSAGE");
                         sendBroadcast(intent);
-                        Log.e("chenshichun", "---UNREAD_MESSAGE--");
                         messageNum = Integer.parseInt(count);
                         if ((rongyunmessageNum + messageNum) > 0) {
                             mUnreadNumView.setVisibility(View.VISIBLE);
@@ -765,7 +790,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
                     if (res.equals("1")) {
-                        if(type == 0) {
+                        if (type == 0) {
                             if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.SHOP_STATUS, "0").equals("2")) {
                                 CusToast.showToast(getText(R.string.store_review));
                                 return;
@@ -776,7 +801,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
                                 return;
                             }
                             toPublishPage();
-                        }else if (type == 1) {
+                        } else if (type == 1) {
                             toMainTwo();
                         } else if (type == 2) {
                             toMessage();
@@ -806,7 +831,7 @@ public class MainActivity extends BaseActivity implements IUnReadMessageObserver
         });
     }
 
-    private void toPublishPage(){
+    private void toPublishPage() {
         tv_home.setTextColor(getResources().getColor(R.color.text));
         tv_fenl.setTextColor(getResources().getColor(R.color.bottom_text));
         tv_fbqg.setTextColor(getResources().getColor(R.color.text));

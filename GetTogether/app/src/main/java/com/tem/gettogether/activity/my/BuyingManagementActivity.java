@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -58,7 +59,8 @@ public class BuyingManagementActivity extends BaseActivity implements BuyManager
     private TwinklingRefreshLayout refreshLayout;
     @ViewInject(R.id.ll_empty)
     private RelativeLayout ll_empty;
-
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private BuyManagerAdapter mBuyManagerAdapter;
     private List<BuyingManagementBean.ResultBean> mBuyingManagementBean = new ArrayList<>();
 
@@ -70,6 +72,9 @@ public class BuyingManagementActivity extends BaseActivity implements BuyManager
         x.view().inject(this);
         tv_title.setText(getText(R.string.buying_management));
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         setData();
         initDatas(1, false);
         initRefresh();
@@ -98,6 +103,8 @@ public class BuyingManagementActivity extends BaseActivity implements BuyManager
         map.put("page", currentPage);
         map.put("user_id", SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.USERID, ""));
         map.put("list_row", 10);
+        String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
+        map.put("language", yuyan);
         showDialog();
         XUtil.Post(URLConstant.BUY_MANAGER, map, new MyCallBack<String>() {
             @Override

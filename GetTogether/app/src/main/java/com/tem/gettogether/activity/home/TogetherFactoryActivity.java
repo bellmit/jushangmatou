@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -72,6 +73,8 @@ public class TogetherFactoryActivity extends BaseActivity {
     private TwinklingRefreshLayout refreshLayout;
     @ViewInject(R.id.ll_empty)
     private RelativeLayout ll_empty;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     @ViewInject(R.id.recy_hot)
     private RecyclerView recy_sous_ls;
     @ViewInject(R.id.iv_remove)
@@ -87,7 +90,9 @@ public class TogetherFactoryActivity extends BaseActivity {
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
-
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         tv_title.setText(R.string.together_facatory);
 
         // 获取位置服务
@@ -106,12 +111,14 @@ public class TogetherFactoryActivity extends BaseActivity {
                     Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_CODE);
         } else {
             Location location = locationManager.getLastKnownLocation(provider);
+            if (location == null) {
+                CusToast.showToast(R.string.turn_on_mobile_positioning);
+                return;
+            }
             //获取纬度
             lat = location.getLatitude();
             //获取经度
             lng = location.getLongitude();
-            Log.e("chenshichun", "---lat-- " + lat);
-            Log.e("chenshichun", "----lng- " + lng);
         }
         initDatas(1, true, false);
         initRefresh();
@@ -126,10 +133,29 @@ public class TogetherFactoryActivity extends BaseActivity {
                         && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                     // 权限被用户同意。
                     // 执形我们想要的操作
+                    String provider = LocationManager.GPS_PROVIDER;
+                    // 调用getLastKnownLocation()方法获取当前的位置信息
+                    //获取权限（如果没有开启权限，会弹出对话框，询问是否开启权限）
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                            || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        //请求权限
+                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_CODE);
+                    } else {
+                        Location location = locationManager.getLastKnownLocation(provider);
+                        if (location == null) {
+                            CusToast.showToast(R.string.turn_on_mobile_positioning);
+                            return;
+                        }
+                        //获取纬度
+                        lat = location.getLatitude();
+                        //获取经度
+                        lng = location.getLongitude();
+                    }
+
                     initDatas(1, false, false);
                     currentPage = 1;
                 } else {
-                    Log.e("chenshichun", "---定位失败--");
                     finish();
                 }
             }

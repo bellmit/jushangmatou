@@ -83,26 +83,25 @@ public class ShopXQActivity extends BaseActivity {
     private ImageView iv_image_4;
     @ViewInject(R.id.iv_image_5)
     private ImageView iv_image_5;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private String store_user_id;
     private String store_id;
     private String is_collect;
     private ShopXQBean.ResultBean resultBean = new ShopXQBean.ResultBean();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
-        initData();
-        upShopXQData();
-    }
-
-    @Override
-    protected void initData() {
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         tv_title.setText(getText(R.string.store_details));
         store_id = getIntent().getStringExtra("store_id");
         is_collect = getIntent().getStringExtra("is_collect");
         store_user_id = getIntent().getStringExtra("store_user_id");
+        upShopXQData();
     }
 
     @Override

@@ -70,10 +70,12 @@ public class SCShoppingFragment extends BaseFragment {
     @ViewInject(R.id.ll_top)
     private LinearLayout ll_top;
     private BaseActivity baseActivity;
-    private List<SCShoppingBean.ResultBean> resultBeans=new ArrayList<>();
+    private List<SCShoppingBean.ResultBean> resultBeans = new ArrayList<>();
+
     public static SCShoppingFragment newInstance() {
         return new SCShoppingFragment();
     }
+
     private Effectstype effect;
 
     @Override
@@ -82,9 +84,10 @@ public class SCShoppingFragment extends BaseFragment {
         // Inflate the layout for this fragment
         return x.view().inject(this, inflater, container);
     }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        baseActivity= (BaseActivity) getActivity();
+        baseActivity = (BaseActivity) getActivity();
 
         initView();
         upShopLBData(PAGE_NUM);
@@ -103,7 +106,7 @@ public class SCShoppingFragment extends BaseFragment {
                     }
                     return;
                 }
-                PAGE_NUM=1;
+                PAGE_NUM = 1;
                 clearList(resultBeans);
                 upShopLBData(PAGE_NUM);
             }
@@ -124,9 +127,9 @@ public class SCShoppingFragment extends BaseFragment {
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(getContext(), true);
         // 设置下拉刷新
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.color_F3F5F4);//背景色
-        refreshViewHolder.setPullDownRefreshText(""+getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
-        refreshViewHolder.setReleaseRefreshText(""+getResources().getText(R.string.refresh_release_text));//松开的提示文字
-        refreshViewHolder.setRefreshingText(""+getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
+        refreshViewHolder.setPullDownRefreshText("" + getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
+        refreshViewHolder.setReleaseRefreshText("" + getResources().getText(R.string.refresh_release_text));//松开的提示文字
+        refreshViewHolder.setRefreshingText("" + getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
 
         // 设置下拉刷新和上拉加载更多的风格
         order_refresh_fragment.setRefreshViewHolder(refreshViewHolder);
@@ -134,12 +137,14 @@ public class SCShoppingFragment extends BaseFragment {
 
 
     }
+
     public void clearList(List<SCShoppingBean.ResultBean> list) {
         if (!ListUtils.isEmpty(list)) {
             list.clear();
         }
     }
-    @Event(value = {R.id.tv_zonghe,R.id.tv_pfl,R.id.tv_xl}, type = View.OnClickListener.class)
+
+    @Event(value = {R.id.tv_zonghe, R.id.tv_pfl, R.id.tv_xl}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.tv_zonghe:
@@ -163,6 +168,7 @@ public class SCShoppingFragment extends BaseFragment {
 
         }
     }
+
     public class ShoppingAdapter extends BaseQuickAdapter {
 
         public ShoppingAdapter(List<SCShoppingBean.ResultBean> data) {
@@ -171,21 +177,21 @@ public class SCShoppingFragment extends BaseFragment {
 
         @Override
         protected void convert(final BaseViewHolder baseViewHolder, Object o) {
-            ImageView iv_pic=baseViewHolder.getView(R.id.iv_pic);
+            ImageView iv_pic = baseViewHolder.getView(R.id.iv_pic);
             Glide.with(getActivity()).load(resultBeans.get(baseViewHolder.getAdapterPosition()).getImage()).error(R.mipmap.myy322x).into(iv_pic);
-            baseViewHolder.setText(R.id.tv_shoping_jj,resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
-            baseViewHolder.setText(R.id.tv_qpl,resultBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number()+getText(R.string.from_batch));
-            if(resultBeans.get(baseViewHolder.getAdapterPosition()).getIs_enquiry()!=null&&resultBeans.get(baseViewHolder.getAdapterPosition()).getIs_enquiry().equals("1")){
-                baseViewHolder.setText(R.id.tv_price,getText(R.string.negotiable_tv));
-            }else{
-                baseViewHolder.setText(R.id.tv_price,"￥"+resultBeans.get(baseViewHolder.getAdapterPosition()).getShop_price());
+            baseViewHolder.setText(R.id.tv_shoping_jj, resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_name());
+            baseViewHolder.setText(R.id.tv_qpl, resultBeans.get(baseViewHolder.getAdapterPosition()).getBatch_number() + getText(R.string.from_batch));
+            if (resultBeans.get(baseViewHolder.getAdapterPosition()).getIs_enquiry() != null && resultBeans.get(baseViewHolder.getAdapterPosition()).getIs_enquiry().equals("1")) {
+                baseViewHolder.setText(R.id.tv_price, getText(R.string.negotiable_tv));
+            } else {
+                baseViewHolder.setText(R.id.tv_price, "￥" + resultBeans.get(baseViewHolder.getAdapterPosition()).getShop_price());
 
             }
             baseViewHolder.getView(R.id.ll_All_item).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(getActivity(),ShoppingParticularsActivity.class)
-                    .putExtra("goods_id",resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_id()));
+                    startActivity(new Intent(getActivity(), ShoppingParticularsActivity.class)
+                            .putExtra("goods_id", resultBeans.get(baseViewHolder.getAdapterPosition()).getGoods_id()));
                 }
             });
             baseViewHolder.getView(R.id.ll_All_item).setOnLongClickListener(new View.OnLongClickListener() {
@@ -227,7 +233,8 @@ public class SCShoppingFragment extends BaseFragment {
             });
         }
     }
-    private void upShoppingSC( String goods_id) {
+
+    private void upShoppingSC(String goods_id) {
         Map<String, Object> map = new HashMap<>();
         map.put("goods_id", goods_id);
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
@@ -248,7 +255,7 @@ public class SCShoppingFragment extends BaseFragment {
                         Gson gson = new Gson();
                         CusToast.showToast(getText(R.string.delete_seccuss));
                         upShopLBData(PAGE_NUM);
-                    }else{
+                    } else {
                         CusToast.showToast(msg);
 
                     }
@@ -274,14 +281,14 @@ public class SCShoppingFragment extends BaseFragment {
         });
     }
 
-    private void upShopLBData(int page){
-        Map<String,Object> map=new HashMap<>();
+    private void upShopLBData(final int page) {
+        Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-
-        map.put("page",page);
-
+        map.put("page", page);
+        String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
+        map.put("language", yuyan);
         baseActivity.showDialog();
-        XUtil.Post(URLConstant.SC_SHOPPINGLIEBIAO,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.SC_SHOPPINGLIEBIAO, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
@@ -292,10 +299,18 @@ public class SCShoppingFragment extends BaseFragment {
                     String res = jsonObject.optString("status");
                     order_refresh_fragment.endRefreshing();
                     order_refresh_fragment.endLoadingMore();
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        SCShoppingBean scShoppingBean=gson.fromJson(result,SCShoppingBean.class);
-                        resultBeans=scShoppingBean.getResult();
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        SCShoppingBean scShoppingBean = gson.fromJson(result, SCShoppingBean.class);
+                        if (page > 1) {
+                            if (scShoppingBean.getResult().size() < 1) {
+                                CusToast.showToast(getResources().getText(R.string.no_more_data));
+                            } else {
+                                resultBeans.addAll(scShoppingBean.getResult());
+                            }
+                        } else {
+                            resultBeans = scShoppingBean.getResult();
+                        }
                     }
 
                 } catch (JSONException e) {
@@ -307,7 +322,7 @@ public class SCShoppingFragment extends BaseFragment {
             public void onFinished() {
                 super.onFinished();
                 baseActivity.closeDialog();
-                ShoppingAdapter adapter=new ShoppingAdapter(resultBeans);
+                ShoppingAdapter adapter = new ShoppingAdapter(resultBeans);
                 order_rl.setAdapter(adapter);
 
             }

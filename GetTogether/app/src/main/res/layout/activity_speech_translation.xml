@@ -75,7 +75,7 @@
             android:layout_height="100dp"
             android:background="@color/white"
             android:gravity="top"
-            android:hint="输入文字"
+            android:hint="@string/shuruwenzi"
             android:imeOptions="actionDone"
             android:paddingLeft="@dimen/dp_10"
             android:visibility="gone" />
@@ -98,11 +98,12 @@
         <Button
             android:id="@+id/btnVoice"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@drawable/community_btn_chat_press_normal"
+            android:background="@drawable/btn_bg"
+            android:textColor="@color/white"
             android:text="@string/anzhushuohua"
-            android:textColor="#7e7e7e" />
+            />
     </LinearLayout>
 
 </LinearLayout>

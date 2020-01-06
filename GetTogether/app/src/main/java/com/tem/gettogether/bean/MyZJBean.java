@@ -65,6 +65,15 @@ public class MyZJBean {
         private String goods_price;
         private String goods_sales;
         private String batch_number;
+        private String is_enquiry;
+
+        public String getIs_enquiry() {
+            return is_enquiry;
+        }
+
+        public void setIs_enquiry(String is_enquiry) {
+            this.is_enquiry = is_enquiry;
+        }
 
         public String getFootprint_id() {
             return footprint_id;

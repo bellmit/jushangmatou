@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -41,22 +42,21 @@ public class AmendLoginPassActivity extends BaseActivity {
     private  EditText et_old_pass;
     @ViewInject(R.id.et_new_pass2)
     private EditText et_new_pass2;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        x.view().inject(this);
-        initData();
-        initView();
-    }
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
 
     @Override
     protected void initData() {
+        x.view().inject(this);
         tv_title.setText(R.string.xiugai_loginpay_padd);
     }
 
     @Override
     protected void initView() {
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
     }
     @Event(value = {R.id.rl_close,R.id.tv_sure}, type = View.OnClickListener.class)
     private void getEvent(View view) {

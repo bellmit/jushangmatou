@@ -66,26 +66,27 @@ public class ShoppingEvaluateActivity extends BaseActivity {
     private LinearLayout ll_item3;
     @ViewInject(R.id.ll_item4)
     private LinearLayout ll_item4;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private String goods_id;
-    private String commentType="1";
+    private String commentType = "1";
     private List<ShoppingPJBean.ResultBean.CommentListBean> list;
-    private List<ShoppingPJBean.ResultBean.CommentListBean> commentListBeans=new ArrayList<>();
+    private List<ShoppingPJBean.ResultBean.CommentListBean> commentListBeans = new ArrayList<>();
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
 
-        initData();
-        initView();
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
+
+        tv_title.setText(getText(R.string.evaluation));
+        goods_id = getIntent().getStringExtra("goods_id");
         upShoppingSC(commentType);
     }
-    @Override
-    protected void initData() {
-        tv_title.setText(getText(R.string.evaluation));
-        goods_id=getIntent().getStringExtra("goods_id");
 
-    }
     @Override
     protected void initView() {
         order_refresh_fragment.setDelegate(new BGARefreshLayout.BGARefreshLayoutDelegate() {
@@ -120,9 +121,9 @@ public class ShoppingEvaluateActivity extends BaseActivity {
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, true);
         // 设置下拉刷新
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.white);//背景色
-        refreshViewHolder.setPullDownRefreshText(""+getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
-        refreshViewHolder.setReleaseRefreshText(""+getResources().getText(R.string.refresh_release_text));//松开的提示文字
-        refreshViewHolder.setRefreshingText(""+getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
+        refreshViewHolder.setPullDownRefreshText("" + getResources().getText(R.string.refresh_pull_down_text));//下拉的提示文字
+        refreshViewHolder.setReleaseRefreshText("" + getResources().getText(R.string.refresh_release_text));//松开的提示文字
+        refreshViewHolder.setRefreshingText("" + getResources().getText(R.string.refresh_ing_text));//刷新中的提示文字
 
         // 设置下拉刷新和上拉加载更多的风格
         order_refresh_fragment.setRefreshViewHolder(refreshViewHolder);
@@ -130,12 +131,14 @@ public class ShoppingEvaluateActivity extends BaseActivity {
 
 
     }
+
     public void clearList(List<ShoppingPJBean.ResultBean.CommentListBean> list) {
         if (!ListUtils.isEmpty(list)) {
             list.clear();
         }
     }
-    @Event(value = {R.id.rl_close,R.id.ll_item1,R.id.ll_item2,R.id.ll_item3,R.id.ll_item4}, type = View.OnClickListener.class)
+
+    @Event(value = {R.id.rl_close, R.id.ll_item1, R.id.ll_item2, R.id.ll_item3, R.id.ll_item4}, type = View.OnClickListener.class)
     private void getEvent(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
@@ -151,7 +154,7 @@ public class ShoppingEvaluateActivity extends BaseActivity {
                 ll_item3.setBackground(getResources().getDrawable(R.drawable.pingjia_wxz_bg5dp));
                 tv_text4.setTextColor(getResources().getColor(R.color.text3));
                 ll_item4.setBackground(getResources().getDrawable(R.drawable.pingjia_wxz_bg5dp));
-                commentType="1";
+                commentType = "1";
                 upShoppingSC(commentType);
                 break;
             case R.id.ll_item2:
@@ -165,7 +168,7 @@ public class ShoppingEvaluateActivity extends BaseActivity {
                 ll_item3.setBackground(getResources().getDrawable(R.drawable.pingjia_wxz_bg5dp));
                 tv_text4.setTextColor(getResources().getColor(R.color.text3));
                 ll_item4.setBackground(getResources().getDrawable(R.drawable.pingjia_wxz_bg5dp));
-                commentType="2";
+                commentType = "2";
                 upShoppingSC(commentType);
                 break;
             case R.id.ll_item3:
@@ -178,7 +181,7 @@ public class ShoppingEvaluateActivity extends BaseActivity {
                 ll_item2.setBackground(getResources().getDrawable(R.drawable.pingjia_wxz_bg5dp));
                 tv_text4.setTextColor(getResources().getColor(R.color.text3));
                 ll_item4.setBackground(getResources().getDrawable(R.drawable.pingjia_wxz_bg5dp));
-                commentType="3";
+                commentType = "3";
                 upShoppingSC(commentType);
                 break;
             case R.id.ll_item4:
@@ -190,29 +193,31 @@ public class ShoppingEvaluateActivity extends BaseActivity {
                 ll_item2.setBackground(getResources().getDrawable(R.drawable.pingjia_wxz_bg5dp));
                 tv_text3.setTextColor(getResources().getColor(R.color.text3));
                 ll_item3.setBackground(getResources().getDrawable(R.drawable.pingjia_wxz_bg5dp));
-                commentType="4";
+                commentType = "4";
                 upShoppingSC(commentType);
                 break;
         }
     }
+
     public class ShoppingPJAdapter extends BaseQuickAdapter {
 
 
         public ShoppingPJAdapter(List<ShoppingPJBean.ResultBean.CommentListBean> data) {
             super(R.layout.shopping_pj_item, data);
         }
+
         @Override
         protected void convert(BaseViewHolder baseViewHolder, Object o) {
             baseViewHolder.getView(R.id.view_line).setVisibility(View.GONE);
 
             ImageView iv_iamge1 = baseViewHolder.getView(R.id.iv_iamge1);
-            ImageView iv_iamge2 =  baseViewHolder.getView(R.id.iv_iamge2);
+            ImageView iv_iamge2 = baseViewHolder.getView(R.id.iv_iamge2);
             ImageView iv_iamge3 = baseViewHolder.getView(R.id.iv_iamge3);
 
             CircularImage iv_user_image = baseViewHolder.getView(R.id.iv_user_image);
             Glide.with(ShoppingEvaluateActivity.this).load(commentListBeans.get(baseViewHolder.getAdapterPosition()).getHead_pic()).error(R.mipmap.myy322x).into(iv_user_image);
-            baseViewHolder.setText(R.id.tv_user_name,commentListBeans.get(baseViewHolder.getAdapterPosition()).getNickname());
-            baseViewHolder.setText(R.id.tv_pj_time,commentListBeans.get(baseViewHolder.getAdapterPosition()).getAdd_time());
+            baseViewHolder.setText(R.id.tv_user_name, commentListBeans.get(baseViewHolder.getAdapterPosition()).getNickname());
+            baseViewHolder.setText(R.id.tv_pj_time, commentListBeans.get(baseViewHolder.getAdapterPosition()).getAdd_time());
             if (commentListBeans.get(baseViewHolder.getAdapterPosition()).getImg().size() >= 3) {
                 Glide.with(ShoppingEvaluateActivity.this).load(commentListBeans.get(baseViewHolder.getAdapterPosition()).getImg().get(0).getLogo()).error(R.mipmap.myy322x).into(iv_iamge1);
                 Glide.with(ShoppingEvaluateActivity.this).load(commentListBeans.get(baseViewHolder.getAdapterPosition()).getImg().get(1).getLogo()).error(R.mipmap.myy322x).into(iv_iamge2);
@@ -232,34 +237,35 @@ public class ShoppingEvaluateActivity extends BaseActivity {
                 iv_iamge3.setVisibility(View.GONE);
 
             }
-            baseViewHolder.setText(R.id.tv_pj_sx,commentListBeans.get(baseViewHolder.getAdapterPosition()).getSpec_key_name());
-            baseViewHolder.setText(R.id.tv_connect,commentListBeans.get(baseViewHolder.getAdapterPosition()).getContent());
-            baseViewHolder.setText(R.id.tv_gmnum,commentListBeans.get(baseViewHolder.getAdapterPosition()).getGoods_num());
+            baseViewHolder.setText(R.id.tv_pj_sx, commentListBeans.get(baseViewHolder.getAdapterPosition()).getSpec_key_name());
+            baseViewHolder.setText(R.id.tv_connect, commentListBeans.get(baseViewHolder.getAdapterPosition()).getContent());
+            baseViewHolder.setText(R.id.tv_gmnum, commentListBeans.get(baseViewHolder.getAdapterPosition()).getGoods_num());
 
         }
     }
-    private void upShoppingSC(String commentType){
-        Map<String,Object> map=new HashMap<>();
-        map.put("goods_id","244");
+
+    private void upShoppingSC(String commentType) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("goods_id", "244");
         map.put("commentType", commentType);
         showDialog();
-        XUtil.Post(URLConstant.SHOPPING_PINGJIA,map,new MyCallBack<String>(){
+        XUtil.Post(URLConstant.SHOPPING_PINGJIA, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
                 closeDialog();
-                Log.i("===商品评价--",result);
+                Log.i("===商品评价--", result);
                 order_refresh_fragment.endRefreshing();
                 order_refresh_fragment.endLoadingMore();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");
                     String msg = jsonObject.optString("msg");
-                    if(res.equals("1")){
-                        Gson gson=new Gson();
-                        ShoppingPJBean shoppingPJBean=gson.fromJson(result,ShoppingPJBean.class);
-                        list=shoppingPJBean.getResult().getComment_list();
-                        if (ListUtils.isEmpty(list)){
+                    if (res.equals("1")) {
+                        Gson gson = new Gson();
+                        ShoppingPJBean shoppingPJBean = gson.fromJson(result, ShoppingPJBean.class);
+                        list = shoppingPJBean.getResult().getComment_list();
+                        if (ListUtils.isEmpty(list)) {
                             CusToast.showToast(getResources().getText(R.string.no_more_data));
                             return;
                         }
@@ -275,7 +281,7 @@ public class ShoppingEvaluateActivity extends BaseActivity {
             public void onFinished() {
                 super.onFinished();
                 closeDialog();
-                ShoppingPJAdapter shoppingPJAdapter=new ShoppingPJAdapter(commentListBeans);
+                ShoppingPJAdapter shoppingPJAdapter = new ShoppingPJAdapter(commentListBeans);
                 order_rl.setAdapter(shoppingPJAdapter);
             }
 

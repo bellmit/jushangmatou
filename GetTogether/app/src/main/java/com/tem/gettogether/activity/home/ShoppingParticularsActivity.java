@@ -186,7 +186,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
     private List<OrderDetailBean.ResultBean> orderDetails = new ArrayList<>();
     private List<ShoppingXQBean.ResultBean.VpBean> mVpBeans = new ArrayList<>();
     private List<ShoppingXQBean.ResultBean.OrderBean> mOrderBeans = new ArrayList<>();
-    private String sctype;
+    private String sctype;// 收藏
+    private String gztype;// 关注
+
     private UMShareListener mShareListener;
     private IWXAPI wxAPI;
     private String APP_ID = "wxa6f24ff3369c8d21";
@@ -247,9 +249,11 @@ public class ShoppingParticularsActivity extends BaseActivity {
         }
         if (storeBean.getIs_collect() != null) {
             if (storeBean.getIs_collect().equals("0")) {
+                gztype = "0";
                 iv_shop_isgz.setBackgroundResource(R.drawable.unguanzhu_xx);
                 tv_sjgz.setText(getText(R.string.follow_the_business));
             } else {
+                gztype = "1";
                 iv_shop_isgz.setBackgroundResource(R.drawable.guanzhu_xx);
                 tv_sjgz.setText(getText(R.string.has_been_concerned));
             }
@@ -304,11 +308,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                 holder.getTextView(R.id.tv_pj_sx).setText(commentBeans.get(position).getSpec_key_name());
                 holder.getTextView(R.id.tv_connect).setText(commentBeans.get(position).getContent());
                 holder.getTextView(R.id.tv_gmnum).setText(commentBeans.get(position).getGoods_num());
-
-
             }
-
-
         });
         tv_num.addTextChangedListener(new TextWatcher() {
             @Override
@@ -362,13 +362,23 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     startActivity(new Intent(ShoppingParticularsActivity.this, PhoneLoginActivity.class));
                     return;
                 }
-                CardCloaseBean cardCloaseBean = new CardCloaseBean();
-                cardCloaseBean.setGoods_id(goods_id);
-                cardCloaseBean.setCartClose(true);
-                EventBus.getDefault().post(cardCloaseBean);
-//                startActivity(new Intent(this, MainActivity.class)
-//                        .putExtra("tab", "3"));
-                startActivity(new Intent(this, ShoppingCartActivity.class));
+                if (SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.ROLE_TYPE, "1").equals("1")) {
+                    CusToast.showToast(getResources().getText(R.string.supplier_does_not_have_this_feature));
+                } else {
+                    if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("1")) {
+                        CardCloaseBean cardCloaseBean = new CardCloaseBean();
+                        cardCloaseBean.setGoods_id(goods_id);
+                        cardCloaseBean.setCartClose(true);
+                        EventBus.getDefault().post(cardCloaseBean);
+                        startActivity(new Intent(this, ShoppingCartActivity.class));
+                    } else if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.IS_VERIFY, "0").equals("3")) {
+                        CusToast.showToast(getText(R.string.shz));
+                    } else {
+                        CusToast.showToast(getText(R.string.please_first_purchase_the_buyer));
+                        startActivity(new Intent(getContext(), CgsAuthenticationActivity.class));
+                        return;
+                    }
+                }
                 break;
             case R.id.tv_jian:
 //                num=Integer.parseInt(tv_num.getText().toString());
@@ -703,13 +713,25 @@ public class ShoppingParticularsActivity extends BaseActivity {
             tv_ljgm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mPop.dismiss();
+
                     if (SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, "").equals("")) {
                         CusToast.showToast(R.string.login_first);
                         startActivity(new Intent(ShoppingParticularsActivity.this, PhoneLoginActivity.class));
                         return;
                     }
+
+                    if (tv_num_all.getText().length() < 1) {
+                        CusToast.showToast(getResources().getText(R.string.the_number_cannot_be_less_than_batch_number));
+                        return;
+                    }
+
                     allNum = Integer.parseInt(tv_num_all.getText().toString());
+
+                    if (allNum < Integer.parseInt(goodsBean.getBatch_number())) {
+                        CusToast.showToast(getResources().getText(R.string.the_number_cannot_be_less_than_batch_number));
+                        return;
+                    }
+
                     String sku = "";
                     if (goodsBean.getGoods_spec_list() != null) {
                         if (goodsBean.getGoods_spec_list().size() >= 1) {
@@ -732,6 +754,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
                         sku = str.substring(0, str.length() - 1);
                     }
                     upGetMessageData(sku);
+                    mPop.dismiss();
                     mPop = null;
 
                 }
@@ -752,7 +775,18 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     }
                     /* if (popType == 0) {*/
                     skuid.clear();
+                    if (tv_num_all.getText().length() < 1) {
+                        CusToast.showToast(getResources().getText(R.string.the_number_cannot_be_less_than_batch_number));
+                        return;
+                    }
+
                     allNum = Integer.parseInt(tv_num_all.getText().toString());
+
+                    if (allNum < Integer.parseInt(goodsBean.getBatch_number())) {
+                        CusToast.showToast(getResources().getText(R.string.the_number_cannot_be_less_than_batch_number));
+                        return;
+                    }
+
 
                     String sku = null;
                     if (goodsBean.getGoods_spec_list() != null) {
@@ -960,6 +994,9 @@ public class ShoppingParticularsActivity extends BaseActivity {
 //        map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("goods_id", goods_id);
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
+        String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
+        map.put("language", yuyan);
+
         showDialog();
         XUtil.Post(URLConstant.SHOPFENLEI_XIANGQING, map, new MyCallBack<String>() {
             @Override
@@ -1062,11 +1099,15 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     }
                 });
 
-                WebSettings settings = webView.getSettings();
+                /*WebSettings settings = webView.getSettings();
                 settings.setJavaScriptEnabled(true);
                 settings.setJavaScriptCanOpenWindowsAutomatically(true);
+                settings.setDomStorageEnabled(true);
                 settings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
                 settings.setUseWideViewPort(true);//设置此属性，可任意比例缩放
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+                }
                 if (webView != null) {
                     webView.setWebViewClient(new WebViewClient() {
                         @Override
@@ -1078,7 +1119,56 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     webView.getSettings().setJavaScriptEnabled(true);
                     webView.loadUrl(goodsBean.getDetail());
                     Log.i("===h5显示--", goodsBean.getDetail());
-                }
+                }*/
+                webView.loadUrl(goodsBean.getDetail());
+                WebSettings webSettings = webView.getSettings();
+//如果访问的页面中要与Javascript交互，则webview必须设置支持Javascript
+                webSettings.setJavaScriptEnabled(true);
+// 若加载的 html 里有JS 在执行动画等操作，会造成资源浪费（CPU、电量）
+// 在 onStop 和 onResume 里分别把 setJavaScriptEnabled() 给设置成 false 和 true 即可
+
+//设置自适应屏幕，两者合用
+                webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
+                webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
+
+//缩放操作
+                webSettings.setSupportZoom(true); //支持缩放，默认为true。是下面那个的前提。
+                webSettings.setBuiltInZoomControls(true); //设置内置的缩放控件。若为false，则该WebView不可缩放
+                webSettings.setDisplayZoomControls(false); //隐藏原生的缩放控件
+
+//其他细节操作
+                webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK); //关闭webview中缓存
+                webSettings.setAllowFileAccess(true); //设置可以访问文件
+                webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
+                webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
+                webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
+
+                webView.setWebViewClient(new WebViewClient() {
+                    @Override
+                    public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                        super.onPageStarted(view, url, favicon);
+                    }
+
+                    @Override
+                    public void onPageFinished(WebView view, String url) {
+                        super.onPageFinished(view, url);
+                        //这个是一定要加上那个的,配合scrollView和WebView的height=wrap_content属性使用
+                        int w = View.MeasureSpec.makeMeasureSpec(0,
+                                View.MeasureSpec.UNSPECIFIED);
+                        int h = View.MeasureSpec.makeMeasureSpec(0,
+                                View.MeasureSpec.UNSPECIFIED);
+                        //重新测量
+                        webView.measure(w, h);
+                    }
+
+                    // 链接跳转都会走这个方法
+                    @Override
+                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                        view.loadUrl(url);// 强制在当前 WebView 中加载 url
+                        return true;
+                    }
+                });
+
                 initView();
             }
 
@@ -1335,10 +1425,12 @@ public class ShoppingParticularsActivity extends BaseActivity {
                     Log.i("====店铺关注===", result + msg);
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        if (msg.equals(getText(R.string.successful_collection))) {
+                        if (gztype.equals("0")) {
+                            gztype = "1";
                             tv_sjgz.setText(getText(R.string.has_been_concerned));
                             iv_shop_isgz.setBackgroundResource(R.drawable.guanzhu_xx);
-                        } else if (msg.equals(getText(R.string.cancel_success))) {
+                        } else {
+                            gztype = "0";
                             tv_sjgz.setText(getText(R.string.follow_the_business));
                             iv_shop_isgz.setBackgroundResource(R.drawable.unguanzhu_xx);
                         }
@@ -1637,7 +1729,7 @@ public class ShoppingParticularsActivity extends BaseActivity {
             Marquee marquee = new Marquee();
             marquee.setImgUrl(mVpBeans.get(i).getHead_pic());
             marquee.setTitle(mVpBeans.get(i).getNickname());
-            marquee.setDetail(getText(R.string.from) + mVpBeans.get(i).getCountry_name() + getText(R.string.de) + mVpBeans.get(i).getNickname() + getText(R.string.viewing_this_item));
+            marquee.setDetail(/*getText(R.string.from) + mVpBeans.get(i).getCountry_name() + getText(R.string.de) + */mVpBeans.get(i).getNickname() + getText(R.string.viewing_this_item));
             marquees.add(marquee);
         }
         marqueeView.setImage(true);

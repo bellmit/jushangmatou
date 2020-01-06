@@ -114,6 +114,8 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
     private TextView fengmian_tv;
     @ViewInject(R.id.tv_ShoppingGG)
     private TextView tv_ShoppingGG;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private List<CategoriesBean.ResultBean> mCategoriesBeans = new ArrayList<>();
     private String majorClassId = "";// 大类ID
     private String smallClassId = "";// 小类ID
@@ -134,6 +136,11 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
+
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
+
         tv_title.setText(getText(R.string.new_on_the_store));
         yes_rb.setChecked(true);
         et_ShopingSJ.setText(getText(R.string.negotiable_tv));
@@ -318,7 +325,6 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
         for (int i = 0; i < mResultBean.getGoods_images().size(); i++) {
             imagePaths.add(imagePaths.size() - 1, mResultBean.getGoods_images().get(i));
             cartImage.add(mResultBean.getGoods_images().get(i));
-            Log.e("chenshichun", "---cartImage-- " + cartImage);
             mTaskImgAdapter.notifyDataSetChanged();
         }
     }
@@ -327,7 +333,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
         map.put("user_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.USERID, ""));
-        if (!goodsID.equals("")) {
+        if (goodsID != null && !goodsID.equals("")) {
             map.put("goods_id", goodsID);
         }
         if (et_cpName.getText().toString().equals("")) {
@@ -350,10 +356,20 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
             CusToast.showToast(getText(R.string.please_fill_in_the_price_of_the_product));
             return;
         }
+        if(original_img.equals("")){
+            CusToast.showToast(getText(R.string.qscspxqt));
+            return;
+        }
         if (cover_image.equals("")) {
             CusToast.showToast(getText(R.string.please_upload_the_main_product_map));
             return;
         }
+
+        if(cartImage.size()>9){
+            CusToast.showToast(getText(R.string.select_up_to_9_images));
+            return;
+        }
+
         strTwoImage = "";
         if (cartImage.size() > 0) {
             for (int i = 0; i < cartImage.size(); i++) {
@@ -368,6 +384,7 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
             CusToast.showToast(getText(R.string.please_upload_the_product_carousel));
             return;
         }
+
 
         //商品名称
         map.put("goods_name", et_cpName.getText().toString());
@@ -655,6 +672,11 @@ public class PublishGoodsActivity extends BaseMvpActivity<PublishGoodsPresenter>
         tv_paizhao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (imagePaths.size() >= 9) {
+                    CusToast.showToast(getText(R.string.select_up_to_9_images));
+                    return;
+                }
+
                 if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {//申请WRITE_EXTERNAL_STORAGE权限
 
                     ActivityCompat.requestPermissions(PublishGoodsActivity.this, new String[]{Manifest.permission.CAMERA}, 1);

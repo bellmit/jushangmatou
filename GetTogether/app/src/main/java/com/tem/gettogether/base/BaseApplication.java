@@ -1,37 +1,20 @@
 package com.tem.gettogether.base;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.View;
-
 
 import com.bugtags.library.Bugtags;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-import com.tem.gettogether.R;
 import com.tem.gettogether.bean.UserBean;
 import com.tem.gettogether.bean.WeiXinBean1;
 import com.tem.gettogether.bean.WeiXinMessageBean;
-import com.tem.gettogether.rongyun.BuyCustomizeMessageItemProvider;
-import com.tem.gettogether.rongyun.CustomizeBuyMessage;
-import com.tem.gettogether.rongyun.CustomizeMessage;
-import com.tem.gettogether.rongyun.CustomizeMessageItemProvider;
-import com.tem.gettogether.rongyun.CustomizeMessageTranslationItemProvider;
-import com.tem.gettogether.rongyun.CustomizeTranslationMessage;
 import com.tem.gettogether.rongyun.RongCloudEvent;
-import com.tem.gettogether.rongyun.ShopExtensionModule;
-import com.tem.gettogether.utils.NotificationUtils;
 import com.tem.gettogether.utils.SharedPreferencesUtils;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
@@ -44,19 +27,13 @@ import com.youdao.sdk.app.YouDaoApplication;
 import org.xutils.x;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
 import cc.duduhuo.custoast.CusToast;
-import io.rong.imkit.DefaultExtensionModule;
-import io.rong.imkit.IExtensionModule;
-import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
-import io.rong.imlib.model.Conversation;
-import io.rong.imlib.model.Message;
-import io.rong.imlib.model.UserInfo;
+import io.rong.imlib.RongIMClient;
 import io.rong.push.RongPushClient;
 import io.rong.push.pushconfig.PushConfig;
 
@@ -94,11 +71,12 @@ public class BaseApplication extends Application {
         CusToast.init(this);
         api = WXAPIFactory.createWXAPI(this, WXAPP_ID);
 
+        RongIMClient.init(this);
         PushConfig config = new PushConfig.Builder()
                 .enableHWPush(true)
-                .enableOppoPush("d672de8aaccd42d8b5c3e08652b54eb3", "97bbe55096b842b88a8f2f1eecbf018a")
-                /*.enableMiPush("小米 appId", "小米 appKey")
-                .enableMeiZuPush("魅族 appId", "魅族 appKey")*/
+                .enableVivoPush(true)
+//                .enableOppoPush("d672de8aaccd42d8b5c3e08652b54eb3", "97bbe55096b842b88a8f2f1eecbf018a")
+                .enableMiPush("2882303761518019313", "5521801975313")
                 .enableFCM(true)
                 .build();
         RongPushClient.setPushConfig(config);
@@ -107,13 +85,9 @@ public class BaseApplication extends Application {
 //        setInputProvider();
         UMShareAPI.get(this);
         initAppLanguage();
-        Bugtags.start("42c655de1b4f612f3e488385c64f3e81", this, Bugtags.BTGInvocationEventBubble/*Bugtags.BTGInvocationEventNone*/);
-
-
+        Bugtags.start("42c655de1b4f612f3e488385c64f3e81", this, /*Bugtags.BTGInvocationEventBubble*/Bugtags.BTGInvocationEventNone);
         Beta.autoCheckUpgrade = true;//设置不自动检查
-
         Bugly.init(getApplicationContext(), "d3faa6cafc", false);// bugly
-
 
         /*有道翻译初始化*/
         if (YouDaoApplication.getApplicationContext() == null)
@@ -121,6 +95,30 @@ public class BaseApplication extends Application {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
+
+        RongIMClient.connect(SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0"), new RongIMClient.ConnectCallback() {
+            @Override
+            public void onTokenIncorrect() {
+
+            }
+
+            /**
+             * 连接融云成功
+             */
+            @Override
+            public void onSuccess(String userid) {
+                Log.e("chenshichun", "---连接融云成功--");
+            }
+
+            /**
+             * 连接融云失败
+             */
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+
+            }
+        });
+
     }
 
     {

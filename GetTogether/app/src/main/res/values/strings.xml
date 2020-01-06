@@ -817,15 +817,15 @@
     <string name="email_change_password">邮箱改密</string>
     <string name="country_code">国家地区</string>
     <string name="refund_progress">退款进度</string>
-    <string name="facebook_app_id">1157721467759837</string>
-    <string name="fb_login_protocol_scheme">fb1157721467759837</string>
+    <string name="facebook_app_id">605954583513818</string>
+    <string name="fb_login_protocol_scheme">fb605954583513818</string>
     <string name="fill_personal_information">个人信息填写</string>
     <string name="store_information">店铺信息填写</string>
     <string name="select_supplier_identity">请选择供应商身份</string>
     <string name="choose_your_identity">为了更好地服务大家,请选择您的身份</string>
     <string name="is_buyer">我是采购商</string>
     <string name="is_supplier">我是供应商</string>
-    <string name="select_country_code">选择国家和地区代码</string>
+    <string name="select_country_code">选择国家和地区</string>
     <string name="please_enter_full_email_address">请输入完整邮箱</string>
     <string name="together_facatory">聚工厂</string>
     <string name="high_quality_recommendation">优质推荐</string>
@@ -848,4 +848,8 @@
     <string name="km_0">距我 0 千米</string>
     <string name="notification_authority">通知权限</string>
     <string name="open_notification_permissions">是否打开通知权限</string>
+    <string name="turn_on_mobile_positioning">请确保打开手机定位</string>
+    <string name="the_number_cannot_be_less_than_batch_number">数量不能少于起批量</string>
+    <string name="fill_in_nickname">请填写昵称</string>
+    <string name="fill_in_full_mailbox">请填写完整邮箱</string>
 </resources>

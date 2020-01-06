@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -57,6 +58,8 @@ public class OrderDetailActivity extends BaseActivity {
     private TwinklingRefreshLayout refreshLayout;
     @ViewInject(R.id.ll_empty)
     private RelativeLayout ll_empty;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private OrderDetailMoreAdapter mOrderDetailAdapter;
     private List<ShoppingXQMoreBean.ResultBean> mOrderBeans = new ArrayList<>();
 
@@ -66,6 +69,11 @@ public class OrderDetailActivity extends BaseActivity {
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
+
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
+
         goodsId = getIntent().getStringExtra("goods_id");
         tv_title.setText(getText(R.string.dingdanxiangqing));
         initDatas(1, true, false);

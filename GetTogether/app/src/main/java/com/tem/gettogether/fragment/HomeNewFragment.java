@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -160,7 +161,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
     private List<HomeDataNewBean.ResultEntity.Ftrade_newEntity> xinpinBeans = new ArrayList<>();
     private List<HomeDataNewBean.ResultEntity.Top_navEntity> topNavBeans = new ArrayList<>();
     private List<HomeAnnouncementBean.ResultBean.AnnouncementBean> announcementBeans = new ArrayList<>();
-    private List<HomeDataNewBean.ResultEntity.Special_recommendEntity> specialRecommendBeans = new ArrayList<>();
+    private List<HomeDataNewBean.ResultEntity.SpecialRecommendBean> specialRecommendBeans = new ArrayList<>();
     private HomeDataNewBean.ResultEntity.NoticeEntity noticeBeans = new HomeDataNewBean.ResultEntity.NoticeEntity();
 
     private HomeBottomCateAdapter mHomeBottomCateAdapter;
@@ -169,7 +170,8 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
     private HomeLianMengAdapter mHomeLianMengAdapter;
     private HomeXinPinAdapter mHomeXinPinAdapter;
     private TopNavAdapter mTopNavAdapter;
-
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private int currentPage = 1;
     List<String> info = new ArrayList<>();
 
@@ -203,7 +205,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                 md.update(signature.toByteArray());
                 String KeyHash = Base64.encodeToString(md.digest(), Base64.DEFAULT);
                 //KeyHash 就是你要的，不用改任何代码  复制粘贴 ;
-                Log.e("tyl", "KeyHash=" + KeyHash);
+                Log.e("chenshichun", "KeyHash=" + KeyHash);
             }
         } catch (PackageManager.NameNotFoundException e) {
 
@@ -221,6 +223,9 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void initView() {
+        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         initRefresh();
     }
 
@@ -326,22 +331,23 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                             bottomCateBeans.addAll(homeDataBean.getResult().getBottom_cate());
                             homeBuyBeans.clear();
                             homeBuyBeans.addAll(homeDataBean.getResult().getFtrade_buy());
-
                             sellBeans.clear();
                             sellBeans.addAll(homeDataBean.getResult().getOrder_pasted());
-
                             lianmengBeans.clear();
                             lianmengBeans.addAll(homeDataBean.getResult().getTrade_union());
                             xinpinBeans.clear();
                             xinpinBeans.addAll(homeDataBean.getResult().getFtrade_new());
                             topNavBeans.clear();
                             topNavBeans.addAll(homeDataBean.getResult().getTop_nav());
-                            mHomeBottomCateAdapter.notifyDataSetChanged();
+                            specialRecommendBeans.clear();
+                            specialRecommendBeans.addAll(homeDataBean.getResult().getSpecial_recommend());
+                            setAllData();
+                            /*mHomeBottomCateAdapter.notifyDataSetChanged();
                             mHomeBuyAdapter.notifyDataSetChanged();
                             mHomeHotSellAdapter.notifyDataSetChanged();
                             mHomeLianMengAdapter.notifyDataSetChanged();
                             mHomeXinPinAdapter.notifyDataSetChanged();
-                            mTopNavAdapter.notifyDataSetChanged();
+                            mTopNavAdapter.notifyDataSetChanged();*/
                         } else {
                             if (homeDataBean.getResult().getFtrade_new().size() > 0) {
                                 xinpinBeans.addAll(homeDataBean.getResult().getFtrade_new());
@@ -456,9 +462,28 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
         ViewGroup.LayoutParams pp2 = img2.getLayoutParams();
         pp2.width = img1W;
         pp2.height = img1H;
-        Glide.with(getContext()).load(/*specialRecommendBeans.get(0).getCover_image()*/R.drawable.img0).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(img0W, img0H).into(img0);
-        Glide.with(getContext()).load(/*specialRecommendBeans.get(1).getCover_image()*/R.drawable.img1).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(img1W, img1H).into(img1);
-        Glide.with(getContext()).load(/*specialRecommendBeans.get(2).getCover_image()*/R.drawable.img2).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(img1W, img1H).into(img2);
+        if (specialRecommendBeans.get(0).getAd_image() != null && specialRecommendBeans.get(0).getAd_image_position().equals("0")) {// 左
+            Glide.with(getContext()).load(specialRecommendBeans.get(0).getAd_image()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(img0W, img0H).into(img0);
+        } else if (specialRecommendBeans.get(0).getAd_image_position().equals("1")) {// 右上
+            Glide.with(getContext()).load(specialRecommendBeans.get(0).getAd_image()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(img1W, img1H).into(img1);
+        } else if (specialRecommendBeans.get(0).getAd_image_position().equals("2")) {// 右下
+            Glide.with(getContext()).load(specialRecommendBeans.get(0).getAd_image()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(img1W, img1H).into(img2);
+        }
+        if (specialRecommendBeans.get(1).getAd_image() != null && specialRecommendBeans.get(1).getAd_image_position().equals("0")) {// 左
+            Glide.with(getContext()).load(specialRecommendBeans.get(1).getAd_image()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(img0W, img0H).into(img0);
+        } else if (specialRecommendBeans.get(1).getAd_image_position().equals("1")) {// 右上
+            Glide.with(getContext()).load(specialRecommendBeans.get(1).getAd_image()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(img1W, img1H).into(img1);
+        } else if (specialRecommendBeans.get(1).getAd_image_position().equals("2")) {// 右下
+            Glide.with(getContext()).load(specialRecommendBeans.get(1).getAd_image()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(img1W, img1H).into(img2);
+        }
+        if (specialRecommendBeans.get(2).getAd_image() != null && specialRecommendBeans.get(2).getAd_image_position().equals("0")) {// 左
+            Glide.with(getContext()).load(specialRecommendBeans.get(2).getAd_image()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(img0W, img0H).into(img0);
+        } else if (specialRecommendBeans.get(2).getAd_image_position().equals("1")) {// 右上
+            Glide.with(getContext()).load(specialRecommendBeans.get(2).getAd_image()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(img1W, img1H).into(img1);
+        } else if (specialRecommendBeans.get(2).getAd_image_position().equals("2")) {// 右下
+            Glide.with(getContext()).load(specialRecommendBeans.get(2).getAd_image()).placeholder(R.mipmap.myy322x).error(R.mipmap.myy322x).override(img1W, img1H).into(img2);
+        }
+
     }
 
     /**
@@ -540,6 +565,7 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
             public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
                 initRefreshData(1, true);
+                announcement();
                 currentPage = 1;
             }
 
@@ -604,18 +630,62 @@ public class HomeNewFragment extends BaseFragment implements View.OnClickListene
                 startActivity(new Intent(getActivity(), HomeLianMengActivity.class));
                 break;
             case R.id.img0:
-                startActivity(new Intent(getActivity(), ShoppingParticularsActivity.class)
-                        .putExtra("goods_id", "5928"/*specialRecommendBeans.get(2).getGoods_id()*/));
+                if (specialRecommendBeans.get(0).getAd_image_position().equals("0")) {// 左
+                    startActivity(new Intent(getActivity(), ShoppingParticularsActivity.class)
+                            .putExtra("goods_id", specialRecommendBeans.get(0).getGoods_id()));
+                    return;
+                }
+
+                if (specialRecommendBeans.get(1).getAd_image_position().equals("0")) {// 左
+                    startActivity(new Intent(getActivity(), ShoppingParticularsActivity.class)
+                            .putExtra("goods_id", specialRecommendBeans.get(1).getGoods_id()));
+                    return;
+                }
+
+                if (specialRecommendBeans.get(2).getAd_image_position().equals("0")) {// 左
+                    startActivity(new Intent(getActivity(), ShoppingParticularsActivity.class)
+                            .putExtra("goods_id", specialRecommendBeans.get(2).getGoods_id()));
+                    return;
+                }
+
                 break;
             case R.id.img1:
+                if (specialRecommendBeans.get(0).getAd_image_position().equals("1")) {// 右上
+                    startActivity(new Intent(getActivity(), ShoppingParticularsActivity.class)
+                            .putExtra("goods_id", specialRecommendBeans.get(0).getGoods_id()));
+                    return;
+                }
 
-                startActivity(new Intent(getActivity(), ShoppingParticularsActivity.class)
-                        .putExtra("goods_id", "6197"/*specialRecommendBeans.get(1).getGoods_id()*/));
+                if (specialRecommendBeans.get(1).getAd_image_position().equals("1")) {// 右上
+                    startActivity(new Intent(getActivity(), ShoppingParticularsActivity.class)
+                            .putExtra("goods_id", specialRecommendBeans.get(1).getGoods_id()));
+                    return;
+                }
+
+                if (specialRecommendBeans.get(2).getAd_image_position().equals("1")) {// 右上
+                    startActivity(new Intent(getActivity(), ShoppingParticularsActivity.class)
+                            .putExtra("goods_id", specialRecommendBeans.get(2).getGoods_id()));
+                    return;
+                }
                 break;
             case R.id.img2:
+                if (specialRecommendBeans.get(0).getAd_image_position().equals("2")) {// 右下
+                    startActivity(new Intent(getActivity(), ShoppingParticularsActivity.class)
+                            .putExtra("goods_id", specialRecommendBeans.get(0).getGoods_id()));
+                    return;
+                }
 
-                startActivity(new Intent(getActivity(), ShoppingParticularsActivity.class)
-                        .putExtra("goods_id", "6589"/*specialRecommendBeans.get(0).getGoods_id()*/));
+                if (specialRecommendBeans.get(1).getAd_image_position().equals("2")) {// 右下
+                    startActivity(new Intent(getActivity(), ShoppingParticularsActivity.class)
+                            .putExtra("goods_id", specialRecommendBeans.get(1).getGoods_id()));
+                    return;
+                }
+
+                if (specialRecommendBeans.get(2).getAd_image_position().equals("2")) {// 右下
+                    startActivity(new Intent(getActivity(), ShoppingParticularsActivity.class)
+                            .putExtra("goods_id", specialRecommendBeans.get(2).getGoods_id()));
+                    return;
+                }
                 break;
         }
     }

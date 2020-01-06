@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -44,6 +45,8 @@ public class SearchFragment extends BaseFragment {
     private RecyclerView recyclerView_left;
     @ViewInject(R.id.recyclerView_right)
     private RecyclerView recyclerView_right;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private BaseActivity baseActivity;
     private List<CategoriesClassificationBean.ResultBean> resultBeans = new ArrayList<>();
     private List<CategoriesClassificationBean.ResultBean> mRightDatas = new ArrayList<>();
@@ -69,6 +72,10 @@ public class SearchFragment extends BaseFragment {
     }
 
     private void initView() {
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
+
         mClassificationLeftAdapter = new ClassificationLeftAdapter(getContext(), resultBeans);
         recyclerView_left.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView_left.setAdapter(mClassificationLeftAdapter);

@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -51,15 +52,21 @@ public class FansActivity extends BaseActivity {
     private TwinklingRefreshLayout refreshLayout;
     @ViewInject(R.id.ll_empty)
     private RelativeLayout ll_empty;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private FansAdapter mFansAdapter;
     List<FansDataBean.ResultBean.FansBean> mFansBean = new ArrayList<>();
     private int currentPage;
+
     @Override
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         tv_title.setText(R.string.fans);
-        getFansData(1,false);
+        getFansData(1, false);
         initRefresh();
     }
 
@@ -73,16 +80,18 @@ public class FansActivity extends BaseActivity {
             public void onItemClick(int position) {
                 RongTalk.doConnection(FansActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                         , mFansBean.get(position).getUser_id(), mFansBean.get(position).getNickname(),
-                        mFansBean.get(position).getHead_pic(), null,null);
+                        mFansBean.get(position).getHead_pic(), null, null);
             }
         });
     }
 
     private void getFansData(int currentPage, final boolean isLoadMore) {
         Map<String, Object> map = new HashMap<>();
+        String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
+        map.put("language", yuyan);
         map.put("store_id", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.Shop_store_id, ""));
-        map.put("page",currentPage);
-        map.put("list_row",10);
+        map.put("page", currentPage);
+        map.put("list_row", 10);
         showDialog();
         XUtil.Post(URLConstant.FANS_DATA, map, new MyCallBack<String>() {
             @Override
@@ -96,10 +105,10 @@ public class FansActivity extends BaseActivity {
                     CusToast.showToast(msg);
                     if (res.equals("1")) {
                         Gson gson = new Gson();
-                        if(!isLoadMore){
+                        if (!isLoadMore) {
                             mFansBean.removeAll(mFansBean);
-                            if(gson.fromJson(result, FansDataBean.class).getResult().getFans()!=null)
-                            mFansBean.addAll(gson.fromJson(result, FansDataBean.class).getResult().getFans());
+                            if (gson.fromJson(result, FansDataBean.class).getResult().getFans() != null)
+                                mFansBean.addAll(gson.fromJson(result, FansDataBean.class).getResult().getFans());
                             mFansAdapter.notifyDataSetChanged();
                             fans_count.setText(gson.fromJson(result, FansDataBean.class).getResult().getCount());
                             if (gson.fromJson(result, FansDataBean.class).getResult().getCount().equals("0")) {
@@ -107,11 +116,11 @@ public class FansActivity extends BaseActivity {
                             } else {
                                 ll_empty.setVisibility(View.GONE);
                             }
-                        }else{
-                            if(gson.fromJson(result, FansDataBean.class).getResult().getFans()!=null&&gson.fromJson(result, FansDataBean.class).getResult().getFans().size()>0) {
+                        } else {
+                            if (gson.fromJson(result, FansDataBean.class).getResult().getFans() != null && gson.fromJson(result, FansDataBean.class).getResult().getFans().size() > 0) {
                                 mFansBean.addAll(gson.fromJson(result, FansDataBean.class).getResult().getFans());
                                 mFansAdapter.notifyDataSetChanged();
-                            }else{
+                            } else {
                                 CusToast.showToast(getResources().getText(R.string.no_more_data));
 
                             }

@@ -264,7 +264,6 @@ public class PersionCenterGongYingFragment extends BaseFragment {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
-                Log.e("chenshichun", "---订单数量--" + result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String res = jsonObject.optString("status");

@@ -2,6 +2,7 @@ package com.tem.gettogether.activity.my.refundprogress;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
@@ -48,11 +49,15 @@ public class RefundProgressActivity extends BaseMvpActivity<RefundProgressPresen
     private TextView second_tv;
     @ViewInject(R.id.third_tv)
     private TextView third_tv;
-
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     @Override
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         mPresenter = new RefundProgressPresenter(getContext(), RefundProgressActivity.this);
         mPresenter.attachView(this);
     }

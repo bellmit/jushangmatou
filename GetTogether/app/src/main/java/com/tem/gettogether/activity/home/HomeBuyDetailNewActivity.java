@@ -96,7 +96,7 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
         trade_id = getIntent().getStringExtra("trade_id");
         isHomeList = getIntent().getIntExtra("witch_page", 0);
         type = getIntent().getIntExtra("page", 0);
-        Log.d("chenshichun","=====type======"+type);
+        Log.d("chenshichun", "=====type======" + type);
         initDatas(type);
         initRefresh();
     }
@@ -109,13 +109,11 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
     private void initDatas(int type) {
         Map<String, Object> map = new HashMap<>();
         String yuyan = SharedPreferencesUtils.getLanguageString(this, BaseConstant.SPConstant.language, "");
-        if (yuyan != null) {
-            map.put("language", yuyan);
-        }
+        map.put("language", yuyan);
         map.put("trade_id", trade_id);
         showDialog();
         String url = "";
-        Log.d("chenshichun","====type======="+type);
+        Log.d("chenshichun", "====type=======" + type);
         if (type == 0) {
             url = URLConstant.HOMEQIUGOUDETAIL1;
         } else {
@@ -169,7 +167,7 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
         delivery_time_tv.setText(getText(R.string.buy_time) + waiMaoQiuGouBeans.get(0).getAttach_time());
         num_tv.setText(getText(R.string.purchase_quantity) + waiMaoQiuGouBeans.get(0).getGoods_num());
         release_time_tv.setText(getText(R.string.release_time) + waiMaoQiuGouBeans.get(0).getAdd_time());
-        goods_desc.setText(waiMaoQiuGouBeans.get(0).getGoods_desc());
+        goods_desc.setText(waiMaoQiuGouBeans.get(0).getGoods_desc().replace("<p>","").replace("</p>",""));
 
         banner.setImageLoader(new GlideImageLoader());
         banner.setImages(waiMaoQiuGouBeans.get(0).getGoods_logo());
@@ -228,14 +226,14 @@ public class HomeBuyDetailNewActivity extends BaseActivity {
                             productBean.setGoods_name(waiMaoQiuGouBeans.get(0).getGoods_name());
                             productBean.setBatch_number(waiMaoQiuGouBeans.get(0).getGoods_num() + getText(R.string.batch));
                             productBean.setGoods_type(getString(R.string.detriment));
-                            productBean.setQiugou_type(""+(type+1));
+                            productBean.setQiugou_type("" + (type + 1));
 
                             Bundle bundle = new Bundle();
                             bundle.putSerializable("send_message", productBean);
 
                             RongTalk.doConnection(HomeBuyDetailNewActivity.this, SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.CHAT_ID, "0")
                                     , waiMaoQiuGouBeans.get(0).getUser_id(), waiMaoQiuGouBeans.get(0).getNickname(),
-                                    waiMaoQiuGouBeans.get(0).getHead_pic(), "",bundle);
+                                    waiMaoQiuGouBeans.get(0).getHead_pic(), "", bundle);
                         } else {
                             CusToast.showToast(R.string.the_store_is_invalid);
                         }

@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -57,6 +58,8 @@ public class TAdviseActivity extends BaseActivity implements View.OnClickListene
     private EditText et_yijian;
     @ViewInject(R.id.mRecyclerView)
     private RecyclerView mRecyclerView;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private ArrayList<String> imagePaths = new ArrayList<>();
     private MyPublicTaskRecycleAdapter mTaskImgAdapter;
     private final int FROM_ALBUM_CODE = 102;// 调用相册更改背景图片的请求code
@@ -66,12 +69,13 @@ public class TAdviseActivity extends BaseActivity implements View.OnClickListene
     private String strTwoImage = "";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initData() {
         x.view().inject(this);
+        tv_title.setText(R.string.yjfg);
         StatusBarUtil.setTranslucentStatus(this);
-        initData();
-        initView();
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         imagePaths.clear();
         imagePaths.add(R.drawable.addtupian + "");
         compressImageFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/WorksComing/Compress2/";
@@ -79,12 +83,6 @@ public class TAdviseActivity extends BaseActivity implements View.OnClickListene
         if (!folder.exists()) {
             folder.mkdirs();
         }
-    }
-
-    @Override
-    protected void initData() {
-        tv_title.setText(R.string.yjfg);
-
     }
 
     @Override

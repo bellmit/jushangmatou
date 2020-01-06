@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.tem.gettogether.activity.RegisterActivity;
 import com.tem.gettogether.activity.login.countrycode.CountryCodeActivity;
+import com.tem.gettogether.activity.my.XeiYiH5Activity;
 import com.tem.gettogether.base.BasePresenter;
 import com.tem.gettogether.base.URLConstant;
 import com.tem.gettogether.utils.xutils3.CountDownTimerUtils3;
@@ -84,6 +86,45 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.RegisterVi
             public void onError(Throwable ex, boolean isOnCallback) {
                 super.onError(ex, isOnCallback);
                 mView.hideLoading();
+            }
+        });
+    }
+
+    @Override
+    public void upCodeZHUCE() {
+        XUtil.Post(URLConstant.ZHUCEXIYEYI, new MyCallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                Log.i("====注册协议===", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String res = jsonObject.optString("status");
+                    String msg = jsonObject.optString("msg");
+                    if (res.equals("1")) {
+                        String result2 = jsonObject.optString("result");
+                        JSONObject jsonObject2 = new JSONObject(result2);
+                        String url = jsonObject2.optString("url");
+                        mActivity.startActivity(new Intent(mActivity, XeiYiH5Activity.class)
+                                .putExtra("typeMain", "2")
+                                .putExtra("h5url", url));
+                    } else {
+                        CusToast.showToast(msg);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinished() {
+                super.onFinished();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
             }
         });
     }

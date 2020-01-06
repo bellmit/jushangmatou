@@ -62,13 +62,17 @@ public class MyShopActivity extends BaseActivity {
     private LinearLayout except_persion_ll;
     @ViewInject(R.id.rl_close)
     private RelativeLayout rl_close;
-
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private String apply_type;//0企业2工厂
 
     @Override
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         tv_title.setText(getResources().getText(R.string.my_shop));
         upGetMessageData();
     }

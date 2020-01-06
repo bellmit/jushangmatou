@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -8,7 +9,8 @@
         android:id="@+id/cl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dp_10">
+        android:padding="@dimen/dp_10"
+        tools:ignore="MissingConstraints">
 
         <ImageView
             android:id="@+id/pic_iv"
@@ -42,10 +44,17 @@
             android:ellipsize="end"
             android:lines="2"
             android:paddingLeft="105dp"
-            app:layout_constraintTop_toTopOf="@id/pic_iv"
             app:layout_constraintBottom_toBottomOf="@id/pic_iv"
-            />
+            app:layout_constraintTop_toTopOf="@id/pic_iv" />
 
     </android.support.constraint.ConstraintLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/line"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintTop_toBottomOf="@id/cl"
+        >
+    </View>
 </android.support.constraint.ConstraintLayout>

@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -64,6 +65,8 @@ public class TogetherFactorySearchActivity extends BaseActivity {
     private TwinklingRefreshLayout refreshLayout;
     @ViewInject(R.id.ll_empty)
     private RelativeLayout ll_empty;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     private TogetherFactoryAdapter mTogetherFactoryAdapter;
     private List<TogetherFactoryBean.ResultBean> homeDataBean = new ArrayList<>();
     private int currentPage = 1;
@@ -76,6 +79,9 @@ public class TogetherFactorySearchActivity extends BaseActivity {
     protected void initData() {
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         keywords = getIntent().getStringExtra("SEARCH_KEYWORDS");
         tv_title.setText(R.string.together_facatory);
 
@@ -94,12 +100,10 @@ public class TogetherFactorySearchActivity extends BaseActivity {
                     Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_CODE);
         } else {
             Location location = locationManager.getLastKnownLocation(provider);
-            //获取纬度
-            lat = location.getLatitude();
-            //获取经度
-            lng = location.getLongitude();
-            Log.e("chenshichun", "---lat-- " + lat);
-            Log.e("chenshichun", "----lng- " + lng);
+            if (location != null) {
+                lat = location.getLatitude();
+                lng = location.getLongitude();
+            }
         }
 
         initDatas(1, true, false);
@@ -152,11 +156,11 @@ public class TogetherFactorySearchActivity extends BaseActivity {
             map.put("language", yuyan);
             map.put("page", currentPage);
         }
-        map.put("list_row",10);
-        map.put("keywords",keywords);
+        map.put("list_row", 10);
+        map.put("keywords", keywords);
         map.put("user_id", SharedPreferencesUtils.getString(this, BaseConstant.SPConstant.USERID, ""));
-        map.put("lat",lat);
-        map.put("lng",lng);
+        map.put("lat", lat);
+        map.put("lng", lng);
         showDialog();
         XUtil.Post(URLConstant.FACTORY_SEARCH_LIST, map, new MyCallBack<String>() {
             @Override

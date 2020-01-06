@@ -90,10 +90,10 @@ public class CheckUpDialog extends Dialog {
             return this;
         }
 
-        public CustomDialog create() {
+        public CheckUpDialog create() {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final CustomDialog dialog = new CustomDialog(context,
+            final CheckUpDialog dialog = new CheckUpDialog(context,
                     R.style.MyDialog);
             View layout = inflater.inflate(R.layout.layout_dialog_app, null);
             dialog.addContentView(layout, new ViewGroup.LayoutParams(

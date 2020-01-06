@@ -6,10 +6,10 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <TextView
+    <View
+        android:id="@+id/status_bar_id"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:visibility="gone"
         android:background="@color/colorPrimary" />
 
     <LinearLayout

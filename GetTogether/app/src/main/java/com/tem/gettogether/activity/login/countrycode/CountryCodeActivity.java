@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
@@ -37,7 +38,8 @@ public class CountryCodeActivity extends BaseMvpActivity<CountryCodePresenter> i
     @ViewInject(R.id.recyclerView)
     private RecyclerView recyclerView;
     private CountryCodeAdapter mCountryCodeAdapter;
-
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     @Override
     protected void initData() {
         x.view().inject(this);
@@ -50,6 +52,9 @@ public class CountryCodeActivity extends BaseMvpActivity<CountryCodePresenter> i
     @Override
     protected void initView() {
         StatusBarUtil.setTranslucentStatus(this);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
     }
 
     @Override

@@ -599,7 +599,8 @@ public class CartFragment extends TabFragment {
     private void upCartData() {
         Map<String, Object> map = new HashMap<>();
         map.put("token", SharedPreferencesUtils.getString(getContext(), BaseConstant.SPConstant.TOKEN, ""));
-
+        String yuyan = SharedPreferencesUtils.getLanguageString(getContext(), BaseConstant.SPConstant.language, "");
+        map.put("language", yuyan);
         XUtil.Post(URLConstant.CART_LIEBIAO, map, new MyCallBack<String>() {
             @Override
             public void onSuccess(String result) {

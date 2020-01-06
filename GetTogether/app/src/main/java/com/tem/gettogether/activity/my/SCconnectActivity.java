@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tem.gettogether.R;
@@ -32,6 +33,8 @@ public class SCconnectActivity extends BaseActivity {
     private TextView tv_dianp;
     @ViewInject(R.id.line2)
     private  View line2;
+    @ViewInject(R.id.status_bar_id)
+    private View status_bar_id;
     public static final int NICKNAME_TYPE = 201;//商品
     public static final int BIRTHDAY_TYPE = 202;//店铺
     private SCShoppingFragment shoppingFragment;
@@ -44,7 +47,9 @@ public class SCconnectActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         StatusBarUtil.setTranslucentStatus(this);
-        initData();
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) status_bar_id.getLayoutParams();
+        linearParams.height = getStatusBarHeight(getContext());
+        status_bar_id.setLayoutParams(linearParams);
         shoppingFragment=new SCShoppingFragment();
         shopDPFragment=new SCShopFragment();
         if (savedInstanceState != null) {
@@ -71,7 +76,6 @@ public class SCconnectActivity extends BaseActivity {
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_item, baseFragment, baseFragment.getClass().getSimpleName()).show(baseFragment).commit();
         }
 
-        initView();
     }
 
     @Override
