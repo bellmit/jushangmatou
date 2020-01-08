@@ -431,7 +431,7 @@
     <string name="obtained">تم نفاذ الكمية</string>
     <string name="shelf">مازال مُتاح للبيع</string>
     <string name="recharge_record">سِجل الشحن</string>
-    <string name="select_country">يرجى اختيار   بلد التصدير</string>
+    <string name="select_country">اختر البلد</string>
     <string name="enterprise_settled">انضمام الشركة</string>
     <string name="linked_account">ربط الحساب </string>
     <string name="determine_disassociation">تأكيد إزاله الرابط </string>
@@ -823,7 +823,7 @@
     <string name="choose_your_identity">من أجل خدمة أفضل للجميع ، برجاء أختيار هويتك </string>
     <string name="is_buyer">أنا مُشترى </string>
     <string name="is_supplier">أنا مُمون </string>
-    <string name="select_country_code">برجاء اختيار كود المنطقة والبلد</string>
+    <string name="select_country_code">اختر البلد</string>
     <string name="please_enter_full_email_address">برجاء إدخال الإيميل كامل </string>
     <string name="together_facatory">  مجموعة المصانع </string>
     <string name="high_quality_recommendation">توصية عالية</string>
